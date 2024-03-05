@@ -1,7 +1,6 @@
 # LXD Chrome Extension Distribution
 
-This is for use by Unity Environmental University Learning Experience Design staff. This adds several quality of life improvements including ability to modify assignment dates from Modules Screen, and easy navigation among different versions of the same course (i.e. DEV, BP, and Sections)
-Source can be found at https://github.com/Unity-Environmental-University/lxd-tools
+This is for use by Unity Environmental University Learning Experience Designers, 
 
 ## Installation
 1) Clone this repository
