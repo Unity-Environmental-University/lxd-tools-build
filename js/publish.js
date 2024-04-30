@@ -6434,6 +6434,57 @@ function r(e){var o,t,f="";if("string"==typeof e||"number"==typeof e)f+=e;else i
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/publish/fixesAndUpdates/CourseUnitTest.scss":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/publish/fixesAndUpdates/CourseUnitTest.scss ***!
+  \************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/sourceMaps.js */ "./node_modules/css-loader/dist/runtime/sourceMaps.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `.testRunning {
+  background-color: #d5c76f;
+  color: #FFF;
+  content: "Running";
+}
+
+.testFailed {
+  background-color: red;
+  color: #FFF;
+  content: "Failed";
+}
+
+.testSuccess {
+  background-color: darkgreen;
+  color: #FFF;
+  content: "OK!";
+}
+
+.test-row {
+  padding-top: 0.5em;
+}
+
+.test-row:nth-child(even) {
+  background-color: #f0f0f0;
+}`, "",{"version":3,"sources":["webpack://./src/publish/fixesAndUpdates/CourseUnitTest.scss"],"names":[],"mappings":"AAAA;EACE,yBAAA;EACA,WAAA;EACA,kBAAA;AACF;;AACA;EACE,qBAAA;EACA,WAAA;EACA,iBAAA;AAEF;;AAAA;EACE,2BAAA;EACA,WAAA;EACA,cAAA;AAGF;;AAAA;EACE,kBAAA;AAGF;;AAAA;EACE,yBAAA;AAGF","sourcesContent":[".testRunning {\r\n  background-color: #d5c76f;\r\n  color: #FFF;\r\n  content: 'Running';\r\n}\r\n.testFailed {\r\n  background-color: red;\r\n  color: #FFF;\r\n  content: 'Failed';\r\n}\r\n.testSuccess {\r\n  background-color: darkgreen;\r\n  color: #FFF;\r\n  content: 'OK!';\r\n}\r\n\r\n.test-row {\r\n  padding-top: 0.5em;\r\n}\r\n\r\n.test-row:nth-child(even) {\r\n  background-color: #f0f0f0;\r\n}"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/publish/publish.scss":
 /*!*************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/publish/publish.scss ***!
@@ -55332,6 +55383,61 @@ module.exports = function setFunctionLength(fn, length) {
 
 /***/ }),
 
+/***/ "./src/publish/fixesAndUpdates/CourseUnitTest.scss":
+/*!*********************************************************!*\
+  !*** ./src/publish/fixesAndUpdates/CourseUnitTest.scss ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/styleDomAPI.js */ "./node_modules/style-loader/dist/runtime/styleDomAPI.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/insertBySelector.js */ "./node_modules/style-loader/dist/runtime/insertBySelector.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js */ "./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/insertStyleElement.js */ "./node_modules/style-loader/dist/runtime/insertStyleElement.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/styleTagTransform.js */ "./node_modules/style-loader/dist/runtime/styleTagTransform.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_use_2_node_modules_sass_loader_dist_cjs_js_CourseUnitTest_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js!../../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!../../../node_modules/sass-loader/dist/cjs.js!./CourseUnitTest.scss */ "./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/publish/fixesAndUpdates/CourseUnitTest.scss");
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
+options.setAttributes = (_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
+
+      options.insert = _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
+    
+options.domAPI = (_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
+options.insertStyleElement = (_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_use_2_node_modules_sass_loader_dist_cjs_js_CourseUnitTest_scss__WEBPACK_IMPORTED_MODULE_6__["default"], options);
+
+
+
+
+       /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_use_2_node_modules_sass_loader_dist_cjs_js_CourseUnitTest_scss__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_use_2_node_modules_sass_loader_dist_cjs_js_CourseUnitTest_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_use_2_node_modules_sass_loader_dist_cjs_js_CourseUnitTest_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
+
+
+/***/ }),
+
 /***/ "./src/publish/publish.scss":
 /*!**********************************!*\
   !*** ./src/publish/publish.scss ***!
@@ -58026,6 +58132,11 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_6__.BaseCanvasOb
             return profiles;
         });
     }
+    getSettings(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(`/api/v1/courses/${this.id}/settings`, config);
+        });
+    }
 }
 Course.CODE_REGEX = /^(.+[^_])?_?(\w{4}\d{3})/i; // Adapted to JavaScript's regex syntax.
 Course.contentClasses = [];
@@ -58909,13 +59020,13 @@ function getMonthNumberLut(locale) {
     return monthNumberLut;
 }
 const dateRegexStringCache = {};
+//TODO: Make the capture groups in this optional
 function getDateRegexString(locale = 'en-US') {
     if (dateRegexStringCache[locale])
         return dateRegexStringCache[locale];
     const monthNames = getMonthNames('long', locale);
     const shortMonthNames = getMonthNames('short', locale);
     const monthRegexDatePart = `(?:${[...monthNames, ...shortMonthNames].join('|')})`;
-    console.log(monthRegexDatePart);
     const output = `((${monthRegexDatePart}) (\\d+))(?:\\w{2}|)`;
     dateRegexStringCache[locale] = output;
     return output;
@@ -58931,13 +59042,17 @@ function findDateRange(textToSearch, locale = 'en-US') {
     const dateRegex = new RegExp(dateRegExString, 'i');
     const matchRange = textToSearch.match(searchRegex);
     if (!matchRange)
-        return null;
-    if (!matchRange)
         return null; //No date range found in syllabus
-    const [start, end] = matchRange[0].split('-');
+    let start, end;
+    for (let separator of ['-', 'to']) {
+        [start, end] = matchRange[0].split(separator);
+        if (start && end)
+            break;
+    }
+    if (!start || !end)
+        throw new MalformedDateError('Cannot find date range in syllabus');
     const startMatch = start.match(dateRegex);
     const endMatch = end.match(dateRegex);
-    console.log(startMatch, endMatch);
     if (!startMatch)
         throw new MalformedDateError(`Missing Start Date ${start}`);
     if (!endMatch)
@@ -58979,12 +59094,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _ui_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ui/utils */ "./src/ui/utils.tsx");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
 /* harmony import */ var _ui_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ui/widgets/Modal/index */ "./src/ui/widgets/Modal/index.tsx");
 /* harmony import */ var _canvas_fixes_annotations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../canvas/fixes/annotations */ "./src/canvas/fixes/annotations.ts");
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _fixesAndUpdates_UpdateStartDate__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./fixesAndUpdates/UpdateStartDate */ "./src/publish/fixesAndUpdates/UpdateStartDate.tsx");
+/* harmony import */ var _fixesAndUpdates_CourseUnitTest__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./fixesAndUpdates/CourseUnitTest */ "./src/publish/fixesAndUpdates/CourseUnitTest.tsx");
+/* harmony import */ var _fixesAndUpdates_publishUnitTests__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./fixesAndUpdates/publishUnitTests */ "./src/publish/fixesAndUpdates/publishUnitTests.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -58994,6 +59111,8 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
+
 
 
 
@@ -59016,6 +59135,7 @@ function ContentUpdateInterface({ course, parentCourse, refreshCourse }) {
     const [unaffectedItems, setUnaffectedItems] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]);
     const [failedItems, setFailedItems] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]);
     const [loadingCount, setLoadingCount] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0);
+    const [mode, setMode] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('fix');
     (0,_ui_utils__WEBPACK_IMPORTED_MODULE_2__.useEffectAsync)(() => __awaiter(this, void 0, void 0, function* () {
         if (course) {
             if (course.isDev) {
@@ -59063,10 +59183,13 @@ function ContentUpdateInterface({ course, parentCourse, refreshCourse }) {
     function urlRows(links, className = 'lxd-cu') {
         return links.map((link, i) => (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: ['row', className].join(' '), children: link }, i));
     }
-    function removeAnnotations() {
-        return ((course === null || course === void 0 ? void 0 : course.isBlueprint) && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'row', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-4', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], { onClick: removeLmAnnotations, disabled: loadingCount > 0, children: "Remove Annotation Placeholder" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-8', children: "Removes annotation placeholders on Learning Material pages" })] }));
+    function FixesMode({ course }) {
+        return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h2", { children: ["Content Fixes for ", course.name] }), course.isBlueprint && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(RemoveAnnotationsSection, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_fixesAndUpdates_UpdateStartDate__WEBPACK_IMPORTED_MODULE_6__.UpdateStartDate, { setAffectedItems: setAffectedItems, setUnaffectedItems: setUnaffectedItems, setFailedItems: setFailedItems, refreshCourse: refreshCourse, course: course, isDisabled: loadingCount > 0, startLoading: startLoading, endLoading: endLoading }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("hr", {}), affectedItems.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { children: "Fixes Succeeded" }), urlRows(affectedItems, 'lxd-cu-success'), unaffectedItems.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { children: "Fix not Needed" }), urlRows(unaffectedItems, 'lxd-cu-fail'), failedItems.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { children: "Fix is Broken, Content Unchanged" }), urlRows(failedItems, 'lxd-cu-fail')] });
     }
-    return (course && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], { disabled: isDisabled, className: "ui-button", onClick: (e) => setShow(true), children: buttonText }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_3__["default"], { isOpen: show, requestClose: () => setShow(false), canClose: !loadingCount, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h2", { children: ["Content Fixes for ", course.name] }), course.isBlueprint && removeAnnotations(), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_fixesAndUpdates_UpdateStartDate__WEBPACK_IMPORTED_MODULE_6__.UpdateStartDate, { setAffectedItems: setAffectedItems, setUnaffectedItems: setUnaffectedItems, setFailedItems: setFailedItems, refreshCourse: refreshCourse, course: course, isDisabled: loadingCount > 0, startLoading: startLoading, endLoading: endLoading }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("hr", {}), affectedItems.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { children: "Fixes Succeeded" }), urlRows(affectedItems, 'lxd-cu-success'), unaffectedItems.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { children: "Fix not Needed" }), urlRows(unaffectedItems, 'lxd-cu-fail'), failedItems.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { children: "Fix is Broken, Content Unchanged" }), urlRows(failedItems, 'lxd-cu-fail')] })] }));
+    function RemoveAnnotationsSection() {
+        return ((course === null || course === void 0 ? void 0 : course.isBlueprint) && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'row', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-4', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], { onClick: removeLmAnnotations, disabled: loadingCount > 0, children: "Remove Annotation Placeholder" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-8', children: "Removes annotation placeholders on Learning Material pages" })] }));
+    }
+    return (course && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], { disabled: isDisabled, className: "ui-button", onClick: (e) => setShow(true), children: buttonText }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_3__["default"], { isOpen: show, requestClose: () => setShow(false), canClose: !loadingCount, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'd-flex justify-content-end', children: [mode === 'fix' && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], { onClick: () => setMode("unitTest"), children: "Show All Tests" }), mode === 'unitTest' && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], { onClick: () => setMode("fix"), children: "Hide Successful Tests" })] }), mode === 'fix' && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(FixesMode, { course: course }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_fixesAndUpdates_CourseUnitTest__WEBPACK_IMPORTED_MODULE_7__.UnitTestSection, { showOnlyFailures: mode !== 'unitTest', course: course, refreshCourse: refreshCourse, tests: _fixesAndUpdates_publishUnitTests__WEBPACK_IMPORTED_MODULE_8__["default"] })] })] }));
 }
 
 
@@ -59487,6 +59610,72 @@ function FacultyProfile({ profile, setProfileButton }) {
 
 /***/ }),
 
+/***/ "./src/publish/fixesAndUpdates/CourseUnitTest.tsx":
+/*!********************************************************!*\
+  !*** ./src/publish/fixesAndUpdates/CourseUnitTest.tsx ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   UnitTestSection: () => (/* binding */ UnitTestSection)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ui_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../ui/utils */ "./src/ui/utils.tsx");
+/* harmony import */ var _CourseUnitTest_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CourseUnitTest.scss */ "./src/publish/fixesAndUpdates/CourseUnitTest.scss");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+function UnitTestSection({ course, tests, refreshCourse, showOnlyFailures = false }) {
+    return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'container', children: [showOnlyFailures || (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { children: "Course Settings and Content Tests" }), tests.map((test) => (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(UnitTestRow, { course: course, test: test, showOnlyFailures: showOnlyFailures, refreshCourse: refreshCourse }, test.name))] });
+}
+function UnitTestRow({ test, course, refreshCourse, onResult, showOnlyFailures = false }) {
+    const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    const [result, _setResult] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)();
+    function setResult(result) {
+        _setResult(result);
+        onResult && onResult(result, test);
+    }
+    function reRun() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield refreshCourse();
+            setResult(yield test.run(course));
+        });
+    }
+    (0,_ui_utils__WEBPACK_IMPORTED_MODULE_2__.useEffectAsync)(() => __awaiter(this, void 0, void 0, function* () {
+        setResult(yield test.run(course));
+    }), [course, test]);
+    function statusMessage(result) {
+        if (loading)
+            return "running...";
+        if (!result)
+            return "No result. An error may have occurred.";
+        if (result.success)
+            return "Succeeded!";
+        return result.message;
+    }
+    if (!showOnlyFailures || (result === null || result === void 0 ? void 0 : result.success) === false) {
+        return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'row test-row', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-3', children: test.name }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-4', children: test.description }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-4', children: statusMessage(result) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'col-sm-1', children: [!result && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: 'badge badge-info', children: "Running" }), (result === null || result === void 0 ? void 0 : result.success) && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: 'badge badge-success', children: "OK!" }), result && !result.success && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: 'badge badge-warning', children: "Failed" })] })] });
+    }
+    return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {});
+}
+
+
+/***/ }),
+
 /***/ "./src/publish/fixesAndUpdates/UpdateStartDate.tsx":
 /*!*********************************************************!*\
   !*** ./src/publish/fixesAndUpdates/UpdateStartDate.tsx ***!
@@ -59656,6 +59845,128 @@ class StartDateNotSetError extends Error {
     }
 }
 ;
+
+
+/***/ }),
+
+/***/ "./src/publish/fixesAndUpdates/publishUnitTests.ts":
+/*!*********************************************************!*\
+  !*** ./src/publish/fixesAndUpdates/publishUnitTests.ts ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+///Syllabus Fixes
+const finalNotInGradingPolicyParaTest = {
+    name: "Remove Final",
+    description: 'Remove "final" from the grading policy paragraphs of syllabus',
+    run: (course) => __awaiter(void 0, void 0, void 0, function* () {
+        const syllabus = yield course.getSyllabus();
+        const match = /off the final grade/gi.test(syllabus);
+        return {
+            success: !match,
+            message: "'off the final grade' found in syllabus"
+        };
+    })
+};
+const communication24HoursTest = {
+    name: "Syllabus - Withing 24 Hours",
+    description: "Revise the top sentence of the \"Communication\" section of the syllabus to read: \"The instructor will " +
+        "conduct all correspondence with students related to the class in Canvas, and you should " +
+        "expect to receive a response to emails within 24 hours.\"",
+    run: (course) => __awaiter(void 0, void 0, void 0, function* () {
+        const syllabus = yield course.getSyllabus();
+        const testString = 'The instructor will conduct all correspondence with students related to the class in Canvas, and you should expect to receive a response to emails within 24 hours'.toLocaleLowerCase();
+        const el = document.createElement('div');
+        el.innerHTML = syllabus;
+        return {
+            success: el.innerText.toLowerCase().includes(testString),
+            message: "Communication language section in syllabus does not look right."
+        };
+    })
+};
+const courseCreditsInSyllabusTest = {
+    name: "Syllabus Credits",
+    description: 'Credits displayed in summary box of syllabus',
+    run: (course) => __awaiter(void 0, void 0, void 0, function* () {
+        const syllabus = yield course.getSyllabus();
+        const el = document.createElement('div');
+        el.innerHTML = syllabus;
+        let strongs = el.querySelectorAll('strong');
+        const creditList = Array.from(strongs).filter((strong) => /credits/i.test(strong.innerText));
+        const match = /<strong>Credits/gi.test(syllabus);
+        return {
+            success: creditList && creditList.length > 0,
+            message: "Can't find credits in syllabus"
+        };
+    })
+};
+const bottomOfSyllabusLanguageTest = {
+    name: "Bottom-of-Syllabus Test",
+    description: "Replace language at the bottom of the syllabus with: \"Learning materials for Weeks 2 forward are organized with the rest of the class in your weekly modules. The modules will become available after you've agreed to the Honor Code, Code of Conduct, and Tech for Success requirements on the Course Overview page, which unlocks on the first day of the term.\" (**Do not link to the Course Overview Page**)",
+    run: (course) => __awaiter(void 0, void 0, void 0, function* () {
+        const text = getPlainTextFromHtml(yield course.getSyllabus());
+        return {
+            success: text.toLowerCase().includes(`The modules will become available after you've agreed to the Honor Code, Code of Conduct, and Tech for Success requirements on the Course Overview page, which unlocks on the first day of the term.`.toLowerCase()),
+            message: "Text at the bottom of the syllabus looks incorrect."
+        };
+    })
+};
+function getPlainTextFromHtml(html) {
+    const el = document.createElement('div');
+    el.innerHTML = html;
+    return el.innerText;
+}
+/// Course Settings
+const extensionsToTest = ['Dropout Detective', "BigBlueButton"];
+const extensionsInstalledTest = {
+    name: "Extensions Installed",
+    description: 'Big Blue Button and Dropout Detective in nav bar',
+    run: (course) => __awaiter(void 0, void 0, void 0, function* () {
+        const missing = new Set(extensionsToTest);
+        const tabs = yield course.getTabs();
+        for (let tab of tabs) {
+            if (missing.has(tab.label) && !tab.hidden)
+                missing.delete(tab.label);
+        }
+        return {
+            success: missing.size === 0,
+            message: Array.from(missing).join(',') + ' missing from enabled navigation tabs.'
+        };
+    })
+};
+const announcementsOnHomePageTest = {
+    name: "Show Announcements",
+    description: 'Confirm under "Settings" --> "more options" that the "Show announcements" box is checked',
+    run: (course) => __awaiter(void 0, void 0, void 0, function* () {
+        const settings = yield course.getSettings();
+        return {
+            success: !!settings.show_announcements_on_home_page,
+            message: "'show announcements on home page' not turned on"
+        };
+    })
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ([
+    announcementsOnHomePageTest,
+    extensionsInstalledTest,
+    courseCreditsInSyllabusTest,
+    finalNotInGradingPolicyParaTest,
+    communication24HoursTest,
+    bottomOfSyllabusLanguageTest,
+]);
 
 
 /***/ }),

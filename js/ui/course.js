@@ -40713,6 +40713,11 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_6__.BaseCanvasOb
             return profiles;
         });
     }
+    getSettings(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(`/api/v1/courses/${this.id}/settings`, config);
+        });
+    }
 }
 Course.CODE_REGEX = /^(.+[^_])?_?(\w{4}\d{3})/i; // Adapted to JavaScript's regex syntax.
 Course.contentClasses = [];
@@ -41553,13 +41558,13 @@ function getMonthNumberLut(locale) {
     return monthNumberLut;
 }
 const dateRegexStringCache = {};
+//TODO: Make the capture groups in this optional
 function getDateRegexString(locale = 'en-US') {
     if (dateRegexStringCache[locale])
         return dateRegexStringCache[locale];
     const monthNames = getMonthNames('long', locale);
     const shortMonthNames = getMonthNames('short', locale);
     const monthRegexDatePart = `(?:${[...monthNames, ...shortMonthNames].join('|')})`;
-    console.log(monthRegexDatePart);
     const output = `((${monthRegexDatePart}) (\\d+))(?:\\w{2}|)`;
     dateRegexStringCache[locale] = output;
     return output;
@@ -41575,13 +41580,17 @@ function findDateRange(textToSearch, locale = 'en-US') {
     const dateRegex = new RegExp(dateRegExString, 'i');
     const matchRange = textToSearch.match(searchRegex);
     if (!matchRange)
-        return null;
-    if (!matchRange)
         return null; //No date range found in syllabus
-    const [start, end] = matchRange[0].split('-');
+    let start, end;
+    for (let separator of ['-', 'to']) {
+        [start, end] = matchRange[0].split(separator);
+        if (start && end)
+            break;
+    }
+    if (!start || !end)
+        throw new MalformedDateError('Cannot find date range in syllabus');
     const startMatch = start.match(dateRegex);
     const endMatch = end.match(dateRegex);
-    console.log(startMatch, endMatch);
     if (!startMatch)
         throw new MalformedDateError(`Missing Start Date ${start}`);
     if (!endMatch)

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "LXD Browser Extension REACT version",
   "description": "Shortcuts including search by code.",
-  "version": "1.7.2",
+  "version": "1.8.1",
   "action": {
     "default_popup": "popup.html",
     "default_title": "LXD Tools"
@@ -54,7 +54,8 @@
     },
     {
       "matches": [
-        "*://*.instructure.com/**/settings"
+        "*://*.instructure.com/**/settings",
+        "*://*.instructure.com/**/details"
       ],
       "js": [
         "js/publish.js"
