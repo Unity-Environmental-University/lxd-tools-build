@@ -1,2 +1,14 @@
-(async()=>{let e=document.querySelector('[aria-label="Pages. Disabled. Not visible to students"]');if(e){let t=e.getAttribute("href");t=t.replace("wiki","pages"),e.setAttribute("href",t)}})();
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+(async() => {
+  let link = document.querySelector('[aria-label="Pages. Disabled. Not visible to students"]');
+  if (link) {
+    let url = link.getAttribute('href');
+    url = url.replace('wiki', 'pages');
+    link.setAttribute("href", url);
+  }
+
+})();
+/******/ })()
+;
 //# sourceMappingURL=pageFixes.js.map
