@@ -13590,40 +13590,6 @@ class Course extends BaseCanvasObject {
             this.canvasData = Object.assign({}, (yield Course.getCourseById(this.id)).canvasData);
         });
     }
-    contentUpdatesAndFixes() {
-        return course_awaiter(this, arguments, void 0, function* (_fixesToRun = null) {
-            throw new NotImplementedException();
-            // await this.setNavigationTabHidden('Dropout Detective', false);
-            // await this.setNavigationTabHidden('BigBlueButton', false);
-            //
-            // const appliedTo = [];
-            // if (fixesToRun === null) {
-            //     fixesToRun = this.fixesToRun;
-            // }
-            //
-            // for (const page of EvalFix.findContent(this)) {
-            //     page.delete();
-            //     appliedTo.push(page);
-            // }
-            //
-            // for (const fixSet of fixesToRun) {
-            //     const pages = fixSet.findContent(this);
-            //     for (const page of pages) {
-            //         const text = fixSet.fix(page.body);
-            //         page.updateContent(text);
-            //         appliedTo.push(page);
-            //     }
-            // }
-            //
-            // const syllabus = SyllabusFix.fix(this.syllabus);
-            // await fetchApiJson(`courses/${this.id}`, {}, {
-            //     method: 'PUT',
-            //     body: JSON.stringify({'course[syllabus_body]': syllabus})
-            // });
-            // this.canvasData['syllabus_body'] = syllabus;
-            // return appliedTo;
-        });
-    }
     reset() {
         return course_awaiter(this, arguments, void 0, function* (prompt = true) {
             if (prompt && !confirm(`Are you sure you want to reset ${this.courseCode}?`)) {
