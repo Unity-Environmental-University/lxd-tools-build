@@ -11229,6 +11229,22 @@ class Assignment extends BaseContentItem {
     get rawData() {
         return this.canvasData;
     }
+    updateContent() {
+        return content_awaiter(this, arguments, void 0, function* (text = null, name = null) {
+            const assignmentData = {};
+            if (text) {
+                assignmentData.description = text;
+                this.rawData.description = text;
+            }
+            if (name) {
+                assignmentData.name = name;
+                this.rawData.name = name;
+            }
+            return yield this.saveData({
+                assignment: assignmentData
+            });
+        });
+    }
 }
 Assignment.nameProperty = 'name';
 Assignment.bodyProperty = 'description';
@@ -11828,7 +11844,10 @@ var validations_awaiter = (undefined && undefined.__awaiter) || function (thisAr
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-function testResult(success, failureMessage, links, successMessage = 'success') {
+//number of characters to show around a match
+const SHOW_WINDOW = 5;
+const MAX_SEARCH_RETURN_SIZE = 20;
+function testResult(success, failureMessage, links, successMessage = ['success']) {
     const response = {
         success,
         message: success ? successMessage : failureMessage
@@ -11837,24 +11856,66 @@ function testResult(success, failureMessage, links, successMessage = 'success') 
         response.links = links;
     return response;
 }
+function validations_capitalize(str) {
+    return str.replace(/\b[a-z]/g, (substring) => substring.toUpperCase());
+}
+function preserveCapsReplace(regex, replace) {
+    return (substring, ..._args) => {
+        const replacedSubstring = substring.replace(regex, replace);
+        if (substring.toUpperCase() === substring)
+            return replacedSubstring.toUpperCase();
+        if (validations_capitalize(substring) === substring)
+            return validations_capitalize(replacedSubstring);
+        return replacedSubstring;
+    };
+}
+function matchHighlights(content, search, maxHighlightLength = MAX_SEARCH_RETURN_SIZE, windowSize = SHOW_WINDOW) {
+    search.lastIndex = 0;
+    let matches = search.global ? Array.from(content.matchAll(search)) : [];
+    search.lastIndex = 0;
+    if (!search.global) {
+        let match = search.exec(content);
+        if (match)
+            matches.push(match);
+    }
+    return matches.map(match => {
+        const minIndex = Math.max(0, match.index - windowSize);
+        const maxIndex = Math.min(content.length, match.index + match[0].length + windowSize);
+        let substring = content.substring(minIndex, maxIndex);
+        if (substring.length > maxHighlightLength) {
+            const half = Math.floor(maxHighlightLength / 2);
+            substring = substring.replace(new RegExp(`^(.{${half}}).*(.{${half}})$`), '$1...$2');
+        }
+        return substring;
+    });
+}
 function badContentRunFunc(badTest) {
     return (course, config) => validations_awaiter(this, void 0, void 0, function* () {
         const includeBody = { queryParams: { include: ['body'] } };
         let content = yield course.getContent(overrideConfig(config, includeBody));
         for (let item of content) {
-            console.log(item.name, item.constructor.name, item.body, item.body && badTest.test(item.body));
+            //console.log(item.name, item.constructor.name, item.body, item.body && badTest.exec(item.body));
         }
-        const badContent = content.filter(item => item.body && badTest.test(item.body));
+        const badContent = content.filter(item => item.body && item.body.search(badTest) > -1);
         const syllabus = yield course.getSyllabus(config);
-        const success = badContent.length === 0 && !badTest.test(syllabus);
+        const syllabusTest = syllabus.search(badTest) > -1;
+        const success = badContent.length === 0 && !syllabusTest;
         let links = [];
-        let failureMessage = '';
+        let failureMessage = [];
         if (badContent.length > 0) {
-            failureMessage += "Bad content found:" + badContent.map(a => a.name).join(',') + '\n';
+            let messageSets = [...badContent.map(a => {
+                    var _a;
+                    if (!((_a = a.body) === null || _a === void 0 ? void 0 : _a.length))
+                        return [a.name];
+                    const content = a.body;
+                    return matchHighlights(content, badTest);
+                })];
+            for (let messages of messageSets)
+                failureMessage.push(...messages);
             links = [...links, ...badContent.map(a => a.htmlContentUrl)];
         }
-        if (badTest.test(syllabus)) {
-            failureMessage += 'Syllabus broken';
+        if (syllabusTest) {
+            failureMessage.push(...matchHighlights(syllabus, badTest));
             links.push(`/courses/${course.id}/assignments/syllabus`);
         }
         const result = testResult(success, failureMessage, links);
@@ -11870,21 +11931,27 @@ function badContentFixFunc(validateRegEx, replace) {
         const errors = [];
         const includeBody = { queryParams: { include: ['body'] } };
         let content = yield course.getContent(includeBody);
-        content = content.filter(item => item.body && validateRegEx.test(item.body));
+        content = content.filter(item => item.body && item.body.search(validateRegEx) > -1);
+        const replaceText = (str) => {
+            //This is silly, but it gets typescript to stop yelling at me about the overload
+            if (typeof replace === 'string')
+                return str.replaceAll(validateRegEx, replace);
+            return str.replaceAll(validateRegEx, replace);
+        };
         const syllabus = yield course.getSyllabus();
-        if (validateRegEx.test(syllabus)) {
-            const newText = syllabus.replace(validateRegEx, replace);
-            if (validateRegEx.test(newText))
-                throw new Error("Fix broken for syllabus " + validateRegEx.toString());
+        if (syllabus.search(validateRegEx) > -1) {
+            const newText = replaceText(syllabus);
+            if (newText.search(validateRegEx) > -1)
+                throw new Error("Fix broken for syllabus " + validateRegEx.toString() + newText);
             yield course.changeSyllabus(newText);
         }
         for (let item of content) {
             if (!item.body)
                 continue;
-            if (!validateRegEx.test(item.body))
+            if (item.body.search(validateRegEx) === -1)
                 continue;
-            const newText = item.body.replace(validateRegEx, replace);
-            if (validateRegEx.test(newText))
+            const newText = replaceText(item.body);
+            if (newText.search(validateRegEx) > -1)
                 throw new Error(`Fix broken for ${item.name})`);
             yield item.updateContent(newText);
         }
@@ -11932,6 +11999,7 @@ class Course extends BaseCanvasObject {
         super(...arguments);
         this._modules = undefined;
         this.modulesByWeekNumber = undefined;
+        this.cachedContent = [];
     }
     static getFromUrl() {
         return course_awaiter(this, arguments, void 0, function* (url = null) {
@@ -12263,18 +12331,21 @@ class Course extends BaseCanvasObject {
             return yield Assignment.getAllInCourse(this.id, config);
         });
     }
-    getContent(config) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            let discussions = yield this.getDiscussions(config);
-            let assignments = yield this.getAssignments(config);
-            let quizzes = yield this.getQuizzes(config);
-            let pages = yield this.getPages(config);
-            return [
-                ...discussions,
-                ...assignments,
-                ...quizzes,
-                ...pages
-            ];
+    getContent(config_1) {
+        return course_awaiter(this, arguments, void 0, function* (config, refresh = false) {
+            if (refresh || this.cachedContent.length == 0) {
+                let discussions = yield this.getDiscussions(config);
+                let assignments = yield this.getAssignments(config);
+                let quizzes = yield this.getQuizzes(config);
+                let pages = yield this.getPages(config);
+                this.cachedContent = [
+                    ...discussions,
+                    ...assignments,
+                    ...quizzes,
+                    ...pages
+                ];
+            }
+            return this.cachedContent;
         });
     }
     getDiscussions(config) {

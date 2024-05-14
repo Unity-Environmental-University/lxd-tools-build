@@ -41602,6 +41602,22 @@ class Assignment extends BaseContentItem {
     get rawData() {
         return this.canvasData;
     }
+    updateContent() {
+        return content_awaiter(this, arguments, void 0, function* (text = null, name = null) {
+            const assignmentData = {};
+            if (text) {
+                assignmentData.description = text;
+                this.rawData.description = text;
+            }
+            if (name) {
+                assignmentData.name = name;
+                this.rawData.name = name;
+            }
+            return yield this.saveData({
+                assignment: assignmentData
+            });
+        });
+    }
 }
 Assignment.nameProperty = 'name';
 Assignment.bodyProperty = 'description';
@@ -41982,7 +41998,10 @@ var validations_awaiter = (undefined && undefined.__awaiter) || function (thisAr
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-function testResult(success, failureMessage, links, successMessage = 'success') {
+//number of characters to show around a match
+const SHOW_WINDOW = 5;
+const MAX_SEARCH_RETURN_SIZE = 20;
+function testResult(success, failureMessage, links, successMessage = ['success']) {
     const response = {
         success,
         message: success ? successMessage : failureMessage
@@ -41991,24 +42010,66 @@ function testResult(success, failureMessage, links, successMessage = 'success') 
         response.links = links;
     return response;
 }
+function validations_capitalize(str) {
+    return str.replace(/\b[a-z]/g, (substring) => substring.toUpperCase());
+}
+function preserveCapsReplace(regex, replace) {
+    return (substring, ..._args) => {
+        const replacedSubstring = substring.replace(regex, replace);
+        if (substring.toUpperCase() === substring)
+            return replacedSubstring.toUpperCase();
+        if (validations_capitalize(substring) === substring)
+            return validations_capitalize(replacedSubstring);
+        return replacedSubstring;
+    };
+}
+function matchHighlights(content, search, maxHighlightLength = MAX_SEARCH_RETURN_SIZE, windowSize = SHOW_WINDOW) {
+    search.lastIndex = 0;
+    let matches = search.global ? Array.from(content.matchAll(search)) : [];
+    search.lastIndex = 0;
+    if (!search.global) {
+        let match = search.exec(content);
+        if (match)
+            matches.push(match);
+    }
+    return matches.map(match => {
+        const minIndex = Math.max(0, match.index - windowSize);
+        const maxIndex = Math.min(content.length, match.index + match[0].length + windowSize);
+        let substring = content.substring(minIndex, maxIndex);
+        if (substring.length > maxHighlightLength) {
+            const half = Math.floor(maxHighlightLength / 2);
+            substring = substring.replace(new RegExp(`^(.{${half}}).*(.{${half}})$`), '$1...$2');
+        }
+        return substring;
+    });
+}
 function badContentRunFunc(badTest) {
     return (course, config) => validations_awaiter(this, void 0, void 0, function* () {
         const includeBody = { queryParams: { include: ['body'] } };
         let content = yield course.getContent(overrideConfig(config, includeBody));
         for (let item of content) {
-            console.log(item.name, item.constructor.name, item.body, item.body && badTest.test(item.body));
+            //console.log(item.name, item.constructor.name, item.body, item.body && badTest.exec(item.body));
         }
-        const badContent = content.filter(item => item.body && badTest.test(item.body));
+        const badContent = content.filter(item => item.body && item.body.search(badTest) > -1);
         const syllabus = yield course.getSyllabus(config);
-        const success = badContent.length === 0 && !badTest.test(syllabus);
+        const syllabusTest = syllabus.search(badTest) > -1;
+        const success = badContent.length === 0 && !syllabusTest;
         let links = [];
-        let failureMessage = '';
+        let failureMessage = [];
         if (badContent.length > 0) {
-            failureMessage += "Bad content found:" + badContent.map(a => a.name).join(',') + '\n';
+            let messageSets = [...badContent.map(a => {
+                    var _a;
+                    if (!((_a = a.body) === null || _a === void 0 ? void 0 : _a.length))
+                        return [a.name];
+                    const content = a.body;
+                    return matchHighlights(content, badTest);
+                })];
+            for (let messages of messageSets)
+                failureMessage.push(...messages);
             links = [...links, ...badContent.map(a => a.htmlContentUrl)];
         }
-        if (badTest.test(syllabus)) {
-            failureMessage += 'Syllabus broken';
+        if (syllabusTest) {
+            failureMessage.push(...matchHighlights(syllabus, badTest));
             links.push(`/courses/${course.id}/assignments/syllabus`);
         }
         const result = testResult(success, failureMessage, links);
@@ -42024,21 +42085,27 @@ function badContentFixFunc(validateRegEx, replace) {
         const errors = [];
         const includeBody = { queryParams: { include: ['body'] } };
         let content = yield course.getContent(includeBody);
-        content = content.filter(item => item.body && validateRegEx.test(item.body));
+        content = content.filter(item => item.body && item.body.search(validateRegEx) > -1);
+        const replaceText = (str) => {
+            //This is silly, but it gets typescript to stop yelling at me about the overload
+            if (typeof replace === 'string')
+                return str.replaceAll(validateRegEx, replace);
+            return str.replaceAll(validateRegEx, replace);
+        };
         const syllabus = yield course.getSyllabus();
-        if (validateRegEx.test(syllabus)) {
-            const newText = syllabus.replace(validateRegEx, replace);
-            if (validateRegEx.test(newText))
-                throw new Error("Fix broken for syllabus " + validateRegEx.toString());
+        if (syllabus.search(validateRegEx) > -1) {
+            const newText = replaceText(syllabus);
+            if (newText.search(validateRegEx) > -1)
+                throw new Error("Fix broken for syllabus " + validateRegEx.toString() + newText);
             yield course.changeSyllabus(newText);
         }
         for (let item of content) {
             if (!item.body)
                 continue;
-            if (!validateRegEx.test(item.body))
+            if (item.body.search(validateRegEx) === -1)
                 continue;
-            const newText = item.body.replace(validateRegEx, replace);
-            if (validateRegEx.test(newText))
+            const newText = replaceText(item.body);
+            if (newText.search(validateRegEx) > -1)
                 throw new Error(`Fix broken for ${item.name})`);
             yield item.updateContent(newText);
         }
@@ -42086,6 +42153,7 @@ class Course extends BaseCanvasObject {
         super(...arguments);
         this._modules = undefined;
         this.modulesByWeekNumber = undefined;
+        this.cachedContent = [];
     }
     static getFromUrl() {
         return course_awaiter(this, arguments, void 0, function* (url = null) {
@@ -42417,18 +42485,21 @@ class Course extends BaseCanvasObject {
             return yield Assignment.getAllInCourse(this.id, config);
         });
     }
-    getContent(config) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            let discussions = yield this.getDiscussions(config);
-            let assignments = yield this.getAssignments(config);
-            let quizzes = yield this.getQuizzes(config);
-            let pages = yield this.getPages(config);
-            return [
-                ...discussions,
-                ...assignments,
-                ...quizzes,
-                ...pages
-            ];
+    getContent(config_1) {
+        return course_awaiter(this, arguments, void 0, function* (config, refresh = false) {
+            if (refresh || this.cachedContent.length == 0) {
+                let discussions = yield this.getDiscussions(config);
+                let assignments = yield this.getAssignments(config);
+                let quizzes = yield this.getQuizzes(config);
+                let pages = yield this.getPages(config);
+                this.cachedContent = [
+                    ...discussions,
+                    ...assignments,
+                    ...quizzes,
+                    ...pages
+                ];
+            }
+            return this.cachedContent;
         });
     }
     getDiscussions(config) {
@@ -44097,34 +44168,42 @@ function ValidationRow({ test, course, refreshCourse, onResult, showOnlyFailures
     }
     function reRun() {
         return ValidationRow_awaiter(this, void 0, void 0, function* () {
+            setLoading(true);
             yield refreshCourse();
             setResult(yield test.run(course));
+            setLoading(false);
         });
     }
     function fix() {
         return ValidationRow_awaiter(this, void 0, void 0, function* () {
             setFixText('Fixing..');
+            setLoading(true);
             assert_default()(test.fix);
             yield test.fix(course);
             setFixText('Fixed...');
-            setResult(yield test.run(course));
             yield refreshCourse();
+            setResult(yield test.run(course));
+            setLoading(false);
         });
     }
     useEffectAsync(() => ValidationRow_awaiter(this, void 0, void 0, function* () {
+        setLoading(true);
         setResult(yield test.run(course));
+        setLoading(false);
     }), [course, test]);
     function statusMessage(result) {
         if (loading)
             return "running...";
         if (!result)
-            return "No result. An error may have occurred.";
+            return loading ? "still running" : "No Result, an error may have occured.";
         if (result.success)
             return "Succeeded!";
-        return result.message;
+        return typeof result.message === 'string' ?
+            (0,jsx_runtime.jsx)("p", { children: result.message })
+            : result.message.map(message => ((0,jsx_runtime.jsx)("div", { children: message })));
     }
     if (!showOnlyFailures || loading || (!(result === null || result === void 0 ? void 0 : result.success))) {
-        return (0,jsx_runtime.jsxs)("div", { className: 'row test-row', children: [(0,jsx_runtime.jsx)("div", { className: 'col-sm-2', children: test.name }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-3', children: (0,jsx_runtime.jsx)("p", { children: test.description }) }), (0,jsx_runtime.jsxs)("div", { className: 'col-sm-4', children: [(0,jsx_runtime.jsx)("p", { children: statusMessage(result) }), (_a = result === null || result === void 0 ? void 0 : result.links) === null || _a === void 0 ? void 0 : _a.map(link => (0,jsx_runtime.jsx)("div", { children: (0,jsx_runtime.jsx)("a", { href: link, target: '_blank', children: link }) }, link))] }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-1', children: test.fix && result && !result.success && (0,jsx_runtime.jsx)("button", { onClick: fix, children: fixText }) }), (0,jsx_runtime.jsxs)("div", { className: 'col-sm-1', children: [!result && (0,jsx_runtime.jsx)("span", { className: 'badge badge-info', children: "Running" }), (result === null || result === void 0 ? void 0 : result.success) && (0,jsx_runtime.jsx)("span", { className: 'badge badge-success', children: "OK!" }), result && !result.success && (0,jsx_runtime.jsx)("span", { className: 'badge badge-warning', children: "Failed" })] })] });
+        return (0,jsx_runtime.jsxs)("div", { className: 'row test-row', children: [(0,jsx_runtime.jsx)("div", { className: 'col-sm-2', children: test.name }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-3', children: test.description }), (0,jsx_runtime.jsxs)("div", { className: 'col-sm-4', children: [(0,jsx_runtime.jsx)("p", { children: statusMessage(result) }), (_a = result === null || result === void 0 ? void 0 : result.links) === null || _a === void 0 ? void 0 : _a.map(link => (0,jsx_runtime.jsx)("div", { children: (0,jsx_runtime.jsx)("a", { href: link, target: '_blank', children: link }) }, link))] }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-1', children: test.fix && result && !result.success && (0,jsx_runtime.jsx)("button", { onClick: fix, children: fixText }) }), (0,jsx_runtime.jsxs)("div", { className: 'col-sm-1', children: [!result && (0,jsx_runtime.jsx)("span", { className: 'badge badge-info', children: "Running" }), (result === null || result === void 0 ? void 0 : result.success) && (0,jsx_runtime.jsx)("span", { className: 'badge badge-success', children: "OK!" }), result && !result.success && (0,jsx_runtime.jsx)("span", { className: 'badge badge-warning', children: "Failed" })] })] });
     }
     return (0,jsx_runtime.jsx)(jsx_runtime.Fragment, {});
 }
@@ -44156,7 +44235,7 @@ const finalNotInGradingPolicyParaTest = {
     run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
         const syllabus = yield course.getSyllabus(config);
         const match = /off the final grade/gi.test(syllabus);
-        return testResult(!match, "'off the final grade' found in syllabus", [`/courses/${course.id}/assignments/syllabus`]);
+        return testResult(!match, ["'off the final grade' found in syllabus"], [`/courses/${course.id}/assignments/syllabus`]);
     })
 };
 const communication24HoursTest = {
@@ -44171,7 +44250,7 @@ const communication24HoursTest = {
         const el = document.createElement('div');
         el.innerHTML = syllabus;
         const text = ((_a = el.textContent) === null || _a === void 0 ? void 0 : _a.toLowerCase()) || "";
-        return testResult(text.includes(testString) && !text.match(/48 hours .* weekends/), "Communication language section in syllabus does not look right.", [`/courses/${course.id}/assignments/syllabus`]);
+        return testResult(text.includes(testString) && !text.match(/48 hours .* weekends/), ["Communication language section in syllabus does not look right."], [`/courses/${course.id}/assignments/syllabus`]);
     })
 };
 const courseCreditsInSyllabusTest = {
@@ -44183,7 +44262,7 @@ const courseCreditsInSyllabusTest = {
         el.innerHTML = syllabus;
         let strongs = el.querySelectorAll('strong');
         const creditList = Array.from(strongs).filter((strong) => /credits/i.test(strong.textContent || ""));
-        return testResult(creditList && creditList.length > 0, "Can't find credits in syllabus", [`/courses/${course.id}/assignments/syllabus`]);
+        return testResult(creditList && creditList.length > 0, ["Can't find credits in syllabus"], [`/courses/${course.id}/assignments/syllabus`]);
     })
 };
 const aiPolicyInSyllabusTest = {
@@ -44192,7 +44271,7 @@ const aiPolicyInSyllabusTest = {
     run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
         const text = yield course.getSyllabus(config);
         const success = text.includes('Generative Artificial Intelligence');
-        return testResult(success, `Can't find AI boilerplate in syllabus`, [`/courses/${course.id}/assignments/syllabus`]);
+        return testResult(success, [`Can't find AI boilerplate in syllabus`], [`/courses/${course.id}/assignments/syllabus`]);
     })
 };
 const bottomOfSyllabusLanguageTest = {
@@ -44201,7 +44280,7 @@ const bottomOfSyllabusLanguageTest = {
     run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
         const text = getPlainTextFromHtml(yield course.getSyllabus(config));
         const success = text.toLowerCase().includes(`The modules will become available after you've agreed to the Honor Code, Code of Conduct, and Tech for Success requirements on the Course Overview page, which unlocks on the first day of the term.`.toLowerCase());
-        return testResult(success, "Text at the bottom of the syllabus looks incorrect.", [`/courses/${course.id}/assignments/syllabus`]);
+        return testResult(success, ["Text at the bottom of the syllabus looks incorrect."], [`/courses/${course.id}/assignments/syllabus`]);
     })
 };
 /// Etc
@@ -44258,7 +44337,7 @@ const latePolicyTest = {
     description: "Go to the gradebook and  click the cog in the upper right-hand corner, then check the box to automatically apply a 0 for missing submissions; or confirm that this setting has already been made.",
     run: (course, config) => courseSettings_awaiter(void 0, void 0, void 0, function* () {
         const latePolicy = yield course.getLatePolicy(config);
-        return testResult(latePolicy.missing_submission_deduction_enabled, "'Automatically apply grade for missing submission' not turned on");
+        return testResult(latePolicy.missing_submission_deduction_enabled, ["'Automatically apply grade for missing submission' not turned on"]);
     })
 };
 const noEvaluationTest = {
@@ -44270,7 +44349,7 @@ const noEvaluationTest = {
         const pages = yield (course.getPages(config));
         const evalPages = pages.filter(page => /Course Evaluation/i.test(page.name));
         const success = evalPages.length === 0;
-        const result = testResult(success, "Course eval found");
+        const result = testResult(success, ["Course eval found"]);
         if (!success)
             result.links = evalPages.map(page => page.htmlContentUrl);
         return result;
@@ -44298,7 +44377,7 @@ const weeklyObjectivesTest = {
     description: 'Make sure weekly objectives are called "Weekly Objectives" and not "Learning Objectives" throughout',
     run: (course, config) => courseContent_awaiter(void 0, void 0, void 0, function* () {
         let overviews = yield course.getPages(Object.assign(Object.assign({}, config), { queryParams: Object.assign(Object.assign({}, config === null || config === void 0 ? void 0 : config.queryParams), { search_term: 'Overview', include: ['body'] }) }));
-        overviews = overviews.filter(overview => /week \d overview/i.test(overview.name));
+        overviews = overviews.filter(overview => /week \d overview/ig.test(overview.name));
         const badOverviews = overviews.filter(overview => {
             const el = document.createElement('div');
             el.innerHTML = overview.body;
@@ -44307,7 +44386,7 @@ const weeklyObjectivesTest = {
             return weeklyObjectivesHeaders.length === 0;
         });
         const success = badOverviews.length === 0;
-        const result = testResult(badOverviews.length === 0, "No weekly objectives header found on " + badOverviews.map(page => page.name).sort().join(','));
+        const result = testResult(badOverviews.length === 0, badOverviews.map(page => page.name).sort());
         if (!success)
             result.links = badOverviews.map(page => page.htmlContentUrl);
         return result;
@@ -44338,7 +44417,7 @@ const courseProjectOutlineTest = {
         el.innerHTML = pageHtml;
         const h2s = Array.from(el.querySelectorAll('h2'));
         const projectHeadings = h2s.filter(h2 => h2.textContent === 'Project outline');
-        const response = testResult(projectHeadings.length < 1, "Course project page has 'Project overview' as a header");
+        const response = testResult(projectHeadings.length < 1, ["Course project page has 'Project overview' as a header"]);
         if (!response.success)
             response.links = [projectOverview.htmlContentUrl];
         return response;
@@ -44351,7 +44430,7 @@ const courseProjectOutlineTest = {
 
 ;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/proxyServerLinkValidation.ts
 
-const oldProxyRegex = /https:\/\/login\.proxy1\.unity\.edu\/login\?auth=shibboleth&(?:amp;)?url=([^<>"]*)/;
+const oldProxyRegex = /https:\/\/login\.proxy1\.unity\.edu\/login\?auth=shibboleth&(?:amp;)?url=([^"]*)/g;
 const newProxyReplace = 'https://login.unity.idn.oclc.org/login?url=$1';
 const oldProxy = 'https://login.proxy1.unity.edu/login?auth=shibboleth&url=';
 const proxyServerLinkValidation = {
@@ -44361,6 +44440,40 @@ const proxyServerLinkValidation = {
     fix: badContentFixFunc(oldProxyRegex, newProxyReplace),
 };
 /* harmony default export */ const validations_proxyServerLinkValidation = (proxyServerLinkValidation);
+
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/courseSpecific/capstoneProjectValidations.ts
+
+const projectRegex = /(research proposal|course project)/ig;
+const courseProjectToCapstoneProjectProposal = {
+    courseCodes: ['PROF590', 'PROF690'],
+    negativeExemplars: [['your research proposals', 'your capstone project proposals'], ['our course project', 'our capstone project proposal']],
+    positiveExemplars: ['this Course Project'],
+    name: "Capstone project -> Capstone Project Proposal",
+    description: `Replace 'Research Proposal' and 'Course Project' with 'Capstone Project Proposal'`,
+    run: badContentRunFunc(projectRegex),
+    fix: badContentFixFunc(projectRegex, 'Capstone Project Proposal'),
+};
+const partnerRegex = /([^-])\bpartner(s|)\b/ig;
+const partnerToCollaborator = {
+    courseCodes: ['PROF590', 'PROF690'],
+    negativeExemplars: [['your partner', 'your collaborator'], ['your Partners', 'your Collaborators']],
+    positiveExemplars: ['our collaborator'],
+    name: "Capstone partner -> collaborator",
+    description: "Replace partner with collaborator",
+    run: badContentRunFunc(partnerRegex),
+    fix: badContentFixFunc(partnerRegex, preserveCapsReplace(partnerRegex, '$1collaborator$2'))
+};
+const partnershipRegex = /\bpartnership(s|)\b/ig;
+const partnershipToCollaboration = {
+    courseCodes: ['PROF590', 'PROF690'],
+    negativeExemplars: [['Partnerships begin with', 'Collaborations begin with'], ['this partnership should', 'this collaboration should']],
+    positiveExemplars: ['Our new collaboration'],
+    name: "Capstone partnership -> collaboration",
+    description: "Replace partnership with collaboration",
+    run: badContentRunFunc(partnershipRegex),
+    fix: badContentFixFunc(partnershipRegex, preserveCapsReplace(partnershipRegex, 'collaboration$1'))
+};
+/* harmony default export */ const capstoneProjectValidations = ([courseProjectToCapstoneProjectProposal, partnerToCollaborator, partnershipToCollaboration]);
 
 ;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/ContentUpdateInterface.tsx
 var ContentUpdateInterface_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -44385,13 +44498,22 @@ var ContentUpdateInterface_awaiter = (undefined && undefined.__awaiter) || funct
 
 
 
+
 class MismatchedUnloadError extends Error {
     constructor() {
         super(...arguments);
         this.name = "Mismatched Unload Error";
     }
 }
+const allValidations = [
+    ...capstoneProjectValidations,
+    ...syllabusTests,
+    ...courseSettings,
+    ...courseContent,
+    validations_proxyServerLinkValidation,
+];
 function ContentUpdateInterface({ course, parentCourse, refreshCourse }) {
+    const [validations, setValidations] = (0,react.useState)(allValidations);
     const [show, setShow] = (0,react.useState)(false);
     const [buttonText, setButtonText] = (0,react.useState)('Content Fixes');
     const [isDisabled, setIsDisabled] = (0,react.useState)(false);
@@ -44401,17 +44523,28 @@ function ContentUpdateInterface({ course, parentCourse, refreshCourse }) {
     const [loadingCount, setLoadingCount] = (0,react.useState)(0);
     const [mode, setMode] = (0,react.useState)('fix');
     useEffectAsync(() => ContentUpdateInterface_awaiter(this, void 0, void 0, function* () {
-        if (course) {
-            if (course.isDev) {
-                setButtonText('DEV Content Changes/Fixes');
-            }
-            else if (course.isBlueprint) {
-                setButtonText('BP Content Fixes');
-            }
-            else {
-                setButtonText("Can Only Fix from BP or DEV");
-            }
+        if (!course)
+            return;
+        if (course.isDev) {
+            setButtonText('DEV Content Changes/Fixes');
         }
+        else if (course.isBlueprint) {
+            setButtonText('BP Content Fixes');
+        }
+        else {
+            setButtonText("Can Only Fix from BP or DEV");
+        }
+        setValidations(allValidations.filter(validation => {
+            var _a;
+            if (!validation.courseCodes)
+                return true;
+            for (let code of validation.courseCodes) {
+                if ((_a = course.courseCode) === null || _a === void 0 ? void 0 : _a.toUpperCase().includes(code.toLocaleUpperCase('en-US'))) {
+                    return true;
+                }
+            }
+            return false;
+        }));
     }), [course]);
     /* increment and decrement is loading just in case we end up setting it asynchronously somehow */
     function startLoading() {
@@ -44453,12 +44586,7 @@ function ContentUpdateInterface({ course, parentCourse, refreshCourse }) {
     function RemoveAnnotationsSection() {
         return ((course === null || course === void 0 ? void 0 : course.isBlueprint) && (0,jsx_runtime.jsxs)("div", { className: 'row', children: [(0,jsx_runtime.jsx)("div", { className: 'col-sm-4', children: (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: removeLmAnnotations, disabled: loadingCount > 0, children: "Remove Annotation Placeholder" }) }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-8', children: "Removes annotation placeholders on Learning Material pages" })] }));
     }
-    return (course && (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { disabled: isDisabled, className: "ui-button", onClick: (e) => setShow(true), children: buttonText }), (0,jsx_runtime.jsxs)(widgets_Modal, { isOpen: show, requestClose: () => setShow(false), canClose: !loadingCount, children: [(0,jsx_runtime.jsxs)("div", { className: 'd-flex justify-content-end', children: [mode === 'fix' && (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: () => setMode("unitTest"), children: "Show All Tests" }), mode === 'unitTest' && (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: () => setMode("fix"), children: "Hide Successful Tests" })] }), mode === 'fix' && (0,jsx_runtime.jsx)(FixesMode, { course: course }), (0,jsx_runtime.jsx)(CourseValidator, { showOnlyFailures: mode !== 'unitTest', course: course, refreshCourse: refreshCourse, tests: [
-                            ...syllabusTests,
-                            ...courseSettings,
-                            ...courseContent,
-                            validations_proxyServerLinkValidation
-                        ] })] })] }));
+    return (course && (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { disabled: isDisabled, className: "ui-button", onClick: (e) => setShow(true), children: buttonText }), (0,jsx_runtime.jsxs)(widgets_Modal, { isOpen: show, requestClose: () => setShow(false), canClose: !loadingCount, children: [(0,jsx_runtime.jsxs)("div", { className: 'd-flex justify-content-end', children: [mode === 'fix' && (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: () => setMode("unitTest"), children: "Show All Tests" }), mode === 'unitTest' && (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: () => setMode("fix"), children: "Hide Successful Tests" })] }), mode === 'fix' && (0,jsx_runtime.jsx)(FixesMode, { course: course }), (0,jsx_runtime.jsx)(CourseValidator, { showOnlyFailures: mode !== 'unitTest', course: course, refreshCourse: refreshCourse, tests: validations })] })] }));
 }
 
 ;// CONCATENATED MODULE: ./src/publish/PublishApp.tsx
@@ -44500,7 +44628,7 @@ function PublishApp() {
         console.log(user);
         setUser(user);
     }), []);
-    return (user && (0,jsx_runtime.jsxs)("div", { children: [(0,jsx_runtime.jsx)(PublishInterface, { course: course, user: user }), (0,jsx_runtime.jsx)(ContentUpdateInterface, { course: course, parentCourse: parentCourse, refreshCourse: getCourse })] }));
+    return (user && (0,jsx_runtime.jsxs)("div", { children: [(0,jsx_runtime.jsx)(PublishInterface, { course: course, user: user }), (0,jsx_runtime.jsx)(ContentUpdateInterface, { course: course, parentCourse: parentCourse, refreshCourse: () => getCourse(true) })] }));
 }
 /* harmony default export */ const publish_PublishApp = (PublishApp);
 
