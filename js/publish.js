@@ -42078,27 +42078,34 @@ function badContentRunFunc(badTest) {
         return result;
     });
 }
+function badSyllabusFixFunc(validateRegEx, replace) {
+    const replaceText = replaceTextFunc(validateRegEx, replace);
+    return (course) => validations_awaiter(this, void 0, void 0, function* () {
+        try {
+            yield fixSyllabus(course, validateRegEx, replaceText);
+            return {
+                success: true,
+                message: 'success'
+            };
+        }
+        catch (e) {
+            return {
+                success: false,
+                message: e instanceof Error ? e.toString() : "An Error has occurred"
+            };
+        }
+    });
+}
 function badContentFixFunc(validateRegEx, replace) {
     return (course) => validations_awaiter(this, void 0, void 0, function* () {
         let success = false;
-        let message = "Fix failed for unknown reasons";
+        let message = "";
         const errors = [];
         const includeBody = { queryParams: { include: ['body'] } };
         let content = yield course.getContent(includeBody);
         content = content.filter(item => item.body && item.body.search(validateRegEx) > -1);
-        const replaceText = (str) => {
-            //This is silly, but it gets typescript to stop yelling at me about the overload
-            if (typeof replace === 'string')
-                return str.replaceAll(validateRegEx, replace);
-            return str.replaceAll(validateRegEx, replace);
-        };
-        const syllabus = yield course.getSyllabus();
-        if (syllabus.search(validateRegEx) > -1) {
-            const newText = replaceText(syllabus);
-            if (newText.search(validateRegEx) > -1)
-                throw new Error("Fix broken for syllabus " + validateRegEx.toString() + newText);
-            yield course.changeSyllabus(newText);
-        }
+        const replaceText = replaceTextFunc(validateRegEx, replace);
+        yield fixSyllabus(course, validateRegEx, replaceText);
         for (let item of content) {
             if (!item.body)
                 continue;
@@ -42113,6 +42120,25 @@ function badContentFixFunc(validateRegEx, replace) {
             success,
             message
         };
+    });
+}
+function replaceTextFunc(validateRegEx, replace) {
+    return (str) => {
+        //This is silly, but it gets typescript to stop yelling at me about the overload
+        if (typeof replace === 'string')
+            return str.replaceAll(validateRegEx, replace);
+        return str.replaceAll(validateRegEx, replace);
+    };
+}
+function fixSyllabus(course, validateRegEx, replaceText) {
+    return validations_awaiter(this, void 0, void 0, function* () {
+        const syllabus = yield course.getSyllabus();
+        if (syllabus.search(validateRegEx) > -1) {
+            const newText = replaceText(syllabus);
+            if (newText.search(validateRegEx) > -1)
+                throw new Error("Fix broken for syllabus " + validateRegEx.toString() + newText);
+            yield course.changeSyllabus(newText);
+        }
     });
 }
 function overrideConfig(source, override) {
@@ -42776,14 +42802,14 @@ class Course extends BaseCanvasObject {
             try {
                 for (let migration of migrations) {
                     let course = yield Course.getCourseById(migration['settings']['source_course_id']);
-                    if (course.codePrefix === "DEV")
+                    if (course && course.codePrefix.includes("DEV"))
                         return course;
                 }
             }
             catch (e) {
                 return yield Course.getByCode('DEV_' + this.baseCode);
             }
-            return null;
+            return yield Course.getByCode('DEV_' + this.baseCode);
         });
     }
     /* Not working due to CORS; we need to set up the proxy server to be able to resize images.
@@ -44197,12 +44223,14 @@ var syllabusTests_awaiter = (undefined && undefined.__awaiter) || function (this
 //Syllabus Tests
 const finalNotInGradingPolicyParaTest = {
     name: "Remove Final",
+    negativeExemplars: [['off the final grade', 'off the grade'], ['final exam', 'final exam']],
     description: 'Remove "final" from the grading policy paragraphs of syllabus',
     run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
         const syllabus = yield course.getSyllabus(config);
         const match = /off the final grade/gi.test(syllabus);
         return testResult(!match, ["'off the final grade' found in syllabus"], [`/courses/${course.id}/assignments/syllabus`]);
-    })
+    }),
+    fix: badSyllabusFixFunc(/off the final grade/gi, 'off the grade')
 };
 const communication24HoursTest = {
     name: "Syllabus - Within 24 Hours",
@@ -44247,7 +44275,7 @@ const bottomOfSyllabusLanguageTest = {
         const text = getPlainTextFromHtml(yield course.getSyllabus(config));
         const success = text.toLowerCase().includes(`The modules will become available after you've agreed to the Honor Code, Code of Conduct, and Tech for Success requirements on the Course Overview page, which unlocks on the first day of the term.`.toLowerCase());
         return testResult(success, ["Text at the bottom of the syllabus looks incorrect."], [`/courses/${course.id}/assignments/syllabus`]);
-    })
+    }),
 };
 /// Etc
 /* harmony default export */ const syllabusTests = ([
