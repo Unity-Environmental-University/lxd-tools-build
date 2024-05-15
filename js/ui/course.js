@@ -12436,9 +12436,10 @@ class MalformedDateError extends Error {
     }
 }
 
-;// CONCATENATED MODULE: ./src/canvas/fixes/changeStartDate.ts
+;// CONCATENATED MODULE: ./src/canvas/course/changeStartDate.ts
 
 
+const DEFAULT_LOCALE = 'en-US';
 function getCurrentStartDate(modules) {
     if (modules.length == 0)
         throw new NoOverviewModuleFoundError();
@@ -12470,7 +12471,27 @@ function getStartDateAssignments(assignments) {
     const dayOfWeekOffset = 1 - plainDateDue.dayOfWeek;
     return plainDateDue.add({ days: dayOfWeekOffset });
 }
-function updatedDateSyllabusHtml(html, newStartDate, locale = 'en-US') {
+function getGradTermName(termStart, locale = DEFAULT_LOCALE) {
+    const month = termStart.toLocaleString(locale, { month: '2-digit' });
+    const day = termStart.toLocaleString(locale, { day: '2-digit' });
+    const year = termStart.toLocaleString(locale, { year: '2-digit' });
+    return `DE8W${month}.${day}.${year}`;
+}
+function getUgTermName(termStart, locale = DEFAULT_LOCALE) {
+    const year = termStart.toLocaleString(DEFAULT_LOCALE, { year: '2-digit' });
+    const month = termStart.toLocaleString(DEFAULT_LOCALE, { month: 'short' });
+    return `DE-${year}-${month}`;
+}
+function getNewTermName(oldTermName, newTermStart, locale = DEFAULT_LOCALE) {
+    const termNameGrad = oldTermName.match(/DE8W\d\d\.\d\d\.\d\d/);
+    if (termNameGrad)
+        return getGradTermName(newTermStart);
+    const termNameUg = oldTermName.match(/(DE(?:.HL|)-\d\d)-(\w+)\w{2}?/i);
+    if (termNameUg)
+        return getUgTermName(newTermStart);
+    throw new MalformedSyllabusError(`Can't Recognize Term Name ${oldTermName}`);
+}
+function updatedDateSyllabusHtml(html, newStartDate, locale = DEFAULT_LOCALE) {
     const syllabusBody = document.createElement('div');
     syllabusBody.innerHTML = html;
     const syllabusCalloutBox = syllabusBody.querySelector('div.cbt-callout-box');
@@ -12482,17 +12503,14 @@ function updatedDateSyllabusHtml(html, newStartDate, locale = 'en-US') {
         throw new MalformedSyllabusError(`Missing syllabus headers\n${paras}`);
     const [_courseNameEl, termNameEl, datesEl, _instructorNameEl, _instructorContactInfoEl, _creditsEl] = paras;
     const changedText = [];
-    const oldTermName = termNameEl.innerText;
-    const oldDates = datesEl.innerText;
-    const termName = termNameEl.innerHTML.match(/(DE(?:.HL|)-\d\d)-(\w+)\w{2}?/i);
+    const oldTermName = termNameEl.textContent || '';
+    const oldDates = datesEl.textContent || '';
     const dateRange = findDateRange(datesEl.innerHTML, locale);
     if (!dateRange)
         throw new MalformedSyllabusError("Date range not found in syllabus");
-    if (!termName)
-        throw new MalformedSyllabusError("Term not found in syllabus");
     const courseDuration = dateRange.start.until(dateRange.end);
     const newEndDate = newStartDate.add(courseDuration);
-    const newTermName = `${termName[1]}-${newStartDate.toLocaleString(locale, { month: 'short' })}`;
+    const newTermName = getNewTermName(oldTermName, newStartDate);
     const dateRangeText = `${dateToSyllabusString(newStartDate)} - ${dateToSyllabusString(newEndDate)}`;
     termNameEl.innerHTML = `<p><strong>${syllabusHeaderName(termNameEl)}:</strong> ${newTermName}</p>`;
     datesEl.innerHTML = `<p><strong>${syllabusHeaderName(datesEl)}:</strong> ${dateRangeText}</p>`;
@@ -12506,7 +12524,7 @@ function updatedDateSyllabusHtml(html, newStartDate, locale = 'en-US') {
     return output;
 }
 function dateToSyllabusString(date) {
-    return `${date.toLocaleString('en-US', { month: 'long', day: 'numeric' })}`;
+    return `${date.toLocaleString(DEFAULT_LOCALE, { month: 'long', day: 'numeric' })}`;
 }
 function syllabusHeaderName(el) {
     const header = el.querySelector('strong');
