@@ -13777,8 +13777,11 @@ var ui_course_awaiter = (undefined && undefined.__awaiter) || function (thisArg,
 
 (() => ui_course_awaiter(void 0, void 0, void 0, function* () {
     const currentCourse = yield Course.getFromUrl(document.documentURI);
-    const CurrentContentClass = Course.getContentClassFromUrl();
-    const currentContentItem = yield (CurrentContentClass === null || CurrentContentClass === void 0 ? void 0 : CurrentContentClass.getFromUrl());
+    let CurrentContentClass = Course.getContentClassFromUrl();
+    let currentContentItem = yield (CurrentContentClass === null || CurrentContentClass === void 0 ? void 0 : CurrentContentClass.getFromUrl());
+    if (!CurrentContentClass && /courses\/\d+/.test(document.URL)) {
+        currentContentItem = yield (currentCourse === null || currentCourse === void 0 ? void 0 : currentCourse.getFrontPage());
+    }
     if (!currentCourse)
         return;
     let header = document.querySelector('.right-of-crumbs');
@@ -13798,6 +13801,7 @@ var ui_course_awaiter = (undefined && undefined.__awaiter) || function (thisArg,
     }
     if (currentContentItem) {
         yield addOpenAllLinksButton(header, currentContentItem);
+        highlightBigImages();
     }
     const homeTileHost = document.querySelector('#Modules-anchor');
     if (homeTileHost) {
@@ -13891,7 +13895,28 @@ function openAllLinksInContent(contentItem) {
     for (let url of urls)
         window.open(url, "_blank");
 }
-function GenerateAltText() {
+function highlightBigImages() {
+    var _a;
+    const bannerImageContainer = document.querySelector('div.cbt-banner-image');
+    console.log(bannerImageContainer);
+    if (!bannerImageContainer)
+        return;
+    const image = bannerImageContainer.querySelector('img');
+    console.log(image === null || image === void 0 ? void 0 : image.naturalWidth);
+    if (!image)
+        return;
+    if (image.naturalWidth > 2000) {
+        console.log(image.width);
+        console.log(image.naturalWidth);
+        const notification = document.createElement('div');
+        notification.style.backgroundColor = 'rgba(255,255,255,0.75)';
+        notification.style.border = "10px dashed red";
+        notification.style.fontSize = "64px";
+        notification.style.color = "rgba(64,0,0,1)";
+        notification.innerHTML = ` <h2>IMAGE REAL BIG</h2>
+<h4><strong>This warning will not appear on student-facing canvas.</strong></h4>`;
+        (_a = bannerImageContainer.parentElement) === null || _a === void 0 ? void 0 : _a.append(notification);
+    }
 }
 
 })();
