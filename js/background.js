@@ -6437,7 +6437,6 @@ var background_awaiter = (undefined && undefined.__awaiter) || function (thisArg
 };
 
 
-let searchInserted = false;
 const messageHandlers = {
     searchForCourse(queryString) {
         return background_awaiter(this, void 0, void 0, function* () {
@@ -6445,13 +6444,10 @@ const messageHandlers = {
             if (!(activeTab === null || activeTab === void 0 ? void 0 : activeTab.id)) {
                 return;
             }
-            if (!searchInserted) {
-                yield browser_polyfill.scripting.executeScript({
-                    target: { tabId: activeTab.id },
-                    files: ['./js/content.js']
-                });
-                searchInserted = true;
-            }
+            yield browser_polyfill.scripting.executeScript({
+                target: { tabId: activeTab.id },
+                files: ['./js/content.js']
+            });
             yield browser_polyfill.tabs.sendMessage(activeTab.id, { 'queryString': queryString });
         });
     },
@@ -6482,7 +6478,10 @@ browser_polyfill.action.onClicked.addListener((tab) => background_awaiter(void 0
 }));
 function getActiveTab() {
     return background_awaiter(this, void 0, void 0, function* () {
-        const [tab] = yield chrome.tabs.query({ active: true, lastFocusedWindow: true });
+        const windowTabs = yield browser_polyfill.tabs.query({ lastFocusedWindow: true });
+        const activeTabs = yield browser_polyfill.tabs.query({ active: true });
+        const activeLastWindow = yield browser_polyfill.tabs.query({ active: true, lastFocusedWindow: true });
+        const [tab] = windowTabs.filter(tab => tab.active);
         return tab;
     });
 }

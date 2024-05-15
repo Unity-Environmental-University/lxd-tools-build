@@ -5356,8 +5356,8 @@ function getPagedDataGenerator(url_1) {
                 next_page_link = nextLink.split(";")[0].split("<")[1].split(">")[0];
                 response = yield __await(fetch(next_page_link, config === null || config === void 0 ? void 0 : config.fetchInit));
                 let responseData = yield __await(response.json());
-                if (typeof responseData === 'object' && !Array.isArray(data)) {
-                    let values = Array.from(Object.values(data));
+                if (typeof responseData === 'object' && !Array.isArray(responseData)) {
+                    let values = Array.from(Object.values(responseData));
                     if (values) {
                         responseData = values === null || values === void 0 ? void 0 : values.find((a) => Array.isArray(a));
                     }
