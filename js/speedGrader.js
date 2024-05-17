@@ -40564,7 +40564,7 @@ const type_lut = {
     ExternalUrl: null, //Not passable to restrict
     Subheader: null, //Not passable to restrict
 };
-function formDataify(data) {
+function canvasUtils_formDataify(data) {
     let formData = new FormData();
     for (let key in data) {
         addToFormData(formData, key, data[key]);
@@ -40599,22 +40599,29 @@ function addToFormData(formData, key, value) {
         formData.append(key, value.toString());
     }
 }
-function getModuleWeekNumber(module) {
-    const regex = /(week|module) (\d+)/i;
-    let match = module.name.match(regex);
-    let weekNumber = !match ? null : Number(match[1]);
-    if (!weekNumber) {
-        for (let moduleItem of module.items) {
-            if (!moduleItem.hasOwnProperty('title')) {
-                continue;
-            }
-            let match = moduleItem.title.match(regex);
-            if (match) {
-                weekNumber = match[2];
-            }
+function queryStringify(data) {
+    let searchParams = new URLSearchParams();
+    for (let key in data) {
+        addToQuery(searchParams, key, data[key]);
+    }
+    ;
+    return searchParams;
+}
+function addToQuery(searchParams, key, value) {
+    if (Array.isArray(value)) {
+        for (let item of value) {
+            addToQuery(searchParams, `${key}[]`, item);
         }
     }
-    return weekNumber;
+    else if (typeof value === 'object') {
+        for (let itemKey in value) {
+            const itemValue = value[itemKey];
+            addToQuery(searchParams, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
+        }
+    }
+    else {
+        searchParams.append(key, value);
+    }
 }
 /**
  * Takes in a module item and returns an object specifying its type and content id
@@ -40642,7 +40649,7 @@ function getItemTypeAndId(item) {
  * @returns {URLSearchParams} The correctly formatted parameters
  */
 function searchParamsFromObject(queryParams) {
-    return new URLSearchParams(queryParams);
+    return queryStringify(queryParams);
 }
 function getApiPagedData(url_1) {
     return __awaiter(this, arguments, void 0, function* (url, config = null) {
@@ -40748,7 +40755,7 @@ function fetchJson(url_1) {
  * @param url
  * @param config query and fetch params
  */
-function fetchApiJson(url_1) {
+function canvasUtils_fetchApiJson(url_1) {
     return __awaiter(this, arguments, void 0, function* (url, config = null) {
         url = `/api/v1/${url}`;
         return yield fetchJson(url, config);
@@ -40756,7 +40763,7 @@ function fetchApiJson(url_1) {
 }
 function fetchOneKnownApiJson(url_1) {
     return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        let result = yield fetchApiJson(url, config);
+        let result = yield canvasUtils_fetchApiJson(url, config);
         assert_default()(result);
         if (Array.isArray(result))
             return result[0];
@@ -40765,7 +40772,7 @@ function fetchOneKnownApiJson(url_1) {
 }
 function fetchOneUnknownApiJson(url_1) {
     return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        let result = yield fetchApiJson(url, config);
+        let result = yield canvasUtils_fetchApiJson(url, config);
         if (!result)
             return null;
         if (Array.isArray(result) && result.length > 0)
@@ -40853,7 +40860,7 @@ class BaseCanvasObject {
     static getDataById(contentId_1) {
         return baseCanvasObject_awaiter(this, arguments, void 0, function* (contentId, courseId = null, config = null) {
             let url = this.getUrlPathFromIds(contentId, courseId);
-            const response = yield fetchApiJson(url, config);
+            const response = yield canvasUtils_fetchApiJson(url, config);
             assert_default()(!Array.isArray(response));
             return response;
         });
@@ -40867,7 +40874,6 @@ class BaseCanvasObject {
         return url;
     }
     /**
-     *
      * @param courseId - The course ID to get elements within, if applicable
      * @param accountId - The account ID to get elements within, if applicable
      */
@@ -40900,10 +40906,10 @@ class BaseCanvasObject {
     saveData(data) {
         return baseCanvasObject_awaiter(this, void 0, void 0, function* () {
             assert_default()(this.contentUrlPath);
-            return yield fetchApiJson(this.contentUrlPath, {
+            return yield canvasUtils_fetchApiJson(this.contentUrlPath, {
                 fetchInit: {
                     method: 'PUT',
-                    body: formDataify(data)
+                    body: canvasUtils_formDataify(data)
                 }
             });
         });
@@ -41028,7 +41034,7 @@ class Term extends BaseCanvasObject {
         return canvas_awaiter(this, arguments, void 0, function* (termId, config = null) {
             let account = yield Account.getRootAccount();
             let url = `accounts/${account.id}/terms/${termId}`;
-            let termData = yield fetchApiJson(url, config);
+            let termData = yield canvasUtils_fetchApiJson(url, config);
             if (termData)
                 return new Term(termData);
             return null;
@@ -45119,6 +45125,100 @@ const xn = {
 
 
 
+// EXTERNAL MODULE: ./node_modules/webextension-polyfill/dist/browser-polyfill.js
+var browser_polyfill = __webpack_require__(6815);
+;// CONCATENATED MODULE: ./src/canvas/image.ts
+var image_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+function getResizedBlob(src_1, width_1) {
+    return image_awaiter(this, arguments, void 0, function* (src, width, height = undefined) {
+        let imageSrc = yield contentDownloadImage(src);
+        let canvas = document.createElement('canvas');
+        let image = new Image();
+        image.src = imageSrc;
+        let ctx = canvas.getContext('2d');
+        return new Promise((resolve) => {
+            image.onload = () => {
+                height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
+                assert_default()(ctx);
+                console.log(image.src);
+                canvas.width = width;
+                canvas.height = height;
+                ctx.drawImage(image, 0, 0, width, height);
+                canvas.toBlob(resolve);
+            };
+        });
+    });
+}
+function contentDownloadImage(src) {
+    return image_awaiter(this, void 0, void 0, function* () {
+        const base64 = yield browser_polyfill.runtime.sendMessage({ downloadImage: src });
+        return base64;
+    });
+}
+function backgroundDownloadImage(src) {
+    //if(!height) height = src.height / src.width * width;
+    const imageUrl = src;
+    return new Promise((resolve) => image_awaiter(this, void 0, void 0, function* () {
+        const imageFileResponse = yield fetch(imageUrl);
+        let reader = new FileReader();
+        reader.onload = event => {
+            console.log(reader.result);
+            resolve(reader.result);
+        };
+        const blob = yield imageFileResponse.blob();
+        reader.readAsDataURL(blob);
+    }));
+}
+
+;// CONCATENATED MODULE: ./src/canvas/files.ts
+var files_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+function uploadFile(file, folder, url) {
+    return files_awaiter(this, void 0, void 0, function* () {
+        const initialParams = {
+            name: file.name,
+            no_redirect: true,
+            on_duplicate: 'overwrite'
+        };
+        if (typeof folder === 'number')
+            initialParams.parent_folder_id = folder;
+        else
+            initialParams.parent_folder_path = folder;
+        let response = yield fetch(url, {
+            body: canvasUtils_formDataify(initialParams),
+            method: 'POST'
+        });
+        const data = yield response.json();
+        const uploadParams = data.upload_params;
+        const uploadFormData = canvasUtils_formDataify(uploadParams);
+        uploadFormData.append('file', file);
+        response = yield fetch(data.upload_url, {
+            method: 'POST',
+            body: uploadFormData,
+        });
+        assert_default()(response.ok);
+    });
+}
+
 ;// CONCATENATED MODULE: ./src/canvas/content/index.ts
 var content_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -45134,6 +45234,9 @@ var content_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _
 
 
 
+
+
+const SAFE_MAX_BANNER_WIDTH = 1400;
 class BaseContentItem extends BaseCanvasObject {
     constructor(canvasData, courseId) {
         super(canvasData);
@@ -45264,8 +45367,44 @@ class BaseContentItem extends BaseCanvasObject {
         el.innerHTML = this.body;
         return el;
     }
+    resizeBanner() {
+        return content_awaiter(this, arguments, void 0, function* (maxWidth = SAFE_MAX_BANNER_WIDTH) {
+            const bannerImg = getBannerImage(this);
+            if (!bannerImg)
+                throw new Error("No banner");
+            let fileData = yield getFileDataFromUrl(bannerImg.src, this.courseId);
+            if (!fileData)
+                throw new Error("File not found");
+            if (bannerImg.naturalWidth < maxWidth)
+                return; //Dont resize image unless we're shrinking it
+            let resizedImageBlob = yield getResizedBlob(bannerImg.src, maxWidth);
+            let fileName = fileData.filename;
+            let fileUploadUrl = `/api/v1/courses/${this.courseId}/files`;
+            assert_default()(resizedImageBlob);
+            let file = new File([resizedImageBlob], fileName);
+            return yield uploadFile(file, fileData.folder_id, fileUploadUrl);
+        });
+    }
 }
 BaseContentItem.nameProperty = 'name';
+function getFileDataFromUrl(url, courseId) {
+    return content_awaiter(this, void 0, void 0, function* () {
+        const match = /.*\/files\/(\d+)/.exec(url);
+        if (!match)
+            return null;
+        if (match) {
+            const fileId = parseInt(match[1]);
+            const file = yield getFileData(fileId, courseId);
+            return file;
+        }
+    });
+}
+function getFileData(fileId, courseId) {
+    return content_awaiter(this, void 0, void 0, function* () {
+        const url = `/api/v1/courses/${courseId}/files/${fileId}`;
+        return yield fetchJson(url);
+    });
+}
 class Discussion extends BaseContentItem {
     offsetPublishDelay(days) {
         return content_awaiter(this, void 0, void 0, function* () {
@@ -45387,6 +45526,14 @@ Page.nameProperty = 'title';
 Page.bodyProperty = 'body';
 Page.contentUrlTemplate = "courses/{course_id}/pages/{content_id}";
 Page.allContentUrlTemplate = "courses/{course_id}/pages";
+function getBannerImage(overviewPage) {
+    const pageBody = document.createElement('html');
+    if (!overviewPage.body)
+        throw new Error(`Content item ${overviewPage.name} has no html body`);
+    pageBody.innerHTML = overviewPage.body;
+    let bannerImg = pageBody.querySelector('.cbt-banner-image img');
+    return bannerImg;
+}
 
 ;// CONCATENATED MODULE: ./src/date.ts
 
@@ -45624,97 +45771,6 @@ class NoAssignmentsWithDueDatesError extends Error {
         super(...arguments);
         this.name = "NoAssignmentsWithDueDatesError";
     }
-}
-
-// EXTERNAL MODULE: ./node_modules/webextension-polyfill/dist/browser-polyfill.js
-var browser_polyfill = __webpack_require__(6815);
-;// CONCATENATED MODULE: ./src/canvas/image.ts
-var image_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-function getResizedBlob(src_1, width_1) {
-    return image_awaiter(this, arguments, void 0, function* (src, width, height = undefined) {
-        let imageSrc = yield contentDownloadImage(src);
-        let canvas = document.createElement('canvas');
-        let image = new Image();
-        image.src = imageSrc;
-        let ctx = canvas.getContext('2d');
-        return new Promise((resolve) => {
-            image.onload = () => {
-                height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
-                assert_default()(ctx);
-                console.log(image.src);
-                canvas.width = width;
-                canvas.height = height;
-                ctx.drawImage(image, 0, 0, width, height);
-                canvas.toBlob(resolve);
-            };
-        });
-    });
-}
-function contentDownloadImage(src) {
-    return image_awaiter(this, void 0, void 0, function* () {
-        const base64 = yield browser_polyfill.runtime.sendMessage({ downloadImage: src });
-        return base64;
-    });
-}
-function backgroundDownloadImage(src) {
-    //if(!height) height = src.height / src.width * width;
-    const imageUrl = src;
-    return new Promise((resolve) => image_awaiter(this, void 0, void 0, function* () {
-        const imageFileResponse = yield fetch(imageUrl);
-        let reader = new FileReader();
-        reader.onload = event => {
-            console.log(reader.result);
-            resolve(reader.result);
-        };
-        const blob = yield imageFileResponse.blob();
-        reader.readAsDataURL(blob);
-    }));
-}
-
-;// CONCATENATED MODULE: ./src/canvas/files.ts
-var files_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-function uploadFile(file, path, url) {
-    return files_awaiter(this, void 0, void 0, function* () {
-        const initialParams = {
-            name: file.name,
-            no_redirect: true,
-            parent_folder_path: path,
-            on_duplicate: 'overwrite'
-        };
-        let response = yield fetch(url, {
-            body: formDataify(initialParams),
-            method: 'POST'
-        });
-        const data = yield response.json();
-        const uploadParams = data.upload_params;
-        const uploadFormData = formDataify(uploadParams);
-        uploadFormData.append('file', file);
-        response = yield fetch(data.upload_url, {
-            method: 'POST',
-            body: uploadFormData,
-        });
-        assert_default()(response.ok);
-    });
 }
 
 ;// CONCATENATED MODULE: ./src/canvas/profile.ts
@@ -46103,6 +46159,77 @@ function overrideConfig(source, override) {
     return out;
 }
 
+;// CONCATENATED MODULE: ./src/canvas/course/modules.ts
+var modules_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+//TODO -- migrate some of the functionality built into course into functions here
+function changeModuleLockDate(courseId, module, targetDate) {
+    return modules_awaiter(this, void 0, void 0, function* () {
+        const payload = {
+            module: {
+                unlock_at: targetDate.toString()
+            }
+        };
+        const url = `courses/${courseId}/modules/${module.id}`;
+        const result = fetchApiJson(url, {
+            fetchInit: {
+                method: 'PUT',
+                body: formDataify(payload)
+            }
+        });
+    });
+}
+function getModuleOverview(module, courseId) {
+    return modules_awaiter(this, void 0, void 0, function* () {
+        let overview = module.items.find(item => item.type === "Page" &&
+            item.title.toLowerCase().includes('overview'));
+        if (!(overview === null || overview === void 0 ? void 0 : overview.url))
+            return; //skip this if it's not an overview
+        const url = overview.url.replace(/.*\/api\/v1/, '/api/v1');
+        const pageData = yield fetchJson(url);
+        const overviewPage = new Page(pageData, courseId);
+        return overviewPage;
+    });
+}
+function getModuleWeekNumber(module) {
+    const regex = /(week|module) (\d+)/i;
+    let match = module.name.match(regex);
+    let weekNumber = !match ? null : Number(match[1]);
+    if (!weekNumber) {
+        for (let moduleItem of module.items) {
+            if (!moduleItem.hasOwnProperty('title')) {
+                continue;
+            }
+            let match = moduleItem.title.match(regex);
+            if (match) {
+                weekNumber = match[2];
+            }
+        }
+    }
+    return weekNumber;
+}
+function getModulesByWeekNumber(modules) {
+    return modules_awaiter(this, void 0, void 0, function* () {
+        let modulesByWeekNumber = {};
+        for (let module of modules) {
+            let weekNumber = getModuleWeekNumber(module);
+            if (weekNumber) {
+                modulesByWeekNumber[weekNumber] = module;
+            }
+        }
+        return modulesByWeekNumber;
+    });
+}
+
 ;// CONCATENATED MODULE: ./src/canvas/course/index.ts
 var course_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -46113,6 +46240,7 @@ var course_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _a
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 
 
 
@@ -46242,7 +46370,7 @@ class Course extends BaseCanvasObject {
                 'event': event,
                 'course_ids[]': courses.map(course => course.id)
             };
-            return yield fetchApiJson(url, {
+            return yield canvasUtils_fetchApiJson(url, {
                 fetchInit: {
                     method: 'PUT',
                     body: JSON.stringify(data)
@@ -46314,12 +46442,17 @@ class Course extends BaseCanvasObject {
         if (this.name.match(/^DEV/))
             return true;
     }
-    getModules() {
+    getModules(config) {
         return course_awaiter(this, void 0, void 0, function* () {
             if (this._modules) {
                 return this._modules;
             }
-            let modules = yield getApiPagedData(`${this.contentUrlPath}/modules?include[]=items&include[]=content_details`);
+            config = overrideConfig(config, {
+                queryParams: {
+                    include: ['items', 'content_details']
+                }
+            });
+            let modules = yield getApiPagedData(`${this.contentUrlPath}/modules`, config);
             this._modules = modules;
             return modules;
         });
@@ -46331,7 +46464,7 @@ class Course extends BaseCanvasObject {
     }
     getInstructors() {
         return course_awaiter(this, void 0, void 0, function* () {
-            return yield fetchApiJson(`courses/${this.id}/users?enrollment_type=teacher`);
+            return yield canvasUtils_fetchApiJson(`courses/${this.id}/users?enrollment_type=teacher`);
         });
     }
     getLatePolicy(config) {
@@ -46339,6 +46472,29 @@ class Course extends BaseCanvasObject {
             const latePolicyResult = yield fetchJson(`/api/v1/courses/${this.id}/late_policy`, config);
             assert_default()('late_policy' in latePolicyResult);
             return latePolicyResult.late_policy;
+        });
+    }
+    getAvailableGradingStandards(config) {
+        return course_awaiter(this, void 0, void 0, function* () {
+            const courseGradingStandards = yield getGradingStandards(this.id, "course", config);
+            const accountGradingStandards = yield getGradingStandards(this.rawData.account_id, 'account', config);
+            const rootAccountGradingStandards = yield getGradingStandards(this.rawData.root_account_id, 'account', config);
+            return [...accountGradingStandards, ...rootAccountGradingStandards, ...courseGradingStandards];
+        });
+    }
+    getCurrentGradingStandard(config) {
+        return course_awaiter(this, void 0, void 0, function* () {
+            const urls = [
+                `/api/v1/accounts/${this.rawData.root_account_id}/grading_standards/${this.rawData.grading_standard_id}`,
+                `/api/v1/accounts/${this.rawData.account_id}/grading_standards/${this.rawData.grading_standard_id}`,
+                `/api/v1/courses/${this.id}/grading_standards/${this.rawData.grading_standard_id}`
+            ];
+            for (let url of urls) {
+                let gradingStandard = yield fetchJson(url);
+                if (!('errors' in gradingStandard))
+                    return gradingStandard;
+            }
+            return null;
         });
     }
     getTerms() {
@@ -46365,20 +46521,13 @@ class Course extends BaseCanvasObject {
             return ContentClass.getFromUrl(url);
         });
     }
-    getModulesByWeekNumber() {
+    getModulesByWeekNumber(config) {
         return course_awaiter(this, void 0, void 0, function* () {
             if (this.modulesByWeekNumber)
                 return this.modulesByWeekNumber;
-            let modules = yield this.getModules();
-            let modulesByWeekNumber = {};
-            for (let module of modules) {
-                let weekNumber = getModuleWeekNumber(module);
-                if (weekNumber) {
-                    modulesByWeekNumber[weekNumber] = module;
-                }
-            }
-            this.modulesByWeekNumber = modulesByWeekNumber;
-            return modulesByWeekNumber;
+            let modules = yield this.getModules(config);
+            this.modulesByWeekNumber = yield getModulesByWeekNumber(modules);
+            return (this.modulesByWeekNumber);
         });
     }
     /**
@@ -46510,12 +46659,12 @@ class Course extends BaseCanvasObject {
     getSubsections() {
         return course_awaiter(this, void 0, void 0, function* () {
             const url = `/api/v1/courses/${this.id}/sections`;
-            return yield fetchApiJson(url);
+            return yield canvasUtils_fetchApiJson(url);
         });
     }
     getTabs(config) {
         return course_awaiter(this, void 0, void 0, function* () {
-            return yield fetchApiJson(`courses/${this.id}/tabs`, config);
+            return yield canvasUtils_fetchApiJson(`courses/${this.id}/tabs`, config);
         });
     }
     getFrontPage() {
@@ -46544,7 +46693,7 @@ class Course extends BaseCanvasObject {
             const tab = this.getTab(label);
             if (!tab)
                 return null;
-            return yield fetchApiJson(`courses/${this.id}/tabs/${tab.id}`, {
+            return yield canvasUtils_fetchApiJson(`courses/${this.id}/tabs/${tab.id}`, {
                 queryParams: { 'hidden': value }
             });
         });
@@ -46552,10 +46701,10 @@ class Course extends BaseCanvasObject {
     changeSyllabus(newHtml) {
         return course_awaiter(this, void 0, void 0, function* () {
             this.canvasData['syllabus_body'] = newHtml;
-            return yield fetchApiJson(`courses/${this.id}`, {
+            return yield canvasUtils_fetchApiJson(`courses/${this.id}`, {
                 fetchInit: {
                     method: 'PUT',
-                    body: formDataify({
+                    body: canvasUtils_formDataify({
                         course: {
                             syllabus_body: newHtml
                         }
@@ -46586,10 +46735,10 @@ class Course extends BaseCanvasObject {
                     "_method": 'PUT'
                 };
                 console.log(body);
-                yield fetchApiJson(url, {
+                yield canvasUtils_fetchApiJson(url, {
                     fetchInit: {
                         method: 'PUT',
-                        body: formDataify(body)
+                        body: canvasUtils_formDataify(body)
                     }
                 });
             }));
@@ -46653,7 +46802,7 @@ class Course extends BaseCanvasObject {
             return yield fetchOneUnknownApiJson(url, {
                 fetchInit: {
                     method: 'PUT',
-                    body: formDataify(data),
+                    body: canvasUtils_formDataify(data),
                 }
             });
         });
@@ -46682,7 +46831,7 @@ class Course extends BaseCanvasObject {
             const courseData = yield fetchOneKnownApiJson(url, {
                 fetchInit: {
                     method: 'PUT',
-                    body: formDataify({ 'offer': true })
+                    body: canvasUtils_formDataify({ 'offer': true })
                 }
             });
             console.log(courseData);
@@ -46693,7 +46842,7 @@ class Course extends BaseCanvasObject {
     unpublish() {
         return course_awaiter(this, void 0, void 0, function* () {
             const url = `courses/${this.id}`;
-            yield fetchApiJson(url, {
+            yield canvasUtils_fetchApiJson(url, {
                 fetchInit: {
                     method: 'PUT',
                     body: JSON.stringify({ 'course[event]': 'claim' })
@@ -46776,17 +46925,12 @@ class Course extends BaseCanvasObject {
     }
     generateHomeTile(module) {
         return course_awaiter(this, void 0, void 0, function* () {
-            let overview = module.items.find(item => item.type === "Page" &&
-                item.title.toLowerCase().includes('overview'));
-            if (!(overview === null || overview === void 0 ? void 0 : overview.url))
-                return; //skip this if it's not an overview
-            const url = overview.url.replace(/.*\/api\/v1/, '/api/v1');
-            const pageData = yield fetchJson(url);
-            const overviewPage = new Page(pageData, this.id);
-            const pageBody = document.createElement('html');
-            pageBody.innerHTML = overviewPage.body;
-            let bannerImg = pageBody.querySelector('.cbt-banner-image img');
-            assert_default()(bannerImg, "Page has no banner");
+            const overviewPage = yield getModuleOverview(module, this.id);
+            if (!overviewPage)
+                throw new Error("Module does not have an overview");
+            const bannerImg = getBannerImage(overviewPage);
+            if (!bannerImg)
+                throw new Error("No banner image on page");
             let resizedImageBlob = yield getResizedBlob(bannerImg.src, HOMETILE_WIDTH);
             let fileName = `hometile${module.position}.png`;
             assert_default()(resizedImageBlob);
@@ -46826,6 +46970,12 @@ class Course extends BaseCanvasObject {
 }
 Course.CODE_REGEX = /^(.+[^_])?_?(\w{4}\d{3})/i; // Adapted to JavaScript's regex syntax.
 Course.contentClasses = [Assignment, Discussion, Quiz, Page];
+function getGradingStandards(contextId, contextType, config) {
+    return course_awaiter(this, void 0, void 0, function* () {
+        const url = `/api/v1/${contextType}s/${contextId}/grading_standards`;
+        return yield getPagedData(url, config);
+    });
+}
 class CourseNotFoundException extends Error {
 }
 

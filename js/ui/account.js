@@ -5245,22 +5245,29 @@ function addToFormData(formData, key, value) {
         formData.append(key, value.toString());
     }
 }
-function getModuleWeekNumber(module) {
-    const regex = /(week|module) (\d+)/i;
-    let match = module.name.match(regex);
-    let weekNumber = !match ? null : Number(match[1]);
-    if (!weekNumber) {
-        for (let moduleItem of module.items) {
-            if (!moduleItem.hasOwnProperty('title')) {
-                continue;
-            }
-            let match = moduleItem.title.match(regex);
-            if (match) {
-                weekNumber = match[2];
-            }
+function queryStringify(data) {
+    let searchParams = new URLSearchParams();
+    for (let key in data) {
+        addToQuery(searchParams, key, data[key]);
+    }
+    ;
+    return searchParams;
+}
+function addToQuery(searchParams, key, value) {
+    if (Array.isArray(value)) {
+        for (let item of value) {
+            addToQuery(searchParams, `${key}[]`, item);
         }
     }
-    return weekNumber;
+    else if (typeof value === 'object') {
+        for (let itemKey in value) {
+            const itemValue = value[itemKey];
+            addToQuery(searchParams, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
+        }
+    }
+    else {
+        searchParams.append(key, value);
+    }
 }
 /**
  * Takes in a module item and returns an object specifying its type and content id
@@ -5288,7 +5295,7 @@ function getItemTypeAndId(item) {
  * @returns {URLSearchParams} The correctly formatted parameters
  */
 function searchParamsFromObject(queryParams) {
-    return new URLSearchParams(queryParams);
+    return queryStringify(queryParams);
 }
 function getApiPagedData(url_1) {
     return __awaiter(this, arguments, void 0, function* (url, config = null) {
@@ -5513,7 +5520,6 @@ class BaseCanvasObject {
         return url;
     }
     /**
-     *
      * @param courseId - The course ID to get elements within, if applicable
      * @param accountId - The account ID to get elements within, if applicable
      */
