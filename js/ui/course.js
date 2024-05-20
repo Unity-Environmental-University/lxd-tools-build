@@ -7508,8 +7508,28 @@ function canvasUtils_formDataify(data) {
         const authenticityToken = el ? el.value : null;
         if (authenticityToken)
             formData.append('authenticity_token', authenticityToken);
+        else {
+            const cookies = getCookies();
+            let csrfToken = cookies['_csrf_token'];
+            csrfToken = csrfToken.replaceAll(/%([0-9A-F]{2})/g, (substring, hex) => {
+                const hexCode = hex;
+                return String.fromCharCode(parseInt(hexCode, 16));
+            });
+            console.log(csrfToken);
+            formData.append('authenticity_token', csrfToken);
+        }
     }
     return formData;
+}
+function getCookies() {
+    const cookieString = document.cookie;
+    const cookies = cookieString.split('; ');
+    const out = {};
+    for (let cookie of cookies) {
+        const [key, value] = cookie.split('=');
+        out[key] = value;
+    }
+    return out;
 }
 /**
  * Adds arrays and objects in the form formData posts expects
@@ -13910,8 +13930,8 @@ function getGradingStandards(contextId, contextType, config) {
 class CourseNotFoundException extends Error {
 }
 
-;// CONCATENATED MODULE: ./src/ui/course/index.tsx
-var ui_course_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+;// CONCATENATED MODULE: ./src/ui/course/HighlightBigImages.tsx
+var HighlightBigImages_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -13922,6 +13942,48 @@ var ui_course_awaiter = (undefined && undefined.__awaiter) || function (thisArg,
 };
 
 
+
+
+function HighlightBigImages({ el, bannerImage, currentContentItem, resizeTo = 1200 }) {
+    const [showModal, setShowModal] = (0,react.useState)(false);
+    const [running, setRunning] = (0,react.useState)(false);
+    const [finished, setFinished] = (0,react.useState)(false);
+    const [showButton, setShowButton] = (0,react.useState)(true);
+    function resizeBanner() {
+        return HighlightBigImages_awaiter(this, void 0, void 0, function* () {
+            setRunning(true);
+            setShowModal(true);
+            yield (currentContentItem === null || currentContentItem === void 0 ? void 0 : currentContentItem.resizeBanner(resizeTo));
+            yield fetch(bannerImage.src, { cache: 'reload', mode: 'no-cors' });
+            bannerImage.src = bannerImage.src + '?' + Date.now();
+            setRunning(false);
+            setFinished(true);
+        });
+    }
+    function notificationBoxStyle() {
+        if (finished)
+            return {};
+        else
+            return {
+                backgroundColor: 'rgba(255,255,255,0.75)',
+                border: "10px dashed red",
+                fontSize: "64px",
+                color: 'rgba(64,0,0,1)'
+            };
+    }
+    return ((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,react_dom.createPortal)((0,jsx_runtime.jsxs)("div", { style: notificationBoxStyle(), children: [(0,jsx_runtime.jsx)("h2", { children: "IMAGE REAL BIG" }), (0,jsx_runtime.jsx)("h4", { children: (0,jsx_runtime.jsx)("strong", { children: "This warning will not appear on student-facing canvas." }) }), showButton && (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("button", { onClick: resizeBanner, children: "Try Resize" }), (0,jsx_runtime.jsx)("div", { children: "This button works about half the time. It may upload the file but not replace the old one sometimes?" }), (0,jsx_runtime.jsx)("div", { children: "Using it won't break anything" })] })] }), el), (0,jsx_runtime.jsxs)(widgets_Modal, { isOpen: showModal, children: [(0,jsx_runtime.jsx)("p", { children: running ? "Replacing banner" : "Finished replacing banner" }), !running && (0,jsx_runtime.jsx)("button", { onClick: () => setShowModal(false), children: "Close" })] })] }));
+}
+
+;// CONCATENATED MODULE: ./src/ui/course/index.tsx
+var ui_course_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 
 
 
@@ -13953,7 +14015,7 @@ var ui_course_awaiter = (undefined && undefined.__awaiter) || function (thisArg,
     }
     if (currentContentItem) {
         yield addOpenAllLinksButton(header, currentContentItem);
-        addHilightBigImageResizer(currentContentItem);
+        addHighlightBigImageResizer(currentContentItem);
     }
     const homeTileHost = document.querySelector('#Modules-anchor');
     if (homeTileHost) {
@@ -14047,7 +14109,7 @@ function openAllLinksInContent(contentItem) {
     for (let url of urls)
         window.open(url, "_blank");
 }
-function addHilightBigImageResizer(currentContentItem) {
+function addHighlightBigImageResizer(currentContentItem) {
     var _a;
     const bannerImageContainer = document.querySelector('div.cbt-banner-image');
     console.log(bannerImageContainer);
@@ -14065,34 +14127,6 @@ function addHilightBigImageResizer(currentContentItem) {
         rootDiv.render((0,jsx_runtime.jsx)(HighlightBigImages, { el: notification, bannerImage: image, currentContentItem: currentContentItem, resizeTo: 1200 }));
         document.body.append(root);
     }
-}
-function HighlightBigImages({ el, bannerImage, currentContentItem, resizeTo = 1200 }) {
-    const [showModal, setShowModal] = (0,react.useState)(false);
-    const [running, setRunning] = (0,react.useState)(false);
-    const [finished, setFinished] = (0,react.useState)(false);
-    function resizeBanner() {
-        return ui_course_awaiter(this, void 0, void 0, function* () {
-            setRunning(true);
-            setShowModal(true);
-            yield (currentContentItem === null || currentContentItem === void 0 ? void 0 : currentContentItem.resizeBanner(resizeTo));
-            yield fetch(bannerImage.src, { cache: 'reload', mode: 'no-cors' });
-            bannerImage.src = bannerImage.src + '?' + Date.now();
-            setRunning(false);
-            setFinished(true);
-        });
-    }
-    function notificationBoxStyle() {
-        if (finished)
-            return {};
-        else
-            return {
-                backgroundColor: 'rgba(255,255,255,0.75)',
-                border: "10px dashed red",
-                fontSize: "64px",
-                color: 'rgba(64,0,0,1)'
-            };
-    }
-    return ((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,react_dom.createPortal)((0,jsx_runtime.jsxs)("div", { style: notificationBoxStyle(), children: [(0,jsx_runtime.jsx)("h2", { children: "IMAGE REAL BIG" }), (0,jsx_runtime.jsx)("h4", { children: (0,jsx_runtime.jsx)("strong", { children: "This warning will not appear on student-facing canvas." }) })] }), el), (0,jsx_runtime.jsxs)(widgets_Modal, { isOpen: showModal, children: [(0,jsx_runtime.jsx)("p", { children: running ? "Replacing banner" : "Finished replacing banner" }), !running && (0,jsx_runtime.jsx)("button", { onClick: () => setShowModal(false), children: "Close" })] })] }));
 }
 
 })();

@@ -36866,8 +36866,28 @@ function formDataify(data) {
         const authenticityToken = el ? el.value : null;
         if (authenticityToken)
             formData.append('authenticity_token', authenticityToken);
+        else {
+            const cookies = getCookies();
+            let csrfToken = cookies['_csrf_token'];
+            csrfToken = csrfToken.replaceAll(/%([0-9A-F]{2})/g, (substring, hex) => {
+                const hexCode = hex;
+                return String.fromCharCode(parseInt(hexCode, 16));
+            });
+            console.log(csrfToken);
+            formData.append('authenticity_token', csrfToken);
+        }
     }
     return formData;
+}
+function getCookies() {
+    const cookieString = document.cookie;
+    const cookies = cookieString.split('; ');
+    const out = {};
+    for (let cookie of cookies) {
+        const [key, value] = cookie.split('=');
+        out[key] = value;
+    }
+    return out;
 }
 /**
  * Adds arrays and objects in the form formData posts expects
@@ -44569,7 +44589,7 @@ const courseProjectOutlineTest = {
         el.innerHTML = pageHtml;
         const h2s = Array.from(el.querySelectorAll('h2'));
         const projectHeadings = h2s.filter(h2 => h2.textContent === 'Project outline');
-        const response = testResult(projectHeadings.length < 1, ["Course project page has 'Project overview' as a header"]);
+        const response = testResult(projectHeadings.length < 1, ["Course project page has 'Project outline' as a header"]);
         if (!response.success)
             response.links = [projectOverview.htmlContentUrl];
         return response;
@@ -44579,19 +44599,6 @@ const courseProjectOutlineTest = {
     courseProjectOutlineTest,
     weeklyObjectivesTest
 ]);
-
-;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/proxyServerLinkValidation.ts
-
-const oldProxyRegex = /https:\/\/login\.proxy1\.unity\.edu\/login\?auth=shibboleth&(?:amp;)?url=([^"]*)/g;
-const newProxyReplace = 'https://login.unity.idn.oclc.org/login?url=$1';
-const oldProxy = 'https://login.proxy1.unity.edu/login?auth=shibboleth&url=';
-const proxyServerLinkValidation = {
-    name: "Proxy Server Link Validation",
-    description: `proxy server link should be ${newProxyReplace.replace('$1', '')} not ${oldProxy}`,
-    run: badContentRunFunc(oldProxyRegex),
-    fix: badContentFixFunc(oldProxyRegex, newProxyReplace),
-};
-/* harmony default export */ const validations_proxyServerLinkValidation = (proxyServerLinkValidation);
 
 ;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/courseSpecific/capstoneProjectValidations.ts
 
@@ -44650,7 +44657,6 @@ var ContentUpdateInterface_awaiter = (undefined && undefined.__awaiter) || funct
 
 
 
-
 class MismatchedUnloadError extends Error {
     constructor() {
         super(...arguments);
@@ -44670,7 +44676,7 @@ const allValidations = [
     ...syllabusTests,
     ...courseSettings,
     ...courseContent,
-    validations_proxyServerLinkValidation,
+    //proxyServerLinkValidation,
 ];
 function ContentUpdateInterface({ course, parentCourse, refreshCourse }) {
     const [validations, setValidations] = (0,react.useState)(allValidations);
@@ -44709,7 +44715,6 @@ function ContentUpdateInterface({ course, parentCourse, refreshCourse }) {
     /* increment and decrement is loading just in case we end up setting it asynchronously somehow */
     function startLoading() {
         setLoadingCount(1);
-        console.log(loadingCount, '+');
         setFailedItems([]);
         setAffectedItems([]);
         setUnaffectedItems([]);
