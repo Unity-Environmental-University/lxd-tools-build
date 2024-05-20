@@ -1878,6 +1878,29 @@ if ($defineProperty) {
 
 /***/ }),
 
+/***/ 276:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   A: () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1354);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6314);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, `.lxd-notice{font-size:12px}`, "",{"version":3,"sources":["webpack://./src/ui/course/bigImages.scss"],"names":[],"mappings":"AAAA,YACE,cAAA","sourcesContent":[".lxd-notice {\r\n  font-size: 12px;\r\n}"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 6399:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -12381,7 +12404,7 @@ Discussion.allContentUrlTemplate = "courses/{course_id}/discussion_topics";
 class Assignment extends BaseContentItem {
     setDueAt(dueAt) {
         return content_awaiter(this, void 0, void 0, function* () {
-            const currentDueAt = this.dueAt ? mr.Instant.from(this.rawData.due_at) : null;
+            const sourceDueAt = this.dueAt ? mr.Instant.from(this.rawData.due_at) : null;
             const targetDueAt = mr.Instant.from(dueAt.toISOString());
             const payload = {
                 assignment: {
@@ -12390,10 +12413,11 @@ class Assignment extends BaseContentItem {
             };
             if (this.rawData.peer_reviews && 'automatic_peer_reviews' in this.rawData) {
                 const peerReviewTime = mr.Instant.from(this.rawData.peer_reviews_assign_at);
-                assert_default()(currentDueAt, "Trying to set peer review date without a due date for the assignment.");
-                const peerReviewOffset = currentDueAt.until(peerReviewTime);
+                assert_default()(sourceDueAt, "Trying to set peer review date without a due date for the assignment.");
+                const peerReviewOffset = sourceDueAt.until(peerReviewTime);
                 const newPeerReviewTime = targetDueAt.add(peerReviewOffset);
-                payload.assignment.peer_review_due_at = new Date(newPeerReviewTime.epochMilliseconds).toISOString();
+                const newIsoString = new Date(newPeerReviewTime.epochMilliseconds).toISOString();
+                payload.assignment.peer_reviews_assign_at = newIsoString;
             }
             let data = yield this.saveData(payload);
             this.canvasData['due_at'] = dueAt.toISOString();
@@ -13930,6 +13954,37 @@ function getGradingStandards(contextId, contextType, config) {
 class CourseNotFoundException extends Error {
 }
 
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/ui/course/bigImages.scss
+var bigImages = __webpack_require__(276);
+;// CONCATENATED MODULE: ./src/ui/course/bigImages.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var bigImages_options = {};
+
+bigImages_options.styleTagTransform = (styleTagTransform_default());
+bigImages_options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      bigImages_options.insert = insertBySelector_default().bind(null, "head");
+    
+bigImages_options.domAPI = (styleDomAPI_default());
+bigImages_options.insertStyleElement = (insertStyleElement_default());
+
+var bigImages_update = injectStylesIntoStyleTag_default()(bigImages/* default */.A, bigImages_options);
+
+
+
+
+       /* harmony default export */ const course_bigImages = (bigImages/* default */.A && bigImages/* default */.A.locals ? bigImages/* default */.A.locals : undefined);
+
 ;// CONCATENATED MODULE: ./src/ui/course/HighlightBigImages.tsx
 var HighlightBigImages_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -13940,6 +13995,7 @@ var HighlightBigImages_awaiter = (undefined && undefined.__awaiter) || function 
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 
 
 
@@ -13971,7 +14027,7 @@ function HighlightBigImages({ el, bannerImage, currentContentItem, resizeTo = 12
                 color: 'rgba(64,0,0,1)'
             };
     }
-    return ((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,react_dom.createPortal)((0,jsx_runtime.jsxs)("div", { style: notificationBoxStyle(), children: [(0,jsx_runtime.jsx)("h2", { children: "IMAGE REAL BIG" }), (0,jsx_runtime.jsx)("h4", { children: (0,jsx_runtime.jsx)("strong", { children: "This warning will not appear on student-facing canvas." }) }), showButton && (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("button", { onClick: resizeBanner, children: "Try Resize" }), (0,jsx_runtime.jsx)("div", { children: "This button works about half the time. It may upload the file but not replace the old one sometimes?" }), (0,jsx_runtime.jsx)("div", { children: "Using it won't break anything" })] })] }), el), (0,jsx_runtime.jsxs)(widgets_Modal, { isOpen: showModal, children: [(0,jsx_runtime.jsx)("p", { children: running ? "Replacing banner" : "Finished replacing banner" }), !running && (0,jsx_runtime.jsx)("button", { onClick: () => setShowModal(false), children: "Close" })] })] }));
+    return ((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,react_dom.createPortal)((0,jsx_runtime.jsxs)("div", { style: notificationBoxStyle(), children: [(0,jsx_runtime.jsx)("h2", { children: "IMAGE REAL BIG" }), (0,jsx_runtime.jsx)("h4", { children: (0,jsx_runtime.jsx)("strong", { children: "This warning will not appear on student-facing canvas." }) }), showButton && (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("button", { onClick: resizeBanner, children: "Try Resize" }), (0,jsx_runtime.jsx)("div", { className: "lxd-notice", children: "This button works about half the time. It may upload the file but not replace the old one sometimes?" }), (0,jsx_runtime.jsx)("div", { className: "lxd-notice", children: "Using it won't break anything" })] })] }), el), (0,jsx_runtime.jsxs)(widgets_Modal, { isOpen: showModal, children: [(0,jsx_runtime.jsx)("p", { children: running ? "Replacing banner" : "Finished replacing banner" }), !running && (0,jsx_runtime.jsx)("button", { onClick: () => setShowModal(false), children: "Close" })] })] }));
 }
 
 ;// CONCATENATED MODULE: ./src/ui/course/index.tsx

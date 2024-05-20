@@ -41739,7 +41739,7 @@ Discussion.allContentUrlTemplate = "courses/{course_id}/discussion_topics";
 class Assignment extends BaseContentItem {
     setDueAt(dueAt) {
         return content_awaiter(this, void 0, void 0, function* () {
-            const currentDueAt = this.dueAt ? mr.Instant.from(this.rawData.due_at) : null;
+            const sourceDueAt = this.dueAt ? mr.Instant.from(this.rawData.due_at) : null;
             const targetDueAt = mr.Instant.from(dueAt.toISOString());
             const payload = {
                 assignment: {
@@ -41748,10 +41748,11 @@ class Assignment extends BaseContentItem {
             };
             if (this.rawData.peer_reviews && 'automatic_peer_reviews' in this.rawData) {
                 const peerReviewTime = mr.Instant.from(this.rawData.peer_reviews_assign_at);
-                assert_default()(currentDueAt, "Trying to set peer review date without a due date for the assignment.");
-                const peerReviewOffset = currentDueAt.until(peerReviewTime);
+                assert_default()(sourceDueAt, "Trying to set peer review date without a due date for the assignment.");
+                const peerReviewOffset = sourceDueAt.until(peerReviewTime);
                 const newPeerReviewTime = targetDueAt.add(peerReviewOffset);
-                payload.assignment.peer_review_due_at = new Date(newPeerReviewTime.epochMilliseconds).toISOString();
+                const newIsoString = new Date(newPeerReviewTime.epochMilliseconds).toISOString();
+                payload.assignment.peer_reviews_assign_at = newIsoString;
             }
             let data = yield this.saveData(payload);
             this.canvasData['due_at'] = dueAt.toISOString();
