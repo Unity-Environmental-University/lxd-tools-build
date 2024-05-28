@@ -1,14 +1,11 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./node_modules/assert/build/assert.js":
-/*!*********************************************!*\
-  !*** ./node_modules/assert/build/assert.js ***!
-  \*********************************************/
+/***/ 4148:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
+/* provided dependency */ var process = __webpack_require__(5606);
 // Currently in sync with Node.js lib/assert.js
 // https://github.com/nodejs/node/commit/2a51ae424a513ec9a6aa3466baa0cc1d55dd4f3b
 
@@ -40,22 +37,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-var _require = __webpack_require__(/*! ./internal/errors */ "./node_modules/assert/build/internal/errors.js"),
+var _require = __webpack_require__(9597),
   _require$codes = _require.codes,
   ERR_AMBIGUOUS_ARGUMENT = _require$codes.ERR_AMBIGUOUS_ARGUMENT,
   ERR_INVALID_ARG_TYPE = _require$codes.ERR_INVALID_ARG_TYPE,
   ERR_INVALID_ARG_VALUE = _require$codes.ERR_INVALID_ARG_VALUE,
   ERR_INVALID_RETURN_VALUE = _require$codes.ERR_INVALID_RETURN_VALUE,
   ERR_MISSING_ARGS = _require$codes.ERR_MISSING_ARGS;
-var AssertionError = __webpack_require__(/*! ./internal/assert/assertion_error */ "./node_modules/assert/build/internal/assert/assertion_error.js");
-var _require2 = __webpack_require__(/*! util/ */ "./node_modules/util/util.js"),
+var AssertionError = __webpack_require__(3918);
+var _require2 = __webpack_require__(537),
   inspect = _require2.inspect;
-var _require$types = (__webpack_require__(/*! util/ */ "./node_modules/util/util.js").types),
+var _require$types = (__webpack_require__(537).types),
   isPromise = _require$types.isPromise,
   isRegExp = _require$types.isRegExp;
-var objectAssign = __webpack_require__(/*! object.assign/polyfill */ "./node_modules/object.assign/polyfill.js")();
-var objectIs = __webpack_require__(/*! object-is/polyfill */ "./node_modules/object-is/polyfill.js")();
-var RegExpPrototypeTest = __webpack_require__(/*! call-bind/callBound */ "./node_modules/call-bind/callBound.js")('RegExp.prototype.test');
+var objectAssign = __webpack_require__(1514)();
+var objectIs = __webpack_require__(9394)();
+var RegExpPrototypeTest = __webpack_require__(8075)('RegExp.prototype.test');
 var errorCache = new Map();
 var isDeepEqual;
 var isDeepStrictEqual;
@@ -63,7 +60,7 @@ var parseExpressionAt;
 var findNodeAround;
 var decoder;
 function lazyLoadComparison() {
-  var comparison = __webpack_require__(/*! ./internal/util/comparisons */ "./node_modules/assert/build/internal/util/comparisons.js");
+  var comparison = __webpack_require__(2299);
   isDeepEqual = comparison.isDeepEqual;
   isDeepStrictEqual = comparison.isDeepStrictEqual;
 }
@@ -72,7 +69,7 @@ function lazyLoadComparison() {
 // indentation intact.
 // eslint-disable-next-line no-control-regex
 var escapeSequencesRegExp = /[\x00-\x08\x0b\x0c\x0e-\x1f]/g;
-var meta = ["\\u0000", "\\u0001", "\\u0002", "\\u0003", "\\u0004", "\\u0005", "\\u0006", "\\u0007", '\\b', '', '', "\\u000b", '\\f', '', "\\u000e", "\\u000f", "\\u0010", "\\u0011", "\\u0012", "\\u0013", "\\u0014", "\\u0015", "\\u0016", "\\u0017", "\\u0018", "\\u0019", "\\u001a", "\\u001b", "\\u001c", "\\u001d", "\\u001e", "\\u001f"];
+var meta = (/* unused pure expression or super */ null && (["\\u0000", "\\u0001", "\\u0002", "\\u0003", "\\u0004", "\\u0005", "\\u0006", "\\u0007", '\\b', '', '', "\\u000b", '\\f', '', "\\u000e", "\\u000f", "\\u0010", "\\u0011", "\\u0012", "\\u0013", "\\u0014", "\\u0015", "\\u0016", "\\u0017", "\\u0018", "\\u0019", "\\u001a", "\\u001b", "\\u001c", "\\u001d", "\\u001e", "\\u001f"]));
 var escapeFn = function escapeFn(str) {
   return meta[str.charCodeAt(0)];
 };
@@ -602,14 +599,11 @@ assert.strict.strict = assert.strict;
 
 /***/ }),
 
-/***/ "./node_modules/assert/build/internal/assert/assertion_error.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/assert/build/internal/assert/assertion_error.js ***!
-  \**********************************************************************/
+/***/ 3918:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
+/* provided dependency */ var process = __webpack_require__(5606);
 // Currently in sync with Node.js lib/internal/assert/assertion_error.js
 // https://github.com/nodejs/node/commit/0817840f775032169ddd70c85ac059f18ffcc81c
 
@@ -634,9 +628,9 @@ function _isNativeFunction(fn) { return Function.toString.call(fn).indexOf("[nat
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-var _require = __webpack_require__(/*! util/ */ "./node_modules/util/util.js"),
+var _require = __webpack_require__(537),
   inspect = _require.inspect;
-var _require2 = __webpack_require__(/*! ../errors */ "./node_modules/assert/build/internal/errors.js"),
+var _require2 = __webpack_require__(9597),
   ERR_INVALID_ARG_TYPE = _require2.codes.ERR_INVALID_ARG_TYPE;
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith
@@ -1058,10 +1052,7 @@ module.exports = AssertionError;
 
 /***/ }),
 
-/***/ "./node_modules/assert/build/internal/errors.js":
-/*!******************************************************!*\
-  !*** ./node_modules/assert/build/internal/errors.js ***!
-  \******************************************************/
+/***/ 9597:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -1168,7 +1159,7 @@ function includes(str, search, start) {
 }
 createErrorType('ERR_AMBIGUOUS_ARGUMENT', 'The "%s" argument is ambiguous. %s', TypeError);
 createErrorType('ERR_INVALID_ARG_TYPE', function (name, expected, actual) {
-  if (assert === undefined) assert = __webpack_require__(/*! ../assert */ "./node_modules/assert/build/assert.js");
+  if (assert === undefined) assert = __webpack_require__(4148);
   assert(typeof name === 'string', "'name' must be a string");
 
   // determiner: 'must be' or 'must not be'
@@ -1194,7 +1185,7 @@ createErrorType('ERR_INVALID_ARG_TYPE', function (name, expected, actual) {
 }, TypeError);
 createErrorType('ERR_INVALID_ARG_VALUE', function (name, value) {
   var reason = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'is invalid';
-  if (util === undefined) util = __webpack_require__(/*! util/ */ "./node_modules/util/util.js");
+  if (util === undefined) util = __webpack_require__(537);
   var inspected = util.inspect(value);
   if (inspected.length > 128) {
     inspected = "".concat(inspected.slice(0, 128), "...");
@@ -1214,7 +1205,7 @@ createErrorType('ERR_MISSING_ARGS', function () {
   for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
   }
-  if (assert === undefined) assert = __webpack_require__(/*! ../assert */ "./node_modules/assert/build/assert.js");
+  if (assert === undefined) assert = __webpack_require__(4148);
   assert(args.length > 0, 'At least one arg needs to be specified');
   var msg = 'The ';
   var len = args.length;
@@ -1239,10 +1230,7 @@ module.exports.codes = codes;
 
 /***/ }),
 
-/***/ "./node_modules/assert/build/internal/util/comparisons.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/assert/build/internal/util/comparisons.js ***!
-  \****************************************************************/
+/***/ 2299:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -1273,18 +1261,18 @@ var arrayFromMap = function arrayFromMap(map) {
   });
   return array;
 };
-var objectIs = Object.is ? Object.is : __webpack_require__(/*! object-is */ "./node_modules/object-is/index.js");
+var objectIs = Object.is ? Object.is : __webpack_require__(7653);
 var objectGetOwnPropertySymbols = Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols : function () {
   return [];
 };
-var numberIsNaN = Number.isNaN ? Number.isNaN : __webpack_require__(/*! is-nan */ "./node_modules/is-nan/index.js");
+var numberIsNaN = Number.isNaN ? Number.isNaN : __webpack_require__(4133);
 function uncurryThis(f) {
   return f.call.bind(f);
 }
 var hasOwnProperty = uncurryThis(Object.prototype.hasOwnProperty);
 var propertyIsEnumerable = uncurryThis(Object.prototype.propertyIsEnumerable);
 var objectToString = uncurryThis(Object.prototype.toString);
-var _require$types = (__webpack_require__(/*! util/ */ "./node_modules/util/util.js").types),
+var _require$types = (__webpack_require__(537).types),
   isAnyArrayBuffer = _require$types.isAnyArrayBuffer,
   isArrayBufferView = _require$types.isArrayBufferView,
   isDate = _require$types.isDate,
@@ -1824,18 +1812,15 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/call-bind/callBound.js":
-/*!*********************************************!*\
-  !*** ./node_modules/call-bind/callBound.js ***!
-  \*********************************************/
+/***/ 8075:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var GetIntrinsic = __webpack_require__(/*! get-intrinsic */ "./node_modules/get-intrinsic/index.js");
+var GetIntrinsic = __webpack_require__(453);
 
-var callBind = __webpack_require__(/*! ./ */ "./node_modules/call-bind/index.js");
+var callBind = __webpack_require__(487);
 
 var $indexOf = callBind(GetIntrinsic('String.prototype.indexOf'));
 
@@ -1850,25 +1835,22 @@ module.exports = function callBoundIntrinsic(name, allowMissing) {
 
 /***/ }),
 
-/***/ "./node_modules/call-bind/index.js":
-/*!*****************************************!*\
-  !*** ./node_modules/call-bind/index.js ***!
-  \*****************************************/
+/***/ 487:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var bind = __webpack_require__(/*! function-bind */ "./node_modules/function-bind/index.js");
-var GetIntrinsic = __webpack_require__(/*! get-intrinsic */ "./node_modules/get-intrinsic/index.js");
-var setFunctionLength = __webpack_require__(/*! set-function-length */ "./node_modules/set-function-length/index.js");
+var bind = __webpack_require__(6743);
+var GetIntrinsic = __webpack_require__(453);
+var setFunctionLength = __webpack_require__(6897);
 
-var $TypeError = __webpack_require__(/*! es-errors/type */ "./node_modules/es-errors/type.js");
+var $TypeError = __webpack_require__(9675);
 var $apply = GetIntrinsic('%Function.prototype.apply%');
 var $call = GetIntrinsic('%Function.prototype.call%');
 var $reflectApply = GetIntrinsic('%Reflect.apply%', true) || bind.call($call, $apply);
 
-var $defineProperty = __webpack_require__(/*! es-define-property */ "./node_modules/es-define-property/index.js");
+var $defineProperty = __webpack_require__(655);
 var $max = GetIntrinsic('%Math.max%');
 
 module.exports = function callBind(originalFunction) {
@@ -1896,21 +1878,18 @@ if ($defineProperty) {
 
 /***/ }),
 
-/***/ "./node_modules/define-data-property/index.js":
-/*!****************************************************!*\
-  !*** ./node_modules/define-data-property/index.js ***!
-  \****************************************************/
+/***/ 41:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var $defineProperty = __webpack_require__(/*! es-define-property */ "./node_modules/es-define-property/index.js");
+var $defineProperty = __webpack_require__(655);
 
-var $SyntaxError = __webpack_require__(/*! es-errors/syntax */ "./node_modules/es-errors/syntax.js");
-var $TypeError = __webpack_require__(/*! es-errors/type */ "./node_modules/es-errors/type.js");
+var $SyntaxError = __webpack_require__(8068);
+var $TypeError = __webpack_require__(9675);
 
-var gopd = __webpack_require__(/*! gopd */ "./node_modules/gopd/index.js");
+var gopd = __webpack_require__(5795);
 
 /** @type {import('.')} */
 module.exports = function defineDataProperty(
@@ -1963,27 +1942,24 @@ module.exports = function defineDataProperty(
 
 /***/ }),
 
-/***/ "./node_modules/define-properties/index.js":
-/*!*************************************************!*\
-  !*** ./node_modules/define-properties/index.js ***!
-  \*************************************************/
+/***/ 8452:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var keys = __webpack_require__(/*! object-keys */ "./node_modules/object-keys/index.js");
+var keys = __webpack_require__(1189);
 var hasSymbols = typeof Symbol === 'function' && typeof Symbol('foo') === 'symbol';
 
 var toStr = Object.prototype.toString;
 var concat = Array.prototype.concat;
-var defineDataProperty = __webpack_require__(/*! define-data-property */ "./node_modules/define-data-property/index.js");
+var defineDataProperty = __webpack_require__(41);
 
 var isFunction = function (fn) {
 	return typeof fn === 'function' && toStr.call(fn) === '[object Function]';
 };
 
-var supportsDescriptors = __webpack_require__(/*! has-property-descriptors */ "./node_modules/has-property-descriptors/index.js")();
+var supportsDescriptors = __webpack_require__(592)();
 
 var defineProperty = function (object, name, value, predicate) {
 	if (name in object) {
@@ -2021,16 +1997,13 @@ module.exports = defineProperties;
 
 /***/ }),
 
-/***/ "./node_modules/es-define-property/index.js":
-/*!**************************************************!*\
-  !*** ./node_modules/es-define-property/index.js ***!
-  \**************************************************/
+/***/ 655:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var GetIntrinsic = __webpack_require__(/*! get-intrinsic */ "./node_modules/get-intrinsic/index.js");
+var GetIntrinsic = __webpack_require__(453);
 
 /** @type {import('.')} */
 var $defineProperty = GetIntrinsic('%Object.defineProperty%', true) || false;
@@ -2048,10 +2021,7 @@ module.exports = $defineProperty;
 
 /***/ }),
 
-/***/ "./node_modules/es-errors/eval.js":
-/*!****************************************!*\
-  !*** ./node_modules/es-errors/eval.js ***!
-  \****************************************/
+/***/ 1237:
 /***/ ((module) => {
 
 "use strict";
@@ -2063,10 +2033,7 @@ module.exports = EvalError;
 
 /***/ }),
 
-/***/ "./node_modules/es-errors/index.js":
-/*!*****************************************!*\
-  !*** ./node_modules/es-errors/index.js ***!
-  \*****************************************/
+/***/ 9383:
 /***/ ((module) => {
 
 "use strict";
@@ -2078,10 +2045,7 @@ module.exports = Error;
 
 /***/ }),
 
-/***/ "./node_modules/es-errors/range.js":
-/*!*****************************************!*\
-  !*** ./node_modules/es-errors/range.js ***!
-  \*****************************************/
+/***/ 9290:
 /***/ ((module) => {
 
 "use strict";
@@ -2093,10 +2057,7 @@ module.exports = RangeError;
 
 /***/ }),
 
-/***/ "./node_modules/es-errors/ref.js":
-/*!***************************************!*\
-  !*** ./node_modules/es-errors/ref.js ***!
-  \***************************************/
+/***/ 9538:
 /***/ ((module) => {
 
 "use strict";
@@ -2108,10 +2069,7 @@ module.exports = ReferenceError;
 
 /***/ }),
 
-/***/ "./node_modules/es-errors/syntax.js":
-/*!******************************************!*\
-  !*** ./node_modules/es-errors/syntax.js ***!
-  \******************************************/
+/***/ 8068:
 /***/ ((module) => {
 
 "use strict";
@@ -2123,10 +2081,7 @@ module.exports = SyntaxError;
 
 /***/ }),
 
-/***/ "./node_modules/es-errors/type.js":
-/*!****************************************!*\
-  !*** ./node_modules/es-errors/type.js ***!
-  \****************************************/
+/***/ 9675:
 /***/ ((module) => {
 
 "use strict";
@@ -2138,10 +2093,7 @@ module.exports = TypeError;
 
 /***/ }),
 
-/***/ "./node_modules/es-errors/uri.js":
-/*!***************************************!*\
-  !*** ./node_modules/es-errors/uri.js ***!
-  \***************************************/
+/***/ 5345:
 /***/ ((module) => {
 
 "use strict";
@@ -2153,16 +2105,13 @@ module.exports = URIError;
 
 /***/ }),
 
-/***/ "./node_modules/for-each/index.js":
-/*!****************************************!*\
-  !*** ./node_modules/for-each/index.js ***!
-  \****************************************/
+/***/ 2682:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var isCallable = __webpack_require__(/*! is-callable */ "./node_modules/is-callable/index.js");
+var isCallable = __webpack_require__(9600);
 
 var toStr = Object.prototype.toString;
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -2226,10 +2175,7 @@ module.exports = forEach;
 
 /***/ }),
 
-/***/ "./node_modules/function-bind/implementation.js":
-/*!******************************************************!*\
-  !*** ./node_modules/function-bind/implementation.js ***!
-  \******************************************************/
+/***/ 9353:
 /***/ ((module) => {
 
 "use strict";
@@ -2321,26 +2267,20 @@ module.exports = function bind(that) {
 
 /***/ }),
 
-/***/ "./node_modules/function-bind/index.js":
-/*!*********************************************!*\
-  !*** ./node_modules/function-bind/index.js ***!
-  \*********************************************/
+/***/ 6743:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var implementation = __webpack_require__(/*! ./implementation */ "./node_modules/function-bind/implementation.js");
+var implementation = __webpack_require__(9353);
 
 module.exports = Function.prototype.bind || implementation;
 
 
 /***/ }),
 
-/***/ "./node_modules/get-intrinsic/index.js":
-/*!*********************************************!*\
-  !*** ./node_modules/get-intrinsic/index.js ***!
-  \*********************************************/
+/***/ 453:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -2348,13 +2288,13 @@ module.exports = Function.prototype.bind || implementation;
 
 var undefined;
 
-var $Error = __webpack_require__(/*! es-errors */ "./node_modules/es-errors/index.js");
-var $EvalError = __webpack_require__(/*! es-errors/eval */ "./node_modules/es-errors/eval.js");
-var $RangeError = __webpack_require__(/*! es-errors/range */ "./node_modules/es-errors/range.js");
-var $ReferenceError = __webpack_require__(/*! es-errors/ref */ "./node_modules/es-errors/ref.js");
-var $SyntaxError = __webpack_require__(/*! es-errors/syntax */ "./node_modules/es-errors/syntax.js");
-var $TypeError = __webpack_require__(/*! es-errors/type */ "./node_modules/es-errors/type.js");
-var $URIError = __webpack_require__(/*! es-errors/uri */ "./node_modules/es-errors/uri.js");
+var $Error = __webpack_require__(9383);
+var $EvalError = __webpack_require__(1237);
+var $RangeError = __webpack_require__(9290);
+var $ReferenceError = __webpack_require__(9538);
+var $SyntaxError = __webpack_require__(8068);
+var $TypeError = __webpack_require__(9675);
+var $URIError = __webpack_require__(5345);
 
 var $Function = Function;
 
@@ -2394,8 +2334,8 @@ var ThrowTypeError = $gOPD
 	}())
 	: throwTypeError;
 
-var hasSymbols = __webpack_require__(/*! has-symbols */ "./node_modules/has-symbols/index.js")();
-var hasProto = __webpack_require__(/*! has-proto */ "./node_modules/has-proto/index.js")();
+var hasSymbols = __webpack_require__(4039)();
+var hasProto = __webpack_require__(24)();
 
 var getProto = Object.getPrototypeOf || (
 	hasProto
@@ -2567,8 +2507,8 @@ var LEGACY_ALIASES = {
 	'%WeakSetPrototype%': ['WeakSet', 'prototype']
 };
 
-var bind = __webpack_require__(/*! function-bind */ "./node_modules/function-bind/index.js");
-var hasOwn = __webpack_require__(/*! hasown */ "./node_modules/hasown/index.js");
+var bind = __webpack_require__(6743);
+var hasOwn = __webpack_require__(9957);
 var $concat = bind.call(Function.call, Array.prototype.concat);
 var $spliceApply = bind.call(Function.apply, Array.prototype.splice);
 var $replace = bind.call(Function.call, String.prototype.replace);
@@ -2707,16 +2647,13 @@ module.exports = function GetIntrinsic(name, allowMissing) {
 
 /***/ }),
 
-/***/ "./node_modules/gopd/index.js":
-/*!************************************!*\
-  !*** ./node_modules/gopd/index.js ***!
-  \************************************/
+/***/ 5795:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var GetIntrinsic = __webpack_require__(/*! get-intrinsic */ "./node_modules/get-intrinsic/index.js");
+var GetIntrinsic = __webpack_require__(453);
 
 var $gOPD = GetIntrinsic('%Object.getOwnPropertyDescriptor%', true);
 
@@ -2734,16 +2671,13 @@ module.exports = $gOPD;
 
 /***/ }),
 
-/***/ "./node_modules/has-property-descriptors/index.js":
-/*!********************************************************!*\
-  !*** ./node_modules/has-property-descriptors/index.js ***!
-  \********************************************************/
+/***/ 592:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var $defineProperty = __webpack_require__(/*! es-define-property */ "./node_modules/es-define-property/index.js");
+var $defineProperty = __webpack_require__(655);
 
 var hasPropertyDescriptors = function hasPropertyDescriptors() {
 	return !!$defineProperty;
@@ -2767,10 +2701,7 @@ module.exports = hasPropertyDescriptors;
 
 /***/ }),
 
-/***/ "./node_modules/has-proto/index.js":
-/*!*****************************************!*\
-  !*** ./node_modules/has-proto/index.js ***!
-  \*****************************************/
+/***/ 24:
 /***/ ((module) => {
 
 "use strict";
@@ -2793,17 +2724,14 @@ module.exports = function hasProto() {
 
 /***/ }),
 
-/***/ "./node_modules/has-symbols/index.js":
-/*!*******************************************!*\
-  !*** ./node_modules/has-symbols/index.js ***!
-  \*******************************************/
+/***/ 4039:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
 var origSymbol = typeof Symbol !== 'undefined' && Symbol;
-var hasSymbolSham = __webpack_require__(/*! ./shams */ "./node_modules/has-symbols/shams.js");
+var hasSymbolSham = __webpack_require__(1333);
 
 module.exports = function hasNativeSymbols() {
 	if (typeof origSymbol !== 'function') { return false; }
@@ -2817,10 +2745,7 @@ module.exports = function hasNativeSymbols() {
 
 /***/ }),
 
-/***/ "./node_modules/has-symbols/shams.js":
-/*!*******************************************!*\
-  !*** ./node_modules/has-symbols/shams.js ***!
-  \*******************************************/
+/***/ 1333:
 /***/ ((module) => {
 
 "use strict";
@@ -2870,16 +2795,13 @@ module.exports = function hasSymbols() {
 
 /***/ }),
 
-/***/ "./node_modules/has-tostringtag/shams.js":
-/*!***********************************************!*\
-  !*** ./node_modules/has-tostringtag/shams.js ***!
-  \***********************************************/
+/***/ 9092:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var hasSymbols = __webpack_require__(/*! has-symbols/shams */ "./node_modules/has-symbols/shams.js");
+var hasSymbols = __webpack_require__(1333);
 
 /** @type {import('.')} */
 module.exports = function hasToStringTagShams() {
@@ -2889,10 +2811,7 @@ module.exports = function hasToStringTagShams() {
 
 /***/ }),
 
-/***/ "./node_modules/hasown/index.js":
-/*!**************************************!*\
-  !*** ./node_modules/hasown/index.js ***!
-  \**************************************/
+/***/ 9957:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -2900,7 +2819,7 @@ module.exports = function hasToStringTagShams() {
 
 var call = Function.prototype.call;
 var $hasOwn = Object.prototype.hasOwnProperty;
-var bind = __webpack_require__(/*! function-bind */ "./node_modules/function-bind/index.js");
+var bind = __webpack_require__(6743);
 
 /** @type {import('.')} */
 module.exports = bind.call(call, $hasOwn);
@@ -2908,10 +2827,7 @@ module.exports = bind.call(call, $hasOwn);
 
 /***/ }),
 
-/***/ "./node_modules/inherits/inherits_browser.js":
-/*!***************************************************!*\
-  !*** ./node_modules/inherits/inherits_browser.js ***!
-  \***************************************************/
+/***/ 6698:
 /***/ ((module) => {
 
 if (typeof Object.create === 'function') {
@@ -2945,17 +2861,14 @@ if (typeof Object.create === 'function') {
 
 /***/ }),
 
-/***/ "./node_modules/is-arguments/index.js":
-/*!********************************************!*\
-  !*** ./node_modules/is-arguments/index.js ***!
-  \********************************************/
+/***/ 7244:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "./node_modules/has-tostringtag/shams.js")();
-var callBound = __webpack_require__(/*! call-bind/callBound */ "./node_modules/call-bind/callBound.js");
+var hasToStringTag = __webpack_require__(9092)();
+var callBound = __webpack_require__(8075);
 
 var $toString = callBound('Object.prototype.toString');
 
@@ -2989,10 +2902,7 @@ module.exports = supportsStandardArguments ? isStandardArguments : isLegacyArgum
 
 /***/ }),
 
-/***/ "./node_modules/is-callable/index.js":
-/*!*******************************************!*\
-  !*** ./node_modules/is-callable/index.js ***!
-  \*******************************************/
+/***/ 9600:
 /***/ ((module) => {
 
 "use strict";
@@ -3101,10 +3011,7 @@ module.exports = reflectApply
 
 /***/ }),
 
-/***/ "./node_modules/is-generator-function/index.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/is-generator-function/index.js ***!
-  \*****************************************************/
+/***/ 8184:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -3113,7 +3020,7 @@ module.exports = reflectApply
 var toStr = Object.prototype.toString;
 var fnToStr = Function.prototype.toString;
 var isFnRegex = /^\s*(?:function)?\*/;
-var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "./node_modules/has-tostringtag/shams.js")();
+var hasToStringTag = __webpack_require__(9092)();
 var getProto = Object.getPrototypeOf;
 var getGeneratorFunc = function () { // eslint-disable-line consistent-return
 	if (!hasToStringTag) {
@@ -3150,10 +3057,7 @@ module.exports = function isGeneratorFunction(fn) {
 
 /***/ }),
 
-/***/ "./node_modules/is-nan/implementation.js":
-/*!***********************************************!*\
-  !*** ./node_modules/is-nan/implementation.js ***!
-  \***********************************************/
+/***/ 3003:
 /***/ ((module) => {
 
 "use strict";
@@ -3168,21 +3072,18 @@ module.exports = function isNaN(value) {
 
 /***/ }),
 
-/***/ "./node_modules/is-nan/index.js":
-/*!**************************************!*\
-  !*** ./node_modules/is-nan/index.js ***!
-  \**************************************/
+/***/ 4133:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var callBind = __webpack_require__(/*! call-bind */ "./node_modules/call-bind/index.js");
-var define = __webpack_require__(/*! define-properties */ "./node_modules/define-properties/index.js");
+var callBind = __webpack_require__(487);
+var define = __webpack_require__(8452);
 
-var implementation = __webpack_require__(/*! ./implementation */ "./node_modules/is-nan/implementation.js");
-var getPolyfill = __webpack_require__(/*! ./polyfill */ "./node_modules/is-nan/polyfill.js");
-var shim = __webpack_require__(/*! ./shim */ "./node_modules/is-nan/shim.js");
+var implementation = __webpack_require__(3003);
+var getPolyfill = __webpack_require__(6642);
+var shim = __webpack_require__(2464);
 
 var polyfill = callBind(getPolyfill(), Number);
 
@@ -3199,16 +3100,13 @@ module.exports = polyfill;
 
 /***/ }),
 
-/***/ "./node_modules/is-nan/polyfill.js":
-/*!*****************************************!*\
-  !*** ./node_modules/is-nan/polyfill.js ***!
-  \*****************************************/
+/***/ 6642:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var implementation = __webpack_require__(/*! ./implementation */ "./node_modules/is-nan/implementation.js");
+var implementation = __webpack_require__(3003);
 
 module.exports = function getPolyfill() {
 	if (Number.isNaN && Number.isNaN(NaN) && !Number.isNaN('a')) {
@@ -3220,17 +3118,14 @@ module.exports = function getPolyfill() {
 
 /***/ }),
 
-/***/ "./node_modules/is-nan/shim.js":
-/*!*************************************!*\
-  !*** ./node_modules/is-nan/shim.js ***!
-  \*************************************/
+/***/ 2464:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var define = __webpack_require__(/*! define-properties */ "./node_modules/define-properties/index.js");
-var getPolyfill = __webpack_require__(/*! ./polyfill */ "./node_modules/is-nan/polyfill.js");
+var define = __webpack_require__(8452);
+var getPolyfill = __webpack_require__(6642);
 
 /* http://www.ecma-international.org/ecma-262/6.0/#sec-number.isnan */
 
@@ -3247,16 +3142,13 @@ module.exports = function shimNumberIsNaN() {
 
 /***/ }),
 
-/***/ "./node_modules/is-typed-array/index.js":
-/*!**********************************************!*\
-  !*** ./node_modules/is-typed-array/index.js ***!
-  \**********************************************/
+/***/ 5680:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var whichTypedArray = __webpack_require__(/*! which-typed-array */ "./node_modules/which-typed-array/index.js");
+var whichTypedArray = __webpack_require__(5767);
 
 /** @type {import('.')} */
 module.exports = function isTypedArray(value) {
@@ -3266,10 +3158,7 @@ module.exports = function isTypedArray(value) {
 
 /***/ }),
 
-/***/ "./node_modules/object-is/implementation.js":
-/*!**************************************************!*\
-  !*** ./node_modules/object-is/implementation.js ***!
-  \**************************************************/
+/***/ 9211:
 /***/ ((module) => {
 
 "use strict";
@@ -3296,21 +3185,18 @@ module.exports = function is(a, b) {
 
 /***/ }),
 
-/***/ "./node_modules/object-is/index.js":
-/*!*****************************************!*\
-  !*** ./node_modules/object-is/index.js ***!
-  \*****************************************/
+/***/ 7653:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var define = __webpack_require__(/*! define-properties */ "./node_modules/define-properties/index.js");
-var callBind = __webpack_require__(/*! call-bind */ "./node_modules/call-bind/index.js");
+var define = __webpack_require__(8452);
+var callBind = __webpack_require__(487);
 
-var implementation = __webpack_require__(/*! ./implementation */ "./node_modules/object-is/implementation.js");
-var getPolyfill = __webpack_require__(/*! ./polyfill */ "./node_modules/object-is/polyfill.js");
-var shim = __webpack_require__(/*! ./shim */ "./node_modules/object-is/shim.js");
+var implementation = __webpack_require__(9211);
+var getPolyfill = __webpack_require__(9394);
+var shim = __webpack_require__(6576);
 
 var polyfill = callBind(getPolyfill(), Object);
 
@@ -3325,16 +3211,13 @@ module.exports = polyfill;
 
 /***/ }),
 
-/***/ "./node_modules/object-is/polyfill.js":
-/*!********************************************!*\
-  !*** ./node_modules/object-is/polyfill.js ***!
-  \********************************************/
+/***/ 9394:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var implementation = __webpack_require__(/*! ./implementation */ "./node_modules/object-is/implementation.js");
+var implementation = __webpack_require__(9211);
 
 module.exports = function getPolyfill() {
 	return typeof Object.is === 'function' ? Object.is : implementation;
@@ -3343,17 +3226,14 @@ module.exports = function getPolyfill() {
 
 /***/ }),
 
-/***/ "./node_modules/object-is/shim.js":
-/*!****************************************!*\
-  !*** ./node_modules/object-is/shim.js ***!
-  \****************************************/
+/***/ 6576:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var getPolyfill = __webpack_require__(/*! ./polyfill */ "./node_modules/object-is/polyfill.js");
-var define = __webpack_require__(/*! define-properties */ "./node_modules/define-properties/index.js");
+var getPolyfill = __webpack_require__(9394);
+var define = __webpack_require__(8452);
 
 module.exports = function shimObjectIs() {
 	var polyfill = getPolyfill();
@@ -3368,10 +3248,7 @@ module.exports = function shimObjectIs() {
 
 /***/ }),
 
-/***/ "./node_modules/object-keys/implementation.js":
-/*!****************************************************!*\
-  !*** ./node_modules/object-keys/implementation.js ***!
-  \****************************************************/
+/***/ 8875:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -3382,7 +3259,7 @@ if (!Object.keys) {
 	// modified from https://github.com/es-shims/es5-shim
 	var has = Object.prototype.hasOwnProperty;
 	var toStr = Object.prototype.toString;
-	var isArgs = __webpack_require__(/*! ./isArguments */ "./node_modules/object-keys/isArguments.js"); // eslint-disable-line global-require
+	var isArgs = __webpack_require__(1093); // eslint-disable-line global-require
 	var isEnumerable = Object.prototype.propertyIsEnumerable;
 	var hasDontEnumBug = !isEnumerable.call({ toString: null }, 'toString');
 	var hasProtoEnumBug = isEnumerable.call(function () {}, 'prototype');
@@ -3501,20 +3378,17 @@ module.exports = keysShim;
 
 /***/ }),
 
-/***/ "./node_modules/object-keys/index.js":
-/*!*******************************************!*\
-  !*** ./node_modules/object-keys/index.js ***!
-  \*******************************************/
+/***/ 1189:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
 var slice = Array.prototype.slice;
-var isArgs = __webpack_require__(/*! ./isArguments */ "./node_modules/object-keys/isArguments.js");
+var isArgs = __webpack_require__(1093);
 
 var origKeys = Object.keys;
-var keysShim = origKeys ? function keys(o) { return origKeys(o); } : __webpack_require__(/*! ./implementation */ "./node_modules/object-keys/implementation.js");
+var keysShim = origKeys ? function keys(o) { return origKeys(o); } : __webpack_require__(8875);
 
 var originalKeys = Object.keys;
 
@@ -3544,10 +3418,7 @@ module.exports = keysShim;
 
 /***/ }),
 
-/***/ "./node_modules/object-keys/isArguments.js":
-/*!*************************************************!*\
-  !*** ./node_modules/object-keys/isArguments.js ***!
-  \*************************************************/
+/***/ 1093:
 /***/ ((module) => {
 
 "use strict";
@@ -3572,19 +3443,16 @@ module.exports = function isArguments(value) {
 
 /***/ }),
 
-/***/ "./node_modules/object.assign/implementation.js":
-/*!******************************************************!*\
-  !*** ./node_modules/object.assign/implementation.js ***!
-  \******************************************************/
+/***/ 8403:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
 // modified from https://github.com/es-shims/es6-shim
-var objectKeys = __webpack_require__(/*! object-keys */ "./node_modules/object-keys/index.js");
-var hasSymbols = __webpack_require__(/*! has-symbols/shams */ "./node_modules/has-symbols/shams.js")();
-var callBound = __webpack_require__(/*! call-bind/callBound */ "./node_modules/call-bind/callBound.js");
+var objectKeys = __webpack_require__(1189);
+var hasSymbols = __webpack_require__(1333)();
+var callBound = __webpack_require__(8075);
 var toObject = Object;
 var $push = callBound('Array.prototype.push');
 var $propIsEnumerable = callBound('Object.prototype.propertyIsEnumerable');
@@ -3629,16 +3497,13 @@ module.exports = function assign(target, source1) {
 
 /***/ }),
 
-/***/ "./node_modules/object.assign/polyfill.js":
-/*!************************************************!*\
-  !*** ./node_modules/object.assign/polyfill.js ***!
-  \************************************************/
+/***/ 1514:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var implementation = __webpack_require__(/*! ./implementation */ "./node_modules/object.assign/implementation.js");
+var implementation = __webpack_require__(8403);
 
 var lacksProperEnumerationOrder = function () {
 	if (!Object.assign) {
@@ -3695,10 +3560,7 @@ module.exports = function getPolyfill() {
 
 /***/ }),
 
-/***/ "./node_modules/possible-typed-array-names/index.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/possible-typed-array-names/index.js ***!
-  \**********************************************************/
+/***/ 6578:
 /***/ ((module) => {
 
 "use strict";
@@ -3722,10 +3584,7 @@ module.exports = [
 
 /***/ }),
 
-/***/ "./node_modules/process/browser.js":
-/*!*****************************************!*\
-  !*** ./node_modules/process/browser.js ***!
-  \*****************************************/
+/***/ 5606:
 /***/ ((module) => {
 
 // shim for using process in browser
@@ -3916,21 +3775,18 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ "./node_modules/set-function-length/index.js":
-/*!***************************************************!*\
-  !*** ./node_modules/set-function-length/index.js ***!
-  \***************************************************/
+/***/ 6897:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var GetIntrinsic = __webpack_require__(/*! get-intrinsic */ "./node_modules/get-intrinsic/index.js");
-var define = __webpack_require__(/*! define-data-property */ "./node_modules/define-data-property/index.js");
-var hasDescriptors = __webpack_require__(/*! has-property-descriptors */ "./node_modules/has-property-descriptors/index.js")();
-var gOPD = __webpack_require__(/*! gopd */ "./node_modules/gopd/index.js");
+var GetIntrinsic = __webpack_require__(453);
+var define = __webpack_require__(41);
+var hasDescriptors = __webpack_require__(592)();
+var gOPD = __webpack_require__(5795);
 
-var $TypeError = __webpack_require__(/*! es-errors/type */ "./node_modules/es-errors/type.js");
+var $TypeError = __webpack_require__(9675);
 var $floor = GetIntrinsic('%Math.floor%');
 
 /** @type {import('.')} */
@@ -3969,697 +3825,7 @@ module.exports = function setFunctionLength(fn, length) {
 
 /***/ }),
 
-/***/ "./src/canvas/baseCanvasObject.ts":
-/*!****************************************!*\
-  !*** ./src/canvas/baseCanvasObject.ts ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   BaseCanvasObject: () => (/* binding */ BaseCanvasObject)
-/* harmony export */ });
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./canvasUtils */ "./src/canvas/canvasUtils.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-class BaseCanvasObject {
-    constructor(data) {
-        this.accountId = null;
-        this.canvasData = data || {}; // A dict holding the decoded json representation of the object in Canvas
-    }
-    getClass() {
-        return this.constructor;
-    }
-    getItem(item) {
-        return this.canvasData[item];
-    }
-    get myClass() {
-        return this.constructor;
-    }
-    get nameKey() {
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(this.myClass.nameProperty);
-        return this.myClass.nameProperty;
-    }
-    get rawData() {
-        return Object.assign({}, this.canvasData);
-    }
-    get contentUrlPath() {
-        const constructor = this.constructor;
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.accountId === 'number');
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof constructor.contentUrlTemplate === 'string');
-        return constructor.contentUrlTemplate
-            .replace('{content_id}', this.id.toString())
-            .replace('{account_id}', this.accountId.toString());
-    }
-    get htmlContentUrl() {
-        return `/${this.contentUrlPath}`;
-    }
-    get data() {
-        return this.canvasData;
-    }
-    static getDataById(contentId_1) {
-        return __awaiter(this, arguments, void 0, function* (contentId, courseId = null, config = null) {
-            let url = this.getUrlPathFromIds(contentId, courseId);
-            const response = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.fetchApiJson)(url, config);
-            assert__WEBPACK_IMPORTED_MODULE_0___default()(!Array.isArray(response));
-            return response;
-        });
-    }
-    static getUrlPathFromIds(contentId, courseId) {
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.contentUrlTemplate === 'string');
-        let url = this.contentUrlTemplate
-            .replace('{content_id}', contentId.toString());
-        if (courseId)
-            url = url.replace('{course_id}', courseId.toString());
-        return url;
-    }
-    /**
-     * @param courseId - The course ID to get elements within, if applicable
-     * @param accountId - The account ID to get elements within, if applicable
-     */
-    static getAllUrl(courseId = null, accountId = null) {
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.allContentUrlTemplate === 'string');
-        let replaced = this.allContentUrlTemplate;
-        if (courseId)
-            replaced = replaced.replace('{course_id}', courseId.toString());
-        if (accountId)
-            replaced = replaced.replace('{account_id}', accountId.toString());
-        return replaced;
-    }
-    static getAll() {
-        return __awaiter(this, arguments, void 0, function* (config = null) {
-            let url = this.getAllUrl();
-            let data = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.getApiPagedData)(url, config);
-            return data.map(item => new this(item));
-        });
-    }
-    get id() {
-        const id = this.canvasData[this.constructor.idProperty];
-        return parseInt(id);
-    }
-    get name() {
-        let nameProperty = this.getClass().nameProperty;
-        if (!nameProperty)
-            return 'NAME PROPERTY NOT SET';
-        return this.getItem(nameProperty);
-    }
-    saveData(data) {
-        return __awaiter(this, void 0, void 0, function* () {
-            assert__WEBPACK_IMPORTED_MODULE_0___default()(this.contentUrlPath);
-            return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.fetchApiJson)(this.contentUrlPath, {
-                fetchInit: {
-                    method: 'PUT',
-                    body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.formDataify)(data)
-                }
-            });
-        });
-    }
-}
-BaseCanvasObject.idProperty = 'id'; // The field name of the id of the canvas object type
-BaseCanvasObject.nameProperty = 'name'; // The field name of the primary name of the canvas object type
-BaseCanvasObject.contentUrlTemplate = null; // A templated url to get a single item
-BaseCanvasObject.allContentUrlTemplate = null; // A templated url to get all items
-
-
-/***/ }),
-
-/***/ "./src/canvas/canvasUtils.ts":
-/*!***********************************!*\
-  !*** ./src/canvas/canvasUtils.ts ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   callAll: () => (/* binding */ callAll),
-/* harmony export */   courseNameSort: () => (/* binding */ courseNameSort),
-/* harmony export */   fetchApiJson: () => (/* binding */ fetchApiJson),
-/* harmony export */   fetchJson: () => (/* binding */ fetchJson),
-/* harmony export */   fetchOneKnownApiJson: () => (/* binding */ fetchOneKnownApiJson),
-/* harmony export */   fetchOneUnknownApiJson: () => (/* binding */ fetchOneUnknownApiJson),
-/* harmony export */   formDataify: () => (/* binding */ formDataify),
-/* harmony export */   getApiPagedData: () => (/* binding */ getApiPagedData),
-/* harmony export */   getCourseIdFromUrl: () => (/* binding */ getCourseIdFromUrl),
-/* harmony export */   getItemTypeAndId: () => (/* binding */ getItemTypeAndId),
-/* harmony export */   getPagedData: () => (/* binding */ getPagedData),
-/* harmony export */   getPagedDataGenerator: () => (/* binding */ getPagedDataGenerator),
-/* harmony export */   getPlainTextFromHtml: () => (/* binding */ getPlainTextFromHtml),
-/* harmony export */   parentElement: () => (/* binding */ parentElement),
-/* harmony export */   queryStringify: () => (/* binding */ queryStringify),
-/* harmony export */   range: () => (/* binding */ range),
-/* harmony export */   searchParamsFromObject: () => (/* binding */ searchParamsFromObject)
-/* harmony export */ });
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
-var __await = (undefined && undefined.__await) || function (v) { return this instanceof __await ? (this.v = v, this) : new __await(v); }
-var __asyncGenerator = (undefined && undefined.__asyncGenerator) || function (thisArg, _arguments, generator) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var g = generator.apply(thisArg, _arguments || []), i, q = [];
-    return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function () { return this; }, i;
-    function awaitReturn(f) { return function (v) { return Promise.resolve(v).then(f, reject); }; }
-    function verb(n, f) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; if (f) i[n] = f(i[n]); } }
-    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-    function fulfill(value) { resume("next", value); }
-    function reject(value) { resume("throw", value); }
-    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-};
-
-function callAll(funcs, params) {
-    const output = [];
-    function isWithParamsFunc(func) {
-        return typeof func === 'function' && func.length > 0;
-    }
-    function isWithoutParamsFunc(func) {
-        return typeof func === 'function' && func.length === 0;
-    }
-    for (let func of funcs) {
-        if ((typeof func === 'object')) {
-            output.push(func.func(func.params));
-            continue;
-        }
-        if (isWithoutParamsFunc(func)) {
-            output.push(func());
-            continue;
-        }
-        if (isWithParamsFunc(func) && typeof params !== 'undefined') {
-            output.push(func(params));
-            continue;
-        }
-    }
-    return output;
-}
-
-/**
- * Traverses up the DOM and finds a parent with a matching Tag
- * @param el
- * @param tagName
- */
-function parentElement(el, tagName) {
-    if (!el)
-        return null;
-    while (el && el.parentElement) {
-        el = el.parentElement;
-        if (el.tagName && el.tagName.toLowerCase() == tagName) {
-            return el;
-        }
-    }
-    return null;
-}
-const type_lut = {
-    Assignment: 'assignment',
-    Discussion: 'discussion_topic',
-    Quiz: 'quiz',
-    ExternalTool: 'external_tool',
-    File: 'attachment',
-    Page: 'wiki_page',
-    ExternalUrl: null, //Not passable to restrict
-    Subheader: null, //Not passable to restrict
-};
-function formDataify(data) {
-    let formData = new FormData();
-    for (let key in data) {
-        addToFormData(formData, key, data[key]);
-    }
-    if (document) {
-        const el = document.querySelector("input[name='authenticity_token']");
-        const authenticityToken = el ? el.value : null;
-        const cookies = getCookies();
-        let csrfToken = cookies['_csrf_token'];
-        if (authenticityToken)
-            formData.append('authenticity_token', authenticityToken);
-        else if (csrfToken) {
-            csrfToken = csrfToken.replaceAll(/%([0-9A-F]{2})/g, (substring, hex) => {
-                const hexCode = hex;
-                return String.fromCharCode(parseInt(hexCode, 16));
-            });
-            console.log(csrfToken);
-            formData.append('authenticity_token', csrfToken);
-        }
-    }
-    return formData;
-}
-function getCookies() {
-    const cookieString = document.cookie;
-    const cookies = cookieString.split('; ');
-    const out = {};
-    for (let cookie of cookies) {
-        const [key, value] = cookie.split('=');
-        out[key] = value;
-    }
-    return out;
-}
-/**
- * Adds arrays and objects in the form formData posts expects
- * @param formData
- * @param key
- * @param value
- */
-function addToFormData(formData, key, value) {
-    if (Array.isArray(value)) {
-        for (let item of value) {
-            addToFormData(formData, `${key}[]`, item);
-        }
-    }
-    else if (typeof value === 'object') {
-        for (let itemKey in value) {
-            const itemValue = value[itemKey];
-            addToFormData(formData, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
-        }
-    }
-    else {
-        formData.append(key, value.toString());
-    }
-}
-function queryStringify(data) {
-    let searchParams = new URLSearchParams();
-    for (let key in data) {
-        addToQuery(searchParams, key, data[key]);
-    }
-    ;
-    return searchParams;
-}
-function addToQuery(searchParams, key, value) {
-    if (Array.isArray(value)) {
-        for (let item of value) {
-            addToQuery(searchParams, `${key}[]`, item);
-        }
-    }
-    else if (typeof value === 'object') {
-        for (let itemKey in value) {
-            const itemValue = value[itemKey];
-            addToQuery(searchParams, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
-        }
-    }
-    else {
-        searchParams.append(key, value);
-    }
-}
-/**
- * Takes in a module item and returns an object specifying its type and content id
- * @param item
- */
-function getItemTypeAndId(item) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let id;
-        let type;
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(type_lut.hasOwnProperty(item.type), "Unexpected type " + item.type);
-        type = type_lut[item.type];
-        if (type === "wiki_page") {
-            assert__WEBPACK_IMPORTED_MODULE_0___default()(item.url); //wiki_page items always have a url param
-            const pageData = yield fetchJson(item.url);
-            id = pageData.page_id;
-        }
-        else {
-            id = item.content_id;
-        }
-        return { type, id };
-    });
-}
-/**
- * @param queryParams
- * @returns {URLSearchParams} The correctly formatted parameters
- */
-function searchParamsFromObject(queryParams) {
-    return queryStringify(queryParams);
-}
-function getApiPagedData(url_1) {
-    return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        return yield getPagedData(`/api/v1/${url}`, config);
-    });
-}
-/**
- * @param url The entire path of the url
- * @param config a configuration object of type ICanvasCallConfig
- * @returns {Promise<Record<string, any>[]>}
- */
-function getPagedData(url_1) {
-    return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        var _a, e_1, _b, _c;
-        const generator = getPagedDataGenerator(url, config);
-        const out = [];
-        try {
-            for (var _d = true, generator_1 = __asyncValues(generator), generator_1_1; generator_1_1 = yield generator_1.next(), _a = generator_1_1.done, !_a; _d = true) {
-                _c = generator_1_1.value;
-                _d = false;
-                let value = _c;
-                out.push(value);
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (!_d && !_a && (_b = generator_1.return)) yield _b.call(generator_1);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-        return out;
-    });
-}
-function getPagedDataGenerator(url_1) {
-    return __asyncGenerator(this, arguments, function* getPagedDataGenerator_1(url, config = null) {
-        if (config === null || config === void 0 ? void 0 : config.queryParams) {
-            url += '?' + searchParamsFromObject(config.queryParams);
-        }
-        if (url.includes('undefined')) {
-            console.log(url);
-        }
-        /* Returns a list of data from a GET request, going through multiple pages of data requests as necessary */
-        let response = yield __await(fetch(url, config === null || config === void 0 ? void 0 : config.fetchInit));
-        let data = yield __await(response.json());
-        if (typeof data === 'object' && !Array.isArray(data)) {
-            let values = Array.from(Object.values(data));
-            if (values) {
-                data = values.find((a) => Array.isArray(a));
-            }
-        }
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(Array.isArray(data));
-        for (let value of data) {
-            yield yield __await(value);
-        }
-        let next_page_link = "!";
-        while (next_page_link.length !== 0 &&
-            response &&
-            response.headers.has("Link") && response.ok) {
-            const link = response.headers.get("Link");
-            assert__WEBPACK_IMPORTED_MODULE_0___default()(link);
-            const paginationLinks = link.split(",");
-            const nextLink = paginationLinks.find((link) => link.includes('next'));
-            if (nextLink) {
-                next_page_link = nextLink.split(";")[0].split("<")[1].split(">")[0];
-                response = yield __await(fetch(next_page_link, config === null || config === void 0 ? void 0 : config.fetchInit));
-                let responseData = yield __await(response.json());
-                if (typeof responseData === 'object' && !Array.isArray(responseData)) {
-                    let values = Array.from(Object.values(responseData));
-                    if (values) {
-                        responseData = values === null || values === void 0 ? void 0 : values.find((a) => Array.isArray(a));
-                    }
-                    data = [data, ...responseData];
-                }
-                for (let value of responseData) {
-                    yield yield __await(value);
-                }
-            }
-            else {
-                next_page_link = "";
-            }
-        }
-        return yield __await(data);
-    });
-}
-function fetchJson(url_1) {
-    return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        var _a;
-        if (config === null || config === void 0 ? void 0 : config.queryParams) {
-            url += '?' + new URLSearchParams(config.queryParams);
-        }
-        config !== null && config !== void 0 ? config : (config = {});
-        if (!document) {
-            (_a = config.fetchInit) !== null && _a !== void 0 ? _a : (config.fetchInit = {});
-            config.fetchInit.headers = [];
-        }
-        const response = yield fetch(url, config.fetchInit);
-        return yield response.json();
-    });
-}
-/**
- * Fetches a json object from /api/v1/${url}
- * @param url
- * @param config query and fetch params
- */
-function fetchApiJson(url_1) {
-    return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        url = `/api/v1/${url}`;
-        return yield fetchJson(url, config);
-    });
-}
-function fetchOneKnownApiJson(url_1) {
-    return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        let result = yield fetchApiJson(url, config);
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(result);
-        if (Array.isArray(result))
-            return result[0];
-        return result;
-    });
-}
-function fetchOneUnknownApiJson(url_1) {
-    return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        let result = yield fetchApiJson(url, config);
-        if (!result)
-            return null;
-        if (Array.isArray(result) && result.length > 0)
-            return result[0];
-        return result;
-    });
-}
-/**
- * sort courses (or course Data) alphabetically by name
- * @param a item to compare.
- * @param b item to compare.
- */
-function courseNameSort(a, b) {
-    if (a.name < b.name)
-        return -1;
-    if (b.name < a.name)
-        return 1;
-    return 0;
-}
-function* range(start, end) {
-    for (let i = start; i <= end; i++) {
-        yield i;
-    }
-}
-function getPlainTextFromHtml(html) {
-    const el = document.createElement('div');
-    el.innerHTML = html;
-    return el.innerText || el.textContent || "";
-}
-function getCourseIdFromUrl(url) {
-    let match = /courses\/(\d+)/.exec(url);
-    if (match) {
-        return parseInt(match[1]);
-    }
-    return null;
-}
-
-
-/***/ }),
-
-/***/ "./src/canvas/index.ts":
-/*!*****************************!*\
-  !*** ./src/canvas/index.ts ***!
-  \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Account: () => (/* binding */ Account),
-/* harmony export */   NotImplementedException: () => (/* binding */ NotImplementedException),
-/* harmony export */   Rubric: () => (/* binding */ Rubric),
-/* harmony export */   RubricAssociation: () => (/* binding */ RubricAssociation),
-/* harmony export */   Term: () => (/* binding */ Term)
-/* harmony export */ });
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./canvasUtils */ "./src/canvas/canvasUtils.ts");
-/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./baseCanvasObject */ "./src/canvas/baseCanvasObject.ts");
-// noinspection GrazieInspection
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-/* Very Initial refactor to JS using ChatGPT4
-NOTE: Almost all of this code has had to be rewritten since then.
-And starting to convert to ts
- */
-/* THis has since been almost entirely rewritten. It did not do a great job at first pass.
- It kept inventing code that should work but didn't */
-
-
-
-/**
- *  A base class for objects that interact with the Canvas API
- */
-class Account extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_2__.BaseCanvasObject {
-    static getFromUrl() {
-        return __awaiter(this, arguments, void 0, function* (url = null) {
-            if (url === null) {
-                url = document.documentURI;
-            }
-            let match = /accounts\/(\d+)/.exec(url);
-            if (match) {
-                console.log(match);
-                return yield this.getAccountById(parseInt(match[1]));
-            }
-            return null;
-        });
-    }
-    static getAccountById(accountId_1) {
-        return __awaiter(this, arguments, void 0, function* (accountId, config = undefined) {
-            const data = yield this.getDataById(accountId, null, config);
-            console.assert();
-            return new Account(data);
-        });
-    }
-    static getRootAccount() {
-        return __awaiter(this, arguments, void 0, function* (resetCache = false) {
-            let accounts = yield this.getAll();
-            if (!resetCache && this.hasOwnProperty('account') && this.account) {
-                return this.account;
-            }
-            let root = accounts.find((a) => a.rootAccountId === null);
-            assert__WEBPACK_IMPORTED_MODULE_0___default()(root);
-            this.account = root;
-            return root;
-        });
-    }
-    get rootAccountId() {
-        return this.canvasData['root_account_id'];
-    }
-}
-Account.nameProperty = 'name'; // The field name of the primary name of the canvas object type
-Account.contentUrlTemplate = 'accounts/{content_id}'; // A templated url to get a single item
-Account.allContentUrlTemplate = 'accounts'; // A templated url to get all items
-class Rubric extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_2__.BaseCanvasObject {
-    constructor(data, courseId) {
-        super(data);
-        this.courseId = courseId;
-    }
-    associations() {
-        return __awaiter(this, arguments, void 0, function* (reload = false) {
-            if ('associations' in this.canvasData && !reload) {
-                return this.canvasData['associations'];
-            }
-            let data = yield this.myClass.getDataById(this.id, this.courseId, { queryParams: { 'include': ['associations'] } });
-            let associations = data['associations'].map((data) => new RubricAssociation(data, this.courseId));
-            this.canvasData['associations'] = associations;
-            return associations;
-        });
-    }
-}
-Rubric.nameProperty = 'title';
-Rubric.contentUrlTemplate = "courses/{course_id}/rubrics/{content_id}";
-Rubric.allContentUrlTemplate = "courses/{course_id}/rubrics";
-class RubricAssociation extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_2__.BaseCanvasObject {
-    constructor(data, courseId) {
-        super(data);
-        this.courseId = courseId;
-    }
-    get useForGrading() {
-        return this.canvasData['use_for_grading'];
-    }
-    setUseForGrading(value) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.canvasData['use_for_grading'] = value;
-            return yield this.saveData({ 'rubric_association[use_for_grading]': value });
-        });
-    }
-}
-RubricAssociation.contentUrlTemplate = "courses/{course_id}/rubric_associations/{content_id}";
-RubricAssociation.allContentUrlTemplate = "courses/{course_id}/rubric_associations";
-class Term extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_2__.BaseCanvasObject {
-    static getTerm(code_1) {
-        return __awaiter(this, arguments, void 0, function* (code, workflowState = 'all', config = undefined) {
-            const terms = yield this.searchTerms(code, workflowState, config);
-            if (!Array.isArray(terms) || terms.length <= 0) {
-                return null;
-            }
-            return terms[0];
-        });
-    }
-    static getTermById(termId_1) {
-        return __awaiter(this, arguments, void 0, function* (termId, config = null) {
-            let account = yield Account.getRootAccount();
-            let url = `accounts/${account.id}/terms/${termId}`;
-            let termData = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.fetchApiJson)(url, config);
-            if (termData)
-                return new Term(termData);
-            return null;
-        });
-    }
-    static getAllActiveTerms() {
-        return __awaiter(this, arguments, void 0, function* (config = null) {
-            return yield this.searchTerms(null, 'active', config);
-        });
-    }
-    static searchTerms() {
-        return __awaiter(this, arguments, void 0, function* (code = null, workflowState = 'all', config = null) {
-            config = config || {};
-            config.queryParams = config.queryParams || {};
-            let queryParams = config.queryParams;
-            if (workflowState)
-                queryParams['workflow_state'] = workflowState;
-            if (code)
-                queryParams['term_name'] = code;
-            let rootAccount = yield Account.getRootAccount();
-            assert__WEBPACK_IMPORTED_MODULE_0___default()(rootAccount);
-            let url = `accounts/${rootAccount.id}/terms`;
-            const data = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.getApiPagedData)(url, config);
-            let terms = [];
-            for (let datum of data) {
-                if (datum.hasOwnProperty('enrollment_terms')) {
-                    for (let termData of datum['enrollment_terms']) {
-                        terms.push(termData);
-                    }
-                }
-                else {
-                    terms.push(datum);
-                }
-            }
-            console.log(terms);
-            if (!terms || terms.length === 0) {
-                return null;
-            }
-            return terms.map(term => new Term(term));
-        });
-    }
-}
-Term.nameProperty = "name";
-class NotImplementedException extends Error {
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/util/support/isBufferBrowser.js":
-/*!******************************************************!*\
-  !*** ./node_modules/util/support/isBufferBrowser.js ***!
-  \******************************************************/
+/***/ 1135:
 /***/ ((module) => {
 
 module.exports = function isBuffer(arg) {
@@ -4671,10 +3837,7 @@ module.exports = function isBuffer(arg) {
 
 /***/ }),
 
-/***/ "./node_modules/util/support/types.js":
-/*!********************************************!*\
-  !*** ./node_modules/util/support/types.js ***!
-  \********************************************/
+/***/ 9032:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -4683,10 +3846,10 @@ module.exports = function isBuffer(arg) {
 
 
 
-var isArgumentsObject = __webpack_require__(/*! is-arguments */ "./node_modules/is-arguments/index.js");
-var isGeneratorFunction = __webpack_require__(/*! is-generator-function */ "./node_modules/is-generator-function/index.js");
-var whichTypedArray = __webpack_require__(/*! which-typed-array */ "./node_modules/which-typed-array/index.js");
-var isTypedArray = __webpack_require__(/*! is-typed-array */ "./node_modules/is-typed-array/index.js");
+var isArgumentsObject = __webpack_require__(7244);
+var isGeneratorFunction = __webpack_require__(8184);
+var whichTypedArray = __webpack_require__(5767);
+var isTypedArray = __webpack_require__(5680);
 
 function uncurryThis(f) {
   return f.call.bind(f);
@@ -5016,13 +4179,10 @@ exports.isAnyArrayBuffer = isAnyArrayBuffer;
 
 /***/ }),
 
-/***/ "./node_modules/util/util.js":
-/*!***********************************!*\
-  !*** ./node_modules/util/util.js ***!
-  \***********************************/
+/***/ 537:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
+/* provided dependency */ var process = __webpack_require__(5606);
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -5489,7 +4649,7 @@ function reduceToSingleString(output, base, braces) {
 
 // NOTE: These type checking functions intentionally don't use `instanceof`
 // because it is fragile and can be easily faked with `Object.create()`.
-exports.types = __webpack_require__(/*! ./support/types */ "./node_modules/util/support/types.js");
+exports.types = __webpack_require__(9032);
 
 function isArray(ar) {
   return Array.isArray(ar);
@@ -5570,7 +4730,7 @@ function isPrimitive(arg) {
 }
 exports.isPrimitive = isPrimitive;
 
-exports.isBuffer = __webpack_require__(/*! ./support/isBuffer */ "./node_modules/util/support/isBufferBrowser.js");
+exports.isBuffer = __webpack_require__(1135);
 
 function objectToString(o) {
   return Object.prototype.toString.call(o);
@@ -5614,7 +4774,7 @@ exports.log = function() {
  *     prototype.
  * @param {function} superCtor Constructor function to inherit prototype from.
  */
-exports.inherits = __webpack_require__(/*! inherits */ "./node_modules/inherits/inherits_browser.js");
+exports.inherits = __webpack_require__(6698);
 
 exports._extend = function(origin, add) {
   // Don't do anything if add isn't an object
@@ -5742,24 +4902,21 @@ exports.callbackify = callbackify;
 
 /***/ }),
 
-/***/ "./node_modules/which-typed-array/index.js":
-/*!*************************************************!*\
-  !*** ./node_modules/which-typed-array/index.js ***!
-  \*************************************************/
+/***/ 5767:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var forEach = __webpack_require__(/*! for-each */ "./node_modules/for-each/index.js");
-var availableTypedArrays = __webpack_require__(/*! available-typed-arrays */ "./node_modules/available-typed-arrays/index.js");
-var callBind = __webpack_require__(/*! call-bind */ "./node_modules/call-bind/index.js");
-var callBound = __webpack_require__(/*! call-bind/callBound */ "./node_modules/call-bind/callBound.js");
-var gOPD = __webpack_require__(/*! gopd */ "./node_modules/gopd/index.js");
+var forEach = __webpack_require__(2682);
+var availableTypedArrays = __webpack_require__(9209);
+var callBind = __webpack_require__(487);
+var callBound = __webpack_require__(8075);
+var gOPD = __webpack_require__(5795);
 
 /** @type {(O: object) => string} */
 var $toString = callBound('Object.prototype.toString');
-var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "./node_modules/has-tostringtag/shams.js")();
+var hasToStringTag = __webpack_require__(9092)();
 
 var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
 var typedArrays = availableTypedArrays();
@@ -5869,16 +5026,13 @@ module.exports = function whichTypedArray(value) {
 
 /***/ }),
 
-/***/ "./node_modules/available-typed-arrays/index.js":
-/*!******************************************************!*\
-  !*** ./node_modules/available-typed-arrays/index.js ***!
-  \******************************************************/
+/***/ 9209:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var possibleNames = __webpack_require__(/*! possible-typed-array-names */ "./node_modules/possible-typed-array-names/index.js");
+var possibleNames = __webpack_require__(6578);
 
 var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
 
@@ -5965,30 +5119,563 @@ module.exports = function availableTypedArrays() {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
 "use strict";
-/*!*********************************!*\
-  !*** ./src/ui/account/index.ts ***!
-  \*********************************/
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _canvas__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../canvas */ "./src/canvas/index.ts");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
+
+// EXTERNAL MODULE: ./node_modules/assert/build/assert.js
+var build_assert = __webpack_require__(4148);
+var assert_default = /*#__PURE__*/__webpack_require__.n(build_assert);
+;// CONCATENATED MODULE: ./src/canvas/canvasUtils.ts
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
+var __await = (undefined && undefined.__await) || function (v) { return this instanceof __await ? (this.v = v, this) : new __await(v); }
+var __asyncGenerator = (undefined && undefined.__asyncGenerator) || function (thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function awaitReturn(f) { return function (v) { return Promise.resolve(v).then(f, reject); }; }
+    function verb(n, f) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; if (f) i[n] = f(i[n]); } }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+};
+
+function callAll(funcs, params) {
+    const output = [];
+    function isWithParamsFunc(func) {
+        return typeof func === 'function' && func.length > 0;
+    }
+    function isWithoutParamsFunc(func) {
+        return typeof func === 'function' && func.length === 0;
+    }
+    for (let func of funcs) {
+        if ((typeof func === 'object')) {
+            output.push(func.func(func.params));
+            continue;
+        }
+        if (isWithoutParamsFunc(func)) {
+            output.push(func());
+            continue;
+        }
+        if (isWithParamsFunc(func) && typeof params !== 'undefined') {
+            output.push(func(params));
+            continue;
+        }
+    }
+    return output;
+}
+
+/**
+ * Traverses up the DOM and finds a parent with a matching Tag
+ * @param el
+ * @param tagName
+ */
+function parentElement(el, tagName) {
+    if (!el)
+        return null;
+    while (el && el.parentElement) {
+        el = el.parentElement;
+        if (el.tagName && el.tagName.toLowerCase() == tagName) {
+            return el;
+        }
+    }
+    return null;
+}
+const type_lut = {
+    Assignment: 'assignment',
+    Discussion: 'discussion_topic',
+    Quiz: 'quiz',
+    ExternalTool: 'external_tool',
+    File: 'attachment',
+    Page: 'wiki_page',
+    ExternalUrl: null, //Not passable to restrict
+    Subheader: null, //Not passable to restrict
+};
+function formDataify(data) {
+    let formData = new FormData();
+    for (let key in data) {
+        addToFormData(formData, key, data[key]);
+    }
+    if (document) {
+        const el = document.querySelector("input[name='authenticity_token']");
+        const authenticityToken = el ? el.value : null;
+        const cookies = getCookies();
+        let csrfToken = cookies['_csrf_token'];
+        if (authenticityToken)
+            formData.append('authenticity_token', authenticityToken);
+        else if (csrfToken) {
+            csrfToken = csrfToken.replaceAll(/%([0-9A-F]{2})/g, (substring, hex) => {
+                const hexCode = hex;
+                return String.fromCharCode(parseInt(hexCode, 16));
+            });
+            console.log(csrfToken);
+            formData.append('authenticity_token', csrfToken);
+        }
+    }
+    return formData;
+}
+function getCookies() {
+    const cookieString = document.cookie;
+    const cookies = cookieString.split('; ');
+    const out = {};
+    for (let cookie of cookies) {
+        const [key, value] = cookie.split('=');
+        out[key] = value;
+    }
+    return out;
+}
+/**
+ * Adds arrays and objects in the form formData posts expects
+ * @param formData
+ * @param key
+ * @param value
+ */
+function addToFormData(formData, key, value) {
+    if (Array.isArray(value)) {
+        for (let item of value) {
+            addToFormData(formData, `${key}[]`, item);
+        }
+    }
+    else if (typeof value === 'object') {
+        for (let itemKey in value) {
+            const itemValue = value[itemKey];
+            addToFormData(formData, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
+        }
+    }
+    else {
+        formData.append(key, value.toString());
+    }
+}
+function queryStringify(data) {
+    let searchParams = new URLSearchParams();
+    for (let key in data) {
+        addToQuery(searchParams, key, data[key]);
+    }
+    ;
+    return searchParams;
+}
+function addToQuery(searchParams, key, value) {
+    if (Array.isArray(value)) {
+        for (let item of value) {
+            addToQuery(searchParams, `${key}[]`, item);
+        }
+    }
+    else if (typeof value === 'object') {
+        for (let itemKey in value) {
+            const itemValue = value[itemKey];
+            addToQuery(searchParams, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
+        }
+    }
+    else {
+        searchParams.append(key, value);
+    }
+}
+/**
+ * Takes in a module item and returns an object specifying its type and content id
+ * @param item
+ */
+function getItemTypeAndId(item) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let id;
+        let type;
+        assert(type_lut.hasOwnProperty(item.type), "Unexpected type " + item.type);
+        type = type_lut[item.type];
+        if (type === "wiki_page") {
+            assert(item.url); //wiki_page items always have a url param
+            const pageData = yield fetchJson(item.url);
+            id = pageData.page_id;
+        }
+        else {
+            id = item.content_id;
+        }
+        return { type, id };
+    });
+}
+/**
+ * @param queryParams
+ * @returns {URLSearchParams} The correctly formatted parameters
+ */
+function searchParamsFromObject(queryParams) {
+    return queryStringify(queryParams);
+}
+function getApiPagedData(url_1) {
+    return __awaiter(this, arguments, void 0, function* (url, config = null) {
+        return yield getPagedData(`/api/v1/${url}`, config);
+    });
+}
+/**
+ * @param url The entire path of the url
+ * @param config a configuration object of type ICanvasCallConfig
+ * @returns {Promise<Record<string, any>[]>}
+ */
+function getPagedData(url_1) {
+    return __awaiter(this, arguments, void 0, function* (url, config = null) {
+        var _a, e_1, _b, _c;
+        const generator = getPagedDataGenerator(url, config);
+        const out = [];
+        try {
+            for (var _d = true, generator_1 = __asyncValues(generator), generator_1_1; generator_1_1 = yield generator_1.next(), _a = generator_1_1.done, !_a; _d = true) {
+                _c = generator_1_1.value;
+                _d = false;
+                let value = _c;
+                out.push(value);
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (!_d && !_a && (_b = generator_1.return)) yield _b.call(generator_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        return out;
+    });
+}
+/**
+ * returns a single pagedDataGenerator that returns generator results from each, looping through results for each
+ * @param generators
+ */
+function mergePagedDataGenerators(generators) {
+    return __asyncGenerator(this, arguments, function* mergePagedDataGenerators_1() {
+        var _a, e_2, _b, _c;
+        for (let generator of generators) {
+            try {
+                for (var _d = true, generator_2 = (e_2 = void 0, __asyncValues(generator)), generator_2_1; generator_2_1 = yield __await(generator_2.next()), _a = generator_2_1.done, !_a; _d = true) {
+                    _c = generator_2_1.value;
+                    _d = false;
+                    let result = _c;
+                    yield yield __await(result);
+                }
+            }
+            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+            finally {
+                try {
+                    if (!_d && !_a && (_b = generator_2.return)) yield __await(_b.call(generator_2));
+                }
+                finally { if (e_2) throw e_2.error; }
+            }
+        }
+    });
+}
+function getPagedDataGenerator(url_1) {
+    return __asyncGenerator(this, arguments, function* getPagedDataGenerator_1(url, config = null) {
+        if (config === null || config === void 0 ? void 0 : config.queryParams) {
+            url += '?' + searchParamsFromObject(config.queryParams);
+        }
+        if (url.includes('undefined')) {
+            console.log(url);
+        }
+        /* Returns a list of data from a GET request, going through multiple pages of data requests as necessary */
+        let response = yield __await(fetch(url, config === null || config === void 0 ? void 0 : config.fetchInit));
+        let data = yield __await(response.json());
+        if (typeof data === 'object' && !Array.isArray(data)) {
+            let values = Array.from(Object.values(data));
+            if (values) {
+                data = values.find((a) => Array.isArray(a));
+            }
+        }
+        assert_default()(Array.isArray(data));
+        for (let value of data) {
+            yield yield __await(value);
+        }
+        let next_page_link = "!";
+        while (next_page_link.length !== 0 &&
+            response &&
+            response.headers.has("Link") && response.ok) {
+            const link = response.headers.get("Link");
+            assert_default()(link);
+            const paginationLinks = link.split(",");
+            const nextLink = paginationLinks.find((link) => link.includes('next'));
+            if (nextLink) {
+                next_page_link = nextLink.split(";")[0].split("<")[1].split(">")[0];
+                response = yield __await(fetch(next_page_link, config === null || config === void 0 ? void 0 : config.fetchInit));
+                let responseData = yield __await(response.json());
+                if (typeof responseData === 'object' && !Array.isArray(responseData)) {
+                    let values = Array.from(Object.values(responseData));
+                    if (values) {
+                        responseData = values === null || values === void 0 ? void 0 : values.find((a) => Array.isArray(a));
+                    }
+                    data = [data, ...responseData];
+                }
+                for (let value of responseData) {
+                    yield yield __await(value);
+                }
+            }
+            else {
+                next_page_link = "";
+            }
+        }
+    });
+}
+function fetchJson(url_1) {
+    return __awaiter(this, arguments, void 0, function* (url, config = null) {
+        var _a;
+        if (config === null || config === void 0 ? void 0 : config.queryParams) {
+            url += '?' + new URLSearchParams(config.queryParams);
+        }
+        config !== null && config !== void 0 ? config : (config = {});
+        if (!document) {
+            (_a = config.fetchInit) !== null && _a !== void 0 ? _a : (config.fetchInit = {});
+            config.fetchInit.headers = [];
+        }
+        const response = yield fetch(url, config.fetchInit);
+        return yield response.json();
+    });
+}
+/**
+ * Fetches a json object from /api/v1/${url}
+ * @param url
+ * @param config query and fetch params
+ */
+function fetchApiJson(url_1) {
+    return __awaiter(this, arguments, void 0, function* (url, config = null) {
+        url = `/api/v1/${url}`;
+        return yield fetchJson(url, config);
+    });
+}
+function fetchOneKnownApiJson(url_1) {
+    return __awaiter(this, arguments, void 0, function* (url, config = null) {
+        let result = yield fetchApiJson(url, config);
+        assert(result);
+        if (Array.isArray(result))
+            return result[0];
+        return result;
+    });
+}
+function fetchOneUnknownApiJson(url_1) {
+    return __awaiter(this, arguments, void 0, function* (url, config = null) {
+        let result = yield fetchApiJson(url, config);
+        if (!result)
+            return null;
+        if (Array.isArray(result) && result.length > 0)
+            return result[0];
+        return result;
+    });
+}
+/**
+ * sort courses (or course Data) alphabetically by name
+ * @param a item to compare.
+ * @param b item to compare.
+ */
+function courseNameSort(a, b) {
+    if (a.name < b.name)
+        return -1;
+    if (b.name < a.name)
+        return 1;
+    return 0;
+}
+function* range(start, end) {
+    for (let i = start; i <= end; i++) {
+        yield i;
+    }
+}
+function getPlainTextFromHtml(html) {
+    const el = document.createElement('div');
+    el.innerHTML = html;
+    return el.innerText || el.textContent || "";
+}
+function getCourseIdFromUrl(url) {
+    let match = /courses\/(\d+)/.exec(url);
+    if (match) {
+        return parseInt(match[1]);
+    }
+    return null;
+}
+function batchify(toBatch, batchsize) {
+    const out = [];
+    for (let i = 0; i < toBatch.length; i += batchsize) {
+        out.push(toBatch.slice(i, i + batchsize));
+    }
+    return out;
+}
+function filterUniqueFunc(item, index, array) {
+    return array.indexOf(item) === index;
+}
+
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/index.ts
+var validations_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+//number of characters to show around a match
+const SHOW_WINDOW = 5;
+const MAX_SEARCH_RETURN_SIZE = 20;
+function testResult(success, failureMessage, links, successMessage = ['success']) {
+    success = !!success;
+    const response = {
+        success,
+        message: success ? successMessage : failureMessage
+    };
+    if (links)
+        response.links = links;
+    return response;
+}
+function capitalize(str) {
+    return str.replace(/\b[a-z]/g, (substring) => substring.toUpperCase());
+}
+function preserveCapsReplace(regex, replace) {
+    return (substring, ..._args) => {
+        const replacedSubstring = substring.replace(regex, replace);
+        if (substring.toUpperCase() === substring)
+            return replacedSubstring.toUpperCase();
+        if (capitalize(substring) === substring)
+            return capitalize(replacedSubstring);
+        return replacedSubstring;
+    };
+}
+function matchHighlights(content, search, maxHighlightLength = MAX_SEARCH_RETURN_SIZE, windowSize = SHOW_WINDOW) {
+    search.lastIndex = 0;
+    let matches = search.global ? Array.from(content.matchAll(search)) : [];
+    search.lastIndex = 0;
+    if (!search.global) {
+        let match = search.exec(content);
+        if (match)
+            matches.push(match);
+    }
+    return matches.map(match => {
+        const minIndex = Math.max(0, match.index - windowSize);
+        const maxIndex = Math.min(content.length, match.index + match[0].length + windowSize);
+        let substring = content.substring(minIndex, maxIndex);
+        if (substring.length > maxHighlightLength) {
+            const half = Math.floor(maxHighlightLength / 2);
+            substring = substring.replace(new RegExp(`^(.{${half}}).*(.{${half}})$`), '$1...$2');
+        }
+        return substring;
+    });
+}
+function badContentRunFunc(badTest) {
+    return (course, config) => validations_awaiter(this, void 0, void 0, function* () {
+        const defaultConfig = { queryParams: { include: ['body'], per_page: 50 } };
+        let content = yield course.getContent(overrideConfig(config, defaultConfig));
+        const badContent = content.filter(item => item.body && item.body.search(badTest) > -1);
+        const syllabus = yield course.getSyllabus(config);
+        let syllabusTest = syllabus.search(badTest) > -1;
+        const success = badContent.length === 0 && !syllabusTest;
+        let links = [];
+        let failureMessage = [];
+        if (badContent.length > 0) {
+            let messageSets = [...badContent.map(a => {
+                    var _a;
+                    if (!((_a = a.body) === null || _a === void 0 ? void 0 : _a.length))
+                        return [a.name];
+                    const content = a.body;
+                    return matchHighlights(content, badTest);
+                })];
+            for (let messages of messageSets)
+                failureMessage.push(...messages);
+            links = [...links, ...badContent.map(a => a.htmlContentUrl)];
+        }
+        if (syllabusTest) {
+            failureMessage.push(...matchHighlights(syllabus, badTest));
+            links.push(`/courses/${course.id}/assignments/syllabus`);
+        }
+        const result = testResult(success, failureMessage, links);
+        if (!success)
+            result.links = badContent.map(content => content.htmlContentUrl);
+        return result;
+    });
+}
+function badSyllabusFixFunc(validateRegEx, replace) {
+    const replaceText = replaceTextFunc(validateRegEx, replace);
+    return (course) => validations_awaiter(this, void 0, void 0, function* () {
+        try {
+            yield fixSyllabus(course, validateRegEx, replaceText);
+            return {
+                success: true,
+                message: 'success'
+            };
+        }
+        catch (e) {
+            return {
+                success: false,
+                message: e instanceof Error ? e.toString() : "An Error has occurred"
+            };
+        }
+    });
+}
+function badContentFixFunc(validateRegEx, replace) {
+    return (course) => validations_awaiter(this, void 0, void 0, function* () {
+        let success = false;
+        let message = "";
+        const errors = [];
+        const includeBody = { queryParams: { include: ['body'] } };
+        let content = yield course.getContent(includeBody);
+        content = content.filter(item => item.body && item.body.search(validateRegEx) > -1);
+        const replaceText = replaceTextFunc(validateRegEx, replace);
+        yield fixSyllabus(course, validateRegEx, replaceText);
+        for (let item of content) {
+            if (!item.body)
+                continue;
+            if (item.body.search(validateRegEx) === -1)
+                continue;
+            const newText = replaceText(item.body);
+            if (newText.search(validateRegEx) > -1)
+                throw new Error(`Fix broken for ${item.name})`);
+            yield item.updateContent(newText);
+        }
+        return {
+            success,
+            message
+        };
+    });
+}
+function replaceTextFunc(validateRegEx, replace) {
+    return (str) => {
+        //This is silly, but it gets typescript to stop yelling at me about the overload
+        if (typeof replace === 'string')
+            return str.replaceAll(validateRegEx, replace);
+        return str.replaceAll(validateRegEx, replace);
+    };
+}
+function fixSyllabus(course, validateRegEx, replaceText) {
+    return validations_awaiter(this, void 0, void 0, function* () {
+        const syllabus = yield course.getSyllabus();
+        if (syllabus.search(validateRegEx) > -1) {
+            const newText = replaceText(syllabus);
+            if (newText.search(validateRegEx) > -1)
+                throw new Error("Fix broken for syllabus " + validateRegEx.toString() + newText);
+            yield course.changeSyllabus(newText);
+        }
+    });
+}
+function overrideConfig(source, override) {
+    var _a, _b;
+    const out = {
+        queryParams: Object.assign(Object.assign({}, source === null || source === void 0 ? void 0 : source.queryParams), override === null || override === void 0 ? void 0 : override.queryParams),
+        fetchInit: Object.assign(Object.assign({}, source === null || source === void 0 ? void 0 : source.fetchInit), override === null || override === void 0 ? void 0 : override.fetchInit)
+    };
+    if (((_a = source === null || source === void 0 ? void 0 : source.queryParams) === null || _a === void 0 ? void 0 : _a.include) && ((_b = override === null || override === void 0 ? void 0 : override.queryParams) === null || _b === void 0 ? void 0 : _b.include)) {
+        out.queryParams.include = [...source === null || source === void 0 ? void 0 : source.queryParams.include, ...override === null || override === void 0 ? void 0 : override.queryParams.include];
+    }
+    return out;
+}
+
+;// CONCATENATED MODULE: ./src/canvas/baseCanvasObject.ts
+var baseCanvasObject_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -5999,10 +5686,287 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 };
 
 
-(() => __awaiter(void 0, void 0, void 0, function* () {
+
+class BaseCanvasObject {
+    constructor(data) {
+        this.accountId = null;
+        this.canvasData = data || {}; // A dict holding the decoded json representation of the object in Canvas
+    }
+    getClass() {
+        return this.constructor;
+    }
+    getItem(item) {
+        return this.canvasData[item];
+    }
+    get myClass() {
+        return this.constructor;
+    }
+    get nameKey() {
+        assert_default()(this.myClass.nameProperty);
+        return this.myClass.nameProperty;
+    }
+    get rawData() {
+        return Object.assign({}, this.canvasData);
+    }
+    get contentUrlPath() {
+        const constructor = this.constructor;
+        assert_default()(typeof this.accountId === 'number');
+        assert_default()(typeof constructor.contentUrlTemplate === 'string');
+        return constructor.contentUrlTemplate
+            .replace('{content_id}', this.id.toString())
+            .replace('{account_id}', this.accountId.toString());
+    }
+    get htmlContentUrl() {
+        return `/${this.contentUrlPath}`;
+    }
+    get data() {
+        return this.canvasData;
+    }
+    static getDataById(contentId_1) {
+        return baseCanvasObject_awaiter(this, arguments, void 0, function* (contentId, courseId = null, config = null) {
+            let url = this.getUrlPathFromIds(contentId, courseId);
+            const response = yield fetchApiJson(url, config);
+            assert_default()(!Array.isArray(response));
+            return response;
+        });
+    }
+    static getUrlPathFromIds(contentId, courseId) {
+        assert_default()(typeof this.contentUrlTemplate === 'string');
+        let url = this.contentUrlTemplate
+            .replace('{content_id}', contentId.toString());
+        if (courseId)
+            url = url.replace('{course_id}', courseId.toString());
+        return url;
+    }
+    /**
+     * @param courseId - The course ID to get elements within, if applicable
+     * @param accountId - The account ID to get elements within, if applicable
+     */
+    static getAllUrl(courseId = null, accountId = null) {
+        assert_default()(typeof this.allContentUrlTemplate === 'string');
+        let replaced = this.allContentUrlTemplate;
+        if (courseId)
+            replaced = replaced.replace('{course_id}', courseId.toString());
+        if (accountId)
+            replaced = replaced.replace('{account_id}', accountId.toString());
+        return replaced;
+    }
+    static getAll() {
+        return baseCanvasObject_awaiter(this, arguments, void 0, function* (config = null) {
+            let url = this.getAllUrl();
+            let data = yield getApiPagedData(url, config);
+            return data.map(item => new this(item));
+        });
+    }
+    get id() {
+        const id = this.canvasData[this.constructor.idProperty];
+        return parseInt(id);
+    }
+    get name() {
+        let nameProperty = this.getClass().nameProperty;
+        if (!nameProperty)
+            return 'NAME PROPERTY NOT SET';
+        return this.getItem(nameProperty);
+    }
+    saveData(data, config) {
+        return baseCanvasObject_awaiter(this, void 0, void 0, function* () {
+            assert_default()(this.contentUrlPath);
+            config = overrideConfig({
+                fetchInit: {
+                    method: 'PUT',
+                    body: formDataify(data)
+                }
+            }, config);
+            let results = yield fetchApiJson(this.contentUrlPath, config);
+            if (Array.isArray(results))
+                results = results[0];
+            this.canvasData = Object.assign(Object.assign({}, this.canvasData), results);
+            return this.canvasData;
+        });
+    }
+}
+BaseCanvasObject.idProperty = 'id'; // The field name of the id of the canvas object type
+BaseCanvasObject.nameProperty = 'name'; // The field name of the primary name of the canvas object type
+BaseCanvasObject.contentUrlTemplate = null; // A templated url to get a single item
+BaseCanvasObject.allContentUrlTemplate = null; // A templated url to get all items
+
+;// CONCATENATED MODULE: ./src/canvas/index.ts
+// noinspection GrazieInspection
+var canvas_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+/* Very Initial refactor to JS using ChatGPT4
+NOTE: Almost all of this code has had to be rewritten since then.
+And starting to convert to ts
+ */
+/* THis has since been almost entirely rewritten. It did not do a great job at first pass.
+ It kept inventing code that should work but didn't */
+
+
+
+/**
+ *  A base class for objects that interact with the Canvas API
+ */
+class Account extends BaseCanvasObject {
+    static getFromUrl() {
+        return canvas_awaiter(this, arguments, void 0, function* (url = null) {
+            if (url === null) {
+                url = document.documentURI;
+            }
+            let match = /accounts\/(\d+)/.exec(url);
+            if (match) {
+                console.log(match);
+                return yield this.getAccountById(parseInt(match[1]));
+            }
+            return null;
+        });
+    }
+    static getAccountById(accountId_1) {
+        return canvas_awaiter(this, arguments, void 0, function* (accountId, config = undefined) {
+            const data = yield this.getDataById(accountId, null, config);
+            console.assert();
+            return new Account(data);
+        });
+    }
+    static getRootAccount() {
+        return canvas_awaiter(this, arguments, void 0, function* (resetCache = false) {
+            let accounts = yield this.getAll();
+            if (!resetCache && this.hasOwnProperty('account') && this.account) {
+                return this.account;
+            }
+            let root = accounts.find((a) => a.rootAccountId === null);
+            assert_default()(root);
+            this.account = root;
+            return root;
+        });
+    }
+    get rootAccountId() {
+        return this.canvasData['root_account_id'];
+    }
+}
+Account.nameProperty = 'name'; // The field name of the primary name of the canvas object type
+Account.contentUrlTemplate = 'accounts/{content_id}'; // A templated url to get a single item
+Account.allContentUrlTemplate = 'accounts'; // A templated url to get all items
+class Rubric extends BaseCanvasObject {
+    constructor(data, courseId) {
+        super(data);
+        this.courseId = courseId;
+    }
+    associations() {
+        return canvas_awaiter(this, arguments, void 0, function* (reload = false) {
+            if ('associations' in this.canvasData && !reload) {
+                return this.canvasData['associations'];
+            }
+            let data = yield this.myClass.getDataById(this.id, this.courseId, { queryParams: { 'include': ['associations'] } });
+            let associations = data['associations'].map((data) => new RubricAssociation(data, this.courseId));
+            this.canvasData['associations'] = associations;
+            return associations;
+        });
+    }
+}
+Rubric.nameProperty = 'title';
+Rubric.contentUrlTemplate = "courses/{course_id}/rubrics/{content_id}";
+Rubric.allContentUrlTemplate = "courses/{course_id}/rubrics";
+class RubricAssociation extends BaseCanvasObject {
+    constructor(data, courseId) {
+        super(data);
+        this.courseId = courseId;
+    }
+    get useForGrading() {
+        return this.canvasData['use_for_grading'];
+    }
+    setUseForGrading(value, config) {
+        return canvas_awaiter(this, void 0, void 0, function* () {
+            this.canvasData['use_for_grading'] = value;
+            return yield this.saveData({ 'rubric_association[use_for_grading]': value }, config);
+        });
+    }
+}
+RubricAssociation.contentUrlTemplate = "courses/{course_id}/rubric_associations/{content_id}";
+RubricAssociation.allContentUrlTemplate = "courses/{course_id}/rubric_associations";
+class Term extends BaseCanvasObject {
+    static getTerm(code_1) {
+        return canvas_awaiter(this, arguments, void 0, function* (code, workflowState = 'all', config = undefined) {
+            const terms = yield this.searchTerms(code, workflowState, config);
+            if (!Array.isArray(terms) || terms.length <= 0) {
+                return null;
+            }
+            return terms[0];
+        });
+    }
+    static getTermById(termId_1) {
+        return canvas_awaiter(this, arguments, void 0, function* (termId, config = null) {
+            let account = yield Account.getRootAccount();
+            let url = `accounts/${account.id}/terms/${termId}`;
+            let termData = yield fetchApiJson(url, config);
+            if (termData)
+                return new Term(termData);
+            return null;
+        });
+    }
+    static getAllActiveTerms() {
+        return canvas_awaiter(this, arguments, void 0, function* (config = null) {
+            return yield this.searchTerms(null, 'active', config);
+        });
+    }
+    static searchTerms() {
+        return canvas_awaiter(this, arguments, void 0, function* (code = null, workflowState = 'all', config = null) {
+            config = config || {};
+            config.queryParams = config.queryParams || {};
+            let queryParams = config.queryParams;
+            if (workflowState)
+                queryParams['workflow_state'] = workflowState;
+            if (code)
+                queryParams['term_name'] = code;
+            let rootAccount = yield Account.getRootAccount();
+            assert_default()(rootAccount);
+            let url = `accounts/${rootAccount.id}/terms`;
+            const data = yield getApiPagedData(url, config);
+            let terms = [];
+            for (let datum of data) {
+                if (datum.hasOwnProperty('enrollment_terms')) {
+                    for (let termData of datum['enrollment_terms']) {
+                        terms.push(termData);
+                    }
+                }
+                else {
+                    terms.push(datum);
+                }
+            }
+            console.log(terms);
+            if (!terms || terms.length === 0) {
+                return null;
+            }
+            return terms.map(term => new Term(term));
+        });
+    }
+}
+Term.nameProperty = "name";
+class NotImplementedException extends (/* unused pure expression or super */ null && (Error)) {
+}
+
+;// CONCATENATED MODULE: ./src/ui/account/index.ts
+var account_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+(() => account_awaiter(void 0, void 0, void 0, function* () {
     //const account = await Account.getFromUrl()
-    const activeTerms = yield _canvas__WEBPACK_IMPORTED_MODULE_0__.Term.getAllActiveTerms();
-    assert__WEBPACK_IMPORTED_MODULE_1___default()(activeTerms);
+    const activeTerms = yield Term.getAllActiveTerms();
+    assert_default()(activeTerms);
     let gradTerm = activeTerms.find((term) => term.name.search(/DE8W/));
     let ugTerm = activeTerms.find((term) => term.name.search(/DE(\/?HL)?-\s{3}-\d+-\d+/));
     let termEl = document.getElementById('termFilter');
