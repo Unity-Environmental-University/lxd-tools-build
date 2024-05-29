@@ -42508,19 +42508,43 @@ var blueprint_awaiter = (undefined && undefined.__awaiter) || function (thisArg,
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var blueprint_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
 
 
 function isBlueprint({ blueprint }) {
     return !!blueprint;
 }
-function getAssociatedCourses(course) {
+function getSections(course) {
     return blueprint_awaiter(this, void 0, void 0, function* () {
+        var _a, e_1, _b, _c;
         const id = course.id;
         if (!course.isBlueprint())
             return [];
-        const url = `courses/${id}/blueprint_templates/default/associated_courses`;
-        const courses = yield getApiPagedData(url, { queryParams: { per_page: 50 } });
-        return courses.map(courseData => new course_Course(courseData));
+        const url = `/api/v1/courses/${id}/blueprint_templates/default/associated_courses`;
+        const courseDataGenerator = getPagedDataGenerator(url, { queryParams: { per_page: 50 } });
+        const sections = [];
+        try {
+            for (var _d = true, courseDataGenerator_1 = blueprint_asyncValues(courseDataGenerator), courseDataGenerator_1_1; courseDataGenerator_1_1 = yield courseDataGenerator_1.next(), _a = courseDataGenerator_1_1.done, !_a; _d = true) {
+                _c = courseDataGenerator_1_1.value;
+                _d = false;
+                let sectionData = _c;
+                sections.push(yield course_Course.getCourseById(sectionData.id));
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (!_d && !_a && (_b = courseDataGenerator_1.return)) yield _b.call(courseDataGenerator_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        return sections;
     });
 }
 function cachedGetAssociatedCoursesFunc(course) {
@@ -42528,13 +42552,13 @@ function cachedGetAssociatedCoursesFunc(course) {
     return (...args_1) => blueprint_awaiter(this, [...args_1], void 0, function* (redownload = false) {
         if (!redownload && cache)
             return cache;
-        cache = yield getAssociatedCourses(course);
+        cache = yield getSections(course);
         return cache;
     });
 }
-function getTermNameFromSections(course) {
+function getTermNameFromSections(sections) {
     return blueprint_awaiter(this, void 0, void 0, function* () {
-        const [section] = yield course.getAssociatedCourses();
+        const [section] = sections;
         if (!section)
             throw new Error("Cannot determine term name by sections; there are no sections.");
         const sectionTerm = yield section.getTerm();
@@ -42837,21 +42861,39 @@ class course_Course extends BaseCanvasObject {
     }
     getAvailableGradingStandards(config) {
         return course_awaiter(this, void 0, void 0, function* () {
-            const courseGradingStandards = yield getGradingStandards(this.id, "course", config);
-            const accountGradingStandards = yield getGradingStandards(this.rawData.account_id, 'account', config);
-            const rootAccountGradingStandards = yield getGradingStandards(this.rawData.root_account_id, 'account', config);
-            return [...accountGradingStandards, ...rootAccountGradingStandards, ...courseGradingStandards];
+            let out = [];
+            console.log(this.name);
+            const { id, account_id, root_account_id } = this.canvasData;
+            console.log(this.id, this.rawData.account_id, this.rawData.root_account_id);
+            if (id) {
+                const courseGradingStandards = yield getGradingStandards(id, "course", config);
+                out = [...out, ...courseGradingStandards];
+            }
+            if (account_id) {
+                const accountGradingStandards = yield getGradingStandards(account_id, 'account', config);
+                out = [...out, ...accountGradingStandards];
+            }
+            if (root_account_id) {
+                const rootAccountGradingStandards = yield getGradingStandards(root_account_id, 'account', config);
+                out = [...out, ...rootAccountGradingStandards];
+            }
+            return out.filter(filterUniqueFunc);
         });
     }
     getCurrentGradingStandard(config) {
         return course_awaiter(this, void 0, void 0, function* () {
-            const urls = [
-                `/api/v1/accounts/${this.rawData.root_account_id}/grading_standards/${this.rawData.grading_standard_id}`,
-                `/api/v1/accounts/${this.rawData.account_id}/grading_standards/${this.rawData.grading_standard_id}`,
-                `/api/v1/courses/${this.id}/grading_standards/${this.rawData.grading_standard_id}`
-            ];
+            const { grading_standard_id, account_id, root_account_id } = this.canvasData;
+            const urls = [];
+            if (grading_standard_id) {
+                urls.push(`/api/v1/courses/${this.id}/grading_standards/${grading_standard_id}`);
+                if (root_account_id)
+                    urls.push(`/api/v1/accounts/${root_account_id}/grading_standards/${grading_standard_id}`);
+                if (account_id)
+                    urls.push(`/api/v1/accounts/${account_id}/grading_standards/${grading_standard_id}`);
+            }
             for (let url of urls) {
                 let gradingStandard = yield fetchJson(url);
+                console.log(gradingStandard);
                 if (!('errors' in gradingStandard))
                     return gradingStandard;
             }
@@ -43858,1340 +43900,16 @@ const Modal = ({ id, isOpen, requestClose = undefined, canClose = true, children
 };
 /* harmony default export */ const widgets_Modal = (Modal);
 
-;// CONCATENATED MODULE: ./src/publish/publishInterface/SectionDetails.tsx
-var SectionDetails_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
+;// CONCATENATED MODULE: ./src/publish/publishInterface/sectionDetails/FacultyProfile.tsx
 
 
-
-
-
-function SectionDetails({ section, onClose, onUpdateFrontPageProfile, facultyProfileMatches }) {
-    const [modules, setModules] = (0,react.useState)([]);
-    const [assignmentGroups, setAssignmentGroups] = (0,react.useState)([]);
-    const [instructors, setInstructors] = (0,react.useState)([]);
-    const [frontPageProfile, setFrontPageProfile] = (0,react.useState)(null);
-    const [info, setInfo] = (0,react.useState)(null);
-    const [infoClass, setInfoClass] = (0,react.useState)('alert-primary');
-    useEffectAsync(() => SectionDetails_awaiter(this, void 0, void 0, function* () {
-        yield onSectionChange();
-    }), [section]);
-    function onSectionChange() {
-        return SectionDetails_awaiter(this, void 0, void 0, function* () {
-            /* clear out values, so we don't end up rendering last window's data */
-            setInstructors([]);
-            setModules([]);
-            setAssignmentGroups([]);
-            setFrontPageProfile(null);
-            setInfo(null);
-            if (!section)
-                return;
-            yield Promise.all([
-                () => SectionDetails_awaiter(this, void 0, void 0, function* () { return setFrontPageProfile(yield section.getFrontPageProfile()); }),
-                () => SectionDetails_awaiter(this, void 0, void 0, function* () { return setModules(yield section.getModules()); }),
-                () => SectionDetails_awaiter(this, void 0, void 0, function* () { var _a; return setInstructors((_a = yield getInstructors(section)) !== null && _a !== void 0 ? _a : []); }),
-                () => SectionDetails_awaiter(this, void 0, void 0, function* () {
-                    return setAssignmentGroups(yield section.getAssignmentGroups({
-                        queryParams: {
-                            include: ['assignments']
-                        }
-                    }));
-                })
-            ].map(func => func()));
-        });
-    }
-    function getInstructors(section) {
-        return SectionDetails_awaiter(this, void 0, void 0, function* () {
-            const fetchInstructors = yield section.getInstructors();
-            fetchInstructors && setInstructors(fetchInstructors);
-            return fetchInstructors;
-        });
-    }
-    function error(message) {
-        broadcast(message, 'alert-error');
-    }
-    function broadcast(message, infoClass = 'alert-primary') {
-        setInfo(message);
-        setInfoClass(infoClass);
-    }
-    function message(message) {
-        setInfo(message);
-        setInfoClass('alert-primary');
-    }
-    function success(message) {
-        setInfo(message);
-        setInfoClass('alert-success');
-    }
-    function applyProfile(profile) {
-        return SectionDetails_awaiter(this, void 0, void 0, function* () {
-            if (!section)
-                return;
-            let frontPage = yield section.getFrontPage();
-            if (!frontPage)
-                return;
-            message('Applying new profile');
-            const newText = renderProfileIntoCurioFrontPage(frontPage.body, profile);
-            yield frontPage.updateContent(newText);
-            const newProfile = yield section.getFrontPageProfile();
-            setFrontPageProfile(newProfile);
-            if (onUpdateFrontPageProfile)
-                onUpdateFrontPageProfile(newProfile);
-            success("Profile updated");
-        });
-    }
-    return (section && ((0,jsx_runtime.jsxs)("div", { children: [(0,jsx_runtime.jsxs)("h3", { children: ["Section Details", (0,jsx_runtime.jsx)("button", { onClick: onClose, children: "X" })] }), (0,jsx_runtime.jsx)("p", { children: (0,jsx_runtime.jsx)("a", { href: section.courseUrl, target: '_blank', className: 'course-link', children: section.name }) }), info && (0,jsx_runtime.jsx)("div", { className: `alert ${infoClass}`, children: info }), (0,jsx_runtime.jsxs)("div", { className: 'row', children: [(0,jsx_runtime.jsx)("div", { className: 'col-sm-8', children: frontPageProfile && (0,jsx_runtime.jsx)(FacultyProfile, { profile: frontPageProfile }) }), (0,jsx_runtime.jsxs)("div", { className: 'col-sm-4', children: [(0,jsx_runtime.jsxs)("div", { className: 'col', children: [(0,jsx_runtime.jsx)("h4", { children: "Modules" }), modules.map((module) => ((0,jsx_runtime.jsx)("div", { className: 'row', children: (0,jsx_runtime.jsx)("div", { className: 'col-xs-12', children: module.name }) }, module.id)))] }), (0,jsx_runtime.jsxs)("div", { className: 'col', children: [(0,jsx_runtime.jsx)("h4", { children: "Assignment Groups" }), assignmentGroups.map((group) => {
-                                        var _a;
-                                        return ((0,jsx_runtime.jsxs)("div", { className: 'row', children: [(0,jsx_runtime.jsx)("div", { className: 'col-xs-9', children: group.name }), (0,jsx_runtime.jsxs)("div", { className: 'col-xs-3', children: [group.group_weight, "%"] }), (0,jsx_runtime.jsx)("ul", { children: (_a = group.assignments) === null || _a === void 0 ? void 0 : _a.map((assignment) => ((0,jsx_runtime.jsx)("li", { children: assignment.name }))) })] }, group.id));
-                                    })] })] }), (0,jsx_runtime.jsx)("div", { className: 'row', children: (0,jsx_runtime.jsxs)("div", { className: 'col', children: [(0,jsx_runtime.jsx)("h2", { children: "Faculty Profile Matches" }), facultyProfileMatches && facultyProfileMatches.map((profile, i) => ((0,jsx_runtime.jsx)(FacultyProfile, { profile: profile, setProfileButton: () => SectionDetails_awaiter(this, void 0, void 0, function* () { return yield applyProfile(profile); }) }, i)))] }) })] })] })));
-}
 function FacultyProfile({ profile, setProfileButton }) {
     var _a, _b;
     return ((0,jsx_runtime.jsxs)("div", { className: 'row', style: { border: "1px solid black", boxShadow: "10 10 2 #888" }, children: [(0,jsx_runtime.jsxs)("div", { className: 'col-xs-3', children: [(0,jsx_runtime.jsx)("h4", { children: "Image" }), profile.imageLink ? (0,jsx_runtime.jsx)("img", { style: { width: '100px' }, src: profile.imageLink }) :
-                        (0,jsx_runtime.jsx)("h3", { children: "No Image" }), (0,jsx_runtime.jsx)("h4", { children: "Display Name" }), (0,jsx_runtime.jsx)("p", { children: (_a = profile.displayName) !== null && _a !== void 0 ? _a : "[No Display Name Found]" }), profile.sourcePage && (0,jsx_runtime.jsx)("p", { children: (0,jsx_runtime.jsx)("a", { href: profile.sourcePage.htmlContentUrl, target: '_blank', children: "Source Page" }) })] }), (0,jsx_runtime.jsx)("div", { className: 'col-xs-9 rawHtml', children: (_b = profile.bio) !== null && _b !== void 0 ? _b : "[No bio found on page]" }), setProfileButton &&
+                        (0,jsx_runtime.jsx)("h3", { children: "No Image" }), (0,jsx_runtime.jsx)("h4", { children: "Display Name" }), (0,jsx_runtime.jsx)("p", { children: (_a = profile.displayName) !== null && _a !== void 0 ? _a : "[No Display Name Found]" }), profile.sourcePage &&
+                        (0,jsx_runtime.jsx)("p", { children: (0,jsx_runtime.jsx)("a", { href: profile.sourcePage.htmlContentUrl, target: '_blank', children: "Source Page" }) })] }), (0,jsx_runtime.jsx)("div", { className: 'col-xs-9 rawHtml', children: (_b = profile.bio) !== null && _b !== void 0 ? _b : "[No bio found on page]" }), setProfileButton &&
                 (0,jsx_runtime.jsx)("div", { className: 'col-xs-12', children: (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: setProfileButton, children: "Use this for profile" }) })] }));
 }
-
-// EXTERNAL MODULE: ./node_modules/react-dom/server.browser.js
-var server_browser = __webpack_require__(5848);
-;// CONCATENATED MODULE: ./src/publish/publishInterface/EmailLink.tsx
-var EmailLink_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-/**
- * Section start needed because the data based term start in Canvas is frustratingly wrong
- * @param user
- * @param emails
- * @param course
- * @param termData
- * @param termActualStart
- * @constructor
- */
-function EmailLink({ user, emails, course, termData, sectionStart }) {
-    var _a;
-    const bcc = emails.join(',');
-    const subject = encodeURIComponent(course.name.replace('BP_', '') + ' Section(s) Ready Notification');
-    function copyToClipboard() {
-        return EmailLink_awaiter(this, void 0, void 0, function* () {
-            yield navigator.clipboard.write([
-                new ClipboardItem({
-                    'text/html': new Blob([(0,server_browser/* renderToString */.F0)(body)], { type: 'text/html' })
-                })
-            ]);
-        });
-    }
-    function getCourseStart() {
-        if (!sectionStart)
-            return '[[Start Date]]';
-        return sectionStart === null || sectionStart === void 0 ? void 0 : sectionStart.toLocaleString('en-US', {
-            month: "short",
-            day: 'numeric'
-        });
-    }
-    function getPublishDate() {
-        if (!sectionStart)
-            return '[[publish date]]';
-        const publishDate = sectionStart.add({ 'days': -7 });
-        console.log(publishDate.toLocaleString());
-        return publishDate.toLocaleString('en-US', {
-            month: "short",
-            day: 'numeric'
-        });
-    }
-    const body = ((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsxs)("p", { children: ["My name is ", user.name, " and I\u2019m the Learning Experience Designer who is preparing your course to run this term. Your course section(s) of ", (_a = course.courseCode) === null || _a === void 0 ? void 0 : _a.replace('BP_', ''), " has/have been created for you to teach for ", termData ? termData.name : '[[TERM NAME]]', ". Your students will have access to the syllabus and homepage on ", (0,jsx_runtime.jsxs)("strong", { children: ["Monday, ", getPublishDate()] }), ". Actual course assignments will become available to the students on ", (0,jsx_runtime.jsxs)("strong", { children: ["Monday, ", getCourseStart()] }), ", the official start of the term."] }), (0,jsx_runtime.jsxs)("ul", { children: [(0,jsx_runtime.jsxs)("li", { children: ["Please do not make any corrections or changes to your live course yourself, no matter how small. In order to maintain consistency between the live section and the course template, submit any issues via the ", (0,jsx_runtime.jsx)("a", { href: 'https://docs.google.com/forms/d/e/1FAIpQLSeybl9b-xk-pL1bsWX7x9esQYoHHyi3rPPOq75mK4Q4n4b5tQ/viewform', children: "Course Edit and Feedback Form" }), " so a Learning Technology Support Specialist can make sure the changes are made everywhere they need to be made."] }), (0,jsx_runtime.jsx)("li", { children: "Let me know, when you have a chance to look, if you have any questions, or spot any issues with the course content." }), (0,jsx_runtime.jsx)("li", { children: "Be sure to check out the Instructor Orientation for useful information, such as your instructor bio/picture, grading. There is also a Labster Instructor Guide that you should review if your course contains a Labster simulation(s) in the course modules." }), (0,jsx_runtime.jsx)("li", { children: "Consult the Instructor Guide in your course for a brief overview of important information for teaching the course" }), (0,jsx_runtime.jsxs)("li", { children: ["If you have technology or Canvas related questions, please contact ", (0,jsx_runtime.jsx)("a", { href: 'helpdesk@unity.edu', children: "helpdesk@unity.edu" }), "."] }), (0,jsx_runtime.jsxs)("li", { children: ["For other questions or issues, please contact my supervisor, Chris Malmberg (", (0,jsx_runtime.jsx)("a", { href: 'cmalmberg@unity.edu', children: "cmalmberg@unity.edu" }), ")."] })] }), (0,jsx_runtime.jsx)("p", { children: "We appreciate your help in making sure these courses are good to go. Have a wonderful term." }), (0,jsx_runtime.jsx)("p", { children: "Cheers," }), (0,jsx_runtime.jsx)("p", { children: user.name })] }));
-    return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("a", { href: `mailto:${user.email}?subject=${subject}&bcc=${bcc}`, children: emails.join(', ') }), termData && (0,jsx_runtime.jsx)("button", { onClick: copyToClipboard, children: "Copy Form Email to Clipboard" })] });
-}
-
-;// CONCATENATED MODULE: ./src/publish/publishInterface/publishInterface.tsx
-var publishInterface_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-
-
-
-
-
-
-
-
-
-function PublishInterface({ course, user }) {
-    //-----
-    // DATA
-    //-----
-    const [show, setShow] = (0,react.useState)(false);
-    const [info, setInfo] = (0,react.useState)(null);
-    const [associatedCourses, setAssociatedCourses] = (0,react.useState)([]);
-    const [term, setTerm] = (0,react.useState)();
-    const [sectionStart, setSectionStart] = (0,react.useState)();
-    const [isBlueprint, setIsBlueprint] = (0,react.useState)(false);
-    const [workingSection, setWorkingSection] = (0,react.useState)();
-    const [potentialSectionProfiles, setPotentialSectionProfiles] = (0,react.useState)({});
-    const [sectionFrontPageProfiles, setSectionFrontPageProfiles] = (0,react.useState)({});
-    const [instructorsForCourse, setInstructorsForCourse] = (0,react.useState)({});
-    const [emails, setEmails] = (0,react.useState)([]);
-    const [publishErrors, setPublishErrors] = (0,react.useState)({});
-    const [loading, setLoading] = (0,react.useState)(false);
-    const [infoClass, setInfoClass] = (0,react.useState)('alert-secondary');
-    useEffectAsync(updateCourse, [course]);
-    function updateCourse() {
-        return publishInterface_awaiter(this, void 0, void 0, function* () {
-            if (course) {
-                setIsBlueprint(course.isBlueprint);
-                yield getFullCourses(course);
-            }
-        });
-    }
-    useEffectAsync(() => publishInterface_awaiter(this, void 0, void 0, function* () {
-        var _a;
-        var _b;
-        const profileSet = [];
-        for (let course of associatedCourses) {
-            (_a = profileSet[_b = course.id]) !== null && _a !== void 0 ? _a : (profileSet[_b] = yield course.getPotentialInstructorProfiles());
-        }
-        setPotentialSectionProfiles(profileSet);
-    }), [associatedCourses]);
-    function getFullCourses(course) {
-        return publishInterface_awaiter(this, void 0, void 0, function* () {
-            var _a;
-            console.log("Getting Full Courses");
-            const sections = [];
-            const fetchedCourses = (_a = yield course.getAssociatedCourses()) !== null && _a !== void 0 ? _a : [];
-            const frontPageProfiles = {};
-            const allInstructors = {};
-            const allEmails = new Set();
-            const batchLoadSize = 5;
-            let sectionStartSet = false;
-            for (let i = 0; i < fetchedCourses.length; i += batchLoadSize) {
-                const batch = fetchedCourses.slice(i, i + batchLoadSize);
-                const results = yield Promise.all(batch.map(course => loadSection(course)));
-                let tempTerm = null;
-                for (let { section, instructors, frontPageProfile } of results) {
-                    if (!sectionStartSet) {
-                        let actualStart = yield section.getStartDateFromModules();
-                        sectionStartSet = true;
-                        setSectionStart(mr.PlainDateTime.from(actualStart));
-                    }
-                    if (!tempTerm) {
-                        tempTerm = yield section.getTerm();
-                        setTerm(tempTerm);
-                    }
-                    sections.push(section);
-                    setAssociatedCourses([...sections]);
-                    frontPageProfiles[section.id] = frontPageProfile;
-                    setSectionFrontPageProfiles(Object.assign({}, frontPageProfiles));
-                    if (instructors) {
-                        allInstructors[section.id] = instructors;
-                        setInstructorsForCourse(Object.assign({}, allInstructors));
-                    }
-                    const emails = instructors === null || instructors === void 0 ? void 0 : instructors.map(a => a.email);
-                    emails === null || emails === void 0 ? void 0 : emails.forEach(email => allEmails.add(email));
-                    if (emails)
-                        setEmails([...allEmails]);
-                }
-            }
-        });
-    }
-    function loadSection(course) {
-        return publishInterface_awaiter(this, void 0, void 0, function* () {
-            const section = yield course_Course.getCourseById(course.id);
-            const frontPageProfile = yield section.getFrontPageProfile();
-            const instructors = yield section.getInstructors();
-            return { section, instructors, frontPageProfile, emails };
-        });
-    }
-    //-----
-    // EVENTS
-    //-----
-    function publishCourses(event) {
-        return publishInterface_awaiter(this, void 0, void 0, function* () {
-            const accountId = course === null || course === void 0 ? void 0 : course.getItem('account_id');
-            assert_default()(accountId);
-            yield course_Course.publishAll(associatedCourses, accountId);
-            inform('publishing');
-            setLoading(true);
-            //Waits half a second to allow changes to propagate on the server
-            window.setTimeout(() => publishInterface_awaiter(this, void 0, void 0, function* () {
-                let newAssocCourses = yield (course === null || course === void 0 ? void 0 : course.getAssociatedCourses());
-                if (newAssocCourses) {
-                    newAssocCourses = [...newAssocCourses];
-                }
-                else {
-                    newAssocCourses = [];
-                }
-                setAssociatedCourses(newAssocCourses);
-                setLoading(false);
-                success('Published');
-            }), 500);
-        });
-    }
-    function openAll(e) {
-        e.stopPropagation();
-        for (let course of associatedCourses) {
-            window.open(course.courseUrl, "_blank");
-        }
-    }
-    function sectionError(section, error) {
-        var _a;
-        let tempErrors = Object.assign({}, publishErrors);
-        let errorSet = (_a = tempErrors[section.id]) !== null && _a !== void 0 ? _a : [];
-        errorSet.push(error);
-        tempErrors[section.id] = errorSet;
-        setPublishErrors(Object.assign({}, tempErrors));
-    }
-    function applySectionProfiles(event) {
-        return publishInterface_awaiter(this, void 0, void 0, function* () {
-            setLoading(true);
-            inform("Updating section profiles...");
-            const currentProfiles = Object.assign({}, sectionFrontPageProfiles);
-            setPublishErrors({});
-            for (let section of associatedCourses) {
-                const profiles = potentialSectionProfiles[section.id];
-                const errors = [];
-                if (profiles.length < 1) {
-                    sectionError(section, "No Profiles");
-                    continue;
-                }
-                if (profiles.length > 1) {
-                    errors.push("Multiple Matches Found");
-                }
-                const profile = profiles[0];
-                const frontPage = yield section.getFrontPage();
-                if (!frontPage) {
-                    sectionError(section, "No front page");
-                    continue;
-                }
-                const html = renderProfileIntoCurioFrontPage(frontPage.body, profile);
-                yield frontPage.updateContent(html);
-                currentProfiles[section.id] = profile;
-                setSectionFrontPageProfiles(Object.assign({}, currentProfiles));
-                setInfo(`Updated ${profile.displayName}...`);
-            }
-            setLoading(false);
-            success("Profiles Updated");
-        });
-    }
-    function inform(message, alertClass = 'alert-secondary') {
-        setInfo(message);
-        setInfoClass(alertClass);
-    }
-    function success(message) {
-        inform(message, 'alert-success');
-    }
-    //-----
-    // RENDER
-    //-----
-    function mailTo(emails, subject = '') {
-        return `mailto:no-reply@unity.edu?bcc=${emails.join(',')}&subject=${subject}`;
-    }
-    function openButton() {
-        return (course && (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { disabled: !isBlueprint, className: isBlueprint ? 'ui-button' : '', onClick: (e) => setShow(true), children: isBlueprint ? "Manage Sections" : "Not A Blueprint" }));
-    }
-    function associatedCourseRows() {
-        return ((0,jsx_runtime.jsxs)("div", { className: 'course-table', children: [(0,jsx_runtime.jsxs)("div", { className: 'row', children: [(0,jsx_runtime.jsxs)("div", { className: 'col-sm-6', children: [(0,jsx_runtime.jsx)("div", { children: (0,jsx_runtime.jsx)("strong", { children: "Code" }) }), (0,jsx_runtime.jsx)("a", { href: '#', onClick: openAll, children: "Open All" })] }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-3', children: (0,jsx_runtime.jsx)("strong", { children: "Name on Front Page" }) }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-3', children: (0,jsx_runtime.jsx)("strong", { children: "Instructor(s)" }) })] }), associatedCourses && associatedCourses.map((course) => ((0,jsx_runtime.jsx)(PublishCourseRow, { instructors: instructorsForCourse[course.id], frontPageProfile: sectionFrontPageProfiles[course.id], facultyProfileMatches: potentialSectionProfiles[course.id], errors: publishErrors[course.id], onClickDx: (section) => setWorkingSection(section), course: course }, course.id)))] }));
-    }
-    /**
-     * Parses the profile sets in to a list of emails, omitting when the profile does not have a user property.
-     * @param profileSets
-     */
-    return ((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [openButton(), (0,jsx_runtime.jsxs)(widgets_Modal, { id: 'lxd-publish-interface', isOpen: show, canClose: !loading, requestClose: () => {
-                    if (!loading)
-                        setShow(false);
-                }, children: [!workingSection && ((0,jsx_runtime.jsx)("div", { children: (0,jsx_runtime.jsxs)("div", { className: 'row', children: [(0,jsx_runtime.jsx)("div", { className: 'col-xs-12', children: (0,jsx_runtime.jsx)("h3", { children: "Sections" }) }), (0,jsx_runtime.jsx)("div", { className: 'col-xs-12 col-sm-12', children: "Publish sections associated with this blueprint" }), (0,jsx_runtime.jsxs)("div", { className: 'col-xs-2', children: [(0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { className: "btn", disabled: loading || !(course === null || course === void 0 ? void 0 : course.isBlueprint), onClick: applySectionProfiles, children: "Set Bios" }), (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { className: "btn", disabled: loading || !(course === null || course === void 0 ? void 0 : course.isBlueprint), onClick: publishCourses, children: "Publish" })] }), (0,jsx_runtime.jsx)("div", { className: 'col-xs-12', children: user && course &&
-                                        (0,jsx_runtime.jsx)(EmailLink, { user: user, emails: emails, course: course, sectionStart: sectionStart, termData: term === null || term === void 0 ? void 0 : term.rawData }) }), (0,jsx_runtime.jsx)("div", { className: 'col-xs-12', children: associatedCourseRows() })] }) })), info && (0,jsx_runtime.jsx)("div", { className: `alert ${infoClass}`, role: 'alert', children: info }), (0,jsx_runtime.jsx)("div", { children: (0,jsx_runtime.jsx)(SectionDetails, { onUpdateFrontPageProfile: newProfile => workingSection && setSectionFrontPageProfiles(Object.assign(Object.assign({}, sectionFrontPageProfiles), { [workingSection.id]: newProfile })), facultyProfileMatches: workingSection && potentialSectionProfiles[workingSection.id], onClose: () => setWorkingSection(null), section: workingSection }) })] })] }));
-}
-
-;// CONCATENATED MODULE: ./src/canvas/fixes/index.ts
-/**
- * Runs through a series of Content Fixes. If all is well, passes the results into the next
- * content fix.
- * Each ContentFix can have tests and preflight tests. Preflight tests are run before the fix is attempted
- * Tests are fun after.
- * If any of these tests fail, that content fix is not run on the text, instead passing the previous value.
- * @param fixes
- * @param source
- */
-function runReplacements(fixes, source) {
-    const failedFixes = [];
-    const output = fixes.reduce((accumulator, { run, tests, preflightTests }) => {
-        // run through all preflight tests, if any of them fail, return the pre-transformation value
-        if (preflightTests && preflightTests.map((test) => test(output)).includes(false))
-            return accumulator;
-        let output = run(accumulator);
-        // run through all tests, if any of them fail, return the pre-transformation value
-        if (tests && tests.map((test) => test(output)).includes(false)) {
-            failedFixes.push({ run, tests, preflightTests });
-            return accumulator;
-        }
-        return output;
-    }, source);
-    return { failedFixes, output };
-}
-function findReplaceFunc(find, replace) {
-    return (source) => {
-        const output = source.replace(find, replace);
-        return output;
-    };
-}
-/**
- * Returns a function that returns true if passed a string that contains the find value or matches the find RegEx, false otherwise
- * @param find A regular expression to check the input string against, or a substring to check if the input string contains
- * @param caseSensitive (string find only) whether to match the string case sensitive-ly
- */
-function inTest(find, caseSensitive = true) {
-    if (typeof find === "string") {
-        const findValue = caseSensitive ? find : find.toLowerCase();
-        return (source) => (caseSensitive ? source : source.toLowerCase()).includes(findValue);
-    }
-    else {
-        return (source) => {
-            return !!source.match(find);
-        };
-    }
-}
-/**
- * Returns a function that returns false if passed a string that contains the find value or matches the find RegEx, true otherwise
- * @param find A regular expression to check the input string against, or a substring to check if the input string contains
- * @param caseSensitive (string find only) whether to match the string case sensitive-ly
- */
-function notInTest(find, caseSensitive = true) {
-    if (typeof find === "string") {
-        const findValue = caseSensitive ? find : find.toLowerCase();
-        return (source) => {
-            return !((caseSensitive ? source : source.toLowerCase()).includes(findValue));
-        };
-    }
-    else {
-        return (source) => {
-            return !source.match(find);
-        };
-    }
-}
-
-;// CONCATENATED MODULE: ./src/canvas/fixes/annotations.ts
-var annotations_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-const removeMediaPlaceholder = {
-    run: findReplaceFunc(/<p>\[Text[^\]]*by SME[^\]]*]<\/p>/, ''),
-    tests: [notInTest(/<p>\[Text[^\]]*by SME[^\]]*]<\/p>/)]
-};
-const removeInsertAnnotationForMedia = {
-    run: findReplaceFunc(/\[[iI]nsert annotation for media]/, ''),
-    tests: [notInTest(/\[.*annotation,.*]/)]
-};
-const removeSecondaryMediaTitle = {
-    run: findReplaceFunc(/<h3>\[Title for <span style="text-decoration: underline;"> optional <\/span>secondary media element\]<\/h3>/, ''),
-    tests: [notInTest('secondary media element]')]
-};
-const removeBlockQuote = {
-    run: function (input) {
-        var _a, _b;
-        const el = document.createElement('div');
-        el.innerHTML = input;
-        const bqElement = el.querySelector('blockquote');
-        if (bqElement === null || bqElement === void 0 ? void 0 : bqElement.innerHTML.includes('SME')) {
-            (_b = (_a = bqElement.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement) === null || _b === void 0 ? void 0 : _b.remove();
-        }
-        const output = el.innerHTML;
-        el.remove();
-        return output;
-    },
-    tests: [notInTest(/\[Pull quote -/)]
-};
-const removeLmNarrativePlaceholder = {
-    run: function (input) {
-        const el = document.createElement('div');
-        el.innerHTML = input;
-        const divs = el.querySelectorAll('div.cbt-content');
-        const toRemove = Array.from(divs).filter((div) => div.innerHTML.includes('LM Narrative'));
-        for (let element of toRemove)
-            element.remove();
-        const output = el.innerHTML;
-        el.remove();
-        return output;
-    },
-    tests: [
-        notInTest(/LM Narrative/)
-    ]
-};
-const contentFixes = [
-    removeMediaPlaceholder,
-    removeLmNarrativePlaceholder,
-    removeInsertAnnotationForMedia,
-    removeSecondaryMediaTitle,
-    removeBlockQuote,
-];
-/**
- * Removes annotation placeholder text from Learning Materials in the course
- * @param course
- */
-function fixLmAnnotations(course) {
-    return annotations_awaiter(this, void 0, void 0, function* () {
-        let pages = yield course.getPages({
-            queryParams: {
-                include: ['body'],
-                search_term: 'learning materials'
-            }
-        });
-        const pendingUpdates = [];
-        const fixedPages = [];
-        const unchangedPages = [];
-        const failedPages = [];
-        const failedFixes = [];
-        for (let page of pages) {
-            const sourceHtml = page.body;
-            const fix = runReplacements(contentFixes, sourceHtml);
-            const fixedValue = fix.output;
-            if (fix.failedFixes.length > 0) {
-                failedPages.push(page);
-                console.log(page);
-                console.log(fix);
-            }
-            if (sourceHtml === fixedValue) {
-                console.log(sourceHtml.length - fixedValue.length);
-                console.log(`Page unchanged ${page.name}`);
-                unchangedPages.push(page);
-            }
-            else {
-                console.log(`fixed ${page.name}`);
-                pendingUpdates.push(page.updateContent(fixedValue));
-                fixedPages.push(page);
-            }
-        }
-        yield Promise.all(pendingUpdates);
-        return { fixedPages, unchangedPages, failedPages };
-    });
-}
-
-
-// EXTERNAL MODULE: ./node_modules/react-datepicker/dist/react-datepicker.min.js
-var react_datepicker_min = __webpack_require__(9386);
-var react_datepicker_min_default = /*#__PURE__*/__webpack_require__.n(react_datepicker_min);
-;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/UpdateStartDate.tsx
-var UpdateStartDate_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var UpdateStartDate_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
-
-
-
-
-
-
-
-
-
-
-function UpdateStartDate({ course, isDisabled, startLoading, endLoading, refreshCourse, setAffectedItems, setUnaffectedItems, setFailedItems }) {
-    const [startDate, setStartDate] = (0,react.useState)();
-    const [workingStartDate, setWorkingStartDate] = (0,react.useState)();
-    useEffectAsync(() => UpdateStartDate_awaiter(this, void 0, void 0, function* () {
-        const date = yield course.getStartDateFromModules();
-        setStartDate(date);
-        setWorkingStartDate(date);
-    }), [course]);
-    function changeStartDate() {
-        return UpdateStartDate_awaiter(this, void 0, void 0, function* () {
-            var _a, e_1, _b, _c;
-            startLoading();
-            if (!workingStartDate)
-                throw new StartDateNotSetError();
-            const syllabusText = yield course.getSyllabus();
-            let affectedItems = [];
-            try {
-                if (syllabusText) {
-                    if (!startDate)
-                        throw new StartDateNotSetError();
-                    const syllabusChanges = yield updateSyllabus(syllabusText, workingStartDate);
-                    if (syllabusChanges)
-                        affectedItems.concat(syllabusChanges);
-                    let startOfFirstWeek = getStartDateAssignments(yield course.getAssignments());
-                    console.log(startOfFirstWeek.toString());
-                    let contentDateOffset = startDate.until(workingStartDate).days;
-                    let startOfFirstWeekOffset = startOfFirstWeek.until(workingStartDate).days;
-                    console.log(startOfFirstWeekOffset);
-                    if (contentDateOffset != startOfFirstWeekOffset) {
-                        affectedItems.push((0,jsx_runtime.jsx)("div", { children: "Note: start date mismatch. Using first week from assignments to determine content dates." }));
-                        contentDateOffset = startOfFirstWeekOffset;
-                    }
-                    const affectedContent = yield course.updateDueDates(contentDateOffset);
-                    for (let contentItem of affectedContent) {
-                        affectedItems.push(getContentAffectedItemRow(contentItem));
-                    }
-                    const announcementGenerator = getPagedDataGenerator(`/api/v1/courses/${course.id}/discussion_topics`, {
-                        queryParams: {
-                            only_announcements: true
-                        }
-                    });
-                    try {
-                        for (var _d = true, announcementGenerator_1 = UpdateStartDate_asyncValues(announcementGenerator), announcementGenerator_1_1; announcementGenerator_1_1 = yield announcementGenerator_1.next(), _a = announcementGenerator_1_1.done, !_a; _d = true) {
-                            _c = announcementGenerator_1_1.value;
-                            _d = false;
-                            let value = _c;
-                            let discussion = new Discussion(value, course.id);
-                            console.log(contentDateOffset);
-                            yield discussion.offsetPublishDelay(contentDateOffset);
-                            affectedItems.push(getContentAffectedItemRow(discussion));
-                        }
-                    }
-                    catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                    finally {
-                        try {
-                            if (!_d && !_a && (_b = announcementGenerator_1.return)) yield _b.call(announcementGenerator_1);
-                        }
-                        finally { if (e_1) throw e_1.error; }
-                    }
-                    setAffectedItems && setAffectedItems(affectedItems);
-                }
-                else {
-                    setUnaffectedItems && setUnaffectedItems([]);
-                }
-                yield refreshCourse(true);
-                setStartDate(workingStartDate);
-            }
-            catch (error) {
-                console.log(error);
-                setAffectedItems && setAffectedItems(affectedItems);
-                setFailedItems && setFailedItems([(0,jsx_runtime.jsxs)("div", { className: 'ui-alert', children: [(0,jsx_runtime.jsx)("h2", { children: error.toString() }), (0,jsx_runtime.jsx)("p", { children: error.stack })] })]);
-            }
-            endLoading();
-        });
-    }
-    function updateSyllabus(syllabusText, updateStartDate) {
-        return UpdateStartDate_awaiter(this, void 0, void 0, function* () {
-            const affectedItems = [];
-            const results = updatedDateSyllabusHtml(syllabusText, updateStartDate);
-            if (syllabusText !== results.html) {
-                yield course.changeSyllabus(results.html);
-                for (let row of getSyllabusAffectedItemsRows(results)) {
-                }
-                const modules = yield course.getModules();
-                yield changeModuleLockDate(course.id, modules[0], updateStartDate);
-                if (updateStartDate != startDate) {
-                    affectedItems.push((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("div", { className: 'col-sm-6', children: "Changed Lock Date" }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-6', children: (0,jsx_runtime.jsx)("a", { href: course.htmlContentUrl + '/modules', children: "Modules Page" }) })] }));
-                }
-                return affectedItems;
-            }
-        });
-    }
-    function getContentAffectedItemRow(item) {
-        var _a;
-        return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("div", { className: 'col-sm-6', children: (0,jsx_runtime.jsx)("a", { href: item.htmlContentUrl, target: "_blank", children: item.name }) }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-6', children: (_a = item.dueAt) === null || _a === void 0 ? void 0 : _a.toString() })] });
-    }
-    function getSyllabusAffectedItemsRows(results) {
-        return results.changedText.map((changedText) => (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsxs)("div", { className: 'col-sm-6', children: [(0,jsx_runtime.jsx)("strong", { children: "Change:" }), changedText] }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-6', children: (0,jsx_runtime.jsx)("a", { href: course.htmlContentUrl + '/assignments/syllabus', target: "_blank", children: "Syllabus" }) })] }));
-    }
-    function updateStartDateValue(inDate) {
-        setWorkingStartDate(oldDateToPlainDate(inDate));
-    }
-    return (0,jsx_runtime.jsx)(jsx_runtime.Fragment, { children: (0,jsx_runtime.jsxs)("div", { className: 'row', children: [(0,jsx_runtime.jsxs)("div", { className: 'col-sm-4', children: [(0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: changeStartDate, disabled: isDisabled, children: "Change Start Date" }), (0,jsx_runtime.jsxs)("label", { children: ["Current: ", startDate === null || startDate === void 0 ? void 0 : startDate.toLocaleString('default', {
-                                    weekday: 'short',
-                                    month: 'short',
-                                    day: 'numeric',
-                                    year: 'numeric'
-                                })] })] }), (0,jsx_runtime.jsxs)("div", { className: 'col-sm-4', children: [(0,jsx_runtime.jsx)((react_datepicker_min_default()), { value: workingStartDate === null || workingStartDate === void 0 ? void 0 : workingStartDate.toLocaleString(), onChange: updateStartDateValue }), (0,jsx_runtime.jsxs)("label", { children: ["Target: ", workingStartDate === null || workingStartDate === void 0 ? void 0 : workingStartDate.toLocaleString('default', {
-                                    weekday: 'short',
-                                    month: 'short',
-                                    day: 'numeric',
-                                    year: 'numeric'
-                                })] }), startDate && workingStartDate &&
-                            (0,jsx_runtime.jsxs)("label", { children: ['\u0394', " days: ", startDate.until(workingStartDate).days] })] }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-4', children: "Update dates of assignments, announcements, and on syllabus" })] }) });
-}
-class StartDateNotSetError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "StartDateNotSetError";
-    }
-}
-;
-
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/publish/fixesAndUpdates/CourseValidTest.scss
-var CourseValidTest = __webpack_require__(9433);
-;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/CourseValidTest.scss
-
-      
-      
-      
-      
-      
-      
-      
-      
-      
-
-var CourseValidTest_options = {};
-
-CourseValidTest_options.styleTagTransform = (styleTagTransform_default());
-CourseValidTest_options.setAttributes = (setAttributesWithoutAttributes_default());
-
-      CourseValidTest_options.insert = insertBySelector_default().bind(null, "head");
-    
-CourseValidTest_options.domAPI = (styleDomAPI_default());
-CourseValidTest_options.insertStyleElement = (insertStyleElement_default());
-
-var CourseValidTest_update = injectStylesIntoStyleTag_default()(CourseValidTest/* default */.A, CourseValidTest_options);
-
-
-
-
-       /* harmony default export */ const fixesAndUpdates_CourseValidTest = (CourseValidTest/* default */.A && CourseValidTest/* default */.A.locals ? CourseValidTest/* default */.A.locals : undefined);
-
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Row.js
-"use client";
-
-
-
-
-
-const Row = /*#__PURE__*/react.forwardRef(({
-  bsPrefix,
-  className,
-  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-  as: Component = 'div',
-  ...props
-}, ref) => {
-  const decoratedBsPrefix = useBootstrapPrefix(bsPrefix, 'row');
-  const breakpoints = useBootstrapBreakpoints();
-  const minBreakpoint = useBootstrapMinBreakpoint();
-  const sizePrefix = `${decoratedBsPrefix}-cols`;
-  const classes = [];
-  breakpoints.forEach(brkPoint => {
-    const propValue = props[brkPoint];
-    delete props[brkPoint];
-    let cols;
-    if (propValue != null && typeof propValue === 'object') {
-      ({
-        cols
-      } = propValue);
-    } else {
-      cols = propValue;
-    }
-    const infix = brkPoint !== minBreakpoint ? `-${brkPoint}` : '';
-    if (cols != null) classes.push(`${sizePrefix}${infix}-${cols}`);
-  });
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
-    ref: ref,
-    ...props,
-    className: classnames_default()(className, decoratedBsPrefix, ...classes)
-  });
-});
-Row.displayName = 'Row';
-/* harmony default export */ const esm_Row = (Row);
-;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/ValidationRow.tsx
-var ValidationRow_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-
-
-function ValidationRow({ test, slim, potemkinVillage, initialResult, course, refreshCourse, onResult, showOnlyFailures = false }) {
-    var _a;
-    const [loading, setLoading] = (0,react.useState)(false);
-    const [result, _setResult] = (0,react.useState)(initialResult);
-    const [fixText, setFixText] = (0,react.useState)("Fix?");
-    function setResult(result) {
-        _setResult(result);
-        onResult && onResult(result, test);
-    }
-    function reRun() {
-        return ValidationRow_awaiter(this, void 0, void 0, function* () {
-            var _a;
-            setLoading(true);
-            try {
-                yield refreshCourse();
-                setResult(yield (test.run(course)));
-            }
-            catch (e) {
-                setResult({
-                    success: false,
-                    message: [(e === null || e === void 0 ? void 0 : e.toString()) || 'Error', test.name, e instanceof Error ? (_a = e.stack) !== null && _a !== void 0 ? _a : '' : '']
-                });
-            }
-            setLoading(false);
-        });
-    }
-    function fix() {
-        return ValidationRow_awaiter(this, void 0, void 0, function* () {
-            var _a;
-            setFixText('Fixing..');
-            setLoading(true);
-            try {
-                assert_default()(test.fix);
-                yield test.fix(course);
-                setFixText('Fixed...');
-                yield refreshCourse();
-                setResult(yield test.run(course));
-            }
-            catch (e) {
-                setResult({
-                    success: false,
-                    message: [(e === null || e === void 0 ? void 0 : e.toString()) || 'Error', test.name, e instanceof Error ? (_a = e.stack) !== null && _a !== void 0 ? _a : '' : '']
-                });
-            }
-            setLoading(false);
-        });
-    }
-    useEffectAsync(() => ValidationRow_awaiter(this, void 0, void 0, function* () {
-        var _b;
-        if (result)
-            return; //only run once and only if we don't have a result. MUST call r
-        if (potemkinVillage)
-            return;
-        setLoading(true);
-        try {
-            setResult(yield test.run(course));
-        }
-        catch (e) {
-            setResult({
-                success: false,
-                message: [(e === null || e === void 0 ? void 0 : e.toString()) || 'Error', test.name, e instanceof Error ? (_b = e.stack) !== null && _b !== void 0 ? _b : '' : '']
-            });
-        }
-        setLoading(false);
-    }), [course, test]);
-    function truncateMessage(messageString) {
-        if (slim)
-            return messageString.replace(/^(.{20}).*$/, '$1...');
-        return messageString;
-    }
-    function statusMessage(result) {
-        if (loading)
-            return "running...";
-        if (!result)
-            return loading ? "still running" : "No Result, an error may have occurred.";
-        if (result.success)
-            return "Succeeded!";
-        return typeof result.message === 'string' ?
-            (0,jsx_runtime.jsx)("p", { children: truncateMessage(result.message) })
-            : result.message.map(message => ((0,jsx_runtime.jsx)("div", { children: truncateMessage(message) })));
-    }
-    if (!showOnlyFailures || loading || (!(result === null || result === void 0 ? void 0 : result.success))) {
-        return (0,jsx_runtime.jsxs)(esm_Row, { className: slim ? 'test-row-slim' : 'test-row', children: [(0,jsx_runtime.jsx)("div", { className: 'col-sm-2', children: test.name }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-3', children: slim ? truncateMessage(test.description) : test.description }), (0,jsx_runtime.jsxs)("div", { className: 'col-sm-4', children: [(0,jsx_runtime.jsx)("p", { children: statusMessage(result) }), (_a = result === null || result === void 0 ? void 0 : result.links) === null || _a === void 0 ? void 0 : _a.map(link => (0,jsx_runtime.jsx)("div", { children: (0,jsx_runtime.jsx)("a", { href: link, target: '_blank', children: link }) }, link))] }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-1', children: test.fix && result && !result.success && (0,jsx_runtime.jsx)("button", { onClick: fix, children: fixText }) }), (0,jsx_runtime.jsxs)("div", { className: 'col-sm-1', children: [!result && (0,jsx_runtime.jsx)("span", { className: 'badge badge-info', children: "Running" }), (result === null || result === void 0 ? void 0 : result.success) && (0,jsx_runtime.jsx)("span", { className: 'badge badge-success', children: "OK!" }), result && !result.success && (0,jsx_runtime.jsx)("span", { className: 'badge badge-warning', children: "Failed" })] })] });
-    }
-    return (0,jsx_runtime.jsx)(jsx_runtime.Fragment, {});
-}
-
-;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/CourseValidator.tsx
-
-
-
-function CourseValidator({ course, tests, refreshCourse, showOnlyFailures = false }) {
-    return (0,jsx_runtime.jsxs)("div", { className: 'container', children: [showOnlyFailures || (0,jsx_runtime.jsx)("h2", { children: "Course Settings and Content Tests" }), tests.map((test, i) => (0,jsx_runtime.jsx)(ValidationRow, { course: course, test: test, showOnlyFailures: showOnlyFailures, refreshCourse: refreshCourse }, test.name))] });
-}
-
-;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/syllabusTests.ts
-var syllabusTests_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-//Syllabus Tests
-const finalNotInGradingPolicyParaTest = {
-    name: "Remove Final",
-    negativeExemplars: [['off the final grade', 'off the grade'], ['final exam', 'final exam']],
-    description: 'Remove "final" from the grading policy paragraphs of syllabus',
-    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
-        const syllabus = yield course.getSyllabus(config);
-        const match = /off the final grade/gi.test(syllabus);
-        return testResult(!match, ["'off the final grade' found in syllabus"], [`/courses/${course.id}/assignments/syllabus`]);
-    }),
-    fix: badSyllabusFixFunc(/off the final grade/gi, 'off the grade')
-};
-const communication24HoursTest = {
-    name: "Syllabus - Within 24 Hours",
-    description: "Revise the top sentence of the \"Communication\" section of the syllabus to read: \"The instructor will " +
-        "conduct all correspondence with students related to the class in Canvas, and you should " +
-        "expect to receive a response to emails within 24 hours.\"",
-    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
-        var _a;
-        const syllabus = yield course.getSyllabus();
-        const testString = 'The instructor will conduct all correspondence with students related to the class in Canvas, and you should expect to receive a response to emails within 24 hours'.toLowerCase();
-        const el = document.createElement('div');
-        el.innerHTML = syllabus;
-        const text = ((_a = el.textContent) === null || _a === void 0 ? void 0 : _a.toLowerCase()) || "";
-        return testResult(text.includes(testString) && !text.match(/48 hours .* weekends/), ["Communication language section in syllabus does not look right."], [`/courses/${course.id}/assignments/syllabus`]);
-    })
-};
-const courseCreditsInSyllabusTest = {
-    name: "Syllabus Credits",
-    description: 'Credits displayed in summary box of syllabus',
-    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
-        const syllabus = yield course.getSyllabus(config);
-        const el = document.createElement('div');
-        el.innerHTML = syllabus;
-        let strongs = el.querySelectorAll('strong');
-        const creditList = Array.from(strongs).filter((strong) => /credits/i.test(strong.textContent || ""));
-        return testResult(creditList && creditList.length > 0, ["Can't find credits in syllabus"], [`/courses/${course.id}/assignments/syllabus`]);
-    })
-};
-const aiPolicyInSyllabusTest = {
-    name: "AI Policy in Syllabus Test",
-    description: "The AI policy is present in the syllabus",
-    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
-        const text = yield course.getSyllabus(config);
-        const success = text.includes('Generative Artificial Intelligence');
-        return testResult(success, [`Can't find AI boilerplate in syllabus`], [`/courses/${course.id}/assignments/syllabus`]);
-    })
-};
-const bottomOfSyllabusLanguageTest = {
-    name: "Bottom-of-Syllabus Test",
-    description: "Replace language at the bottom of the syllabus with: \"Learning materials for Weeks 2 forward are organized with the rest of the class in your weekly modules. The modules will become available after you've agreed to the Honor Code, Code of Conduct, and Tech for Success requirements on the Course Overview page, which unlocks on the first day of the term.\" (**Do not link to the Course Overview Page**)",
-    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
-        const text = getPlainTextFromHtml(yield course.getSyllabus(config));
-        const success = text.toLowerCase().includes(`The modules will become available after you've agreed to the Honor Code, Code of Conduct, and Tech for Success requirements on the Course Overview page, which unlocks on the first day of the term.`.toLowerCase());
-        return testResult(success, ["Text at the bottom of the syllabus looks incorrect."], [`/courses/${course.id}/assignments/syllabus`]);
-    }),
-};
-/// Etc
-/* harmony default export */ const syllabusTests = ([
-    courseCreditsInSyllabusTest,
-    finalNotInGradingPolicyParaTest,
-    communication24HoursTest,
-    aiPolicyInSyllabusTest,
-    bottomOfSyllabusLanguageTest,
-]);
-
-;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/courseSettings.ts
-var courseSettings_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-const extensionsToTest = ['Dropout Detective', "BigBlueButton"];
-const extensionsInstalledTest = {
-    name: "Extensions Installed",
-    description: 'Big Blue Button and Dropout Detective in nav bar',
-    run: (course, config) => courseSettings_awaiter(void 0, void 0, void 0, function* () {
-        const missing = new Set(extensionsToTest);
-        const tabs = yield course.getTabs(config);
-        for (let tab of tabs) {
-            if (missing.has(tab.label) && !tab.hidden)
-                missing.delete(tab.label);
-        }
-        return {
-            success: missing.size === 0,
-            message: Array.from(missing).join(',') + ' missing from enabled navigation tabs.'
-        };
-    })
-};
-const announcementsOnHomePageTest = {
-    name: "Show Announcements",
-    description: 'Confirm under "Settings" --> "more options" that the "Show announcements" box is checked',
-    run: (course) => courseSettings_awaiter(void 0, void 0, void 0, function* () {
-        const settings = yield course.getSettings();
-        const success = !!settings.show_announcements_on_home_page;
-        return {
-            success,
-            message: success ? 'success' : "'show announcements on home page' not turned on"
-        };
-    })
-};
-const latePolicyTest = {
-    name: "Late Policy Correct",
-    description: "Go to the gradebook and  click the cog in the upper right-hand corner, then check the box to automatically apply a 0 for missing submissions; or confirm that this setting has already been made.",
-    run: (course, config) => courseSettings_awaiter(void 0, void 0, void 0, function* () {
-        const latePolicy = yield course.getLatePolicy(config);
-        return testResult(latePolicy === null || latePolicy === void 0 ? void 0 : latePolicy.missing_submission_deduction_enabled, ["'Automatically apply grade for missing submission' not turned on"]);
-    })
-};
-const noEvaluationTest = {
-    name: "Remove Course Evaluation",
-    description: 'Course Eval page (in final module) entirely deleted from the course.',
-    run: (course, config) => courseSettings_awaiter(void 0, void 0, void 0, function* () {
-        config = Object.assign({}, config);
-        config.queryParams = Object.assign(Object.assign({}, config.queryParams), { search_term: 'Course Evaluation' });
-        const pages = yield (course.getPages(config));
-        const evalPages = pages.filter(page => /Course Evaluation/i.test(page.name));
-        const success = evalPages.length === 0;
-        const result = testResult(success, ["Course eval found"]);
-        if (!success)
-            result.links = evalPages.map(page => page.htmlContentUrl);
-        return result;
-    })
-};
-const badGradingPolicyTest = {
-    name: "Correct grading policy selected",
-    description: "5 week courses have REVISED DE Undergraduate Programs grading scheme selected. 8 week courses have  DE Graduate Programs grading scheme selected",
-    run: (course, config) => courseSettings_awaiter(void 0, void 0, void 0, function* () {
-        const gradingStandards = yield course.getAvailableGradingStandards(config);
-        const currentGradingStandard = yield course.getCurrentGradingStandard(config);
-        const modulesByWeekNumber = yield course.getModulesByWeekNumber(config);
-        const isGrad = modulesByWeekNumber.hasOwnProperty(8);
-        if (!gradingStandards)
-            return testResult(false, [`Grading standards not accessible from ${course.id}`]);
-        const [undergradStandard] = gradingStandards.filter(standard => /REVISED DE Undergraduate Programs/.test(standard.title));
-        const [gradStandard] = gradingStandards.filter(standard => /DE Graduate Programs/.test(standard.title));
-        const expectedStandard = isGrad ? gradStandard : undergradStandard;
-        let success = (currentGradingStandard === null || currentGradingStandard === void 0 ? void 0 : currentGradingStandard.id) == expectedStandard.id;
-        const result = testResult(success, [`Grading standard set to ${currentGradingStandard === null || currentGradingStandard === void 0 ? void 0 : currentGradingStandard.title} expected to be ${expectedStandard.title}`]);
-        if (!success)
-            result.links = [`/course/${course.id}/settings`];
-        return result;
-    })
-};
-/* harmony default export */ const courseSettings = ([
-    noEvaluationTest,
-    latePolicyTest,
-    extensionsInstalledTest,
-    badGradingPolicyTest
-]);
-
-;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/courseContent.ts
-var courseContent_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-const weeklyObjectivesTest = {
-    name: "Learning Objectives -> Weekly Objectives",
-    description: 'Make sure weekly objectives are called "Weekly Objectives" and not "Learning Objectives" throughout',
-    run: (course, config) => courseContent_awaiter(void 0, void 0, void 0, function* () {
-        let overviews = yield course.getPages(Object.assign(Object.assign({}, config), { queryParams: Object.assign(Object.assign({}, config === null || config === void 0 ? void 0 : config.queryParams), { search_term: 'Overview', include: ['body'] }) }));
-        overviews = overviews.filter(overview => /week \d overview/ig.test(overview.name));
-        const badOverviews = overviews.filter(overview => {
-            const el = document.createElement('div');
-            el.innerHTML = overview.body;
-            const h2s = el.querySelectorAll('h2');
-            const weeklyObjectivesHeaders = Array.from(h2s).filter(h2 => /Weekly Objectives/i.test(h2.textContent || ''));
-            return weeklyObjectivesHeaders.length === 0;
-        });
-        const success = badOverviews.length === 0;
-        const result = testResult(badOverviews.length === 0, badOverviews.map(page => page.name).sort());
-        if (!success)
-            result.links = badOverviews.map(page => page.htmlContentUrl);
-        return result;
-    })
-};
-const courseProjectOutlineTest = {
-    name: "Project outline -> Course Project Outline",
-    description: "On the Course Project Overview page, make sure the heading reads \"Course Project Outline\" and not \"Project outline\"",
-    run: (course, config) => courseContent_awaiter(void 0, void 0, void 0, function* () {
-        const pages = yield course.getPages(Object.assign(Object.assign({}, config), { queryParams: Object.assign(Object.assign({}, config === null || config === void 0 ? void 0 : config.queryParams), { search_term: 'Course Project', include: ['body'] }) }));
-        const projectOverviewPages = pages.filter(page => /Course Project Overview/.test(page.name));
-        if (projectOverviewPages.length === 0) {
-            return {
-                success: 'unknown',
-                message: "No 'Course Project Overview' page found for this course. This might be fine."
-            };
-        }
-        if (projectOverviewPages.length > 1) {
-            return {
-                success: 'unknown',
-                message: "Multiple course overview page matches found, unable to check.",
-                links: projectOverviewPages.map(page => page.htmlContentUrl)
-            };
-        }
-        const projectOverview = projectOverviewPages[0];
-        const pageHtml = projectOverview.body;
-        const el = document.createElement('div');
-        el.innerHTML = pageHtml;
-        const h2s = Array.from(el.querySelectorAll('h2'));
-        const projectHeadings = h2s.filter(h2 => h2.textContent === 'Project outline');
-        const response = testResult(projectHeadings.length < 1, ["Course project page has 'Project outline' as a header"]);
-        if (!response.success)
-            response.links = [projectOverview.htmlContentUrl];
-        return response;
-    })
-};
-/* harmony default export */ const courseContent = ([
-    courseProjectOutlineTest,
-    weeklyObjectivesTest
-]);
-
-;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/courseSpecific/capstoneProjectValidations.ts
-
-const projectRegex = /(research proposal|course project)/ig;
-const courseProjectToCapstoneProjectProposal = {
-    courseCodes: ['PROF590', 'PROF690'],
-    negativeExemplars: [['your research proposals', 'your capstone project proposals'], ['our course project', 'our capstone project proposal']],
-    positiveExemplars: ['this Course Project'],
-    name: "Capstone project -> Capstone Project Proposal",
-    description: `Replace 'Research Proposal' and 'Course Project' with 'Capstone Project Proposal'`,
-    run: badContentRunFunc(projectRegex),
-    fix: badContentFixFunc(projectRegex, 'Capstone Project Proposal'),
-};
-const partnerRegex = /([^-])\bpartner(s|)\b/ig;
-const partnerToCollaborator = {
-    courseCodes: ['PROF590', 'PROF690'],
-    negativeExemplars: [['your partner', 'your collaborator'], ['your Partners', 'your Collaborators']],
-    positiveExemplars: ['our collaborator'],
-    name: "Capstone partner -> collaborator",
-    description: "Replace partner with collaborator",
-    run: badContentRunFunc(partnerRegex),
-    fix: badContentFixFunc(partnerRegex, preserveCapsReplace(partnerRegex, '$1collaborator$2'))
-};
-const partnershipRegex = /\bpartnership(s|)\b/ig;
-const partnershipToCollaboration = {
-    courseCodes: ['PROF590', 'PROF690'],
-    negativeExemplars: [['Partnerships begin with', 'Collaborations begin with'], ['this partnership should', 'this collaboration should']],
-    positiveExemplars: ['Our new collaboration'],
-    name: "Capstone partnership -> collaboration",
-    description: "Replace partnership with collaboration",
-    run: badContentRunFunc(partnershipRegex),
-    fix: badContentFixFunc(partnershipRegex, preserveCapsReplace(partnershipRegex, 'collaboration$1'))
-};
-/* harmony default export */ const capstoneProjectValidations = ([courseProjectToCapstoneProjectProposal, partnerToCollaborator, partnershipToCollaboration]);
-
-;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/ContentUpdateInterface.tsx
-var ContentUpdateInterface_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-class MismatchedUnloadError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "Mismatched Unload Error";
-    }
-}
-// const regex = /rovide at least one citation of a peer reviewed source is provided in/ig;
-// const oneOffFix:CourseValidationTest =     {
-//         name: "One Off Fix",
-//         courseCodes: ['ANIM301'],
-//         description: "Replace bad text in ANIM301",
-//         run: badContentRunFunc(regex),
-//         fix: badContentFixFunc(regex, preserveCapsReplace(regex, 'rovide at least one citation of a peer reviewed source in'))
-//     }
-const allValidations = [
-    ...capstoneProjectValidations,
-    ...syllabusTests,
-    ...courseSettings,
-    ...courseContent,
-    //proxyServerLinkValidation,
-];
-function ContentUpdateInterface({ course, parentCourse, refreshCourse }) {
-    const [validations, setValidations] = (0,react.useState)(allValidations);
-    const [show, setShow] = (0,react.useState)(false);
-    const [buttonText, setButtonText] = (0,react.useState)('Content Fixes');
-    const [isDisabled, setIsDisabled] = (0,react.useState)(false);
-    const [affectedItems, setAffectedItems] = (0,react.useState)([]);
-    const [unaffectedItems, setUnaffectedItems] = (0,react.useState)([]);
-    const [failedItems, setFailedItems] = (0,react.useState)([]);
-    const [loadingCount, setLoadingCount] = (0,react.useState)(0);
-    const [mode, setMode] = (0,react.useState)('fix');
-    useEffectAsync(() => ContentUpdateInterface_awaiter(this, void 0, void 0, function* () {
-        if (!course)
-            return;
-        if (course.isDev) {
-            setButtonText('DEV Content Changes/Fixes');
-        }
-        else if (course.isBlueprint()) {
-            setButtonText('BP Content Fixes');
-        }
-        else {
-            setButtonText("Can Only Fix from BP or DEV");
-        }
-        setValidations(allValidations.filter(validation => {
-            var _a;
-            if (!validation.courseCodes)
-                return true;
-            for (let code of validation.courseCodes) {
-                if ((_a = course.courseCode) === null || _a === void 0 ? void 0 : _a.toUpperCase().includes(code.toLocaleUpperCase('en-US'))) {
-                    return true;
-                }
-            }
-            return false;
-        }));
-    }), [course]);
-    /* increment and decrement is loading just in case we end up setting it asynchronously somehow */
-    function startLoading() {
-        setLoadingCount(1);
-        setFailedItems([]);
-        setAffectedItems([]);
-        setUnaffectedItems([]);
-    }
-    function endLoading() {
-        setLoadingCount(0);
-        console.log(loadingCount, '-');
-        if (loadingCount < 0)
-            throw new MismatchedUnloadError();
-    }
-    function isLoading() {
-        return loadingCount > 0;
-    }
-    function removeLmAnnotations() {
-        return ContentUpdateInterface_awaiter(this, void 0, void 0, function* () {
-            assert_default()(course);
-            startLoading();
-            function pageToLink(page) {
-                return (0,jsx_runtime.jsx)("a", { className: "course-link", target: "_blank", href: page.htmlContentUrl, children: page.name });
-            }
-            const results = yield fixLmAnnotations(course);
-            setAffectedItems(results.fixedPages.map(pageToLink));
-            setUnaffectedItems(results.unchangedPages.map(pageToLink));
-            setFailedItems(results.failedPages.map(pageToLink));
-            endLoading();
-        });
-    }
-    function urlRows(links, className = 'lxd-cu') {
-        return links.map((link, i) => (0,jsx_runtime.jsx)("div", { className: ['row', className].join(' '), children: link }, i));
-    }
-    function FixesMode({ course }) {
-        return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsxs)("h2", { children: ["Content Fixes for ", course.name] }), course.isBlueprint() && (0,jsx_runtime.jsx)(RemoveAnnotationsSection, {}), (0,jsx_runtime.jsx)(UpdateStartDate, { setAffectedItems: setAffectedItems, setUnaffectedItems: setUnaffectedItems, setFailedItems: setFailedItems, refreshCourse: refreshCourse, course: course, isDisabled: loadingCount > 0, startLoading: startLoading, endLoading: endLoading }), (0,jsx_runtime.jsx)("hr", {}), affectedItems.length > 0 && (0,jsx_runtime.jsx)("h3", { children: "Fixes Succeeded" }), urlRows(affectedItems, 'lxd-cu-success'), unaffectedItems.length > 0 && (0,jsx_runtime.jsx)("h3", { children: "Fix not Needed" }), urlRows(unaffectedItems, 'lxd-cu-fail'), failedItems.length > 0 && (0,jsx_runtime.jsx)("h3", { children: "Fix is Broken, Content Unchanged" }), urlRows(failedItems, 'lxd-cu-fail')] });
-    }
-    function RemoveAnnotationsSection() {
-        return ((course === null || course === void 0 ? void 0 : course.isBlueprint()) && (0,jsx_runtime.jsxs)("div", { className: 'row', children: [(0,jsx_runtime.jsx)("div", { className: 'col-sm-4', children: (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: removeLmAnnotations, disabled: loadingCount > 0, children: "Remove Annotation Placeholder" }) }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-8', children: "Removes annotation placeholders on Learning Material pages" })] }));
-    }
-    return (course && (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { disabled: isDisabled, className: "ui-button", onClick: (e) => setShow(true), children: buttonText }), (0,jsx_runtime.jsxs)(widgets_Modal, { isOpen: show, requestClose: () => setShow(false), canClose: !loadingCount, children: [(0,jsx_runtime.jsxs)("div", { className: 'd-flex justify-content-end', children: [mode === 'fix' && (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: () => setMode("unitTest"), children: "Show All Tests" }), mode === 'unitTest' && (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: () => setMode("fix"), children: "Hide Successful Tests" })] }), mode === 'fix' && (0,jsx_runtime.jsx)(FixesMode, { course: course }), (0,jsx_runtime.jsx)(CourseValidator, { showOnlyFailures: mode !== 'unitTest', course: course, refreshCourse: refreshCourse, tests: validations })] })] }));
-}
-
-// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/ui/widgets/MultiSelect.css
-var MultiSelect = __webpack_require__(3910);
-;// CONCATENATED MODULE: ./src/ui/widgets/MultiSelect.css
-
-      
-      
-      
-      
-      
-      
-      
-      
-      
-
-var MultiSelect_options = {};
-
-MultiSelect_options.styleTagTransform = (styleTagTransform_default());
-MultiSelect_options.setAttributes = (setAttributesWithoutAttributes_default());
-
-      MultiSelect_options.insert = insertBySelector_default().bind(null, "head");
-    
-MultiSelect_options.domAPI = (styleDomAPI_default());
-MultiSelect_options.insertStyleElement = (insertStyleElement_default());
-
-var MultiSelect_update = injectStylesIntoStyleTag_default()(MultiSelect/* default */.A, MultiSelect_options);
-
-
-
-
-       /* harmony default export */ const widgets_MultiSelect = (MultiSelect/* default */.A && MultiSelect/* default */.A.locals ? MultiSelect/* default */.A.locals : undefined);
-
-;// CONCATENATED MODULE: ./src/ui/widgets/MuliSelect.tsx
-
-///Original from ChatGPT
-
-
-function optionize(objects, idFunc, labelFunc) {
-    let idGenerator = function* (i) {
-        while (true) {
-            yield i;
-            i++;
-        }
-    }(0);
-    const options = objects.map(object => {
-        let key = idFunc ? idFunc(object) : idGenerator.next().value;
-        let label = labelFunc ? labelFunc(object) : key.toString();
-        const modObject = object;
-        modObject.key = key;
-        modObject.label = label;
-        const returnObject = object;
-        returnObject.key = key;
-        returnObject.label = label;
-        return returnObject;
-    });
-    return options;
-}
-function MuliSelect_MultiSelect({ alwaysOpen, options, selectedOptions, onSelectionChange }) {
-    const [isOpen, setIsOpen] = (0,react.useState)(false);
-    const handleToggle = () => {
-        setIsOpen(!isOpen);
-    };
-    const handleOptionClick = (option) => {
-        if (selectedOptions.find((selected) => selected.key === option.key)) {
-            onSelectionChange(selectedOptions.filter((selected) => selected.key !== option.key));
-        }
-        else {
-            onSelectionChange([...selectedOptions, option]);
-        }
-    };
-    return ((0,jsx_runtime.jsxs)("div", { className: "multi-select", children: [(0,jsx_runtime.jsxs)("div", { className: "multi-select-input", onClick: handleToggle, children: [selectedOptions.length > 0 ? (selectedOptions.map((option) => option.label).join(', ')) : ('Select options'), (0,jsx_runtime.jsx)("span", { className: "arrow", children: isOpen ? '▲' : '▼' })] }), (isOpen || alwaysOpen) && ((0,jsx_runtime.jsx)("div", { className: alwaysOpen ? "multi-select-options-dont-close" : "multi-select-options", children: options.map((option) => ((0,jsx_runtime.jsx)("div", { className: `multi-select-option ${selectedOptions.find((selected) => selected.key === option.key) ? 'selected' : ''}`, onClick: () => handleOptionClick(option), children: option.label }, option.key))) }))] }));
-}
-;
-/* harmony default export */ const MuliSelect = (MuliSelect_MultiSelect);
 
 ;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Col.js
 "use client";
@@ -45259,31 +43977,6 @@ const Col = /*#__PURE__*/react.forwardRef(
 });
 Col.displayName = 'Col';
 /* harmony default export */ const esm_Col = (Col);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Container.js
-"use client";
-
-
-
-
-
-const Container = /*#__PURE__*/react.forwardRef(({
-  bsPrefix,
-  fluid = false,
-  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-  as: Component = 'div',
-  className,
-  ...props
-}, ref) => {
-  const prefix = useBootstrapPrefix(bsPrefix, 'container');
-  const suffix = typeof fluid === 'string' ? `-${fluid}` : '-fluid';
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
-    ref: ref,
-    ...props,
-    className: classnames_default()(className, fluid ? `${prefix}${suffix}` : prefix)
-  });
-});
-Container.displayName = 'Container';
-/* harmony default export */ const esm_Container = (Container);
 // EXTERNAL MODULE: ./node_modules/prop-types/index.js
 var prop_types = __webpack_require__(5556);
 var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
@@ -45837,6 +44530,1403 @@ Form.propTypes = Form_propTypes;
   Select: esm_FormSelect,
   FloatingLabel: esm_FloatingLabel
 }));
+;// CONCATENATED MODULE: ./src/publish/publishInterface/sectionDetails/FacultyProfileSearch.tsx
+var FacultyProfileSearch_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+function FacultyProfileSearch({ onProfileSelect, minSearchLength = 5, user }) {
+    const [search, setSearch] = (0,react.useState)('');
+    const [profiles, setProfiles] = (0,react.useState)([]);
+    function searchForProfiles(e) {
+        return FacultyProfileSearch_awaiter(this, void 0, void 0, function* () {
+            e.preventDefault();
+            if (search.length < minSearchLength)
+                return;
+            const pages = yield getFacultyPages(search);
+            setProfiles(pages.map(page => getProfileFromPage(page, user)));
+        });
+    }
+    return (0,jsx_runtime.jsxs)(esm_Col, { children: [(0,jsx_runtime.jsx)("h2", { children: "Faculty Profile Matches" }), profiles && profiles.map((profile, i) => ((0,jsx_runtime.jsx)(FacultyProfile, { profile: profile, setProfileButton: () => FacultyProfileSearch_awaiter(this, void 0, void 0, function* () { return yield onProfileSelect(profile); }) }, i))), (0,jsx_runtime.jsxs)(esm_Form, { onSubmit: searchForProfiles, children: [(0,jsx_runtime.jsx)(esm_Form.Label, { children: "Search" }), (0,jsx_runtime.jsx)(esm_Form.Control, { type: 'text', value: search, onChange: (e) => setSearch(e.target.value), placeholder: 'Search for additional profiles' })] })] });
+}
+
+;// CONCATENATED MODULE: ./src/publish/publishInterface/sectionDetails/SectionDetails.tsx
+var SectionDetails_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+
+function SectionDetails({ section, onClose, onUpdateFrontPageProfile, facultyProfileMatches }) {
+    const [modules, setModules] = (0,react.useState)([]);
+    const [assignmentGroups, setAssignmentGroups] = (0,react.useState)([]);
+    const [instructors, setInstructors] = (0,react.useState)([]);
+    const [frontPageProfile, setFrontPageProfile] = (0,react.useState)(null);
+    const [info, setInfo] = (0,react.useState)(null);
+    const [infoClass, setInfoClass] = (0,react.useState)('alert-primary');
+    useEffectAsync(() => SectionDetails_awaiter(this, void 0, void 0, function* () {
+        yield onSectionChange();
+    }), [section]);
+    function onSectionChange() {
+        return SectionDetails_awaiter(this, void 0, void 0, function* () {
+            /* clear out values, so we don't end up rendering last window's data */
+            setInstructors([]);
+            setModules([]);
+            setAssignmentGroups([]);
+            setFrontPageProfile(null);
+            setInfo(null);
+            if (!section)
+                return;
+            yield Promise.all([
+                () => SectionDetails_awaiter(this, void 0, void 0, function* () { return setFrontPageProfile(yield section.getFrontPageProfile()); }),
+                () => SectionDetails_awaiter(this, void 0, void 0, function* () { return setModules(yield section.getModules()); }),
+                () => SectionDetails_awaiter(this, void 0, void 0, function* () { var _a; return setInstructors((_a = yield getInstructors(section)) !== null && _a !== void 0 ? _a : []); }),
+                () => SectionDetails_awaiter(this, void 0, void 0, function* () {
+                    return setAssignmentGroups(yield section.getAssignmentGroups({
+                        queryParams: {
+                            include: ['assignments']
+                        }
+                    }));
+                })
+            ].map(func => func()));
+        });
+    }
+    function getInstructors(section) {
+        return SectionDetails_awaiter(this, void 0, void 0, function* () {
+            const fetchInstructors = yield section.getInstructors();
+            fetchInstructors && setInstructors(fetchInstructors);
+            return fetchInstructors;
+        });
+    }
+    function error(message) {
+        broadcast(message, 'alert-error');
+    }
+    function broadcast(message, infoClass = 'alert-primary') {
+        setInfo(message);
+        setInfoClass(infoClass);
+    }
+    function message(message) {
+        setInfo(message);
+        setInfoClass('alert-primary');
+    }
+    function success(message) {
+        setInfo(message);
+        setInfoClass('alert-success');
+    }
+    function applyProfile(profile) {
+        return SectionDetails_awaiter(this, void 0, void 0, function* () {
+            if (!section)
+                return;
+            let frontPage = yield section.getFrontPage();
+            if (!frontPage)
+                return;
+            message('Applying new profile');
+            const newText = renderProfileIntoCurioFrontPage(frontPage.body, profile);
+            yield frontPage.updateContent(newText);
+            const newProfile = yield section.getFrontPageProfile();
+            setFrontPageProfile(newProfile);
+            if (onUpdateFrontPageProfile)
+                onUpdateFrontPageProfile(newProfile);
+            success("Profile updated");
+        });
+    }
+    return (section && ((0,jsx_runtime.jsxs)("div", { children: [(0,jsx_runtime.jsxs)("h3", { children: ["Section Details", (0,jsx_runtime.jsx)("button", { onClick: onClose, children: "X" })] }), (0,jsx_runtime.jsx)("p", { children: (0,jsx_runtime.jsx)("a", { href: section.courseUrl, target: '_blank', className: 'course-link', children: section.name }) }), info && (0,jsx_runtime.jsx)("div", { className: `alert ${infoClass}`, children: info }), (0,jsx_runtime.jsxs)("div", { className: 'row', children: [(0,jsx_runtime.jsx)("div", { className: 'col-sm-8', children: frontPageProfile && (0,jsx_runtime.jsx)(FacultyProfile, { profile: frontPageProfile }) }), (0,jsx_runtime.jsxs)("div", { className: 'col-sm-4', children: [(0,jsx_runtime.jsxs)("div", { className: 'col', children: [(0,jsx_runtime.jsx)("h4", { children: "Modules" }), modules.map((module) => ((0,jsx_runtime.jsx)("div", { className: 'row', children: (0,jsx_runtime.jsx)("div", { className: 'col-xs-12', children: module.name }) }, module.id)))] }), (0,jsx_runtime.jsx)("div", { className: 'col', children: (0,jsx_runtime.jsx)(AssignmentGroups, { assignmentGroups: assignmentGroups }) })] }), (0,jsx_runtime.jsxs)("div", { className: 'row', children: [(0,jsx_runtime.jsx)("div", { className: 'col' }), (0,jsx_runtime.jsx)(FacultyProfileSearch, { onProfileSelect: applyProfile, user: instructors && instructors[0] }), facultyProfileMatches && facultyProfileMatches.map((profile, i) => ((0,jsx_runtime.jsx)(FacultyProfile, { profile: profile, setProfileButton: () => SectionDetails_awaiter(this, void 0, void 0, function* () { return yield applyProfile(profile); }) }, i)))] })] })] })));
+}
+function AssignmentGroups({ assignmentGroups }) {
+    return (0,jsx_runtime.jsxs)("div", { children: [(0,jsx_runtime.jsx)("h4", { children: "Assignment Groups" }), assignmentGroups.map((group) => {
+                var _a;
+                return ((0,jsx_runtime.jsxs)("div", { className: 'row', children: [(0,jsx_runtime.jsx)("div", { className: 'col-xs-9', children: group.name }), (0,jsx_runtime.jsxs)("div", { className: 'col-xs-3', children: [group.group_weight, "%"] }), (0,jsx_runtime.jsx)("ul", { children: (_a = group.assignments) === null || _a === void 0 ? void 0 : _a.map((assignment) => ((0,jsx_runtime.jsx)("li", { children: assignment.name }))) })] }, group.id));
+            })] });
+}
+
+// EXTERNAL MODULE: ./node_modules/react-dom/server.browser.js
+var server_browser = __webpack_require__(5848);
+;// CONCATENATED MODULE: ./src/publish/publishInterface/EmailLink.tsx
+var EmailLink_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+/**
+ * Section start needed because the data based term start in Canvas is frustratingly wrong
+ * @param user
+ * @param emails
+ * @param course
+ * @param termData
+ * @param termActualStart
+ * @constructor
+ */
+function EmailLink({ user, emails, course, termData, sectionStart }) {
+    var _a;
+    const bcc = emails.join(',');
+    const subject = encodeURIComponent(course.name.replace('BP_', '') + ' Section(s) Ready Notification');
+    function copyToClipboard() {
+        return EmailLink_awaiter(this, void 0, void 0, function* () {
+            yield navigator.clipboard.write([
+                new ClipboardItem({
+                    'text/html': new Blob([(0,server_browser/* renderToString */.F0)(body)], { type: 'text/html' })
+                })
+            ]);
+        });
+    }
+    function getCourseStart() {
+        if (!sectionStart)
+            return '[[Start Date]]';
+        return sectionStart === null || sectionStart === void 0 ? void 0 : sectionStart.toLocaleString('en-US', {
+            month: "short",
+            day: 'numeric'
+        });
+    }
+    function getPublishDate() {
+        if (!sectionStart)
+            return '[[publish date]]';
+        const publishDate = sectionStart.add({ 'days': -7 });
+        console.log(publishDate.toLocaleString());
+        return publishDate.toLocaleString('en-US', {
+            month: "short",
+            day: 'numeric'
+        });
+    }
+    const body = ((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsxs)("p", { children: ["My name is ", user.name, " and I\u2019m the Learning Experience Designer who is preparing your course to run this term. Your course section(s) of ", (_a = course.courseCode) === null || _a === void 0 ? void 0 : _a.replace('BP_', ''), " has/have been created for you to teach for ", termData ? termData.name : '[[TERM NAME]]', ". Your students will have access to the syllabus and homepage on ", (0,jsx_runtime.jsxs)("strong", { children: ["Monday, ", getPublishDate()] }), ". Actual course assignments will become available to the students on ", (0,jsx_runtime.jsxs)("strong", { children: ["Monday, ", getCourseStart()] }), ", the official start of the term."] }), (0,jsx_runtime.jsxs)("ul", { children: [(0,jsx_runtime.jsxs)("li", { children: ["Please do not make any corrections or changes to your live course yourself, no matter how small. In order to maintain consistency between the live section and the course template, submit any issues via the ", (0,jsx_runtime.jsx)("a", { href: 'https://docs.google.com/forms/d/e/1FAIpQLSeybl9b-xk-pL1bsWX7x9esQYoHHyi3rPPOq75mK4Q4n4b5tQ/viewform', children: "Course Edit and Feedback Form" }), " so a Learning Technology Support Specialist can make sure the changes are made everywhere they need to be made."] }), (0,jsx_runtime.jsx)("li", { children: "Let me know, when you have a chance to look, if you have any questions, or spot any issues with the course content." }), (0,jsx_runtime.jsx)("li", { children: "Be sure to check out the Instructor Orientation for useful information, such as your instructor bio/picture, grading. There is also a Labster Instructor Guide that you should review if your course contains a Labster simulation(s) in the course modules." }), (0,jsx_runtime.jsx)("li", { children: "Consult the Instructor Guide in your course for a brief overview of important information for teaching the course" }), (0,jsx_runtime.jsxs)("li", { children: ["If you have technology or Canvas related questions, please contact ", (0,jsx_runtime.jsx)("a", { href: 'helpdesk@unity.edu', children: "helpdesk@unity.edu" }), "."] }), (0,jsx_runtime.jsxs)("li", { children: ["For other questions or issues, please contact my supervisor, Chris Malmberg (", (0,jsx_runtime.jsx)("a", { href: 'cmalmberg@unity.edu', children: "cmalmberg@unity.edu" }), ")."] })] }), (0,jsx_runtime.jsx)("p", { children: "We appreciate your help in making sure these courses are good to go. Have a wonderful term." }), (0,jsx_runtime.jsx)("p", { children: "Cheers," }), (0,jsx_runtime.jsx)("p", { children: user.name })] }));
+    return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("a", { href: `mailto:${user.email}?subject=${subject}&bcc=${bcc}`, children: emails.join(', ') }), termData && (0,jsx_runtime.jsx)("button", { onClick: copyToClipboard, children: "Copy Form Email to Clipboard" })] });
+}
+
+;// CONCATENATED MODULE: ./src/publish/publishInterface/PublishInterface.tsx
+var PublishInterface_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+function PublishInterface({ course, user }) {
+    //-----
+    // DATA
+    //-----
+    const [show, setShow] = (0,react.useState)(false);
+    const [info, setInfo] = (0,react.useState)(null);
+    const [associatedCourses, setAssociatedCourses] = (0,react.useState)([]);
+    const [term, setTerm] = (0,react.useState)();
+    const [sectionStart, setSectionStart] = (0,react.useState)();
+    const [isBlueprint, setIsBlueprint] = (0,react.useState)(false);
+    const [workingSection, setWorkingSection] = (0,react.useState)();
+    const [potentialSectionProfiles, setPotentialSectionProfiles] = (0,react.useState)({});
+    const [sectionFrontPageProfiles, setSectionFrontPageProfiles] = (0,react.useState)({});
+    const [instructorsForCourse, setInstructorsForCourse] = (0,react.useState)({});
+    const [emails, setEmails] = (0,react.useState)([]);
+    const [publishErrors, setPublishErrors] = (0,react.useState)({});
+    const [loading, setLoading] = (0,react.useState)(false);
+    const [infoClass, setInfoClass] = (0,react.useState)('alert-secondary');
+    useEffectAsync(updateCourse, [course]);
+    function updateCourse() {
+        return PublishInterface_awaiter(this, void 0, void 0, function* () {
+            if (course) {
+                setIsBlueprint(course.isBlueprint);
+                yield getFullCourses(course);
+            }
+        });
+    }
+    useEffectAsync(() => PublishInterface_awaiter(this, void 0, void 0, function* () {
+        var _a;
+        var _b;
+        const profileSet = [];
+        for (let course of associatedCourses) {
+            (_a = profileSet[_b = course.id]) !== null && _a !== void 0 ? _a : (profileSet[_b] = yield course.getPotentialInstructorProfiles());
+        }
+        setPotentialSectionProfiles(profileSet);
+    }), [associatedCourses]);
+    function getFullCourses(course) {
+        return PublishInterface_awaiter(this, void 0, void 0, function* () {
+            var _a;
+            console.log("Getting Full Courses");
+            const sections = [];
+            const fetchedCourses = (_a = yield course.getAssociatedCourses()) !== null && _a !== void 0 ? _a : [];
+            const frontPageProfiles = {};
+            const allInstructors = {};
+            const allEmails = new Set();
+            const batchLoadSize = 5;
+            let sectionStartSet = false;
+            for (let i = 0; i < fetchedCourses.length; i += batchLoadSize) {
+                const batch = fetchedCourses.slice(i, i + batchLoadSize);
+                const results = yield Promise.all(batch.map(course => loadSection(course)));
+                let tempTerm = null;
+                for (let { section, instructors, frontPageProfile } of results) {
+                    if (!sectionStartSet) {
+                        let actualStart = yield section.getStartDateFromModules();
+                        sectionStartSet = true;
+                        setSectionStart(mr.PlainDateTime.from(actualStart));
+                    }
+                    if (!tempTerm) {
+                        tempTerm = yield section.getTerm();
+                        setTerm(tempTerm);
+                    }
+                    sections.push(section);
+                    setAssociatedCourses([...sections]);
+                    frontPageProfiles[section.id] = frontPageProfile;
+                    setSectionFrontPageProfiles(Object.assign({}, frontPageProfiles));
+                    if (instructors) {
+                        allInstructors[section.id] = instructors;
+                        setInstructorsForCourse(Object.assign({}, allInstructors));
+                    }
+                    const emails = instructors === null || instructors === void 0 ? void 0 : instructors.map(a => a.email);
+                    emails === null || emails === void 0 ? void 0 : emails.forEach(email => allEmails.add(email));
+                    if (emails)
+                        setEmails([...allEmails]);
+                }
+            }
+        });
+    }
+    function loadSection(course) {
+        return PublishInterface_awaiter(this, void 0, void 0, function* () {
+            const section = yield course_Course.getCourseById(course.id);
+            const frontPageProfile = yield section.getFrontPageProfile();
+            const instructors = yield section.getInstructors();
+            return { section, instructors, frontPageProfile, emails };
+        });
+    }
+    //-----
+    // EVENTS
+    //-----
+    function publishCourses(event) {
+        return PublishInterface_awaiter(this, void 0, void 0, function* () {
+            const accountId = course === null || course === void 0 ? void 0 : course.getItem('account_id');
+            assert_default()(accountId);
+            yield course_Course.publishAll(associatedCourses, accountId);
+            inform('publishing');
+            setLoading(true);
+            //Waits half a second to allow changes to propagate on the server
+            window.setTimeout(() => PublishInterface_awaiter(this, void 0, void 0, function* () {
+                let newAssocCourses = yield (course === null || course === void 0 ? void 0 : course.getAssociatedCourses());
+                if (newAssocCourses) {
+                    newAssocCourses = [...newAssocCourses];
+                }
+                else {
+                    newAssocCourses = [];
+                }
+                setAssociatedCourses(newAssocCourses);
+                setLoading(false);
+                success('Published');
+            }), 500);
+        });
+    }
+    function openAll(e) {
+        e.stopPropagation();
+        for (let course of associatedCourses) {
+            window.open(course.courseUrl, "_blank");
+        }
+    }
+    function sectionError(section, error) {
+        var _a;
+        let tempErrors = Object.assign({}, publishErrors);
+        let errorSet = (_a = tempErrors[section.id]) !== null && _a !== void 0 ? _a : [];
+        errorSet.push(error);
+        tempErrors[section.id] = errorSet;
+        setPublishErrors(Object.assign({}, tempErrors));
+    }
+    function applySectionProfiles(event) {
+        return PublishInterface_awaiter(this, void 0, void 0, function* () {
+            setLoading(true);
+            inform("Updating section profiles...");
+            const currentProfiles = Object.assign({}, sectionFrontPageProfiles);
+            setPublishErrors({});
+            for (let section of associatedCourses) {
+                const profiles = potentialSectionProfiles[section.id];
+                const errors = [];
+                if (profiles.length < 1) {
+                    sectionError(section, "No Profiles");
+                    continue;
+                }
+                if (profiles.length > 1) {
+                    errors.push("Multiple Matches Found");
+                }
+                const profile = profiles[0];
+                const frontPage = yield section.getFrontPage();
+                if (!frontPage) {
+                    sectionError(section, "No front page");
+                    continue;
+                }
+                const html = renderProfileIntoCurioFrontPage(frontPage.body, profile);
+                yield frontPage.updateContent(html);
+                currentProfiles[section.id] = profile;
+                setSectionFrontPageProfiles(Object.assign({}, currentProfiles));
+                setInfo(`Updated ${profile.displayName}...`);
+            }
+            setLoading(false);
+            success("Profiles Updated");
+        });
+    }
+    function inform(message, alertClass = 'alert-secondary') {
+        setInfo(message);
+        setInfoClass(alertClass);
+    }
+    function success(message) {
+        inform(message, 'alert-success');
+    }
+    //-----
+    // RENDER
+    //-----
+    function mailTo(emails, subject = '') {
+        return `mailto:no-reply@unity.edu?bcc=${emails.join(',')}&subject=${subject}`;
+    }
+    function openButton() {
+        return (course && (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { disabled: !isBlueprint, className: isBlueprint ? 'ui-button' : '', onClick: (e) => setShow(true), children: isBlueprint ? "Manage Sections" : "Not A Blueprint" }));
+    }
+    function associatedCourseRows() {
+        return ((0,jsx_runtime.jsxs)("div", { className: 'course-table', children: [(0,jsx_runtime.jsxs)("div", { className: 'row', children: [(0,jsx_runtime.jsxs)("div", { className: 'col-sm-6', children: [(0,jsx_runtime.jsx)("div", { children: (0,jsx_runtime.jsx)("strong", { children: "Code" }) }), (0,jsx_runtime.jsx)("a", { href: '#', onClick: openAll, children: "Open All" })] }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-3', children: (0,jsx_runtime.jsx)("strong", { children: "Name on Front Page" }) }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-3', children: (0,jsx_runtime.jsx)("strong", { children: "Instructor(s)" }) })] }), associatedCourses && associatedCourses.map((course) => ((0,jsx_runtime.jsx)(PublishCourseRow, { instructors: instructorsForCourse[course.id], frontPageProfile: sectionFrontPageProfiles[course.id], facultyProfileMatches: potentialSectionProfiles[course.id], errors: publishErrors[course.id], onClickDx: (section) => setWorkingSection(section), course: course }, course.id)))] }));
+    }
+    /**
+     * Parses the profile sets in to a list of emails, omitting when the profile does not have a user property.
+     * @param profileSets
+     */
+    return ((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [openButton(), (0,jsx_runtime.jsxs)(widgets_Modal, { id: 'lxd-publish-interface', isOpen: show, canClose: !loading, requestClose: () => {
+                    if (!loading)
+                        setShow(false);
+                }, children: [!workingSection && ((0,jsx_runtime.jsx)("div", { children: (0,jsx_runtime.jsxs)("div", { className: 'row', children: [(0,jsx_runtime.jsx)("div", { className: 'col-xs-12', children: (0,jsx_runtime.jsx)("h3", { children: "Sections" }) }), (0,jsx_runtime.jsx)("div", { className: 'col-xs-12 col-sm-12', children: "Publish sections associated with this blueprint" }), (0,jsx_runtime.jsxs)("div", { className: 'col-xs-2', children: [(0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { className: "btn", disabled: loading || !(course === null || course === void 0 ? void 0 : course.isBlueprint), onClick: applySectionProfiles, children: "Set Bios" }), (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { className: "btn", disabled: loading || !(course === null || course === void 0 ? void 0 : course.isBlueprint), onClick: publishCourses, children: "Publish" })] }), (0,jsx_runtime.jsx)("div", { className: 'col-xs-12', children: user && course &&
+                                        (0,jsx_runtime.jsx)(EmailLink, { user: user, emails: emails, course: course, sectionStart: sectionStart, termData: term === null || term === void 0 ? void 0 : term.rawData }) }), (0,jsx_runtime.jsx)("div", { className: 'col-xs-12', children: associatedCourseRows() })] }) })), info && (0,jsx_runtime.jsx)("div", { className: `alert ${infoClass}`, role: 'alert', children: info }), (0,jsx_runtime.jsx)("div", { children: (0,jsx_runtime.jsx)(SectionDetails, { onUpdateFrontPageProfile: newProfile => workingSection && setSectionFrontPageProfiles(Object.assign(Object.assign({}, sectionFrontPageProfiles), { [workingSection.id]: newProfile })), facultyProfileMatches: workingSection && potentialSectionProfiles[workingSection.id], onClose: () => setWorkingSection(null), section: workingSection }) })] })] }));
+}
+
+;// CONCATENATED MODULE: ./src/canvas/fixes/index.ts
+/**
+ * Runs through a series of Content Fixes. If all is well, passes the results into the next
+ * content fix.
+ * Each ContentFix can have tests and preflight tests. Preflight tests are run before the fix is attempted
+ * Tests are fun after.
+ * If any of these tests fail, that content fix is not run on the text, instead passing the previous value.
+ * @param fixes
+ * @param source
+ */
+function runReplacements(fixes, source) {
+    const failedFixes = [];
+    const output = fixes.reduce((accumulator, { run, tests, preflightTests }) => {
+        // run through all preflight tests, if any of them fail, return the pre-transformation value
+        if (preflightTests && preflightTests.map((test) => test(output)).includes(false))
+            return accumulator;
+        let output = run(accumulator);
+        // run through all tests, if any of them fail, return the pre-transformation value
+        if (tests && tests.map((test) => test(output)).includes(false)) {
+            failedFixes.push({ run, tests, preflightTests });
+            return accumulator;
+        }
+        return output;
+    }, source);
+    return { failedFixes, output };
+}
+function findReplaceFunc(find, replace) {
+    return (source) => {
+        const output = source.replace(find, replace);
+        return output;
+    };
+}
+/**
+ * Returns a function that returns true if passed a string that contains the find value or matches the find RegEx, false otherwise
+ * @param find A regular expression to check the input string against, or a substring to check if the input string contains
+ * @param caseSensitive (string find only) whether to match the string case sensitive-ly
+ */
+function inTest(find, caseSensitive = true) {
+    if (typeof find === "string") {
+        const findValue = caseSensitive ? find : find.toLowerCase();
+        return (source) => (caseSensitive ? source : source.toLowerCase()).includes(findValue);
+    }
+    else {
+        return (source) => {
+            return !!source.match(find);
+        };
+    }
+}
+/**
+ * Returns a function that returns false if passed a string that contains the find value or matches the find RegEx, true otherwise
+ * @param find A regular expression to check the input string against, or a substring to check if the input string contains
+ * @param caseSensitive (string find only) whether to match the string case sensitive-ly
+ */
+function notInTest(find, caseSensitive = true) {
+    if (typeof find === "string") {
+        const findValue = caseSensitive ? find : find.toLowerCase();
+        return (source) => {
+            return !((caseSensitive ? source : source.toLowerCase()).includes(findValue));
+        };
+    }
+    else {
+        return (source) => {
+            return !source.match(find);
+        };
+    }
+}
+
+;// CONCATENATED MODULE: ./src/canvas/fixes/annotations.ts
+var annotations_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+const removeMediaPlaceholder = {
+    run: findReplaceFunc(/<p>\[Text[^\]]*by SME[^\]]*]<\/p>/, ''),
+    tests: [notInTest(/<p>\[Text[^\]]*by SME[^\]]*]<\/p>/)]
+};
+const removeInsertAnnotationForMedia = {
+    run: findReplaceFunc(/\[[iI]nsert annotation for media]/, ''),
+    tests: [notInTest(/\[.*annotation,.*]/)]
+};
+const removeSecondaryMediaTitle = {
+    run: findReplaceFunc(/<h3>\[Title for <span style="text-decoration: underline;"> optional <\/span>secondary media element\]<\/h3>/, ''),
+    tests: [notInTest('secondary media element]')]
+};
+const removeBlockQuote = {
+    run: function (input) {
+        var _a, _b;
+        const el = document.createElement('div');
+        el.innerHTML = input;
+        const bqElement = el.querySelector('blockquote');
+        if (bqElement === null || bqElement === void 0 ? void 0 : bqElement.innerHTML.includes('SME')) {
+            (_b = (_a = bqElement.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement) === null || _b === void 0 ? void 0 : _b.remove();
+        }
+        const output = el.innerHTML;
+        el.remove();
+        return output;
+    },
+    tests: [notInTest(/\[Pull quote -/)]
+};
+const removeLmNarrativePlaceholder = {
+    run: function (input) {
+        const el = document.createElement('div');
+        el.innerHTML = input;
+        const divs = el.querySelectorAll('div.cbt-content');
+        const toRemove = Array.from(divs).filter((div) => div.innerHTML.includes('LM Narrative'));
+        for (let element of toRemove)
+            element.remove();
+        const output = el.innerHTML;
+        el.remove();
+        return output;
+    },
+    tests: [
+        notInTest(/LM Narrative/)
+    ]
+};
+const contentFixes = [
+    removeMediaPlaceholder,
+    removeLmNarrativePlaceholder,
+    removeInsertAnnotationForMedia,
+    removeSecondaryMediaTitle,
+    removeBlockQuote,
+];
+/**
+ * Removes annotation placeholder text from Learning Materials in the course
+ * @param course
+ */
+function fixLmAnnotations(course) {
+    return annotations_awaiter(this, void 0, void 0, function* () {
+        let pages = yield course.getPages({
+            queryParams: {
+                include: ['body'],
+                search_term: 'learning materials'
+            }
+        });
+        const pendingUpdates = [];
+        const fixedPages = [];
+        const unchangedPages = [];
+        const failedPages = [];
+        const failedFixes = [];
+        for (let page of pages) {
+            const sourceHtml = page.body;
+            const fix = runReplacements(contentFixes, sourceHtml);
+            const fixedValue = fix.output;
+            if (fix.failedFixes.length > 0) {
+                failedPages.push(page);
+                console.log(page);
+                console.log(fix);
+            }
+            if (sourceHtml === fixedValue) {
+                console.log(sourceHtml.length - fixedValue.length);
+                console.log(`Page unchanged ${page.name}`);
+                unchangedPages.push(page);
+            }
+            else {
+                console.log(`fixed ${page.name}`);
+                pendingUpdates.push(page.updateContent(fixedValue));
+                fixedPages.push(page);
+            }
+        }
+        yield Promise.all(pendingUpdates);
+        return { fixedPages, unchangedPages, failedPages };
+    });
+}
+
+
+// EXTERNAL MODULE: ./node_modules/react-datepicker/dist/react-datepicker.min.js
+var react_datepicker_min = __webpack_require__(9386);
+var react_datepicker_min_default = /*#__PURE__*/__webpack_require__.n(react_datepicker_min);
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/UpdateStartDate.tsx
+var UpdateStartDate_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var UpdateStartDate_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
+
+
+
+
+
+
+
+
+
+
+function UpdateStartDate({ course, isDisabled, startLoading, endLoading, refreshCourse, setAffectedItems, setUnaffectedItems, setFailedItems }) {
+    const [startDate, setStartDate] = (0,react.useState)();
+    const [workingStartDate, setWorkingStartDate] = (0,react.useState)();
+    useEffectAsync(() => UpdateStartDate_awaiter(this, void 0, void 0, function* () {
+        const date = yield course.getStartDateFromModules();
+        setStartDate(date);
+        setWorkingStartDate(date);
+    }), [course]);
+    function changeStartDate() {
+        return UpdateStartDate_awaiter(this, void 0, void 0, function* () {
+            var _a, e_1, _b, _c;
+            startLoading();
+            if (!workingStartDate)
+                throw new StartDateNotSetError();
+            const syllabusText = yield course.getSyllabus();
+            let affectedItems = [];
+            try {
+                if (syllabusText) {
+                    if (!startDate)
+                        throw new StartDateNotSetError();
+                    const syllabusChanges = yield updateSyllabus(syllabusText, workingStartDate);
+                    if (syllabusChanges)
+                        affectedItems.concat(syllabusChanges);
+                    let startOfFirstWeek = getStartDateAssignments(yield course.getAssignments());
+                    console.log(startOfFirstWeek.toString());
+                    let contentDateOffset = startDate.until(workingStartDate).days;
+                    let startOfFirstWeekOffset = startOfFirstWeek.until(workingStartDate).days;
+                    console.log(startOfFirstWeekOffset);
+                    if (contentDateOffset != startOfFirstWeekOffset) {
+                        affectedItems.push((0,jsx_runtime.jsx)("div", { children: "Note: start date mismatch. Using first week from assignments to determine content dates." }));
+                        contentDateOffset = startOfFirstWeekOffset;
+                    }
+                    const affectedContent = yield course.updateDueDates(contentDateOffset);
+                    for (let contentItem of affectedContent) {
+                        affectedItems.push(getContentAffectedItemRow(contentItem));
+                    }
+                    const announcementGenerator = getPagedDataGenerator(`/api/v1/courses/${course.id}/discussion_topics`, {
+                        queryParams: {
+                            only_announcements: true
+                        }
+                    });
+                    try {
+                        for (var _d = true, announcementGenerator_1 = UpdateStartDate_asyncValues(announcementGenerator), announcementGenerator_1_1; announcementGenerator_1_1 = yield announcementGenerator_1.next(), _a = announcementGenerator_1_1.done, !_a; _d = true) {
+                            _c = announcementGenerator_1_1.value;
+                            _d = false;
+                            let value = _c;
+                            let discussion = new Discussion(value, course.id);
+                            console.log(contentDateOffset);
+                            yield discussion.offsetPublishDelay(contentDateOffset);
+                            affectedItems.push(getContentAffectedItemRow(discussion));
+                        }
+                    }
+                    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                    finally {
+                        try {
+                            if (!_d && !_a && (_b = announcementGenerator_1.return)) yield _b.call(announcementGenerator_1);
+                        }
+                        finally { if (e_1) throw e_1.error; }
+                    }
+                    setAffectedItems && setAffectedItems(affectedItems);
+                }
+                else {
+                    setUnaffectedItems && setUnaffectedItems([]);
+                }
+                yield refreshCourse(true);
+                setStartDate(workingStartDate);
+            }
+            catch (error) {
+                console.log(error);
+                setAffectedItems && setAffectedItems(affectedItems);
+                setFailedItems && setFailedItems([(0,jsx_runtime.jsxs)("div", { className: 'ui-alert', children: [(0,jsx_runtime.jsx)("h2", { children: error.toString() }), (0,jsx_runtime.jsx)("p", { children: error.stack })] })]);
+            }
+            endLoading();
+        });
+    }
+    function updateSyllabus(syllabusText, updateStartDate) {
+        return UpdateStartDate_awaiter(this, void 0, void 0, function* () {
+            const affectedItems = [];
+            const results = updatedDateSyllabusHtml(syllabusText, updateStartDate);
+            if (syllabusText !== results.html) {
+                yield course.changeSyllabus(results.html);
+                for (let row of getSyllabusAffectedItemsRows(results)) {
+                }
+                const modules = yield course.getModules();
+                yield changeModuleLockDate(course.id, modules[0], updateStartDate);
+                if (updateStartDate != startDate) {
+                    affectedItems.push((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("div", { className: 'col-sm-6', children: "Changed Lock Date" }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-6', children: (0,jsx_runtime.jsx)("a", { href: course.htmlContentUrl + '/modules', children: "Modules Page" }) })] }));
+                }
+                return affectedItems;
+            }
+        });
+    }
+    function getContentAffectedItemRow(item) {
+        var _a;
+        return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("div", { className: 'col-sm-6', children: (0,jsx_runtime.jsx)("a", { href: item.htmlContentUrl, target: "_blank", children: item.name }) }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-6', children: (_a = item.dueAt) === null || _a === void 0 ? void 0 : _a.toString() })] });
+    }
+    function getSyllabusAffectedItemsRows(results) {
+        return results.changedText.map((changedText) => (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsxs)("div", { className: 'col-sm-6', children: [(0,jsx_runtime.jsx)("strong", { children: "Change:" }), changedText] }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-6', children: (0,jsx_runtime.jsx)("a", { href: course.htmlContentUrl + '/assignments/syllabus', target: "_blank", children: "Syllabus" }) })] }));
+    }
+    function updateStartDateValue(inDate) {
+        setWorkingStartDate(oldDateToPlainDate(inDate));
+    }
+    return (0,jsx_runtime.jsx)(jsx_runtime.Fragment, { children: (0,jsx_runtime.jsxs)("div", { className: 'row', children: [(0,jsx_runtime.jsxs)("div", { className: 'col-sm-4', children: [(0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: changeStartDate, disabled: isDisabled, children: "Change Start Date" }), (0,jsx_runtime.jsxs)("label", { children: ["Current: ", startDate === null || startDate === void 0 ? void 0 : startDate.toLocaleString('default', {
+                                    weekday: 'short',
+                                    month: 'short',
+                                    day: 'numeric',
+                                    year: 'numeric'
+                                })] })] }), (0,jsx_runtime.jsxs)("div", { className: 'col-sm-4', children: [(0,jsx_runtime.jsx)((react_datepicker_min_default()), { value: workingStartDate === null || workingStartDate === void 0 ? void 0 : workingStartDate.toLocaleString(), onChange: updateStartDateValue }), (0,jsx_runtime.jsxs)("label", { children: ["Target: ", workingStartDate === null || workingStartDate === void 0 ? void 0 : workingStartDate.toLocaleString('default', {
+                                    weekday: 'short',
+                                    month: 'short',
+                                    day: 'numeric',
+                                    year: 'numeric'
+                                })] }), startDate && workingStartDate &&
+                            (0,jsx_runtime.jsxs)("label", { children: ['\u0394', " days: ", startDate.until(workingStartDate).days] })] }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-4', children: "Update dates of assignments, announcements, and on syllabus" })] }) });
+}
+class StartDateNotSetError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "StartDateNotSetError";
+    }
+}
+;
+
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/publish/fixesAndUpdates/CourseValidTest.scss
+var CourseValidTest = __webpack_require__(9433);
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/CourseValidTest.scss
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var CourseValidTest_options = {};
+
+CourseValidTest_options.styleTagTransform = (styleTagTransform_default());
+CourseValidTest_options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      CourseValidTest_options.insert = insertBySelector_default().bind(null, "head");
+    
+CourseValidTest_options.domAPI = (styleDomAPI_default());
+CourseValidTest_options.insertStyleElement = (insertStyleElement_default());
+
+var CourseValidTest_update = injectStylesIntoStyleTag_default()(CourseValidTest/* default */.A, CourseValidTest_options);
+
+
+
+
+       /* harmony default export */ const fixesAndUpdates_CourseValidTest = (CourseValidTest/* default */.A && CourseValidTest/* default */.A.locals ? CourseValidTest/* default */.A.locals : undefined);
+
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Row.js
+"use client";
+
+
+
+
+
+const Row = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  className,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  ...props
+}, ref) => {
+  const decoratedBsPrefix = useBootstrapPrefix(bsPrefix, 'row');
+  const breakpoints = useBootstrapBreakpoints();
+  const minBreakpoint = useBootstrapMinBreakpoint();
+  const sizePrefix = `${decoratedBsPrefix}-cols`;
+  const classes = [];
+  breakpoints.forEach(brkPoint => {
+    const propValue = props[brkPoint];
+    delete props[brkPoint];
+    let cols;
+    if (propValue != null && typeof propValue === 'object') {
+      ({
+        cols
+      } = propValue);
+    } else {
+      cols = propValue;
+    }
+    const infix = brkPoint !== minBreakpoint ? `-${brkPoint}` : '';
+    if (cols != null) classes.push(`${sizePrefix}${infix}-${cols}`);
+  });
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+    ref: ref,
+    ...props,
+    className: classnames_default()(className, decoratedBsPrefix, ...classes)
+  });
+});
+Row.displayName = 'Row';
+/* harmony default export */ const esm_Row = (Row);
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/ValidationRow.tsx
+var ValidationRow_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+function ValidationRow({ test, slim, potemkinVillage, initialResult, course, refreshCourse, onResult, showOnlyFailures = false }) {
+    var _a;
+    const [loading, setLoading] = (0,react.useState)(false);
+    const [result, _setResult] = (0,react.useState)(initialResult);
+    const [fixText, setFixText] = (0,react.useState)("Fix?");
+    function setResult(result) {
+        _setResult(result);
+        onResult && onResult(result, test);
+    }
+    function reRun() {
+        return ValidationRow_awaiter(this, void 0, void 0, function* () {
+            var _a;
+            setLoading(true);
+            try {
+                yield refreshCourse();
+                setResult(yield (test.run(course)));
+            }
+            catch (e) {
+                setResult({
+                    success: false,
+                    message: [(e === null || e === void 0 ? void 0 : e.toString()) || 'Error', test.name, e instanceof Error ? (_a = e.stack) !== null && _a !== void 0 ? _a : '' : '']
+                });
+            }
+            setLoading(false);
+        });
+    }
+    function fix() {
+        return ValidationRow_awaiter(this, void 0, void 0, function* () {
+            var _a;
+            setFixText('Fixing..');
+            setLoading(true);
+            try {
+                assert_default()(test.fix);
+                yield test.fix(course);
+                setFixText('Fixed...');
+                yield refreshCourse();
+                setResult(yield test.run(course));
+            }
+            catch (e) {
+                setResult({
+                    success: false,
+                    message: [(e === null || e === void 0 ? void 0 : e.toString()) || 'Error', test.name, e instanceof Error ? (_a = e.stack) !== null && _a !== void 0 ? _a : '' : '']
+                });
+            }
+            setLoading(false);
+        });
+    }
+    useEffectAsync(() => ValidationRow_awaiter(this, void 0, void 0, function* () {
+        var _b;
+        if (result)
+            return; //only run once and only if we don't have a result. MUST call r
+        if (potemkinVillage)
+            return;
+        setLoading(true);
+        try {
+            setResult(yield test.run(course));
+        }
+        catch (e) {
+            setResult({
+                success: false,
+                message: [(e === null || e === void 0 ? void 0 : e.toString()) || 'Error', test.name, e instanceof Error ? (_b = e.stack) !== null && _b !== void 0 ? _b : '' : '']
+            });
+        }
+        setLoading(false);
+    }), [course, test]);
+    function truncateMessage(messageString) {
+        if (slim)
+            return messageString.replace(/^(.{200}).*$/, '$1...');
+        return messageString;
+    }
+    function statusMessage(result) {
+        if (loading)
+            return "running...";
+        if (!result)
+            return loading ? "still running" : "No Result, an error may have occurred.";
+        if (result.success)
+            return "Succeeded!";
+        return typeof result.message === 'string' ?
+            (0,jsx_runtime.jsx)("p", { className: 'message', children: truncateMessage(result.message) })
+            : result.message.map(message => ((0,jsx_runtime.jsx)("div", { className: 'message', children: truncateMessage(message) })));
+    }
+    if (!showOnlyFailures || loading || (!(result === null || result === void 0 ? void 0 : result.success))) {
+        return (0,jsx_runtime.jsxs)(esm_Row, { className: slim ? 'test-row-slim' : 'test-row', children: [(0,jsx_runtime.jsx)("div", { className: 'col-sm-2', children: test.name }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-3 message', children: test.description }), (0,jsx_runtime.jsxs)("div", { className: 'col-sm-4', children: [(0,jsx_runtime.jsx)("p", { children: statusMessage(result) }), (_a = result === null || result === void 0 ? void 0 : result.links) === null || _a === void 0 ? void 0 : _a.map(link => (0,jsx_runtime.jsx)("div", { children: (0,jsx_runtime.jsx)("a", { href: link, target: '_blank', children: link }) }, link))] }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-1', children: test.fix && result && !result.success && (0,jsx_runtime.jsx)("button", { onClick: fix, children: fixText }) }), (0,jsx_runtime.jsxs)("div", { className: 'col-sm-1', children: [!result && (0,jsx_runtime.jsx)("span", { className: 'badge badge-info', children: "Running" }), (result === null || result === void 0 ? void 0 : result.success) && (0,jsx_runtime.jsx)("span", { className: 'badge badge-success', children: "OK!" }), result && !result.success && (0,jsx_runtime.jsx)("span", { className: 'badge badge-warning', children: "Failed" })] })] });
+    }
+    return (0,jsx_runtime.jsx)(jsx_runtime.Fragment, {});
+}
+
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/CourseValidator.tsx
+
+
+
+function CourseValidator({ course, tests, refreshCourse, showOnlyFailures = false }) {
+    return (0,jsx_runtime.jsxs)("div", { className: 'container', children: [showOnlyFailures || (0,jsx_runtime.jsx)("h2", { children: "Course Settings and Content Tests" }), tests.map((test, i) => (0,jsx_runtime.jsx)(ValidationRow, { course: course, test: test, showOnlyFailures: showOnlyFailures, refreshCourse: refreshCourse }, test.name))] });
+}
+
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/syllabusTests.ts
+var syllabusTests_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+//Syllabus Tests
+const finalNotInGradingPolicyParaTest = {
+    name: "Remove Final",
+    negativeExemplars: [['off the final grade', 'off the grade'], ['final exam', 'final exam']],
+    description: 'Remove "final" from the grading policy paragraphs of syllabus',
+    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
+        const syllabus = yield course.getSyllabus(config);
+        const match = /off the final grade/gi.test(syllabus);
+        return testResult(!match, ["'off the final grade' found in syllabus"], [`/courses/${course.id}/assignments/syllabus`]);
+    }),
+    fix: badSyllabusFixFunc(/off the final grade/gi, 'off the grade')
+};
+const communication24HoursTest = {
+    name: "Syllabus - Within 24 Hours",
+    description: "Revise the top sentence of the \"Communication\" section of the syllabus to read: \"The instructor will " +
+        "conduct all correspondence with students related to the class in Canvas, and you should " +
+        "expect to receive a response to emails within 24 hours.\"",
+    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
+        var _a;
+        const syllabus = yield course.getSyllabus();
+        const testString = 'The instructor will conduct all correspondence with students related to the class in Canvas, and you should expect to receive a response to emails within 24 hours'.toLowerCase();
+        const el = document.createElement('div');
+        el.innerHTML = syllabus;
+        const text = ((_a = el.textContent) === null || _a === void 0 ? void 0 : _a.toLowerCase()) || "";
+        return testResult(text.includes(testString) && !text.match(/48 hours .* weekends/), ["Communication language section in syllabus does not look right."], [`/courses/${course.id}/assignments/syllabus`]);
+    })
+};
+const courseCreditsInSyllabusTest = {
+    name: "Syllabus Credits",
+    description: 'Credits displayed in summary box of syllabus',
+    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
+        const syllabus = yield course.getSyllabus(config);
+        const el = document.createElement('div');
+        el.innerHTML = syllabus;
+        let strongs = el.querySelectorAll('strong');
+        const creditList = Array.from(strongs).filter((strong) => /credits/i.test(strong.textContent || ""));
+        return testResult(creditList && creditList.length > 0, ["Can't find credits in syllabus"], [`/courses/${course.id}/assignments/syllabus`]);
+    })
+};
+const aiPolicyInSyllabusTest = {
+    name: "AI Policy in Syllabus Test",
+    description: "The AI policy is present in the syllabus",
+    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
+        const text = yield course.getSyllabus(config);
+        const success = text.includes('Generative Artificial Intelligence');
+        return testResult(success, [`Can't find AI boilerplate in syllabus`], [`/courses/${course.id}/assignments/syllabus`]);
+    })
+};
+const bottomOfSyllabusLanguageTest = {
+    name: "Bottom-of-Syllabus Test",
+    description: "Replace language at the bottom of the syllabus with: \"Learning materials for Weeks 2 forward are organized with the rest of the class in your weekly modules. The modules will become available after you've agreed to the Honor Code, Code of Conduct, and Tech for Success requirements on the Course Overview page, which unlocks on the first day of the term.\" (**Do not link to the Course Overview Page**)",
+    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
+        const text = getPlainTextFromHtml(yield course.getSyllabus(config));
+        const success = text.toLowerCase().includes(`The modules will become available after you've agreed to the Honor Code, Code of Conduct, and Tech for Success requirements on the Course Overview page, which unlocks on the first day of the term.`.toLowerCase());
+        return testResult(success, ["Text at the bottom of the syllabus looks incorrect."], [`/courses/${course.id}/assignments/syllabus`]);
+    }),
+};
+/// Etc
+/* harmony default export */ const syllabusTests = ([
+    courseCreditsInSyllabusTest,
+    finalNotInGradingPolicyParaTest,
+    communication24HoursTest,
+    aiPolicyInSyllabusTest,
+    bottomOfSyllabusLanguageTest,
+]);
+
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/courseSettings.ts
+var courseSettings_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+const extensionsToTest = ['Dropout Detective', "BigBlueButton"];
+const extensionsInstalledTest = {
+    name: "Extensions Installed",
+    description: 'Big Blue Button and Dropout Detective in nav bar',
+    run: (course, config) => courseSettings_awaiter(void 0, void 0, void 0, function* () {
+        const missing = new Set(extensionsToTest);
+        const tabs = yield course.getTabs(config);
+        for (let tab of tabs) {
+            if (missing.has(tab.label) && !tab.hidden)
+                missing.delete(tab.label);
+        }
+        return {
+            success: missing.size === 0,
+            message: Array.from(missing).join(',') + ' missing from enabled navigation tabs.'
+        };
+    })
+};
+const announcementsOnHomePageTest = {
+    name: "Show Announcements",
+    description: 'Confirm under "Settings" --> "more options" that the "Show announcements" box is checked',
+    run: (course) => courseSettings_awaiter(void 0, void 0, void 0, function* () {
+        const settings = yield course.getSettings();
+        const success = !!settings.show_announcements_on_home_page;
+        return {
+            success,
+            message: success ? 'success' : "'show announcements on home page' not turned on"
+        };
+    })
+};
+const latePolicyTest = {
+    name: "Late Policy Correct",
+    description: "Go to the gradebook and  click the cog in the upper right-hand corner, then check the box to automatically apply a 0 for missing submissions; or confirm that this setting has already been made.",
+    run: (course, config) => courseSettings_awaiter(void 0, void 0, void 0, function* () {
+        const latePolicy = yield course.getLatePolicy(config);
+        return testResult(latePolicy === null || latePolicy === void 0 ? void 0 : latePolicy.missing_submission_deduction_enabled, ["'Automatically apply grade for missing submission' not turned on"]);
+    })
+};
+const noEvaluationTest = {
+    name: "Remove Course Evaluation",
+    description: 'Course Eval page (in final module) entirely deleted from the course.',
+    run: (course, config) => courseSettings_awaiter(void 0, void 0, void 0, function* () {
+        config = Object.assign({}, config);
+        config.queryParams = Object.assign(Object.assign({}, config.queryParams), { search_term: 'Course Evaluation' });
+        const pages = yield (course.getPages(config));
+        const evalPages = pages.filter(page => /Course Evaluation/i.test(page.name));
+        const success = evalPages.length === 0;
+        const result = testResult(success, ["Course eval found"]);
+        if (!success)
+            result.links = evalPages.map(page => page.htmlContentUrl);
+        return result;
+    })
+};
+const badGradingPolicyTest = {
+    name: "Correct grading policy selected",
+    description: "5 week courses have REVISED DE Undergraduate Programs grading scheme selected. 8 week courses have  DE Graduate Programs grading scheme selected",
+    run: (course, config) => courseSettings_awaiter(void 0, void 0, void 0, function* () {
+        var _a;
+        try {
+            const gradingStandards = yield course.getAvailableGradingStandards(config);
+            const currentGradingStandard = yield course.getCurrentGradingStandard(config);
+            const modulesByWeekNumber = yield course.getModulesByWeekNumber(config);
+            const isGrad = modulesByWeekNumber.hasOwnProperty(8);
+            if (!gradingStandards)
+                return testResult(false, [`Grading standards not accessible from ${course.id}`]);
+            const [undergradStandard] = gradingStandards.filter(standard => /REVISED DE Undergraduate Programs/.test(standard.title));
+            const [gradStandard] = gradingStandards.filter(standard => /DE Graduate Programs/.test(standard.title));
+            const expectedStandard = isGrad ? gradStandard : undergradStandard;
+            let success = (currentGradingStandard === null || currentGradingStandard === void 0 ? void 0 : currentGradingStandard.title) == expectedStandard.title;
+            const result = testResult(success, [`Grading standard set to ${currentGradingStandard === null || currentGradingStandard === void 0 ? void 0 : currentGradingStandard.title} expected to be ${expectedStandard.title}`]);
+            if (!success)
+                result.links = [`/courses/${course.id}/settings`];
+            return result;
+        }
+        catch (e) {
+            return {
+                success: false,
+                message: e instanceof Error ? [e.message, (_a = e.stack) !== null && _a !== void 0 ? _a : ''] : ['ERROR']
+            };
+        }
+    })
+};
+/* harmony default export */ const courseSettings = ([
+    noEvaluationTest,
+    latePolicyTest,
+    extensionsInstalledTest,
+    badGradingPolicyTest
+]);
+
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/courseContent.ts
+var courseContent_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+const weeklyObjectivesTest = {
+    name: "Learning Objectives -> Weekly Objectives",
+    description: 'Make sure weekly objectives are called "Weekly Objectives" and not "Learning Objectives" throughout',
+    run: (course, config) => courseContent_awaiter(void 0, void 0, void 0, function* () {
+        let overviews = yield course.getPages(Object.assign(Object.assign({}, config), { queryParams: Object.assign(Object.assign({}, config === null || config === void 0 ? void 0 : config.queryParams), { search_term: 'Overview', include: ['body'] }) }));
+        overviews = overviews.filter(overview => /week \d overview/ig.test(overview.name));
+        const badOverviews = overviews.filter(overview => {
+            const el = document.createElement('div');
+            el.innerHTML = overview.body;
+            const h2s = el.querySelectorAll('h2');
+            const weeklyObjectivesHeaders = Array.from(h2s).filter(h2 => /Weekly Objectives/i.test(h2.textContent || ''));
+            return weeklyObjectivesHeaders.length === 0;
+        });
+        const success = badOverviews.length === 0;
+        const result = testResult(badOverviews.length === 0, badOverviews.map(page => page.name).sort());
+        if (!success)
+            result.links = badOverviews.map(page => page.htmlContentUrl);
+        return result;
+    })
+};
+const courseProjectOutlineTest = {
+    name: "Project outline -> Course Project Outline",
+    description: "On the Course Project Overview page, make sure the heading reads \"Course Project Outline\" and not \"Project outline\"",
+    run: (course, config) => courseContent_awaiter(void 0, void 0, void 0, function* () {
+        const pages = yield course.getPages(Object.assign(Object.assign({}, config), { queryParams: Object.assign(Object.assign({}, config === null || config === void 0 ? void 0 : config.queryParams), { search_term: 'Course Project', include: ['body'] }) }));
+        const projectOverviewPages = pages.filter(page => /Course Project Overview/.test(page.name));
+        if (projectOverviewPages.length === 0) {
+            return {
+                success: 'unknown',
+                message: "No 'Course Project Overview' page found for this course. This might be fine."
+            };
+        }
+        if (projectOverviewPages.length > 1) {
+            return {
+                success: 'unknown',
+                message: "Multiple course overview page matches found, unable to check.",
+                links: projectOverviewPages.map(page => page.htmlContentUrl)
+            };
+        }
+        const projectOverview = projectOverviewPages[0];
+        const pageHtml = projectOverview.body;
+        const el = document.createElement('div');
+        el.innerHTML = pageHtml;
+        const h2s = Array.from(el.querySelectorAll('h2'));
+        const projectHeadings = h2s.filter(h2 => h2.textContent === 'Project outline');
+        const response = testResult(projectHeadings.length < 1, ["Course project page has 'Project outline' as a header"]);
+        if (!response.success)
+            response.links = [projectOverview.htmlContentUrl];
+        return response;
+    })
+};
+/* harmony default export */ const courseContent = ([
+    courseProjectOutlineTest,
+    weeklyObjectivesTest
+]);
+
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/courseSpecific/capstoneProjectValidations.ts
+
+const projectRegex = /(research proposal|course project)/ig;
+const courseProjectToCapstoneProjectProposal = {
+    courseCodes: ['PROF590', 'PROF690'],
+    negativeExemplars: [['your research proposals', 'your capstone project proposals'], ['our course project', 'our capstone project proposal']],
+    positiveExemplars: ['this Course Project'],
+    name: "Capstone project -> Capstone Project Proposal",
+    description: `Replace 'Research Proposal' and 'Course Project' with 'Capstone Project Proposal'`,
+    run: badContentRunFunc(projectRegex),
+    fix: badContentFixFunc(projectRegex, 'Capstone Project Proposal'),
+};
+const partnerRegex = /([^-])\bpartner(s|)\b/ig;
+const partnerToCollaborator = {
+    courseCodes: ['PROF590', 'PROF690'],
+    negativeExemplars: [['your partner', 'your collaborator'], ['your Partners', 'your Collaborators']],
+    positiveExemplars: ['our collaborator'],
+    name: "Capstone partner -> collaborator",
+    description: "Replace partner with collaborator",
+    run: badContentRunFunc(partnerRegex),
+    fix: badContentFixFunc(partnerRegex, preserveCapsReplace(partnerRegex, '$1collaborator$2'))
+};
+const partnershipRegex = /\bpartnership(s|)\b/ig;
+const partnershipToCollaboration = {
+    courseCodes: ['PROF590', 'PROF690'],
+    negativeExemplars: [['Partnerships begin with', 'Collaborations begin with'], ['this partnership should', 'this collaboration should']],
+    positiveExemplars: ['Our new collaboration'],
+    name: "Capstone partnership -> collaboration",
+    description: "Replace partnership with collaboration",
+    run: badContentRunFunc(partnershipRegex),
+    fix: badContentFixFunc(partnershipRegex, preserveCapsReplace(partnershipRegex, 'collaboration$1'))
+};
+/* harmony default export */ const capstoneProjectValidations = ([courseProjectToCapstoneProjectProposal, partnerToCollaborator, partnershipToCollaboration]);
+
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/ContentUpdateInterface.tsx
+var ContentUpdateInterface_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+class MismatchedUnloadError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "Mismatched Unload Error";
+    }
+}
+// const regex = /rovide at least one citation of a peer reviewed source is provided in/ig;
+// const oneOffFix:CourseValidationTest =     {
+//         name: "One Off Fix",
+//         courseCodes: ['ANIM301'],
+//         description: "Replace bad text in ANIM301",
+//         run: badContentRunFunc(regex),
+//         fix: badContentFixFunc(regex, preserveCapsReplace(regex, 'rovide at least one citation of a peer reviewed source in'))
+//     }
+const allValidations = [
+    ...capstoneProjectValidations,
+    ...syllabusTests,
+    ...courseSettings,
+    ...courseContent,
+    //proxyServerLinkValidation,
+];
+function ContentUpdateInterface({ course, parentCourse, refreshCourse }) {
+    const [validations, setValidations] = (0,react.useState)(allValidations);
+    const [show, setShow] = (0,react.useState)(false);
+    const [buttonText, setButtonText] = (0,react.useState)('Content Fixes');
+    const [isDisabled, setIsDisabled] = (0,react.useState)(false);
+    const [affectedItems, setAffectedItems] = (0,react.useState)([]);
+    const [unaffectedItems, setUnaffectedItems] = (0,react.useState)([]);
+    const [failedItems, setFailedItems] = (0,react.useState)([]);
+    const [loadingCount, setLoadingCount] = (0,react.useState)(0);
+    const [mode, setMode] = (0,react.useState)('fix');
+    useEffectAsync(() => ContentUpdateInterface_awaiter(this, void 0, void 0, function* () {
+        if (!course)
+            return;
+        if (course.isDev) {
+            setButtonText('DEV Content Changes/Fixes');
+        }
+        else if (course.isBlueprint()) {
+            setButtonText('BP Content Fixes');
+        }
+        else {
+            setButtonText("Can Only Fix from BP or DEV");
+        }
+        setValidations(allValidations.filter(validation => {
+            var _a;
+            if (!validation.courseCodes)
+                return true;
+            for (let code of validation.courseCodes) {
+                if ((_a = course.courseCode) === null || _a === void 0 ? void 0 : _a.toUpperCase().includes(code.toLocaleUpperCase('en-US'))) {
+                    return true;
+                }
+            }
+            return false;
+        }));
+    }), [course]);
+    /* increment and decrement is loading just in case we end up setting it asynchronously somehow */
+    function startLoading() {
+        setLoadingCount(1);
+        setFailedItems([]);
+        setAffectedItems([]);
+        setUnaffectedItems([]);
+    }
+    function endLoading() {
+        setLoadingCount(0);
+        console.log(loadingCount, '-');
+        if (loadingCount < 0)
+            throw new MismatchedUnloadError();
+    }
+    function isLoading() {
+        return loadingCount > 0;
+    }
+    function removeLmAnnotations() {
+        return ContentUpdateInterface_awaiter(this, void 0, void 0, function* () {
+            assert_default()(course);
+            startLoading();
+            function pageToLink(page) {
+                return (0,jsx_runtime.jsx)("a", { className: "course-link", target: "_blank", href: page.htmlContentUrl, children: page.name });
+            }
+            const results = yield fixLmAnnotations(course);
+            setAffectedItems(results.fixedPages.map(pageToLink));
+            setUnaffectedItems(results.unchangedPages.map(pageToLink));
+            setFailedItems(results.failedPages.map(pageToLink));
+            endLoading();
+        });
+    }
+    function urlRows(links, className = 'lxd-cu') {
+        return links.map((link, i) => (0,jsx_runtime.jsx)("div", { className: ['row', className].join(' '), children: link }, i));
+    }
+    function FixesMode({ course }) {
+        return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsxs)("h2", { children: ["Content Fixes for ", course.name] }), course.isBlueprint() && (0,jsx_runtime.jsx)(RemoveAnnotationsSection, {}), (0,jsx_runtime.jsx)(UpdateStartDate, { setAffectedItems: setAffectedItems, setUnaffectedItems: setUnaffectedItems, setFailedItems: setFailedItems, refreshCourse: refreshCourse, course: course, isDisabled: loadingCount > 0, startLoading: startLoading, endLoading: endLoading }), (0,jsx_runtime.jsx)("hr", {}), affectedItems.length > 0 && (0,jsx_runtime.jsx)("h3", { children: "Fixes Succeeded" }), urlRows(affectedItems, 'lxd-cu-success'), unaffectedItems.length > 0 && (0,jsx_runtime.jsx)("h3", { children: "Fix not Needed" }), urlRows(unaffectedItems, 'lxd-cu-fail'), failedItems.length > 0 && (0,jsx_runtime.jsx)("h3", { children: "Fix is Broken, Content Unchanged" }), urlRows(failedItems, 'lxd-cu-fail')] });
+    }
+    function RemoveAnnotationsSection() {
+        return ((course === null || course === void 0 ? void 0 : course.isBlueprint()) && (0,jsx_runtime.jsxs)("div", { className: 'row', children: [(0,jsx_runtime.jsx)("div", { className: 'col-sm-4', children: (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: removeLmAnnotations, disabled: loadingCount > 0, children: "Remove Annotation Placeholder" }) }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-8', children: "Removes annotation placeholders on Learning Material pages" })] }));
+    }
+    return (course && (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { disabled: isDisabled, className: "ui-button", onClick: (e) => setShow(true), children: buttonText }), (0,jsx_runtime.jsxs)(widgets_Modal, { isOpen: show, requestClose: () => setShow(false), canClose: !loadingCount, children: [(0,jsx_runtime.jsxs)("div", { className: 'd-flex justify-content-end', children: [mode === 'fix' && (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: () => setMode("unitTest"), children: "Show All Tests" }), mode === 'unitTest' && (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: () => setMode("fix"), children: "Hide Successful Tests" })] }), mode === 'fix' && (0,jsx_runtime.jsx)(FixesMode, { course: course }), (0,jsx_runtime.jsx)(CourseValidator, { showOnlyFailures: mode !== 'unitTest', course: course, refreshCourse: refreshCourse, tests: validations })] })] }));
+}
+
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/ui/widgets/MultiSelect.css
+var MultiSelect = __webpack_require__(3910);
+;// CONCATENATED MODULE: ./src/ui/widgets/MultiSelect.css
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var MultiSelect_options = {};
+
+MultiSelect_options.styleTagTransform = (styleTagTransform_default());
+MultiSelect_options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      MultiSelect_options.insert = insertBySelector_default().bind(null, "head");
+    
+MultiSelect_options.domAPI = (styleDomAPI_default());
+MultiSelect_options.insertStyleElement = (insertStyleElement_default());
+
+var MultiSelect_update = injectStylesIntoStyleTag_default()(MultiSelect/* default */.A, MultiSelect_options);
+
+
+
+
+       /* harmony default export */ const widgets_MultiSelect = (MultiSelect/* default */.A && MultiSelect/* default */.A.locals ? MultiSelect/* default */.A.locals : undefined);
+
+;// CONCATENATED MODULE: ./src/ui/widgets/MuliSelect.tsx
+
+///Original from ChatGPT
+
+
+function optionize(objects, idFunc, labelFunc) {
+    let idGenerator = function* (i) {
+        while (true) {
+            yield i;
+            i++;
+        }
+    }(0);
+    const options = objects.map(object => {
+        let key = idFunc ? idFunc(object) : idGenerator.next().value;
+        let label = labelFunc ? labelFunc(object) : key.toString();
+        const modObject = object;
+        modObject.key = key;
+        modObject.label = label;
+        const returnObject = object;
+        returnObject.key = key;
+        returnObject.label = label;
+        return returnObject;
+    });
+    return options;
+}
+function MuliSelect_MultiSelect({ alwaysOpen, options, selectedOptions, onSelectionChange }) {
+    const [isOpen, setIsOpen] = (0,react.useState)(false);
+    const handleToggle = () => {
+        setIsOpen(!isOpen);
+    };
+    const handleOptionClick = (option) => {
+        if (selectedOptions.find((selected) => selected.key === option.key)) {
+            onSelectionChange(selectedOptions.filter((selected) => selected.key !== option.key));
+        }
+        else {
+            onSelectionChange([...selectedOptions, option]);
+        }
+    };
+    return ((0,jsx_runtime.jsxs)("div", { className: "multi-select", children: [(0,jsx_runtime.jsxs)("div", { className: "multi-select-input", onClick: handleToggle, children: [selectedOptions.length > 0 ? (selectedOptions.map((option) => option.label).join(', ')) : ('Select options'), (0,jsx_runtime.jsx)("span", { className: "arrow", children: isOpen ? '▲' : '▼' })] }), (isOpen || alwaysOpen) && ((0,jsx_runtime.jsx)("div", { className: alwaysOpen ? "multi-select-options-dont-close" : "multi-select-options", children: options.map((option) => ((0,jsx_runtime.jsx)("div", { className: `multi-select-option ${selectedOptions.find((selected) => selected.key === option.key) ? 'selected' : ''}`, onClick: () => handleOptionClick(option), children: option.label }, option.key))) }))] }));
+}
+;
+/* harmony default export */ const MuliSelect = (MuliSelect_MultiSelect);
+
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Container.js
+"use client";
+
+
+
+
+
+const Container = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  fluid = false,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  className,
+  ...props
+}, ref) => {
+  const prefix = useBootstrapPrefix(bsPrefix, 'container');
+  const suffix = typeof fluid === 'string' ? `-${fluid}` : '-fluid';
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+    ref: ref,
+    ...props,
+    className: classnames_default()(className, fluid ? `${prefix}${suffix}` : prefix)
+  });
+});
+Container.displayName = 'Container';
+/* harmony default export */ const esm_Container = (Container);
 ;// CONCATENATED MODULE: ./src/reducerDispatchers.ts
 
 function collectionLutDispatcher(state, action) {
@@ -45846,12 +45936,14 @@ function collectionLutDispatcher(state, action) {
 }
 function handleCollectionLutAdd(state, action) {
     var _a;
-    const { add } = action;
-    if (!add)
-        return state;
-    const { key, items } = add;
-    const stateItems = (_a = state[key]) !== null && _a !== void 0 ? _a : [];
-    return Object.assign(Object.assign({}, state), { [key]: [...stateItems, ...items].filter(filterUniqueFunc) });
+    if (action.clear)
+        return {};
+    if (action.add) {
+        const { key, items } = action.add;
+        const stateItems = (_a = state[key]) !== null && _a !== void 0 ? _a : [];
+        return Object.assign(Object.assign({}, state), { [key]: [...stateItems, ...items].filter(filterUniqueFunc) });
+    }
+    return state;
 }
 function lutDispatcher(state, action) {
     state = handleLutSet(state, action);
@@ -45863,6 +45955,16 @@ function handleLutSet(state, action) {
         return state;
     const { key, item } = set;
     return Object.assign(Object.assign({}, state), { [key]: item });
+}
+function listDispatcher(state, action) {
+    const { add } = action;
+    if (add) {
+        if (Array.isArray(add))
+            state = [...state, ...add];
+        else
+            state = [...state, add];
+    }
+    return state;
 }
 
 ;// CONCATENATED MODULE: ./src/admin/AdminApp.tsx
@@ -45979,9 +46081,6 @@ function AdminApp({ course }) {
         let replaceString = courseSearchString.replaceAll(/(\w+)\t(\d+)\s*/gs, '$1$2,');
         replaceString = replaceString.replaceAll(/(\w+\d+,)\1+/gs, '$1');
         setCourseSearchString(replaceString.replace(/,$/, ''));
-    }
-    function getResultsForCourse(courseId) {
-        return validationResults.filter(result => result.courseId === courseId);
     }
     const search = (e) => AdminApp_awaiter(this, void 0, void 0, function* () {
         var _a, e_1, _b, _c;

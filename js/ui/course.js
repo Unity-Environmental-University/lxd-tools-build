@@ -13247,19 +13247,43 @@ var blueprint_awaiter = (undefined && undefined.__awaiter) || function (thisArg,
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var blueprint_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
 
 
 function isBlueprint({ blueprint }) {
     return !!blueprint;
 }
-function getAssociatedCourses(course) {
+function getSections(course) {
     return blueprint_awaiter(this, void 0, void 0, function* () {
+        var _a, e_1, _b, _c;
         const id = course.id;
         if (!course.isBlueprint())
             return [];
-        const url = `courses/${id}/blueprint_templates/default/associated_courses`;
-        const courses = yield getApiPagedData(url, { queryParams: { per_page: 50 } });
-        return courses.map(courseData => new course_Course(courseData));
+        const url = `/api/v1/courses/${id}/blueprint_templates/default/associated_courses`;
+        const courseDataGenerator = canvasUtils_getPagedDataGenerator(url, { queryParams: { per_page: 50 } });
+        const sections = [];
+        try {
+            for (var _d = true, courseDataGenerator_1 = blueprint_asyncValues(courseDataGenerator), courseDataGenerator_1_1; courseDataGenerator_1_1 = yield courseDataGenerator_1.next(), _a = courseDataGenerator_1_1.done, !_a; _d = true) {
+                _c = courseDataGenerator_1_1.value;
+                _d = false;
+                let sectionData = _c;
+                sections.push(yield course_Course.getCourseById(sectionData.id));
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (!_d && !_a && (_b = courseDataGenerator_1.return)) yield _b.call(courseDataGenerator_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        return sections;
     });
 }
 function cachedGetAssociatedCoursesFunc(course) {
@@ -13267,13 +13291,13 @@ function cachedGetAssociatedCoursesFunc(course) {
     return (...args_1) => blueprint_awaiter(this, [...args_1], void 0, function* (redownload = false) {
         if (!redownload && cache)
             return cache;
-        cache = yield getAssociatedCourses(course);
+        cache = yield getSections(course);
         return cache;
     });
 }
-function getTermNameFromSections(course) {
+function getTermNameFromSections(sections) {
     return blueprint_awaiter(this, void 0, void 0, function* () {
-        const [section] = yield course.getAssociatedCourses();
+        const [section] = sections;
         if (!section)
             throw new Error("Cannot determine term name by sections; there are no sections.");
         const sectionTerm = yield section.getTerm();
@@ -13576,21 +13600,39 @@ class course_Course extends BaseCanvasObject {
     }
     getAvailableGradingStandards(config) {
         return course_awaiter(this, void 0, void 0, function* () {
-            const courseGradingStandards = yield getGradingStandards(this.id, "course", config);
-            const accountGradingStandards = yield getGradingStandards(this.rawData.account_id, 'account', config);
-            const rootAccountGradingStandards = yield getGradingStandards(this.rawData.root_account_id, 'account', config);
-            return [...accountGradingStandards, ...rootAccountGradingStandards, ...courseGradingStandards];
+            let out = [];
+            console.log(this.name);
+            const { id, account_id, root_account_id } = this.canvasData;
+            console.log(this.id, this.rawData.account_id, this.rawData.root_account_id);
+            if (id) {
+                const courseGradingStandards = yield getGradingStandards(id, "course", config);
+                out = [...out, ...courseGradingStandards];
+            }
+            if (account_id) {
+                const accountGradingStandards = yield getGradingStandards(account_id, 'account', config);
+                out = [...out, ...accountGradingStandards];
+            }
+            if (root_account_id) {
+                const rootAccountGradingStandards = yield getGradingStandards(root_account_id, 'account', config);
+                out = [...out, ...rootAccountGradingStandards];
+            }
+            return out.filter(filterUniqueFunc);
         });
     }
     getCurrentGradingStandard(config) {
         return course_awaiter(this, void 0, void 0, function* () {
-            const urls = [
-                `/api/v1/accounts/${this.rawData.root_account_id}/grading_standards/${this.rawData.grading_standard_id}`,
-                `/api/v1/accounts/${this.rawData.account_id}/grading_standards/${this.rawData.grading_standard_id}`,
-                `/api/v1/courses/${this.id}/grading_standards/${this.rawData.grading_standard_id}`
-            ];
+            const { grading_standard_id, account_id, root_account_id } = this.canvasData;
+            const urls = [];
+            if (grading_standard_id) {
+                urls.push(`/api/v1/courses/${this.id}/grading_standards/${grading_standard_id}`);
+                if (root_account_id)
+                    urls.push(`/api/v1/accounts/${root_account_id}/grading_standards/${grading_standard_id}`);
+                if (account_id)
+                    urls.push(`/api/v1/accounts/${account_id}/grading_standards/${grading_standard_id}`);
+            }
             for (let url of urls) {
                 let gradingStandard = yield fetchJson(url);
+                console.log(gradingStandard);
                 if (!('errors' in gradingStandard))
                     return gradingStandard;
             }
