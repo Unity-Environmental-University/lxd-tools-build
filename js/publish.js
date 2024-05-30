@@ -42047,8 +42047,8 @@ var validations_awaiter = (undefined && undefined.__awaiter) || function (thisAr
     });
 };
 //number of characters to show around a match
-const SHOW_WINDOW = 5;
-const MAX_SEARCH_RETURN_SIZE = 20;
+const SHOW_WINDOW = 100;
+const MAX_SEARCH_RETURN_SIZE = 300;
 function testResult(success, failureMessage, links, successMessage = ['success']) {
     success = !!success;
     const response = {
@@ -44836,24 +44836,28 @@ var MultiSelect_update = injectStylesIntoStyleTag_default()(MultiSelect/* defaul
 
 
 function optionize(objects, idFunc, labelFunc) {
+    const objectsArray = Array.isArray(objects) ? objects : [objects];
     let idGenerator = function* (i) {
         while (true) {
             yield i;
             i++;
         }
     }(0);
-    const options = objects.map(object => {
+    const results = objectsArray.map(object => {
         let key = idFunc ? idFunc(object) : idGenerator.next().value;
         let label = labelFunc ? labelFunc(object) : key.toString();
-        const modObject = object;
-        modObject.key = key;
-        modObject.label = label;
-        const returnObject = object;
-        returnObject.key = key;
-        returnObject.label = label;
-        return returnObject;
+        return optionizeOne(object, key, label);
     });
-    return options;
+    return results;
+}
+function optionizeOne(object, key, label) {
+    const modObject = object;
+    modObject.key = key;
+    modObject.label = label;
+    const returnObject = object;
+    returnObject.key = key;
+    returnObject.label = label;
+    return returnObject;
 }
 function MuliSelect_MultiSelect({ alwaysOpen, options, selectedOptions, onSelectionChange }) {
     const [isOpen, setIsOpen] = (0,react.useState)(false);
@@ -45557,8 +45561,26 @@ function listDispatcher(state, action) {
     return state;
 }
 
-;// CONCATENATED MODULE: ./src/admin/AdminApp.tsx
-var AdminApp_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+;// CONCATENATED MODULE: ./src/admin/index.tsx
+
+
+
+function getTestName(test) {
+    return test.name;
+}
+function bpify(code) {
+    let [, prefix] = code.match(/^([^_]*)_/) || [null, ''];
+    let [, body] = code.match(`${prefix || ''}_?(.*)`) || [null, code];
+    return `BP_${body}`;
+}
+const tests = [
+    ...courseContent,
+    ...courseSettings,
+    ...syllabusTests,
+];
+
+;// CONCATENATED MODULE: ./src/admin/SearchCourses.tsx
+var SearchCourses_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -45567,7 +45589,7 @@ var AdminApp_awaiter = (undefined && undefined.__awaiter) || function (thisArg, 
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var AdminApp_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+var SearchCourses_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
     if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
     var m = o[Symbol.asyncIterator], i;
     return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
@@ -45581,51 +45603,49 @@ var AdminApp_asyncValues = (undefined && undefined.__asyncValues) || function (o
 
 
 
-
-
-
-
-
-
-
-
-const tests = [
-    ...courseContent,
-    ...courseSettings,
-    ...syllabusTests,
-    {
-        //courseCodes: ['PROF590', 'PROF690'],
-        name: "Pseudo-ruminant",
-        description: ``,
-        run: badContentRunFunc(/pseudo[- ]?ruminant/ig),
-    }
-];
-function getTestName(test) {
-    return test.name;
-}
-function AdminApp({ course }) {
-    const [isOpen, setIsOpen] = (0,react.useState)(false);
+function SearchCourses({ setFoundCourses, onlySearchBlueprints, }) {
     const [courseSearchString, setCourseSearchString] = (0,react.useState)('');
     const [seekCourseCodes, setSeekCourseCodes] = (0,react.useState)([]);
-    const [foundCourses, setFoundCourses] = (0,react.useState)([]);
-    const [coursesToRunOn, setCoursesToRunOn] = (0,react.useState)([]);
-    const [allValidations, _] = (0,react.useState)(optionize(tests, getTestName, getTestName));
-    const [validationsToRun, setValidationsToRun] = (0,react.useState)([]);
-    const [validationResults, setValidationResults] = (0,react.useState)([]);
-    const [validationResultsLut, dispatchValidationResultsLut] = (0,react.useReducer)((collectionLutDispatcher), {});
-    const [onlySearchBlueprints, setOnlySearchBlueprints] = (0,react.useState)(true);
-    const [includeDev, setIncludeDev] = (0,react.useState)(false);
-    const [includeSections, setIncludeSections] = (0,react.useState)(false);
-    const [isValidating, setIsValidating] = (0,react.useState)(false);
     const [isSearching, setIsSearching] = (0,react.useState)(false);
-    const [parentCourseLut, dispatchParentCourseLut] = (0,react.useReducer)((lutDispatcher), {});
-    const [sectionLut, dispatchSectionLut] = (0,react.useReducer)((collectionLutDispatcher), {});
-    const courseCache = {};
-    function bpify(code) {
-        let [, prefix] = code.match(/^([^_]*)_/) || [null, ''];
-        let [, body] = code.match(`${prefix || ''}_?(.*)`) || [null, code];
-        return `BP_${body}`;
+    function updateCourseSearchString() {
+        let replaceString = courseSearchString.replaceAll(/(\w+)\t(\d+)\s*/gs, '$1$2,');
+        replaceString = replaceString.replaceAll(/(\w+\d+,)\1+/gs, '$1');
+        setCourseSearchString(replaceString.replace(/,$/, ''));
     }
+    const search = (e) => SearchCourses_awaiter(this, void 0, void 0, function* () {
+        var _a, e_1, _b, _c;
+        e.stopPropagation();
+        e.preventDefault();
+        if (isSearching)
+            return;
+        updateCourseSearchString();
+        const accountIds = [(yield Account.getRootAccount()).id];
+        setIsSearching(true);
+        let courses = [];
+        for (let code of seekCourseCodes) {
+            const generator = getCourseGenerator(code, accountIds);
+            try {
+                for (var _d = true, generator_1 = (e_1 = void 0, SearchCourses_asyncValues(generator)), generator_1_1; generator_1_1 = yield generator_1.next(), _a = generator_1_1.done, !_a; _d = true) {
+                    _c = generator_1_1.value;
+                    _d = false;
+                    let course = _c;
+                    const [optionCourse] = optionize([course], course => course.id, course => { var _a, _b; return (_b = (_a = course.courseCode) !== null && _a !== void 0 ? _a : course.name) !== null && _b !== void 0 ? _b : course.id.toString(); });
+                    courses = [...courses, optionCourse].toSorted((a, b) => { var _a; return (_a = a.baseCode) === null || _a === void 0 ? void 0 : _a.localeCompare(b.baseCode); });
+                    if (onlySearchBlueprints)
+                        courses = courses.filter(course => course.isBlueprint());
+                    setFoundCourses(courses);
+                }
+            }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (!_d && !_a && (_b = generator_1.return)) yield _b.call(generator_1);
+                }
+                finally { if (e_1) throw e_1.error; }
+            }
+        }
+        setIsSearching(false);
+    });
     (0,react.useEffect)(() => {
         const strings = courseSearchString.split(',').map(string => string.trimEnd());
         //Filter out dupes
@@ -45634,8 +45654,121 @@ function AdminApp({ course }) {
             courseCodes = courseCodes.map(bpify);
         setSeekCourseCodes(courseCodes);
     }, [courseSearchString]);
-    useEffectAsync(() => AdminApp_awaiter(this, void 0, void 0, function* () {
-    }), [seekCourseCodes]);
+    return (0,jsx_runtime.jsxs)(esm_Form, { onSubmit: search, children: [(0,jsx_runtime.jsx)("input", { type: 'text', value: courseSearchString, onChange: (e) => setCourseSearchString(e.target.value) }), (0,jsx_runtime.jsx)("button", { children: "Get Courses" })] });
+}
+
+;// CONCATENATED MODULE: ./src/admin/CustomSearchValidation.tsx
+
+
+
+
+function CustomSearchValidation({ onGenerateSearchValidation }) {
+    const [queryString, setQueryString] = (0,react.useState)('');
+    const [parseRegex, setParseRegex] = (0,react.useState)(true);
+    const [caseSensitive, setCaseSensitive] = (0,react.useState)(false);
+    const [isValidRegex, setIsValidRegex] = (0,react.useState)(false);
+    function validateRegex(pattern, flags) {
+        try {
+            return new RegExp(pattern, flags);
+        }
+        catch (_a) {
+            return false;
+        }
+    }
+    (0,react.useEffect)(() => {
+        setIsValidRegex(!!validateRegex(queryString));
+    }, [queryString]);
+    //Events
+    function onSubmit(e) {
+        console.log('searching');
+        e.preventDefault();
+        e.stopPropagation();
+        const stringRepresentation = parseRegex ? `/${queryString}/` : queryString;
+        const patternToUse = parseRegex ? queryString : escapedQueryStringRegex(queryString);
+        const regex = validateRegex(patternToUse, caseSensitive ? 'g' : 'ig');
+        if (!regex) {
+            console.warn(`${patternToUse} is not a valid regular expression`);
+            return;
+        }
+        onGenerateSearchValidation({
+            name: `custom search: ${stringRepresentation}`,
+            description: `Course content DOES NOT ${parseRegex ? 'match pattern' : 'contain text'} ${stringRepresentation}`,
+            run: badContentRunFunc(regex),
+        });
+        return false;
+    }
+    return (0,jsx_runtime.jsxs)(esm_Form, { onSubmit: onSubmit, children: [(0,jsx_runtime.jsx)(esm_Row, { children: (0,jsx_runtime.jsx)(BooleanCheck, { label: "Search with Regular Expressions", value: parseRegex, setValue: setParseRegex }) }), (0,jsx_runtime.jsx)(esm_Row, { children: (0,jsx_runtime.jsx)(BooleanCheck, { label: "Case Sensitive", value: caseSensitive, setValue: setCaseSensitive }) }), (0,jsx_runtime.jsx)(esm_Row, { children: (0,jsx_runtime.jsxs)(esm_Col, { children: [(0,jsx_runtime.jsx)(esm_Form.Label, { children: "Search For:" }), (0,jsx_runtime.jsx)(esm_Form.Control, { type: 'text', value: queryString, onChange: (e) => setQueryString(e.target.value) }), (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: onSubmit, children: "Add Test" })] }) }), (0,jsx_runtime.jsx)(esm_Row, {}), parseRegex && !isValidRegex && (0,jsx_runtime.jsx)(esm_Row, { children: (0,jsx_runtime.jsxs)(esm_Col, { className: 'alert alert-danger', children: ["$", queryString, " is not a valid regular expression."] }) }), parseRegex && (0,jsx_runtime.jsx)(esm_Row, { children: (0,jsx_runtime.jsxs)(esm_Col, { children: [(0,jsx_runtime.jsx)("a", { href: 'https://regexone.com/', children: "This site" }), " has a tutorial on how to use regular expressions."] }) })] });
+}
+function escapedQueryStringRegex(query) {
+    return query.replaceAll(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
+function BooleanCheck({ value, label, setValue }) {
+    return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)(esm_Col, { sm: 6, children: (0,jsx_runtime.jsx)(esm_Form.Label, { children: label }) }), (0,jsx_runtime.jsx)(esm_Col, { sm: 6, children: (0,jsx_runtime.jsx)(esm_Form.Check, { checked: value, onChange: (e) => setValue(e.target.checked) }) })] });
+}
+
+;// CONCATENATED MODULE: ./src/admin/SelectValidations.tsx
+var SelectValidations_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+
+function SelectValidations({ runTests, testsToRun, setTestsToRun, setCoursesToRunOn, onChangeCustomValidation }) {
+    const [allValidations, _] = (0,react.useState)(optionize(tests, getTestName, getTestName));
+    function onSubmit(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        runTests();
+    }
+    return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)(esm_Form, { onSubmit: onSubmit, children: (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsxs)(esm_Col, { sm: 12, children: [(0,jsx_runtime.jsx)(MuliSelect, { options: allValidations, selectedOptions: testsToRun, onSelectionChange: setTestsToRun }), (0,jsx_runtime.jsx)("button", { onClick: runTests, children: "Run Tests" })] }), (0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)("button", { onClick: () => setCoursesToRunOn([]), children: "Clear" }) })] }) }), (0,jsx_runtime.jsx)(esm_Row, { children: (0,jsx_runtime.jsx)(esm_Col, { sm: 12, children: (0,jsx_runtime.jsx)(CustomSearchValidation, { onGenerateSearchValidation: (validation) => SelectValidations_awaiter(this, void 0, void 0, function* () {
+                            setTestsToRun(optionize([validation]));
+                            onChangeCustomValidation(optionizeOne(validation, validation.name));
+                            runTests();
+                        }) }) }) })] });
+}
+
+;// CONCATENATED MODULE: ./src/admin/AdminApp.tsx
+var AdminApp_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+
+
+
+
+
+function AdminApp({ course }) {
+    const [isOpen, setIsOpen] = (0,react.useState)(false);
+    const [foundCourses, setFoundCourses] = (0,react.useState)([]);
+    const [coursesToRunOn, setCoursesToRunOn] = (0,react.useState)([]);
+    const [validationsToRun, setValidationsToRun] = (0,react.useState)([]);
+    const [validationResults, setValidationResults] = (0,react.useState)([]);
+    const [onlySearchBlueprints, setOnlySearchBlueprints] = (0,react.useState)(true);
+    const [validationResultsLut, dispatchValidationResultsLut] = (0,react.useReducer)((collectionLutDispatcher), {});
+    const [includeDev, setIncludeDev] = (0,react.useState)(false);
+    const [includeSections, setIncludeSections] = (0,react.useState)(false);
+    const [isValidating, setIsValidating] = (0,react.useState)(false);
+    const [parentCourseLut, dispatchParentCourseLut] = (0,react.useReducer)((lutDispatcher), {});
+    const [sectionLut, dispatchSectionLut] = (0,react.useReducer)((collectionLutDispatcher), {});
     function cacheAssociatedCourses(bpId, toAdd) {
         const sections = Array.isArray(toAdd) ? toAdd : [toAdd];
         console.log(bpId, sections.map(a => a.courseCode));
@@ -45667,54 +45800,8 @@ function AdminApp({ course }) {
         });
     }
     //Handlers
-    function updateCourseSearchString() {
-        let replaceString = courseSearchString.replaceAll(/(\w+)\t(\d+)\s*/gs, '$1$2,');
-        replaceString = replaceString.replaceAll(/(\w+\d+,)\1+/gs, '$1');
-        setCourseSearchString(replaceString.replace(/,$/, ''));
-    }
-    const search = (e) => AdminApp_awaiter(this, void 0, void 0, function* () {
-        var _a, e_1, _b, _c;
-        e.stopPropagation();
-        e.preventDefault();
-        if (isSearching)
-            return;
-        updateCourseSearchString();
-        const accountIds = [(yield Account.getRootAccount()).id];
-        setIsSearching(true);
-        let courses = [];
-        for (let code of seekCourseCodes) {
-            if (courseCache[code]) {
-                courses = [...courses, ...optionize(courseCache[code])];
-            }
-            else {
-                const generator = getCourseGenerator(code, accountIds);
-                try {
-                    for (var _d = true, generator_1 = (e_1 = void 0, AdminApp_asyncValues(generator)), generator_1_1; generator_1_1 = yield generator_1.next(), _a = generator_1_1.done, !_a; _d = true) {
-                        _c = generator_1_1.value;
-                        _d = false;
-                        let course = _c;
-                        const [optionCourse] = optionize([course], course => course.id, course => { var _a, _b; return (_b = (_a = course.courseCode) !== null && _a !== void 0 ? _a : course.name) !== null && _b !== void 0 ? _b : course.id.toString(); });
-                        courses = [...courses, optionCourse].toSorted((a, b) => { var _a; return (_a = a.baseCode) === null || _a === void 0 ? void 0 : _a.localeCompare(b.baseCode); });
-                        if (onlySearchBlueprints)
-                            courses = courses.filter(course => course.isBlueprint());
-                        setFoundCourses(courses);
-                    }
-                }
-                catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                finally {
-                    try {
-                        if (!_d && !_a && (_b = generator_1.return)) yield _b.call(generator_1);
-                    }
-                    finally { if (e_1) throw e_1.error; }
-                }
-            }
-        }
-        setIsSearching(false);
-    });
-    function runTests(e) {
+    function runTests() {
         return AdminApp_awaiter(this, void 0, void 0, function* () {
-            e.stopPropagation();
-            e.preventDefault();
             if (isValidating)
                 return false;
             setIsValidating(true);
@@ -45726,7 +45813,7 @@ function AdminApp({ course }) {
                     const dev = yield getParentCourse(course);
                     if (dev) {
                         cacheParentCourse(course.id, dev);
-                        coursesToValidate = [...coursesToValidate, ...optionize([dev])];
+                        coursesToValidate = [...coursesToValidate, optionizeOne(dev)];
                     }
                 }
                 if (includeSections) {
@@ -45773,14 +45860,7 @@ function AdminApp({ course }) {
                     return (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsx)(esm_Col, { children: (_b = (_a = course.label) !== null && _a !== void 0 ? _a : course.courseCode) !== null && _b !== void 0 ? _b : course.name }), (0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)("button", { onClick: () => setCoursesToRunOn([...coursesToRunOn, course]), children: 'ADD' }) })] }, course.id);
                 })] });
     }
-    return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("button", { disabled: seekCourseCodes.length === 0, onClick: () => setIsOpen(true), children: "Admin" }), (0,jsx_runtime.jsx)(widgets_Modal, { isOpen: isOpen, requestClose: () => setIsOpen(false), children: (0,jsx_runtime.jsx)(esm_Container, { children: (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsxs)(esm_Col, { sm: 9, children: [(0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsxs)(esm_Col, { children: [(0,jsx_runtime.jsx)(esm_Form.Check, { label: 'Only Search Blueprints', checked: onlySearchBlueprints, onChange: (e) => setOnlySearchBlueprints(e.target.checked) }), onlySearchBlueprints && (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)(esm_Form.Check, { disabled: !onlySearchBlueprints, checked: includeDev, label: 'Include Dev', onChange: (e) => setIncludeDev(e.target.checked) }), (0,jsx_runtime.jsx)(esm_Form.Check, { disabled: !onlySearchBlueprints, checked: includeSections, label: 'Include Sections', onChange: (e) => setIncludeSections(e.target.checked) })] }), (0,jsx_runtime.jsx)(SearchCourses, { search: search, courseSearchString: courseSearchString, setCourseSearchString: setCourseSearchString })] }), (0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)(SelectValidations, { runTests: runTests, options: allValidations, testsToRun: validationsToRun, setCoursesToRunOn: setCoursesToRunOn, setTestsToRun: setValidationsToRun }) })] }), (0,jsx_runtime.jsx)(ResultsDisplay, {})] }), (0,jsx_runtime.jsx)(esm_Col, { sm: 3, children: (0,jsx_runtime.jsx)(FoundCoursesDisplay, {}) })] }) }) })] });
-}
-//render
-function SearchCourses({ search, courseSearchString, setCourseSearchString }) {
-    return (0,jsx_runtime.jsxs)(esm_Form, { onSubmit: search, children: [(0,jsx_runtime.jsx)("input", { type: 'text', value: courseSearchString, onChange: (e) => setCourseSearchString(e.target.value) }), (0,jsx_runtime.jsx)("button", { children: "Get Courses" })] });
-}
-function SelectValidations({ runTests, options, testsToRun, setTestsToRun, setCoursesToRunOn }) {
-    return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsxs)(esm_Form, { onSubmit: runTests, children: [(0,jsx_runtime.jsx)(MuliSelect, { options: options, selectedOptions: testsToRun, onSelectionChange: setTestsToRun }), (0,jsx_runtime.jsx)("button", { onClick: runTests, children: "Run Tests" })] }), (0,jsx_runtime.jsx)("button", { onClick: () => setCoursesToRunOn([]), children: "Clear" })] });
+    return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("button", { onClick: () => setIsOpen(true), children: "Admin" }), (0,jsx_runtime.jsx)(widgets_Modal, { isOpen: isOpen, requestClose: () => setIsOpen(false), children: (0,jsx_runtime.jsx)(esm_Container, { children: (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsxs)(esm_Col, { sm: 9, children: [(0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsxs)(esm_Col, { sm: 4, children: [(0,jsx_runtime.jsx)(esm_Form.Label, { children: "Only Search Blueprints" }), (0,jsx_runtime.jsx)(esm_Form.Check, { checked: onlySearchBlueprints, onChange: (e) => setOnlySearchBlueprints(e.target.checked) })] }), onlySearchBlueprints && (0,jsx_runtime.jsxs)(esm_Col, { sm: 4, children: [(0,jsx_runtime.jsx)(esm_Form.Label, { children: "Include Dev" }), (0,jsx_runtime.jsx)(esm_Form.Check, { checked: includeDev, onChange: (e) => setIncludeDev(e.target.checked) })] }), onlySearchBlueprints && (0,jsx_runtime.jsxs)(esm_Col, { sm: 4, children: [(0,jsx_runtime.jsx)(esm_Form.Label, { children: "Include Sections" }), (0,jsx_runtime.jsx)(esm_Form.Check, { checked: includeSections, onChange: (e) => setIncludeSections(e.target.checked) })] })] }), (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)(SearchCourses, { setFoundCourses: setFoundCourses, onlySearchBlueprints: onlySearchBlueprints, setIsSearching: () => null }) }), coursesToRunOn.length > 0 && (0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)(SelectValidations, { runTests: runTests, testsToRun: validationsToRun, setCoursesToRunOn: (courses) => optionize(courses), onChangeCustomValidation: () => null, setTestsToRun: setValidationsToRun }) })] }), (0,jsx_runtime.jsx)(ResultsDisplay, {})] }), (0,jsx_runtime.jsx)(esm_Col, { sm: 3, children: (0,jsx_runtime.jsx)(FoundCoursesDisplay, {}) })] }) }) })] });
 }
 function ValidationResultsForCourse({ course, results, slim }) {
     var _a;
