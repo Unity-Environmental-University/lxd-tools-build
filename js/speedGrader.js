@@ -40876,8 +40876,8 @@ var validations_awaiter = (undefined && undefined.__awaiter) || function (thisAr
     });
 };
 //number of characters to show around a match
-const SHOW_WINDOW = 100;
-const MAX_SEARCH_RETURN_SIZE = 300;
+const SHOW_WINDOW = 30;
+const MAX_SEARCH_RETURN_SIZE = 100;
 function testResult(success, failureMessage, links, successMessage = ['success']) {
     success = !!success;
     const response = {
@@ -47395,7 +47395,12 @@ function csvRowsForCourse(course_1) {
         const userSubmissions = yield getAllPagesAsync(`${baseSubmissionsUrl}?student_ids=all&per_page=5&include[]=rubric_assessment&include[]=assignment&include[]=user&grouped=true`);
         const assignments = yield course.getAssignments();
         const instructors = yield getAllPagesAsync(`/api/v1/courses/${courseId}/users?enrollment_type=teacher`);
-        const modules = yield getAllPagesAsync(`/api/v1/courses/${courseId}/modules?include[]=items&include[]=content_details`);
+        //const modules = await getAllPagesAsync(`/api/v1/courses/${courseId}/modules?include[]=items&include[]=content_details`) as IModuleData[];
+        const modules = yield course.getModules({
+            queryParams: {
+                include: ['items', 'content_details']
+            }
+        });
         const enrollments = yield getAllPagesAsync(`/api/v1/courses/${courseId}/enrollments?per_page=5`);
         const termsResponse = yield fetch(`/api/v1/accounts/${rootAccountId}/terms/${courseData.enrollment_term_id}`);
         const term = yield termsResponse.json();
@@ -47463,7 +47468,6 @@ function getRows(_a) {
             let criteriaInfo = getCriteriaInfo(assignment);
             course_code.replace(/^(.*)_?(\[A-Za-z]{4}\d{3}).*$/, '$1$2');
             let moduleInfo = getModuleInfo(assignment, modules, assignmentsCollection);
-            assert_default()(moduleInfo);
             let { weekNumber, moduleName, numberInModule, type } = moduleInfo;
             let { rubric_assessment: rubricAssessment } = submission;
             let rubricId = typeof (rubricSettings) !== 'undefined' && rubricSettings.hasOwnProperty('id') ?
@@ -47586,7 +47590,12 @@ function getModuleInfo(contentItem, modules, assignmentsCollection) {
             numberInModule: moduleItem.numberInModule
         };
     }
-    return null;
+    return {
+        weekNumber: '-',
+        moduleName: '-',
+        type: assignmentsCollection.getAssignmentContentType(contentItem),
+        numberInModule: -1
+    };
 }
 function getItemInModule(contentItem, module, assignmentsCollection) {
     let contentId;

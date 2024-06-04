@@ -7833,8 +7833,8 @@ var validations_awaiter = (undefined && undefined.__awaiter) || function (thisAr
     });
 };
 //number of characters to show around a match
-const SHOW_WINDOW = 100;
-const MAX_SEARCH_RETURN_SIZE = 300;
+const SHOW_WINDOW = 30;
+const MAX_SEARCH_RETURN_SIZE = 100;
 function testResult(success, failureMessage, links, successMessage = ['success']) {
     success = !!success;
     const response = {

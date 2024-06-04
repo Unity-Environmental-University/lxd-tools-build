@@ -42047,8 +42047,8 @@ var validations_awaiter = (undefined && undefined.__awaiter) || function (thisAr
     });
 };
 //number of characters to show around a match
-const SHOW_WINDOW = 100;
-const MAX_SEARCH_RETURN_SIZE = 300;
+const SHOW_WINDOW = 30;
+const MAX_SEARCH_RETURN_SIZE = 100;
 function testResult(success, failureMessage, links, successMessage = ['success']) {
     success = !!success;
     const response = {
@@ -43266,8 +43266,8 @@ function ValidationRow({ test, slim, potemkinVillage, initialResult, course, ref
         if (result.success)
             return "Succeeded!";
         return typeof result.message === 'string' ?
-            (0,jsx_runtime.jsx)("p", { className: 'message', children: truncateMessage(result.message) })
-            : result.message.map(message => ((0,jsx_runtime.jsx)("div", { className: 'message', children: truncateMessage(message) })));
+            (0,jsx_runtime.jsx)("div", { className: 'message', children: truncateMessage(result.message) })
+            : result.message.map(message => ((0,jsx_runtime.jsxs)("div", { className: 'message', children: [truncateMessage(message), (0,jsx_runtime.jsx)("hr", {})] })));
     }
     if (!showOnlyFailures || loading || (!(result === null || result === void 0 ? void 0 : result.success))) {
         return (0,jsx_runtime.jsxs)(esm_Row, { className: slim ? 'test-row-slim' : 'test-row', children: [(0,jsx_runtime.jsx)("div", { className: 'col-sm-2', children: test.name }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-3 message', children: test.description }), (0,jsx_runtime.jsxs)("div", { className: 'col-sm-4', children: [(0,jsx_runtime.jsx)("p", { children: statusMessage(result) }), (_a = result === null || result === void 0 ? void 0 : result.links) === null || _a === void 0 ? void 0 : _a.map(link => (0,jsx_runtime.jsx)("div", { children: (0,jsx_runtime.jsx)("a", { href: link, target: '_blank', children: link }) }, link))] }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-1', children: test.fix && result && !result.success && (0,jsx_runtime.jsx)("button", { onClick: fix, children: fixText }) }), (0,jsx_runtime.jsxs)("div", { className: 'col-sm-1', children: [!result && (0,jsx_runtime.jsx)("span", { className: 'badge badge-info', children: "Running" }), (result === null || result === void 0 ? void 0 : result.success) && (0,jsx_runtime.jsx)("span", { className: 'badge badge-success', children: "OK!" }), result && !result.success && (0,jsx_runtime.jsx)("span", { className: 'badge badge-warning', children: "Failed" })] })] });
