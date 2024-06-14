@@ -1,11 +1,14 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 4148:
+/***/ "./node_modules/assert/build/assert.js":
+/*!*********************************************!*\
+  !*** ./node_modules/assert/build/assert.js ***!
+  \*********************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-/* provided dependency */ var process = __webpack_require__(5606);
+/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
 // Currently in sync with Node.js lib/assert.js
 // https://github.com/nodejs/node/commit/2a51ae424a513ec9a6aa3466baa0cc1d55dd4f3b
 
@@ -37,22 +40,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-var _require = __webpack_require__(9597),
+var _require = __webpack_require__(/*! ./internal/errors */ "./node_modules/assert/build/internal/errors.js"),
   _require$codes = _require.codes,
   ERR_AMBIGUOUS_ARGUMENT = _require$codes.ERR_AMBIGUOUS_ARGUMENT,
   ERR_INVALID_ARG_TYPE = _require$codes.ERR_INVALID_ARG_TYPE,
   ERR_INVALID_ARG_VALUE = _require$codes.ERR_INVALID_ARG_VALUE,
   ERR_INVALID_RETURN_VALUE = _require$codes.ERR_INVALID_RETURN_VALUE,
   ERR_MISSING_ARGS = _require$codes.ERR_MISSING_ARGS;
-var AssertionError = __webpack_require__(3918);
-var _require2 = __webpack_require__(537),
+var AssertionError = __webpack_require__(/*! ./internal/assert/assertion_error */ "./node_modules/assert/build/internal/assert/assertion_error.js");
+var _require2 = __webpack_require__(/*! util/ */ "./node_modules/util/util.js"),
   inspect = _require2.inspect;
-var _require$types = (__webpack_require__(537).types),
+var _require$types = (__webpack_require__(/*! util/ */ "./node_modules/util/util.js").types),
   isPromise = _require$types.isPromise,
   isRegExp = _require$types.isRegExp;
-var objectAssign = __webpack_require__(1514)();
-var objectIs = __webpack_require__(9394)();
-var RegExpPrototypeTest = __webpack_require__(8075)('RegExp.prototype.test');
+var objectAssign = __webpack_require__(/*! object.assign/polyfill */ "./node_modules/object.assign/polyfill.js")();
+var objectIs = __webpack_require__(/*! object-is/polyfill */ "./node_modules/object-is/polyfill.js")();
+var RegExpPrototypeTest = __webpack_require__(/*! call-bind/callBound */ "./node_modules/call-bind/callBound.js")('RegExp.prototype.test');
 var errorCache = new Map();
 var isDeepEqual;
 var isDeepStrictEqual;
@@ -60,7 +63,7 @@ var parseExpressionAt;
 var findNodeAround;
 var decoder;
 function lazyLoadComparison() {
-  var comparison = __webpack_require__(2299);
+  var comparison = __webpack_require__(/*! ./internal/util/comparisons */ "./node_modules/assert/build/internal/util/comparisons.js");
   isDeepEqual = comparison.isDeepEqual;
   isDeepStrictEqual = comparison.isDeepStrictEqual;
 }
@@ -69,7 +72,7 @@ function lazyLoadComparison() {
 // indentation intact.
 // eslint-disable-next-line no-control-regex
 var escapeSequencesRegExp = /[\x00-\x08\x0b\x0c\x0e-\x1f]/g;
-var meta = (/* unused pure expression or super */ null && (["\\u0000", "\\u0001", "\\u0002", "\\u0003", "\\u0004", "\\u0005", "\\u0006", "\\u0007", '\\b', '', '', "\\u000b", '\\f', '', "\\u000e", "\\u000f", "\\u0010", "\\u0011", "\\u0012", "\\u0013", "\\u0014", "\\u0015", "\\u0016", "\\u0017", "\\u0018", "\\u0019", "\\u001a", "\\u001b", "\\u001c", "\\u001d", "\\u001e", "\\u001f"]));
+var meta = ["\\u0000", "\\u0001", "\\u0002", "\\u0003", "\\u0004", "\\u0005", "\\u0006", "\\u0007", '\\b', '', '', "\\u000b", '\\f', '', "\\u000e", "\\u000f", "\\u0010", "\\u0011", "\\u0012", "\\u0013", "\\u0014", "\\u0015", "\\u0016", "\\u0017", "\\u0018", "\\u0019", "\\u001a", "\\u001b", "\\u001c", "\\u001d", "\\u001e", "\\u001f"];
 var escapeFn = function escapeFn(str) {
   return meta[str.charCodeAt(0)];
 };
@@ -599,11 +602,14 @@ assert.strict.strict = assert.strict;
 
 /***/ }),
 
-/***/ 3918:
+/***/ "./node_modules/assert/build/internal/assert/assertion_error.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/assert/build/internal/assert/assertion_error.js ***!
+  \**********************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-/* provided dependency */ var process = __webpack_require__(5606);
+/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
 // Currently in sync with Node.js lib/internal/assert/assertion_error.js
 // https://github.com/nodejs/node/commit/0817840f775032169ddd70c85ac059f18ffcc81c
 
@@ -628,9 +634,9 @@ function _isNativeFunction(fn) { return Function.toString.call(fn).indexOf("[nat
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-var _require = __webpack_require__(537),
+var _require = __webpack_require__(/*! util/ */ "./node_modules/util/util.js"),
   inspect = _require.inspect;
-var _require2 = __webpack_require__(9597),
+var _require2 = __webpack_require__(/*! ../errors */ "./node_modules/assert/build/internal/errors.js"),
   ERR_INVALID_ARG_TYPE = _require2.codes.ERR_INVALID_ARG_TYPE;
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith
@@ -1052,7 +1058,10 @@ module.exports = AssertionError;
 
 /***/ }),
 
-/***/ 9597:
+/***/ "./node_modules/assert/build/internal/errors.js":
+/*!******************************************************!*\
+  !*** ./node_modules/assert/build/internal/errors.js ***!
+  \******************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -1159,7 +1168,7 @@ function includes(str, search, start) {
 }
 createErrorType('ERR_AMBIGUOUS_ARGUMENT', 'The "%s" argument is ambiguous. %s', TypeError);
 createErrorType('ERR_INVALID_ARG_TYPE', function (name, expected, actual) {
-  if (assert === undefined) assert = __webpack_require__(4148);
+  if (assert === undefined) assert = __webpack_require__(/*! ../assert */ "./node_modules/assert/build/assert.js");
   assert(typeof name === 'string', "'name' must be a string");
 
   // determiner: 'must be' or 'must not be'
@@ -1185,7 +1194,7 @@ createErrorType('ERR_INVALID_ARG_TYPE', function (name, expected, actual) {
 }, TypeError);
 createErrorType('ERR_INVALID_ARG_VALUE', function (name, value) {
   var reason = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'is invalid';
-  if (util === undefined) util = __webpack_require__(537);
+  if (util === undefined) util = __webpack_require__(/*! util/ */ "./node_modules/util/util.js");
   var inspected = util.inspect(value);
   if (inspected.length > 128) {
     inspected = "".concat(inspected.slice(0, 128), "...");
@@ -1205,7 +1214,7 @@ createErrorType('ERR_MISSING_ARGS', function () {
   for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
   }
-  if (assert === undefined) assert = __webpack_require__(4148);
+  if (assert === undefined) assert = __webpack_require__(/*! ../assert */ "./node_modules/assert/build/assert.js");
   assert(args.length > 0, 'At least one arg needs to be specified');
   var msg = 'The ';
   var len = args.length;
@@ -1230,7 +1239,10 @@ module.exports.codes = codes;
 
 /***/ }),
 
-/***/ 2299:
+/***/ "./node_modules/assert/build/internal/util/comparisons.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/assert/build/internal/util/comparisons.js ***!
+  \****************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -1261,18 +1273,18 @@ var arrayFromMap = function arrayFromMap(map) {
   });
   return array;
 };
-var objectIs = Object.is ? Object.is : __webpack_require__(7653);
+var objectIs = Object.is ? Object.is : __webpack_require__(/*! object-is */ "./node_modules/object-is/index.js");
 var objectGetOwnPropertySymbols = Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols : function () {
   return [];
 };
-var numberIsNaN = Number.isNaN ? Number.isNaN : __webpack_require__(4133);
+var numberIsNaN = Number.isNaN ? Number.isNaN : __webpack_require__(/*! is-nan */ "./node_modules/is-nan/index.js");
 function uncurryThis(f) {
   return f.call.bind(f);
 }
 var hasOwnProperty = uncurryThis(Object.prototype.hasOwnProperty);
 var propertyIsEnumerable = uncurryThis(Object.prototype.propertyIsEnumerable);
 var objectToString = uncurryThis(Object.prototype.toString);
-var _require$types = (__webpack_require__(537).types),
+var _require$types = (__webpack_require__(/*! util/ */ "./node_modules/util/util.js").types),
   isAnyArrayBuffer = _require$types.isAnyArrayBuffer,
   isArrayBufferView = _require$types.isArrayBufferView,
   isDate = _require$types.isDate,
@@ -1812,15 +1824,18 @@ module.exports = {
 
 /***/ }),
 
-/***/ 8075:
+/***/ "./node_modules/call-bind/callBound.js":
+/*!*********************************************!*\
+  !*** ./node_modules/call-bind/callBound.js ***!
+  \*********************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var GetIntrinsic = __webpack_require__(453);
+var GetIntrinsic = __webpack_require__(/*! get-intrinsic */ "./node_modules/get-intrinsic/index.js");
 
-var callBind = __webpack_require__(487);
+var callBind = __webpack_require__(/*! ./ */ "./node_modules/call-bind/index.js");
 
 var $indexOf = callBind(GetIntrinsic('String.prototype.indexOf'));
 
@@ -1835,22 +1850,25 @@ module.exports = function callBoundIntrinsic(name, allowMissing) {
 
 /***/ }),
 
-/***/ 487:
+/***/ "./node_modules/call-bind/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/call-bind/index.js ***!
+  \*****************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var bind = __webpack_require__(6743);
-var GetIntrinsic = __webpack_require__(453);
-var setFunctionLength = __webpack_require__(6897);
+var bind = __webpack_require__(/*! function-bind */ "./node_modules/function-bind/index.js");
+var GetIntrinsic = __webpack_require__(/*! get-intrinsic */ "./node_modules/get-intrinsic/index.js");
+var setFunctionLength = __webpack_require__(/*! set-function-length */ "./node_modules/set-function-length/index.js");
 
-var $TypeError = __webpack_require__(9675);
+var $TypeError = __webpack_require__(/*! es-errors/type */ "./node_modules/es-errors/type.js");
 var $apply = GetIntrinsic('%Function.prototype.apply%');
 var $call = GetIntrinsic('%Function.prototype.call%');
 var $reflectApply = GetIntrinsic('%Reflect.apply%', true) || bind.call($call, $apply);
 
-var $defineProperty = __webpack_require__(655);
+var $defineProperty = __webpack_require__(/*! es-define-property */ "./node_modules/es-define-property/index.js");
 var $max = GetIntrinsic('%Math.max%');
 
 module.exports = function callBind(originalFunction) {
@@ -1878,18 +1896,21 @@ if ($defineProperty) {
 
 /***/ }),
 
-/***/ 41:
+/***/ "./node_modules/define-data-property/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/define-data-property/index.js ***!
+  \****************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var $defineProperty = __webpack_require__(655);
+var $defineProperty = __webpack_require__(/*! es-define-property */ "./node_modules/es-define-property/index.js");
 
-var $SyntaxError = __webpack_require__(8068);
-var $TypeError = __webpack_require__(9675);
+var $SyntaxError = __webpack_require__(/*! es-errors/syntax */ "./node_modules/es-errors/syntax.js");
+var $TypeError = __webpack_require__(/*! es-errors/type */ "./node_modules/es-errors/type.js");
 
-var gopd = __webpack_require__(5795);
+var gopd = __webpack_require__(/*! gopd */ "./node_modules/gopd/index.js");
 
 /** @type {import('.')} */
 module.exports = function defineDataProperty(
@@ -1942,24 +1963,27 @@ module.exports = function defineDataProperty(
 
 /***/ }),
 
-/***/ 8452:
+/***/ "./node_modules/define-properties/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/define-properties/index.js ***!
+  \*************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var keys = __webpack_require__(1189);
+var keys = __webpack_require__(/*! object-keys */ "./node_modules/object-keys/index.js");
 var hasSymbols = typeof Symbol === 'function' && typeof Symbol('foo') === 'symbol';
 
 var toStr = Object.prototype.toString;
 var concat = Array.prototype.concat;
-var defineDataProperty = __webpack_require__(41);
+var defineDataProperty = __webpack_require__(/*! define-data-property */ "./node_modules/define-data-property/index.js");
 
 var isFunction = function (fn) {
 	return typeof fn === 'function' && toStr.call(fn) === '[object Function]';
 };
 
-var supportsDescriptors = __webpack_require__(592)();
+var supportsDescriptors = __webpack_require__(/*! has-property-descriptors */ "./node_modules/has-property-descriptors/index.js")();
 
 var defineProperty = function (object, name, value, predicate) {
 	if (name in object) {
@@ -1997,13 +2021,16 @@ module.exports = defineProperties;
 
 /***/ }),
 
-/***/ 655:
+/***/ "./node_modules/es-define-property/index.js":
+/*!**************************************************!*\
+  !*** ./node_modules/es-define-property/index.js ***!
+  \**************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var GetIntrinsic = __webpack_require__(453);
+var GetIntrinsic = __webpack_require__(/*! get-intrinsic */ "./node_modules/get-intrinsic/index.js");
 
 /** @type {import('.')} */
 var $defineProperty = GetIntrinsic('%Object.defineProperty%', true) || false;
@@ -2021,7 +2048,10 @@ module.exports = $defineProperty;
 
 /***/ }),
 
-/***/ 1237:
+/***/ "./node_modules/es-errors/eval.js":
+/*!****************************************!*\
+  !*** ./node_modules/es-errors/eval.js ***!
+  \****************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2033,7 +2063,10 @@ module.exports = EvalError;
 
 /***/ }),
 
-/***/ 9383:
+/***/ "./node_modules/es-errors/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/es-errors/index.js ***!
+  \*****************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2045,7 +2078,10 @@ module.exports = Error;
 
 /***/ }),
 
-/***/ 9290:
+/***/ "./node_modules/es-errors/range.js":
+/*!*****************************************!*\
+  !*** ./node_modules/es-errors/range.js ***!
+  \*****************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2057,7 +2093,10 @@ module.exports = RangeError;
 
 /***/ }),
 
-/***/ 9538:
+/***/ "./node_modules/es-errors/ref.js":
+/*!***************************************!*\
+  !*** ./node_modules/es-errors/ref.js ***!
+  \***************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2069,7 +2108,10 @@ module.exports = ReferenceError;
 
 /***/ }),
 
-/***/ 8068:
+/***/ "./node_modules/es-errors/syntax.js":
+/*!******************************************!*\
+  !*** ./node_modules/es-errors/syntax.js ***!
+  \******************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2081,7 +2123,10 @@ module.exports = SyntaxError;
 
 /***/ }),
 
-/***/ 9675:
+/***/ "./node_modules/es-errors/type.js":
+/*!****************************************!*\
+  !*** ./node_modules/es-errors/type.js ***!
+  \****************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2093,7 +2138,10 @@ module.exports = TypeError;
 
 /***/ }),
 
-/***/ 5345:
+/***/ "./node_modules/es-errors/uri.js":
+/*!***************************************!*\
+  !*** ./node_modules/es-errors/uri.js ***!
+  \***************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2105,13 +2153,16 @@ module.exports = URIError;
 
 /***/ }),
 
-/***/ 2682:
+/***/ "./node_modules/for-each/index.js":
+/*!****************************************!*\
+  !*** ./node_modules/for-each/index.js ***!
+  \****************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var isCallable = __webpack_require__(9600);
+var isCallable = __webpack_require__(/*! is-callable */ "./node_modules/is-callable/index.js");
 
 var toStr = Object.prototype.toString;
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -2175,7 +2226,10 @@ module.exports = forEach;
 
 /***/ }),
 
-/***/ 9353:
+/***/ "./node_modules/function-bind/implementation.js":
+/*!******************************************************!*\
+  !*** ./node_modules/function-bind/implementation.js ***!
+  \******************************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2267,20 +2321,26 @@ module.exports = function bind(that) {
 
 /***/ }),
 
-/***/ 6743:
+/***/ "./node_modules/function-bind/index.js":
+/*!*********************************************!*\
+  !*** ./node_modules/function-bind/index.js ***!
+  \*********************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var implementation = __webpack_require__(9353);
+var implementation = __webpack_require__(/*! ./implementation */ "./node_modules/function-bind/implementation.js");
 
 module.exports = Function.prototype.bind || implementation;
 
 
 /***/ }),
 
-/***/ 453:
+/***/ "./node_modules/get-intrinsic/index.js":
+/*!*********************************************!*\
+  !*** ./node_modules/get-intrinsic/index.js ***!
+  \*********************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -2288,13 +2348,13 @@ module.exports = Function.prototype.bind || implementation;
 
 var undefined;
 
-var $Error = __webpack_require__(9383);
-var $EvalError = __webpack_require__(1237);
-var $RangeError = __webpack_require__(9290);
-var $ReferenceError = __webpack_require__(9538);
-var $SyntaxError = __webpack_require__(8068);
-var $TypeError = __webpack_require__(9675);
-var $URIError = __webpack_require__(5345);
+var $Error = __webpack_require__(/*! es-errors */ "./node_modules/es-errors/index.js");
+var $EvalError = __webpack_require__(/*! es-errors/eval */ "./node_modules/es-errors/eval.js");
+var $RangeError = __webpack_require__(/*! es-errors/range */ "./node_modules/es-errors/range.js");
+var $ReferenceError = __webpack_require__(/*! es-errors/ref */ "./node_modules/es-errors/ref.js");
+var $SyntaxError = __webpack_require__(/*! es-errors/syntax */ "./node_modules/es-errors/syntax.js");
+var $TypeError = __webpack_require__(/*! es-errors/type */ "./node_modules/es-errors/type.js");
+var $URIError = __webpack_require__(/*! es-errors/uri */ "./node_modules/es-errors/uri.js");
 
 var $Function = Function;
 
@@ -2334,8 +2394,8 @@ var ThrowTypeError = $gOPD
 	}())
 	: throwTypeError;
 
-var hasSymbols = __webpack_require__(4039)();
-var hasProto = __webpack_require__(24)();
+var hasSymbols = __webpack_require__(/*! has-symbols */ "./node_modules/has-symbols/index.js")();
+var hasProto = __webpack_require__(/*! has-proto */ "./node_modules/has-proto/index.js")();
 
 var getProto = Object.getPrototypeOf || (
 	hasProto
@@ -2507,8 +2567,8 @@ var LEGACY_ALIASES = {
 	'%WeakSetPrototype%': ['WeakSet', 'prototype']
 };
 
-var bind = __webpack_require__(6743);
-var hasOwn = __webpack_require__(9957);
+var bind = __webpack_require__(/*! function-bind */ "./node_modules/function-bind/index.js");
+var hasOwn = __webpack_require__(/*! hasown */ "./node_modules/hasown/index.js");
 var $concat = bind.call(Function.call, Array.prototype.concat);
 var $spliceApply = bind.call(Function.apply, Array.prototype.splice);
 var $replace = bind.call(Function.call, String.prototype.replace);
@@ -2647,13 +2707,16 @@ module.exports = function GetIntrinsic(name, allowMissing) {
 
 /***/ }),
 
-/***/ 5795:
+/***/ "./node_modules/gopd/index.js":
+/*!************************************!*\
+  !*** ./node_modules/gopd/index.js ***!
+  \************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var GetIntrinsic = __webpack_require__(453);
+var GetIntrinsic = __webpack_require__(/*! get-intrinsic */ "./node_modules/get-intrinsic/index.js");
 
 var $gOPD = GetIntrinsic('%Object.getOwnPropertyDescriptor%', true);
 
@@ -2671,13 +2734,16 @@ module.exports = $gOPD;
 
 /***/ }),
 
-/***/ 592:
+/***/ "./node_modules/has-property-descriptors/index.js":
+/*!********************************************************!*\
+  !*** ./node_modules/has-property-descriptors/index.js ***!
+  \********************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var $defineProperty = __webpack_require__(655);
+var $defineProperty = __webpack_require__(/*! es-define-property */ "./node_modules/es-define-property/index.js");
 
 var hasPropertyDescriptors = function hasPropertyDescriptors() {
 	return !!$defineProperty;
@@ -2701,7 +2767,10 @@ module.exports = hasPropertyDescriptors;
 
 /***/ }),
 
-/***/ 24:
+/***/ "./node_modules/has-proto/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/has-proto/index.js ***!
+  \*****************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2724,14 +2793,17 @@ module.exports = function hasProto() {
 
 /***/ }),
 
-/***/ 4039:
+/***/ "./node_modules/has-symbols/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/has-symbols/index.js ***!
+  \*******************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
 var origSymbol = typeof Symbol !== 'undefined' && Symbol;
-var hasSymbolSham = __webpack_require__(1333);
+var hasSymbolSham = __webpack_require__(/*! ./shams */ "./node_modules/has-symbols/shams.js");
 
 module.exports = function hasNativeSymbols() {
 	if (typeof origSymbol !== 'function') { return false; }
@@ -2745,7 +2817,10 @@ module.exports = function hasNativeSymbols() {
 
 /***/ }),
 
-/***/ 1333:
+/***/ "./node_modules/has-symbols/shams.js":
+/*!*******************************************!*\
+  !*** ./node_modules/has-symbols/shams.js ***!
+  \*******************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2795,13 +2870,16 @@ module.exports = function hasSymbols() {
 
 /***/ }),
 
-/***/ 9092:
+/***/ "./node_modules/has-tostringtag/shams.js":
+/*!***********************************************!*\
+  !*** ./node_modules/has-tostringtag/shams.js ***!
+  \***********************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var hasSymbols = __webpack_require__(1333);
+var hasSymbols = __webpack_require__(/*! has-symbols/shams */ "./node_modules/has-symbols/shams.js");
 
 /** @type {import('.')} */
 module.exports = function hasToStringTagShams() {
@@ -2811,7 +2889,10 @@ module.exports = function hasToStringTagShams() {
 
 /***/ }),
 
-/***/ 9957:
+/***/ "./node_modules/hasown/index.js":
+/*!**************************************!*\
+  !*** ./node_modules/hasown/index.js ***!
+  \**************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -2819,7 +2900,7 @@ module.exports = function hasToStringTagShams() {
 
 var call = Function.prototype.call;
 var $hasOwn = Object.prototype.hasOwnProperty;
-var bind = __webpack_require__(6743);
+var bind = __webpack_require__(/*! function-bind */ "./node_modules/function-bind/index.js");
 
 /** @type {import('.')} */
 module.exports = bind.call(call, $hasOwn);
@@ -2827,7 +2908,10 @@ module.exports = bind.call(call, $hasOwn);
 
 /***/ }),
 
-/***/ 6698:
+/***/ "./node_modules/inherits/inherits_browser.js":
+/*!***************************************************!*\
+  !*** ./node_modules/inherits/inherits_browser.js ***!
+  \***************************************************/
 /***/ ((module) => {
 
 if (typeof Object.create === 'function') {
@@ -2861,14 +2945,17 @@ if (typeof Object.create === 'function') {
 
 /***/ }),
 
-/***/ 7244:
+/***/ "./node_modules/is-arguments/index.js":
+/*!********************************************!*\
+  !*** ./node_modules/is-arguments/index.js ***!
+  \********************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var hasToStringTag = __webpack_require__(9092)();
-var callBound = __webpack_require__(8075);
+var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "./node_modules/has-tostringtag/shams.js")();
+var callBound = __webpack_require__(/*! call-bind/callBound */ "./node_modules/call-bind/callBound.js");
 
 var $toString = callBound('Object.prototype.toString');
 
@@ -2902,7 +2989,10 @@ module.exports = supportsStandardArguments ? isStandardArguments : isLegacyArgum
 
 /***/ }),
 
-/***/ 9600:
+/***/ "./node_modules/is-callable/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/is-callable/index.js ***!
+  \*******************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -3011,7 +3101,10 @@ module.exports = reflectApply
 
 /***/ }),
 
-/***/ 8184:
+/***/ "./node_modules/is-generator-function/index.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/is-generator-function/index.js ***!
+  \*****************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -3020,7 +3113,7 @@ module.exports = reflectApply
 var toStr = Object.prototype.toString;
 var fnToStr = Function.prototype.toString;
 var isFnRegex = /^\s*(?:function)?\*/;
-var hasToStringTag = __webpack_require__(9092)();
+var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "./node_modules/has-tostringtag/shams.js")();
 var getProto = Object.getPrototypeOf;
 var getGeneratorFunc = function () { // eslint-disable-line consistent-return
 	if (!hasToStringTag) {
@@ -3057,7 +3150,10 @@ module.exports = function isGeneratorFunction(fn) {
 
 /***/ }),
 
-/***/ 3003:
+/***/ "./node_modules/is-nan/implementation.js":
+/*!***********************************************!*\
+  !*** ./node_modules/is-nan/implementation.js ***!
+  \***********************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -3072,18 +3168,21 @@ module.exports = function isNaN(value) {
 
 /***/ }),
 
-/***/ 4133:
+/***/ "./node_modules/is-nan/index.js":
+/*!**************************************!*\
+  !*** ./node_modules/is-nan/index.js ***!
+  \**************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var callBind = __webpack_require__(487);
-var define = __webpack_require__(8452);
+var callBind = __webpack_require__(/*! call-bind */ "./node_modules/call-bind/index.js");
+var define = __webpack_require__(/*! define-properties */ "./node_modules/define-properties/index.js");
 
-var implementation = __webpack_require__(3003);
-var getPolyfill = __webpack_require__(6642);
-var shim = __webpack_require__(2464);
+var implementation = __webpack_require__(/*! ./implementation */ "./node_modules/is-nan/implementation.js");
+var getPolyfill = __webpack_require__(/*! ./polyfill */ "./node_modules/is-nan/polyfill.js");
+var shim = __webpack_require__(/*! ./shim */ "./node_modules/is-nan/shim.js");
 
 var polyfill = callBind(getPolyfill(), Number);
 
@@ -3100,13 +3199,16 @@ module.exports = polyfill;
 
 /***/ }),
 
-/***/ 6642:
+/***/ "./node_modules/is-nan/polyfill.js":
+/*!*****************************************!*\
+  !*** ./node_modules/is-nan/polyfill.js ***!
+  \*****************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var implementation = __webpack_require__(3003);
+var implementation = __webpack_require__(/*! ./implementation */ "./node_modules/is-nan/implementation.js");
 
 module.exports = function getPolyfill() {
 	if (Number.isNaN && Number.isNaN(NaN) && !Number.isNaN('a')) {
@@ -3118,14 +3220,17 @@ module.exports = function getPolyfill() {
 
 /***/ }),
 
-/***/ 2464:
+/***/ "./node_modules/is-nan/shim.js":
+/*!*************************************!*\
+  !*** ./node_modules/is-nan/shim.js ***!
+  \*************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var define = __webpack_require__(8452);
-var getPolyfill = __webpack_require__(6642);
+var define = __webpack_require__(/*! define-properties */ "./node_modules/define-properties/index.js");
+var getPolyfill = __webpack_require__(/*! ./polyfill */ "./node_modules/is-nan/polyfill.js");
 
 /* http://www.ecma-international.org/ecma-262/6.0/#sec-number.isnan */
 
@@ -3142,13 +3247,16 @@ module.exports = function shimNumberIsNaN() {
 
 /***/ }),
 
-/***/ 5680:
+/***/ "./node_modules/is-typed-array/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/is-typed-array/index.js ***!
+  \**********************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var whichTypedArray = __webpack_require__(5767);
+var whichTypedArray = __webpack_require__(/*! which-typed-array */ "./node_modules/which-typed-array/index.js");
 
 /** @type {import('.')} */
 module.exports = function isTypedArray(value) {
@@ -3158,7 +3266,10 @@ module.exports = function isTypedArray(value) {
 
 /***/ }),
 
-/***/ 9211:
+/***/ "./node_modules/object-is/implementation.js":
+/*!**************************************************!*\
+  !*** ./node_modules/object-is/implementation.js ***!
+  \**************************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -3185,18 +3296,21 @@ module.exports = function is(a, b) {
 
 /***/ }),
 
-/***/ 7653:
+/***/ "./node_modules/object-is/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/object-is/index.js ***!
+  \*****************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var define = __webpack_require__(8452);
-var callBind = __webpack_require__(487);
+var define = __webpack_require__(/*! define-properties */ "./node_modules/define-properties/index.js");
+var callBind = __webpack_require__(/*! call-bind */ "./node_modules/call-bind/index.js");
 
-var implementation = __webpack_require__(9211);
-var getPolyfill = __webpack_require__(9394);
-var shim = __webpack_require__(6576);
+var implementation = __webpack_require__(/*! ./implementation */ "./node_modules/object-is/implementation.js");
+var getPolyfill = __webpack_require__(/*! ./polyfill */ "./node_modules/object-is/polyfill.js");
+var shim = __webpack_require__(/*! ./shim */ "./node_modules/object-is/shim.js");
 
 var polyfill = callBind(getPolyfill(), Object);
 
@@ -3211,13 +3325,16 @@ module.exports = polyfill;
 
 /***/ }),
 
-/***/ 9394:
+/***/ "./node_modules/object-is/polyfill.js":
+/*!********************************************!*\
+  !*** ./node_modules/object-is/polyfill.js ***!
+  \********************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var implementation = __webpack_require__(9211);
+var implementation = __webpack_require__(/*! ./implementation */ "./node_modules/object-is/implementation.js");
 
 module.exports = function getPolyfill() {
 	return typeof Object.is === 'function' ? Object.is : implementation;
@@ -3226,14 +3343,17 @@ module.exports = function getPolyfill() {
 
 /***/ }),
 
-/***/ 6576:
+/***/ "./node_modules/object-is/shim.js":
+/*!****************************************!*\
+  !*** ./node_modules/object-is/shim.js ***!
+  \****************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var getPolyfill = __webpack_require__(9394);
-var define = __webpack_require__(8452);
+var getPolyfill = __webpack_require__(/*! ./polyfill */ "./node_modules/object-is/polyfill.js");
+var define = __webpack_require__(/*! define-properties */ "./node_modules/define-properties/index.js");
 
 module.exports = function shimObjectIs() {
 	var polyfill = getPolyfill();
@@ -3248,7 +3368,10 @@ module.exports = function shimObjectIs() {
 
 /***/ }),
 
-/***/ 8875:
+/***/ "./node_modules/object-keys/implementation.js":
+/*!****************************************************!*\
+  !*** ./node_modules/object-keys/implementation.js ***!
+  \****************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -3259,7 +3382,7 @@ if (!Object.keys) {
 	// modified from https://github.com/es-shims/es5-shim
 	var has = Object.prototype.hasOwnProperty;
 	var toStr = Object.prototype.toString;
-	var isArgs = __webpack_require__(1093); // eslint-disable-line global-require
+	var isArgs = __webpack_require__(/*! ./isArguments */ "./node_modules/object-keys/isArguments.js"); // eslint-disable-line global-require
 	var isEnumerable = Object.prototype.propertyIsEnumerable;
 	var hasDontEnumBug = !isEnumerable.call({ toString: null }, 'toString');
 	var hasProtoEnumBug = isEnumerable.call(function () {}, 'prototype');
@@ -3378,17 +3501,20 @@ module.exports = keysShim;
 
 /***/ }),
 
-/***/ 1189:
+/***/ "./node_modules/object-keys/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/object-keys/index.js ***!
+  \*******************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
 var slice = Array.prototype.slice;
-var isArgs = __webpack_require__(1093);
+var isArgs = __webpack_require__(/*! ./isArguments */ "./node_modules/object-keys/isArguments.js");
 
 var origKeys = Object.keys;
-var keysShim = origKeys ? function keys(o) { return origKeys(o); } : __webpack_require__(8875);
+var keysShim = origKeys ? function keys(o) { return origKeys(o); } : __webpack_require__(/*! ./implementation */ "./node_modules/object-keys/implementation.js");
 
 var originalKeys = Object.keys;
 
@@ -3418,7 +3544,10 @@ module.exports = keysShim;
 
 /***/ }),
 
-/***/ 1093:
+/***/ "./node_modules/object-keys/isArguments.js":
+/*!*************************************************!*\
+  !*** ./node_modules/object-keys/isArguments.js ***!
+  \*************************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -3443,16 +3572,19 @@ module.exports = function isArguments(value) {
 
 /***/ }),
 
-/***/ 8403:
+/***/ "./node_modules/object.assign/implementation.js":
+/*!******************************************************!*\
+  !*** ./node_modules/object.assign/implementation.js ***!
+  \******************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
 // modified from https://github.com/es-shims/es6-shim
-var objectKeys = __webpack_require__(1189);
-var hasSymbols = __webpack_require__(1333)();
-var callBound = __webpack_require__(8075);
+var objectKeys = __webpack_require__(/*! object-keys */ "./node_modules/object-keys/index.js");
+var hasSymbols = __webpack_require__(/*! has-symbols/shams */ "./node_modules/has-symbols/shams.js")();
+var callBound = __webpack_require__(/*! call-bind/callBound */ "./node_modules/call-bind/callBound.js");
 var toObject = Object;
 var $push = callBound('Array.prototype.push');
 var $propIsEnumerable = callBound('Object.prototype.propertyIsEnumerable');
@@ -3497,13 +3629,16 @@ module.exports = function assign(target, source1) {
 
 /***/ }),
 
-/***/ 1514:
+/***/ "./node_modules/object.assign/polyfill.js":
+/*!************************************************!*\
+  !*** ./node_modules/object.assign/polyfill.js ***!
+  \************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var implementation = __webpack_require__(8403);
+var implementation = __webpack_require__(/*! ./implementation */ "./node_modules/object.assign/implementation.js");
 
 var lacksProperEnumerationOrder = function () {
 	if (!Object.assign) {
@@ -3560,7 +3695,10 @@ module.exports = function getPolyfill() {
 
 /***/ }),
 
-/***/ 6578:
+/***/ "./node_modules/possible-typed-array-names/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/possible-typed-array-names/index.js ***!
+  \**********************************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -3584,7 +3722,10 @@ module.exports = [
 
 /***/ }),
 
-/***/ 5606:
+/***/ "./node_modules/process/browser.js":
+/*!*****************************************!*\
+  !*** ./node_modules/process/browser.js ***!
+  \*****************************************/
 /***/ ((module) => {
 
 // shim for using process in browser
@@ -3775,18 +3916,21 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ 6897:
+/***/ "./node_modules/set-function-length/index.js":
+/*!***************************************************!*\
+  !*** ./node_modules/set-function-length/index.js ***!
+  \***************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var GetIntrinsic = __webpack_require__(453);
-var define = __webpack_require__(41);
-var hasDescriptors = __webpack_require__(592)();
-var gOPD = __webpack_require__(5795);
+var GetIntrinsic = __webpack_require__(/*! get-intrinsic */ "./node_modules/get-intrinsic/index.js");
+var define = __webpack_require__(/*! define-data-property */ "./node_modules/define-data-property/index.js");
+var hasDescriptors = __webpack_require__(/*! has-property-descriptors */ "./node_modules/has-property-descriptors/index.js")();
+var gOPD = __webpack_require__(/*! gopd */ "./node_modules/gopd/index.js");
 
-var $TypeError = __webpack_require__(9675);
+var $TypeError = __webpack_require__(/*! es-errors/type */ "./node_modules/es-errors/type.js");
 var $floor = GetIntrinsic('%Math.floor%');
 
 /** @type {import('.')} */
@@ -3825,7 +3969,3139 @@ module.exports = function setFunctionLength(fn, length) {
 
 /***/ }),
 
-/***/ 1135:
+/***/ "./src/canvas/baseCanvasObject.ts":
+/*!****************************************!*\
+  !*** ./src/canvas/baseCanvasObject.ts ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   BaseCanvasObject: () => (/* binding */ BaseCanvasObject)
+/* harmony export */ });
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var _publish_fixesAndUpdates_validations_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../publish/fixesAndUpdates/validations/index */ "./src/publish/fixesAndUpdates/validations/index.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+class BaseCanvasObject {
+    get accountId() {
+        return this._accountId;
+    }
+    constructor(data) {
+        this._accountId = null;
+        this.canvasData = data || {}; // A dict holding the decoded json representation of the object in Canvas
+    }
+    getClass() {
+        return this.constructor;
+    }
+    getItem(item) {
+        return this.canvasData[item];
+    }
+    get myClass() {
+        return this.constructor;
+    }
+    get nameKey() {
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(this.myClass.nameProperty);
+        return this.myClass.nameProperty;
+    }
+    get rawData() {
+        return Object.assign({}, this.canvasData);
+    }
+    get contentUrlPath() {
+        const constructor = this.constructor;
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.accountId === 'number');
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof constructor.contentUrlTemplate === 'string');
+        return '/api/v1/' + constructor.contentUrlTemplate
+            .replace('{content_id}', this.id.toString())
+            .replace('{account_id}', this.accountId.toString());
+    }
+    get htmlContentUrl() {
+        return `${this.contentUrlPath}`;
+    }
+    get data() {
+        return this.canvasData;
+    }
+    static getDataById(contentId_1) {
+        return __awaiter(this, arguments, void 0, function* (contentId, courseId = null, config = null) {
+            let url = this.getUrlPathFromIds(contentId, courseId);
+            const response = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url, config);
+            assert__WEBPACK_IMPORTED_MODULE_0___default()(!Array.isArray(response));
+            return response;
+        });
+    }
+    static getUrlPathFromIds(contentId, courseId) {
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.contentUrlTemplate === 'string');
+        let url = this.contentUrlTemplate
+            .replace('{content_id}', contentId.toString());
+        if (courseId)
+            url = url.replace('{course_id}', courseId.toString());
+        return url;
+    }
+    /**
+     * @param courseId - The course ID to get elements within, if applicable
+     * @param accountId - The account ID to get elements within, if applicable
+     */
+    static getAllUrl(courseId = null, accountId = null) {
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.allContentUrlTemplate === 'string');
+        let replaced = this.allContentUrlTemplate;
+        if (courseId)
+            replaced = replaced.replace('{course_id}', courseId.toString());
+        if (accountId)
+            replaced = replaced.replace('{account_id}', accountId.toString());
+        return replaced;
+    }
+    static getAll() {
+        return __awaiter(this, arguments, void 0, function* (config = null) {
+            let url = this.getAllUrl();
+            let data = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.getPagedData)(url, config);
+            return data.map(item => new this(item));
+        });
+    }
+    get id() {
+        const id = this.canvasData[this.constructor.idProperty];
+        return parseInt(id);
+    }
+    get name() {
+        let nameProperty = this.getClass().nameProperty;
+        if (!nameProperty)
+            return 'NAME PROPERTY NOT SET';
+        return this.getItem(nameProperty);
+    }
+    saveData(data, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            assert__WEBPACK_IMPORTED_MODULE_0___default()(this.contentUrlPath);
+            config = (0,_publish_fixesAndUpdates_validations_index__WEBPACK_IMPORTED_MODULE_2__.overrideConfig)({
+                fetchInit: {
+                    method: 'PUT',
+                    body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.formDataify)(data)
+                }
+            }, config);
+            let results = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(this.contentUrlPath, config);
+            if (Array.isArray(results))
+                results = results[0];
+            this.canvasData = Object.assign(Object.assign({}, this.canvasData), results);
+            return this.canvasData;
+        });
+    }
+}
+BaseCanvasObject.idProperty = 'id'; // The field name of the id of the canvas object type
+BaseCanvasObject.nameProperty = 'name'; // The field name of the primary name of the canvas object type
+BaseCanvasObject.contentUrlTemplate = null; // A templated url to get a single item
+BaseCanvasObject.allContentUrlTemplate = null; // A templated url to get all items
+
+
+/***/ }),
+
+/***/ "./src/canvas/canvasUtils.ts":
+/*!***********************************!*\
+  !*** ./src/canvas/canvasUtils.ts ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   batchify: () => (/* binding */ batchify),
+/* harmony export */   callAll: () => (/* binding */ callAll),
+/* harmony export */   courseNameSort: () => (/* binding */ courseNameSort),
+/* harmony export */   deFormDataify: () => (/* binding */ deFormDataify),
+/* harmony export */   deepObjectCopy: () => (/* binding */ deepObjectCopy),
+/* harmony export */   deepObjectMerge: () => (/* binding */ deepObjectMerge),
+/* harmony export */   fetchJson: () => (/* binding */ fetchJson),
+/* harmony export */   filterUniqueFunc: () => (/* binding */ filterUniqueFunc),
+/* harmony export */   formDataify: () => (/* binding */ formDataify),
+/* harmony export */   getCourseIdFromUrl: () => (/* binding */ getCourseIdFromUrl),
+/* harmony export */   getItemTypeAndId: () => (/* binding */ getItemTypeAndId),
+/* harmony export */   getPagedData: () => (/* binding */ getPagedData),
+/* harmony export */   getPagedDataGenerator: () => (/* binding */ getPagedDataGenerator),
+/* harmony export */   getPlainTextFromHtml: () => (/* binding */ getPlainTextFromHtml),
+/* harmony export */   mergePagedDataGenerators: () => (/* binding */ mergePagedDataGenerators),
+/* harmony export */   numbers: () => (/* binding */ numbers),
+/* harmony export */   parentElement: () => (/* binding */ parentElement),
+/* harmony export */   queryStringify: () => (/* binding */ queryStringify),
+/* harmony export */   range: () => (/* binding */ range),
+/* harmony export */   searchParamsFromObject: () => (/* binding */ searchParamsFromObject)
+/* harmony export */ });
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
+var __await = (undefined && undefined.__await) || function (v) { return this instanceof __await ? (this.v = v, this) : new __await(v); }
+var __asyncGenerator = (undefined && undefined.__asyncGenerator) || function (thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function awaitReturn(f) { return function (v) { return Promise.resolve(v).then(f, reject); }; }
+    function verb(n, f) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; if (f) i[n] = f(i[n]); } }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+};
+
+function isWithParamsFunc(func) {
+    return typeof func === 'function' && func.length > 0;
+}
+function isWithoutParamsFunc(func) {
+    return typeof func === 'function' && func.length === 0;
+}
+function callAll(funcs, params) {
+    const output = [];
+    for (let func of funcs) {
+        if ((typeof func === 'object')) {
+            output.push(func.func(func.params));
+            continue;
+        }
+        if (isWithoutParamsFunc(func)) {
+            output.push(func());
+            continue;
+        }
+        if (isWithParamsFunc(func) && typeof params !== 'undefined') {
+            output.push(func(params));
+        }
+    }
+    return output;
+}
+
+/**
+ * Traverses up the DOM and finds a parent with a matching Tag
+ * @param el
+ * @param tagName
+ */
+function parentElement(el, tagName) {
+    if (!el)
+        return null;
+    while (el && el.parentElement) {
+        el = el.parentElement;
+        if (el.tagName && el.tagName.toLowerCase() == tagName) {
+            return el;
+        }
+    }
+    return null;
+}
+const type_lut = {
+    Assignment: 'assignment',
+    Discussion: 'discussion_topic',
+    Quiz: 'quiz',
+    ExternalTool: 'external_tool',
+    File: 'attachment',
+    Page: 'wiki_page',
+    ExternalUrl: null, //Not passable to restrict
+    Subheader: null, //Not passable to restrict
+};
+function formDataify(data) {
+    let formData = new FormData();
+    for (let key in data) {
+        addToFormData(formData, key, data[key]);
+    }
+    if (document) {
+        const el = document.querySelector("input[name='authenticity_token']");
+        const authenticityToken = el ? el.value : null;
+        const cookies = getCookies();
+        let csrfToken = cookies['_csrf_token'];
+        if (authenticityToken)
+            formData.append('authenticity_token', authenticityToken);
+        else if (csrfToken) {
+            csrfToken = csrfToken.replaceAll(/%([0-9A-F]{2})/g, (substring, hex) => {
+                const hexCode = hex;
+                return String.fromCharCode(parseInt(hexCode, 16));
+            });
+            console.log(csrfToken);
+            formData.append('authenticity_token', csrfToken);
+        }
+    }
+    return formData;
+}
+function deepObjectCopy(toCopy, complexObjectsTracker = []) {
+    return deepObjectMerge(toCopy, {}, true, complexObjectsTracker);
+}
+function deepObjectMerge(a, b, overrideWithA = false, complexObjectsTracker = []) {
+    for (let value of [a, b]) {
+        if (typeof value == "object" &&
+            complexObjectsTracker.includes(value))
+            throw new Error(`Infinite Loop: Element ${value} contains itself`);
+    }
+    //if the types don't match
+    if (a && b && (typeof a !== typeof b ||
+        Array.isArray(a) != Array.isArray(b))) {
+        if (a === b)
+            return a;
+        if (overrideWithA)
+            return a;
+        throw new Error(`Type clash on merge ${typeof a} ${a}, ${typeof b} ${b}`);
+    }
+    //If either or both are arrays, merge if able to
+    if (Array.isArray(a)) {
+        if (!b)
+            return deepObjectCopy(a, complexObjectsTracker);
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(Array.isArray(b), "We should not get here if b is not an array");
+        let mergedArray = [...a, ...b];
+        const outputArray = mergedArray.map(value => {
+            if (!value)
+                return value;
+            if (typeof value === 'object' && Object.getPrototypeOf(value) === Object.prototype) {
+                //Make a deep of any object literal
+                if (!value)
+                    return value;
+                value = deepObjectCopy(value, [...complexObjectsTracker, a, b]);
+            }
+            return value;
+        });
+        return outputArray;
+    }
+    if (Array.isArray(b))
+        return deepObjectCopy(b, complexObjectsTracker); //we already know a is not an array at this point, return a deep copy of b
+    if ((a && typeof a === 'object') || (b && typeof b === 'object')) {
+        if (a instanceof File && b instanceof File) {
+            if (!overrideWithA)
+                assert__WEBPACK_IMPORTED_MODULE_0___default()(a.size == b.size && a.name == b.name, `File value clash ${a.name} ${b.name}`);
+            return a;
+        }
+        if (a && Object.getPrototypeOf(a) != Object.prototype
+            || b && Object.getPrototypeOf(b) != Object.prototype) {
+            if (!overrideWithA)
+                assert__WEBPACK_IMPORTED_MODULE_0___default()(!a || !b || a === b, `Non-mergeable object clash ${a} ${b}`);
+            if (a)
+                return a;
+            if (b)
+                return b;
+        }
+        if (a && !b)
+            return deepObjectCopy(a, complexObjectsTracker);
+        if (b && !a)
+            return deepObjectCopy(b, complexObjectsTracker);
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(a && typeof a === 'object' && Object.getPrototypeOf(a) === Object.prototype, "a should always be defined here.");
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(b && typeof b === 'object' && Object.getPrototypeOf(b) === Object.prototype, "b should always be defined here.");
+        const allKeys = [...Object.keys(a), ...Object.keys(b)].filter(filterUniqueFunc);
+        const aRecord = a;
+        const bRecord = b;
+        const entries = allKeys.map((key) => [
+            key,
+            deepObjectMerge(aRecord[key], bRecord[key], overrideWithA, [...complexObjectsTracker, a, b])
+        ]);
+        return Object.fromEntries(entries);
+    }
+    if (a && b) {
+        if (overrideWithA || a === b)
+            return a;
+        throw new Error(`Values unmergeable, ${a}>:${typeof a}, ${b} ${typeof b}`);
+    }
+    if (a)
+        return a;
+    if (b)
+        return b;
+    if (a === null)
+        return a;
+    if (b === null)
+        return b;
+    assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof a === 'undefined');
+    return a;
+}
+function deFormDataify(formData) {
+    return [...formData.entries()].reduce((aggregator, [key, value]) => {
+        const isArray = key.includes('[]');
+        const keys = key.split('[').map(key => key.replaceAll(/[\[\]]/g, ''));
+        if (isArray)
+            keys.pop(); //remove the last, empty, key if it's an array
+        let currentValue = isArray ? [value] : value;
+        while (keys.length > 0) {
+            let newValue;
+            newValue = {
+                [keys.pop()]: currentValue
+            };
+            currentValue = newValue;
+        }
+        return deepObjectMerge(aggregator, currentValue) || Object.assign({}, aggregator);
+    }, {});
+}
+function getCookies() {
+    const cookieString = document.cookie;
+    const cookies = cookieString.split('; ');
+    const out = {};
+    for (let cookie of cookies) {
+        const [key, value] = cookie.split('=');
+        out[key] = value;
+    }
+    return out;
+}
+/**
+ * Adds arrays and objects in the form formData posts expects
+ * @param formData
+ * @param key
+ * @param value
+ */
+function addToFormData(formData, key, value) {
+    if (Array.isArray(value)) {
+        for (let item of value) {
+            addToFormData(formData, `${key}[]`, item);
+        }
+    }
+    else if (typeof value === 'object') {
+        for (let itemKey in value) {
+            const itemValue = value[itemKey];
+            addToFormData(formData, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
+        }
+    }
+    else {
+        formData.append(key, value);
+    }
+}
+function queryStringify(data) {
+    let searchParams = new URLSearchParams();
+    for (let key in data) {
+        addToQuery(searchParams, key, data[key]);
+    }
+    ;
+    return searchParams;
+}
+function addToQuery(searchParams, key, value) {
+    if (Array.isArray(value)) {
+        for (let item of value) {
+            addToQuery(searchParams, `${key}[]`, item);
+        }
+    }
+    else if (typeof value === 'object') {
+        for (let itemKey in value) {
+            const itemValue = value[itemKey];
+            addToQuery(searchParams, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
+        }
+    }
+    else {
+        searchParams.append(key, value);
+    }
+}
+/**
+ * Takes in a module item and returns an object specifying its type and content id
+ * @param item
+ */
+function getItemTypeAndId(item) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let id;
+        let type;
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(type_lut.hasOwnProperty(item.type), "Unexpected type " + item.type);
+        type = type_lut[item.type];
+        if (type === "wiki_page") {
+            assert__WEBPACK_IMPORTED_MODULE_0___default()(item.url); //wiki_page items always have a url param
+            const pageData = yield fetchJson(item.url);
+            id = pageData.page_id;
+        }
+        else {
+            id = item.content_id;
+        }
+        return { type, id };
+    });
+}
+/**
+ * @param queryParams
+ * @returns {URLSearchParams} The correctly formatted parameters
+ */
+function searchParamsFromObject(queryParams) {
+    return queryStringify(queryParams);
+}
+/**
+ * @param url The entire path of the url
+ * @param config a configuration object of type ICanvasCallConfig
+ * @returns {Promise<Record<string, any>[]>}
+ */
+function getPagedData(url_1) {
+    return __awaiter(this, arguments, void 0, function* (url, config = null) {
+        var _a, e_1, _b, _c;
+        const generator = getPagedDataGenerator(url, config);
+        const out = [];
+        try {
+            for (var _d = true, generator_1 = __asyncValues(generator), generator_1_1; generator_1_1 = yield generator_1.next(), _a = generator_1_1.done, !_a; _d = true) {
+                _c = generator_1_1.value;
+                _d = false;
+                let value = _c;
+                out.push(value);
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (!_d && !_a && (_b = generator_1.return)) yield _b.call(generator_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        return out;
+    });
+}
+/**
+ * returns a single pagedDataGenerator that returns generator results from each, looping through results for each
+ * @param generators
+ */
+function mergePagedDataGenerators(generators) {
+    return __asyncGenerator(this, arguments, function* mergePagedDataGenerators_1() {
+        var _a, e_2, _b, _c;
+        for (let generator of generators) {
+            try {
+                for (var _d = true, generator_2 = (e_2 = void 0, __asyncValues(generator)), generator_2_1; generator_2_1 = yield __await(generator_2.next()), _a = generator_2_1.done, !_a; _d = true) {
+                    _c = generator_2_1.value;
+                    _d = false;
+                    let result = _c;
+                    yield yield __await(result);
+                }
+            }
+            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+            finally {
+                try {
+                    if (!_d && !_a && (_b = generator_2.return)) yield __await(_b.call(generator_2));
+                }
+                finally { if (e_2) throw e_2.error; }
+            }
+        }
+    });
+}
+function getPagedDataGenerator(url_1) {
+    return __asyncGenerator(this, arguments, function* getPagedDataGenerator_1(url, config = null) {
+        if (config === null || config === void 0 ? void 0 : config.queryParams) {
+            url += '?' + searchParamsFromObject(config.queryParams);
+        }
+        if (url.includes('undefined')) {
+            console.log(url);
+        }
+        /* Returns a list of data from a GET request, going through multiple pages of data requests as necessary */
+        let response = yield __await(fetch(url, config === null || config === void 0 ? void 0 : config.fetchInit));
+        let data = yield __await(response.json());
+        if (typeof data === 'object' && !Array.isArray(data)) {
+            let values = Array.from(Object.values(data));
+            if (values) {
+                data = values.find((a) => Array.isArray(a));
+            }
+        }
+        if (!Array.isArray(data)) {
+            console.warn(`no data for ${url}`);
+            return yield __await([]);
+        }
+        for (let value of data) {
+            yield yield __await(value);
+        }
+        let next_page_link = "!";
+        while (next_page_link.length !== 0 &&
+            response &&
+            response.headers.has("Link") && response.ok) {
+            const link = response.headers.get("Link");
+            assert__WEBPACK_IMPORTED_MODULE_0___default()(link);
+            const paginationLinks = link.split(",");
+            const nextLink = paginationLinks.find((link) => link.includes('next'));
+            if (nextLink) {
+                next_page_link = nextLink.split(";")[0].split("<")[1].split(">")[0];
+                response = yield __await(fetch(next_page_link, config === null || config === void 0 ? void 0 : config.fetchInit));
+                let responseData = yield __await(response.json());
+                if (typeof responseData === 'object' && !Array.isArray(responseData)) {
+                    let values = Array.from(Object.values(responseData));
+                    if (values) {
+                        responseData = values === null || values === void 0 ? void 0 : values.find((a) => Array.isArray(a));
+                    }
+                    data = [data, ...responseData];
+                }
+                for (let value of responseData) {
+                    yield yield __await(value);
+                }
+            }
+            else {
+                next_page_link = "";
+            }
+        }
+    });
+}
+function fetchJson(url_1) {
+    return __awaiter(this, arguments, void 0, function* (url, config = null) {
+        var _a;
+        if (config === null || config === void 0 ? void 0 : config.queryParams) {
+            url += '?' + new URLSearchParams(config.queryParams);
+        }
+        config !== null && config !== void 0 ? config : (config = {});
+        if (!document) {
+            (_a = config.fetchInit) !== null && _a !== void 0 ? _a : (config.fetchInit = {});
+            config.fetchInit.headers = [];
+        }
+        const response = yield fetch(url, config.fetchInit);
+        return yield response.json();
+    });
+}
+/**
+ * sort courses (or course Data) alphabetically by name
+ * @param a item to compare.
+ * @param b item to compare.
+ */
+function courseNameSort(a, b) {
+    if (a.name < b.name)
+        return -1;
+    if (b.name < a.name)
+        return 1;
+    return 0;
+}
+function* range(start, end) {
+    if (typeof end === 'undefined') {
+        let i = start;
+        while (true) {
+            yield i;
+            i++;
+        }
+    }
+    for (let i = start; i <= end; i++) {
+        yield i;
+    }
+}
+function* numbers(start, step = 1) {
+    let i = 0;
+    while (true) {
+        yield i;
+        i += step;
+    }
+}
+function getPlainTextFromHtml(html) {
+    const el = document.createElement('div');
+    el.innerHTML = html;
+    return el.innerText || el.textContent || "";
+}
+function getCourseIdFromUrl(url) {
+    let match = /courses\/(\d+)/.exec(url);
+    if (match) {
+        return parseInt(match[1]);
+    }
+    return null;
+}
+function batchify(toBatch, batchSize) {
+    const out = [];
+    for (let i = 0; i < toBatch.length; i += batchSize) {
+        out.push(toBatch.slice(i, i + batchSize));
+    }
+    return out;
+}
+function filterUniqueFunc(item, index, array) {
+    return array.indexOf(item) === index;
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/content/index.ts":
+/*!*************************************!*\
+  !*** ./src/canvas/content/index.ts ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Assignment: () => (/* binding */ Assignment),
+/* harmony export */   BaseContentItem: () => (/* binding */ BaseContentItem),
+/* harmony export */   Discussion: () => (/* binding */ Discussion),
+/* harmony export */   Page: () => (/* binding */ Page),
+/* harmony export */   Quiz: () => (/* binding */ Quiz),
+/* harmony export */   getBannerImage: () => (/* binding */ getBannerImage)
+/* harmony export */ });
+/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../baseCanvasObject */ "./src/canvas/baseCanvasObject.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../index */ "./src/canvas/index.ts");
+/* harmony import */ var _image__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../image */ "./src/canvas/image.ts");
+/* harmony import */ var _files__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../files */ "./src/canvas/files.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+
+
+const SAFE_MAX_BANNER_WIDTH = 1400;
+class BaseContentItem extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_1__.BaseCanvasObject {
+    constructor(canvasData, courseId) {
+        super(canvasData);
+        this._courseId = courseId;
+    }
+    get htmlContentUrl() {
+        return `${this.contentUrlPath}`.replace('/api/v1/', '/');
+    }
+    static get contentUrlPart() {
+        assert__WEBPACK_IMPORTED_MODULE_2___default()(this.allContentUrlTemplate, "Not a content url template");
+        const urlTermMatch = /\/([\w_]+)$/.exec(this.allContentUrlTemplate);
+        if (!urlTermMatch)
+            return null;
+        const urlTerm = urlTermMatch[1];
+        return urlTerm;
+    }
+    static getAllInCourse(courseId_1) {
+        return __awaiter(this, arguments, void 0, function* (courseId, config = null) {
+            let url = this.getAllUrl(courseId);
+            let data = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.getPagedData)(url, config);
+            return data.map(item => new this(item, courseId));
+        });
+    }
+    static clearAddedContentTags(text) {
+        let out = text.replace(/<\/?link[^>]*>/g, '');
+        out = out.replace(/<\/?script[^>]*>/g, '');
+        return out;
+    }
+    static getFromUrl() {
+        return __awaiter(this, arguments, void 0, function* (url = null, courseId = null) {
+            if (url === null) {
+                url = document.documentURI;
+            }
+            url = url.replace(/\.com/, '.com/api/v1');
+            let data = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url);
+            if (!courseId) {
+                courseId = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.getCourseIdFromUrl)(url);
+                if (!courseId)
+                    return null;
+            }
+            //If this is a collection of data, we can't process it as a Canvas Object
+            if (Array.isArray(data))
+                return null;
+            assert__WEBPACK_IMPORTED_MODULE_2___default()(!Array.isArray(data));
+            if (data) {
+                return new this(data, courseId);
+            }
+            return null;
+        });
+    }
+    static getById(contentId, courseId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new this(yield this.getDataById(contentId, courseId), courseId);
+        });
+    }
+    get bodyKey() {
+        return this.myClass.bodyProperty;
+    }
+    get body() {
+        if (!this.bodyKey)
+            return null;
+        return this.myClass.clearAddedContentTags(this.canvasData[this.bodyKey]);
+    }
+    get dueAt() {
+        if (!this.canvasData.hasOwnProperty('due_at')) {
+            return null;
+        }
+        return new Date(this.canvasData.due_at);
+    }
+    setDueAt(date) {
+        return __awaiter(this, void 0, void 0, function* () {
+            throw new _index__WEBPACK_IMPORTED_MODULE_3__.NotImplementedException();
+        });
+    }
+    dueAtTimeDelta(timeDelta) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!this.dueAt)
+                return null;
+            let result = new Date(this.dueAt);
+            result.setDate(result.getDate() + timeDelta);
+            return yield this.setDueAt(result);
+        });
+    }
+    get contentUrlPath() {
+        let url = this.constructor.contentUrlTemplate;
+        assert__WEBPACK_IMPORTED_MODULE_2___default()(url);
+        url = url.replace('{course_id}', this.courseId.toString());
+        url = url.replace('{content_id}', this.id.toString());
+        return url;
+    }
+    get courseId() {
+        return this._courseId;
+    }
+    updateContent(text, name, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const data = {};
+            const constructor = this.constructor;
+            assert__WEBPACK_IMPORTED_MODULE_2___default()(constructor.bodyProperty);
+            assert__WEBPACK_IMPORTED_MODULE_2___default()(constructor.nameProperty);
+            const nameProp = constructor.nameProperty;
+            const bodyProp = constructor.bodyProperty;
+            if (text && bodyProp) {
+                this.canvasData[bodyProp] = text;
+                data[bodyProp] = text;
+            }
+            if (name && nameProp) {
+                this.canvasData[nameProp] = name;
+                data[nameProp] = name;
+            }
+            return this.saveData(data, config);
+        });
+    }
+    getMeInAnotherCourse(targetCourseId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let ContentClass = this.constructor;
+            let targets = yield ContentClass.getAllInCourse(targetCourseId, { queryParams: { search_term: this.name } });
+            return targets.find((target) => target.name == this.name);
+        });
+    }
+    getAllLinks() {
+        const el = this.bodyAsElement;
+        const anchors = el.querySelectorAll('a');
+        const urls = [];
+        for (let link of anchors)
+            urls.push(link.href);
+        return urls;
+    }
+    get bodyAsElement() {
+        assert__WEBPACK_IMPORTED_MODULE_2___default()(this.body, "This content item has no body property");
+        let el = document.createElement('div');
+        el.innerHTML = this.body;
+        return el;
+    }
+    resizeBanner() {
+        return __awaiter(this, arguments, void 0, function* (maxWidth = SAFE_MAX_BANNER_WIDTH) {
+            const bannerImg = getBannerImage(this);
+            if (!bannerImg)
+                throw new Error("No banner");
+            let fileData = yield getFileDataFromUrl(bannerImg.src, this.courseId);
+            if (!fileData)
+                throw new Error("File not found");
+            if (bannerImg.naturalWidth < maxWidth)
+                return; //Dont resize image unless we're shrinking it
+            let resizedImageBlob = yield (0,_image__WEBPACK_IMPORTED_MODULE_4__.getResizedBlob)(bannerImg.src, maxWidth);
+            let fileName = fileData.filename;
+            let fileUploadUrl = `/api/v1/courses/${this.courseId}/files`;
+            assert__WEBPACK_IMPORTED_MODULE_2___default()(resizedImageBlob);
+            let file = new File([resizedImageBlob], fileName);
+            return yield (0,_files__WEBPACK_IMPORTED_MODULE_5__.uploadFile)(file, fileData.folder_id, fileUploadUrl);
+        });
+    }
+}
+BaseContentItem.nameProperty = 'name';
+function getFileDataFromUrl(url, courseId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const match = /.*\/files\/(\d+)/.exec(url);
+        if (!match)
+            return null;
+        if (match) {
+            const fileId = parseInt(match[1]);
+            const file = yield getFileData(fileId, courseId);
+            return file;
+        }
+    });
+}
+function getFileData(fileId, courseId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const url = `/api/v1/courses/${courseId}/files/${fileId}`;
+        return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url);
+    });
+}
+class Discussion extends BaseContentItem {
+    offsetPublishDelay(days, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const data = this.rawData;
+            if (!this.rawData.delayed_post_at)
+                return;
+            let delayedPostAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_6__.Temporal.Instant.from(this.rawData.delayed_post_at).toZonedDateTimeISO('UTC');
+            delayedPostAt = delayedPostAt.add({ days });
+            const payload = {
+                delayed_post_at: new Date(delayedPostAt.epochMilliseconds).toISOString()
+            };
+            yield this.saveData(payload, config);
+        });
+    }
+    get rawData() {
+        return this.canvasData;
+    }
+}
+Discussion.nameProperty = 'title';
+Discussion.bodyProperty = 'message';
+Discussion.contentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics/{content_id}";
+Discussion.allContentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics";
+class Assignment extends BaseContentItem {
+    setDueAt(dueAt, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const sourceDueAt = this.dueAt ? temporal_polyfill__WEBPACK_IMPORTED_MODULE_6__.Temporal.Instant.from(this.rawData.due_at) : null;
+            const targetDueAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_6__.Temporal.Instant.from(dueAt.toISOString());
+            const payload = {
+                assignment: {
+                    due_at: dueAt.toISOString(),
+                }
+            };
+            if (this.rawData.peer_reviews && 'automatic_peer_reviews' in this.rawData) {
+                const peerReviewTime = temporal_polyfill__WEBPACK_IMPORTED_MODULE_6__.Temporal.Instant.from(this.rawData.peer_reviews_assign_at);
+                assert__WEBPACK_IMPORTED_MODULE_2___default()(sourceDueAt, "Trying to set peer review date without a due date for the assignment.");
+                const peerReviewOffset = sourceDueAt.until(peerReviewTime);
+                const newPeerReviewTime = targetDueAt.add(peerReviewOffset);
+                const newIsoString = new Date(newPeerReviewTime.epochMilliseconds).toISOString();
+                payload.assignment.peer_reviews_assign_at = newIsoString;
+            }
+            let data = yield this.saveData(payload, config);
+            this.canvasData['due_at'] = dueAt.toISOString();
+            return data;
+        });
+    }
+    get rawData() {
+        return this.canvasData;
+    }
+    updateContent(text, name, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const assignmentData = {};
+            if (text) {
+                assignmentData.description = text;
+                this.rawData.description = text;
+            }
+            if (name) {
+                assignmentData.name = name;
+                this.rawData.name = name;
+            }
+            return yield this.saveData({
+                assignment: assignmentData
+            }, config);
+        });
+    }
+}
+Assignment.nameProperty = 'name';
+Assignment.bodyProperty = 'description';
+Assignment.contentUrlTemplate = "/api/v1/courses/{course_id}/assignments/{content_id}";
+Assignment.allContentUrlTemplate = "/api/v1/courses/{course_id}/assignments";
+class Quiz extends BaseContentItem {
+}
+Quiz.nameProperty = 'title';
+Quiz.bodyProperty = 'description';
+Quiz.contentUrlTemplate = "/api/v1/courses/{course_id}/quizzes/{content_id}";
+Quiz.allContentUrlTemplate = "/api/v1/courses/{course_id}/quizzes";
+class Page extends BaseContentItem {
+    constructor(canvasData, courseId) {
+        super(canvasData, courseId);
+    }
+    getRevisions() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.getPagedData)(`${this.contentUrlPath}/revisions`);
+        });
+    }
+    applyRevision(revision) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const revisionId = revision['revision_id'];
+            let result = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(`${this.contentUrlPath}/revisions/${revisionId}?revision_id=${revisionId}`);
+            this.canvasData[this.bodyKey] = result['body'];
+            this.canvasData[this.nameKey] = result['title'];
+        });
+    }
+    get body() {
+        return this.canvasData[this.bodyKey];
+    }
+    updateContent(text, name, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let data = {};
+            if (text) {
+                this.canvasData[this.bodyKey] = text;
+                data['wiki_page[body]'] = text;
+            }
+            if (name) {
+                this.canvasData[this.nameKey] = name;
+                data[this.nameKey] = name;
+            }
+            return this.saveData(data, config);
+        });
+    }
+}
+Page.idProperty = 'page_id';
+Page.nameProperty = 'title';
+Page.bodyProperty = 'body';
+Page.contentUrlTemplate = "/api/v1/courses/{course_id}/pages/{content_id}";
+Page.allContentUrlTemplate = "/api/v1/courses/{course_id}/pages";
+function getBannerImage(overviewPage) {
+    const pageBody = document.createElement('html');
+    if (!overviewPage.body)
+        throw new Error(`Content item ${overviewPage.name} has no html body`);
+    pageBody.innerHTML = overviewPage.body;
+    let bannerImg = pageBody.querySelector('.cbt-banner-image img');
+    return bannerImg;
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/course/Course.ts":
+/*!*************************************!*\
+  !*** ./src/canvas/course/Course.ts ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Course: () => (/* binding */ Course)
+/* harmony export */ });
+/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../baseCanvasObject */ "./src/canvas/baseCanvasObject.ts");
+/* harmony import */ var _blueprint__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./blueprint */ "./src/canvas/course/blueprint.ts");
+/* harmony import */ var _content__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../content */ "./src/canvas/content/index.ts");
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../index */ "./src/canvas/index.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _publish_fixesAndUpdates_validations__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../publish/fixesAndUpdates/validations */ "./src/publish/fixesAndUpdates/validations/index.ts");
+/* harmony import */ var _changeStartDate__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./changeStartDate */ "./src/canvas/course/changeStartDate.ts");
+/* harmony import */ var _modules__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules */ "./src/canvas/course/modules.ts");
+/* harmony import */ var _image__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../image */ "./src/canvas/image.ts");
+/* harmony import */ var _files__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../files */ "./src/canvas/files.ts");
+/* harmony import */ var _profile__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../profile */ "./src/canvas/profile.ts");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./index */ "./src/canvas/course/index.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+const HOMETILE_WIDTH = 500;
+class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
+    constructor(data) {
+        super(data);
+        this._modules = undefined;
+        this.modulesByWeekNumber = undefined;
+        this.cachedContent = [];
+        this.isBlueprint = (() => (0,_blueprint__WEBPACK_IMPORTED_MODULE_1__.isBlueprint)(data));
+        this.getAssociatedCourses = (0,_blueprint__WEBPACK_IMPORTED_MODULE_1__.cachedGetAssociatedCoursesFunc)(this);
+    }
+    static getFromUrl() {
+        return __awaiter(this, arguments, void 0, function* (url = null) {
+            if (url === null) {
+                url = document.documentURI;
+            }
+            let match = /courses\/(\d+)/.exec(url);
+            if (match) {
+                const id = (0,_index__WEBPACK_IMPORTED_MODULE_12__.getCourseIdFromUrl)(url);
+                if (!id)
+                    return null;
+                return yield this.getCourseById(id);
+            }
+            return null;
+        });
+    }
+    /**
+     * Checks if a string looks like a course code
+     * @param code
+     */
+    static stringIsCourseCode(code) {
+        return this.CODE_REGEX.exec(code);
+    }
+    /**
+     * Returns this library's class corresponding to the current url, drawing from Course.contentClasses.
+     * Classes can be included in Course.contentClasses using the decorator @contentClass
+     *
+     * @param url
+     */
+    static getContentClassFromUrl(url = null) {
+        if (!url)
+            url = document.documentURI;
+        for (let class_ of this.contentClasses) {
+            if (class_.contentUrlPart && url.includes(class_.contentUrlPart))
+                return class_;
+        }
+        return null;
+    }
+    static getCourseById(courseId_1) {
+        return __awaiter(this, arguments, void 0, function* (courseId, config = undefined) {
+            const data = yield (0,_index__WEBPACK_IMPORTED_MODULE_12__.getCourseData)(courseId, config);
+            return new Course(data);
+        });
+    }
+    /**
+     * TODO: Replace this whole pipeline with something that returns a getApiPagesData generator instead.
+     * @param code
+     * @param term
+     * @param config
+     * @private
+     */
+    static getCoursesByString(code_1) {
+        return __awaiter(this, arguments, void 0, function* (code, term = null, config = {}) {
+            console.warn("Replace this with getCourseGenerator");
+            let courseDataList = null;
+            const accountIdsByName = yield Course.getAccountIdsByName();
+            for (let accountKey in accountIdsByName) {
+                if (!accountKey)
+                    continue;
+                let accountId = accountIdsByName[accountKey];
+                let url = `/api/v1/accounts/${accountId}/courses`;
+                config.queryParams = config.queryParams || {};
+                config.queryParams['search_term'] = code;
+                if (term !== null) {
+                    config.queryParams['enrollment_term_id'] = term.id;
+                }
+                courseDataList = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.getPagedData)(url, config);
+                if (courseDataList && courseDataList.length > 0) {
+                    break;
+                }
+            }
+            if (!courseDataList || courseDataList.length === 0) {
+                return null;
+            }
+            if (courseDataList.length > 1) {
+                courseDataList.sort((a, b) => b.id - a.id); // Sort courses by ID in descending order
+            }
+            return courseDataList.map(courseData => new Course(courseData));
+        });
+    }
+    static getAllByCode(code_1) {
+        return __awaiter(this, arguments, void 0, function* (code, term = null, config = undefined) {
+            return this.getCoursesByString(code, term, config);
+        });
+    }
+    static getByCode(code_1) {
+        return __awaiter(this, arguments, void 0, function* (code, term = null, config = undefined) {
+            const courses = yield this.getCoursesByString(code, term, config);
+            if (Array.isArray(courses))
+                return courses[0];
+        });
+    }
+    static getAccountIdsByName() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let course = yield Course.getFromUrl();
+            if (!course) {
+                console.warn("You must be on a canvas page to get accounts");
+                return {};
+            }
+            return {
+                'root': course.canvasData.root_account_id,
+                'current': course.canvasData.account_id
+            };
+        });
+    }
+    static courseEvent(courses, event, accountId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const url = `/api/v1/accounts/${accountId}/courses`;
+            const data = {
+                'event': event,
+                'course_ids[]': courses.map(course => course.id)
+            };
+            return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(url, {
+                fetchInit: {
+                    method: 'PUT',
+                    body: JSON.stringify(data)
+                }
+            });
+        });
+    }
+    get contentUrlPath() {
+        return `/api/v1/courses/${this.id}`;
+    }
+    get courseUrl() {
+        return this.htmlContentUrl;
+    }
+    get htmlContentUrl() {
+        return `/courses/${this.id}`;
+    }
+    get parsedCourseCode() {
+        let match = this.codeMatch;
+        if (!match)
+            return null;
+        let prefix = match[1] || "";
+        let courseCode = match[2] || "";
+        if (prefix.length > 0) {
+            return `${prefix}_${courseCode}`;
+        }
+        return courseCode;
+    }
+    get courseCode() {
+        return this.canvasData.course_code;
+    }
+    get codeMatch() {
+        return Course.CODE_REGEX.exec(this.canvasData.course_code);
+    }
+    get baseCode() {
+        let match = this.codeMatch;
+        return match ? match[2] : '';
+    }
+    get termId() {
+        const id = this.canvasData.enrollment_term_id;
+        if (typeof id === 'number')
+            return id;
+        else
+            return id[0];
+    }
+    //comment for no reason for publish
+    getTerm() {
+        return __awaiter(this, void 0, void 0, function* () {
+            assert__WEBPACK_IMPORTED_MODULE_5___default()(typeof this.termId === 'number');
+            if (this.termId)
+                return _index__WEBPACK_IMPORTED_MODULE_4__.Term.getTermById(this.termId);
+            else
+                return null;
+        });
+    }
+    get fileUploadUrl() {
+        return `/api/v1/courses/${this.id}/files`;
+    }
+    get codePrefix() {
+        let match = this.codeMatch;
+        return match ? match[1] : '';
+    }
+    get workflowState() {
+        return this.canvasData.workflow_state;
+    }
+    get start() {
+        return new Date(this.getItem('start_at'));
+    }
+    get isDev() {
+        return !!this.name.match(/^DEV/);
+    }
+    get rootAccountId() {
+        return this.canvasData.root_account_id;
+    }
+    get accountId() {
+        return this.canvasData.account_id;
+    }
+    getModules(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (this._modules) {
+                return this._modules;
+            }
+            config = (0,_publish_fixesAndUpdates_validations__WEBPACK_IMPORTED_MODULE_6__.overrideConfig)(config, {
+                queryParams: {
+                    include: ['items', 'content_details']
+                }
+            });
+            let modules = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.getPagedData)(`${this.contentUrlPath}/modules`, config);
+            this._modules = modules;
+            return modules;
+        });
+    }
+    getStartDateFromModules() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (0,_changeStartDate__WEBPACK_IMPORTED_MODULE_7__.getCurrentStartDate)(yield this.getModules());
+        });
+    }
+    getInstructors() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(`/api/v1/courses/${this.id}/users?enrollment_type=teacher`);
+        });
+    }
+    getLatePolicy(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const latePolicyResult = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(`/api/v1/courses/${this.id}/late_policy`, config);
+            if ('late_policy' in latePolicyResult)
+                return latePolicyResult.late_policy;
+            return undefined;
+        });
+    }
+    getAvailableGradingStandards(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let out = [];
+            console.log(this.name);
+            const { id, account_id, root_account_id } = this.canvasData;
+            console.log(this.id, this.rawData.account_id, this.rawData.root_account_id);
+            if (id) {
+                const courseGradingStandards = yield (0,_index__WEBPACK_IMPORTED_MODULE_12__.getGradingStandards)(id, "course", config);
+                out = [...out, ...courseGradingStandards];
+            }
+            if (account_id) {
+                const accountGradingStandards = yield (0,_index__WEBPACK_IMPORTED_MODULE_12__.getGradingStandards)(account_id, 'account', config);
+                out = [...out, ...accountGradingStandards];
+            }
+            if (root_account_id) {
+                const rootAccountGradingStandards = yield (0,_index__WEBPACK_IMPORTED_MODULE_12__.getGradingStandards)(root_account_id, 'account', config);
+                out = [...out, ...rootAccountGradingStandards];
+            }
+            return out.filter(_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.filterUniqueFunc);
+        });
+    }
+    getCurrentGradingStandard(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { grading_standard_id, account_id, root_account_id } = this.canvasData;
+            const urls = [];
+            if (grading_standard_id) {
+                urls.push(`/api/v1/courses/${this.id}/grading_standards/${grading_standard_id}`);
+                if (root_account_id)
+                    urls.push(`/api/v1/accounts/${root_account_id}/grading_standards/${grading_standard_id}`);
+                if (account_id)
+                    urls.push(`/api/v1/accounts/${account_id}/grading_standards/${grading_standard_id}`);
+            }
+            for (let url of urls) {
+                let gradingStandard = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(url);
+                console.log(gradingStandard);
+                if (!('errors' in gradingStandard))
+                    return gradingStandard;
+            }
+            return null;
+        });
+    }
+    getContentItemFromUrl() {
+        return __awaiter(this, arguments, void 0, function* (url = null) {
+            let ContentClass = Course.getContentClassFromUrl(url);
+            if (!ContentClass)
+                return null;
+            return ContentClass.getFromUrl(url);
+        });
+    }
+    getModulesByWeekNumber(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (this.modulesByWeekNumber)
+                return this.modulesByWeekNumber;
+            let modules = yield this.getModules(config);
+            this.modulesByWeekNumber = yield (0,_modules__WEBPACK_IMPORTED_MODULE_8__.getModulesByWeekNumber)(modules);
+            return (this.modulesByWeekNumber);
+        });
+    }
+    /**
+     * Returns a list of links to items in a given module
+     *
+     * @param moduleOrWeekNumber
+     * @param target An object specifying an item or items to look for
+     * type - specifies the type,
+     * search - a string to search for in titles. optional.
+     * index - return the indexth one of these in the week (minus the intro in week 1, which should be index 0)
+     * if none is specified, return all matches
+     */
+    getModuleItemLinks(moduleOrWeekNumber, target) {
+        return __awaiter(this, void 0, void 0, function* () {
+            assert__WEBPACK_IMPORTED_MODULE_5___default()(target.hasOwnProperty('type'));
+            let targetType = target.type;
+            let contentSearchString = target.hasOwnProperty('search') ? target.search : null;
+            let targetIndex = isNaN(target.index) ? null : target.index;
+            let targetModuleWeekNumber;
+            let targetModule;
+            if (typeof moduleOrWeekNumber === 'number') {
+                let modules = yield this.getModulesByWeekNumber();
+                assert__WEBPACK_IMPORTED_MODULE_5___default()(modules.hasOwnProperty(moduleOrWeekNumber));
+                targetModuleWeekNumber = moduleOrWeekNumber;
+                targetModule = modules[targetModuleWeekNumber];
+            }
+            else {
+                targetModule = moduleOrWeekNumber;
+                targetModuleWeekNumber = (0,_modules__WEBPACK_IMPORTED_MODULE_8__.getModuleWeekNumber)(targetModule);
+            }
+            const urls = [];
+            if (targetModule && typeof targetType !== 'undefined') {
+                //If it's a page, just search for the parameter string
+                if (targetType === 'Page' && contentSearchString) {
+                    let pages = yield this.getPages({
+                        queryParams: { search_term: contentSearchString }
+                    });
+                    pages.forEach((page) => urls.push(page.htmlContentUrl));
+                    //If it's anything else, get only those items in the module and set url to the targetIndexth one.
+                }
+                else if (targetType) {
+                    //bump index for week 1 to account for intro discussion / checking for rubric would require pulling too much data
+                    //and too much performance overhead
+                    if (targetIndex && targetType === 'Discussion' && targetModuleWeekNumber === 1)
+                        targetIndex++;
+                    const matchingTypeItems = targetModule.items.filter((item) => item.type === targetType);
+                    if (targetIndex && matchingTypeItems.length >= targetIndex) {
+                        //We refer to and number the assignments indexed at 1, but the array is indexed at 0
+                        const targetItem = matchingTypeItems[targetIndex - 1];
+                        urls.push(targetItem.html_url);
+                    }
+                    else if (!targetIndex) {
+                        for (let item of matchingTypeItems)
+                            urls.push(item.html_url);
+                    }
+                }
+            }
+            return urls;
+        });
+    }
+    getSyllabus() {
+        return __awaiter(this, arguments, void 0, function* (config = { queryParams: {} }) {
+            if (!this.canvasData.syllabus_body) {
+                config.queryParams = Object.assign(Object.assign({}, config.queryParams), { include: ['syllabus_body'] });
+                const data = yield Course.getCourseById(this.id, config);
+                assert__WEBPACK_IMPORTED_MODULE_5___default()(data.canvasData.syllabus_body);
+                this.canvasData.syllabus_body = data.canvasData.syllabus_body;
+            }
+            return this.canvasData.syllabus_body;
+        });
+    }
+    /**
+     * gets all assignments in a course
+     * @returns {Promise<Assignment[]>}
+     * @param config
+     */
+    getAssignments(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            config = (0,_publish_fixesAndUpdates_validations__WEBPACK_IMPORTED_MODULE_6__.overrideConfig)(config, { queryParams: { include: ['due_at'] } });
+            return yield _content__WEBPACK_IMPORTED_MODULE_2__.Assignment.getAllInCourse(this.id, config);
+        });
+    }
+    getContent(config_1) {
+        return __awaiter(this, arguments, void 0, function* (config, refresh = false) {
+            if (refresh || this.cachedContent.length == 0) {
+                let discussions = yield this.getDiscussions(config);
+                let assignments = yield this.getAssignments(config);
+                let quizzes = yield this.getQuizzes(config);
+                let pages = yield this.getPages(config);
+                this.cachedContent = [
+                    ...discussions,
+                    ...assignments,
+                    ...quizzes,
+                    ...pages
+                ];
+            }
+            return this.cachedContent;
+        });
+    }
+    getDiscussions(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield _content__WEBPACK_IMPORTED_MODULE_2__.Discussion.getAllInCourse(this.id, config);
+        });
+    }
+    getAssignmentGroups(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.getPagedData)(`/api/v1/courses/${this.id}/assignment_groups`, config);
+        });
+    }
+    getQuizzes(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield _content__WEBPACK_IMPORTED_MODULE_2__.Quiz.getAllInCourse(this.id, config);
+        });
+    }
+    getSubsections() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const url = `/api/v1/courses/${this.id}/sections`;
+            return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(url);
+        });
+    }
+    getTabs(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(`courses/${this.id}/tabs`, config);
+        });
+    }
+    getFrontPage() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const data = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(`${this.contentUrlPath}/front_page`);
+                return new _content__WEBPACK_IMPORTED_MODULE_2__.Page(data, this.id);
+            }
+            catch (error) {
+                return null;
+            }
+        });
+    }
+    getTab(label) {
+        return this.canvasData.tabs.find((tab) => tab.label === label) || null;
+    }
+    reload() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = this.id;
+            const reloaded = yield Course.getCourseById(id);
+            this.canvasData = reloaded.rawData;
+        });
+    }
+    setNavigationTabHidden(label, value) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const tab = this.getTab(label);
+            if (!tab)
+                return null;
+            return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(`/api/v1/courses/${this.id}/tabs/${tab.id}`, {
+                queryParams: { 'hidden': value }
+            });
+        });
+    }
+    changeSyllabus(newHtml) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.canvasData['syllabus_body'] = newHtml;
+            return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(`/api/v1/courses/${this.id}`, {
+                fetchInit: {
+                    method: 'PUT',
+                    body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.formDataify)({
+                        course: {
+                            syllabus_body: newHtml
+                        }
+                    })
+                }
+            });
+        });
+    }
+    resetCache() {
+        //delete this.subsections;
+        //delete this.associatedCourses;
+    }
+    static publishAll(courses, accountId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (courses.length == 0)
+                return false;
+            const courseIds = courses.map((course) => {
+                if (course instanceof Course) {
+                    return course.id;
+                }
+                return course;
+            });
+            const url = `/api/v1/accounts/${accountId}/courses`;
+            const data = {
+                'event': 'offer',
+                'course_ids': courseIds,
+            };
+            return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(url, {
+                fetchInit: {
+                    method: 'PUT',
+                    body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.formDataify)(data),
+                }
+            });
+        });
+    }
+    updateDueDates(offset) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const promises = [];
+            let assignments = yield this.getAssignments();
+            let quizzes = yield this.getQuizzes();
+            if (offset === 0 || offset) {
+                for (let assignment of assignments) {
+                    console.log(assignment);
+                    promises.push(assignment.dueAtTimeDelta(Number(offset)));
+                }
+                for (let quiz of quizzes) {
+                    promises.push(quiz.dueAtTimeDelta(Number(offset)));
+                }
+            }
+            yield Promise.all(promises);
+            return [...assignments, ...quizzes];
+        });
+    }
+    publish() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const url = `/api/v1/courses/${this.id}`;
+            const courseData = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(url, {
+                fetchInit: {
+                    method: 'PUT',
+                    body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.formDataify)({ 'offer': true })
+                }
+            });
+            console.log(courseData);
+            this.canvasData = courseData;
+        });
+    }
+    unpublish() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const url = `/api/v1/courses/${this.id}`;
+            yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(url, {
+                fetchInit: {
+                    method: 'PUT',
+                    body: JSON.stringify({ 'course[event]': 'claim' })
+                }
+            });
+            this.canvasData = Object.assign({}, (yield Course.getCourseById(this.id)).canvasData);
+        });
+    }
+    reset() {
+        return __awaiter(this, arguments, void 0, function* (prompt = true) {
+            if (prompt && !confirm(`Are you sure you want to reset ${this.parsedCourseCode}?`)) {
+                return false;
+            }
+            const url = `/api/v1/courses/${this.id}/reset_content`;
+            const data = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(url, { fetchInit: { method: 'POST' } });
+            this.canvasData['id'] = data.id;
+            return false;
+        });
+    }
+    /**
+     * NOT IMPLEMENTED
+     * @param prompt Either a boolean or an async function that takes in a source and destination course and returns a boolean
+     * @param updateCallback
+     */
+    importDevCourse() {
+        return __awaiter(this, arguments, void 0, function* (prompt = false, updateCallback) {
+            const devCourse = yield this.getParentCourse();
+            if (!devCourse) {
+                throw new _index__WEBPACK_IMPORTED_MODULE_12__.CourseNotFoundException(`DEV not found for ${this.name}.`);
+            }
+            if (prompt) {
+                const canContinue = yield prompt(devCourse, this);
+                if (!canContinue)
+                    return;
+            }
+            yield this.importCourse(devCourse, updateCallback);
+        });
+    }
+    importCourse(course, updateCallback) {
+        return __awaiter(this, void 0, void 0, function* () {
+            throw new _index__WEBPACK_IMPORTED_MODULE_4__.NotImplementedException();
+        });
+    }
+    getParentCourse() {
+        return __awaiter(this, arguments, void 0, function* (return_dev_search = false) {
+            let migrations = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.getPagedData)(`/api/v1/courses/${this.id}/content_migrations`);
+            if (migrations.length < 1) {
+                console.log('no migrations found');
+                if (return_dev_search) {
+                    return Course.getByCode('DEV_' + this.baseCode);
+                }
+                else
+                    return;
+            }
+            migrations.sort((a, b) => b.id - a.id);
+            try {
+                for (let migration of migrations) {
+                    let course = yield Course.getCourseById(migration['settings']['source_course_id']);
+                    if (course && course.codePrefix.includes("DEV"))
+                        return course;
+                }
+            }
+            catch (e) {
+                return yield Course.getByCode('DEV_' + this.baseCode);
+            }
+            return yield Course.getByCode('DEV_' + this.baseCode);
+        });
+    }
+    regenerateHomeTiles() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const modules = yield this.getModules();
+            let urls = yield Promise.all(modules.map((module) => __awaiter(this, void 0, void 0, function* () {
+                try {
+                    let dataUrl = yield this.generateHomeTile(module);
+                }
+                catch (e) {
+                    console.log(e);
+                }
+            })));
+            console.log('done');
+        });
+    }
+    generateHomeTile(module) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const overviewPage = yield (0,_modules__WEBPACK_IMPORTED_MODULE_8__.getModuleOverview)(module, this.id);
+            if (!overviewPage)
+                throw new Error("Module does not have an overview");
+            const bannerImg = (0,_content__WEBPACK_IMPORTED_MODULE_2__.getBannerImage)(overviewPage);
+            if (!bannerImg)
+                throw new Error("No banner image on page");
+            let resizedImageBlob = yield (0,_image__WEBPACK_IMPORTED_MODULE_9__.getResizedBlob)(bannerImg.src, HOMETILE_WIDTH);
+            let fileName = `hometile${module.position}.png`;
+            assert__WEBPACK_IMPORTED_MODULE_5___default()(resizedImageBlob);
+            let file = new File([resizedImageBlob], fileName);
+            return yield (0,_files__WEBPACK_IMPORTED_MODULE_10__.uploadFile)(file, 'Images/hometile', this.fileUploadUrl);
+        });
+    }
+    getPages(config = null) {
+        return _content__WEBPACK_IMPORTED_MODULE_2__.Page.getAllInCourse(this.id, config);
+    }
+    getFrontPageProfile() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const frontPage = yield this.getFrontPage();
+            assert__WEBPACK_IMPORTED_MODULE_5___default()(frontPage && frontPage.body, "Course front page not found");
+            const frontPageProfile = (0,_profile__WEBPACK_IMPORTED_MODULE_11__.getCurioPageFrontPageProfile)(frontPage === null || frontPage === void 0 ? void 0 : frontPage.body);
+            frontPageProfile.sourcePage = frontPage;
+            return frontPageProfile;
+        });
+    }
+    getPotentialInstructorProfiles() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const instructors = yield this.getInstructors();
+            let profiles = [];
+            if (!instructors)
+                return profiles;
+            for (let instructor of instructors) {
+                profiles = profiles.concat(yield (0,_profile__WEBPACK_IMPORTED_MODULE_11__.getPotentialFacultyProfiles)(instructor));
+            }
+            return profiles;
+        });
+    }
+    getSettings(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(`/api/v1/courses/${this.id}/settings`, config);
+        });
+    }
+}
+Course.CODE_REGEX = /^(.+[^_])?_?(\w{4}\d{3})/i; // Adapted to JavaScript's regex syntax.
+Course.nameProperty = 'name';
+Course.contentClasses = [_content__WEBPACK_IMPORTED_MODULE_2__.Assignment, _content__WEBPACK_IMPORTED_MODULE_2__.Discussion, _content__WEBPACK_IMPORTED_MODULE_2__.Quiz, _content__WEBPACK_IMPORTED_MODULE_2__.Page];
+
+
+/***/ }),
+
+/***/ "./src/canvas/course/blueprint.ts":
+/*!****************************************!*\
+  !*** ./src/canvas/course/blueprint.ts ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   cachedGetAssociatedCoursesFunc: () => (/* binding */ cachedGetAssociatedCoursesFunc),
+/* harmony export */   getBlueprintsFromCode: () => (/* binding */ getBlueprintsFromCode),
+/* harmony export */   getSections: () => (/* binding */ getSections),
+/* harmony export */   getTermNameFromSections: () => (/* binding */ getTermNameFromSections),
+/* harmony export */   isBlueprint: () => (/* binding */ isBlueprint),
+/* harmony export */   lockBlueprint: () => (/* binding */ lockBlueprint),
+/* harmony export */   makeNewBpFromDev: () => (/* binding */ makeNewBpFromDev),
+/* harmony export */   renderAsyncGen: () => (/* binding */ renderAsyncGen),
+/* harmony export */   retireBlueprint: () => (/* binding */ retireBlueprint),
+/* harmony export */   setAsBlueprint: () => (/* binding */ setAsBlueprint),
+/* harmony export */   unSetAsBlueprint: () => (/* binding */ unSetAsBlueprint)
+/* harmony export */ });
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "./src/canvas/course/index.ts");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../index */ "./src/canvas/index.ts");
+/* harmony import */ var _Course__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Course */ "./src/canvas/course/Course.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
+
+
+
+
+function isBlueprint({ blueprint }) {
+    return !!blueprint;
+}
+function getSections(course) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var _a, e_1, _b, _c;
+        const id = course.id;
+        if (!course.isBlueprint())
+            return [];
+        const url = `/api/v1/courses/${id}/blueprint_templates/default/associated_courses`;
+        const courseDataGenerator = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.getPagedDataGenerator)(url, { queryParams: { per_page: 50 } });
+        const sections = [];
+        try {
+            for (var _d = true, courseDataGenerator_1 = __asyncValues(courseDataGenerator), courseDataGenerator_1_1; courseDataGenerator_1_1 = yield courseDataGenerator_1.next(), _a = courseDataGenerator_1_1.done, !_a; _d = true) {
+                _c = courseDataGenerator_1_1.value;
+                _d = false;
+                let sectionData = _c;
+                sections.push(yield _Course__WEBPACK_IMPORTED_MODULE_3__.Course.getCourseById(sectionData.id));
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (!_d && !_a && (_b = courseDataGenerator_1.return)) yield _b.call(courseDataGenerator_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        return sections;
+    });
+}
+function cachedGetAssociatedCoursesFunc(course) {
+    let cache = null;
+    return (...args_1) => __awaiter(this, [...args_1], void 0, function* (redownload = false) {
+        if (!redownload && cache)
+            return cache;
+        cache = yield getSections(course);
+        return cache;
+    });
+}
+function getTermNameFromSections(sections) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const [section] = sections;
+        if (!section)
+            throw new Error("Cannot determine term name by sections; there are no sections.");
+        const sectionTerm = yield section.getTerm();
+        if (!sectionTerm)
+            throw new Error("Section does not have associated term: " + section.name);
+        return sectionTerm.name;
+    });
+}
+function retireBlueprint(course, termName, config) {
+    return __awaiter(this, void 0, void 0, function* () {
+        ///if (!course.isBlueprint()) throw new Error("Trying to retire a blueprint that's not a blueprint")
+        var _a;
+        const isCurrentBlueprint = (_a = course.parsedCourseCode) === null || _a === void 0 ? void 0 : _a.match('BP_');
+        if (!isCurrentBlueprint)
+            throw new Error("This blueprint is not named BP_; are you trying to retire a retired blueprint?");
+        // const associatedCourses = await course.getAssociatedCourses();
+        // if (associatedCourses.length < 1) throw new Error("Can't find associated courses")
+        const newCode = `BP-${termName}_${course.baseCode}`;
+        const saveData = {};
+        if (!course.parsedCourseCode)
+            throw new Error("Course does not have a code");
+        saveData[_Course__WEBPACK_IMPORTED_MODULE_3__.Course.nameProperty] = course.name.replace(course.parsedCourseCode, newCode);
+        saveData['course_code'] = newCode;
+        yield course.saveData({
+            course: saveData
+        }, config);
+    });
+}
+function makeNewBpFromDev(devCourse, termName) {
+    return __awaiter(this, void 0, void 0, function* () {
+    });
+}
+function getBlueprintsFromCode(code, accountIds, config) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const [_, baseCode] = code.match(/_(\w{4}\d{3})$/) || [];
+        if (!baseCode)
+            return null;
+        const bps = (0,_index__WEBPACK_IMPORTED_MODULE_1__.getCourseGenerator)(`BP_${baseCode}`, accountIds, undefined, config);
+        return (yield renderAsyncGen(bps)).toSorted((a, b) => b.name.length - a.name.length);
+    });
+}
+function renderAsyncGen(generator) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var _a, generator_1, generator_1_1;
+        var _b, e_2, _c, _d;
+        const out = [];
+        try {
+            for (_a = true, generator_1 = __asyncValues(generator); generator_1_1 = yield generator_1.next(), _b = generator_1_1.done, !_b; _a = true) {
+                _d = generator_1_1.value;
+                _a = false;
+                let item = _d;
+                out.push(item);
+            }
+        }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (!_a && !_b && (_c = generator_1.return)) yield _c.call(generator_1);
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
+        return out;
+    });
+}
+function lockBlueprint(courseId, modules) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let items = [];
+        items = items.concat(...modules.map(a => [].concat(...a.items)));
+        const promises = items.map((item) => __awaiter(this, void 0, void 0, function* () {
+            const url = `/api/v1/courses/${courseId}/blueprint_templates/default/restrict_item`;
+            let { type, id } = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.getItemTypeAndId)(item);
+            if (typeof id === 'undefined')
+                return;
+            let body = {
+                "content_type": type,
+                "content_id": id,
+                "restricted": true,
+                "_method": 'PUT'
+            };
+            yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url, {
+                fetchInit: {
+                    method: 'PUT',
+                    body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(body)
+                }
+            });
+        }));
+        yield Promise.all(promises);
+    });
+}
+function setAsBlueprint(courseId, config) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const url = `/api/v1/courses/${courseId}`;
+        const payload = {
+            course: {
+                blueprint: true,
+                use_blueprint_restrictions_by_object_type: 0,
+                blueprint_restrictions: {
+                    content: 1,
+                    points: 1,
+                    due_dates: 1,
+                    availability_dates: 1,
+                }
+            }
+        };
+        return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url, (0,_index__WEBPACK_IMPORTED_MODULE_2__.apiWriteConfig)('PUT', payload, config));
+    });
+}
+function unSetAsBlueprint(courseId, config) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const url = `/api/v1/courses/${courseId}`;
+        const payload = {
+            course: {
+                blueprint: false
+            }
+        };
+        return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url, (0,_index__WEBPACK_IMPORTED_MODULE_2__.apiWriteConfig)("PUT", payload, config));
+    });
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/course/changeStartDate.ts":
+/*!**********************************************!*\
+  !*** ./src/canvas/course/changeStartDate.ts ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   MalformedSyllabusError: () => (/* binding */ MalformedSyllabusError),
+/* harmony export */   NoAssignmentsWithDueDatesError: () => (/* binding */ NoAssignmentsWithDueDatesError),
+/* harmony export */   NoOverviewModuleFoundError: () => (/* binding */ NoOverviewModuleFoundError),
+/* harmony export */   SyllabusUpdateError: () => (/* binding */ SyllabusUpdateError),
+/* harmony export */   getCurrentStartDate: () => (/* binding */ getCurrentStartDate),
+/* harmony export */   getGradTermName: () => (/* binding */ getGradTermName),
+/* harmony export */   getNewTermName: () => (/* binding */ getNewTermName),
+/* harmony export */   getStartDateAssignments: () => (/* binding */ getStartDateAssignments),
+/* harmony export */   getUgTermName: () => (/* binding */ getUgTermName),
+/* harmony export */   updatedDateSyllabusHtml: () => (/* binding */ updatedDateSyllabusHtml)
+/* harmony export */ });
+/* harmony import */ var _date__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../date */ "./src/date.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const DEFAULT_LOCALE = 'en-US';
+function getCurrentStartDate(modules) {
+    if (modules.length == 0)
+        throw new NoOverviewModuleFoundError();
+    const overviewModule = modules[0];
+    const lockDateString = overviewModule.unlock_at;
+    const oldDate = new Date(lockDateString);
+    return (0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(oldDate);
+}
+function getStartDateAssignments(assignments) {
+    const sorted = assignments
+        .filter((assignment) => assignment.dueAt)
+        .toSorted((a, b) => {
+        if (a.dueAt && b.dueAt) {
+            return (0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(b.dueAt).until((0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(a.dueAt)).days;
+        }
+        if (a.dueAt)
+            return -1;
+        if (b.dueAt)
+            return 1;
+        return 0;
+    });
+    console.log(sorted);
+    if (sorted.length == 0)
+        throw new NoAssignmentsWithDueDatesError();
+    const firstAssignmentDue = sorted[0].dueAt;
+    assert__WEBPACK_IMPORTED_MODULE_1___default()(firstAssignmentDue, "It should be literally impossible for this to happen with current type checking.");
+    //Set to monday of that week.
+    const plainDateDue = (0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(firstAssignmentDue);
+    const dayOfWeekOffset = 1 - plainDateDue.dayOfWeek;
+    return plainDateDue.add({ days: dayOfWeekOffset });
+}
+function getGradTermName(termStart, locale = DEFAULT_LOCALE) {
+    const month = termStart.toLocaleString(locale, { month: '2-digit' });
+    const day = termStart.toLocaleString(locale, { day: '2-digit' });
+    const year = termStart.toLocaleString(locale, { year: '2-digit' });
+    return `DE8W${month}.${day}.${year}`;
+}
+function getUgTermName(termStart, locale = DEFAULT_LOCALE) {
+    const year = termStart.toLocaleString(DEFAULT_LOCALE, { year: '2-digit' });
+    const month = termStart.toLocaleString(DEFAULT_LOCALE, { month: 'short' });
+    return `DE-${year}-${month}`;
+}
+function getNewTermName(oldTermName, newTermStart, locale = DEFAULT_LOCALE) {
+    const termNameGrad = oldTermName.match(/DE8W\d\d\.\d\d\.\d\d/);
+    if (termNameGrad)
+        return getGradTermName(newTermStart);
+    const termNameUg = oldTermName.match(/(DE(?:.HL|)-\d\d)-(\w+)\w{2}?/i);
+    if (termNameUg)
+        return getUgTermName(newTermStart);
+    throw new MalformedSyllabusError(`Can't Recognize Term Name ${oldTermName}`);
+}
+function updatedDateSyllabusHtml(html, newStartDate, locale = DEFAULT_LOCALE) {
+    const syllabusBody = document.createElement('div');
+    syllabusBody.innerHTML = html;
+    const syllabusCalloutBox = syllabusBody.querySelector('div.cbt-callout-box');
+    if (!syllabusCalloutBox)
+        throw new MalformedSyllabusError("Can't find syllabus callout box");
+    let paras = Array.from(syllabusCalloutBox.querySelectorAll('p'));
+    paras = paras.filter((para) => para.querySelector('strong'));
+    if (paras.length < 5)
+        throw new MalformedSyllabusError(`Missing syllabus headers\n${paras}`);
+    const [_courseNameEl, termNameEl, datesEl, _instructorNameEl, _instructorContactInfoEl, _creditsEl] = paras;
+    const changedText = [];
+    const oldTermName = termNameEl.textContent || '';
+    const oldDates = datesEl.textContent || '';
+    const dateRange = (0,_date__WEBPACK_IMPORTED_MODULE_0__.findDateRange)(datesEl.innerHTML, locale);
+    if (!dateRange)
+        throw new MalformedSyllabusError("Date range not found in syllabus");
+    const courseDuration = dateRange.start.until(dateRange.end);
+    const newEndDate = newStartDate.add(courseDuration);
+    const newTermName = getNewTermName(oldTermName, newStartDate);
+    const dateRangeText = `${dateToSyllabusString(newStartDate)} - ${dateToSyllabusString(newEndDate)}`;
+    termNameEl.innerHTML = `<p><strong>${syllabusHeaderName(termNameEl)}:</strong> ${newTermName}</p>`;
+    datesEl.innerHTML = `<p><strong>${syllabusHeaderName(datesEl)}:</strong> ${dateRangeText}</p>`;
+    changedText.push(`${oldTermName} -> ${termNameEl.innerText}`);
+    changedText.push(`${oldDates} -> ${datesEl.innerText}`);
+    const output = {
+        html: syllabusBody.innerHTML,
+        changedText,
+    };
+    syllabusBody.remove();
+    return output;
+}
+function dateToSyllabusString(date) {
+    return `${date.toLocaleString(DEFAULT_LOCALE, { month: 'long', day: 'numeric' })}`;
+}
+function syllabusHeaderName(el) {
+    const header = el.querySelector('strong');
+    if (!header)
+        return null;
+    const html = header.innerHTML;
+    return html.replace(/:$/, '');
+}
+class SyllabusUpdateError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "SyllabusUpdateError";
+    }
+}
+class NoOverviewModuleFoundError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "NoOverviewModuleFoundError";
+    }
+}
+class MalformedSyllabusError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "MalformedSyllabusError";
+    }
+}
+class NoAssignmentsWithDueDatesError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "NoAssignmentsWithDueDatesError";
+    }
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/course/index.ts":
+/*!************************************!*\
+  !*** ./src/canvas/course/index.ts ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CourseNotFoundException: () => (/* binding */ CourseNotFoundException),
+/* harmony export */   createNewCourse: () => (/* binding */ createNewCourse),
+/* harmony export */   getCourseData: () => (/* binding */ getCourseData),
+/* harmony export */   getCourseGenerator: () => (/* binding */ getCourseGenerator),
+/* harmony export */   getCourseIdFromUrl: () => (/* binding */ getCourseIdFromUrl),
+/* harmony export */   getGradingStandards: () => (/* binding */ getGradingStandards)
+/* harmony export */ });
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var _publish_fixesAndUpdates_validations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../publish/fixesAndUpdates/validations */ "./src/publish/fixesAndUpdates/validations/index.ts");
+/* harmony import */ var _Course__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Course */ "./src/canvas/course/Course.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
+var __await = (undefined && undefined.__await) || function (v) { return this instanceof __await ? (this.v = v, this) : new __await(v); }
+var __asyncGenerator = (undefined && undefined.__asyncGenerator) || function (thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function awaitReturn(f) { return function (v) { return Promise.resolve(v).then(f, reject); }; }
+    function verb(n, f) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; if (f) i[n] = f(i[n]); } }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+};
+
+
+
+function getGradingStandards(contextId, contextType, config) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const url = `/api/v1/${contextType}s/${contextId}/grading_standards`;
+        return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.getPagedData)(url, config);
+    });
+}
+function generatorMap(generator, nextMapFunc) {
+    return __asyncGenerator(this, arguments, function* generatorMap_1() {
+        var _a, e_1, _b, _c;
+        let i = 0;
+        try {
+            for (var _d = true, generator_1 = __asyncValues(generator), generator_1_1; generator_1_1 = yield __await(generator_1.next()), _a = generator_1_1.done, !_a; _d = true) {
+                _c = generator_1_1.value;
+                _d = false;
+                let value = _c;
+                yield yield __await(nextMapFunc(value, i, generator));
+                i++;
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (!_d && !_a && (_b = generator_1.return)) yield __await(_b.call(generator_1));
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+    });
+}
+function getCourseData(id, config) {
+    const url = `/api/v1/courses/${id}`;
+    return (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url, config);
+}
+function getCourseGenerator(queryString, accountIds, term, config) {
+    if (!Array.isArray(accountIds))
+        accountIds = [accountIds];
+    const defaultConfig = {
+        queryParams: {
+            search_term: queryString,
+        }
+    };
+    if (term && defaultConfig.queryParams)
+        defaultConfig.queryParams.enrollment_term_id = term.id;
+    config = (0,_publish_fixesAndUpdates_validations__WEBPACK_IMPORTED_MODULE_1__.overrideConfig)(defaultConfig, config);
+    const generators = accountIds.map(accountId => {
+        let url = `/api/v1/accounts/${accountId}/courses`;
+        return (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.getPagedDataGenerator)(url, config);
+    });
+    return generatorMap((0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.mergePagedDataGenerators)(generators), courseData => new _Course__WEBPACK_IMPORTED_MODULE_2__.Course(courseData));
+}
+function createNewCourse(courseCode, accountId, name, config) {
+    return __awaiter(this, void 0, void 0, function* () {
+        name !== null && name !== void 0 ? name : (name = courseCode);
+        const createUrl = `/api/v1/accounts/${accountId}/courses/`;
+        let createConfig = {
+            fetchInit: {
+                method: 'POST',
+                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)({
+                    course: {
+                        name,
+                        course_code: courseCode
+                    }
+                })
+            }
+        };
+        return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(createUrl, (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(createConfig, config, true));
+    });
+}
+function getCourseIdFromUrl(url) {
+    let match = /courses\/(\d+)/.exec(url);
+    if (match) {
+        return parseInt(match[1]);
+    }
+    return null;
+}
+class CourseNotFoundException extends Error {
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/course/modules.ts":
+/*!**************************************!*\
+  !*** ./src/canvas/course/modules.ts ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   changeModuleLockDate: () => (/* binding */ changeModuleLockDate),
+/* harmony export */   getModuleOverview: () => (/* binding */ getModuleOverview),
+/* harmony export */   getModuleWeekNumber: () => (/* binding */ getModuleWeekNumber),
+/* harmony export */   getModulesByWeekNumber: () => (/* binding */ getModulesByWeekNumber)
+/* harmony export */ });
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var _content__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../content */ "./src/canvas/content/index.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+//TODO -- migrate some of the functionality built into course into functions here
+function changeModuleLockDate(courseId, module, targetDate) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const payload = {
+            module: {
+                unlock_at: targetDate.toString()
+            }
+        };
+        const url = `/api/v1/courses/${courseId}/modules/${module.id}`;
+        const result = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url, {
+            fetchInit: {
+                method: 'PUT',
+                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(payload)
+            }
+        });
+    });
+}
+function getModuleOverview(module, courseId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let overview = module.items.find(item => item.type === "Page" &&
+            item.title.toLowerCase().includes('overview'));
+        if (!(overview === null || overview === void 0 ? void 0 : overview.url))
+            return; //skip this if it's not an overview
+        const url = overview.url.replace(/.*\/api\/v1/, '/api/v1');
+        const pageData = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url);
+        return new _content__WEBPACK_IMPORTED_MODULE_1__.Page(pageData, courseId);
+    });
+}
+function getModuleWeekNumber(module) {
+    const regex = /(week|module) (\d+)/i;
+    let match = module.name.match(regex);
+    let weekNumber = !match ? null : Number(match[1]);
+    if (!weekNumber) {
+        for (let moduleItem of module.items) {
+            if (!moduleItem.hasOwnProperty('title')) {
+                continue;
+            }
+            let match = moduleItem.title.match(regex);
+            if (match) {
+                weekNumber = match[2];
+            }
+        }
+    }
+    return weekNumber;
+}
+function getModulesByWeekNumber(modules) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let modulesByWeekNumber = {};
+        for (let module of modules) {
+            let weekNumber = getModuleWeekNumber(module);
+            if (weekNumber) {
+                modulesByWeekNumber[weekNumber] = module;
+            }
+        }
+        return modulesByWeekNumber;
+    });
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/files.ts":
+/*!*****************************!*\
+  !*** ./src/canvas/files.ts ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   uploadFile: () => (/* binding */ uploadFile)
+/* harmony export */ });
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+function uploadFile(file, folder, url) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const initialParams = {
+            name: file.name,
+            no_redirect: true,
+            on_duplicate: 'overwrite'
+        };
+        if (typeof folder === 'number')
+            initialParams.parent_folder_id = folder;
+        else
+            initialParams.parent_folder_path = folder;
+        let response = yield fetch(url, {
+            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(initialParams),
+            method: 'POST'
+        });
+        const data = yield response.json();
+        const uploadParams = data.upload_params;
+        const uploadFormData = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(uploadParams);
+        uploadFormData.append('file', file);
+        response = yield fetch(data.upload_url, {
+            method: 'POST',
+            body: uploadFormData,
+        });
+        assert__WEBPACK_IMPORTED_MODULE_1___default()(response.ok);
+    });
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/image.ts":
+/*!*****************************!*\
+  !*** ./src/canvas/image.ts ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   backgroundDownloadImage: () => (/* binding */ backgroundDownloadImage),
+/* harmony export */   contentDownloadImage: () => (/* binding */ contentDownloadImage),
+/* harmony export */   getResizedBlob: () => (/* binding */ getResizedBlob)
+/* harmony export */ });
+/* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! webextension-polyfill */ "./node_modules/webextension-polyfill/dist/browser-polyfill.js");
+/* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+function getResizedBlob(src_1, width_1) {
+    return __awaiter(this, arguments, void 0, function* (src, width, height = undefined) {
+        let imageSrc = yield contentDownloadImage(src);
+        let canvas = document.createElement('canvas');
+        let image = new Image();
+        image.src = imageSrc;
+        let ctx = canvas.getContext('2d');
+        return new Promise((resolve) => {
+            image.onload = () => {
+                height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
+                assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
+                console.log(image.src);
+                canvas.width = width;
+                canvas.height = height;
+                ctx.drawImage(image, 0, 0, width, height);
+                canvas.toBlob(resolve);
+            };
+        });
+    });
+}
+function contentDownloadImage(src) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const base64 = yield webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.sendMessage({ downloadImage: src });
+        return base64;
+    });
+}
+function backgroundDownloadImage(src) {
+    //if(!height) height = src.height / src.width * width;
+    const imageUrl = src;
+    return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
+        const imageFileResponse = yield fetch(imageUrl);
+        let reader = new FileReader();
+        reader.onload = event => {
+            console.log(reader.result);
+            resolve(reader.result);
+        };
+        const blob = yield imageFileResponse.blob();
+        reader.readAsDataURL(blob);
+    }));
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/index.ts":
+/*!*****************************!*\
+  !*** ./src/canvas/index.ts ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Account: () => (/* binding */ Account),
+/* harmony export */   NotImplementedException: () => (/* binding */ NotImplementedException),
+/* harmony export */   Rubric: () => (/* binding */ Rubric),
+/* harmony export */   RubricAssociation: () => (/* binding */ RubricAssociation),
+/* harmony export */   Term: () => (/* binding */ Term),
+/* harmony export */   apiWriteConfig: () => (/* binding */ apiWriteConfig)
+/* harmony export */ });
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./baseCanvasObject */ "./src/canvas/baseCanvasObject.ts");
+/* harmony import */ var _publish_fixesAndUpdates_validations_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../publish/fixesAndUpdates/validations/index */ "./src/publish/fixesAndUpdates/validations/index.ts");
+// noinspection GrazieInspection
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+/* Very Initial refactor to JS using ChatGPT4
+NOTE: Almost all of this code has had to be rewritten since then.
+And starting to convert to ts
+ */
+/* THis has since been almost entirely rewritten. It did not do a great job at first pass.
+ It kept inventing code that should work but didn't */
+
+
+
+
+/**
+ *  A base class for objects that interact with the Canvas API
+ */
+class Account extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_2__.BaseCanvasObject {
+    static getFromUrl() {
+        return __awaiter(this, arguments, void 0, function* (url = null) {
+            if (url === null) {
+                url = document.documentURI;
+            }
+            let match = /accounts\/(\d+)/.exec(url);
+            if (match) {
+                console.log(match);
+                return yield this.getAccountById(parseInt(match[1]));
+            }
+            return null;
+        });
+    }
+    static getAccountById(accountId_1) {
+        return __awaiter(this, arguments, void 0, function* (accountId, config = undefined) {
+            const data = yield this.getDataById(accountId, null, config);
+            console.assert();
+            return new Account(data);
+        });
+    }
+    static getRootAccount() {
+        return __awaiter(this, arguments, void 0, function* (resetCache = false) {
+            let accounts = yield this.getAll();
+            if (!resetCache && this.hasOwnProperty('account') && this.account) {
+                return this.account;
+            }
+            let root = accounts.find((a) => a.rootAccountId === null);
+            assert__WEBPACK_IMPORTED_MODULE_0___default()(root);
+            this.account = root;
+            return root;
+        });
+    }
+    get rootAccountId() {
+        return this.canvasData['root_account_id'];
+    }
+}
+Account.nameProperty = 'name'; // The field name of the primary name of the canvas object type
+Account.contentUrlTemplate = '/api/v1/accounts/{content_id}'; // A templated url to get a single item
+Account.allContentUrlTemplate = '/api/v1/accounts'; // A templated url to get all items
+class Rubric extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_2__.BaseCanvasObject {
+    constructor(data, courseId) {
+        super(data);
+        this.courseId = courseId;
+    }
+    associations() {
+        return __awaiter(this, arguments, void 0, function* (reload = false) {
+            if ('associations' in this.canvasData && !reload) {
+                return this.canvasData['associations'];
+            }
+            let data = yield this.myClass.getDataById(this.id, this.courseId, { queryParams: { 'include': ['associations'] } });
+            let associations = data['associations'].map((data) => new RubricAssociation(data, this.courseId));
+            this.canvasData['associations'] = associations;
+            return associations;
+        });
+    }
+}
+Rubric.nameProperty = 'title';
+Rubric.contentUrlTemplate = "/api/v1/courses/{course_id}/rubrics/{content_id}";
+Rubric.allContentUrlTemplate = "/api/v1/courses/{course_id}/rubrics";
+class RubricAssociation extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_2__.BaseCanvasObject {
+    constructor(data, courseId) {
+        super(data);
+        this.courseId = courseId;
+    }
+    get useForGrading() {
+        return this.canvasData['use_for_grading'];
+    }
+    setUseForGrading(value, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.canvasData['use_for_grading'] = value;
+            return yield this.saveData({ 'rubric_association[use_for_grading]': value }, config);
+        });
+    }
+}
+RubricAssociation.contentUrlTemplate = "/api/v1/courses/{course_id}/rubric_associations/{content_id}";
+RubricAssociation.allContentUrlTemplate = "/api/v1/courses/{course_id}/rubric_associations";
+class Term extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_2__.BaseCanvasObject {
+    static getTerm(code_1) {
+        return __awaiter(this, arguments, void 0, function* (code, workflowState = 'all', config = undefined) {
+            const terms = yield this.searchTerms(code, workflowState, config);
+            if (!Array.isArray(terms) || terms.length <= 0) {
+                return null;
+            }
+            return terms[0];
+        });
+    }
+    static getTermById(termId_1) {
+        return __awaiter(this, arguments, void 0, function* (termId, config = null) {
+            let account = yield Account.getRootAccount();
+            let url = `/api/v1/accounts/${account.id}/terms/${termId}`;
+            let termData = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url, config);
+            if (termData)
+                return new Term(termData);
+            return null;
+        });
+    }
+    static getAllActiveTerms() {
+        return __awaiter(this, arguments, void 0, function* (config = null) {
+            return yield this.searchTerms(null, 'active', config);
+        });
+    }
+    static searchTerms() {
+        return __awaiter(this, arguments, void 0, function* (code = null, workflowState = 'all', config = null) {
+            config = config || {};
+            config.queryParams = config.queryParams || {};
+            let queryParams = config.queryParams;
+            if (workflowState)
+                queryParams['workflow_state'] = workflowState;
+            if (code)
+                queryParams['term_name'] = code;
+            let rootAccount = yield Account.getRootAccount();
+            assert__WEBPACK_IMPORTED_MODULE_0___default()(rootAccount);
+            let url = `/api/v1/accounts/${rootAccount.id}/terms`;
+            const data = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.getPagedData)(url, config);
+            let terms = [];
+            for (let datum of data) {
+                if (datum.hasOwnProperty('enrollment_terms')) {
+                    for (let termData of datum['enrollment_terms']) {
+                        terms.push(termData);
+                    }
+                }
+                else {
+                    terms.push(datum);
+                }
+            }
+            console.log(terms);
+            if (!terms || terms.length === 0) {
+                return null;
+            }
+            return terms.map(term => new Term(term));
+        });
+    }
+}
+Term.nameProperty = "name";
+class NotImplementedException extends Error {
+}
+function apiWriteConfig(method, data, baseConfig) {
+    const body = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.formDataify)(data);
+    return (0,_publish_fixesAndUpdates_validations_index__WEBPACK_IMPORTED_MODULE_3__.overrideConfig)({
+        fetchInit: {
+            method,
+            body,
+        }
+    }, baseConfig);
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/profile.ts":
+/*!*******************************!*\
+  !*** ./src/canvas/profile.ts ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getCurioPageFrontPageProfile: () => (/* binding */ getCurioPageFrontPageProfile),
+/* harmony export */   getFacultyPages: () => (/* binding */ getFacultyPages),
+/* harmony export */   getPotentialFacultyProfiles: () => (/* binding */ getPotentialFacultyProfiles),
+/* harmony export */   getProfileFromPage: () => (/* binding */ getProfileFromPage),
+/* harmony export */   renderProfileIntoCurioFrontPage: () => (/* binding */ renderProfileIntoCurioFrontPage),
+/* harmony export */   winnow: () => (/* binding */ winnow)
+/* harmony export */ });
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var _course_Course__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./course/Course */ "./src/canvas/course/Course.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+let facultyCourseCached;
+function getFacultyCourse() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const facultyCourse = facultyCourseCached !== null && facultyCourseCached !== void 0 ? facultyCourseCached : yield _course_Course__WEBPACK_IMPORTED_MODULE_2__.Course.getByCode('Faculty Bios');
+        facultyCourseCached = facultyCourse;
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(facultyCourse);
+        return facultyCourse;
+    });
+}
+function getFacultyPages(searchTerm) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const facultyCourse = yield getFacultyCourse();
+        return yield facultyCourse.getPages({
+            queryParams: {
+                include: ['body'],
+                search_term: searchTerm
+            }
+        });
+    });
+}
+function getPotentialFacultyProfiles(user) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var _a;
+        let pages = [];
+        const [lastName, firstName] = user.name.split(' ');
+        for (let query of [
+            user.name,
+            lastName,
+            firstName,
+        ]) {
+            console.log(query);
+            pages = yield getFacultyPages(query);
+            if (pages.length > 0)
+                break;
+        }
+        let profiles = pages.map((page) => getProfileFromPage(page, user), true);
+        if (profiles.length > 0) {
+            for (let profile of profiles) {
+                (_a = profile.displayName) !== null && _a !== void 0 ? _a : (profile.displayName = user.name);
+            }
+        }
+        return profiles;
+    });
+}
+function getProfileFromPage(page, user) {
+    const profile = getProfileFromPageHtml(page.body, user);
+    profile.sourcePage = page;
+    return profile;
+}
+function getProfileFromPageHtml(html, user) {
+    const el = document.createElement('div');
+    el.innerHTML = html;
+    const displayName = getDisplayName(el);
+    const body = getProfileBody(el);
+    const image = getImageLink(el);
+    return {
+        user,
+        bio: body,
+        displayName,
+        image,
+        imageLink: image === null || image === void 0 ? void 0 : image.src
+    };
+}
+function getProfileBody(el) {
+    const h4s = el.querySelectorAll('h4');
+    const instructorHeaders = Array.from(h4s).filter((el) => {
+        return el.innerHTML.search(/instructor/i);
+    });
+    let potentials = [];
+    for (let header of instructorHeaders) {
+        const potentialParent = header.parentElement;
+        if (potentialParent) {
+            header.remove();
+            potentials.push(potentialParent.innerHTML);
+        }
+    }
+    potentials = winnow(potentials, [
+        (potential) => potential.length > 0,
+    ]);
+    /* just guess if we can't find anything */
+    if (potentials.length > 0) {
+        return potentials[0];
+    }
+    return null;
+}
+function getDisplayName(el) {
+    let titles = Array.from(el.querySelectorAll('strong em'));
+    if (titles.length === 0) {
+        let enclosedImages = Array.from(el.querySelectorAll('p img'));
+        titles = enclosedImages.map((el) => { var _a; return (_a = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.parentElement)(el, 'p')) === null || _a === void 0 ? void 0 : _a.nextElementSibling; })
+            .filter((el) => el instanceof Element);
+    }
+    if (titles.length === 0) {
+        let headings = Array.from(el.querySelectorAll('p strong'));
+        let instructorHeaders = headings.filter(el => el.innerHTML.search(/Instructor/));
+        titles = instructorHeaders.map((el) => el.previousElementSibling)
+            .filter((el) => el instanceof Element);
+    }
+    titles = titles.filter((title) => title.textContent && title.textContent.length > 0);
+    if (titles.length > 0)
+        return titles[0].textContent;
+    return null;
+}
+/**
+ * Finds all the image links in the content and returns the biggest.
+ * @param el
+ */
+function getImageLink(el) {
+    let imgs = el.querySelectorAll('img');
+    if (imgs.length === 0)
+        return null;
+    return Array.from(imgs)[1];
+}
+/**
+ * Takes in a list of parameters and a set of filter functions. Runs filter functions until there are one or fewer elements,
+ * or it runs out of filter functions. Returns post-filtered list.
+ * @param originalList The list of items to run
+ * @param winnowFuncs A list of filter functions, run in order
+ * @param returnLastNonEmpty If true, will return the last non-empty array found if elements are winnowed to 0
+ */
+function winnow(originalList, winnowFuncs, returnLastNonEmpty = false) {
+    let copyList = [...originalList];
+    if (copyList.length === 1)
+        return copyList; //already at 1 element
+    let lastSet = [...copyList];
+    for (let winnowFunc of winnowFuncs) {
+        lastSet = [...copyList];
+        copyList = copyList.filter(winnowFunc);
+        if (copyList.length === 1)
+            break;
+    }
+    if (copyList.length === 0 && returnLastNonEmpty)
+        return lastSet;
+    return copyList;
+}
+function getCurioPageFrontPageProfile(html, user) {
+    const el = document.createElement('div');
+    el.innerHTML = html;
+    const header = getCurioHeader(el);
+    const match = header.innerHTML.match(/Meet your instructor, ?(.*)!/i);
+    const displayName = match ? match[1] : null;
+    const bio = getCurioBio(el);
+    const image = getCurioProfileImage(el);
+    return {
+        user,
+        displayName,
+        image,
+        imageLink: image ? image.src : null,
+        bio: bio === null || bio === void 0 ? void 0 : bio.innerHTML
+    };
+}
+function renderProfileIntoCurioFrontPage(html, profile) {
+    const el = document.createElement('div');
+    el.innerHTML = html;
+    if (profile.displayName) {
+        const header = getCurioHeader(el);
+        header.innerHTML = `Meet your instructor, ${profile.displayName}!`;
+    }
+    if (profile.bio) {
+        const bio = getCurioBio(el);
+        if (bio) {
+            const classes = bio.classList;
+            if (!classes.contains('cbt-instructor-bio'))
+                classes.add('cbt-instructor-bio');
+            bio.innerHTML = profile.bio;
+        }
+    }
+    if (profile.image) {
+        const image = getCurioProfileImage(el);
+        if (image) {
+            image.src = profile.image.src;
+            image.alt = profile.image.alt;
+        }
+    }
+    else if (profile.imageLink) {
+        const image = getCurioProfileImage(el);
+        if (image) {
+            image.src = profile.imageLink;
+        }
+    }
+    return el.innerHTML;
+}
+function getCurioHeader(el) {
+    let h2s = Array.from(el.querySelectorAll('h2'));
+    h2s = h2s.filter((h2) => h2.innerHTML.match(/Meet your instructor/i));
+    assert__WEBPACK_IMPORTED_MODULE_0___default()(h2s.length === 1, "Can't find bio section of front page.");
+    return h2s[0];
+}
+function getCurioProfileDiv(el) {
+    const header = getCurioHeader(el);
+    const sectionEl = header.nextElementSibling;
+    assert__WEBPACK_IMPORTED_MODULE_0___default()(sectionEl, "Body element of bio not found on page.");
+    return sectionEl;
+}
+function getCurioBio(el) {
+    const profileDiv = getCurioProfileDiv(el);
+    let bio = profileDiv.querySelector('.cbt-instructor-bio');
+    if (bio && bio.innerHTML)
+        return bio;
+    let div = getCurioProfileDiv(el);
+    const p = div.querySelector('p');
+    return p === null || p === void 0 ? void 0 : p.parentElement;
+}
+function getCurioProfileImage(el) {
+    return getCurioProfileDiv(el).querySelector('img');
+}
+
+
+
+/***/ }),
+
+/***/ "./src/date.ts":
+/*!*********************!*\
+  !*** ./src/date.ts ***!
+  \*********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   MalformedDateError: () => (/* binding */ MalformedDateError),
+/* harmony export */   StringNotAMonthDateError: () => (/* binding */ StringNotAMonthDateError),
+/* harmony export */   findDateRange: () => (/* binding */ findDateRange),
+/* harmony export */   oldDateToPlainDate: () => (/* binding */ oldDateToPlainDate)
+/* harmony export */ });
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
+
+
+
+function getMonthNames(style = "long", locale = 'en-US') {
+    return Array.from((0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.range)(1, 12)).map((monthInt) => {
+        return temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from({
+            day: 1,
+            month: monthInt,
+            year: temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.Now.plainDateISO().year
+        }).toLocaleString(locale, {
+            month: style
+        });
+    });
+}
+/**
+ * takes a string of formatted [monthname] [date] and give a plain date
+ * @param value the string to evaluate
+ * @param locale the locale to use to generate month names, e.g. en-US
+ * @param year the year to give the date object. If not provided defaults to current year.
+ */
+function plainDateFromMonthDayString(value, locale, year) {
+    year !== null && year !== void 0 ? year : (year = temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.Now.plainDateISO().year);
+    const match = value.match(getDateRegexString(locale));
+    if (!match)
+        throw new MalformedDateError(value);
+    const fullDate = match[1];
+    return temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from({
+        month: getMonthNumberLut(locale)[match[2]],
+        day: parseInt(match[3]),
+        year
+    });
+}
+const monthNumberLutCache = {};
+/**
+ * returns a string with 3 capturing groups -- 1 - month date, 2 month, 3 date. cuts off rd/th...
+ * @param locale
+ */
+function getMonthNumberLut(locale) {
+    if (monthNumberLutCache[locale])
+        return monthNumberLutCache[locale];
+    const monthNames = getMonthNames('long', locale);
+    const shortMonthNames = getMonthNames('short', locale);
+    const monthNumberLut = {};
+    assert__WEBPACK_IMPORTED_MODULE_0___default()(monthNames.length === shortMonthNames.length);
+    for (let i = 0; i < monthNames.length; i++) {
+        monthNumberLut[monthNames[i]] = i + 1;
+        monthNumberLut[shortMonthNames[i]] = i + 1;
+    }
+    monthNumberLutCache[locale] = monthNumberLut;
+    return monthNumberLut;
+}
+const dateRegexStringCache = {};
+//TODO: Make the capture groups in this optional
+function getDateRegexString(locale = 'en-US') {
+    if (dateRegexStringCache[locale])
+        return dateRegexStringCache[locale];
+    const monthNames = getMonthNames('long', locale);
+    const shortMonthNames = getMonthNames('short', locale);
+    const monthRegexDatePart = `(?:${[...monthNames, ...shortMonthNames].join('|')})`;
+    const output = `((${monthRegexDatePart}) (\\d+))(?:\\w{2}|)`;
+    dateRegexStringCache[locale] = output;
+    return output;
+}
+/**
+ * Looks for a date range in text and, if found, returns an object with start and end params as Temporal PlainDates
+ * @param textToSearch
+ * @param locale
+ */
+function findDateRange(textToSearch, locale = 'en-US') {
+    const dateRegExString = getDateRegexString(locale);
+    const searchRegex = new RegExp(`(${dateRegExString}).*(${dateRegExString})`, 'i');
+    const dateRegex = new RegExp(dateRegExString, 'i');
+    const matchRange = textToSearch.match(searchRegex);
+    if (!matchRange)
+        return null; //No date range found in syllabus
+    let start, end;
+    for (let separator of ['-', 'to']) {
+        [start, end] = matchRange[0].split(separator);
+        if (start && end)
+            break;
+    }
+    if (!start || !end)
+        throw new MalformedDateError('Cannot find date range in syllabus');
+    const startMatch = start.match(dateRegex);
+    const endMatch = end.match(dateRegex);
+    if (!startMatch)
+        throw new MalformedDateError(`Missing Start Date ${start}`);
+    if (!endMatch)
+        throw new MalformedDateError(`Missing End Date ${end}`);
+    return {
+        start: plainDateFromMonthDayString(startMatch[0], locale),
+        end: plainDateFromMonthDayString(endMatch[0], locale)
+    };
+}
+function oldDateToPlainDate(date) {
+    const data = {
+        day: date.getDate(),
+        month: date.getMonth() + 1,
+        year: date.getFullYear(),
+    };
+    return temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from(data);
+}
+class StringNotAMonthDateError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "StringNotAMonthDateError";
+    }
+}
+class MalformedDateError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "MalformedDateError";
+    }
+}
+
+
+/***/ }),
+
+/***/ "./src/publish/fixesAndUpdates/validations/index.ts":
+/*!**********************************************************!*\
+  !*** ./src/publish/fixesAndUpdates/validations/index.ts ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   badContentFixFunc: () => (/* binding */ badContentFixFunc),
+/* harmony export */   badContentRunFunc: () => (/* binding */ badContentRunFunc),
+/* harmony export */   badSyllabusFixFunc: () => (/* binding */ badSyllabusFixFunc),
+/* harmony export */   capitalize: () => (/* binding */ capitalize),
+/* harmony export */   matchHighlights: () => (/* binding */ matchHighlights),
+/* harmony export */   overrideConfig: () => (/* binding */ overrideConfig),
+/* harmony export */   preserveCapsReplace: () => (/* binding */ preserveCapsReplace),
+/* harmony export */   testResult: () => (/* binding */ testResult)
+/* harmony export */ });
+/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+//number of characters to show around a match
+const SHOW_WINDOW = 30;
+const MAX_SEARCH_RETURN_SIZE = 100;
+function testResult(success, failureMessage, links, successMessage = ['success']) {
+    success = !!success;
+    const response = {
+        success,
+        message: success ? successMessage : failureMessage
+    };
+    if (links)
+        response.links = links;
+    return response;
+}
+function capitalize(str) {
+    return str.replace(/\b[a-z]/g, (substring) => substring.toUpperCase());
+}
+function preserveCapsReplace(regex, replace) {
+    return (substring, ..._args) => {
+        const replacedSubstring = substring.replace(regex, replace);
+        if (substring.toUpperCase() === substring)
+            return replacedSubstring.toUpperCase();
+        if (capitalize(substring) === substring)
+            return capitalize(replacedSubstring);
+        return replacedSubstring;
+    };
+}
+function matchHighlights(content, search, maxHighlightLength = MAX_SEARCH_RETURN_SIZE, windowSize = SHOW_WINDOW) {
+    search.lastIndex = 0;
+    let matches = search.global ? Array.from(content.matchAll(search)) : [];
+    search.lastIndex = 0;
+    if (!search.global) {
+        let match = search.exec(content);
+        if (match)
+            matches.push(match);
+    }
+    return matches.map(match => {
+        const minIndex = Math.max(0, match.index - windowSize);
+        const maxIndex = Math.min(content.length, match.index + match[0].length + windowSize);
+        let substring = content.substring(minIndex, maxIndex);
+        if (substring.length > maxHighlightLength) {
+            const half = Math.floor(maxHighlightLength / 2);
+            substring = substring.replace(new RegExp(`^(.{${half}}).*(.{${half}})$`), '$1...$2');
+        }
+        return substring;
+    });
+}
+function badContentRunFunc(badTest) {
+    return (course, config) => __awaiter(this, void 0, void 0, function* () {
+        const defaultConfig = { queryParams: { include: ['body'], per_page: 50 } };
+        let content = yield course.getContent(overrideConfig(config, defaultConfig));
+        const badContent = content.filter(item => item.body && item.body.search(badTest) > -1);
+        const syllabus = yield course.getSyllabus(config);
+        let syllabusTest = syllabus.search(badTest) > -1;
+        const success = badContent.length === 0 && !syllabusTest;
+        let links = [];
+        let failureMessage = [];
+        if (badContent.length > 0) {
+            let messageSets = [...badContent.map(a => {
+                    var _a;
+                    if (!((_a = a.body) === null || _a === void 0 ? void 0 : _a.length))
+                        return [a.name];
+                    const content = a.body;
+                    return matchHighlights(content, badTest);
+                })];
+            for (let messages of messageSets)
+                failureMessage.push(...messages);
+            links = [...links, ...badContent.map(a => a.htmlContentUrl)];
+        }
+        if (syllabusTest) {
+            failureMessage.push(...matchHighlights(syllabus, badTest));
+            links.push(`/courses/${course.id}/assignments/syllabus`);
+        }
+        const result = testResult(success, failureMessage, links);
+        if (!success)
+            result.links = badContent.map(content => content.htmlContentUrl);
+        return result;
+    });
+}
+function badSyllabusFixFunc(validateRegEx, replace) {
+    const replaceText = replaceTextFunc(validateRegEx, replace);
+    return (course) => __awaiter(this, void 0, void 0, function* () {
+        try {
+            yield fixSyllabus(course, validateRegEx, replaceText);
+            return {
+                success: true,
+                message: 'success'
+            };
+        }
+        catch (e) {
+            return {
+                success: false,
+                message: e instanceof Error ? e.toString() : "An Error has occurred"
+            };
+        }
+    });
+}
+function badContentFixFunc(validateRegEx, replace) {
+    return (course) => __awaiter(this, void 0, void 0, function* () {
+        let success = false;
+        let message = "";
+        const errors = [];
+        const includeBody = { queryParams: { include: ['body'] } };
+        let content = yield course.getContent(includeBody);
+        content = content.filter(item => item.body && item.body.search(validateRegEx) > -1);
+        const replaceText = replaceTextFunc(validateRegEx, replace);
+        yield fixSyllabus(course, validateRegEx, replaceText);
+        for (let item of content) {
+            if (!item.body)
+                continue;
+            if (item.body.search(validateRegEx) === -1)
+                continue;
+            const newText = replaceText(item.body);
+            if (newText.search(validateRegEx) > -1)
+                throw new Error(`Fix broken for ${item.name})`);
+            yield item.updateContent(newText);
+        }
+        return {
+            success,
+            message
+        };
+    });
+}
+function replaceTextFunc(validateRegEx, replace) {
+    return (str) => {
+        //This is silly, but it gets typescript to stop yelling at me about the overload
+        if (typeof replace === 'string')
+            return str.replaceAll(validateRegEx, replace);
+        return str.replaceAll(validateRegEx, replace);
+    };
+}
+function fixSyllabus(course, validateRegEx, replaceText) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const syllabus = yield course.getSyllabus();
+        if (syllabus.search(validateRegEx) > -1) {
+            const newText = replaceText(syllabus);
+            if (newText.search(validateRegEx) > -1)
+                throw new Error("Fix broken for syllabus " + validateRegEx.toString() + newText);
+            yield course.changeSyllabus(newText);
+        }
+    });
+}
+function overrideConfig(source, override) {
+    var _a;
+    return (_a = (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(source, override)) !== null && _a !== void 0 ? _a : {};
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/util/support/isBufferBrowser.js":
+/*!******************************************************!*\
+  !*** ./node_modules/util/support/isBufferBrowser.js ***!
+  \******************************************************/
 /***/ ((module) => {
 
 module.exports = function isBuffer(arg) {
@@ -3837,7 +7113,10 @@ module.exports = function isBuffer(arg) {
 
 /***/ }),
 
-/***/ 9032:
+/***/ "./node_modules/util/support/types.js":
+/*!********************************************!*\
+  !*** ./node_modules/util/support/types.js ***!
+  \********************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -3846,10 +7125,10 @@ module.exports = function isBuffer(arg) {
 
 
 
-var isArgumentsObject = __webpack_require__(7244);
-var isGeneratorFunction = __webpack_require__(8184);
-var whichTypedArray = __webpack_require__(5767);
-var isTypedArray = __webpack_require__(5680);
+var isArgumentsObject = __webpack_require__(/*! is-arguments */ "./node_modules/is-arguments/index.js");
+var isGeneratorFunction = __webpack_require__(/*! is-generator-function */ "./node_modules/is-generator-function/index.js");
+var whichTypedArray = __webpack_require__(/*! which-typed-array */ "./node_modules/which-typed-array/index.js");
+var isTypedArray = __webpack_require__(/*! is-typed-array */ "./node_modules/is-typed-array/index.js");
 
 function uncurryThis(f) {
   return f.call.bind(f);
@@ -4179,10 +7458,13 @@ exports.isAnyArrayBuffer = isAnyArrayBuffer;
 
 /***/ }),
 
-/***/ 537:
+/***/ "./node_modules/util/util.js":
+/*!***********************************!*\
+  !*** ./node_modules/util/util.js ***!
+  \***********************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-/* provided dependency */ var process = __webpack_require__(5606);
+/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -4649,7 +7931,7 @@ function reduceToSingleString(output, base, braces) {
 
 // NOTE: These type checking functions intentionally don't use `instanceof`
 // because it is fragile and can be easily faked with `Object.create()`.
-exports.types = __webpack_require__(9032);
+exports.types = __webpack_require__(/*! ./support/types */ "./node_modules/util/support/types.js");
 
 function isArray(ar) {
   return Array.isArray(ar);
@@ -4730,7 +8012,7 @@ function isPrimitive(arg) {
 }
 exports.isPrimitive = isPrimitive;
 
-exports.isBuffer = __webpack_require__(1135);
+exports.isBuffer = __webpack_require__(/*! ./support/isBuffer */ "./node_modules/util/support/isBufferBrowser.js");
 
 function objectToString(o) {
   return Object.prototype.toString.call(o);
@@ -4774,7 +8056,7 @@ exports.log = function() {
  *     prototype.
  * @param {function} superCtor Constructor function to inherit prototype from.
  */
-exports.inherits = __webpack_require__(6698);
+exports.inherits = __webpack_require__(/*! inherits */ "./node_modules/inherits/inherits_browser.js");
 
 exports._extend = function(origin, add) {
   // Don't do anything if add isn't an object
@@ -4902,7 +8184,10 @@ exports.callbackify = callbackify;
 
 /***/ }),
 
-/***/ 6815:
+/***/ "./node_modules/webextension-polyfill/dist/browser-polyfill.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/webextension-polyfill/dist/browser-polyfill.js ***!
+  \*********************************************************************/
 /***/ (function(module, exports) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
@@ -6173,21 +9458,24 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 5767:
+/***/ "./node_modules/which-typed-array/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/which-typed-array/index.js ***!
+  \*************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var forEach = __webpack_require__(2682);
-var availableTypedArrays = __webpack_require__(9209);
-var callBind = __webpack_require__(487);
-var callBound = __webpack_require__(8075);
-var gOPD = __webpack_require__(5795);
+var forEach = __webpack_require__(/*! for-each */ "./node_modules/for-each/index.js");
+var availableTypedArrays = __webpack_require__(/*! available-typed-arrays */ "./node_modules/available-typed-arrays/index.js");
+var callBind = __webpack_require__(/*! call-bind */ "./node_modules/call-bind/index.js");
+var callBound = __webpack_require__(/*! call-bind/callBound */ "./node_modules/call-bind/callBound.js");
+var gOPD = __webpack_require__(/*! gopd */ "./node_modules/gopd/index.js");
 
 /** @type {(O: object) => string} */
 var $toString = callBound('Object.prototype.toString');
-var hasToStringTag = __webpack_require__(9092)();
+var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "./node_modules/has-tostringtag/shams.js")();
 
 var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
 var typedArrays = availableTypedArrays();
@@ -6297,13 +9585,16 @@ module.exports = function whichTypedArray(value) {
 
 /***/ }),
 
-/***/ 9209:
+/***/ "./node_modules/available-typed-arrays/index.js":
+/*!******************************************************!*\
+  !*** ./node_modules/available-typed-arrays/index.js ***!
+  \******************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var possibleNames = __webpack_require__(6578);
+var possibleNames = __webpack_require__(/*! possible-typed-array-names */ "./node_modules/possible-typed-array-names/index.js");
 
 var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
 
@@ -6320,748 +9611,1021 @@ module.exports = function availableTypedArrays() {
 };
 
 
-/***/ })
+/***/ }),
 
-/******/ 	});
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/global */
-/******/ 	(() => {
-/******/ 		__webpack_require__.g = (function() {
-/******/ 			if (typeof globalThis === 'object') return globalThis;
-/******/ 			try {
-/******/ 				return this || new Function('return this')();
-/******/ 			} catch (e) {
-/******/ 				if (typeof window === 'object') return window;
-/******/ 			}
-/******/ 		})();
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
-(() => {
+/***/ "./node_modules/temporal-polyfill/chunks/classApi.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/temporal-polyfill/chunks/classApi.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
 "use strict";
-
-// EXTERNAL MODULE: ./node_modules/assert/build/assert.js
-var build_assert = __webpack_require__(4148);
-var assert_default = /*#__PURE__*/__webpack_require__.n(build_assert);
-;// CONCATENATED MODULE: ./src/canvas/canvasUtils.ts
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
-var __await = (undefined && undefined.__await) || function (v) { return this instanceof __await ? (this.v = v, this) : new __await(v); }
-var __asyncGenerator = (undefined && undefined.__asyncGenerator) || function (thisArg, _arguments, generator) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var g = generator.apply(thisArg, _arguments || []), i, q = [];
-    return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function () { return this; }, i;
-    function awaitReturn(f) { return function (v) { return Promise.resolve(v).then(f, reject); }; }
-    function verb(n, f) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; if (f) i[n] = f(i[n]); } }
-    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-    function fulfill(value) { resume("next", value); }
-    function reject(value) { resume("throw", value); }
-    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-};
-
-function callAll(funcs, params) {
-    const output = [];
-    function isWithParamsFunc(func) {
-        return typeof func === 'function' && func.length > 0;
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DateTimeFormat: () => (/* binding */ Sr),
+/* harmony export */   IntlExtended: () => (/* binding */ Tr),
+/* harmony export */   Temporal: () => (/* binding */ mr),
+/* harmony export */   toTemporalInstant: () => (/* binding */ toTemporalInstant)
+/* harmony export */ });
+/* harmony import */ var _internal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./internal.js */ "./node_modules/temporal-polyfill/chunks/internal.js");
+function createSlotClass(e, t, n, o, r) {
+  function Class(...e) {
+    if (!(this instanceof Class)) {
+      throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidCallingContext);
     }
-    function isWithoutParamsFunc(func) {
-        return typeof func === 'function' && func.length === 0;
+    oo(this, t(...e));
+  }
+  function bindMethod(e, t) {
+    return Object.defineProperties((function(...t) {
+      return e.call(this, getSpecificSlots(this), ...t);
+    }), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNameDescriptors)(t));
+  }
+  function getSpecificSlots(t) {
+    const n = no(t);
+    if (!n || n.branding !== e) {
+      throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidCallingContext);
     }
-    for (let func of funcs) {
-        if ((typeof func === 'object')) {
-            output.push(func.func(func.params));
-            continue;
-        }
-        if (isWithoutParamsFunc(func)) {
-            output.push(func());
-            continue;
-        }
-        if (isWithParamsFunc(func) && typeof params !== 'undefined') {
-            output.push(func(params));
-            continue;
-        }
-    }
-    return output;
+    return n;
+  }
+  return Object.defineProperties(Class.prototype, {
+    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createGetterDescriptors)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapProps)(bindMethod, n)),
+    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapProps)(bindMethod, o)),
+    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createStringTagDescriptors)("Temporal." + e)
+  }), Object.defineProperties(Class, {
+    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)(r),
+    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNameDescriptors)(e)
+  }), [ Class, e => {
+    const t = Object.create(Class.prototype);
+    return oo(t, e), t;
+  }, getSpecificSlots ];
 }
 
-/**
- * Traverses up the DOM and finds a parent with a matching Tag
- * @param el
- * @param tagName
- */
-function parentElement(el, tagName) {
-    if (!el)
-        return null;
-    while (el && el.parentElement) {
-        el = el.parentElement;
-        if (el.tagName && el.tagName.toLowerCase() == tagName) {
-            return el;
-        }
+function createProtocolValidator(e) {
+  return e = e.concat("id").sort(), t => {
+    if (!(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.hasAllPropsByName)(t, e)) {
+      throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidProtocol);
     }
-    return null;
-}
-const type_lut = {
-    Assignment: 'assignment',
-    Discussion: 'discussion_topic',
-    Quiz: 'quiz',
-    ExternalTool: 'external_tool',
-    File: 'attachment',
-    Page: 'wiki_page',
-    ExternalUrl: null, //Not passable to restrict
-    Subheader: null, //Not passable to restrict
-};
-function canvasUtils_formDataify(data) {
-    let formData = new FormData();
-    for (let key in data) {
-        addToFormData(formData, key, data[key]);
-    }
-    if (document) {
-        const el = document.querySelector("input[name='authenticity_token']");
-        const authenticityToken = el ? el.value : null;
-        const cookies = getCookies();
-        let csrfToken = cookies['_csrf_token'];
-        if (authenticityToken)
-            formData.append('authenticity_token', authenticityToken);
-        else if (csrfToken) {
-            csrfToken = csrfToken.replaceAll(/%([0-9A-F]{2})/g, (substring, hex) => {
-                const hexCode = hex;
-                return String.fromCharCode(parseInt(hexCode, 16));
-            });
-            console.log(csrfToken);
-            formData.append('authenticity_token', csrfToken);
-        }
-    }
-    return formData;
-}
-function getCookies() {
-    const cookieString = document.cookie;
-    const cookies = cookieString.split('; ');
-    const out = {};
-    for (let cookie of cookies) {
-        const [key, value] = cookie.split('=');
-        out[key] = value;
-    }
-    return out;
-}
-/**
- * Adds arrays and objects in the form formData posts expects
- * @param formData
- * @param key
- * @param value
- */
-function addToFormData(formData, key, value) {
-    if (Array.isArray(value)) {
-        for (let item of value) {
-            addToFormData(formData, `${key}[]`, item);
-        }
-    }
-    else if (typeof value === 'object') {
-        for (let itemKey in value) {
-            const itemValue = value[itemKey];
-            addToFormData(formData, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
-        }
-    }
-    else {
-        formData.append(key, value.toString());
-    }
-}
-function queryStringify(data) {
-    let searchParams = new URLSearchParams();
-    for (let key in data) {
-        addToQuery(searchParams, key, data[key]);
-    }
-    ;
-    return searchParams;
-}
-function addToQuery(searchParams, key, value) {
-    if (Array.isArray(value)) {
-        for (let item of value) {
-            addToQuery(searchParams, `${key}[]`, item);
-        }
-    }
-    else if (typeof value === 'object') {
-        for (let itemKey in value) {
-            const itemValue = value[itemKey];
-            addToQuery(searchParams, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
-        }
-    }
-    else {
-        searchParams.append(key, value);
-    }
-}
-/**
- * Takes in a module item and returns an object specifying its type and content id
- * @param item
- */
-function getItemTypeAndId(item) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let id;
-        let type;
-        assert_default()(type_lut.hasOwnProperty(item.type), "Unexpected type " + item.type);
-        type = type_lut[item.type];
-        if (type === "wiki_page") {
-            assert_default()(item.url); //wiki_page items always have a url param
-            const pageData = yield fetchJson(item.url);
-            id = pageData.page_id;
-        }
-        else {
-            id = item.content_id;
-        }
-        return { type, id };
-    });
-}
-/**
- * @param queryParams
- * @returns {URLSearchParams} The correctly formatted parameters
- */
-function searchParamsFromObject(queryParams) {
-    return queryStringify(queryParams);
-}
-function getApiPagedData(url_1) {
-    return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        return yield getPagedData(`/api/v1/${url}`, config);
-    });
-}
-/**
- * @param url The entire path of the url
- * @param config a configuration object of type ICanvasCallConfig
- * @returns {Promise<Record<string, any>[]>}
- */
-function getPagedData(url_1) {
-    return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        var _a, e_1, _b, _c;
-        const generator = canvasUtils_getPagedDataGenerator(url, config);
-        const out = [];
-        try {
-            for (var _d = true, generator_1 = __asyncValues(generator), generator_1_1; generator_1_1 = yield generator_1.next(), _a = generator_1_1.done, !_a; _d = true) {
-                _c = generator_1_1.value;
-                _d = false;
-                let value = _c;
-                out.push(value);
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (!_d && !_a && (_b = generator_1.return)) yield _b.call(generator_1);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-        return out;
-    });
-}
-/**
- * returns a single pagedDataGenerator that returns generator results from each, looping through results for each
- * @param generators
- */
-function canvasUtils_mergePagedDataGenerators(generators) {
-    return __asyncGenerator(this, arguments, function* mergePagedDataGenerators_1() {
-        var _a, e_2, _b, _c;
-        for (let generator of generators) {
-            try {
-                for (var _d = true, generator_2 = (e_2 = void 0, __asyncValues(generator)), generator_2_1; generator_2_1 = yield __await(generator_2.next()), _a = generator_2_1.done, !_a; _d = true) {
-                    _c = generator_2_1.value;
-                    _d = false;
-                    let result = _c;
-                    yield yield __await(result);
-                }
-            }
-            catch (e_2_1) { e_2 = { error: e_2_1 }; }
-            finally {
-                try {
-                    if (!_d && !_a && (_b = generator_2.return)) yield __await(_b.call(generator_2));
-                }
-                finally { if (e_2) throw e_2.error; }
-            }
-        }
-    });
-}
-function canvasUtils_getPagedDataGenerator(url_1) {
-    return __asyncGenerator(this, arguments, function* getPagedDataGenerator_1(url, config = null) {
-        if (config === null || config === void 0 ? void 0 : config.queryParams) {
-            url += '?' + searchParamsFromObject(config.queryParams);
-        }
-        if (url.includes('undefined')) {
-            console.log(url);
-        }
-        /* Returns a list of data from a GET request, going through multiple pages of data requests as necessary */
-        let response = yield __await(fetch(url, config === null || config === void 0 ? void 0 : config.fetchInit));
-        let data = yield __await(response.json());
-        if (typeof data === 'object' && !Array.isArray(data)) {
-            let values = Array.from(Object.values(data));
-            if (values) {
-                data = values.find((a) => Array.isArray(a));
-            }
-        }
-        assert_default()(Array.isArray(data));
-        for (let value of data) {
-            yield yield __await(value);
-        }
-        let next_page_link = "!";
-        while (next_page_link.length !== 0 &&
-            response &&
-            response.headers.has("Link") && response.ok) {
-            const link = response.headers.get("Link");
-            assert_default()(link);
-            const paginationLinks = link.split(",");
-            const nextLink = paginationLinks.find((link) => link.includes('next'));
-            if (nextLink) {
-                next_page_link = nextLink.split(";")[0].split("<")[1].split(">")[0];
-                response = yield __await(fetch(next_page_link, config === null || config === void 0 ? void 0 : config.fetchInit));
-                let responseData = yield __await(response.json());
-                if (typeof responseData === 'object' && !Array.isArray(responseData)) {
-                    let values = Array.from(Object.values(responseData));
-                    if (values) {
-                        responseData = values === null || values === void 0 ? void 0 : values.find((a) => Array.isArray(a));
-                    }
-                    data = [data, ...responseData];
-                }
-                for (let value of responseData) {
-                    yield yield __await(value);
-                }
-            }
-            else {
-                next_page_link = "";
-            }
-        }
-    });
-}
-function fetchJson(url_1) {
-    return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        var _a;
-        if (config === null || config === void 0 ? void 0 : config.queryParams) {
-            url += '?' + new URLSearchParams(config.queryParams);
-        }
-        config !== null && config !== void 0 ? config : (config = {});
-        if (!document) {
-            (_a = config.fetchInit) !== null && _a !== void 0 ? _a : (config.fetchInit = {});
-            config.fetchInit.headers = [];
-        }
-        const response = yield fetch(url, config.fetchInit);
-        return yield response.json();
-    });
-}
-/**
- * Fetches a json object from /api/v1/${url}
- * @param url
- * @param config query and fetch params
- */
-function canvasUtils_fetchApiJson(url_1) {
-    return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        url = `/api/v1/${url}`;
-        return yield fetchJson(url, config);
-    });
-}
-function fetchOneKnownApiJson(url_1) {
-    return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        let result = yield canvasUtils_fetchApiJson(url, config);
-        assert_default()(result);
-        if (Array.isArray(result))
-            return result[0];
-        return result;
-    });
-}
-function fetchOneUnknownApiJson(url_1) {
-    return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        let result = yield canvasUtils_fetchApiJson(url, config);
-        if (!result)
-            return null;
-        if (Array.isArray(result) && result.length > 0)
-            return result[0];
-        return result;
-    });
-}
-/**
- * sort courses (or course Data) alphabetically by name
- * @param a item to compare.
- * @param b item to compare.
- */
-function courseNameSort(a, b) {
-    if (a.name < b.name)
-        return -1;
-    if (b.name < a.name)
-        return 1;
-    return 0;
-}
-function* canvasUtils_range(start, end) {
-    for (let i = start; i <= end; i++) {
-        yield i;
-    }
-}
-function getPlainTextFromHtml(html) {
-    const el = document.createElement('div');
-    el.innerHTML = html;
-    return el.innerText || el.textContent || "";
-}
-function getCourseIdFromUrl(url) {
-    let match = /courses\/(\d+)/.exec(url);
-    if (match) {
-        return parseInt(match[1]);
-    }
-    return null;
-}
-function batchify(toBatch, batchsize) {
-    const out = [];
-    for (let i = 0; i < toBatch.length; i += batchsize) {
-        out.push(toBatch.slice(i, i + batchsize));
-    }
-    return out;
-}
-function filterUniqueFunc(item, index, array) {
-    return array.indexOf(item) === index;
+    return t;
+  };
 }
 
-;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/index.ts
-var validations_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-//number of characters to show around a match
-const SHOW_WINDOW = 30;
-const MAX_SEARCH_RETURN_SIZE = 100;
-function testResult(success, failureMessage, links, successMessage = ['success']) {
-    success = !!success;
-    const response = {
-        success,
-        message: success ? successMessage : failureMessage
+function rejectInvalidBag(e) {
+  if (no(e) || void 0 !== e.calendar || void 0 !== e.timeZone) {
+    throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidBag);
+  }
+  return e;
+}
+
+function createCalendarFieldMethods(e, t) {
+  const n = {};
+  for (const o in e) {
+    n[o] = ({o: e}, n) => {
+      const r = no(n) || {}, {branding: a} = r, i = a === _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding || t.includes(a) ? r : toPlainDateSlots(n);
+      return e[o](i);
     };
-    if (links)
-        response.links = links;
-    return response;
+  }
+  return n;
 }
-function capitalize(str) {
-    return str.replace(/\b[a-z]/g, (substring) => substring.toUpperCase());
-}
-function preserveCapsReplace(regex, replace) {
-    return (substring, ..._args) => {
-        const replacedSubstring = substring.replace(regex, replace);
-        if (substring.toUpperCase() === substring)
-            return replacedSubstring.toUpperCase();
-        if (capitalize(substring) === substring)
-            return capitalize(replacedSubstring);
-        return replacedSubstring;
+
+function createCalendarGetters(e) {
+  const t = {};
+  for (const n in e) {
+    t[n] = e => {
+      const {calendar: t} = e;
+      return (o = t, "string" == typeof o ? (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps)(o) : (r = o, Object.assign(Object.create(co), {
+        i: r
+      })))[n](e);
+      var o, r;
     };
-}
-function matchHighlights(content, search, maxHighlightLength = MAX_SEARCH_RETURN_SIZE, windowSize = SHOW_WINDOW) {
-    search.lastIndex = 0;
-    let matches = search.global ? Array.from(content.matchAll(search)) : [];
-    search.lastIndex = 0;
-    if (!search.global) {
-        let match = search.exec(content);
-        if (match)
-            matches.push(match);
-    }
-    return matches.map(match => {
-        const minIndex = Math.max(0, match.index - windowSize);
-        const maxIndex = Math.min(content.length, match.index + match[0].length + windowSize);
-        let substring = content.substring(minIndex, maxIndex);
-        if (substring.length > maxHighlightLength) {
-            const half = Math.floor(maxHighlightLength / 2);
-            substring = substring.replace(new RegExp(`^(.{${half}}).*(.{${half}})$`), '$1...$2');
-        }
-        return substring;
-    });
-}
-function badContentRunFunc(badTest) {
-    return (course, config) => validations_awaiter(this, void 0, void 0, function* () {
-        const defaultConfig = { queryParams: { include: ['body'], per_page: 50 } };
-        let content = yield course.getContent(validations_overrideConfig(config, defaultConfig));
-        const badContent = content.filter(item => item.body && item.body.search(badTest) > -1);
-        const syllabus = yield course.getSyllabus(config);
-        let syllabusTest = syllabus.search(badTest) > -1;
-        const success = badContent.length === 0 && !syllabusTest;
-        let links = [];
-        let failureMessage = [];
-        if (badContent.length > 0) {
-            let messageSets = [...badContent.map(a => {
-                    var _a;
-                    if (!((_a = a.body) === null || _a === void 0 ? void 0 : _a.length))
-                        return [a.name];
-                    const content = a.body;
-                    return matchHighlights(content, badTest);
-                })];
-            for (let messages of messageSets)
-                failureMessage.push(...messages);
-            links = [...links, ...badContent.map(a => a.htmlContentUrl)];
-        }
-        if (syllabusTest) {
-            failureMessage.push(...matchHighlights(syllabus, badTest));
-            links.push(`/courses/${course.id}/assignments/syllabus`);
-        }
-        const result = testResult(success, failureMessage, links);
-        if (!success)
-            result.links = badContent.map(content => content.htmlContentUrl);
-        return result;
-    });
-}
-function badSyllabusFixFunc(validateRegEx, replace) {
-    const replaceText = replaceTextFunc(validateRegEx, replace);
-    return (course) => validations_awaiter(this, void 0, void 0, function* () {
-        try {
-            yield fixSyllabus(course, validateRegEx, replaceText);
-            return {
-                success: true,
-                message: 'success'
-            };
-        }
-        catch (e) {
-            return {
-                success: false,
-                message: e instanceof Error ? e.toString() : "An Error has occurred"
-            };
-        }
-    });
-}
-function badContentFixFunc(validateRegEx, replace) {
-    return (course) => validations_awaiter(this, void 0, void 0, function* () {
-        let success = false;
-        let message = "";
-        const errors = [];
-        const includeBody = { queryParams: { include: ['body'] } };
-        let content = yield course.getContent(includeBody);
-        content = content.filter(item => item.body && item.body.search(validateRegEx) > -1);
-        const replaceText = replaceTextFunc(validateRegEx, replace);
-        yield fixSyllabus(course, validateRegEx, replaceText);
-        for (let item of content) {
-            if (!item.body)
-                continue;
-            if (item.body.search(validateRegEx) === -1)
-                continue;
-            const newText = replaceText(item.body);
-            if (newText.search(validateRegEx) > -1)
-                throw new Error(`Fix broken for ${item.name})`);
-            yield item.updateContent(newText);
-        }
-        return {
-            success,
-            message
-        };
-    });
-}
-function replaceTextFunc(validateRegEx, replace) {
-    return (str) => {
-        //This is silly, but it gets typescript to stop yelling at me about the overload
-        if (typeof replace === 'string')
-            return str.replaceAll(validateRegEx, replace);
-        return str.replaceAll(validateRegEx, replace);
-    };
-}
-function fixSyllabus(course, validateRegEx, replaceText) {
-    return validations_awaiter(this, void 0, void 0, function* () {
-        const syllabus = yield course.getSyllabus();
-        if (syllabus.search(validateRegEx) > -1) {
-            const newText = replaceText(syllabus);
-            if (newText.search(validateRegEx) > -1)
-                throw new Error("Fix broken for syllabus " + validateRegEx.toString() + newText);
-            yield course.changeSyllabus(newText);
-        }
-    });
-}
-function validations_overrideConfig(source, override) {
-    var _a, _b;
-    const out = {
-        queryParams: Object.assign(Object.assign({}, source === null || source === void 0 ? void 0 : source.queryParams), override === null || override === void 0 ? void 0 : override.queryParams),
-        fetchInit: Object.assign(Object.assign({}, source === null || source === void 0 ? void 0 : source.fetchInit), override === null || override === void 0 ? void 0 : override.fetchInit)
-    };
-    if (((_a = source === null || source === void 0 ? void 0 : source.queryParams) === null || _a === void 0 ? void 0 : _a.include) && ((_b = override === null || override === void 0 ? void 0 : override.queryParams) === null || _b === void 0 ? void 0 : _b.include)) {
-        out.queryParams.include = [...source === null || source === void 0 ? void 0 : source.queryParams.include, ...override === null || override === void 0 ? void 0 : override.queryParams.include];
-    }
-    return out;
+  }
+  return t;
 }
 
-;// CONCATENATED MODULE: ./src/canvas/baseCanvasObject.ts
-var baseCanvasObject_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-class BaseCanvasObject {
-    constructor(data) {
-        this.accountId = null;
-        this.canvasData = data || {}; // A dict holding the decoded json representation of the object in Canvas
-    }
-    getClass() {
-        return this.constructor;
-    }
-    getItem(item) {
-        return this.canvasData[item];
-    }
-    get myClass() {
-        return this.constructor;
-    }
-    get nameKey() {
-        assert_default()(this.myClass.nameProperty);
-        return this.myClass.nameProperty;
-    }
-    get rawData() {
-        return Object.assign({}, this.canvasData);
-    }
-    get contentUrlPath() {
-        const constructor = this.constructor;
-        assert_default()(typeof this.accountId === 'number');
-        assert_default()(typeof constructor.contentUrlTemplate === 'string');
-        return constructor.contentUrlTemplate
-            .replace('{content_id}', this.id.toString())
-            .replace('{account_id}', this.accountId.toString());
-    }
-    get htmlContentUrl() {
-        return `/${this.contentUrlPath}`;
-    }
-    get data() {
-        return this.canvasData;
-    }
-    static getDataById(contentId_1) {
-        return baseCanvasObject_awaiter(this, arguments, void 0, function* (contentId, courseId = null, config = null) {
-            let url = this.getUrlPathFromIds(contentId, courseId);
-            const response = yield canvasUtils_fetchApiJson(url, config);
-            assert_default()(!Array.isArray(response));
-            return response;
-        });
-    }
-    static getUrlPathFromIds(contentId, courseId) {
-        assert_default()(typeof this.contentUrlTemplate === 'string');
-        let url = this.contentUrlTemplate
-            .replace('{content_id}', contentId.toString());
-        if (courseId)
-            url = url.replace('{course_id}', courseId.toString());
-        return url;
-    }
-    /**
-     * @param courseId - The course ID to get elements within, if applicable
-     * @param accountId - The account ID to get elements within, if applicable
-     */
-    static getAllUrl(courseId = null, accountId = null) {
-        assert_default()(typeof this.allContentUrlTemplate === 'string');
-        let replaced = this.allContentUrlTemplate;
-        if (courseId)
-            replaced = replaced.replace('{course_id}', courseId.toString());
-        if (accountId)
-            replaced = replaced.replace('{account_id}', accountId.toString());
-        return replaced;
-    }
-    static getAll() {
-        return baseCanvasObject_awaiter(this, arguments, void 0, function* (config = null) {
-            let url = this.getAllUrl();
-            let data = yield getApiPagedData(url, config);
-            return data.map(item => new this(item));
-        });
-    }
-    get id() {
-        const id = this.canvasData[this.constructor.idProperty];
-        return parseInt(id);
-    }
-    get name() {
-        let nameProperty = this.getClass().nameProperty;
-        if (!nameProperty)
-            return 'NAME PROPERTY NOT SET';
-        return this.getItem(nameProperty);
-    }
-    saveData(data, config) {
-        return baseCanvasObject_awaiter(this, void 0, void 0, function* () {
-            assert_default()(this.contentUrlPath);
-            config = validations_overrideConfig({
-                fetchInit: {
-                    method: 'PUT',
-                    body: canvasUtils_formDataify(data)
-                }
-            }, config);
-            let results = yield canvasUtils_fetchApiJson(this.contentUrlPath, config);
-            if (Array.isArray(results))
-                results = results[0];
-            this.canvasData = Object.assign(Object.assign({}, this.canvasData), results);
-            return this.canvasData;
-        });
-    }
+function neverValueOf() {
+  throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.forbiddenValueOf);
 }
-BaseCanvasObject.idProperty = 'id'; // The field name of the id of the canvas object type
-BaseCanvasObject.nameProperty = 'name'; // The field name of the primary name of the canvas object type
-BaseCanvasObject.contentUrlTemplate = null; // A templated url to get a single item
-BaseCanvasObject.allContentUrlTemplate = null; // A templated url to get all items
 
-;// CONCATENATED MODULE: ./node_modules/temporal-polyfill/chunks/internal.js
+function createCalendarFromSlots({calendar: e}) {
+  return "string" == typeof e ? new lr(e) : e;
+}
+
+function toPlainMonthDaySlots(e, t) {
+  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
+    const n = no(e);
+    if (n && n.branding === _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainMonthDayBranding) {
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
+    }
+    const o = extractCalendarSlotFromBag(e);
+    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainMonthDayBag)(Qo(o || _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId), !o, e, t);
+  }
+  const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainMonthDay)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps, e);
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
+}
+
+function getOffsetNanosecondsForAdapter(e, t, n) {
+  return o = t.call(e, Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)(n))), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.validateTimeZoneOffset)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireInteger)(o));
+  var o;
+}
+
+function createAdapterOps(e, t = ho) {
+  const n = Object.keys(t).sort(), o = {};
+  for (const r of n) {
+    o[r] = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(t[r], e, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireFunction)(e[r]));
+  }
+  return o;
+}
+
+function createTimeZoneOps(e, t) {
+  return "string" == typeof e ? (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.queryNativeTimeZone)(e) : createAdapterOps(e, t);
+}
+
+function createTimeZoneOffsetOps(e) {
+  return createTimeZoneOps(e, Do);
+}
+
+function toInstantSlots(e) {
+  if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
+    const t = no(e);
+    if (t) {
+      switch (t.branding) {
+       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.InstantBranding:
+        return t;
+
+       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
+        return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)(t.epochNanoseconds);
+      }
+    }
+  }
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseInstant)(e);
+}
+
+function toTemporalInstant() {
+  return Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.numberToBigNano)(this.valueOf(), _internal_js__WEBPACK_IMPORTED_MODULE_0__.nanoInMilli)));
+}
+
+function getImplTransition(e, t, n) {
+  const o = t.l(toInstantSlots(n).epochNanoseconds, e);
+  return o ? Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)(o)) : null;
+}
+
+function refineTimeZoneSlot(e) {
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e) ? (no(e) || {}).timeZone || Fo(e) : (e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.resolveTimeZoneId)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseTimeZoneId)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireString)(e))))(e);
+}
+
+function toPlainTimeSlots(e, t) {
+  if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
+    const n = no(e) || {};
+    switch (n.branding) {
+     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainTimeBranding:
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
+
+     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding:
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainTimeSlots)(n);
+
+     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainTime)(createTimeZoneOffsetOps, n);
+    }
+    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainTimeBag)(e, t);
+  }
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainTime)(e);
+}
+
+function optionalToPlainTimeFields(e) {
+  return void 0 === e ? void 0 : toPlainTimeSlots(e);
+}
+
+function toPlainYearMonthSlots(e, t) {
+  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
+    const n = no(e);
+    return n && n.branding === _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainYearMonthBranding ? ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n) : (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainYearMonthBag)(Ho(getCalendarSlotFromBag(e)), e, t);
+  }
+  const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainYearMonth)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps, e);
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
+}
+
+function toPlainDateTimeSlots(e, t) {
+  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
+    const n = no(e) || {};
+    switch (n.branding) {
+     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding:
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
+
+     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding:
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)({
+        ...n,
+        ..._internal_js__WEBPACK_IMPORTED_MODULE_0__.isoTimeFieldDefaults
+      });
+
+     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainDateTime)(createTimeZoneOffsetOps, n);
+    }
+    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainDateTimeBag)(Ko(getCalendarSlotFromBag(e)), e, t);
+  }
+  const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainDateTime)(e);
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
+}
+
+function toPlainDateSlots(e, t) {
+  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
+    const n = no(e) || {};
+    switch (n.branding) {
+     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding:
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
+
+     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding:
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n);
+
+     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainDate)(createTimeZoneOffsetOps, n);
+    }
+    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainDateBag)(Ko(getCalendarSlotFromBag(e)), e, t);
+  }
+  const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainDate)(e);
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
+}
+
+function dayAdapter(e, t, n) {
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger)(t.call(e, Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n, e))));
+}
+
+function createCompoundOpsCreator(e) {
+  return t => "string" == typeof t ? (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps)(t) : ((e, t) => {
+    const n = Object.keys(t).sort(), o = {};
+    for (const r of n) {
+      o[r] = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(t[r], e, e[r]);
+    }
+    return o;
+  })(t, e);
+}
+
+function toDurationSlots(e) {
+  if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
+    const t = no(e);
+    return t && t.branding === _internal_js__WEBPACK_IMPORTED_MODULE_0__.DurationBranding ? t : (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineDurationBag)(e);
+  }
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseDuration)(e);
+}
+
+function refinePublicRelativeTo(e) {
+  if (void 0 !== e) {
+    if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
+      const t = no(e) || {};
+      switch (t.branding) {
+       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
+       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding:
+        return t;
+
+       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding:
+        return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(t);
+      }
+      const n = getCalendarSlotFromBag(e);
+      return {
+        ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineMaybeZonedDateTimeBag)(refineTimeZoneSlot, createTimeZoneOps, Ko(n), e),
+        calendar: n
+      };
+    }
+    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseRelativeToSlots)(e);
+  }
+}
+
+function getCalendarSlotFromBag(e) {
+  return extractCalendarSlotFromBag(e) || _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId;
+}
+
+function extractCalendarSlotFromBag(e) {
+  const {calendar: t} = e;
+  if (void 0 !== t) {
+    return refineCalendarSlot(t);
+  }
+}
+
+function refineCalendarSlot(e) {
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e) ? (no(e) || {}).calendar || cr(e) : (e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.resolveCalendarId)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseCalendarId)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireString)(e))))(e);
+}
+
+function toZonedDateTimeSlots(e, t) {
+  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
+    const n = no(e);
+    if (n && n.branding === _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding) {
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineZonedFieldOptions)(t), n;
+    }
+    const o = getCalendarSlotFromBag(e);
+    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineZonedDateTimeBag)(refineTimeZoneSlot, createTimeZoneOps, Ko(o), o, e, t);
+  }
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseZonedDateTime)(e, t);
+}
+
+function adaptDateMethods(e) {
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapProps)((e => t => e(slotsToIso(t))), e);
+}
+
+function slotsToIso(e) {
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedEpochSlotsToIso)(e, createTimeZoneOffsetOps);
+}
+
+function createDateTimeFormatClass() {
+  const e = _internal_js__WEBPACK_IMPORTED_MODULE_0__.RawDateTimeFormat.prototype, t = Object.getOwnPropertyDescriptors(e), n = Object.getOwnPropertyDescriptors(_internal_js__WEBPACK_IMPORTED_MODULE_0__.RawDateTimeFormat), DateTimeFormat = function(e, t = {}) {
+    if (!(this instanceof DateTimeFormat)) {
+      return new DateTimeFormat(e, t);
+    }
+    Or.set(this, ((e, t = {}) => {
+      const n = new _internal_js__WEBPACK_IMPORTED_MODULE_0__.RawDateTimeFormat(e, t), o = n.resolvedOptions(), r = o.locale, a = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.pluckProps)(Object.keys(t), o), i = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.memoize)(createFormatPrepperForBranding), prepFormat = (...e) => {
+        let t;
+        const o = e.map(((e, n) => {
+          const o = no(e), r = (o || {}).branding;
+          if (n && t && t !== r) {
+            throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.mismatchingFormatTypes);
+          }
+          return t = r, o;
+        }));
+        return t ? i(t)(r, a, ...o) : [ n, ...e ];
+      };
+      return prepFormat.u = n, prepFormat;
+    })(e, t));
+  };
+  for (const e in t) {
+    const n = t[e], o = e.startsWith("format") && createFormatMethod(e);
+    "function" == typeof n.value ? n.value = "constructor" === e ? DateTimeFormat : o || createProxiedMethod(e) : o && (n.get = function() {
+      return o.bind(this);
+    });
+  }
+  return n.prototype.value = Object.create(e, t), Object.defineProperties(DateTimeFormat, n), 
+  DateTimeFormat;
+}
+
+function createFormatMethod(e) {
+  return function(...t) {
+    const n = Or.get(this), [o, ...r] = n(...t);
+    return o[e](...r);
+  };
+}
+
+function createProxiedMethod(e) {
+  return function(...t) {
+    return Or.get(this).u[e](...t);
+  };
+}
+
+function createFormatPrepperForBranding(t) {
+  const n = xn[t];
+  if (!n) {
+    throw new TypeError((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidFormatType)(t));
+  }
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(n, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.memoize)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatForPrep));
+}
+
+
+
+const xn = {
+  Instant: _internal_js__WEBPACK_IMPORTED_MODULE_0__.instantConfig,
+  PlainDateTime: _internal_js__WEBPACK_IMPORTED_MODULE_0__.dateTimeConfig,
+  PlainDate: _internal_js__WEBPACK_IMPORTED_MODULE_0__.dateConfig,
+  PlainTime: _internal_js__WEBPACK_IMPORTED_MODULE_0__.timeConfig,
+  PlainYearMonth: _internal_js__WEBPACK_IMPORTED_MODULE_0__.yearMonthConfig,
+  PlainMonthDay: _internal_js__WEBPACK_IMPORTED_MODULE_0__.monthDayConfig
+}, Rn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.instantConfig), Wn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedConfig), Gn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.dateTimeConfig), Un = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.dateConfig), zn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.timeConfig), Hn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.yearMonthConfig), Kn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.monthDayConfig), Qn = {
+  era: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireStringOrUndefined,
+  eraYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireIntegerOrUndefined,
+  year: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireInteger,
+  month: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
+  daysInMonth: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
+  daysInYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
+  inLeapYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireBoolean,
+  monthsInYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger
+}, Xn = {
+  monthCode: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireString
+}, $n = {
+  day: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger
+}, _n = {
+  dayOfWeek: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
+  dayOfYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
+  weekOfYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveIntegerOrUndefined,
+  yearOfWeek: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireIntegerOrUndefined,
+  daysInWeek: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger
+}, eo = /*@__PURE__*/ Object.assign({}, Qn, Xn, $n, _n), to = /*@__PURE__*/ new WeakMap, no = /*@__PURE__*/ to.get.bind(to), oo = /*@__PURE__*/ to.set.bind(to), ro = {
+  ...createCalendarFieldMethods(Qn, [ _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainYearMonthBranding ]),
+  ...createCalendarFieldMethods(_n, []),
+  ...createCalendarFieldMethods(Xn, [ _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainYearMonthBranding, _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainMonthDayBranding ]),
+  ...createCalendarFieldMethods($n, [ _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainMonthDayBranding ])
+}, ao = /*@__PURE__*/ createCalendarGetters(eo), io = /*@__PURE__*/ createCalendarGetters({
+  ...Qn,
+  ...Xn
+}), so = /*@__PURE__*/ createCalendarGetters({
+  ...Xn,
+  ...$n
+}), lo = {
+  calendarId: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getId)(e.calendar)
+}, co = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapProps)(((e, t) => function(n) {
+  const {i: o} = this;
+  return e(o[t](Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n, o))));
+}), eo), uo = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapPropNames)((e => t => t[e]), _internal_js__WEBPACK_IMPORTED_MODULE_0__.durationFieldNamesAsc.concat("sign")), fo = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapPropNames)(((e, t) => e => e[_internal_js__WEBPACK_IMPORTED_MODULE_0__.isoTimeFieldNamesAsc[t]]), _internal_js__WEBPACK_IMPORTED_MODULE_0__.timeFieldNamesAsc), mo = {
+  epochSeconds: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getEpochSec,
+  epochMilliseconds: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getEpochMilli,
+  epochMicroseconds: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getEpochMicro,
+  epochNanoseconds: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getEpochNano
+}, So = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.excludePropsByName, new Set([ "branding" ])), [Oo, To, po] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainMonthDayBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainMonthDaySlots, refineCalendarSlot), {
+  ...lo,
+  ...so
+}, {
+  getISOFields: So,
+  getCalendar: createCalendarFromSlots,
+  with(e, t, n) {
+    return To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainMonthDayWithFields)(_o, e, this, rejectInvalidBag(t), n));
+  },
+  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainMonthDaysEqual)(e, toPlainMonthDaySlots(t)),
+  toPlainDate(e, t) {
+    return Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainMonthDayToPlainDate)($o, e, this, t));
+  },
+  toLocaleString(e, t, n) {
+    const [o, r] = Kn(t, n, e);
+    return o.format(r);
+  },
+  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainMonthDayIso,
+  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainMonthDayIso)(e),
+  valueOf: neverValueOf
+}, {
+  from: (e, t) => To(toPlainMonthDaySlots(e, t))
+}), ho = {
+  getOffsetNanosecondsFor: getOffsetNanosecondsForAdapter,
+  getPossibleInstantsFor(e, t, n) {
+    const o = [ ...t.call(e, No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)(n, _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId))) ].map((e => go(e).epochNanoseconds)), r = o.length;
+    return r > 1 && (o.sort(_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareBigNanos), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.validateTimeZoneGap)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bigNanoToNumber)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffBigNanos)(o[0], o[r - 1])))), o;
+  }
+}, Do = {
+  getOffsetNanosecondsFor: getOffsetNanosecondsForAdapter
+}, [Po, Co, go] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.InstantBranding, _internal_js__WEBPACK_IMPORTED_MODULE_0__.constructInstantSlots, mo, {
+  add: (e, t) => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.moveInstant)(0, e, toDurationSlots(t))),
+  subtract: (e, t) => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.moveInstant)(1, e, toDurationSlots(t))),
+  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffInstants)(0, e, toInstantSlots(t), n)),
+  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffInstants)(1, e, toInstantSlots(t), n)),
+  round: (e, t) => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundInstant)(e, t)),
+  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.instantsEqual)(e, toInstantSlots(t)),
+  toZonedDateTime(e, t) {
+    const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireObjectLike)(t);
+    return dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.instantToZonedDateTime)(e, refineTimeZoneSlot(n.timeZone), refineCalendarSlot(n.calendar)));
+  },
+  toZonedDateTimeISO: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.instantToZonedDateTime)(e, refineTimeZoneSlot(t))),
+  toLocaleString(e, t, n) {
+    const [o, r] = Rn(t, n, e);
+    return o.format(r);
+  },
+  toString: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatInstantIso)(refineTimeZoneSlot, createTimeZoneOffsetOps, e, t),
+  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatInstantIso)(refineTimeZoneSlot, createTimeZoneOffsetOps, e),
+  valueOf: neverValueOf
+}, {
+  from: e => Co(toInstantSlots(e)),
+  fromEpochSeconds: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochSecToInstant)(e)),
+  fromEpochMilliseconds: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochMilliToInstant)(e)),
+  fromEpochMicroseconds: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochMicroToInstant)(e)),
+  fromEpochNanoseconds: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochNanoToInstant)(e)),
+  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareInstants)(toInstantSlots(e), toInstantSlots(t))
+}), [Zo, bo] = createSlotClass("TimeZone", (e => {
+  const t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineTimeZoneId)(e);
+  return {
+    branding: "TimeZone",
+    id: t,
+    o: (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.queryNativeTimeZone)(t)
+  };
+}), {
+  id: e => e.id
+}, {
+  getPossibleInstantsFor: ({o: e}, t) => e.getPossibleInstantsFor(toPlainDateTimeSlots(t)).map((e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)(e)))),
+  getOffsetNanosecondsFor: ({o: e}, t) => e.getOffsetNanosecondsFor(toInstantSlots(t).epochNanoseconds),
+  getOffsetStringFor(e, t) {
+    const n = toInstantSlots(t).epochNanoseconds, o = createAdapterOps(this, Do).getOffsetNanosecondsFor(n);
+    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatOffsetNano)(o);
+  },
+  getPlainDateTimeFor(e, t, n = _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId) {
+    const o = toInstantSlots(t).epochNanoseconds, r = createAdapterOps(this, Do).getOffsetNanosecondsFor(o);
+    return No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochNanoToIso)(o, r), refineCalendarSlot(n)));
+  },
+  getInstantFor(e, t, n) {
+    const o = toPlainDateTimeSlots(t), r = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineEpochDisambigOptions)(n), a = createAdapterOps(this);
+    return Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getSingleInstantFor)(a, o, r)));
+  },
+  getNextTransition: ({o: e}, t) => getImplTransition(1, e, t),
+  getPreviousTransition: ({o: e}, t) => getImplTransition(-1, e, t),
+  equals(e, t) {
+    return !!(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isTimeZoneSlotsEqual)(this, refineTimeZoneSlot(t));
+  },
+  toString: e => e.id,
+  toJSON: e => e.id
+}, {
+  from(e) {
+    const t = refineTimeZoneSlot(e);
+    return "string" == typeof t ? new Zo(t) : t;
+  }
+}), Fo = /*@__PURE__*/ createProtocolValidator(Object.keys(ho)), [Io, vo] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainTimeBranding, _internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainTimeSlots, fo, {
+  getISOFields: So,
+  with(e, t, n) {
+    return vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainTimeWithFields)(this, rejectInvalidBag(t), n));
+  },
+  add: (e, t) => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainTime)(0, e, toDurationSlots(t))),
+  subtract: (e, t) => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainTime)(1, e, toDurationSlots(t))),
+  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainTimes)(0, e, toPlainTimeSlots(t), n)),
+  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainTimes)(1, e, toPlainTimeSlots(t), n)),
+  round: (e, t) => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundPlainTime)(e, t)),
+  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainTimesEqual)(e, toPlainTimeSlots(t)),
+  toZonedDateTime: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainTimeToZonedDateTime)(refineTimeZoneSlot, toPlainDateSlots, createTimeZoneOps, e, t)),
+  toPlainDateTime: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainTimeToPlainDateTime)(e, toPlainDateSlots(t))),
+  toLocaleString(e, t, n) {
+    const [o, r] = zn(t, n, e);
+    return o.format(r);
+  },
+  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainTimeIso,
+  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainTimeIso)(e),
+  valueOf: neverValueOf
+}, {
+  from: (e, t) => vo(toPlainTimeSlots(e, t)),
+  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareIsoTimeFields)(toPlainTimeSlots(e), toPlainTimeSlots(t))
+}), [wo, jo, Mo] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainYearMonthBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainYearMonthSlots, refineCalendarSlot), {
+  ...lo,
+  ...io
+}, {
+  getISOFields: So,
+  getCalendar: createCalendarFromSlots,
+  with(e, t, n) {
+    return jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainYearMonthWithFields)(Xo, e, this, rejectInvalidBag(t), n));
+  },
+  add: (e, t, n) => jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainYearMonth)(nr, 0, e, toDurationSlots(t), n)),
+  subtract: (e, t, n) => jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainYearMonth)(nr, 1, e, toDurationSlots(t), n)),
+  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainYearMonth)(or, 0, e, toPlainYearMonthSlots(t), n)),
+  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainYearMonth)(or, 1, e, toPlainYearMonthSlots(t), n)),
+  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainYearMonthsEqual)(e, toPlainYearMonthSlots(t)),
+  toPlainDate(e, t) {
+    return Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainYearMonthToPlainDate)($o, e, this, t));
+  },
+  toLocaleString(e, t, n) {
+    const [o, r] = Hn(t, n, e);
+    return o.format(r);
+  },
+  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainYearMonthIso,
+  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainYearMonthIso)(e),
+  valueOf: neverValueOf
+}, {
+  from: (e, t) => jo(toPlainYearMonthSlots(e, t)),
+  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareIsoDateFields)(toPlainYearMonthSlots(e), toPlainYearMonthSlots(t))
+}), [yo, No] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainDateTimeSlots, refineCalendarSlot), {
+  ...lo,
+  ...ao,
+  ...fo
+}, {
+  getISOFields: So,
+  getCalendar: createCalendarFromSlots,
+  with(e, t, n) {
+    return No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeWithFields)($o, e, this, rejectInvalidBag(t), n));
+  },
+  withCalendar: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.slotsWithCalendar)(e, refineCalendarSlot(t))),
+  withPlainDate: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeWithPlainDate)(e, toPlainDateSlots(t))),
+  withPlainTime: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeWithPlainTime)(e, optionalToPlainTimeFields(t))),
+  add: (e, t, n) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainDateTime)(er, 0, e, toDurationSlots(t), n)),
+  subtract: (e, t, n) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainDateTime)(er, 1, e, toDurationSlots(t), n)),
+  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainDateTimes)(tr, 0, e, toPlainDateTimeSlots(t), n)),
+  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainDateTimes)(tr, 1, e, toPlainDateTimeSlots(t), n)),
+  round: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundPlainDateTime)(e, t)),
+  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimesEqual)(e, toPlainDateTimeSlots(t)),
+  toZonedDateTime: (e, t, n) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeToZonedDateTime)(createTimeZoneOps, e, refineTimeZoneSlot(t), n)),
+  toPlainDate: e => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(e)),
+  toPlainTime: e => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainTimeSlots)(e)),
+  toPlainYearMonth(e) {
+    return jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeToPlainYearMonth)(Ho, e, this));
+  },
+  toPlainMonthDay(e) {
+    return To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeToPlainMonthDay)(Qo, e, this));
+  },
+  toLocaleString(e, t, n) {
+    const [o, r] = Gn(t, n, e);
+    return o.format(r);
+  },
+  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainDateTimeIso,
+  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainDateTimeIso)(e),
+  valueOf: neverValueOf
+}, {
+  from: (e, t) => No(toPlainDateTimeSlots(e, t)),
+  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareIsoDateTimeFields)(toPlainDateTimeSlots(e), toPlainDateTimeSlots(t))
+}), [Bo, Yo, Ao] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainDateSlots, refineCalendarSlot), {
+  ...lo,
+  ...ao
+}, {
+  getISOFields: So,
+  getCalendar: createCalendarFromSlots,
+  with(e, t, n) {
+    return Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateWithFields)($o, e, this, rejectInvalidBag(t), n));
+  },
+  withCalendar: (e, t) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.slotsWithCalendar)(e, refineCalendarSlot(t))),
+  add: (e, t, n) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainDate)(er, 0, e, toDurationSlots(t), n)),
+  subtract: (e, t, n) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainDate)(er, 1, e, toDurationSlots(t), n)),
+  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainDates)(tr, 0, e, toPlainDateSlots(t), n)),
+  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainDates)(tr, 1, e, toPlainDateSlots(t), n)),
+  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDatesEqual)(e, toPlainDateSlots(t)),
+  toZonedDateTime(e, t) {
+    const n = !(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(t) || t instanceof Zo ? {
+      timeZone: t
+    } : t;
+    return dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateToZonedDateTime)(refineTimeZoneSlot, toPlainTimeSlots, createTimeZoneOps, e, n));
+  },
+  toPlainDateTime: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateToPlainDateTime)(e, optionalToPlainTimeFields(t))),
+  toPlainYearMonth(e) {
+    return jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateToPlainYearMonth)(Ho, e, this));
+  },
+  toPlainMonthDay(e) {
+    return To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateToPlainMonthDay)(Qo, e, this));
+  },
+  toLocaleString(e, t, n) {
+    const [o, r] = Un(t, n, e);
+    return o.format(r);
+  },
+  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainDateIso,
+  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainDateIso)(e),
+  valueOf: neverValueOf
+}, {
+  from: (e, t) => Yo(toPlainDateSlots(e, t)),
+  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareIsoDateFields)(toPlainDateSlots(e), toPlainDateSlots(t))
+}), Eo = {
+  fields(e, t, n) {
+    return [ ...t.call(e, n) ];
+  }
+}, Vo = /*@__PURE__*/ Object.assign({
+  dateFromFields(e, t, n, o) {
+    return Ao(t.call(e, Object.assign(Object.create(null), n), o));
+  }
+}, Eo), Jo = /*@__PURE__*/ Object.assign({
+  yearMonthFromFields(e, t, n, o) {
+    return Mo(t.call(e, Object.assign(Object.create(null), n), o));
+  }
+}, Eo), Lo = /*@__PURE__*/ Object.assign({
+  monthDayFromFields(e, t, n, o) {
+    return po(t.call(e, Object.assign(Object.create(null), n), o));
+  }
+}, Eo), qo = {
+  mergeFields(e, t, n, o) {
+    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireObjectLike)(t.call(e, Object.assign(Object.create(null), n), Object.assign(Object.create(null), o)));
+  }
+}, ko = /*@__PURE__*/ Object.assign({}, Vo, qo), xo = /*@__PURE__*/ Object.assign({}, Jo, qo), Ro = /*@__PURE__*/ Object.assign({}, Lo, qo), Wo = {
+  dateAdd(e, t, n, o, r) {
+    return Ao(t.call(e, Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n, e)), ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createDurationSlots)(o)), r));
+  }
+}, Go = /*@__PURE__*/ Object.assign({}, Wo, {
+  dateUntil(e, t, n, o, r, a) {
+    return ir(t.call(e, Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n, e)), Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(o, e)), Object.assign(Object.create(null), a, {
+      largestUnit: _internal_js__WEBPACK_IMPORTED_MODULE_0__.unitNamesAsc[r]
+    })));
+  }
+}), Uo = /*@__PURE__*/ Object.assign({}, Wo, {
+  day: dayAdapter
+}), zo = /*@__PURE__*/ Object.assign({}, Go, {
+  day: dayAdapter
+}), Ho = /*@__PURE__*/ createCompoundOpsCreator(Jo), Ko = /*@__PURE__*/ createCompoundOpsCreator(Vo), Qo = /*@__PURE__*/ createCompoundOpsCreator(Lo), Xo = /*@__PURE__*/ createCompoundOpsCreator(xo), $o = /*@__PURE__*/ createCompoundOpsCreator(ko), _o = /*@__PURE__*/ createCompoundOpsCreator(Ro), er = /*@__PURE__*/ createCompoundOpsCreator(Wo), tr = /*@__PURE__*/ createCompoundOpsCreator(Go), nr = /*@__PURE__*/ createCompoundOpsCreator(Uo), or = /*@__PURE__*/ createCompoundOpsCreator(zo), [rr, ar, ir] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.DurationBranding, _internal_js__WEBPACK_IMPORTED_MODULE_0__.constructDurationSlots, {
+  ...uo,
+  blank: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getDurationBlank
+}, {
+  with: (e, t) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.durationWithFields)(e, t)),
+  negated: e => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.negateDuration)(e)),
+  abs: e => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.absDuration)(e)),
+  add: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.addDurations)(refinePublicRelativeTo, tr, createTimeZoneOps, 0, e, toDurationSlots(t), n)),
+  subtract: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.addDurations)(refinePublicRelativeTo, tr, createTimeZoneOps, 1, e, toDurationSlots(t), n)),
+  round: (e, t) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundDuration)(refinePublicRelativeTo, tr, createTimeZoneOps, e, t)),
+  total: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.totalDuration)(refinePublicRelativeTo, tr, createTimeZoneOps, e, t),
+  toLocaleString(e, t, n) {
+    return Intl.DurationFormat ? new Intl.DurationFormat(t, n).format(this) : (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatDurationIso)(e);
+  },
+  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatDurationIso,
+  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatDurationIso)(e),
+  valueOf: neverValueOf
+}, {
+  from: e => ar(toDurationSlots(e)),
+  compare: (e, t, n) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareDurations)(refinePublicRelativeTo, er, createTimeZoneOps, toDurationSlots(e), toDurationSlots(t), n)
+}), sr = {
+  toString: e => e.id,
+  toJSON: e => e.id,
+  ...ro,
+  dateAdd: ({id: e, o: t}, n, o, r) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(t.dateAdd(toPlainDateSlots(n), toDurationSlots(o), r), e)),
+  dateUntil: ({o: e}, t, n, o) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createDurationSlots)(e.dateUntil(toPlainDateSlots(t), toPlainDateSlots(n), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineDateDiffOptions)(o)))),
+  dateFromFields: ({id: e, o: t}, n, o) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainDateBag)(t, n, o, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getRequiredDateFields)(e))),
+  yearMonthFromFields: ({id: e, o: t}, n, o) => jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainYearMonthBag)(t, n, o, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getRequiredYearMonthFields)(e))),
+  monthDayFromFields: ({id: e, o: t}, n, o) => To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainMonthDayBag)(t, 0, n, o, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getRequiredMonthDayFields)(e))),
+  fields({o: e}, t) {
+    const n = new Set(_internal_js__WEBPACK_IMPORTED_MODULE_0__.dateFieldNamesAlpha), o = [];
+    for (const e of t) {
+      if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireString)(e), !n.has(e)) {
+        throw new RangeError((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.forbiddenField)(e));
+      }
+      n.delete(e), o.push(e);
+    }
+    return e.fields(o);
+  },
+  mergeFields: ({o: e}, t, n) => e.mergeFields((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.excludeUndefinedProps)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireNonNullish)(t)), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.excludeUndefinedProps)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireNonNullish)(n)))
+}, [lr] = createSlotClass("Calendar", (e => {
+  const t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineCalendarId)(e);
+  return {
+    branding: "Calendar",
+    id: t,
+    o: (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps)(t)
+  };
+}), {
+  id: e => e.id
+}, sr, {
+  from(e) {
+    const t = refineCalendarSlot(e);
+    return "string" == typeof t ? new lr(t) : t;
+  }
+}), cr = /*@__PURE__*/ createProtocolValidator(Object.keys(sr).slice(4)), [ur, dr] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructZonedDateTimeSlots, refineCalendarSlot, refineTimeZoneSlot), {
+  ...mo,
+  ...lo,
+  ...adaptDateMethods(ao),
+  ...adaptDateMethods(fo),
+  offset: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatOffsetNano)(slotsToIso(e).offsetNanoseconds),
+  offsetNanoseconds: e => slotsToIso(e).offsetNanoseconds,
+  timeZoneId: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getId)(e.timeZone),
+  hoursInDay: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.computeZonedHoursInDay)(createTimeZoneOps, e)
+}, {
+  getISOFields: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.buildZonedIsoFields)(createTimeZoneOffsetOps, e),
+  getCalendar: createCalendarFromSlots,
+  getTimeZone: ({timeZone: e}) => "string" == typeof e ? new Zo(e) : e,
+  with(e, t, n) {
+    return dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeWithFields)($o, createTimeZoneOps, e, this, rejectInvalidBag(t), n));
+  },
+  withCalendar: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.slotsWithCalendar)(e, refineCalendarSlot(t))),
+  withTimeZone: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.slotsWithTimeZone)(e, refineTimeZoneSlot(t))),
+  withPlainDate: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeWithPlainDate)(createTimeZoneOps, e, toPlainDateSlots(t))),
+  withPlainTime: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeWithPlainTime)(createTimeZoneOps, e, optionalToPlainTimeFields(t))),
+  add: (e, t, n) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.moveZonedDateTime)(er, createTimeZoneOps, 0, e, toDurationSlots(t), n)),
+  subtract: (e, t, n) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.moveZonedDateTime)(er, createTimeZoneOps, 1, e, toDurationSlots(t), n)),
+  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createDurationSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffZonedDateTimes)(tr, createTimeZoneOps, 0, e, toZonedDateTimeSlots(t), n))),
+  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createDurationSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffZonedDateTimes)(tr, createTimeZoneOps, 1, e, toZonedDateTimeSlots(t), n))),
+  round: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundZonedDateTime)(createTimeZoneOps, e, t)),
+  startOfDay: e => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.computeZonedStartOfDay)(createTimeZoneOps, e)),
+  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimesEqual)(e, toZonedDateTimeSlots(t)),
+  toInstant: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToInstant)(e)),
+  toPlainDateTime: e => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainDateTime)(createTimeZoneOffsetOps, e)),
+  toPlainDate: e => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainDate)(createTimeZoneOffsetOps, e)),
+  toPlainTime: e => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainTime)(createTimeZoneOffsetOps, e)),
+  toPlainYearMonth(e) {
+    return jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainYearMonth)(Ho, e, this));
+  },
+  toPlainMonthDay(e) {
+    return To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainMonthDay)(Qo, e, this));
+  },
+  toLocaleString(e, t, n = {}) {
+    const [o, r] = Wn(t, n, e);
+    return o.format(r);
+  },
+  toString: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatZonedDateTimeIso)(createTimeZoneOffsetOps, e, t),
+  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatZonedDateTimeIso)(createTimeZoneOffsetOps, e),
+  valueOf: neverValueOf
+}, {
+  from: (e, t) => dr(toZonedDateTimeSlots(e, t)),
+  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareZonedDateTimes)(toZonedDateTimeSlots(e), toZonedDateTimeSlots(t))
+}), fr = /*@__PURE__*/ Object.defineProperties({}, {
+  ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createStringTagDescriptors)("Temporal.Now"),
+  ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)({
+    timeZoneId: () => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)(),
+    instant: () => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentEpochNano)())),
+    zonedDateTime: (e, t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createZonedDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentEpochNano)(), refineTimeZoneSlot(t), refineCalendarSlot(e))),
+    zonedDateTimeISO: (e = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createZonedDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentEpochNano)(), refineTimeZoneSlot(e), _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId)),
+    plainDateTime: (e, t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(t))), refineCalendarSlot(e))),
+    plainDateTimeISO: (e = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(e))), _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId)),
+    plainDate: (e, t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(t))), refineCalendarSlot(e))),
+    plainDateISO: (e = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(e))), _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId)),
+    plainTimeISO: (e = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(e)))))
+  })
+}), mr = /*@__PURE__*/ Object.defineProperties({}, {
+  ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createStringTagDescriptors)("Temporal"),
+  ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)({
+    PlainYearMonth: wo,
+    PlainMonthDay: Oo,
+    PlainDate: Bo,
+    PlainTime: Io,
+    PlainDateTime: yo,
+    ZonedDateTime: ur,
+    Instant: Po,
+    Calendar: lr,
+    TimeZone: Zo,
+    Duration: rr,
+    Now: fr
+  })
+}), Sr = /*@__PURE__*/ createDateTimeFormatClass(), Or = /*@__PURE__*/ new WeakMap, Tr = /*@__PURE__*/ Object.defineProperties(Object.create(Intl), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)({
+  DateTimeFormat: Sr
+}));
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/temporal-polyfill/chunks/internal.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/temporal-polyfill/chunks/internal.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DurationBranding: () => (/* binding */ qt),
+/* harmony export */   InstantBranding: () => (/* binding */ Oe),
+/* harmony export */   PlainDateBranding: () => (/* binding */ J),
+/* harmony export */   PlainDateTimeBranding: () => (/* binding */ We),
+/* harmony export */   PlainMonthDayBranding: () => (/* binding */ q),
+/* harmony export */   PlainTimeBranding: () => (/* binding */ xe),
+/* harmony export */   PlainYearMonthBranding: () => (/* binding */ L),
+/* harmony export */   RawDateTimeFormat: () => (/* binding */ En),
+/* harmony export */   ZonedDateTimeBranding: () => (/* binding */ Te),
+/* harmony export */   absDuration: () => (/* binding */ Rt),
+/* harmony export */   addDurations: () => (/* binding */ Wt),
+/* harmony export */   bigNanoToNumber: () => (/* binding */ oe),
+/* harmony export */   bindArgs: () => (/* binding */ E),
+/* harmony export */   buildZonedIsoFields: () => (/* binding */ mn),
+/* harmony export */   compareBigNanos: () => (/* binding */ te),
+/* harmony export */   compareDurations: () => (/* binding */ $t),
+/* harmony export */   compareInstants: () => (/* binding */ Ze),
+/* harmony export */   compareIsoDateFields: () => (/* binding */ rt),
+/* harmony export */   compareIsoDateTimeFields: () => (/* binding */ gt),
+/* harmony export */   compareIsoTimeFields: () => (/* binding */ He),
+/* harmony export */   compareZonedDateTimes: () => (/* binding */ yn),
+/* harmony export */   computeZonedHoursInDay: () => (/* binding */ dn),
+/* harmony export */   computeZonedStartOfDay: () => (/* binding */ Cn),
+/* harmony export */   constructDurationSlots: () => (/* binding */ Lt),
+/* harmony export */   constructInstantSlots: () => (/* binding */ Se),
+/* harmony export */   constructPlainDateSlots: () => (/* binding */ Nt),
+/* harmony export */   constructPlainDateTimeSlots: () => (/* binding */ pt),
+/* harmony export */   constructPlainMonthDaySlots: () => (/* binding */ G),
+/* harmony export */   constructPlainTimeSlots: () => (/* binding */ ke),
+/* harmony export */   constructPlainYearMonthSlots: () => (/* binding */ tt),
+/* harmony export */   constructZonedDateTimeSlots: () => (/* binding */ vn),
+/* harmony export */   copyOptions: () => (/* binding */ U),
+/* harmony export */   createDurationSlots: () => (/* binding */ Vt),
+/* harmony export */   createFormatForPrep: () => (/* binding */ qn),
+/* harmony export */   createFormatPrepper: () => (/* binding */ e),
+/* harmony export */   createGetterDescriptors: () => (/* binding */ O),
+/* harmony export */   createInstantSlots: () => (/* binding */ _),
+/* harmony export */   createNameDescriptors: () => (/* binding */ D),
+/* harmony export */   createNativeStandardOps: () => (/* binding */ Y),
+/* harmony export */   createPlainDateSlots: () => (/* binding */ v),
+/* harmony export */   createPlainDateTimeSlots: () => (/* binding */ ee),
+/* harmony export */   createPlainTimeSlots: () => (/* binding */ Ge),
+/* harmony export */   createPropDescriptors: () => (/* binding */ p),
+/* harmony export */   createStringTagDescriptors: () => (/* binding */ h),
+/* harmony export */   createZonedDateTimeSlots: () => (/* binding */ Yn),
+/* harmony export */   dateConfig: () => (/* binding */ o),
+/* harmony export */   dateFieldNamesAlpha: () => (/* binding */ en),
+/* harmony export */   dateTimeConfig: () => (/* binding */ n),
+/* harmony export */   diffBigNanos: () => (/* binding */ re),
+/* harmony export */   diffInstants: () => (/* binding */ le),
+/* harmony export */   diffPlainDateTimes: () => (/* binding */ ut),
+/* harmony export */   diffPlainDates: () => (/* binding */ Ft),
+/* harmony export */   diffPlainTimes: () => (/* binding */ Ae),
+/* harmony export */   diffPlainYearMonth: () => (/* binding */ Xe),
+/* harmony export */   diffZonedDateTimes: () => (/* binding */ Dn),
+/* harmony export */   durationFieldNamesAsc: () => (/* binding */ F),
+/* harmony export */   durationWithFields: () => (/* binding */ kt),
+/* harmony export */   epochMicroToInstant: () => (/* binding */ Ce),
+/* harmony export */   epochMilliToInstant: () => (/* binding */ Pe),
+/* harmony export */   epochNanoToInstant: () => (/* binding */ ge),
+/* harmony export */   epochNanoToIso: () => (/* binding */ Ie),
+/* harmony export */   epochSecToInstant: () => (/* binding */ De),
+/* harmony export */   excludePropsByName: () => (/* binding */ V),
+/* harmony export */   excludeUndefinedProps: () => (/* binding */ nn),
+/* harmony export */   forbiddenField: () => (/* binding */ tn),
+/* harmony export */   forbiddenValueOf: () => (/* binding */ A),
+/* harmony export */   formatDurationIso: () => (/* binding */ zt),
+/* harmony export */   formatInstantIso: () => (/* binding */ me),
+/* harmony export */   formatOffsetNano: () => (/* binding */ Fe),
+/* harmony export */   formatPlainDateIso: () => (/* binding */ yt),
+/* harmony export */   formatPlainDateTimeIso: () => (/* binding */ Tt),
+/* harmony export */   formatPlainMonthDayIso: () => (/* binding */ W),
+/* harmony export */   formatPlainTimeIso: () => (/* binding */ qe),
+/* harmony export */   formatPlainYearMonthIso: () => (/* binding */ et),
+/* harmony export */   formatZonedDateTimeIso: () => (/* binding */ In),
+/* harmony export */   getCurrentEpochNano: () => (/* binding */ Bn),
+/* harmony export */   getCurrentIsoDateTime: () => (/* binding */ An),
+/* harmony export */   getCurrentTimeZoneId: () => (/* binding */ Nn),
+/* harmony export */   getDurationBlank: () => (/* binding */ Jt),
+/* harmony export */   getEpochMicro: () => (/* binding */ N),
+/* harmony export */   getEpochMilli: () => (/* binding */ y),
+/* harmony export */   getEpochNano: () => (/* binding */ B),
+/* harmony export */   getEpochSec: () => (/* binding */ M),
+/* harmony export */   getId: () => (/* binding */ I),
+/* harmony export */   getRequiredDateFields: () => (/* binding */ ln),
+/* harmony export */   getRequiredMonthDayFields: () => (/* binding */ cn),
+/* harmony export */   getRequiredYearMonthFields: () => (/* binding */ un),
+/* harmony export */   getSingleInstantFor: () => (/* binding */ we),
+/* harmony export */   hasAllPropsByName: () => (/* binding */ C),
+/* harmony export */   instantConfig: () => (/* binding */ t),
+/* harmony export */   instantToZonedDateTime: () => (/* binding */ fe),
+/* harmony export */   instantsEqual: () => (/* binding */ ue),
+/* harmony export */   invalidBag: () => (/* binding */ Z),
+/* harmony export */   invalidCallingContext: () => (/* binding */ P),
+/* harmony export */   invalidFormatType: () => (/* binding */ Ln),
+/* harmony export */   invalidProtocol: () => (/* binding */ g),
+/* harmony export */   isObjectLike: () => (/* binding */ z),
+/* harmony export */   isTimeZoneSlotsEqual: () => (/* binding */ je),
+/* harmony export */   isoCalendarId: () => (/* binding */ X),
+/* harmony export */   isoTimeFieldDefaults: () => (/* binding */ Dt),
+/* harmony export */   isoTimeFieldNamesAsc: () => (/* binding */ j),
+/* harmony export */   mapPropNames: () => (/* binding */ b),
+/* harmony export */   mapProps: () => (/* binding */ T),
+/* harmony export */   memoize: () => (/* binding */ Jn),
+/* harmony export */   mismatchingFormatTypes: () => (/* binding */ kn),
+/* harmony export */   monthDayConfig: () => (/* binding */ i),
+/* harmony export */   moveInstant: () => (/* binding */ se),
+/* harmony export */   movePlainDate: () => (/* binding */ bt),
+/* harmony export */   movePlainDateTime: () => (/* binding */ ct),
+/* harmony export */   movePlainTime: () => (/* binding */ Ye),
+/* harmony export */   movePlainYearMonth: () => (/* binding */ Qe),
+/* harmony export */   moveZonedDateTime: () => (/* binding */ hn),
+/* harmony export */   nanoInMilli: () => (/* binding */ be),
+/* harmony export */   negateDuration: () => (/* binding */ xt),
+/* harmony export */   numberToBigNano: () => (/* binding */ he),
+/* harmony export */   parseCalendarId: () => (/* binding */ sn),
+/* harmony export */   parseDuration: () => (/* binding */ Kt),
+/* harmony export */   parseInstant: () => (/* binding */ pe),
+/* harmony export */   parsePlainDate: () => (/* binding */ At),
+/* harmony export */   parsePlainDateTime: () => (/* binding */ Ct),
+/* harmony export */   parsePlainMonthDay: () => (/* binding */ Q),
+/* harmony export */   parsePlainTime: () => (/* binding */ ze),
+/* harmony export */   parsePlainYearMonth: () => (/* binding */ ot),
+/* harmony export */   parseRelativeToSlots: () => (/* binding */ Xt),
+/* harmony export */   parseTimeZoneId: () => (/* binding */ Ne),
+/* harmony export */   parseZonedDateTime: () => (/* binding */ Mn),
+/* harmony export */   plainDateTimeToPlainMonthDay: () => (/* binding */ Ot),
+/* harmony export */   plainDateTimeToPlainYearMonth: () => (/* binding */ St),
+/* harmony export */   plainDateTimeToZonedDateTime: () => (/* binding */ mt),
+/* harmony export */   plainDateTimeWithFields: () => (/* binding */ at),
+/* harmony export */   plainDateTimeWithPlainDate: () => (/* binding */ st),
+/* harmony export */   plainDateTimeWithPlainTime: () => (/* binding */ lt),
+/* harmony export */   plainDateTimesEqual: () => (/* binding */ ft),
+/* harmony export */   plainDateToPlainDateTime: () => (/* binding */ wt),
+/* harmony export */   plainDateToPlainMonthDay: () => (/* binding */ Mt),
+/* harmony export */   plainDateToPlainYearMonth: () => (/* binding */ jt),
+/* harmony export */   plainDateToZonedDateTime: () => (/* binding */ vt),
+/* harmony export */   plainDateWithFields: () => (/* binding */ Zt),
+/* harmony export */   plainDatesEqual: () => (/* binding */ It),
+/* harmony export */   plainMonthDayToPlainDate: () => (/* binding */ R),
+/* harmony export */   plainMonthDayWithFields: () => (/* binding */ k),
+/* harmony export */   plainMonthDaysEqual: () => (/* binding */ x),
+/* harmony export */   plainTimeToPlainDateTime: () => (/* binding */ Le),
+/* harmony export */   plainTimeToZonedDateTime: () => (/* binding */ Je),
+/* harmony export */   plainTimeWithFields: () => (/* binding */ Be),
+/* harmony export */   plainTimesEqual: () => (/* binding */ Ve),
+/* harmony export */   plainYearMonthToPlainDate: () => (/* binding */ _e),
+/* harmony export */   plainYearMonthWithFields: () => (/* binding */ Ke),
+/* harmony export */   plainYearMonthsEqual: () => (/* binding */ $e),
+/* harmony export */   pluckProps: () => (/* binding */ Vn),
+/* harmony export */   queryNativeTimeZone: () => (/* binding */ ie),
+/* harmony export */   refineCalendarId: () => (/* binding */ rn),
+/* harmony export */   refineDateDiffOptions: () => (/* binding */ _t),
+/* harmony export */   refineDurationBag: () => (/* binding */ Ht),
+/* harmony export */   refineEpochDisambigOptions: () => (/* binding */ ve),
+/* harmony export */   refineMaybeZonedDateTimeBag: () => (/* binding */ Qt),
+/* harmony export */   refineOverflowOptions: () => (/* binding */ H),
+/* harmony export */   refinePlainDateBag: () => (/* binding */ Yt),
+/* harmony export */   refinePlainDateTimeBag: () => (/* binding */ Pt),
+/* harmony export */   refinePlainMonthDayBag: () => (/* binding */ K),
+/* harmony export */   refinePlainTimeBag: () => (/* binding */ Ue),
+/* harmony export */   refinePlainYearMonthBag: () => (/* binding */ nt),
+/* harmony export */   refineTimeZoneId: () => (/* binding */ Me),
+/* harmony export */   refineZonedDateTimeBag: () => (/* binding */ jn),
+/* harmony export */   refineZonedFieldOptions: () => (/* binding */ wn),
+/* harmony export */   requireBoolean: () => (/* binding */ f),
+/* harmony export */   requireFunction: () => (/* binding */ $),
+/* harmony export */   requireInteger: () => (/* binding */ u),
+/* harmony export */   requireIntegerOrUndefined: () => (/* binding */ c),
+/* harmony export */   requireNonNullish: () => (/* binding */ on),
+/* harmony export */   requireObjectLike: () => (/* binding */ de),
+/* harmony export */   requirePositiveInteger: () => (/* binding */ d),
+/* harmony export */   requirePositiveIntegerOrUndefined: () => (/* binding */ S),
+/* harmony export */   requireString: () => (/* binding */ m),
+/* harmony export */   requireStringOrUndefined: () => (/* binding */ l),
+/* harmony export */   resolveCalendarId: () => (/* binding */ an),
+/* harmony export */   resolveTimeZoneId: () => (/* binding */ ye),
+/* harmony export */   roundDuration: () => (/* binding */ Gt),
+/* harmony export */   roundInstant: () => (/* binding */ ce),
+/* harmony export */   roundPlainDateTime: () => (/* binding */ dt),
+/* harmony export */   roundPlainTime: () => (/* binding */ Ee),
+/* harmony export */   roundZonedDateTime: () => (/* binding */ Pn),
+/* harmony export */   slotsWithCalendar: () => (/* binding */ it),
+/* harmony export */   slotsWithTimeZone: () => (/* binding */ On),
+/* harmony export */   timeConfig: () => (/* binding */ r),
+/* harmony export */   timeFieldNamesAsc: () => (/* binding */ w),
+/* harmony export */   totalDuration: () => (/* binding */ Ut),
+/* harmony export */   unitNamesAsc: () => (/* binding */ Et),
+/* harmony export */   validateTimeZoneGap: () => (/* binding */ ne),
+/* harmony export */   validateTimeZoneOffset: () => (/* binding */ ae),
+/* harmony export */   yearMonthConfig: () => (/* binding */ a),
+/* harmony export */   zonedConfig: () => (/* binding */ s),
+/* harmony export */   zonedDateTimeToInstant: () => (/* binding */ Zn),
+/* harmony export */   zonedDateTimeToPlainDate: () => (/* binding */ Bt),
+/* harmony export */   zonedDateTimeToPlainDateTime: () => (/* binding */ ht),
+/* harmony export */   zonedDateTimeToPlainMonthDay: () => (/* binding */ Fn),
+/* harmony export */   zonedDateTimeToPlainTime: () => (/* binding */ Re),
+/* harmony export */   zonedDateTimeToPlainYearMonth: () => (/* binding */ bn),
+/* harmony export */   zonedDateTimeWithFields: () => (/* binding */ Sn),
+/* harmony export */   zonedDateTimeWithPlainDate: () => (/* binding */ Tn),
+/* harmony export */   zonedDateTimeWithPlainTime: () => (/* binding */ pn),
+/* harmony export */   zonedDateTimesEqual: () => (/* binding */ gn),
+/* harmony export */   zonedEpochSlotsToIso: () => (/* binding */ fn)
+/* harmony export */ });
 function clampProp(e, n, t, o, r) {
   return clampEntity(n, getDefinedProp(e, n), t, o, r);
 }
@@ -7220,7 +10784,7 @@ function E(e, ...n) {
   return (...t) => e(...n, ...t);
 }
 
-function internal_capitalize(e) {
+function capitalize(e) {
   return e[0].toUpperCase() + e.substring(1);
 }
 
@@ -7318,7 +10882,7 @@ function d(e) {
 }
 
 function u(e) {
-  return requireNumberIsInteger(Ni(e));
+  return requireNumberIsInteger(Mi(e));
 }
 
 function on(e) {
@@ -7363,7 +10927,7 @@ function requireNumberIsPositive(e, n = "number") {
   return e;
 }
 
-function internal_toString(e) {
+function toString(e) {
   if ("symbol" == typeof e) {
     throw new TypeError(pr);
   }
@@ -7437,7 +11001,7 @@ function bigIntToBigNano(e, n = 1) {
   return [ Number(e / t), Number(e % t) * n ];
 }
 
-function internal_he(e, n = 1) {
+function he(e, n = 1) {
   const t = Qr / n, [o, r] = divModTrunc(e, t);
   return [ o, r * n ];
 }
@@ -7466,7 +11030,7 @@ function hashIntlFormatParts(e, n) {
 }
 
 function checkIsoYearMonthInBounds(e) {
-  return clampProp(e, "isoYear", Wi, Li, 1), e.isoYear === Wi ? clampProp(e, "isoMonth", 4, 12, 1) : e.isoYear === Li && clampProp(e, "isoMonth", 1, 9, 1), 
+  return clampProp(e, "isoYear", Li, Ai, 1), e.isoYear === Li ? clampProp(e, "isoMonth", 4, 12, 1) : e.isoYear === Ai && clampProp(e, "isoMonth", 1, 9, 1), 
   e;
 }
 
@@ -7479,7 +11043,7 @@ function checkIsoDateInBounds(e) {
 }
 
 function checkIsoDateTimeInBounds(e) {
-  const n = clampProp(e, "isoYear", Wi, Li, 1), t = n === Wi ? 1 : n === Li ? -1 : 0;
+  const n = clampProp(e, "isoYear", Li, Ai, 1), t = n === Li ? 1 : n === Ai ? -1 : 0;
   return t && checkEpochNanoInBounds(isoToEpochNano({
     ...e,
     isoDay: e.isoDay + t,
@@ -7488,7 +11052,7 @@ function checkIsoDateTimeInBounds(e) {
 }
 
 function checkEpochNanoInBounds(e) {
-  if (!e || bigNanoOutside(e, Ui, Ai)) {
+  if (!e || bigNanoOutside(e, Ui, qi)) {
     throw new RangeError(Cr);
   }
   return e;
@@ -7519,7 +11083,7 @@ function isoToEpochNano(e) {
   const n = isoToEpochMilli(e);
   if (void 0 !== n) {
     const [t, o] = divModTrunc(n, Gr);
-    return [ t, o * internal_be + (e.isoMicrosecond || 0) * Vr + (e.isoNanosecond || 0) ];
+    return [ t, o * be + (e.isoMicrosecond || 0) * Vr + (e.isoNanosecond || 0) ];
   }
 }
 
@@ -7544,20 +11108,20 @@ function isoArgsToEpochMilli(...e) {
 }
 
 function isoToLegacyDate(e, n = 1, t = 1, o = 0, r = 0, i = 0, a = 0) {
-  const s = e === Wi ? 1 : e === Li ? -1 : 0, c = new Date;
+  const s = e === Li ? 1 : e === Ai ? -1 : 0, c = new Date;
   return c.setUTCHours(o, r, i, a), c.setUTCFullYear(e, n - 1, t + s), [ c, s ];
 }
 
 function Ie(e, n) {
   let [t, o] = moveBigNano(e, n);
   o < 0 && (o += Qr, t -= 1);
-  const [r, i] = divModFloor(o, internal_be), [a, s] = divModFloor(i, Vr);
+  const [r, i] = divModFloor(o, be), [a, s] = divModFloor(i, Vr);
   return epochMilliToIso(t * Gr + r, a, s);
 }
 
 function epochMilliToIso(e, n = 0, t = 0) {
-  const o = Math.ceil(Math.max(0, Math.abs(e) - qi) / Gr) * Math.sign(e), r = new Date(e - o * Gr);
-  return zipProps(Bi, [ r.getUTCFullYear(), r.getUTCMonth() + 1, r.getUTCDate() + o, r.getUTCHours(), r.getUTCMinutes(), r.getUTCSeconds(), r.getUTCMilliseconds(), n, t ]);
+  const o = Math.ceil(Math.max(0, Math.abs(e) - zi) / Gr) * Math.sign(e), r = new Date(e - o * Gr);
+  return zipProps(wi, [ r.getUTCFullYear(), r.getUTCMonth() + 1, r.getUTCDate() + o, r.getUTCHours(), r.getUTCMinutes(), r.getUTCSeconds(), r.getUTCMilliseconds(), n, t ]);
 }
 
 function computeIsoDateParts(e) {
@@ -7565,7 +11129,7 @@ function computeIsoDateParts(e) {
 }
 
 function computeIsoMonthsInYear() {
-  return $i;
+  return xi;
 }
 
 function computeIsoDaysInMonth(e, n) {
@@ -7601,10 +11165,10 @@ function computeGregoryEraParts({isoYear: e}) {
 
 function computeJapaneseEraParts(e) {
   const n = isoToEpochMilli(e);
-  if (n < Gi) {
+  if (n < $i) {
     return computeGregoryEraParts(e);
   }
-  const t = hashIntlFormatParts(Wa(Ti), n), {era: o, eraYear: r} = parseIntlYear(t, Ti);
+  const t = hashIntlFormatParts(La(Ti), n), {era: o, eraYear: r} = parseIntlYear(t, Ti);
   return [ o, r ];
 }
 
@@ -7617,7 +11181,7 @@ function checkIsoDateFields(e) {
 }
 
 function isIsoDateFieldsValid(e) {
-  return allPropsEqual(wi, e, constrainIsoDateFields(e));
+  return allPropsEqual(Oi, e, constrainIsoDateFields(e));
 }
 
 function constrainIsoDateFields(e, n) {
@@ -7634,40 +11198,40 @@ function constrainIsoTimeFields(e, n) {
 }
 
 function H(e) {
-  return void 0 === e ? 0 : la(de(e));
+  return void 0 === e ? 0 : ua(de(e));
 }
 
 function wn(e, n = 0) {
   e = normalizeOptions(e);
-  const t = fa(e), o = da(e, n);
-  return [ la(e), o, t ];
+  const t = la(e), o = fa(e, n);
+  return [ ua(e), o, t ];
 }
 
 function ve(e) {
-  return fa(normalizeOptions(e));
+  return la(normalizeOptions(e));
 }
 
 function _t(e) {
-  return e = normalizeOptions(e), ca(e, 9, 6, 1);
+  return e = normalizeOptions(e), sa(e, 9, 6, 1);
 }
 
 function refineDiffOptions(e, n, t, o = 9, r = 0, i = 4) {
   n = normalizeOptions(n);
-  let a = ca(n, o, r), s = parseRoundingIncInteger(n), c = ga(n, i);
-  const u = sa(n, o, r, 1);
+  let a = sa(n, o, r), s = parseRoundingIncInteger(n), c = ha(n, i);
+  const u = aa(n, o, r, 1);
   return null == a ? a = Math.max(t, u) : checkLargestSmallestUnit(a, u), s = refineRoundingInc(s, u, 1), 
   e && (c = (e => e < 4 ? (e + 2) % 4 : e)(c)), [ a, u, s, c ];
 }
 
 function refineRoundingOptions(e, n = 6, t) {
-  let o = parseRoundingIncInteger(e = normalizeOptionsOrString(e, Vi));
-  const r = ga(e, 7);
-  let i = sa(e, n);
-  return i = requirePropDefined(Vi, i), o = refineRoundingInc(o, i, void 0, t), [ i, o, r ];
+  let o = parseRoundingIncInteger(e = normalizeOptionsOrString(e, Hi));
+  const r = ha(e, 7);
+  let i = aa(e, n);
+  return i = requirePropDefined(Hi, i), o = refineRoundingInc(o, i, void 0, t), [ i, o, r ];
 }
 
 function refineDateDisplayOptions(e) {
-  return ma(normalizeOptions(e));
+  return da(normalizeOptions(e));
 }
 
 function refineTimeDisplayOptions(e, n) {
@@ -7676,7 +11240,7 @@ function refineTimeDisplayOptions(e, n) {
 
 function refineTimeDisplayTuple(e, n = 4) {
   const t = refineSubsecDigits(e);
-  return [ ga(e, 4), ...refineSmallestUnitAndSubsecDigits(sa(e, n), t) ];
+  return [ ha(e, 4), ...refineSmallestUnitAndSubsecDigits(aa(e, n), t) ];
 }
 
 function refineSmallestUnitAndSubsecDigits(e, n) {
@@ -7684,33 +11248,33 @@ function refineSmallestUnitAndSubsecDigits(e, n) {
 }
 
 function parseRoundingIncInteger(e) {
-  const n = e[Ji];
-  return void 0 === n ? 1 : toInteger(n, Ji);
+  const n = e[_i];
+  return void 0 === n ? 1 : toInteger(n, _i);
 }
 
 function refineRoundingInc(e, n, t, o) {
   const r = o ? Qr : Xr[n + 1];
   if (r) {
     const t = Xr[n];
-    if (r % ((e = clampEntity(Ji, e, 1, r / t - (o ? 0 : 1), 1)) * t)) {
-      throw new RangeError(invalidEntity(Ji, e));
+    if (r % ((e = clampEntity(_i, e, 1, r / t - (o ? 0 : 1), 1)) * t)) {
+      throw new RangeError(invalidEntity(_i, e));
     }
   } else {
-    e = clampEntity(Ji, e, 1, t ? 10 ** 9 : 1, 1);
+    e = clampEntity(_i, e, 1, t ? 10 ** 9 : 1, 1);
   }
   return e;
 }
 
 function refineSubsecDigits(e) {
-  let n = e[Ki];
+  let n = e[Ji];
   if (void 0 !== n) {
     if ("number" != typeof n) {
-      if ("auto" === internal_toString(n)) {
+      if ("auto" === toString(n)) {
         return;
       }
-      throw new RangeError(invalidEntity(Ki, n));
+      throw new RangeError(invalidEntity(Ji, n));
     }
-    n = clampEntity(Ki, Math.floor(n), 0, 9, 1);
+    n = clampEntity(Ji, Math.floor(n), 0, 9, 1);
   }
   return n;
 }
@@ -7736,7 +11300,7 @@ function U(e) {
 
 function overrideOverflowOptions(e, n) {
   return e && Object.assign(Object.create(null), e, {
-    overflow: ea[n]
+    overflow: Xi[n]
   });
 }
 
@@ -7745,11 +11309,11 @@ function refineUnitOption(e, n, t = 9, o = 0, r) {
   if (void 0 === i) {
     return r ? o : void 0;
   }
-  if (i = internal_toString(i), "auto" === i) {
+  if (i = toString(i), "auto" === i) {
     return r ? o : null;
   }
   let a = $r[i];
-  if (void 0 === a && (a = Si[i]), void 0 === a) {
+  if (void 0 === a && (a = Ei[i]), void 0 === a) {
     throw new RangeError(invalidChoice(e, i, $r));
   }
   return clampEntity(e, a, o, t, 1, Et), a;
@@ -7760,7 +11324,7 @@ function refineChoiceOption(e, n, t, o = 0) {
   if (void 0 === r) {
     return o;
   }
-  const i = internal_toString(r), a = n[i];
+  const i = toString(r), a = n[i];
   if (void 0 === a) {
     throw new RangeError(invalidChoice(e, i, n));
   }
@@ -7769,11 +11333,11 @@ function refineChoiceOption(e, n, t, o = 0) {
 
 function checkLargestSmallestUnit(e, n) {
   if (n > e) {
-    throw new RangeError(Ur);
+    throw new RangeError(Ar);
   }
 }
 
-function internal_(e) {
+function _(e) {
   return {
     branding: Oe,
     epochNanoseconds: e
@@ -7793,7 +11357,7 @@ function ee(e, n = e.calendar) {
   return {
     branding: We,
     calendar: n,
-    ...Vn(Ci, e)
+    ...Vn(Yi, e)
   };
 }
 
@@ -7801,7 +11365,7 @@ function v(e, n = e.calendar) {
   return {
     branding: J,
     calendar: n,
-    ...Vn(ki, e)
+    ...Vn(Bi, e)
   };
 }
 
@@ -7809,7 +11373,7 @@ function createPlainYearMonthSlots(e, n = e.calendar) {
   return {
     branding: L,
     calendar: n,
-    ...Vn(ki, e)
+    ...Vn(Bi, e)
   };
 }
 
@@ -7817,14 +11381,14 @@ function createPlainMonthDaySlots(e, n = e.calendar) {
   return {
     branding: q,
     calendar: n,
-    ...Vn(ki, e)
+    ...Vn(Bi, e)
   };
 }
 
 function Ge(e) {
   return {
     branding: xe,
-    ...Vn(Yi, e)
+    ...Vn(ki, e)
   };
 }
 
@@ -7832,7 +11396,7 @@ function Vt(e) {
   return {
     branding: qt,
     sign: computeDurationSign(e),
-    ...Vn(yi, e)
+    ...Vn(Ni, e)
   };
 }
 
@@ -7841,7 +11405,7 @@ function M(e) {
 }
 
 function y(e) {
-  return divModBigNano(e.epochNanoseconds, internal_be)[0];
+  return divModBigNano(e.epochNanoseconds, be)[0];
 }
 
 function N(e) {
@@ -7865,30 +11429,34 @@ function isIdLikeEqual(e, n) {
 }
 
 function Ut(e, n, t, o, r) {
-  const i = getLargestDurationUnit(o), [a, s] = ((e, n) => {
-    const t = n((e = normalizeOptionsOrString(e, _i))[Qi]);
-    let o = ua(e);
-    return o = requirePropDefined(_i, o), [ o, t ];
+  const i = getMaxDurationUnit(o), [a, s] = ((e, n) => {
+    const t = n((e = normalizeOptionsOrString(e, Vi))[Ki]);
+    let o = ca(e);
+    return o = requirePropDefined(Vi, o), [ o, t ];
   })(r, e);
   if (isUniformUnit(Math.max(a, i), s)) {
-    return ((e, n) => oe(durationFieldsToBigNano(e), Xr[n], 1))(o, a);
+    return totalDayTimeDuration(o, a);
   }
   if (!s) {
     throw new RangeError(zr);
   }
-  const [c, u, l] = createMarkerSystem(n, t, s), f = createMarkerToEpochNano(l), d = createMoveMarker(u, l);
-  return ((e, n, t, o, r, i) => {
-    const a = computeDurationSign(e), [s, c] = clampRelativeDuration(Oi(t, e), t, a, o, r, i), u = computeEpochNanoFrac(n, s, c);
-    return e[F[t]] + u * a;
-  })(...spanDuration(o, a, c, f, d, createDiffMarkers(u, l)), a, c, f, d);
+  const [c, u, l] = createMarkerSystem(n, t, s), f = createMarkerToEpochNano(l), d = createMoveMarker(l), m = createDiffMarkers(l), p = d(u, c, o), h = m(u, c, p, a);
+  return isUniformUnit(a, s) ? totalDayTimeDuration(h, a) : ((e, n, t, o, r, i, a) => {
+    const s = computeDurationSign(e), [c, u] = clampRelativeDuration(o, bi(t, e), t, s, r, i, a), l = computeEpochNanoFrac(n, c, u);
+    return e[F[t]] + l * s;
+  })(h, f(p), a, u, c, f, d);
 }
 
-function clampRelativeDuration(e, n, t, o, r, i) {
-  const a = {
-    ...Fi,
-    [F[n]]: t
-  }, s = i(o, e), c = i(s, a);
-  return [ r(s), r(c) ];
+function totalDayTimeDuration(e, n) {
+  return oe(durationFieldsToBigNano(e), Xr[n], 1);
+}
+
+function clampRelativeDuration(e, n, t, o, r, i, a) {
+  const s = F[t], c = {
+    ...n,
+    [s]: n[s] + o
+  }, u = a(e, r, n), l = a(e, r, c);
+  return [ i(u), i(l) ];
 }
 
 function computeEpochNanoFrac(e, n, t) {
@@ -7901,7 +11469,7 @@ function computeEpochNanoFrac(e, n, t) {
 
 function ce(e, n) {
   const [t, o, r] = refineRoundingOptions(n, 5, 1);
-  return internal_(roundBigNano(e.epochNanoseconds, t, o, r, 1));
+  return _(roundBigNano(e.epochNanoseconds, t, o, r, 1));
 }
 
 function Pn(e, n, t) {
@@ -7979,36 +11547,36 @@ function computeDayInterval(e) {
 }
 
 function computeDayFloor(e) {
-  return Zi(6, e);
+  return Ci(6, e);
 }
 
 function roundDayTimeDurationByInc(e, n, t) {
-  const o = Math.min(getLargestDurationUnit(e), 6);
+  const o = Math.min(getMaxDurationUnit(e), 6);
   return nanoToDurationDayTimeFields(roundBigNanoByInc(durationFieldsToBigNano(e, o), n, t), o);
 }
 
-function roundRelativeDuration(e, n, t, o, r, i, a, s, c) {
+function roundRelativeDuration(e, n, t, o, r, i, a, s, c, u) {
   if (0 === o && 1 === r) {
     return e;
   }
-  const u = o > 6 ? nudgeRelativeDuration : isZonedEpochSlots(a) && o < 6 ? nudgeZonedTimeDuration : nudgeDayTimeDuration;
-  let [l, f, d] = u(e, n, t, o, r, i, a, s, c);
-  return d && (l = ((e, n, t, o, r, i, a) => {
-    const s = computeDurationSign(e);
-    for (let c = o + 1; c <= t; c++) {
-      if (7 === c && 7 !== t) {
+  const l = isUniformUnit(o, s) ? isZonedEpochSlots(s) && o < 6 && t >= 6 ? nudgeZonedTimeDuration : nudgeDayTimeDuration : nudgeRelativeDuration;
+  let [f, d, m] = l(e, n, t, o, r, i, a, s, c, u);
+  return m && 7 !== o && (f = ((e, n, t, o, r, i, a, s) => {
+    const c = computeDurationSign(e);
+    for (let u = o + 1; u <= t; u++) {
+      if (7 === u && 7 !== t) {
         continue;
       }
-      const o = Oi(c, e);
-      o[F[c]] += s;
-      const u = oe(re(i(a(r, o)), n));
-      if (u && Math.sign(u) !== s) {
+      const o = bi(u, e);
+      o[F[u]] += c;
+      const l = oe(re(a(s(r, i, o)), n));
+      if (l && Math.sign(l) !== c) {
         break;
       }
       e = o;
     }
     return e;
-  })(l, f, t, Math.max(6, o), a, s, c)), l;
+  })(f, d, t, Math.max(6, o), a, s, c, u)), f;
 }
 
 function roundBigNano(e, n, t, o, r) {
@@ -8031,7 +11599,7 @@ function roundByInc(e, n, t) {
 }
 
 function roundWithMode(e, n) {
-  return Ta[n](e);
+  return ga[n](e);
 }
 
 function nudgeDayTimeDuration(e, n, t, o, r, i) {
@@ -8042,30 +11610,34 @@ function nudgeDayTimeDuration(e, n, t, o, r, i) {
   }, addBigNanos(n, u), l ];
 }
 
-function nudgeZonedTimeDuration(e, n, t, o, r, i, a, s, c) {
-  const u = computeDurationSign(e);
-  let [l, f] = durationFieldsToBigNano(e, 5);
-  const d = computeNanoInc(o, r);
+function nudgeZonedTimeDuration(e, n, t, o, r, i, a, s, c, u) {
+  const l = computeDurationSign(e), f = oe(durationFieldsToBigNano(e, 5)), d = computeNanoInc(o, r);
   let m = roundByInc(f, d, i);
-  const [p, h] = clampRelativeDuration({
+  const [p, h] = clampRelativeDuration(a, {
     ...e,
-    ...bi
-  }, 6, u, a, s, c), g = m - oe(re(p, h));
-  g && Math.sign(g) !== u ? n = moveBigNano(p, m) : (l += u, m = roundByInc(g, d, i), 
+    ...Fi
+  }, 6, l, s, c, u), g = m - oe(re(p, h));
+  let T = 0;
+  g && Math.sign(g) !== l ? n = moveBigNano(p, m) : (T += l, m = roundByInc(g, d, i), 
   n = moveBigNano(h, m));
-  const T = nanoToDurationTimeFields(m);
+  const D = nanoToDurationTimeFields(m);
   return [ {
     ...e,
-    ...T,
-    days: e.days + l
-  }, n, Boolean(l) ];
+    ...D,
+    days: e.days + T
+  }, n, Boolean(T) ];
 }
 
-function nudgeRelativeDuration(e, n, t, o, r, i, a, s, c) {
-  const u = computeDurationSign(e), l = F[o], f = Oi(o, e), d = divTrunc(e[l], r) * r;
-  f[l] = d;
-  const [m, p] = clampRelativeDuration(f, o, r * u, a, s, c), h = d + computeEpochNanoFrac(n, m, p) * u * r, g = roundByInc(h, r, i), T = Math.sign(g - h) === u;
-  return f[l] = g, [ f, T ? p : m, T ];
+function nudgeRelativeDuration(e, n, t, o, r, i, a, s, c, u) {
+  const l = computeDurationSign(e), f = F[o], d = bi(o, e);
+  7 === o && (e = {
+    ...e,
+    weeks: e.weeks + Math.trunc(e.days / 7)
+  });
+  const m = divTrunc(e[f], r) * r;
+  d[f] = m;
+  const [p, h] = clampRelativeDuration(a, d, o, r * l, s, c, u), g = m + computeEpochNanoFrac(n, p, h) * l * r, T = roundByInc(g, r, i), D = Math.sign(T - g) === l;
+  return d[f] = T, [ d, D ? h : p, D ];
 }
 
 function me(e, n, t, o) {
@@ -8077,14 +11649,14 @@ function me(e, n, t, o) {
     t = roundBigNanoByInc(t, r, o, 1);
     const a = n.getOffsetNanosecondsFor(t);
     return formatIsoDateTimeFields(Ie(t, a), i) + (e ? Fe(roundToMinute(a)) : "Z");
-  })(c, n(c ? e(r) : Da), t.epochNanoseconds, i, a, s);
+  })(c, n(c ? e(r) : Ta), t.epochNanoseconds, i, a, s);
 }
 
 function In(e, n, t) {
   const [o, r, i, a, s, c] = (e => {
     e = normalizeOptions(e);
-    const n = ma(e), t = refineSubsecDigits(e), o = ha(e), r = ga(e, 4), i = sa(e, 4);
-    return [ n, pa(e), o, r, ...refineSmallestUnitAndSubsecDigits(i, t) ];
+    const n = da(e), t = refineSubsecDigits(e), o = pa(e), r = ha(e, 4), i = aa(e, 4);
+    return [ n, ma(e), o, r, ...refineSmallestUnitAndSubsecDigits(i, t) ];
   })(t);
   return ((e, n, t, o, r, i, a, s, c, u) => {
     o = roundBigNanoByInc(o, c, s, 1);
@@ -8094,7 +11666,7 @@ function In(e, n, t) {
 }
 
 function Tt(e, n) {
-  const [t, o, r, i] = (e => (e = normalizeOptions(e), [ ma(e), ...refineTimeDisplayTuple(e) ]))(n);
+  const [t, o, r, i] = (e => (e = normalizeOptions(e), [ da(e), ...refineTimeDisplayTuple(e) ]))(n);
   return a = e.calendar, s = t, c = i, formatIsoDateTimeFields(roundDateTimeToNano(e, r, o), c) + formatCalendar(a, s);
   var a, s, c;
 }
@@ -8173,7 +11745,7 @@ function formatIsoMonthDayFields(e) {
 
 function formatIsoTimeFields(e, n) {
   const t = [ xr(e.isoHour), xr(e.isoMinute) ];
-  return -1 !== n && t.push(xr(e.isoSecond) + ((e, n, t, o) => formatSubsecNano(e * internal_be + n * Vr + t, o))(e.isoMillisecond, e.isoMicrosecond, e.isoNanosecond, n)), 
+  return -1 !== n && t.push(xr(e.isoSecond) + ((e, n, t, o) => formatSubsecNano(e * be + n * Vr + t, o))(e.isoMillisecond, e.isoMicrosecond, e.isoNanosecond, n)), 
   t.join(":");
 }
 
@@ -8201,7 +11773,7 @@ function formatCalendarId(e, n) {
 
 function formatSubsecNano(e, n) {
   let t = padNumber(9, e);
-  return t = void 0 === n ? t.replace(ya, "") : t.slice(0, n), t ? "." + t : "";
+  return t = void 0 === n ? t.replace(Na, "") : t.slice(0, n), t ? "." + t : "";
 }
 
 function getSignStr(e) {
@@ -8227,7 +11799,7 @@ function mn(e, n) {
   const t = fn(n, e);
   return {
     calendar: n.calendar,
-    ...Vn(Ci, t),
+    ...Vn(Yi, t),
     offset: Fe(t.offsetNanoseconds),
     timeZone: n.timeZone
   };
@@ -8291,7 +11863,7 @@ function ne(e) {
 }
 
 function se(e, n, t) {
-  return internal_(checkEpochNanoInBounds(addBigNanos(n.epochNanoseconds, (e => {
+  return _(checkEpochNanoInBounds(addBigNanos(n.epochNanoseconds, (e => {
     if (durationHasDateParts(e)) {
       throw new RangeError(qr);
     }
@@ -8303,7 +11875,7 @@ function hn(e, n, t, o, r, i = Object.create(null)) {
   const a = n(o.timeZone), s = e(o.calendar);
   return {
     ...o,
-    ...moveZonedEpochs(s, a, o, t ? negateDurationFields(r) : r, i)
+    ...moveZonedEpochs(a, s, o, t ? negateDurationFields(r) : r, i)
   };
 }
 
@@ -8321,7 +11893,7 @@ function Qe(e, n, t, o, r = Object.create(null)) {
   const i = t.calendar, a = e(i);
   let s = moveToDayOfMonthUnsafe(a, t);
   n && (o = xt(o)), o.sign < 0 && (s = a.dateAdd(s, {
-    ...Fi,
+    ...Si,
     months: 1
   }), s = moveByDays(s, -1));
   const c = a.dateAdd(s, o, r);
@@ -8336,11 +11908,11 @@ function moveZonedEpochs(e, n, t, o, r) {
   const i = durationFieldsToBigNano(o, 5);
   let a = t.epochNanoseconds;
   if (durationHasDateParts(o)) {
-    const s = fn(t, n);
-    a = addBigNanos(we(n, {
-      ...moveDate(e, s, {
+    const s = fn(t, e);
+    a = addBigNanos(we(e, {
+      ...moveDate(n, s, {
         ...o,
-        ...bi
+        ...Fi
       }, r),
       ...Vn(j, s)
     }), i);
@@ -8357,7 +11929,7 @@ function moveDateTime(e, n, t, o) {
   return checkIsoDateTimeInBounds({
     ...moveDate(e, n, {
       ...t,
-      ...bi,
+      ...Fi,
       days: t.days + i
     }, o),
     ...r
@@ -8401,12 +11973,12 @@ function createMarkerToEpochNano(e) {
   return e ? extractEpochNano : isoToEpochNano;
 }
 
-function createMoveMarker(e, n) {
-  return n ? E(moveZonedEpochs, e, n) : E(moveDateTime, e);
+function createMoveMarker(e) {
+  return e ? E(moveZonedEpochs, e) : moveDateTime;
 }
 
-function createDiffMarkers(e, n) {
-  return n ? E(diffZonedEpochsExact, e, n) : E(diffDateTimesExact, e);
+function createDiffMarkers(e) {
+  return e ? E(diffZonedEpochsExact, e) : diffDateTimesExact;
 }
 
 function isZonedEpochSlots(e) {
@@ -8417,13 +11989,8 @@ function isUniformUnit(e, n) {
   return e <= 6 - (isZonedEpochSlots(n) ? 1 : 0);
 }
 
-function spanDuration(e, n, t, o, r, i) {
-  const a = r(t, e);
-  return [ i(t, a, n), o(a) ];
-}
-
 function Wt(e, n, t, o, r, i, a) {
-  const s = e(normalizeOptions(a).relativeTo), c = Math.max(getLargestDurationUnit(r), getLargestDurationUnit(i));
+  const s = e(normalizeOptions(a).relativeTo), c = Math.max(getMaxDurationUnit(r), getMaxDurationUnit(i));
   if (isUniformUnit(c, s)) {
     return Vt(checkDurationUnits(((e, n, t, o) => {
       const r = addBigNanos(durationFieldsToBigNano(e), durationFieldsToBigNano(n), o ? -1 : 1);
@@ -8431,7 +11998,7 @@ function Wt(e, n, t, o, r, i, a) {
         throw new RangeError(Cr);
       }
       return {
-        ...Fi,
+        ...Si,
         ...nanoToDurationDayTimeFields(r, t)
       };
     })(r, i, c, o)));
@@ -8440,29 +12007,29 @@ function Wt(e, n, t, o, r, i, a) {
     throw new RangeError(zr);
   }
   o && (i = negateDurationFields(i));
-  const [u, l, f] = createMarkerSystem(n, t, s), d = createMoveMarker(l, f), m = createDiffMarkers(l, f), p = d(u, r);
-  return Vt(m(u, d(p, i), c));
+  const [u, l, f] = createMarkerSystem(n, t, s), d = createMoveMarker(f), m = createDiffMarkers(f), p = d(l, u, r);
+  return Vt(m(l, u, d(l, p, i), c));
 }
 
 function Gt(e, n, t, o, r) {
-  const i = getLargestDurationUnit(o), [a, s, c, u, l] = ((e, n, t) => {
-    e = normalizeOptionsOrString(e, Vi);
-    let o = ca(e);
-    const r = t(e[Qi]);
+  const i = getMaxDurationUnit(o), [a, s, c, u, l] = ((e, n, t) => {
+    e = normalizeOptionsOrString(e, Hi);
+    let o = sa(e);
+    const r = t(e[Ki]);
     let i = parseRoundingIncInteger(e);
-    const a = ga(e, 7);
-    let s = sa(e);
+    const a = ha(e, 7);
+    let s = aa(e);
     if (void 0 === o && void 0 === s) {
-      throw new RangeError(Ar);
+      throw new RangeError(Ur);
     }
     return null == s && (s = 0), null == o && (o = Math.max(s, n)), checkLargestSmallestUnit(o, s), 
     i = refineRoundingInc(i, s, 1), [ o, s, i, a, r ];
-  })(r, i, e);
-  if (isUniformUnit(Math.max(i, a), l)) {
+  })(r, i, e), f = Math.max(i, a);
+  if (!isZonedEpochSlots(l) && f <= 6) {
     return Vt(checkDurationUnits(((e, n, t, o, r) => {
       const i = roundBigNano(durationFieldsToBigNano(e), t, o, r);
       return {
-        ...Fi,
+        ...Si,
         ...nanoToDurationDayTimeFields(i, n)
       };
     })(o, a, s, c, u)));
@@ -8470,19 +12037,13 @@ function Gt(e, n, t, o, r) {
   if (!l) {
     throw new RangeError(zr);
   }
-  const [f, d, m] = createMarkerSystem(n, t, l), p = createMarkerToEpochNano(m), h = createMoveMarker(d, m), g = createDiffMarkers(d, m);
-  let T = 0;
-  o.weeks && 7 === s && (T = o.weeks, o = {
-    ...o,
-    weeks: 0
-  });
-  let [D, I] = spanDuration(o, a, f, p, h, g);
-  const M = o.sign, N = computeDurationSign(D);
+  const [d, m, p] = createMarkerSystem(n, t, l), h = createMarkerToEpochNano(p), g = createMoveMarker(p), T = createDiffMarkers(p), D = g(m, d, o);
+  let I = T(m, d, D, a);
+  const M = o.sign, N = computeDurationSign(I);
   if (M && N && M !== N) {
     throw new RangeError(vr);
   }
-  return N && (D = roundRelativeDuration(D, I, a, s, c, u, f, p, h)), D.weeks += T, 
-  Vt(D);
+  return N && (I = roundRelativeDuration(I, h(D), a, s, c, u, m, d, h, g)), Vt(I);
 }
 
 function Rt(e) {
@@ -8520,8 +12081,8 @@ function computeDurationSign(e, n = F) {
 }
 
 function checkDurationUnits(e) {
-  for (const n of Ei) {
-    clampEntity(n, e[n], -Pa, Pa, 1);
+  for (const n of vi) {
+    clampEntity(n, e[n], -ya, ya, 1);
   }
   return checkDurationTimeUnit(oe(durationFieldsToBigNano(e), _r)), e;
 }
@@ -8549,10 +12110,10 @@ function nanoToDurationTimeFields(e, n = 5) {
 }
 
 function durationHasDateParts(e) {
-  return Boolean(computeDurationSign(e, vi));
+  return Boolean(computeDurationSign(e, Pi));
 }
 
-function getLargestDurationUnit(e) {
+function getMaxDurationUnit(e) {
   let n = 9;
   for (;n > 0 && !e[F[n]]; n--) {}
   return n;
@@ -8563,8 +12124,8 @@ function createSplitTuple(e, n) {
 }
 
 function computePeriod(e) {
-  const n = Math.floor(e / Ia) * Ia;
-  return [ n, n + Ia ];
+  const n = Math.floor(e / Da) * Da;
+  return [ n, n + Da ];
 }
 
 function pe(e) {
@@ -8573,7 +12134,7 @@ function pe(e) {
     throw new RangeError(failedParse(e));
   }
   let t;
-  if (n.O) {
+  if (n.m) {
     t = 0;
   } else {
     if (!n.offset) {
@@ -8581,7 +12142,7 @@ function pe(e) {
     }
     t = parseOffsetNano(n.offset);
   }
-  return n.timeZone && parseOffsetNanoMaybe(n.timeZone, 1), internal_(isoToEpochNanoWithOffset(checkIsoDateTimeFields(n), t));
+  return n.timeZone && parseOffsetNanoMaybe(n.timeZone, 1), _(isoToEpochNanoWithOffset(checkIsoDateTimeFields(n), t));
 }
 
 function Xt(e) {
@@ -8592,7 +12153,7 @@ function Xt(e) {
   if (n.timeZone) {
     return finalizeZonedDateTime(n, n.offset ? parseOffsetNano(n.offset) : void 0);
   }
-  if (n.O) {
+  if (n.m) {
     throw new RangeError(failedParse(e));
   }
   return finalizeDate(n);
@@ -8617,7 +12178,7 @@ function parseOffsetNano(e) {
 
 function Ct(e) {
   const n = parseDateTimeLike(m(e));
-  if (!n || n.O) {
+  if (!n || n.m) {
     throw new RangeError(failedParse(e));
   }
   return ee(finalizeDateTime(n));
@@ -8625,10 +12186,10 @@ function Ct(e) {
 
 function At(e) {
   const n = parseDateTimeLike(m(e));
-  if (!n || n.O) {
+  if (!n || n.m) {
     throw new RangeError(failedParse(e));
   }
-  return v(n.I ? finalizeDateTime(n) : finalizeDate(n));
+  return v(n.p ? finalizeDateTime(n) : finalizeDate(n));
 }
 
 function ot(e, n) {
@@ -8651,23 +12212,23 @@ function Q(e, n) {
   if (t) {
     return requireIsoCalendar(t), createPlainMonthDaySlots(checkIsoDateFields(t));
   }
-  const o = At(n), {calendar: r} = o, i = e(r), [a, s, c] = i.v(o), [u, l] = i.$(a, s), [f, d] = i.k(u, l, c);
-  return createPlainMonthDaySlots(checkIsoDateInBounds(i.L(f, d, c)), r);
+  const o = At(n), {calendar: r} = o, i = e(r), [a, s, c] = i.h(o), [u, l] = i.I(a, s), [f, d] = i.N(u, l, c);
+  return createPlainMonthDaySlots(checkIsoDateInBounds(i.P(f, d, c)), r);
 }
 
 function ze(e) {
   let n, t = (e => {
-    const n = Za.exec(e);
+    const n = Ca.exec(e);
     return n ? (organizeAnnotationParts(n[10]), organizeTimeParts(n)) : void 0;
   })(m(e));
   if (!t) {
     if (t = parseDateTimeLike(e), !t) {
       throw new RangeError(failedParse(e));
     }
-    if (!t.I) {
+    if (!t.p) {
       throw new RangeError(failedParse(e));
     }
-    if (t.O) {
+    if (t.m) {
       throw new RangeError(invalidSubstring("Z"));
     }
     requireIsoCalendar(t);
@@ -8683,7 +12244,7 @@ function ze(e) {
 
 function Kt(e) {
   const n = (e => {
-    const n = qa.exec(e);
+    const n = za.exec(e);
     return n ? (e => {
       function parseUnit(e, r, i) {
         let a = 0, s = 0;
@@ -8724,12 +12285,12 @@ function sn(e) {
 
 function Ne(e) {
   const n = parseDateTimeLike(e);
-  return n && (n.timeZone || n.O && Da || n.offset) || e;
+  return n && (n.timeZone || n.m && Ta || n.offset) || e;
 }
 
 function finalizeZonedDateTime(e, n, t = 0, o = 0) {
   const r = ye(e.timeZone), i = ie(r);
-  return Yn(getMatchingInstantFor(i, checkIsoDateTimeFields(e), n, t, o, !i.R, e.O), r, an(e.calendar));
+  return Yn(getMatchingInstantFor(i, checkIsoDateTimeFields(e), n, t, o, !i.v, e.m), r, an(e.calendar));
 }
 
 function finalizeDateTime(e) {
@@ -8748,7 +12309,7 @@ function resolveSlotsCalendar(e) {
 }
 
 function parseDateTimeLike(e) {
-  const n = Ca.exec(e);
+  const n = Ya.exec(e);
   return n ? (e => {
     const n = e[10], t = "Z" === (n || "").toUpperCase();
     return {
@@ -8757,15 +12318,15 @@ function parseDateTimeLike(e) {
       isoDay: parseInt(e[5]),
       ...organizeTimeParts(e.slice(5)),
       ...organizeAnnotationParts(e[16]),
-      I: Boolean(e[6]),
-      O: t,
+      p: Boolean(e[6]),
+      m: t,
       offset: t ? void 0 : n
     };
   })(n) : void 0;
 }
 
 function parseYearMonthOnly(e) {
-  const n = ka.exec(e);
+  const n = Ba.exec(e);
   return n ? (e => ({
     isoYear: organizeIsoYearParts(e),
     isoMonth: parseInt(e[4]),
@@ -8775,9 +12336,9 @@ function parseYearMonthOnly(e) {
 }
 
 function parseMonthDayOnly(e) {
-  const n = Ya.exec(e);
+  const n = ka.exec(e);
   return n ? (e => ({
-    isoYear: xi,
+    isoYear: ji,
     isoMonth: parseInt(e[1]),
     isoDay: parseInt(e[2]),
     ...organizeAnnotationParts(e[3])
@@ -8785,7 +12346,7 @@ function parseMonthDayOnly(e) {
 }
 
 function parseOffsetNanoMaybe(e, n) {
-  const t = Ra.exec(e);
+  const t = Za.exec(e);
   return t ? ((e, n) => {
     const t = e[4] || e[5];
     if (n && t) {
@@ -8816,7 +12377,7 @@ function organizeTimeParts(e) {
 function organizeAnnotationParts(e) {
   let n, t;
   const o = [];
-  if (e.replace(za, ((e, r, i) => {
+  if (e.replace(Ra, ((e, r, i) => {
     const a = Boolean(r), [s, c] = i.split("=").reverse();
     if (c) {
       if ("u-ca" === c) {
@@ -8866,18 +12427,18 @@ function ye(e) {
     if (Ua.test(e)) {
       throw new RangeError(br);
     }
-    return e.toLowerCase().split("/").map(((e, n) => (e.length <= 3 || /\d/.test(e)) && !/etc|yap/.test(e) ? e.toUpperCase() : e.replace(/baja|dumont|[a-z]+/g, ((e, t) => e.length <= 2 && !n || "in" === e || "chat" === e ? e.toUpperCase() : e.length > 2 || !t ? internal_capitalize(e).replace(/island|noronha|murdo|rivadavia|urville/, internal_capitalize) : e)))).join("/");
-  })(e) : Da;
+    return e.toLowerCase().split("/").map(((e, n) => (e.length <= 3 || /\d/.test(e)) && !/etc|yap/.test(e) ? e.toUpperCase() : e.replace(/baja|dumont|[a-z]+/g, ((e, t) => e.length <= 2 && !n || "in" === e || "chat" === e ? e.toUpperCase() : e.length > 2 || !t ? capitalize(e).replace(/island|noronha|murdo|rivadavia|urville/, capitalize) : e)))).join("/");
+  })(e) : Ta;
 }
 
 function getTimeZoneAtomic(e) {
   const n = getTimeZoneEssence(e);
-  return "number" == typeof n ? n : n ? n.resolvedOptions().timeZone : Da;
+  return "number" == typeof n ? n : n ? n.resolvedOptions().timeZone : Ta;
 }
 
 function getTimeZoneEssence(e) {
   const n = parseOffsetNanoMaybe(e = e.toUpperCase(), 1);
-  return void 0 !== n ? n : e !== Da ? Aa(e) : void 0;
+  return void 0 !== n ? n : e !== Ta ? qa(e) : void 0;
 }
 
 function Ze(e, n) {
@@ -8889,7 +12450,7 @@ function yn(e, n) {
 }
 
 function $t(e, n, t, o, r, i) {
-  const a = e(normalizeOptions(i).relativeTo), s = Math.max(getLargestDurationUnit(o), getLargestDurationUnit(r));
+  const a = e(normalizeOptions(i).relativeTo), s = Math.max(getMaxDurationUnit(o), getMaxDurationUnit(r));
   if (allPropsEqual(F, o, r)) {
     return 0;
   }
@@ -8899,8 +12460,8 @@ function $t(e, n, t, o, r, i) {
   if (!a) {
     throw new RangeError(zr);
   }
-  const [c, u, l] = createMarkerSystem(n, t, a), f = createMarkerToEpochNano(l), d = createMoveMarker(u, l);
-  return te(f(d(c, o)), f(d(c, r)));
+  const [c, u, l] = createMarkerSystem(n, t, a), f = createMarkerToEpochNano(l), d = createMoveMarker(l);
+  return te(f(d(u, c, o)), f(d(u, c, r)));
 }
 
 function gt(e, n) {
@@ -8974,10 +12535,10 @@ function Dn(e, n, t, o, r, i) {
         }
         return e;
       })(o.timeZone, r.timeZone)), i = e(a);
-      h = diffZonedEpochsBig(i, t, o, r, p, c, s), h = roundRelativeDuration(h, m, c, u, l, f, o, extractEpochNano, E(moveZonedEpochs, i, t));
+      h = diffZonedEpochsBig(i, t, o, r, p, c, s), h = roundRelativeDuration(h, m, c, u, l, f, i, o, extractEpochNano, E(moveZonedEpochs, t));
     }
   } else {
-    h = Fi;
+    h = Si;
   }
   return Vt(t ? negateDurationFields(h) : h);
 }
@@ -8990,10 +12551,10 @@ function ut(e, n, t, o, r) {
       p = diffEpochNanos(f, d, s, c, u, l);
     } else {
       const n = e(i);
-      p = diffDateTimesBig(n, t, o, m, s, a), p = roundRelativeDuration(p, d, s, c, u, l, t, isoToEpochNano, E(moveDateTime, n));
+      p = diffDateTimesBig(n, t, o, m, s, a), p = roundRelativeDuration(p, d, s, c, u, l, n, t, isoToEpochNano, moveDateTime);
     }
   } else {
-    p = Fi;
+    p = Si;
   }
   return Vt(n ? negateDurationFields(p) : p);
 }
@@ -9016,17 +12577,17 @@ function diffDateLike(e, n, t, o, r, i, a, s, c) {
       f = diffEpochNanos(u, l, r, i, a, s);
     } else {
       const e = n();
-      f = e.dateUntil(t, o, r, c), 6 === i && 1 === a || (f = roundRelativeDuration(f, l, r, i, a, s, t, isoToEpochNano, E(moveDate, e)));
+      f = e.dateUntil(t, o, r, c), 6 === i && 1 === a || (f = roundRelativeDuration(f, l, r, i, a, s, e, t, isoToEpochNano, moveDate));
     }
   } else {
-    f = Fi;
+    f = Si;
   }
   return Vt(e ? negateDurationFields(f) : f);
 }
 
 function Ae(e, n, t, o) {
   const r = U(o), [i, a, s, c] = refineDiffOptions(e, r, 5, 5), u = roundByInc(diffTimes(n, t), computeNanoInc(a, s), c), l = {
-    ...Fi,
+    ...Si,
     ...nanoToDurationTimeFields(u, i)
   };
   return Vt(e ? negateDurationFields(l) : l);
@@ -9034,12 +12595,12 @@ function Ae(e, n, t, o) {
 
 function diffZonedEpochsExact(e, n, t, o, r, i) {
   const a = te(o.epochNanoseconds, t.epochNanoseconds);
-  return a ? r < 6 ? diffEpochNanosExact(t.epochNanoseconds, o.epochNanoseconds, r) : diffZonedEpochsBig(e, n, t, o, a, r, i) : Fi;
+  return a ? r < 6 ? diffEpochNanosExact(t.epochNanoseconds, o.epochNanoseconds, r) : diffZonedEpochsBig(n, e, t, o, a, r, i) : Si;
 }
 
 function diffDateTimesExact(e, n, t, o, r) {
   const i = isoToEpochNano(n), a = isoToEpochNano(t), s = te(a, i);
-  return s ? o <= 6 ? diffEpochNanosExact(i, a, o) : diffDateTimesBig(e, n, t, s, o, r) : Fi;
+  return s ? o <= 6 ? diffEpochNanosExact(i, a, o) : diffDateTimesBig(e, n, t, s, o, r) : Si;
 }
 
 function diffZonedEpochsBig(e, n, t, o, r, i, a) {
@@ -9063,7 +12624,7 @@ function diffZonedEpochsBig(e, n, t, o, r, i, a) {
   var l, f;
   return {
     ...6 === i ? (l = s, f = c, {
-      ...Fi,
+      ...Si,
       days: diffDays(l, f)
     }) : e.dateUntil(s, c, i, a),
     ...nanoToDurationTimeFields(u)
@@ -9071,23 +12632,26 @@ function diffZonedEpochsBig(e, n, t, o, r, i, a) {
 }
 
 function diffDateTimesBig(e, n, t, o, r, i) {
-  let a = n, s = diffTimes(n, t);
-  return Math.sign(s) === -o && (a = moveByDays(n, o), s += Qr * o), {
-    ...e.dateUntil(a, t, r, i),
-    ...nanoToDurationTimeFields(s)
+  const [a, s, c] = ((e, n, t) => {
+    let o = n, r = diffTimes(e, n);
+    return Math.sign(r) === -t && (o = moveByDays(n, -t), r += Qr * t), [ e, o, r ];
+  })(n, t, o);
+  return {
+    ...e.dateUntil(a, s, r, i),
+    ...nanoToDurationTimeFields(c)
   };
 }
 
 function diffEpochNanos(e, n, t, o, r, i) {
   return {
-    ...Fi,
+    ...Si,
     ...nanoToDurationDayTimeFields(roundBigNano(re(e, n), o, r, i), t)
   };
 }
 
 function diffEpochNanosExact(e, n, t) {
   return {
-    ...Fi,
+    ...Si,
     ...nanoToDurationDayTimeFields(re(e, n), t)
   };
 }
@@ -9115,15 +12679,15 @@ function createIntlCalendar(e) {
   function epochMilliToIntlFields(e) {
     return ((e, n) => ({
       ...parseIntlYear(e, n),
-      o: e.month,
+      F: e.month,
       day: parseInt(e.day)
     }))(hashIntlFormatParts(n, e), t);
   }
-  const n = Wa(e), t = computeCalendarIdBase(e);
+  const n = La(e), t = computeCalendarIdBase(e);
   return {
     id: e,
-    h: createIntlFieldCache(epochMilliToIntlFields),
-    l: createIntlYearDataCache(epochMilliToIntlFields)
+    O: createIntlFieldCache(epochMilliToIntlFields),
+    B: createIntlYearDataCache(epochMilliToIntlFields)
   };
 }
 
@@ -9135,7 +12699,7 @@ function createIntlFieldCache(e) {
 }
 
 function createIntlYearDataCache(e) {
-  const n = e(0).year - ji;
+  const n = e(0).year - Wi;
   return Jn((t => {
     let o, r = isoArgsToEpochMilli(t - n);
     const i = [], a = [];
@@ -9143,11 +12707,11 @@ function createIntlYearDataCache(e) {
       r += 400 * Gr;
     } while ((o = e(r)).year <= t);
     do {
-      r += (1 - o.day) * Gr, o.year === t && (i.push(r), a.push(o.o)), r -= Gr;
+      r += (1 - o.day) * Gr, o.year === t && (i.push(r), a.push(o.F)), r -= Gr;
     } while ((o = e(r)).year >= t);
     return {
-      i: i.reverse(),
-      u: Wr(a.reverse())
+      k: i.reverse(),
+      C: Wr(a.reverse())
     };
   }));
 }
@@ -9155,11 +12719,11 @@ function createIntlYearDataCache(e) {
 function parseIntlYear(e, n) {
   let t, o, r = parseIntlPartsYear(e);
   if (e.era) {
-    const a = Di[n];
-    void 0 !== a && (i = (i = e.era).normalize("NFD").toLowerCase().replace(/[^a-z0-9]/g, ""), 
-    t = Ii[i] || i, o = r, r = eraYearToYear(o, a[t] || 0));
+    const i = Di[n];
+    void 0 !== i && (t = "islamic" === n ? "ah" : e.era.normalize("NFD").toLowerCase().replace(/[^a-z0-9]/g, ""), 
+    "bc" === t || "b" === t ? t = "bce" : "ad" !== t && "a" !== t || (t = "ce"), o = r, 
+    r = eraYearToYear(o, i[t] || 0));
   }
-  var i;
   return {
     era: t,
     eraYear: o,
@@ -9172,12 +12736,12 @@ function parseIntlPartsYear(e) {
 }
 
 function computeIntlDateParts(e) {
-  const {year: n, o: t, day: o} = this.h(e), {u: r} = this.l(n);
+  const {year: n, F: t, day: o} = this.O(e), {C: r} = this.B(n);
   return [ n, r[t] + 1, o ];
 }
 
 function computeIntlEpochMilli(e, n = 1, t = 1) {
-  return this.l(e).i[n - 1] + (t - 1) * Gr;
+  return this.B(e).k[n - 1] + (t - 1) * Gr;
 }
 
 function computeIntlLeapMonth(e) {
@@ -9200,17 +12764,17 @@ function computeIntlDaysInYear(e) {
 }
 
 function computeIntlDaysInMonth(e, n) {
-  const {i: t} = this.l(e);
+  const {k: t} = this.B(e);
   let o = n + 1, r = t;
-  return o > t.length && (o = 1, r = this.l(e + 1).i), diffEpochMilliByDay(t[n - 1], r[o - 1]);
+  return o > t.length && (o = 1, r = this.B(e + 1).k), diffEpochMilliByDay(t[n - 1], r[o - 1]);
 }
 
 function computeIntlMonthsInYear(e) {
-  return this.l(e).i.length;
+  return this.B(e).k.length;
 }
 
 function queryMonthStrings(e, n) {
-  return Object.keys(e.l(n).u);
+  return Object.keys(e.B(n).C);
 }
 
 function rn(e) {
@@ -9218,7 +12782,7 @@ function rn(e) {
 }
 
 function an(e) {
-  if ((e = e.toLowerCase()) !== X && e !== gi && computeCalendarIdBase(e) !== computeCalendarIdBase(Wa(e).resolvedOptions().calendar)) {
+  if ((e = e.toLowerCase()) !== X && e !== gi && computeCalendarIdBase(e) !== computeCalendarIdBase(La(e).resolvedOptions().calendar)) {
     throw new RangeError(invalidCalendar(e));
   }
   return e;
@@ -9229,20 +12793,20 @@ function computeCalendarIdBase(e) {
 }
 
 function computeNativeWeekOfYear(e) {
-  return this.m(e)[0];
+  return this.R(e)[0];
 }
 
 function computeNativeYearOfWeek(e) {
-  return this.m(e)[1];
+  return this.R(e)[1];
 }
 
 function computeNativeDayOfYear(e) {
-  const [n] = this.v(e);
-  return diffEpochMilliByDay(this.p(n), isoToEpochMilli(e)) + 1;
+  const [n] = this.h(e);
+  return diffEpochMilliByDay(this.q(n), isoToEpochMilli(e)) + 1;
 }
 
 function parseMonthCode(e) {
-  const n = ja.exec(e);
+  const n = Wa.exec(e);
   if (!n) {
     throw new RangeError(invalidMonthCode(e));
   }
@@ -9266,7 +12830,7 @@ function getCalendarEraOrigins(e) {
 }
 
 function getCalendarLeapMonthMeta(e) {
-  return Mi[getCalendarIdBase(e)];
+  return Ii[getCalendarIdBase(e)];
 }
 
 function getCalendarIdBase(e) {
@@ -9319,7 +12883,7 @@ function nt(e, n, t, o) {
 
 function K(e, n, t, o, r = []) {
   const i = refineCalendarFields(e, t, en, r);
-  return n && void 0 !== i.month && void 0 === i.monthCode && void 0 === i.year && (i.year = xi), 
+  return n && void 0 !== i.month && void 0 === i.monthCode && void 0 === i.year && (i.year = ji), 
   e.monthDayFromFields(i, o);
 }
 
@@ -9329,9 +12893,9 @@ function Ue(e, n) {
 }
 
 function Ht(e) {
-  const n = refineFields(e, yi);
+  const n = refineFields(e, Ni);
   return Vt(checkDurationUnits({
-    ...Fi,
+    ...Si,
     ...n
   }));
 }
@@ -9352,7 +12916,7 @@ function refineFields(e, n, t, o = !t) {
     }
     let n = e[o];
     if (void 0 !== n) {
-      a = 1, Ha[o] && (n = Ha[o](n, o)), r[o] = n;
+      a = 1, Ga[o] && (n = Ga[o](n, o)), r[o] = n;
     } else if (t) {
       if (t.includes(o)) {
         throw new TypeError(missingField(o));
@@ -9368,7 +12932,7 @@ function refineFields(e, n, t, o = !t) {
 }
 
 function refineTimeBag(e, n) {
-  return constrainIsoTimeFields(Va({
+  return constrainIsoTimeFields(Ha({
     ...hi,
     ...e
   }), n);
@@ -9433,7 +12997,7 @@ function Be(e, n, t) {
 function kt(e, n) {
   return Vt((t = e, o = n, checkDurationUnits({
     ...t,
-    ...refineFields(o, yi)
+    ...refineFields(o, Ni)
   })));
   var t, o;
 }
@@ -9490,7 +13054,7 @@ function refineMonth(e, n, t, o) {
   let {month: r, monthCode: i} = n;
   if (void 0 !== i) {
     const n = ((e, n, t, o) => {
-      const r = e.P(t), [i, a] = parseMonthCode(n);
+      const r = e.U(t), [i, a] = parseMonthCode(n);
       let s = monthCodeNumberToMonth(i, a, r);
       if (a) {
         const n = getCalendarLeapMonthMeta(e);
@@ -9525,11 +13089,11 @@ function refineMonth(e, n, t, o) {
   } else if (void 0 === r) {
     throw new TypeError(Nr);
   }
-  return clampEntity("month", r, 1, e.j(t), o);
+  return clampEntity("month", r, 1, e.L(t), o);
 }
 
 function refineDay(e, n, t, o, r) {
-  return clampProp(n, "day", 1, e.N(o, t), r);
+  return clampProp(n, "day", 1, e.j(o, t), r);
 }
 
 function spliceFields(e, n, t, o) {
@@ -9546,7 +13110,7 @@ function spliceFields(e, n, t, o) {
 }
 
 function Se(e) {
-  return internal_(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(e))));
+  return _(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(e))));
 }
 
 function vn(e, n, t, o, r = X) {
@@ -9554,7 +13118,7 @@ function vn(e, n, t, o, r = X) {
 }
 
 function pt(e, n, t, o, r = 0, i = 0, a = 0, s = 0, c = 0, u = 0, l = X) {
-  return ee(checkIsoDateTimeInBounds(checkIsoDateTimeFields(T(toInteger, zipProps(Bi, [ n, t, o, r, i, a, s, c, u ])))), e(l));
+  return ee(checkIsoDateTimeInBounds(checkIsoDateTimeFields(T(toInteger, zipProps(wi, [ n, t, o, r, i, a, s, c, u ])))), e(l));
 }
 
 function Nt(e, n, t, o, r = X) {
@@ -9574,7 +13138,7 @@ function tt(e, n, t, o = X, r = 1) {
   })), s);
 }
 
-function G(e, n, t, o = X, r = xi) {
+function G(e, n, t, o = X, r = ji) {
   const i = toInteger(n), a = toInteger(t), s = e(o);
   return createPlainMonthDaySlots(checkIsoDateInBounds(checkIsoDateFields({
     isoYear: toInteger(r),
@@ -9596,7 +13160,7 @@ function fe(e, n, t = X) {
 }
 
 function Zn(e) {
-  return internal_(e.epochNanoseconds);
+  return _(e.epochNanoseconds);
 }
 
 function ht(e, n) {
@@ -9686,19 +13250,19 @@ function Le(e, n) {
 }
 
 function De(e) {
-  return internal_(checkEpochNanoInBounds(internal_he(e, _r)));
+  return _(checkEpochNanoInBounds(he(e, _r)));
 }
 
 function Pe(e) {
-  return internal_(checkEpochNanoInBounds(internal_he(e, internal_be)));
+  return _(checkEpochNanoInBounds(he(e, be)));
 }
 
 function Ce(e) {
-  return internal_(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(e), Vr)));
+  return _(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(e), Vr)));
 }
 
 function ge(e) {
-  return internal_(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(e))));
+  return _(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(e))));
 }
 
 function pn(e, n, t = Dt) {
@@ -9762,7 +13326,7 @@ function getPreferredCalendarSlot(e, n) {
 function createNativeOpsCreator(e, n) {
   return t => t === X ? e : t === gi || t === Ti ? Object.assign(Object.create(e), {
     id: t
-  }) : Object.assign(Object.create(n), La(t));
+  }) : Object.assign(Object.create(n), Aa(t));
 }
 
 function createOptionsTransformer(e, n, t) {
@@ -9774,13 +13338,13 @@ function createOptionsTransformer(e, n, t) {
       }
     }
     return 0;
-  })(r = V(o, r), e) || Object.assign(r, n), t && (r.timeZone = Da, [ "full", "long" ].includes(r.timeStyle) && (r.timeStyle = "medium")), 
+  })(r = V(o, r), e) || Object.assign(r, n), t && (r.timeZone = Ta, [ "full", "long" ].includes(r.timeStyle) && (r.timeStyle = "medium")), 
   r);
 }
 
 function e(e, n = qn) {
   const [t, , , o] = e;
-  return (r, i = ys, ...a) => {
+  return (r, i = Ns, ...a) => {
     const s = n(o && o(...a), r, i, t), c = s.resolvedOptions();
     return [ s, ...toEpochMillis(e, c, a) ];
   };
@@ -9811,14 +13375,14 @@ function An(e) {
 }
 
 function Bn() {
-  return internal_he(Date.now(), internal_be);
+  return he(Date.now(), be);
 }
 
 function Nn() {
-  return Ps || (Ps = (new En).resolvedOptions().timeZone);
+  return ys || (ys = (new En).resolvedOptions().timeZone);
 }
 
-const expectedInteger = (e, n) => `Non-integer ${e}: ${n}`, expectedPositive = (e, n) => `Non-positive ${e}: ${n}`, expectedFinite = (e, n) => `Non-finite ${e}: ${n}`, forbiddenBigIntToNumber = e => `Cannot convert bigint to ${e}`, invalidBigInt = e => `Invalid bigint: ${e}`, pr = "Cannot convert Symbol to string", hr = "Invalid object", numberOutOfRange = (e, n, t, o, r) => r ? numberOutOfRange(e, r[n], r[t], r[o]) : invalidEntity(e, n) + `; must be between ${t}-${o}`, invalidEntity = (e, n) => `Invalid ${e}: ${n}`, missingField = e => `Missing ${e}`, tn = e => `Invalid field ${e}`, duplicateFields = e => `Duplicate field ${e}`, noValidFields = e => "No valid fields: " + e.join(), Z = "Invalid bag", invalidChoice = (e, n, t) => invalidEntity(e, n) + "; must be " + Object.keys(t).join(), A = "Cannot use valueOf", P = "Invalid calling context", gr = "Forbidden era/eraYear", Dr = "Mismatching era/eraYear", Ir = "Mismatching year/eraYear", invalidEra = e => `Invalid era: ${e}`, missingYear = e => "Missing year" + (e ? "/era/eraYear" : ""), invalidMonthCode = e => `Invalid monthCode: ${e}`, Mr = "Mismatching month/monthCode", Nr = "Missing month/monthCode", yr = "Cannot guess year", Pr = "Invalid leap month", g = "Invalid protocol", vr = "Invalid protocol results", Er = "Mismatching Calendars", invalidCalendar = e => `Invalid Calendar: ${e}`, Fr = "Mismatching TimeZones", br = "Forbidden ICU TimeZone", wr = "Out-of-bounds offset", Br = "Out-of-bounds TimeZone gap", kr = "Invalid TimeZone offset", Yr = "Ambiguous offset", Cr = "Out-of-bounds date", Zr = "Out-of-bounds duration", Rr = "Cannot mix duration signs", zr = "Missing relativeTo", qr = "Cannot use large units", Ar = "Required smallestUnit or largestUnit", Ur = "smallestUnit > largestUnit", failedParse = e => `Cannot parse: ${e}`, invalidSubstring = e => `Invalid substring: ${e}`, Ln = e => `Cannot format ${e}`, kn = "Mismatching types for formatting", Lr = "Cannot specify TimeZone", Wr = /*@__PURE__*/ E(b, ((e, n) => n)), jr = /*@__PURE__*/ E(b, ((e, n, t) => t)), xr = /*@__PURE__*/ E(padNumber, 2), $r = {
+const expectedInteger = (e, n) => `Non-integer ${e}: ${n}`, expectedPositive = (e, n) => `Non-positive ${e}: ${n}`, expectedFinite = (e, n) => `Non-finite ${e}: ${n}`, forbiddenBigIntToNumber = e => `Cannot convert bigint to ${e}`, invalidBigInt = e => `Invalid bigint: ${e}`, pr = "Cannot convert Symbol to string", hr = "Invalid object", numberOutOfRange = (e, n, t, o, r) => r ? numberOutOfRange(e, r[n], r[t], r[o]) : invalidEntity(e, n) + `; must be between ${t}-${o}`, invalidEntity = (e, n) => `Invalid ${e}: ${n}`, missingField = e => `Missing ${e}`, tn = e => `Invalid field ${e}`, duplicateFields = e => `Duplicate field ${e}`, noValidFields = e => "No valid fields: " + e.join(), Z = "Invalid bag", invalidChoice = (e, n, t) => invalidEntity(e, n) + "; must be " + Object.keys(t).join(), A = "Cannot use valueOf", P = "Invalid calling context", gr = "Forbidden era/eraYear", Dr = "Mismatching era/eraYear", Ir = "Mismatching year/eraYear", invalidEra = e => `Invalid era: ${e}`, missingYear = e => "Missing year" + (e ? "/era/eraYear" : ""), invalidMonthCode = e => `Invalid monthCode: ${e}`, Mr = "Mismatching month/monthCode", Nr = "Missing month/monthCode", yr = "Cannot guess year", Pr = "Invalid leap month", g = "Invalid protocol", vr = "Invalid protocol results", Er = "Mismatching Calendars", invalidCalendar = e => `Invalid Calendar: ${e}`, Fr = "Mismatching TimeZones", br = "Forbidden ICU TimeZone", wr = "Out-of-bounds offset", Br = "Out-of-bounds TimeZone gap", kr = "Invalid TimeZone offset", Yr = "Ambiguous offset", Cr = "Out-of-bounds date", Zr = "Out-of-bounds duration", Rr = "Cannot mix duration signs", zr = "Missing relativeTo", qr = "Cannot use large units", Ur = "Required smallestUnit or largestUnit", Ar = "smallestUnit > largestUnit", failedParse = e => `Cannot parse: ${e}`, invalidSubstring = e => `Invalid substring: ${e}`, Ln = e => `Cannot format ${e}`, kn = "Mismatching types for formatting", Lr = "Cannot specify TimeZone", Wr = /*@__PURE__*/ E(b, ((e, n) => n)), jr = /*@__PURE__*/ E(b, ((e, n, t) => t)), xr = /*@__PURE__*/ E(padNumber, 2), $r = {
   nanosecond: 0,
   microsecond: 1,
   millisecond: 2,
@@ -9829,7 +13393,7 @@ const expectedInteger = (e, n) => `Non-integer ${e}: ${n}`, expectedPositive = (
   week: 7,
   month: 8,
   year: 9
-}, Et = /*@__PURE__*/ Object.keys($r), Gr = 864e5, Hr = 1e3, Vr = 1e3, internal_be = 1e6, _r = 1e9, Jr = 6e10, Kr = 36e11, Qr = 864e11, Xr = [ 1, Vr, internal_be, _r, Jr, Kr, Qr ], w = /*@__PURE__*/ Et.slice(0, 6), ei = /*@__PURE__*/ sortStrings(w), ni = [ "offset" ], ti = [ "timeZone" ], oi = /*@__PURE__*/ w.concat(ni), ri = /*@__PURE__*/ oi.concat(ti), ii = [ "era", "eraYear" ], ai = /*@__PURE__*/ ii.concat([ "year" ]), si = [ "year" ], ci = [ "monthCode" ], ui = /*@__PURE__*/ [ "month" ].concat(ci), li = [ "day" ], fi = /*@__PURE__*/ ui.concat(si), di = /*@__PURE__*/ ci.concat(si), en = /*@__PURE__*/ li.concat(fi), mi = /*@__PURE__*/ li.concat(ui), pi = /*@__PURE__*/ li.concat(ci), hi = /*@__PURE__*/ jr(w, 0), X = "iso8601", gi = "gregory", Ti = "japanese", Di = {
+}, Et = /*@__PURE__*/ Object.keys($r), Gr = 864e5, Hr = 1e3, Vr = 1e3, be = 1e6, _r = 1e9, Jr = 6e10, Kr = 36e11, Qr = 864e11, Xr = [ 1, Vr, be, _r, Jr, Kr, Qr ], w = /*@__PURE__*/ Et.slice(0, 6), ei = /*@__PURE__*/ sortStrings(w), ni = [ "offset" ], ti = [ "timeZone" ], oi = /*@__PURE__*/ w.concat(ni), ri = /*@__PURE__*/ oi.concat(ti), ii = [ "era", "eraYear" ], ai = /*@__PURE__*/ ii.concat([ "year" ]), si = [ "year" ], ci = [ "monthCode" ], ui = /*@__PURE__*/ [ "month" ].concat(ci), li = [ "day" ], fi = /*@__PURE__*/ ui.concat(si), di = /*@__PURE__*/ ci.concat(si), en = /*@__PURE__*/ li.concat(fi), mi = /*@__PURE__*/ li.concat(ui), pi = /*@__PURE__*/ li.concat(ci), hi = /*@__PURE__*/ jr(w, 0), X = "iso8601", gi = "gregory", Ti = "japanese", Di = {
   [gi]: {
     bce: -1,
     ce: 0
@@ -9871,38 +13435,35 @@ const expectedInteger = (e, n) => `Non-integer ${e}: ${n}`, expectedPositive = (
     ap: 0
   }
 }, Ii = {
-  bc: "bce",
-  ad: "ce"
-}, Mi = {
   chinese: 13,
   dangi: 13,
   hebrew: -6
-}, m = /*@__PURE__*/ E(requireType, "string"), f = /*@__PURE__*/ E(requireType, "boolean"), Ni = /*@__PURE__*/ E(requireType, "number"), $ = /*@__PURE__*/ E(requireType, "function"), F = /*@__PURE__*/ Et.map((e => e + "s")), yi = /*@__PURE__*/ sortStrings(F), Pi = /*@__PURE__*/ F.slice(0, 6), vi = /*@__PURE__*/ F.slice(6), Ei = /*@__PURE__*/ vi.slice(1), Si = /*@__PURE__*/ Wr(F), Fi = /*@__PURE__*/ jr(F, 0), bi = /*@__PURE__*/ jr(Pi, 0), Oi = /*@__PURE__*/ E(zeroOutProps, F), j = [ "isoNanosecond", "isoMicrosecond", "isoMillisecond", "isoSecond", "isoMinute", "isoHour" ], wi = [ "isoDay", "isoMonth", "isoYear" ], Bi = /*@__PURE__*/ j.concat(wi), ki = /*@__PURE__*/ sortStrings(wi), Yi = /*@__PURE__*/ sortStrings(j), Ci = /*@__PURE__*/ sortStrings(Bi), Dt = /*@__PURE__*/ jr(Yi, 0), Zi = /*@__PURE__*/ E(zeroOutProps, Bi), En = Intl.DateTimeFormat, Ri = "en-GB", zi = 1e8, qi = zi * Gr, Ai = [ zi, 0 ], Ui = [ -zi, 0 ], Li = 275760, Wi = -271821, ji = 1970, xi = 1972, $i = 12, Gi = /*@__PURE__*/ isoArgsToEpochMilli(1868, 9, 8), Hi = /*@__PURE__*/ Jn(computeJapaneseEraParts, WeakMap), Vi = "smallestUnit", _i = "unit", Ji = "roundingIncrement", Ki = "fractionalSecondDigits", Qi = "relativeTo", Xi = {
+}, m = /*@__PURE__*/ E(requireType, "string"), f = /*@__PURE__*/ E(requireType, "boolean"), Mi = /*@__PURE__*/ E(requireType, "number"), $ = /*@__PURE__*/ E(requireType, "function"), F = /*@__PURE__*/ Et.map((e => e + "s")), Ni = /*@__PURE__*/ sortStrings(F), yi = /*@__PURE__*/ F.slice(0, 6), Pi = /*@__PURE__*/ F.slice(6), vi = /*@__PURE__*/ Pi.slice(1), Ei = /*@__PURE__*/ Wr(F), Si = /*@__PURE__*/ jr(F, 0), Fi = /*@__PURE__*/ jr(yi, 0), bi = /*@__PURE__*/ E(zeroOutProps, F), j = [ "isoNanosecond", "isoMicrosecond", "isoMillisecond", "isoSecond", "isoMinute", "isoHour" ], Oi = [ "isoDay", "isoMonth", "isoYear" ], wi = /*@__PURE__*/ j.concat(Oi), Bi = /*@__PURE__*/ sortStrings(Oi), ki = /*@__PURE__*/ sortStrings(j), Yi = /*@__PURE__*/ sortStrings(wi), Dt = /*@__PURE__*/ jr(ki, 0), Ci = /*@__PURE__*/ E(zeroOutProps, wi), En = Intl.DateTimeFormat, Zi = "en-GB", Ri = 1e8, zi = Ri * Gr, qi = [ Ri, 0 ], Ui = [ -Ri, 0 ], Ai = 275760, Li = -271821, Wi = 1970, ji = 1972, xi = 12, $i = /*@__PURE__*/ isoArgsToEpochMilli(1868, 9, 8), Gi = /*@__PURE__*/ Jn(computeJapaneseEraParts, WeakMap), Hi = "smallestUnit", Vi = "unit", _i = "roundingIncrement", Ji = "fractionalSecondDigits", Ki = "relativeTo", Qi = {
   constrain: 0,
   reject: 1
-}, ea = /*@__PURE__*/ Object.keys(Xi), na = {
+}, Xi = /*@__PURE__*/ Object.keys(Qi), ea = {
   compatible: 0,
   reject: 1,
   earlier: 2,
   later: 3
-}, ta = {
+}, na = {
   reject: 0,
   use: 1,
   prefer: 2,
   ignore: 3
-}, oa = {
+}, ta = {
   auto: 0,
   never: 1,
   critical: 2,
   always: 3
-}, ra = {
+}, oa = {
   auto: 0,
   never: 1,
   critical: 2
-}, ia = {
+}, ra = {
   auto: 0,
   never: 1
-}, aa = {
+}, ia = {
   floor: 0,
   halfFloor: 1,
   ceil: 2,
@@ -9912,27 +13473,27 @@ const expectedInteger = (e, n) => `Non-integer ${e}: ${n}`, expectedPositive = (
   expand: 6,
   halfExpand: 7,
   halfEven: 8
-}, sa = /*@__PURE__*/ E(refineUnitOption, Vi), ca = /*@__PURE__*/ E(refineUnitOption, "largestUnit"), ua = /*@__PURE__*/ E(refineUnitOption, _i), la = /*@__PURE__*/ E(refineChoiceOption, "overflow", Xi), fa = /*@__PURE__*/ E(refineChoiceOption, "disambiguation", na), da = /*@__PURE__*/ E(refineChoiceOption, "offset", ta), ma = /*@__PURE__*/ E(refineChoiceOption, "calendarName", oa), pa = /*@__PURE__*/ E(refineChoiceOption, "timeZoneName", ra), ha = /*@__PURE__*/ E(refineChoiceOption, "offset", ia), ga = /*@__PURE__*/ E(refineChoiceOption, "roundingMode", aa), L = "PlainYearMonth", q = "PlainMonthDay", J = "PlainDate", We = "PlainDateTime", xe = "PlainTime", Te = "ZonedDateTime", Oe = "Instant", qt = "Duration", Ta = [ Math.floor, e => hasHalf(e) ? Math.floor(e) : Math.round(e), Math.ceil, e => hasHalf(e) ? Math.ceil(e) : Math.round(e), Math.trunc, e => hasHalf(e) ? Math.trunc(e) || 0 : Math.round(e), e => e < 0 ? Math.floor(e) : Math.ceil(e), e => Math.sign(e) * Math.round(Math.abs(e)) || 0, e => hasHalf(e) ? (e = Math.trunc(e) || 0) + e % 2 : Math.round(e) ], Da = "UTC", Ia = 5184e3, Ma = /*@__PURE__*/ isoArgsToEpochSec(1847), Na = /*@__PURE__*/ isoArgsToEpochSec(/*@__PURE__*/ (/*@__PURE__*/ new Date).getUTCFullYear() + 10), ya = /0+$/, fn = /*@__PURE__*/ Jn(_zonedEpochSlotsToIso, WeakMap), Pa = 2 ** 32 - 1, ie = /*@__PURE__*/ Jn((e => {
+}, aa = /*@__PURE__*/ E(refineUnitOption, Hi), sa = /*@__PURE__*/ E(refineUnitOption, "largestUnit"), ca = /*@__PURE__*/ E(refineUnitOption, Vi), ua = /*@__PURE__*/ E(refineChoiceOption, "overflow", Qi), la = /*@__PURE__*/ E(refineChoiceOption, "disambiguation", ea), fa = /*@__PURE__*/ E(refineChoiceOption, "offset", na), da = /*@__PURE__*/ E(refineChoiceOption, "calendarName", ta), ma = /*@__PURE__*/ E(refineChoiceOption, "timeZoneName", oa), pa = /*@__PURE__*/ E(refineChoiceOption, "offset", ra), ha = /*@__PURE__*/ E(refineChoiceOption, "roundingMode", ia), L = "PlainYearMonth", q = "PlainMonthDay", J = "PlainDate", We = "PlainDateTime", xe = "PlainTime", Te = "ZonedDateTime", Oe = "Instant", qt = "Duration", ga = [ Math.floor, e => hasHalf(e) ? Math.floor(e) : Math.round(e), Math.ceil, e => hasHalf(e) ? Math.ceil(e) : Math.round(e), Math.trunc, e => hasHalf(e) ? Math.trunc(e) || 0 : Math.round(e), e => e < 0 ? Math.floor(e) : Math.ceil(e), e => Math.sign(e) * Math.round(Math.abs(e)) || 0, e => hasHalf(e) ? (e = Math.trunc(e) || 0) + e % 2 : Math.round(e) ], Ta = "UTC", Da = 5184e3, Ia = /*@__PURE__*/ isoArgsToEpochSec(1847), Ma = /*@__PURE__*/ isoArgsToEpochSec(/*@__PURE__*/ (/*@__PURE__*/ new Date).getUTCFullYear() + 10), Na = /0+$/, fn = /*@__PURE__*/ Jn(_zonedEpochSlotsToIso, WeakMap), ya = 2 ** 32 - 1, ie = /*@__PURE__*/ Jn((e => {
   const n = getTimeZoneEssence(e);
   return "object" == typeof n ? new IntlTimeZone(n) : new FixedTimeZone(n || 0);
 }));
 
 class FixedTimeZone {
   constructor(e) {
-    this.R = e;
+    this.v = e;
   }
   getOffsetNanosecondsFor() {
-    return this.R;
+    return this.v;
   }
   getPossibleInstantsFor(e) {
-    return [ isoToEpochNanoWithOffset(e, this.R) ];
+    return [ isoToEpochNanoWithOffset(e, this.v) ];
   }
-  B() {}
+  l() {}
 }
 
 class IntlTimeZone {
   constructor(e) {
-    this.q = (e => {
+    this.$ = (e => {
       function getOffsetSec(e) {
         const i = clampNumber(e, o, r), [a, s] = computePeriod(i), c = n(a), u = n(s);
         return c === u ? c : pinch(t(a, s), c, u, e);
@@ -9946,9 +13507,9 @@ class IntlTimeZone {
         return i;
       }
       const n = Jn(e), t = Jn(createSplitTuple);
-      let o = Ma, r = Na;
+      let o = Ia, r = Ma;
       return {
-        J(e) {
+        G(e) {
           const n = getOffsetSec(e - 86400), t = getOffsetSec(e + 86400), o = e - n, r = e - t;
           if (n === t) {
             return [ o ];
@@ -9956,11 +13517,11 @@ class IntlTimeZone {
           const i = getOffsetSec(o);
           return i === getOffsetSec(r) ? [ e - i ] : n > t ? [ o, r ] : [];
         },
-        _: getOffsetSec,
-        B(e, i) {
+        V: getOffsetSec,
+        l(e, i) {
           const a = clampNumber(e, o, r);
           let [s, c] = computePeriod(a);
-          const u = Ia * i, l = i < 0 ? () => c > o || (o = a, 0) : () => s < r || (r = a, 
+          const u = Da * i, l = i < 0 ? () => c > o || (o = a, 0) : () => s < r || (r = a, 
           0);
           for (;l(); ) {
             const o = n(s), r = n(c);
@@ -9982,22 +13543,22 @@ class IntlTimeZone {
     })(e));
   }
   getOffsetNanosecondsFor(e) {
-    return this.q._(epochNanoToSec(e)) * _r;
+    return this.$.V(epochNanoToSec(e)) * _r;
   }
   getPossibleInstantsFor(e) {
-    const [n, t] = [ isoArgsToEpochSec((o = e).isoYear, o.isoMonth, o.isoDay, o.isoHour, o.isoMinute, o.isoSecond), o.isoMillisecond * internal_be + o.isoMicrosecond * Vr + o.isoNanosecond ];
+    const [n, t] = [ isoArgsToEpochSec((o = e).isoYear, o.isoMonth, o.isoDay, o.isoHour, o.isoMinute, o.isoSecond), o.isoMillisecond * be + o.isoMicrosecond * Vr + o.isoNanosecond ];
     var o;
-    return this.q.J(n).map((e => checkEpochNanoInBounds(moveBigNano(internal_he(e, _r), t))));
+    return this.$.G(n).map((e => checkEpochNanoInBounds(moveBigNano(he(e, _r), t))));
   }
-  B(e, n) {
-    const [t, o] = epochNanoToSecMod(e), r = this.q.B(t + (n > 0 || o ? 1 : 0), n);
+  l(e, n) {
+    const [t, o] = epochNanoToSecMod(e), r = this.$.l(t + (n > 0 || o ? 1 : 0), n);
     if (void 0 !== r) {
-      return internal_he(r, _r);
+      return he(r, _r);
     }
   }
 }
 
-const va = "([+−-])", Ea = "(?:[.,](\\d{1,9}))?", Sa = `(?:(?:${va}(\\d{6}))|(\\d{4}))-?(\\d{2})`, Fa = "(\\d{2})(?::?(\\d{2})(?::?(\\d{2})" + Ea + ")?)?", ba = va + Fa, Oa = Sa + "-?(\\d{2})(?:[T ]" + Fa + "(Z|" + ba + ")?)?", wa = "\\[(!?)([^\\]]*)\\]", Ba = `((?:${wa}){0,9})`, ka = /*@__PURE__*/ createRegExp(Sa + Ba), Ya = /*@__PURE__*/ createRegExp("(?:--)?(\\d{2})-?(\\d{2})" + Ba), Ca = /*@__PURE__*/ createRegExp(Oa + Ba), Za = /*@__PURE__*/ createRegExp("T?" + Fa + "(?:" + ba + ")?" + Ba), Ra = /*@__PURE__*/ createRegExp(ba), za = /*@__PURE__*/ new RegExp(wa, "g"), qa = /*@__PURE__*/ createRegExp(`${va}?P(\\d+Y)?(\\d+M)?(\\d+W)?(\\d+D)?(?:T(?:(\\d+)${Ea}H)?(?:(\\d+)${Ea}M)?(?:(\\d+)${Ea}S)?)?`), Aa = /*@__PURE__*/ Jn((e => new En(Ri, {
+const Pa = "([+−-])", va = "(?:[.,](\\d{1,9}))?", Ea = `(?:(?:${Pa}(\\d{6}))|(\\d{4}))-?(\\d{2})`, Sa = "(\\d{2})(?::?(\\d{2})(?::?(\\d{2})" + va + ")?)?", Fa = Pa + Sa, ba = Ea + "-?(\\d{2})(?:[T ]" + Sa + "(Z|" + Fa + ")?)?", Oa = "\\[(!?)([^\\]]*)\\]", wa = `((?:${Oa}){0,9})`, Ba = /*@__PURE__*/ createRegExp(Ea + wa), ka = /*@__PURE__*/ createRegExp("(?:--)?(\\d{2})-?(\\d{2})" + wa), Ya = /*@__PURE__*/ createRegExp(ba + wa), Ca = /*@__PURE__*/ createRegExp("T?" + Sa + "(?:" + Fa + ")?" + wa), Za = /*@__PURE__*/ createRegExp(Fa), Ra = /*@__PURE__*/ new RegExp(Oa, "g"), za = /*@__PURE__*/ createRegExp(`${Pa}?P(\\d+Y)?(\\d+M)?(\\d+W)?(\\d+D)?(?:T(?:(\\d+)${va}H)?(?:(\\d+)${va}M)?(?:(\\d+)${va}S)?)?`), qa = /*@__PURE__*/ Jn((e => new En(Zi, {
   timeZone: e,
   era: "short",
   year: "numeric",
@@ -10006,35 +13567,35 @@ const va = "([+−-])", Ea = "(?:[.,](\\d{1,9}))?", Sa = `(?:(?:${va}(\\d{6}))|(
   hour: "numeric",
   minute: "numeric",
   second: "numeric"
-}))), Ua = /^(AC|AE|AG|AR|AS|BE|BS|CA|CN|CS|CT|EA|EC|IE|IS|JS|MI|NE|NS|PL|PN|PR|PS|SS|VS)T$/, La = /*@__PURE__*/ Jn(createIntlCalendar), Wa = /*@__PURE__*/ Jn((e => new En(Ri, {
+}))), Ua = /^(AC|AE|AG|AR|AS|BE|BS|CA|CN|CS|CT|EA|EC|IE|IS|JS|MI|NE|NS|PL|PN|PR|PS|SS|VS)T$/, Aa = /*@__PURE__*/ Jn(createIntlCalendar), La = /*@__PURE__*/ Jn((e => new En(Zi, {
   calendar: e,
-  timeZone: Da,
+  timeZone: Ta,
   era: "short",
   year: "numeric",
   month: "short",
   day: "numeric"
-}))), ja = /^M(\d{2})(L?)$/, xa = {
+}))), Wa = /^M(\d{2})(L?)$/, ja = {
   era: toStringViaPrimitive,
   eraYear: toInteger,
   year: toInteger,
   month: toPositiveInteger,
   monthCode: toStringViaPrimitive,
   day: toPositiveInteger
-}, $a = /*@__PURE__*/ jr(w, toInteger), Ga = /*@__PURE__*/ jr(F, toStrictInteger), Ha = /*@__PURE__*/ Object.assign({}, xa, $a, Ga, {
+}, xa = /*@__PURE__*/ jr(w, toInteger), $a = /*@__PURE__*/ jr(F, toStrictInteger), Ga = /*@__PURE__*/ Object.assign({}, ja, xa, $a, {
   offset: toStringViaPrimitive
-}), Va = /*@__PURE__*/ E(remapProps, w, j), _a = {
+}), Ha = /*@__PURE__*/ E(remapProps, w, j), Va = {
   dateAdd(e, n, t) {
     const o = H(t);
     let r, {years: i, months: a, weeks: s, days: c} = n;
     if (c += durationFieldsToBigNano(n, 5)[0], i || a) {
       r = ((e, n, t, o, r) => {
-        let [i, a, s] = e.v(n);
+        let [i, a, s] = e.h(n);
         if (t) {
-          const [n, o] = e.$(i, a);
-          i += t, a = monthCodeNumberToMonth(n, o, e.P(i)), a = clampEntity("month", a, 1, e.j(i), r);
+          const [n, o] = e.I(i, a);
+          i += t, a = monthCodeNumberToMonth(n, o, e.U(i)), a = clampEntity("month", a, 1, e.L(i), r);
         }
-        return o && ([i, a] = e.G(i, a, o)), s = clampEntity("day", s, 1, e.N(i, a), r), 
-        e.p(i, a, s);
+        return o && ([i, a] = e._(i, a, o)), s = clampEntity("day", s, 1, e.j(i, a), r), 
+        e.q(i, a, s);
       })(this, e, i, a, o);
     } else {
       if (!s && !c) {
@@ -10054,33 +13615,33 @@ const va = "([+−-])", Ea = "(?:[.,](\\d{1,9}))?", Sa = `(?:(?:${va}(\\d{6}))|(
         ...Dt
       });
       return 7 === t && ([o, r] = divModTrunc(r, 7)), {
-        ...Fi,
+        ...Si,
         weeks: o,
         days: r
       };
     }
-    const o = this.v(e), r = this.v(n);
+    const o = this.h(e), r = this.h(n);
     let [i, a, s] = ((e, n, t, o, r, i, a) => {
       let s = r - n, c = i - t, u = a - o;
       if (s || c) {
         const l = Math.sign(s || c);
-        let f = e.N(r, i), d = 0;
+        let f = e.j(r, i), d = 0;
         if (Math.sign(u) === -l) {
           const o = f;
-          [r, i] = e.G(r, i, -l), s = r - n, c = i - t, f = e.N(r, i), d = l < 0 ? -o : f;
+          [r, i] = e._(r, i, -l), s = r - n, c = i - t, f = e.j(r, i), d = l < 0 ? -o : f;
         }
         if (u = a - Math.min(o, f) + d, s) {
-          const [o, a] = e.$(n, t), [u, f] = e.$(r, i);
+          const [o, a] = e.I(n, t), [u, f] = e.I(r, i);
           if (c = u - o || Number(f) - Number(a), Math.sign(c) === -l) {
-            const t = l < 0 && -e.j(r);
-            s = (r -= l) - n, c = i - monthCodeNumberToMonth(o, a, e.P(r)) + (t || e.j(r));
+            const t = l < 0 && -e.L(r);
+            s = (r -= l) - n, c = i - monthCodeNumberToMonth(o, a, e.U(r)) + (t || e.L(r));
           }
         }
       }
       return [ s, c, u ];
     })(this, ...o, ...r);
-    return 8 === t && (a += this.V(i, o[0]), i = 0), {
-      ...Fi,
+    return 8 === t && (a += this.J(i, o[0]), i = 0), {
+      ...Si,
       years: i,
       months: a,
       days: s
@@ -10088,37 +13649,37 @@ const va = "([+−-])", Ea = "(?:[.,](\\d{1,9}))?", Sa = `(?:(?:${va}(\\d{6}))|(
   },
   dateFromFields(e, n) {
     const t = H(n), o = refineYear(this, e), r = refineMonth(this, e, o, t), i = refineDay(this, e, r, o, t);
-    return v(checkIsoDateInBounds(this.L(o, r, i)), this.id || X);
+    return v(checkIsoDateInBounds(this.P(o, r, i)), this.id || X);
   },
   yearMonthFromFields(e, n) {
     const t = H(n), o = refineYear(this, e), r = refineMonth(this, e, o, t);
-    return createPlainYearMonthSlots(checkIsoYearMonthInBounds(this.L(o, r, 1)), this.id || X);
+    return createPlainYearMonthSlots(checkIsoYearMonthInBounds(this.P(o, r, 1)), this.id || X);
   },
   monthDayFromFields(e, n) {
     const t = H(n), o = !this.id, {monthCode: r, year: i, month: a} = e;
     let s, c, u, l, f;
     if (void 0 !== r) {
       [s, c] = parseMonthCode(r), f = getDefinedProp(e, "day");
-      const n = this.k(s, c, f);
+      const n = this.N(s, c, f);
       if (!n) {
         throw new RangeError(yr);
       }
       if ([u, l] = n, void 0 !== a && a !== l) {
         throw new RangeError(Mr);
       }
-      o && (l = clampEntity("month", l, 1, $i, 1), f = clampEntity("day", f, 1, computeIsoDaysInMonth(void 0 !== i ? i : u, l), t));
+      o && (l = clampEntity("month", l, 1, xi, 1), f = clampEntity("day", f, 1, computeIsoDaysInMonth(void 0 !== i ? i : u, l), t));
     } else {
-      u = void 0 === i && o ? xi : refineYear(this, e), l = refineMonth(this, e, u, t), 
+      u = void 0 === i && o ? ji : refineYear(this, e), l = refineMonth(this, e, u, t), 
       f = refineDay(this, e, l, u, t);
-      const n = this.P(u);
+      const n = this.U(u);
       c = l === n, s = monthToMonthCodeNumber(l, n);
-      const r = this.k(s, c, f);
+      const r = this.N(s, c, f);
       if (!r) {
         throw new RangeError(yr);
       }
       [u, l] = r;
     }
-    return createPlainMonthDaySlots(checkIsoDateInBounds(this.L(u, l, f)), this.id || X);
+    return createPlainMonthDaySlots(checkIsoDateInBounds(this.P(u, l, f)), this.id || X);
   },
   fields(e) {
     return getCalendarEraOrigins(this) && e.includes("year") ? [ ...e, ...ii ] : e;
@@ -10129,44 +13690,44 @@ const va = "([+−-])", Ea = "(?:[.,](\\d{1,9}))?", Sa = `(?:(?:${va}(\\d{6}))|(
     this.id === Ti && spliceFields(t, n, mi, ii)), t;
   },
   inLeapYear(e) {
-    const [n] = this.v(e);
+    const [n] = this.h(e);
     return this.K(n);
   },
   monthsInYear(e) {
-    const [n] = this.v(e);
-    return this.j(n);
+    const [n] = this.h(e);
+    return this.L(n);
   },
   daysInMonth(e) {
-    const [n, t] = this.v(e);
-    return this.N(n, t);
+    const [n, t] = this.h(e);
+    return this.j(n, t);
   },
   daysInYear(e) {
-    const [n] = this.v(e);
+    const [n] = this.h(e);
     return this.X(n);
   },
   dayOfYear: computeNativeDayOfYear,
   era(e) {
-    return this.nn(e)[0];
+    return this.ee(e)[0];
   },
   eraYear(e) {
-    return this.nn(e)[1];
+    return this.ee(e)[1];
   },
   monthCode(e) {
-    const [n, t] = this.v(e), [o, r] = this.$(n, t);
+    const [n, t] = this.h(e), [o, r] = this.I(n, t);
     return ((e, n) => "M" + xr(e) + (n ? "L" : ""))(o, r);
   },
   dayOfWeek: computeIsoDayOfWeek,
   daysInWeek() {
     return 7;
   }
-}, Ja = {
+}, _a = {
   dayOfYear: computeNativeDayOfYear,
-  v: computeIsoDateParts,
-  p: isoArgsToEpochMilli
-}, Ka = /*@__PURE__*/ Object.assign({}, Ja, {
+  h: computeIsoDateParts,
+  q: isoArgsToEpochMilli
+}, Ja = /*@__PURE__*/ Object.assign({}, _a, {
   weekOfYear: computeNativeWeekOfYear,
   yearOfWeek: computeNativeYearOfWeek,
-  m(e) {
+  R(e) {
     function computeWeekShift(e) {
       return (7 - e < n ? 7 : 0) - e;
     }
@@ -10179,40 +13740,40 @@ const va = "([+−-])", Ea = "(?:[.,](\\d{1,9}))?", Sa = `(?:(?:${va}(\\d{6}))|(
     return u ? u > computeWeeksInYear(0) && (u = 1, l++) : (u = computeWeeksInYear(-1), 
     l--), [ u, l, c ];
   }
-}), Qa = {
+}), Ka = {
   dayOfYear: computeNativeDayOfYear,
-  v: computeIntlDateParts,
-  p: computeIntlEpochMilli,
+  h: computeIntlDateParts,
+  q: computeIntlEpochMilli,
   weekOfYear: computeNativeWeekOfYear,
   yearOfWeek: computeNativeYearOfWeek,
-  m() {
+  R() {
     return [];
   }
-}, Y = /*@__PURE__*/ createNativeOpsCreator(/*@__PURE__*/ Object.assign({}, _a, Ka, {
-  v: computeIsoDateParts,
-  nn(e) {
-    return this.id === gi ? computeGregoryEraParts(e) : this.id === Ti ? Hi(e) : [];
+}, Y = /*@__PURE__*/ createNativeOpsCreator(/*@__PURE__*/ Object.assign({}, Va, Ja, {
+  h: computeIsoDateParts,
+  ee(e) {
+    return this.id === gi ? computeGregoryEraParts(e) : this.id === Ti ? Gi(e) : [];
   },
-  $: (e, n) => [ n, 0 ],
-  k(e, n) {
+  I: (e, n) => [ n, 0 ],
+  N(e, n) {
     if (!n) {
-      return [ xi, e ];
+      return [ ji, e ];
     }
   },
   K: computeIsoInLeapYear,
-  P() {},
-  j: computeIsoMonthsInYear,
-  V: e => e * $i,
-  N: computeIsoDaysInMonth,
+  U() {},
+  L: computeIsoMonthsInYear,
+  J: e => e * xi,
+  j: computeIsoDaysInMonth,
   X: computeIsoDaysInYear,
-  L: (e, n, t) => ({
+  P: (e, n, t) => ({
     isoYear: e,
     isoMonth: n,
     isoDay: t
   }),
-  p: isoArgsToEpochMilli,
-  G: (e, n, t) => (e += divTrunc(t, $i), (n += modTrunc(t, $i)) < 1 ? (e--, n += $i) : n > $i && (e++, 
-  n -= $i), [ e, n ]),
+  q: isoArgsToEpochMilli,
+  _: (e, n, t) => (e += divTrunc(t, xi), (n += modTrunc(t, xi)) < 1 ? (e--, n += xi) : n > xi && (e++, 
+  n -= xi), [ e, n ]),
   year(e) {
     return e.isoYear;
   },
@@ -10220,20 +13781,20 @@ const va = "([+−-])", Ea = "(?:[.,](\\d{1,9}))?", Sa = `(?:(?:${va}(\\d{6}))|(
     return e.isoMonth;
   },
   day: e => e.isoDay
-}), /*@__PURE__*/ Object.assign({}, _a, Qa, {
-  v: computeIntlDateParts,
-  nn(e) {
-    const n = this.h(e);
+}), /*@__PURE__*/ Object.assign({}, Va, Ka, {
+  h: computeIntlDateParts,
+  ee(e) {
+    const n = this.O(e);
     return [ n.era, n.eraYear ];
   },
-  $(e, n) {
+  I(e, n) {
     const t = computeIntlLeapMonth.call(this, e);
     return [ monthToMonthCodeNumber(n, t), t === n ];
   },
-  k(e, n, t) {
+  N(e, n, t) {
     let [o, r, i] = computeIntlDateParts.call(this, {
-      isoYear: xi,
-      isoMonth: $i,
+      isoYear: ji,
+      isoMonth: xi,
       isoDay: 31
     });
     const a = computeIntlLeapMonth.call(this, o), s = r === a;
@@ -10249,9 +13810,9 @@ const va = "([+−-])", Ea = "(?:[.,](\\d{1,9}))?", Sa = `(?:(?:${va}(\\d{6}))|(
     const n = computeIntlDaysInYear.call(this, e);
     return n > computeIntlDaysInYear.call(this, e - 1) && n > computeIntlDaysInYear.call(this, e + 1);
   },
-  P: computeIntlLeapMonth,
-  j: computeIntlMonthsInYear,
-  V(e, n) {
+  U: computeIntlLeapMonth,
+  L: computeIntlMonthsInYear,
+  J(e, n) {
     const t = n + e, o = Math.sign(e), r = o < 0 ? -1 : 0;
     let i = 0;
     for (let e = n; e !== t; e += o) {
@@ -10259,13 +13820,13 @@ const va = "([+−-])", Ea = "(?:[.,](\\d{1,9}))?", Sa = `(?:(?:${va}(\\d{6}))|(
     }
     return i;
   },
-  N: computeIntlDaysInMonth,
+  j: computeIntlDaysInMonth,
   X: computeIntlDaysInYear,
-  L(e, n, t) {
+  P(e, n, t) {
     return epochMilliToIso(computeIntlEpochMilli.call(this, e, n, t));
   },
-  p: computeIntlEpochMilli,
-  G(e, n, t) {
+  q: computeIntlEpochMilli,
+  _(e, n, t) {
     if (t) {
       if (n += t, !Number.isSafeInteger(n)) {
         throw new RangeError(Cr);
@@ -10284,1081 +13845,137 @@ const va = "([+−-])", Ea = "(?:[.,](\\d{1,9}))?", Sa = `(?:(?:${va}(\\d{6}))|(
     return [ e, n ];
   },
   year(e) {
-    return this.h(e).year;
+    return this.O(e).year;
   },
   month(e) {
-    const {year: n, o: t} = this.h(e), {u: o} = this.l(n);
+    const {year: n, F: t} = this.O(e), {C: o} = this.B(n);
     return o[t] + 1;
   },
   day(e) {
-    return this.h(e).day;
+    return this.O(e).day;
   }
-})), Xa = "numeric", es = [ "timeZoneName" ], ns = {
-  month: Xa,
-  day: Xa
-}, ts = {
-  year: Xa,
-  month: Xa
-}, os = /*@__PURE__*/ Object.assign({}, ts, {
-  day: Xa
-}), rs = {
-  hour: Xa,
-  minute: Xa,
-  second: Xa
-}, is = /*@__PURE__*/ Object.assign({}, os, rs), as = /*@__PURE__*/ Object.assign({}, is, {
+})), Qa = "numeric", Xa = [ "timeZoneName" ], es = {
+  month: Qa,
+  day: Qa
+}, ns = {
+  year: Qa,
+  month: Qa
+}, ts = /*@__PURE__*/ Object.assign({}, ns, {
+  day: Qa
+}), os = {
+  hour: Qa,
+  minute: Qa,
+  second: Qa
+}, rs = /*@__PURE__*/ Object.assign({}, ts, os), is = /*@__PURE__*/ Object.assign({}, rs, {
   timeZoneName: "short"
-}), ss = /*@__PURE__*/ Object.keys(ts), cs = /*@__PURE__*/ Object.keys(ns), us = /*@__PURE__*/ Object.keys(os), ls = /*@__PURE__*/ Object.keys(rs), fs = [ "dateStyle" ], ds = /*@__PURE__*/ ss.concat(fs), ms = /*@__PURE__*/ cs.concat(fs), ps = /*@__PURE__*/ us.concat(fs, [ "weekday" ]), hs = /*@__PURE__*/ ls.concat([ "dayPeriod", "timeStyle" ]), gs = /*@__PURE__*/ ps.concat(hs), Ts = /*@__PURE__*/ gs.concat(es), Ds = /*@__PURE__*/ es.concat(hs), Is = /*@__PURE__*/ es.concat(ps), Ms = /*@__PURE__*/ es.concat([ "day", "weekday" ], hs), Ns = /*@__PURE__*/ es.concat([ "year", "weekday" ], hs), ys = {}, t = [ /*@__PURE__*/ createOptionsTransformer(gs, is), y ], s = [ /*@__PURE__*/ createOptionsTransformer(Ts, as), y, 0, (e, n) => {
+}), as = /*@__PURE__*/ Object.keys(ns), ss = /*@__PURE__*/ Object.keys(es), cs = /*@__PURE__*/ Object.keys(ts), us = /*@__PURE__*/ Object.keys(os), ls = [ "dateStyle" ], fs = /*@__PURE__*/ as.concat(ls), ds = /*@__PURE__*/ ss.concat(ls), ms = /*@__PURE__*/ cs.concat(ls, [ "weekday" ]), ps = /*@__PURE__*/ us.concat([ "dayPeriod", "timeStyle" ]), hs = /*@__PURE__*/ ms.concat(ps), gs = /*@__PURE__*/ hs.concat(Xa), Ts = /*@__PURE__*/ Xa.concat(ps), Ds = /*@__PURE__*/ Xa.concat(ms), Is = /*@__PURE__*/ Xa.concat([ "day", "weekday" ], ps), Ms = /*@__PURE__*/ Xa.concat([ "year", "weekday" ], ps), Ns = {}, t = [ /*@__PURE__*/ createOptionsTransformer(hs, rs), y ], s = [ /*@__PURE__*/ createOptionsTransformer(gs, is), y, 0, (e, n) => {
   const t = I(e.timeZone);
   if (n && I(n.timeZone) !== t) {
     throw new RangeError(Fr);
   }
   return t;
-} ], n = [ /*@__PURE__*/ createOptionsTransformer(gs, is, es), isoToEpochMilli ], o = [ /*@__PURE__*/ createOptionsTransformer(ps, os, Ds), isoToEpochMilli ], r = [ /*@__PURE__*/ createOptionsTransformer(hs, rs, Is), e => isoTimeFieldsToNano(e) / internal_be ], a = [ /*@__PURE__*/ createOptionsTransformer(ds, ts, Ms), isoToEpochMilli, 1 ], i = [ /*@__PURE__*/ createOptionsTransformer(ms, ns, Ns), isoToEpochMilli, 1 ];
+} ], n = [ /*@__PURE__*/ createOptionsTransformer(hs, rs, Xa), isoToEpochMilli ], o = [ /*@__PURE__*/ createOptionsTransformer(ms, ts, Ts), isoToEpochMilli ], r = [ /*@__PURE__*/ createOptionsTransformer(ps, os, Ds), e => isoTimeFieldsToNano(e) / be ], a = [ /*@__PURE__*/ createOptionsTransformer(fs, ns, Is), isoToEpochMilli, 1 ], i = [ /*@__PURE__*/ createOptionsTransformer(ds, es, Ms), isoToEpochMilli, 1 ];
 
-let Ps;
-
-
-
-;// CONCATENATED MODULE: ./node_modules/temporal-polyfill/chunks/classApi.js
-function createSlotClass(e, t, n, o, r) {
-  function Class(...e) {
-    if (!(this instanceof Class)) {
-      throw new TypeError(P);
-    }
-    oo(this, t(...e));
-  }
-  function bindMethod(e, t) {
-    return Object.defineProperties((function(...t) {
-      return e.call(this, getSpecificSlots(this), ...t);
-    }), D(t));
-  }
-  function getSpecificSlots(t) {
-    const n = no(t);
-    if (!n || n.branding !== e) {
-      throw new TypeError(P);
-    }
-    return n;
-  }
-  return Object.defineProperties(Class.prototype, {
-    ...O(T(bindMethod, n)),
-    ...p(T(bindMethod, o)),
-    ...h("Temporal." + e)
-  }), Object.defineProperties(Class, {
-    ...p(r),
-    ...D(e)
-  }), [ Class, e => {
-    const t = Object.create(Class.prototype);
-    return oo(t, e), t;
-  }, getSpecificSlots ];
-}
-
-function createProtocolValidator(e) {
-  return e = e.concat("id").sort(), t => {
-    if (!C(t, e)) {
-      throw new TypeError(g);
-    }
-    return t;
-  };
-}
-
-function rejectInvalidBag(e) {
-  if (no(e) || void 0 !== e.calendar || void 0 !== e.timeZone) {
-    throw new TypeError(Z);
-  }
-  return e;
-}
-
-function createCalendarFieldMethods(e, t) {
-  const n = {};
-  for (const o in e) {
-    n[o] = ({F: e}, n) => {
-      const r = no(n) || {}, {branding: a} = r, i = a === J || t.includes(a) ? r : toPlainDateSlots(n);
-      return e[o](i);
-    };
-  }
-  return n;
-}
-
-function createCalendarGetters(e) {
-  const t = {};
-  for (const n in e) {
-    t[n] = e => {
-      const {calendar: t} = e;
-      return (o = t, "string" == typeof o ? Y(o) : (r = o, Object.assign(Object.create(co), {
-        C: r
-      })))[n](e);
-      var o, r;
-    };
-  }
-  return t;
-}
-
-function neverValueOf() {
-  throw new TypeError(A);
-}
-
-function createCalendarFromSlots({calendar: e}) {
-  return "string" == typeof e ? new lr(e) : e;
-}
-
-function toPlainMonthDaySlots(e, t) {
-  if (t = U(t), z(e)) {
-    const n = no(e);
-    if (n && n.branding === q) {
-      return H(t), n;
-    }
-    const o = extractCalendarSlotFromBag(e);
-    return K(Qo(o || X), !o, e, t);
-  }
-  const n = Q(Y, e);
-  return H(t), n;
-}
-
-function getOffsetNanosecondsForAdapter(e, t, n) {
-  return o = t.call(e, Co(internal_(n))), ae(u(o));
-  var o;
-}
-
-function createAdapterOps(e, t = ho) {
-  const n = Object.keys(t).sort(), o = {};
-  for (const r of n) {
-    o[r] = E(t[r], e, $(e[r]));
-  }
-  return o;
-}
-
-function createTimeZoneOps(e, t) {
-  return "string" == typeof e ? ie(e) : createAdapterOps(e, t);
-}
-
-function createTimeZoneOffsetOps(e) {
-  return createTimeZoneOps(e, Do);
-}
-
-function toInstantSlots(e) {
-  if (z(e)) {
-    const t = no(e);
-    if (t) {
-      switch (t.branding) {
-       case Oe:
-        return t;
-
-       case Te:
-        return internal_(t.epochNanoseconds);
-      }
-    }
-  }
-  return pe(e);
-}
-
-function toTemporalInstant() {
-  return Co(_(he(this.valueOf(), be)));
-}
-
-function getImplTransition(e, t, n) {
-  const o = t.B(toInstantSlots(n).epochNanoseconds, e);
-  return o ? Co(internal_(o)) : null;
-}
-
-function refineTimeZoneSlot(e) {
-  return z(e) ? (no(e) || {}).timeZone || Fo(e) : (e => ye(Ne(m(e))))(e);
-}
-
-function toPlainTimeSlots(e, t) {
-  if (z(e)) {
-    const n = no(e) || {};
-    switch (n.branding) {
-     case xe:
-      return H(t), n;
-
-     case We:
-      return H(t), Ge(n);
-
-     case Te:
-      return H(t), Re(createTimeZoneOffsetOps, n);
-    }
-    return Ue(e, t);
-  }
-  return H(t), ze(e);
-}
-
-function optionalToPlainTimeFields(e) {
-  return void 0 === e ? void 0 : toPlainTimeSlots(e);
-}
-
-function toPlainYearMonthSlots(e, t) {
-  if (t = U(t), z(e)) {
-    const n = no(e);
-    return n && n.branding === L ? (H(t), n) : nt(Ho(getCalendarSlotFromBag(e)), e, t);
-  }
-  const n = ot(Y, e);
-  return H(t), n;
-}
-
-function toPlainDateTimeSlots(e, t) {
-  if (t = U(t), z(e)) {
-    const n = no(e) || {};
-    switch (n.branding) {
-     case We:
-      return H(t), n;
-
-     case J:
-      return H(t), ee({
-        ...n,
-        ...Dt
-      });
-
-     case Te:
-      return H(t), ht(createTimeZoneOffsetOps, n);
-    }
-    return Pt(Ko(getCalendarSlotFromBag(e)), e, t);
-  }
-  const n = Ct(e);
-  return H(t), n;
-}
-
-function toPlainDateSlots(e, t) {
-  if (t = U(t), z(e)) {
-    const n = no(e) || {};
-    switch (n.branding) {
-     case J:
-      return H(t), n;
-
-     case We:
-      return H(t), v(n);
-
-     case Te:
-      return H(t), Bt(createTimeZoneOffsetOps, n);
-    }
-    return Yt(Ko(getCalendarSlotFromBag(e)), e, t);
-  }
-  const n = At(e);
-  return H(t), n;
-}
-
-function dayAdapter(e, t, n) {
-  return d(t.call(e, Yo(v(n, e))));
-}
-
-function createCompoundOpsCreator(e) {
-  return t => "string" == typeof t ? Y(t) : ((e, t) => {
-    const n = Object.keys(t).sort(), o = {};
-    for (const r of n) {
-      o[r] = E(t[r], e, e[r]);
-    }
-    return o;
-  })(t, e);
-}
-
-function toDurationSlots(e) {
-  if (z(e)) {
-    const t = no(e);
-    return t && t.branding === qt ? t : Ht(e);
-  }
-  return Kt(e);
-}
-
-function refinePublicRelativeTo(e) {
-  if (void 0 !== e) {
-    if (z(e)) {
-      const t = no(e) || {};
-      switch (t.branding) {
-       case Te:
-       case J:
-        return t;
-
-       case We:
-        return v(t);
-      }
-      const n = getCalendarSlotFromBag(e);
-      return {
-        ...Qt(refineTimeZoneSlot, createTimeZoneOps, Ko(n), e),
-        calendar: n
-      };
-    }
-    return Xt(e);
-  }
-}
-
-function getCalendarSlotFromBag(e) {
-  return extractCalendarSlotFromBag(e) || X;
-}
-
-function extractCalendarSlotFromBag(e) {
-  const {calendar: t} = e;
-  if (void 0 !== t) {
-    return refineCalendarSlot(t);
-  }
-}
-
-function refineCalendarSlot(e) {
-  return z(e) ? (no(e) || {}).calendar || cr(e) : (e => an(sn(m(e))))(e);
-}
-
-function toZonedDateTimeSlots(e, t) {
-  if (t = U(t), z(e)) {
-    const n = no(e);
-    if (n && n.branding === Te) {
-      return wn(t), n;
-    }
-    const o = getCalendarSlotFromBag(e);
-    return jn(refineTimeZoneSlot, createTimeZoneOps, Ko(o), o, e, t);
-  }
-  return Mn(e, t);
-}
-
-function adaptDateMethods(e) {
-  return T((e => t => e(slotsToIso(t))), e);
-}
-
-function slotsToIso(e) {
-  return fn(e, createTimeZoneOffsetOps);
-}
-
-function createDateTimeFormatClass() {
-  const e = En.prototype, t = Object.getOwnPropertyDescriptors(e), n = Object.getOwnPropertyDescriptors(En), DateTimeFormat = function(e, t = {}) {
-    if (!(this instanceof DateTimeFormat)) {
-      return new DateTimeFormat(e, t);
-    }
-    Or.set(this, ((e, t = {}) => {
-      const n = new En(e, t), o = n.resolvedOptions(), r = o.locale, a = Vn(Object.keys(t), o), i = Jn(createFormatPrepperForBranding), prepFormat = (...e) => {
-        let t;
-        const o = e.map(((e, n) => {
-          const o = no(e), r = (o || {}).branding;
-          if (n && t && t !== r) {
-            throw new TypeError(kn);
-          }
-          return t = r, o;
-        }));
-        return t ? i(t)(r, a, ...o) : [ n, ...e ];
-      };
-      return prepFormat.U = n, prepFormat;
-    })(e, t));
-  };
-  for (const e in t) {
-    const n = t[e], o = e.startsWith("format") && createFormatMethod(e);
-    "function" == typeof n.value ? n.value = "constructor" === e ? DateTimeFormat : o || createProxiedMethod(e) : o && (n.get = function() {
-      return o.bind(this);
-    });
-  }
-  return n.prototype.value = Object.create(e, t), Object.defineProperties(DateTimeFormat, n), 
-  DateTimeFormat;
-}
-
-function createFormatMethod(e) {
-  return function(...t) {
-    const n = Or.get(this), [o, ...r] = n(...t);
-    return o[e](...r);
-  };
-}
-
-function createProxiedMethod(e) {
-  return function(...t) {
-    return Or.get(this).U[e](...t);
-  };
-}
-
-function createFormatPrepperForBranding(t) {
-  const n = xn[t];
-  if (!n) {
-    throw new TypeError(Ln(t));
-  }
-  return e(n, Jn(qn));
-}
+let ys;
 
 
 
-const xn = {
-  Instant: t,
-  PlainDateTime: n,
-  PlainDate: o,
-  PlainTime: r,
-  PlainYearMonth: a,
-  PlainMonthDay: i
-}, Rn = /*@__PURE__*/ e(t), Wn = /*@__PURE__*/ e(s), Gn = /*@__PURE__*/ e(n), Un = /*@__PURE__*/ e(o), zn = /*@__PURE__*/ e(r), Hn = /*@__PURE__*/ e(a), Kn = /*@__PURE__*/ e(i), Qn = {
-  era: l,
-  eraYear: c,
-  year: u,
-  month: d,
-  daysInMonth: d,
-  daysInYear: d,
-  inLeapYear: f,
-  monthsInYear: d
-}, Xn = {
-  monthCode: m
-}, $n = {
-  day: d
-}, _n = {
-  dayOfWeek: d,
-  dayOfYear: d,
-  weekOfYear: S,
-  yearOfWeek: c,
-  daysInWeek: d
-}, eo = /*@__PURE__*/ Object.assign({}, Qn, Xn, $n, _n), to = /*@__PURE__*/ new WeakMap, no = /*@__PURE__*/ to.get.bind(to), oo = /*@__PURE__*/ to.set.bind(to), ro = {
-  ...createCalendarFieldMethods(Qn, [ L ]),
-  ...createCalendarFieldMethods(_n, []),
-  ...createCalendarFieldMethods(Xn, [ L, q ]),
-  ...createCalendarFieldMethods($n, [ q ])
-}, ao = /*@__PURE__*/ createCalendarGetters(eo), io = /*@__PURE__*/ createCalendarGetters({
-  ...Qn,
-  ...Xn
-}), so = /*@__PURE__*/ createCalendarGetters({
-  ...Xn,
-  ...$n
-}), lo = {
-  calendarId: e => I(e.calendar)
-}, co = /*@__PURE__*/ T(((e, t) => function(n) {
-  const {C: o} = this;
-  return e(o[t](Yo(v(n, o))));
-}), eo), uo = /*@__PURE__*/ b((e => t => t[e]), F.concat("sign")), fo = /*@__PURE__*/ b(((e, t) => e => e[j[t]]), w), mo = {
-  epochSeconds: M,
-  epochMilliseconds: y,
-  epochMicroseconds: N,
-  epochNanoseconds: B
-}, So = /*@__PURE__*/ E(V, new Set([ "branding" ])), [Oo, To, po] = createSlotClass(q, E(G, refineCalendarSlot), {
-  ...lo,
-  ...so
-}, {
-  getISOFields: So,
-  getCalendar: createCalendarFromSlots,
-  with(e, t, n) {
-    return To(k(_o, e, this, rejectInvalidBag(t), n));
-  },
-  equals: (e, t) => x(e, toPlainMonthDaySlots(t)),
-  toPlainDate(e, t) {
-    return Yo(R($o, e, this, t));
-  },
-  toLocaleString(e, t, n) {
-    const [o, r] = Kn(t, n, e);
-    return o.format(r);
-  },
-  toString: W,
-  toJSON: e => W(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => To(toPlainMonthDaySlots(e, t))
-}), ho = {
-  getOffsetNanosecondsFor: getOffsetNanosecondsForAdapter,
-  getPossibleInstantsFor(e, t, n) {
-    const o = [ ...t.call(e, No(ee(n, X))) ].map((e => go(e).epochNanoseconds)), r = o.length;
-    return r > 1 && (o.sort(te), ne(oe(re(o[0], o[r - 1])))), o;
-  }
-}, Do = {
-  getOffsetNanosecondsFor: getOffsetNanosecondsForAdapter
-}, [Po, Co, go] = createSlotClass(Oe, Se, mo, {
-  add: (e, t) => Co(se(0, e, toDurationSlots(t))),
-  subtract: (e, t) => Co(se(1, e, toDurationSlots(t))),
-  until: (e, t, n) => ar(le(0, e, toInstantSlots(t), n)),
-  since: (e, t, n) => ar(le(1, e, toInstantSlots(t), n)),
-  round: (e, t) => Co(ce(e, t)),
-  equals: (e, t) => ue(e, toInstantSlots(t)),
-  toZonedDateTime(e, t) {
-    const n = de(t);
-    return dr(fe(e, refineTimeZoneSlot(n.timeZone), refineCalendarSlot(n.calendar)));
-  },
-  toZonedDateTimeISO: (e, t) => dr(fe(e, refineTimeZoneSlot(t))),
-  toLocaleString(e, t, n) {
-    const [o, r] = Rn(t, n, e);
-    return o.format(r);
-  },
-  toString: (e, t) => me(refineTimeZoneSlot, createTimeZoneOffsetOps, e, t),
-  toJSON: e => me(refineTimeZoneSlot, createTimeZoneOffsetOps, e),
-  valueOf: neverValueOf
-}, {
-  from: e => Co(toInstantSlots(e)),
-  fromEpochSeconds: e => Co(De(e)),
-  fromEpochMilliseconds: e => Co(Pe(e)),
-  fromEpochMicroseconds: e => Co(Ce(e)),
-  fromEpochNanoseconds: e => Co(ge(e)),
-  compare: (e, t) => Ze(toInstantSlots(e), toInstantSlots(t))
-}), [Zo, bo] = createSlotClass("TimeZone", (e => {
-  const t = Me(e);
-  return {
-    branding: "TimeZone",
-    id: t,
-    F: ie(t)
-  };
-}), {
-  id: e => e.id
-}, {
-  getPossibleInstantsFor: ({F: e}, t) => e.getPossibleInstantsFor(toPlainDateTimeSlots(t)).map((e => Co(internal_(e)))),
-  getOffsetNanosecondsFor: ({F: e}, t) => e.getOffsetNanosecondsFor(toInstantSlots(t).epochNanoseconds),
-  getOffsetStringFor(e, t) {
-    const n = toInstantSlots(t).epochNanoseconds, o = createAdapterOps(this, Do).getOffsetNanosecondsFor(n);
-    return Fe(o);
-  },
-  getPlainDateTimeFor(e, t, n = X) {
-    const o = toInstantSlots(t).epochNanoseconds, r = createAdapterOps(this, Do).getOffsetNanosecondsFor(o);
-    return No(ee(Ie(o, r), refineCalendarSlot(n)));
-  },
-  getInstantFor(e, t, n) {
-    const o = toPlainDateTimeSlots(t), r = ve(n), a = createAdapterOps(this);
-    return Co(internal_(we(a, o, r)));
-  },
-  getNextTransition: ({F: e}, t) => getImplTransition(1, e, t),
-  getPreviousTransition: ({F: e}, t) => getImplTransition(-1, e, t),
-  equals(e, t) {
-    return !!je(this, refineTimeZoneSlot(t));
-  },
-  toString: e => e.id,
-  toJSON: e => e.id
-}, {
-  from(e) {
-    const t = refineTimeZoneSlot(e);
-    return "string" == typeof t ? new Zo(t) : t;
-  }
-}), Fo = /*@__PURE__*/ createProtocolValidator(Object.keys(ho)), [Io, vo] = createSlotClass(xe, ke, fo, {
-  getISOFields: So,
-  with(e, t, n) {
-    return vo(Be(this, rejectInvalidBag(t), n));
-  },
-  add: (e, t) => vo(Ye(0, e, toDurationSlots(t))),
-  subtract: (e, t) => vo(Ye(1, e, toDurationSlots(t))),
-  until: (e, t, n) => ar(Ae(0, e, toPlainTimeSlots(t), n)),
-  since: (e, t, n) => ar(Ae(1, e, toPlainTimeSlots(t), n)),
-  round: (e, t) => vo(Ee(e, t)),
-  equals: (e, t) => Ve(e, toPlainTimeSlots(t)),
-  toZonedDateTime: (e, t) => dr(Je(refineTimeZoneSlot, toPlainDateSlots, createTimeZoneOps, e, t)),
-  toPlainDateTime: (e, t) => No(Le(e, toPlainDateSlots(t))),
-  toLocaleString(e, t, n) {
-    const [o, r] = zn(t, n, e);
-    return o.format(r);
-  },
-  toString: qe,
-  toJSON: e => qe(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => vo(toPlainTimeSlots(e, t)),
-  compare: (e, t) => He(toPlainTimeSlots(e), toPlainTimeSlots(t))
-}), [wo, jo, Mo] = createSlotClass(L, E(tt, refineCalendarSlot), {
-  ...lo,
-  ...io
-}, {
-  getISOFields: So,
-  getCalendar: createCalendarFromSlots,
-  with(e, t, n) {
-    return jo(Ke(Xo, e, this, rejectInvalidBag(t), n));
-  },
-  add: (e, t, n) => jo(Qe(nr, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => jo(Qe(nr, 1, e, toDurationSlots(t), n)),
-  until: (e, t, n) => ar(Xe(or, 0, e, toPlainYearMonthSlots(t), n)),
-  since: (e, t, n) => ar(Xe(or, 1, e, toPlainYearMonthSlots(t), n)),
-  equals: (e, t) => $e(e, toPlainYearMonthSlots(t)),
-  toPlainDate(e, t) {
-    return Yo(_e($o, e, this, t));
-  },
-  toLocaleString(e, t, n) {
-    const [o, r] = Hn(t, n, e);
-    return o.format(r);
-  },
-  toString: et,
-  toJSON: e => et(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => jo(toPlainYearMonthSlots(e, t)),
-  compare: (e, t) => rt(toPlainYearMonthSlots(e), toPlainYearMonthSlots(t))
-}), [yo, No] = createSlotClass(We, E(pt, refineCalendarSlot), {
-  ...lo,
-  ...ao,
-  ...fo
-}, {
-  getISOFields: So,
-  getCalendar: createCalendarFromSlots,
-  with(e, t, n) {
-    return No(at($o, e, this, rejectInvalidBag(t), n));
-  },
-  withCalendar: (e, t) => No(it(e, refineCalendarSlot(t))),
-  withPlainDate: (e, t) => No(st(e, toPlainDateSlots(t))),
-  withPlainTime: (e, t) => No(lt(e, optionalToPlainTimeFields(t))),
-  add: (e, t, n) => No(ct(er, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => No(ct(er, 1, e, toDurationSlots(t), n)),
-  until: (e, t, n) => ar(ut(tr, 0, e, toPlainDateTimeSlots(t), n)),
-  since: (e, t, n) => ar(ut(tr, 1, e, toPlainDateTimeSlots(t), n)),
-  round: (e, t) => No(dt(e, t)),
-  equals: (e, t) => ft(e, toPlainDateTimeSlots(t)),
-  toZonedDateTime: (e, t, n) => dr(mt(createTimeZoneOps, e, refineTimeZoneSlot(t), n)),
-  toPlainDate: e => Yo(v(e)),
-  toPlainTime: e => vo(Ge(e)),
-  toPlainYearMonth(e) {
-    return jo(St(Ho, e, this));
-  },
-  toPlainMonthDay(e) {
-    return To(Ot(Qo, e, this));
-  },
-  toLocaleString(e, t, n) {
-    const [o, r] = Gn(t, n, e);
-    return o.format(r);
-  },
-  toString: Tt,
-  toJSON: e => Tt(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => No(toPlainDateTimeSlots(e, t)),
-  compare: (e, t) => gt(toPlainDateTimeSlots(e), toPlainDateTimeSlots(t))
-}), [Bo, Yo, Ao] = createSlotClass(J, E(Nt, refineCalendarSlot), {
-  ...lo,
-  ...ao
-}, {
-  getISOFields: So,
-  getCalendar: createCalendarFromSlots,
-  with(e, t, n) {
-    return Yo(Zt($o, e, this, rejectInvalidBag(t), n));
-  },
-  withCalendar: (e, t) => Yo(it(e, refineCalendarSlot(t))),
-  add: (e, t, n) => Yo(bt(er, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => Yo(bt(er, 1, e, toDurationSlots(t), n)),
-  until: (e, t, n) => ar(Ft(tr, 0, e, toPlainDateSlots(t), n)),
-  since: (e, t, n) => ar(Ft(tr, 1, e, toPlainDateSlots(t), n)),
-  equals: (e, t) => It(e, toPlainDateSlots(t)),
-  toZonedDateTime(e, t) {
-    const n = !z(t) || t instanceof Zo ? {
-      timeZone: t
-    } : t;
-    return dr(vt(refineTimeZoneSlot, toPlainTimeSlots, createTimeZoneOps, e, n));
-  },
-  toPlainDateTime: (e, t) => No(wt(e, optionalToPlainTimeFields(t))),
-  toPlainYearMonth(e) {
-    return jo(jt(Ho, e, this));
-  },
-  toPlainMonthDay(e) {
-    return To(Mt(Qo, e, this));
-  },
-  toLocaleString(e, t, n) {
-    const [o, r] = Un(t, n, e);
-    return o.format(r);
-  },
-  toString: yt,
-  toJSON: e => yt(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => Yo(toPlainDateSlots(e, t)),
-  compare: (e, t) => rt(toPlainDateSlots(e), toPlainDateSlots(t))
-}), Eo = {
-  fields(e, t, n) {
-    return [ ...t.call(e, n) ];
-  }
-}, Vo = /*@__PURE__*/ Object.assign({
-  dateFromFields(e, t, n, o) {
-    return Ao(t.call(e, Object.assign(Object.create(null), n), o));
-  }
-}, Eo), Jo = /*@__PURE__*/ Object.assign({
-  yearMonthFromFields(e, t, n, o) {
-    return Mo(t.call(e, Object.assign(Object.create(null), n), o));
-  }
-}, Eo), Lo = /*@__PURE__*/ Object.assign({
-  monthDayFromFields(e, t, n, o) {
-    return po(t.call(e, Object.assign(Object.create(null), n), o));
-  }
-}, Eo), qo = {
-  mergeFields(e, t, n, o) {
-    return de(t.call(e, Object.assign(Object.create(null), n), Object.assign(Object.create(null), o)));
-  }
-}, ko = /*@__PURE__*/ Object.assign({}, Vo, qo), xo = /*@__PURE__*/ Object.assign({}, Jo, qo), Ro = /*@__PURE__*/ Object.assign({}, Lo, qo), Wo = {
-  dateAdd(e, t, n, o, r) {
-    return Ao(t.call(e, Yo(v(n, e)), ar(Vt(o)), r));
-  }
-}, Go = /*@__PURE__*/ Object.assign({}, Wo, {
-  dateUntil(e, t, n, o, r, a) {
-    return ir(t.call(e, Yo(v(n, e)), Yo(v(o, e)), Object.assign(Object.create(null), a, {
-      largestUnit: Et[r]
-    })));
-  }
-}), Uo = /*@__PURE__*/ Object.assign({}, Wo, {
-  day: dayAdapter
-}), zo = /*@__PURE__*/ Object.assign({}, Go, {
-  day: dayAdapter
-}), Ho = /*@__PURE__*/ createCompoundOpsCreator(Jo), Ko = /*@__PURE__*/ createCompoundOpsCreator(Vo), Qo = /*@__PURE__*/ createCompoundOpsCreator(Lo), Xo = /*@__PURE__*/ createCompoundOpsCreator(xo), $o = /*@__PURE__*/ createCompoundOpsCreator(ko), _o = /*@__PURE__*/ createCompoundOpsCreator(Ro), er = /*@__PURE__*/ createCompoundOpsCreator(Wo), tr = /*@__PURE__*/ createCompoundOpsCreator(Go), nr = /*@__PURE__*/ createCompoundOpsCreator(Uo), or = /*@__PURE__*/ createCompoundOpsCreator(zo), [rr, ar, ir] = createSlotClass(qt, Lt, {
-  ...uo,
-  blank: Jt
-}, {
-  with: (e, t) => ar(kt(e, t)),
-  negated: e => ar(xt(e)),
-  abs: e => ar(Rt(e)),
-  add: (e, t, n) => ar(Wt(refinePublicRelativeTo, tr, createTimeZoneOps, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => ar(Wt(refinePublicRelativeTo, tr, createTimeZoneOps, 1, e, toDurationSlots(t), n)),
-  round: (e, t) => ar(Gt(refinePublicRelativeTo, tr, createTimeZoneOps, e, t)),
-  total: (e, t) => Ut(refinePublicRelativeTo, tr, createTimeZoneOps, e, t),
-  toLocaleString(e, t, n) {
-    return Intl.DurationFormat ? new Intl.DurationFormat(t, n).format(this) : zt(e);
-  },
-  toString: zt,
-  toJSON: e => zt(e),
-  valueOf: neverValueOf
-}, {
-  from: e => ar(toDurationSlots(e)),
-  compare: (e, t, n) => $t(refinePublicRelativeTo, er, createTimeZoneOps, toDurationSlots(e), toDurationSlots(t), n)
-}), sr = {
-  toString: e => e.id,
-  toJSON: e => e.id,
-  ...ro,
-  dateAdd: ({id: e, F: t}, n, o, r) => Yo(v(t.dateAdd(toPlainDateSlots(n), toDurationSlots(o), r), e)),
-  dateUntil: ({F: e}, t, n, o) => ar(Vt(e.dateUntil(toPlainDateSlots(t), toPlainDateSlots(n), _t(o)))),
-  dateFromFields: ({id: e, F: t}, n, o) => Yo(Yt(t, n, o, ln(e))),
-  yearMonthFromFields: ({id: e, F: t}, n, o) => jo(nt(t, n, o, un(e))),
-  monthDayFromFields: ({id: e, F: t}, n, o) => To(K(t, 0, n, o, cn(e))),
-  fields({F: e}, t) {
-    const n = new Set(en), o = [];
-    for (const e of t) {
-      if (m(e), !n.has(e)) {
-        throw new RangeError(tn(e));
-      }
-      n.delete(e), o.push(e);
-    }
-    return e.fields(o);
-  },
-  mergeFields: ({F: e}, t, n) => e.mergeFields(nn(on(t)), nn(on(n)))
-}, [lr] = createSlotClass("Calendar", (e => {
-  const t = rn(e);
-  return {
-    branding: "Calendar",
-    id: t,
-    F: Y(t)
-  };
-}), {
-  id: e => e.id
-}, sr, {
-  from(e) {
-    const t = refineCalendarSlot(e);
-    return "string" == typeof t ? new lr(t) : t;
-  }
-}), cr = /*@__PURE__*/ createProtocolValidator(Object.keys(sr).slice(4)), [ur, dr] = createSlotClass(Te, E(vn, refineCalendarSlot, refineTimeZoneSlot), {
-  ...mo,
-  ...lo,
-  ...adaptDateMethods(ao),
-  ...adaptDateMethods(fo),
-  offset: e => Fe(slotsToIso(e).offsetNanoseconds),
-  offsetNanoseconds: e => slotsToIso(e).offsetNanoseconds,
-  timeZoneId: e => I(e.timeZone),
-  hoursInDay: e => dn(createTimeZoneOps, e)
-}, {
-  getISOFields: e => mn(createTimeZoneOffsetOps, e),
-  getCalendar: createCalendarFromSlots,
-  getTimeZone: ({timeZone: e}) => "string" == typeof e ? new Zo(e) : e,
-  with(e, t, n) {
-    return dr(Sn($o, createTimeZoneOps, e, this, rejectInvalidBag(t), n));
-  },
-  withCalendar: (e, t) => dr(it(e, refineCalendarSlot(t))),
-  withTimeZone: (e, t) => dr(On(e, refineTimeZoneSlot(t))),
-  withPlainDate: (e, t) => dr(Tn(createTimeZoneOps, e, toPlainDateSlots(t))),
-  withPlainTime: (e, t) => dr(pn(createTimeZoneOps, e, optionalToPlainTimeFields(t))),
-  add: (e, t, n) => dr(hn(er, createTimeZoneOps, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => dr(hn(er, createTimeZoneOps, 1, e, toDurationSlots(t), n)),
-  until: (e, t, n) => ar(Vt(Dn(tr, createTimeZoneOps, 0, e, toZonedDateTimeSlots(t), n))),
-  since: (e, t, n) => ar(Vt(Dn(tr, createTimeZoneOps, 1, e, toZonedDateTimeSlots(t), n))),
-  round: (e, t) => dr(Pn(createTimeZoneOps, e, t)),
-  startOfDay: e => dr(Cn(createTimeZoneOps, e)),
-  equals: (e, t) => gn(e, toZonedDateTimeSlots(t)),
-  toInstant: e => Co(Zn(e)),
-  toPlainDateTime: e => No(ht(createTimeZoneOffsetOps, e)),
-  toPlainDate: e => Yo(Bt(createTimeZoneOffsetOps, e)),
-  toPlainTime: e => vo(Re(createTimeZoneOffsetOps, e)),
-  toPlainYearMonth(e) {
-    return jo(bn(Ho, e, this));
-  },
-  toPlainMonthDay(e) {
-    return To(Fn(Qo, e, this));
-  },
-  toLocaleString(e, t, n = {}) {
-    const [o, r] = Wn(t, n, e);
-    return o.format(r);
-  },
-  toString: (e, t) => In(createTimeZoneOffsetOps, e, t),
-  toJSON: e => In(createTimeZoneOffsetOps, e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => dr(toZonedDateTimeSlots(e, t)),
-  compare: (e, t) => yn(toZonedDateTimeSlots(e), toZonedDateTimeSlots(t))
-}), fr = /*@__PURE__*/ Object.defineProperties({}, {
-  ...h("Temporal.Now"),
-  ...p({
-    timeZoneId: () => Nn(),
-    instant: () => Co(internal_(Bn())),
-    zonedDateTime: (e, t = Nn()) => dr(Yn(Bn(), refineTimeZoneSlot(t), refineCalendarSlot(e))),
-    zonedDateTimeISO: (e = Nn()) => dr(Yn(Bn(), refineTimeZoneSlot(e), X)),
-    plainDateTime: (e, t = Nn()) => No(ee(An(createTimeZoneOffsetOps(refineTimeZoneSlot(t))), refineCalendarSlot(e))),
-    plainDateTimeISO: (e = Nn()) => No(ee(An(createTimeZoneOffsetOps(refineTimeZoneSlot(e))), X)),
-    plainDate: (e, t = Nn()) => Yo(v(An(createTimeZoneOffsetOps(refineTimeZoneSlot(t))), refineCalendarSlot(e))),
-    plainDateISO: (e = Nn()) => Yo(v(An(createTimeZoneOffsetOps(refineTimeZoneSlot(e))), X)),
-    plainTimeISO: (e = Nn()) => vo(Ge(An(createTimeZoneOffsetOps(refineTimeZoneSlot(e)))))
-  })
-}), mr = /*@__PURE__*/ Object.defineProperties({}, {
-  ...h("Temporal"),
-  ...p({
-    PlainYearMonth: wo,
-    PlainMonthDay: Oo,
-    PlainDate: Bo,
-    PlainTime: Io,
-    PlainDateTime: yo,
-    ZonedDateTime: ur,
-    Instant: Po,
-    Calendar: lr,
-    TimeZone: Zo,
-    Duration: rr,
-    Now: fr
-  })
-}), Sr = /*@__PURE__*/ createDateTimeFormatClass(), Or = /*@__PURE__*/ new WeakMap, Tr = /*@__PURE__*/ Object.defineProperties(Object.create(Intl), p({
-  DateTimeFormat: Sr
-}));
 
+/***/ })
 
-
-;// CONCATENATED MODULE: ./src/canvas/index.ts
-// noinspection GrazieInspection
-var canvas_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-/* Very Initial refactor to JS using ChatGPT4
-NOTE: Almost all of this code has had to be rewritten since then.
-And starting to convert to ts
- */
-/* THis has since been almost entirely rewritten. It did not do a great job at first pass.
- It kept inventing code that should work but didn't */
-
-
-
-/**
- *  A base class for objects that interact with the Canvas API
- */
-class Account extends BaseCanvasObject {
-    static getFromUrl() {
-        return canvas_awaiter(this, arguments, void 0, function* (url = null) {
-            if (url === null) {
-                url = document.documentURI;
-            }
-            let match = /accounts\/(\d+)/.exec(url);
-            if (match) {
-                console.log(match);
-                return yield this.getAccountById(parseInt(match[1]));
-            }
-            return null;
-        });
-    }
-    static getAccountById(accountId_1) {
-        return canvas_awaiter(this, arguments, void 0, function* (accountId, config = undefined) {
-            const data = yield this.getDataById(accountId, null, config);
-            console.assert();
-            return new Account(data);
-        });
-    }
-    static getRootAccount() {
-        return canvas_awaiter(this, arguments, void 0, function* (resetCache = false) {
-            let accounts = yield this.getAll();
-            if (!resetCache && this.hasOwnProperty('account') && this.account) {
-                return this.account;
-            }
-            let root = accounts.find((a) => a.rootAccountId === null);
-            assert_default()(root);
-            this.account = root;
-            return root;
-        });
-    }
-    get rootAccountId() {
-        return this.canvasData['root_account_id'];
-    }
-}
-Account.nameProperty = 'name'; // The field name of the primary name of the canvas object type
-Account.contentUrlTemplate = 'accounts/{content_id}'; // A templated url to get a single item
-Account.allContentUrlTemplate = 'accounts'; // A templated url to get all items
-class Rubric extends BaseCanvasObject {
-    constructor(data, courseId) {
-        super(data);
-        this.courseId = courseId;
-    }
-    associations() {
-        return canvas_awaiter(this, arguments, void 0, function* (reload = false) {
-            if ('associations' in this.canvasData && !reload) {
-                return this.canvasData['associations'];
-            }
-            let data = yield this.myClass.getDataById(this.id, this.courseId, { queryParams: { 'include': ['associations'] } });
-            let associations = data['associations'].map((data) => new RubricAssociation(data, this.courseId));
-            this.canvasData['associations'] = associations;
-            return associations;
-        });
-    }
-}
-Rubric.nameProperty = 'title';
-Rubric.contentUrlTemplate = "courses/{course_id}/rubrics/{content_id}";
-Rubric.allContentUrlTemplate = "courses/{course_id}/rubrics";
-class RubricAssociation extends BaseCanvasObject {
-    constructor(data, courseId) {
-        super(data);
-        this.courseId = courseId;
-    }
-    get useForGrading() {
-        return this.canvasData['use_for_grading'];
-    }
-    setUseForGrading(value, config) {
-        return canvas_awaiter(this, void 0, void 0, function* () {
-            this.canvasData['use_for_grading'] = value;
-            return yield this.saveData({ 'rubric_association[use_for_grading]': value }, config);
-        });
-    }
-}
-RubricAssociation.contentUrlTemplate = "courses/{course_id}/rubric_associations/{content_id}";
-RubricAssociation.allContentUrlTemplate = "courses/{course_id}/rubric_associations";
-class Term extends BaseCanvasObject {
-    static getTerm(code_1) {
-        return canvas_awaiter(this, arguments, void 0, function* (code, workflowState = 'all', config = undefined) {
-            const terms = yield this.searchTerms(code, workflowState, config);
-            if (!Array.isArray(terms) || terms.length <= 0) {
-                return null;
-            }
-            return terms[0];
-        });
-    }
-    static getTermById(termId_1) {
-        return canvas_awaiter(this, arguments, void 0, function* (termId, config = null) {
-            let account = yield Account.getRootAccount();
-            let url = `accounts/${account.id}/terms/${termId}`;
-            let termData = yield canvasUtils_fetchApiJson(url, config);
-            if (termData)
-                return new Term(termData);
-            return null;
-        });
-    }
-    static getAllActiveTerms() {
-        return canvas_awaiter(this, arguments, void 0, function* (config = null) {
-            return yield this.searchTerms(null, 'active', config);
-        });
-    }
-    static searchTerms() {
-        return canvas_awaiter(this, arguments, void 0, function* (code = null, workflowState = 'all', config = null) {
-            config = config || {};
-            config.queryParams = config.queryParams || {};
-            let queryParams = config.queryParams;
-            if (workflowState)
-                queryParams['workflow_state'] = workflowState;
-            if (code)
-                queryParams['term_name'] = code;
-            let rootAccount = yield Account.getRootAccount();
-            assert_default()(rootAccount);
-            let url = `accounts/${rootAccount.id}/terms`;
-            const data = yield getApiPagedData(url, config);
-            let terms = [];
-            for (let datum of data) {
-                if (datum.hasOwnProperty('enrollment_terms')) {
-                    for (let termData of datum['enrollment_terms']) {
-                        terms.push(termData);
-                    }
-                }
-                else {
-                    terms.push(datum);
-                }
-            }
-            console.log(terms);
-            if (!terms || terms.length === 0) {
-                return null;
-            }
-            return terms.map(term => new Term(term));
-        });
-    }
-}
-Term.nameProperty = "name";
-class NotImplementedException extends Error {
-}
-
-// EXTERNAL MODULE: ./node_modules/webextension-polyfill/dist/browser-polyfill.js
-var browser_polyfill = __webpack_require__(6815);
-;// CONCATENATED MODULE: ./src/canvas/image.ts
-var image_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-function getResizedBlob(src_1, width_1) {
-    return image_awaiter(this, arguments, void 0, function* (src, width, height = undefined) {
-        let imageSrc = yield contentDownloadImage(src);
-        let canvas = document.createElement('canvas');
-        let image = new Image();
-        image.src = imageSrc;
-        let ctx = canvas.getContext('2d');
-        return new Promise((resolve) => {
-            image.onload = () => {
-                height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
-                assert_default()(ctx);
-                console.log(image.src);
-                canvas.width = width;
-                canvas.height = height;
-                ctx.drawImage(image, 0, 0, width, height);
-                canvas.toBlob(resolve);
-            };
-        });
-    });
-}
-function contentDownloadImage(src) {
-    return image_awaiter(this, void 0, void 0, function* () {
-        const base64 = yield browser_polyfill.runtime.sendMessage({ downloadImage: src });
-        return base64;
-    });
-}
-function backgroundDownloadImage(src) {
-    //if(!height) height = src.height / src.width * width;
-    const imageUrl = src;
-    return new Promise((resolve) => image_awaiter(this, void 0, void 0, function* () {
-        const imageFileResponse = yield fetch(imageUrl);
-        let reader = new FileReader();
-        reader.onload = event => {
-            console.log(reader.result);
-            resolve(reader.result);
-        };
-        const blob = yield imageFileResponse.blob();
-        reader.readAsDataURL(blob);
-    }));
-}
-
-;// CONCATENATED MODULE: ./src/canvas/files.ts
-var files_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-function uploadFile(file, folder, url) {
-    return files_awaiter(this, void 0, void 0, function* () {
-        const initialParams = {
-            name: file.name,
-            no_redirect: true,
-            on_duplicate: 'overwrite'
-        };
-        if (typeof folder === 'number')
-            initialParams.parent_folder_id = folder;
-        else
-            initialParams.parent_folder_path = folder;
-        let response = yield fetch(url, {
-            body: canvasUtils_formDataify(initialParams),
-            method: 'POST'
-        });
-        const data = yield response.json();
-        const uploadParams = data.upload_params;
-        const uploadFormData = canvasUtils_formDataify(uploadParams);
-        uploadFormData.append('file', file);
-        response = yield fetch(data.upload_url, {
-            method: 'POST',
-            body: uploadFormData,
-        });
-        assert_default()(response.ok);
-    });
-}
-
-;// CONCATENATED MODULE: ./src/canvas/content/index.ts
-var content_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+/*!********************************!*\
+  !*** ./src/ui/module/index.ts ***!
+  \********************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../canvas/course/blueprint */ "./src/canvas/course/blueprint.ts");
+/* harmony import */ var _canvas_course_Course__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../canvas/course/Course */ "./src/canvas/course/Course.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -11370,1744 +13987,8 @@ var content_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _
 
 
 
-
-
-
-
-const SAFE_MAX_BANNER_WIDTH = 1400;
-class BaseContentItem extends BaseCanvasObject {
-    constructor(canvasData, courseId) {
-        super(canvasData);
-        this._courseId = courseId;
-    }
-    static get contentUrlPart() {
-        assert_default()(this.allContentUrlTemplate, "Not a content url template");
-        const urlTermMatch = /\/([\w_]+)$/.exec(this.allContentUrlTemplate);
-        if (!urlTermMatch)
-            return null;
-        const urlTerm = urlTermMatch[1];
-        return urlTerm;
-    }
-    static getAllInCourse(courseId_1) {
-        return content_awaiter(this, arguments, void 0, function* (courseId, config = null) {
-            let url = this.getAllUrl(courseId);
-            let data = yield getApiPagedData(url, config);
-            return data.map(item => new this(item, courseId));
-        });
-    }
-    static clearAddedContentTags(text) {
-        let out = text.replace(/<\/?link[^>]*>/g, '');
-        out = out.replace(/<\/?script[^>]*>/g, '');
-        return out;
-    }
-    static getFromUrl() {
-        return content_awaiter(this, arguments, void 0, function* (url = null, courseId = null) {
-            if (url === null) {
-                url = document.documentURI;
-            }
-            url = url.replace(/\.com/, '.com/api/v1');
-            let data = yield fetchJson(url);
-            if (!courseId) {
-                courseId = getCourseIdFromUrl(url);
-                if (!courseId)
-                    return null;
-            }
-            //If this is a collection of data, we can't process it as a Canvas Object
-            if (Array.isArray(data))
-                return null;
-            assert_default()(!Array.isArray(data));
-            if (data) {
-                return new this(data, courseId);
-            }
-            return null;
-        });
-    }
-    static getById(contentId, courseId) {
-        return content_awaiter(this, void 0, void 0, function* () {
-            return new this(yield this.getDataById(contentId, courseId), courseId);
-        });
-    }
-    get bodyKey() {
-        return this.myClass.bodyProperty;
-    }
-    get body() {
-        if (!this.bodyKey)
-            return null;
-        return this.myClass.clearAddedContentTags(this.canvasData[this.bodyKey]);
-    }
-    get dueAt() {
-        if (!this.canvasData.hasOwnProperty('due_at')) {
-            return null;
-        }
-        return new Date(this.canvasData.due_at);
-    }
-    setDueAt(date) {
-        return content_awaiter(this, void 0, void 0, function* () {
-            throw new NotImplementedException();
-        });
-    }
-    dueAtTimeDelta(timeDelta) {
-        return content_awaiter(this, void 0, void 0, function* () {
-            if (!this.dueAt)
-                return null;
-            let result = new Date(this.dueAt);
-            result.setDate(result.getDate() + timeDelta);
-            return yield this.setDueAt(result);
-        });
-    }
-    get contentUrlPath() {
-        let url = this.constructor.contentUrlTemplate;
-        assert_default()(url);
-        url = url.replace('{course_id}', this.courseId.toString());
-        url = url.replace('{content_id}', this.id.toString());
-        return url;
-    }
-    get courseId() {
-        return this._courseId;
-    }
-    updateContent(text, name, config) {
-        return content_awaiter(this, void 0, void 0, function* () {
-            const data = {};
-            const constructor = this.constructor;
-            assert_default()(constructor.bodyProperty);
-            assert_default()(constructor.nameProperty);
-            const nameProp = constructor.nameProperty;
-            const bodyProp = constructor.bodyProperty;
-            if (text && bodyProp) {
-                this.canvasData[bodyProp] = text;
-                data[bodyProp] = text;
-            }
-            if (name && nameProp) {
-                this.canvasData[nameProp] = name;
-                data[nameProp] = name;
-            }
-            return this.saveData(data, config);
-        });
-    }
-    getMeInAnotherCourse(targetCourseId) {
-        return content_awaiter(this, void 0, void 0, function* () {
-            let ContentClass = this.constructor;
-            let targets = yield ContentClass.getAllInCourse(targetCourseId, { queryParams: { search_term: this.name } });
-            return targets.find((target) => target.name == this.name);
-        });
-    }
-    getAllLinks() {
-        const el = this.bodyAsElement;
-        const anchors = el.querySelectorAll('a');
-        const urls = [];
-        for (let link of anchors)
-            urls.push(link.href);
-        return urls;
-    }
-    get bodyAsElement() {
-        assert_default()(this.body, "This content item has no body property");
-        let el = document.createElement('div');
-        el.innerHTML = this.body;
-        return el;
-    }
-    resizeBanner() {
-        return content_awaiter(this, arguments, void 0, function* (maxWidth = SAFE_MAX_BANNER_WIDTH) {
-            const bannerImg = getBannerImage(this);
-            if (!bannerImg)
-                throw new Error("No banner");
-            let fileData = yield getFileDataFromUrl(bannerImg.src, this.courseId);
-            if (!fileData)
-                throw new Error("File not found");
-            if (bannerImg.naturalWidth < maxWidth)
-                return; //Dont resize image unless we're shrinking it
-            let resizedImageBlob = yield getResizedBlob(bannerImg.src, maxWidth);
-            let fileName = fileData.filename;
-            let fileUploadUrl = `/api/v1/courses/${this.courseId}/files`;
-            assert_default()(resizedImageBlob);
-            let file = new File([resizedImageBlob], fileName);
-            return yield uploadFile(file, fileData.folder_id, fileUploadUrl);
-        });
-    }
-}
-BaseContentItem.nameProperty = 'name';
-function getFileDataFromUrl(url, courseId) {
-    return content_awaiter(this, void 0, void 0, function* () {
-        const match = /.*\/files\/(\d+)/.exec(url);
-        if (!match)
-            return null;
-        if (match) {
-            const fileId = parseInt(match[1]);
-            const file = yield getFileData(fileId, courseId);
-            return file;
-        }
-    });
-}
-function getFileData(fileId, courseId) {
-    return content_awaiter(this, void 0, void 0, function* () {
-        const url = `/api/v1/courses/${courseId}/files/${fileId}`;
-        return yield fetchJson(url);
-    });
-}
-class Discussion extends BaseContentItem {
-    offsetPublishDelay(days, config) {
-        return content_awaiter(this, void 0, void 0, function* () {
-            const data = this.rawData;
-            if (!this.rawData.delayed_post_at)
-                return;
-            let delayedPostAt = mr.Instant.from(this.rawData.delayed_post_at).toZonedDateTimeISO('UTC');
-            delayedPostAt = delayedPostAt.add({ days });
-            const payload = {
-                delayed_post_at: new Date(delayedPostAt.epochMilliseconds).toISOString()
-            };
-            yield this.saveData(payload, config);
-        });
-    }
-    get rawData() {
-        return this.canvasData;
-    }
-}
-Discussion.nameProperty = 'title';
-Discussion.bodyProperty = 'message';
-Discussion.contentUrlTemplate = "courses/{course_id}/discussion_topics/{content_id}";
-Discussion.allContentUrlTemplate = "courses/{course_id}/discussion_topics";
-class Assignment extends BaseContentItem {
-    setDueAt(dueAt, config) {
-        return content_awaiter(this, void 0, void 0, function* () {
-            const sourceDueAt = this.dueAt ? mr.Instant.from(this.rawData.due_at) : null;
-            const targetDueAt = mr.Instant.from(dueAt.toISOString());
-            const payload = {
-                assignment: {
-                    due_at: dueAt.toISOString(),
-                }
-            };
-            if (this.rawData.peer_reviews && 'automatic_peer_reviews' in this.rawData) {
-                const peerReviewTime = mr.Instant.from(this.rawData.peer_reviews_assign_at);
-                assert_default()(sourceDueAt, "Trying to set peer review date without a due date for the assignment.");
-                const peerReviewOffset = sourceDueAt.until(peerReviewTime);
-                const newPeerReviewTime = targetDueAt.add(peerReviewOffset);
-                const newIsoString = new Date(newPeerReviewTime.epochMilliseconds).toISOString();
-                payload.assignment.peer_reviews_assign_at = newIsoString;
-            }
-            let data = yield this.saveData(payload, config);
-            this.canvasData['due_at'] = dueAt.toISOString();
-            return data;
-        });
-    }
-    get rawData() {
-        return this.canvasData;
-    }
-    updateContent(text, name, config) {
-        return content_awaiter(this, void 0, void 0, function* () {
-            const assignmentData = {};
-            if (text) {
-                assignmentData.description = text;
-                this.rawData.description = text;
-            }
-            if (name) {
-                assignmentData.name = name;
-                this.rawData.name = name;
-            }
-            return yield this.saveData({
-                assignment: assignmentData
-            }, config);
-        });
-    }
-}
-Assignment.nameProperty = 'name';
-Assignment.bodyProperty = 'description';
-Assignment.contentUrlTemplate = "courses/{course_id}/assignments/{content_id}";
-Assignment.allContentUrlTemplate = "courses/{course_id}/assignments";
-class Quiz extends BaseContentItem {
-}
-Quiz.nameProperty = 'title';
-Quiz.bodyProperty = 'description';
-Quiz.contentUrlTemplate = "courses/{course_id}/quizzes/{content_id}";
-Quiz.allContentUrlTemplate = "courses/{course_id}/quizzes";
-class Page extends BaseContentItem {
-    constructor(canvasData, courseId) {
-        super(canvasData, courseId);
-    }
-    getRevisions() {
-        return content_awaiter(this, void 0, void 0, function* () {
-            return getPagedData(`${this.contentUrlPath}/revisions`);
-        });
-    }
-    applyRevision(revision) {
-        return content_awaiter(this, void 0, void 0, function* () {
-            const revisionId = revision['revision_id'];
-            let result = yield fetchOneKnownApiJson(`${this.contentUrlPath}/revisions/${revisionId}?revision_id=${revisionId}`);
-            this.canvasData[this.bodyKey] = result['body'];
-            this.canvasData[this.nameKey] = result['title'];
-        });
-    }
-    get body() {
-        return this.canvasData[this.bodyKey];
-    }
-    updateContent(text, name, config) {
-        return content_awaiter(this, void 0, void 0, function* () {
-            let data = {};
-            if (text) {
-                this.canvasData[this.bodyKey] = text;
-                data['wiki_page[body]'] = text;
-            }
-            if (name) {
-                this.canvasData[this.nameKey] = name;
-                data[this.nameKey] = name;
-            }
-            return this.saveData(data, config);
-        });
-    }
-}
-Page.idProperty = 'page_id';
-Page.nameProperty = 'title';
-Page.bodyProperty = 'body';
-Page.contentUrlTemplate = "courses/{course_id}/pages/{content_id}";
-Page.allContentUrlTemplate = "courses/{course_id}/pages";
-function getBannerImage(overviewPage) {
-    const pageBody = document.createElement('html');
-    if (!overviewPage.body)
-        throw new Error(`Content item ${overviewPage.name} has no html body`);
-    pageBody.innerHTML = overviewPage.body;
-    let bannerImg = pageBody.querySelector('.cbt-banner-image img');
-    return bannerImg;
-}
-
-;// CONCATENATED MODULE: ./src/date.ts
-
-
-
-function getMonthNames(style = "long", locale = 'en-US') {
-    return Array.from(range(1, 12)).map((monthInt) => {
-        return Temporal.PlainDate.from({
-            day: 1,
-            month: monthInt,
-            year: Temporal.Now.plainDateISO().year
-        }).toLocaleString(locale, {
-            month: style
-        });
-    });
-}
-/**
- * takes a string of formatted [monthname] [date] and give a plain date
- * @param value the string to evaluate
- * @param locale the locale to use to generate month names, e.g. en-US
- * @param year the year to give the date object. If not provided defaults to current year.
- */
-function plainDateFromMonthDayString(value, locale, year) {
-    year !== null && year !== void 0 ? year : (year = Temporal.Now.plainDateISO().year);
-    const match = value.match(getDateRegexString(locale));
-    if (!match)
-        throw new MalformedDateError(value);
-    const fullDate = match[1];
-    return Temporal.PlainDate.from({
-        month: getMonthNumberLut(locale)[match[2]],
-        day: parseInt(match[3]),
-        year
-    });
-}
-const monthNumberLutCache = {};
-/**
- * returns a string with 3 capturing groups -- 1 - month date, 2 month, 3 date. cuts off rd/th...
- * @param locale
- */
-function getMonthNumberLut(locale) {
-    if (monthNumberLutCache[locale])
-        return monthNumberLutCache[locale];
-    const monthNames = getMonthNames('long', locale);
-    const shortMonthNames = getMonthNames('short', locale);
-    const monthNumberLut = {};
-    assert(monthNames.length === shortMonthNames.length);
-    for (let i = 0; i < monthNames.length; i++) {
-        monthNumberLut[monthNames[i]] = i + 1;
-        monthNumberLut[shortMonthNames[i]] = i + 1;
-    }
-    monthNumberLutCache[locale] = monthNumberLut;
-    return monthNumberLut;
-}
-const dateRegexStringCache = {};
-//TODO: Make the capture groups in this optional
-function getDateRegexString(locale = 'en-US') {
-    if (dateRegexStringCache[locale])
-        return dateRegexStringCache[locale];
-    const monthNames = getMonthNames('long', locale);
-    const shortMonthNames = getMonthNames('short', locale);
-    const monthRegexDatePart = `(?:${[...monthNames, ...shortMonthNames].join('|')})`;
-    const output = `((${monthRegexDatePart}) (\\d+))(?:\\w{2}|)`;
-    dateRegexStringCache[locale] = output;
-    return output;
-}
-/**
- * Looks for a date range in text and, if found, returns an object with start and end params as Temporal PlainDates
- * @param textToSearch
- * @param locale
- */
-function date_findDateRange(textToSearch, locale = 'en-US') {
-    const dateRegExString = getDateRegexString(locale);
-    const searchRegex = new RegExp(`(${dateRegExString}).*(${dateRegExString})`, 'i');
-    const dateRegex = new RegExp(dateRegExString, 'i');
-    const matchRange = textToSearch.match(searchRegex);
-    if (!matchRange)
-        return null; //No date range found in syllabus
-    let start, end;
-    for (let separator of ['-', 'to']) {
-        [start, end] = matchRange[0].split(separator);
-        if (start && end)
-            break;
-    }
-    if (!start || !end)
-        throw new MalformedDateError('Cannot find date range in syllabus');
-    const startMatch = start.match(dateRegex);
-    const endMatch = end.match(dateRegex);
-    if (!startMatch)
-        throw new MalformedDateError(`Missing Start Date ${start}`);
-    if (!endMatch)
-        throw new MalformedDateError(`Missing End Date ${end}`);
-    return {
-        start: plainDateFromMonthDayString(startMatch[0], locale),
-        end: plainDateFromMonthDayString(endMatch[0], locale)
-    };
-}
-function date_oldDateToPlainDate(date) {
-    const data = {
-        day: date.getDate(),
-        month: date.getMonth() + 1,
-        year: date.getFullYear(),
-    };
-    return mr.PlainDate.from(data);
-}
-class StringNotAMonthDateError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "StringNotAMonthDateError";
-    }
-}
-class MalformedDateError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "MalformedDateError";
-    }
-}
-
-;// CONCATENATED MODULE: ./src/canvas/course/changeStartDate.ts
-
-
-const DEFAULT_LOCALE = 'en-US';
-function getCurrentStartDate(modules) {
-    if (modules.length == 0)
-        throw new NoOverviewModuleFoundError();
-    const overviewModule = modules[0];
-    const lockDateString = overviewModule.unlock_at;
-    const oldDate = new Date(lockDateString);
-    return date_oldDateToPlainDate(oldDate);
-}
-function getStartDateAssignments(assignments) {
-    const sorted = assignments
-        .filter((assignment) => assignment.dueAt)
-        .toSorted((a, b) => {
-        if (a.dueAt && b.dueAt) {
-            return oldDateToPlainDate(b.dueAt).until(oldDateToPlainDate(a.dueAt)).days;
-        }
-        if (a.dueAt)
-            return -1;
-        if (b.dueAt)
-            return 1;
-        return 0;
-    });
-    console.log(sorted);
-    if (sorted.length == 0)
-        throw new NoAssignmentsWithDueDatesError();
-    const firstAssignmentDue = sorted[0].dueAt;
-    assert(firstAssignmentDue, "It should be literally impossible for this to happen with current type checking.");
-    //Set to monday of that week.
-    const plainDateDue = oldDateToPlainDate(firstAssignmentDue);
-    const dayOfWeekOffset = 1 - plainDateDue.dayOfWeek;
-    return plainDateDue.add({ days: dayOfWeekOffset });
-}
-function getGradTermName(termStart, locale = DEFAULT_LOCALE) {
-    const month = termStart.toLocaleString(locale, { month: '2-digit' });
-    const day = termStart.toLocaleString(locale, { day: '2-digit' });
-    const year = termStart.toLocaleString(locale, { year: '2-digit' });
-    return `DE8W${month}.${day}.${year}`;
-}
-function getUgTermName(termStart, locale = DEFAULT_LOCALE) {
-    const year = termStart.toLocaleString(DEFAULT_LOCALE, { year: '2-digit' });
-    const month = termStart.toLocaleString(DEFAULT_LOCALE, { month: 'short' });
-    return `DE-${year}-${month}`;
-}
-function getNewTermName(oldTermName, newTermStart, locale = DEFAULT_LOCALE) {
-    const termNameGrad = oldTermName.match(/DE8W\d\d\.\d\d\.\d\d/);
-    if (termNameGrad)
-        return getGradTermName(newTermStart);
-    const termNameUg = oldTermName.match(/(DE(?:.HL|)-\d\d)-(\w+)\w{2}?/i);
-    if (termNameUg)
-        return getUgTermName(newTermStart);
-    throw new MalformedSyllabusError(`Can't Recognize Term Name ${oldTermName}`);
-}
-function updatedDateSyllabusHtml(html, newStartDate, locale = DEFAULT_LOCALE) {
-    const syllabusBody = document.createElement('div');
-    syllabusBody.innerHTML = html;
-    const syllabusCalloutBox = syllabusBody.querySelector('div.cbt-callout-box');
-    if (!syllabusCalloutBox)
-        throw new MalformedSyllabusError("Can't find syllabus callout box");
-    let paras = Array.from(syllabusCalloutBox.querySelectorAll('p'));
-    paras = paras.filter((para) => para.querySelector('strong'));
-    if (paras.length < 5)
-        throw new MalformedSyllabusError(`Missing syllabus headers\n${paras}`);
-    const [_courseNameEl, termNameEl, datesEl, _instructorNameEl, _instructorContactInfoEl, _creditsEl] = paras;
-    const changedText = [];
-    const oldTermName = termNameEl.textContent || '';
-    const oldDates = datesEl.textContent || '';
-    const dateRange = findDateRange(datesEl.innerHTML, locale);
-    if (!dateRange)
-        throw new MalformedSyllabusError("Date range not found in syllabus");
-    const courseDuration = dateRange.start.until(dateRange.end);
-    const newEndDate = newStartDate.add(courseDuration);
-    const newTermName = getNewTermName(oldTermName, newStartDate);
-    const dateRangeText = `${dateToSyllabusString(newStartDate)} - ${dateToSyllabusString(newEndDate)}`;
-    termNameEl.innerHTML = `<p><strong>${syllabusHeaderName(termNameEl)}:</strong> ${newTermName}</p>`;
-    datesEl.innerHTML = `<p><strong>${syllabusHeaderName(datesEl)}:</strong> ${dateRangeText}</p>`;
-    changedText.push(`${oldTermName} -> ${termNameEl.innerText}`);
-    changedText.push(`${oldDates} -> ${datesEl.innerText}`);
-    const output = {
-        html: syllabusBody.innerHTML,
-        changedText,
-    };
-    syllabusBody.remove();
-    return output;
-}
-function dateToSyllabusString(date) {
-    return `${date.toLocaleString(DEFAULT_LOCALE, { month: 'long', day: 'numeric' })}`;
-}
-function syllabusHeaderName(el) {
-    const header = el.querySelector('strong');
-    if (!header)
-        return null;
-    const html = header.innerHTML;
-    return html.replace(/:$/, '');
-}
-class SyllabusUpdateError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "SyllabusUpdateError";
-    }
-}
-class NoOverviewModuleFoundError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "NoOverviewModuleFoundError";
-    }
-}
-class MalformedSyllabusError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "MalformedSyllabusError";
-    }
-}
-class NoAssignmentsWithDueDatesError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "NoAssignmentsWithDueDatesError";
-    }
-}
-
-;// CONCATENATED MODULE: ./src/canvas/profile.ts
-var profile_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-let facultyCourseCached;
-function getFacultyCourse() {
-    return profile_awaiter(this, void 0, void 0, function* () {
-        const facultyCourse = facultyCourseCached !== null && facultyCourseCached !== void 0 ? facultyCourseCached : yield course_Course.getByCode('Faculty Bios');
-        facultyCourseCached = facultyCourse;
-        assert_default()(facultyCourse);
-        return facultyCourse;
-    });
-}
-function getFacultyPages(searchTerm) {
-    return profile_awaiter(this, void 0, void 0, function* () {
-        const facultyCourse = yield getFacultyCourse();
-        return yield facultyCourse.getPages({
-            queryParams: {
-                include: ['body'],
-                search_term: searchTerm
-            }
-        });
-    });
-}
-function getPotentialFacultyProfiles(user) {
-    return profile_awaiter(this, void 0, void 0, function* () {
-        var _a;
-        let pages = [];
-        const [lastName, firstName] = user.name.split(' ');
-        for (let query of [
-            user.name,
-            lastName,
-            firstName,
-        ]) {
-            console.log(query);
-            pages = yield getFacultyPages(query);
-            if (pages.length > 0)
-                break;
-        }
-        let profiles = pages.map((page) => getProfileFromPage(page, user), true);
-        if (profiles.length > 0) {
-            for (let profile of profiles) {
-                (_a = profile.displayName) !== null && _a !== void 0 ? _a : (profile.displayName = user.name);
-            }
-        }
-        return profiles;
-    });
-}
-function getProfileFromPage(page, user) {
-    const profile = getProfileFromPageHtml(page.body, user);
-    profile.sourcePage = page;
-    return profile;
-}
-function getProfileFromPageHtml(html, user) {
-    const el = document.createElement('div');
-    el.innerHTML = html;
-    const displayName = getDisplayName(el);
-    const body = getProfileBody(el);
-    const image = getImageLink(el);
-    return {
-        user,
-        bio: body,
-        displayName,
-        image,
-        imageLink: image === null || image === void 0 ? void 0 : image.src
-    };
-}
-function getProfileBody(el) {
-    const h4s = el.querySelectorAll('h4');
-    const instructorHeaders = Array.from(h4s).filter((el) => {
-        return el.innerHTML.search(/instructor/i);
-    });
-    let potentials = [];
-    for (let header of instructorHeaders) {
-        const potentialParent = header.parentElement;
-        if (potentialParent) {
-            header.remove();
-            potentials.push(potentialParent.innerHTML);
-        }
-    }
-    potentials = winnow(potentials, [
-        (potential) => potential.length > 0,
-    ]);
-    /* just guess if we can't find anything */
-    if (potentials.length > 0) {
-        return potentials[0];
-    }
-    return null;
-}
-function getDisplayName(el) {
-    let titles = Array.from(el.querySelectorAll('strong em'));
-    if (titles.length === 0) {
-        let enclosedImages = Array.from(el.querySelectorAll('p img'));
-        titles = enclosedImages.map((el) => { var _a; return (_a = parentElement(el, 'p')) === null || _a === void 0 ? void 0 : _a.nextElementSibling; })
-            .filter((el) => el instanceof Element);
-    }
-    if (titles.length === 0) {
-        let headings = Array.from(el.querySelectorAll('p strong'));
-        let instructorHeaders = headings.filter(el => el.innerHTML.search(/Instructor/));
-        titles = instructorHeaders.map((el) => el.previousElementSibling)
-            .filter((el) => el instanceof Element);
-    }
-    titles = titles.filter((title) => title.textContent && title.textContent.length > 0);
-    if (titles.length > 0)
-        return titles[0].textContent;
-    return null;
-}
-/**
- * Finds all the image links in the content and returns the biggest.
- * @param el
- */
-function getImageLink(el) {
-    let imgs = el.querySelectorAll('img');
-    if (imgs.length === 0)
-        return null;
-    return Array.from(imgs)[1];
-}
-/**
- * Takes in a list of parameters and a set of filter functions. Runs filter functions until there are one or fewer elements,
- * or it runs out of filter functions. Returns post-filtered list.
- * @param originalList The list of items to run
- * @param winnowFuncs A list of filter functions, run in order
- * @param returnLastNonEmpty If true, will return the last non-empty array found if elements are winnowed to 0
- */
-function winnow(originalList, winnowFuncs, returnLastNonEmpty = false) {
-    let copyList = [...originalList];
-    if (copyList.length === 1)
-        return copyList; //already at 1 element
-    let lastSet = [...copyList];
-    for (let winnowFunc of winnowFuncs) {
-        lastSet = [...copyList];
-        copyList = copyList.filter(winnowFunc);
-        if (copyList.length === 1)
-            break;
-    }
-    if (copyList.length === 0 && returnLastNonEmpty)
-        return lastSet;
-    return copyList;
-}
-function getCurioPageFrontPageProfile(html, user) {
-    const el = document.createElement('div');
-    el.innerHTML = html;
-    const header = getCurioHeader(el);
-    const match = header.innerHTML.match(/Meet your instructor, ?(.*)!/i);
-    const displayName = match ? match[1] : null;
-    const bio = getCurioBio(el);
-    const image = getCurioProfileImage(el);
-    return {
-        user,
-        displayName,
-        image,
-        imageLink: image ? image.src : null,
-        bio: bio === null || bio === void 0 ? void 0 : bio.innerHTML
-    };
-}
-function renderProfileIntoCurioFrontPage(html, profile) {
-    const el = document.createElement('div');
-    el.innerHTML = html;
-    if (profile.displayName) {
-        const header = getCurioHeader(el);
-        header.innerHTML = `Meet your instructor, ${profile.displayName}!`;
-    }
-    if (profile.bio) {
-        const bio = getCurioBio(el);
-        if (bio) {
-            const classes = bio.classList;
-            if (!classes.contains('cbt-instructor-bio'))
-                classes.add('cbt-instructor-bio');
-            bio.innerHTML = profile.bio;
-        }
-    }
-    if (profile.image) {
-        const image = getCurioProfileImage(el);
-        if (image) {
-            image.src = profile.image.src;
-            image.alt = profile.image.alt;
-        }
-    }
-    else if (profile.imageLink) {
-        const image = getCurioProfileImage(el);
-        if (image) {
-            image.src = profile.imageLink;
-        }
-    }
-    return el.innerHTML;
-}
-function getCurioHeader(el) {
-    let h2s = Array.from(el.querySelectorAll('h2'));
-    h2s = h2s.filter((h2) => h2.innerHTML.match(/Meet your instructor/i));
-    assert_default()(h2s.length === 1, "Can't find bio section of front page.");
-    return h2s[0];
-}
-function getCurioProfileDiv(el) {
-    const header = getCurioHeader(el);
-    const sectionEl = header.nextElementSibling;
-    assert_default()(sectionEl, "Body element of bio not found on page.");
-    return sectionEl;
-}
-function getCurioBio(el) {
-    const profileDiv = getCurioProfileDiv(el);
-    let bio = profileDiv.querySelector('.cbt-instructor-bio');
-    if (bio && bio.innerHTML)
-        return bio;
-    let div = getCurioProfileDiv(el);
-    const p = div.querySelector('p');
-    return p === null || p === void 0 ? void 0 : p.parentElement;
-}
-function getCurioProfileImage(el) {
-    return getCurioProfileDiv(el).querySelector('img');
-}
-
-
-;// CONCATENATED MODULE: ./src/canvas/course/modules.ts
-var modules_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-//TODO -- migrate some of the functionality built into course into functions here
-function changeModuleLockDate(courseId, module, targetDate) {
-    return modules_awaiter(this, void 0, void 0, function* () {
-        const payload = {
-            module: {
-                unlock_at: targetDate.toString()
-            }
-        };
-        const url = `courses/${courseId}/modules/${module.id}`;
-        const result = fetchApiJson(url, {
-            fetchInit: {
-                method: 'PUT',
-                body: formDataify(payload)
-            }
-        });
-    });
-}
-function getModuleOverview(module, courseId) {
-    return modules_awaiter(this, void 0, void 0, function* () {
-        let overview = module.items.find(item => item.type === "Page" &&
-            item.title.toLowerCase().includes('overview'));
-        if (!(overview === null || overview === void 0 ? void 0 : overview.url))
-            return; //skip this if it's not an overview
-        const url = overview.url.replace(/.*\/api\/v1/, '/api/v1');
-        const pageData = yield fetchJson(url);
-        const overviewPage = new Page(pageData, courseId);
-        return overviewPage;
-    });
-}
-function getModuleWeekNumber(module) {
-    const regex = /(week|module) (\d+)/i;
-    let match = module.name.match(regex);
-    let weekNumber = !match ? null : Number(match[1]);
-    if (!weekNumber) {
-        for (let moduleItem of module.items) {
-            if (!moduleItem.hasOwnProperty('title')) {
-                continue;
-            }
-            let match = moduleItem.title.match(regex);
-            if (match) {
-                weekNumber = match[2];
-            }
-        }
-    }
-    return weekNumber;
-}
-function getModulesByWeekNumber(modules) {
-    return modules_awaiter(this, void 0, void 0, function* () {
-        let modulesByWeekNumber = {};
-        for (let module of modules) {
-            let weekNumber = getModuleWeekNumber(module);
-            if (weekNumber) {
-                modulesByWeekNumber[weekNumber] = module;
-            }
-        }
-        return modulesByWeekNumber;
-    });
-}
-
-;// CONCATENATED MODULE: ./src/canvas/course/blueprint.ts
-var blueprint_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var blueprint_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
-
-
-function isBlueprint({ blueprint }) {
-    return !!blueprint;
-}
-function getSections(course) {
-    return blueprint_awaiter(this, void 0, void 0, function* () {
-        var _a, e_1, _b, _c;
-        const id = course.id;
-        if (!course.isBlueprint())
-            return [];
-        const url = `/api/v1/courses/${id}/blueprint_templates/default/associated_courses`;
-        const courseDataGenerator = canvasUtils_getPagedDataGenerator(url, { queryParams: { per_page: 50 } });
-        const sections = [];
-        try {
-            for (var _d = true, courseDataGenerator_1 = blueprint_asyncValues(courseDataGenerator), courseDataGenerator_1_1; courseDataGenerator_1_1 = yield courseDataGenerator_1.next(), _a = courseDataGenerator_1_1.done, !_a; _d = true) {
-                _c = courseDataGenerator_1_1.value;
-                _d = false;
-                let sectionData = _c;
-                sections.push(yield course_Course.getCourseById(sectionData.id));
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (!_d && !_a && (_b = courseDataGenerator_1.return)) yield _b.call(courseDataGenerator_1);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-        return sections;
-    });
-}
-function cachedGetAssociatedCoursesFunc(course) {
-    let cache = null;
-    return (...args_1) => blueprint_awaiter(this, [...args_1], void 0, function* (redownload = false) {
-        if (!redownload && cache)
-            return cache;
-        cache = yield getSections(course);
-        return cache;
-    });
-}
-function getTermNameFromSections(sections) {
-    return blueprint_awaiter(this, void 0, void 0, function* () {
-        const [section] = sections;
-        if (!section)
-            throw new Error("Cannot determine term name by sections; there are no sections.");
-        const sectionTerm = yield section.getTerm();
-        if (!sectionTerm)
-            throw new Error("Section does not have associated term: " + section.name);
-        return sectionTerm.name;
-    });
-}
-function retireBlueprint(course, termName, config) {
-    return blueprint_awaiter(this, void 0, void 0, function* () {
-        var _a;
-        if (!course.isBlueprint())
-            throw new Error("Trying to retire a blueprint that's not a blueprint");
-        const isCurrentBlueprint = (_a = course.courseCode) === null || _a === void 0 ? void 0 : _a.match('BP_');
-        if (!isCurrentBlueprint)
-            throw new Error("This blueprint is not named BP_; are you trying to retire a retired blueprint?");
-        const associatedCourses = yield course.getAssociatedCourses();
-        if (associatedCourses.length < 1)
-            throw new Error("Can't find associated courses");
-        const newCode = `BP-${termName}_${course.baseCode}`;
-        const saveData = {};
-        if (!course.courseCode)
-            throw new Error("Course does not have a code");
-        saveData[Course.nameProperty] = course.name.replace(course.courseCode, newCode);
-        saveData['course_code'] = newCode;
-        yield course.saveData(saveData, config);
-    });
-}
-
-;// CONCATENATED MODULE: ./src/canvas/course/index.ts
-var course_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var course_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
-var course_await = (undefined && undefined.__await) || function (v) { return this instanceof course_await ? (this.v = v, this) : new course_await(v); }
-var course_asyncGenerator = (undefined && undefined.__asyncGenerator) || function (thisArg, _arguments, generator) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var g = generator.apply(thisArg, _arguments || []), i, q = [];
-    return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function () { return this; }, i;
-    function awaitReturn(f) { return function (v) { return Promise.resolve(v).then(f, reject); }; }
-    function verb(n, f) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; if (f) i[n] = f(i[n]); } }
-    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-    function step(r) { r.value instanceof course_await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-    function fulfill(value) { resume("next", value); }
-    function reject(value) { resume("throw", value); }
-    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-};
-
-
-
-
-
-
-
-
-
-
-
-
-const HOMETILE_WIDTH = 500;
-class course_Course extends BaseCanvasObject {
-    constructor(data) {
-        super(data);
-        this._modules = undefined;
-        this.modulesByWeekNumber = undefined;
-        this.cachedContent = [];
-        this.isBlueprint = (() => isBlueprint(data));
-        this.getAssociatedCourses = cachedGetAssociatedCoursesFunc(this);
-    }
-    static getFromUrl() {
-        return course_awaiter(this, arguments, void 0, function* (url = null) {
-            if (url === null) {
-                url = document.documentURI;
-            }
-            let match = /courses\/(\d+)/.exec(url);
-            if (match) {
-                const id = this.getIdFromUrl(url);
-                if (!id)
-                    return null;
-                return yield this.getCourseById(id);
-            }
-            return null;
-        });
-    }
-    static getIdFromUrl(url) {
-        let match = /courses\/(\d+)/.exec(url);
-        if (match) {
-            return parseInt(match[1]);
-        }
-        return null;
-    }
-    /**
-     * Checks if a string looks like a course code
-     * @param code
-     */
-    static stringIsCourseCode(code) {
-        return this.CODE_REGEX.exec(code);
-    }
-    /**
-     * Returns this library's class corresponding to the current url, drawing from Course.contentClasses.
-     * Classes can be included in Course.contentClasses using the decorator @contentClass
-     *
-     * @param url
-     */
-    static getContentClassFromUrl(url = null) {
-        if (!url)
-            url = document.documentURI;
-        for (let class_ of this.contentClasses) {
-            if (class_.contentUrlPart && url.includes(class_.contentUrlPart))
-                return class_;
-        }
-        return null;
-    }
-    static getCourseById(courseId_1) {
-        return course_awaiter(this, arguments, void 0, function* (courseId, config = undefined) {
-            const data = yield fetchOneKnownApiJson(`courses/${courseId}`, config);
-            return new course_Course(data);
-        });
-    }
-    /**
-     * TODO: Replace this whole pipeline with something that returns a getApiPagesData generator instead.
-     * @param code
-     * @param term
-     * @param config
-     * @private
-     */
-    static getCoursesByString(code_1) {
-        return course_awaiter(this, arguments, void 0, function* (code, term = null, config = {}) {
-            console.warn("Replace this with getCourseGenerator");
-            let courseDataList = null;
-            const accountIdsByName = yield course_Course.getAccountIdsByName();
-            for (let accountKey in accountIdsByName) {
-                if (!accountKey)
-                    continue;
-                let accountId = accountIdsByName[accountKey];
-                let url = `accounts/${accountId}/courses`;
-                config.queryParams = config.queryParams || {};
-                config.queryParams['search_term'] = code;
-                if (term !== null) {
-                    config.queryParams['enrollment_term_id'] = term.id;
-                }
-                courseDataList = yield getApiPagedData(url, config);
-                if (courseDataList && courseDataList.length > 0) {
-                    break;
-                }
-            }
-            if (!courseDataList || courseDataList.length === 0) {
-                return null;
-            }
-            if (courseDataList.length > 1) {
-                courseDataList.sort((a, b) => b.id - a.id); // Sort courses by ID in descending order
-            }
-            return courseDataList.map(courseData => new course_Course(courseData));
-        });
-    }
-    static getAllByCode(code_1) {
-        return course_awaiter(this, arguments, void 0, function* (code, term = null, config = undefined) {
-            return this.getCoursesByString(code, term, config);
-        });
-    }
-    static getByCode(code_1) {
-        return course_awaiter(this, arguments, void 0, function* (code, term = null, config = undefined) {
-            const courses = yield this.getCoursesByString(code, term, config);
-            if (Array.isArray(courses))
-                return courses[0];
-        });
-    }
-    static getAccountIdsByName() {
-        return course_awaiter(this, void 0, void 0, function* () {
-            let course = yield course_Course.getFromUrl();
-            if (!course) {
-                console.warn("You must be on a canvas page to get accounts");
-                return {};
-            }
-            return {
-                'root': course.canvasData.root_account_id,
-                'current': course.canvasData.account_id
-            };
-        });
-    }
-    static courseEvent(courses, event, accountId) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            const url = `accounts/${accountId}/courses`;
-            const data = {
-                'event': event,
-                'course_ids[]': courses.map(course => course.id)
-            };
-            return yield canvasUtils_fetchApiJson(url, {
-                fetchInit: {
-                    method: 'PUT',
-                    body: JSON.stringify(data)
-                }
-            });
-        });
-    }
-    get contentUrlPath() {
-        return `courses/${this.id}`;
-    }
-    get courseUrl() {
-        return this.htmlContentUrl;
-    }
-    get courseCode() {
-        let match = this.codeMatch;
-        if (!match)
-            return null;
-        let prefix = match[1] || "";
-        let courseCode = match[2] || "";
-        if (prefix.length > 0) {
-            return `${prefix}_${courseCode}`;
-        }
-        return courseCode;
-    }
-    get fullCourseCode() {
-        return this.canvasData.course_code;
-    }
-    get codeMatch() {
-        return course_Course.CODE_REGEX.exec(this.canvasData.course_code);
-    }
-    get baseCode() {
-        let match = this.codeMatch;
-        return match ? match[2] : '';
-    }
-    get termId() {
-        const id = this.canvasData.enrollment_term_id;
-        if (typeof id === 'number')
-            return id;
-        else
-            return id[0];
-    }
-    //comment for no reason for publish
-    getTerm() {
-        return course_awaiter(this, void 0, void 0, function* () {
-            assert_default()(typeof this.termId === 'number');
-            if (this.termId)
-                return Term.getTermById(this.termId);
-            else
-                return null;
-        });
-    }
-    get fileUploadUrl() {
-        return `/api/v1/courses/${this.id}/files`;
-    }
-    get codePrefix() {
-        let match = this.codeMatch;
-        return match ? match[1] : '';
-    }
-    get workflowState() {
-        return this.canvasData.workflow_state;
-    }
-    get start() {
-        return new Date(this.getItem('start_at'));
-    }
-    get isDev() {
-        if (this.name.match(/^DEV/))
-            return true;
-    }
-    getModules(config) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            if (this._modules) {
-                return this._modules;
-            }
-            config = validations_overrideConfig(config, {
-                queryParams: {
-                    include: ['items', 'content_details']
-                }
-            });
-            let modules = yield getApiPagedData(`${this.contentUrlPath}/modules`, config);
-            this._modules = modules;
-            return modules;
-        });
-    }
-    getStartDateFromModules() {
-        return course_awaiter(this, void 0, void 0, function* () {
-            return getCurrentStartDate(yield this.getModules());
-        });
-    }
-    getInstructors() {
-        return course_awaiter(this, void 0, void 0, function* () {
-            return yield canvasUtils_fetchApiJson(`courses/${this.id}/users?enrollment_type=teacher`);
-        });
-    }
-    getLatePolicy(config) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            const latePolicyResult = yield fetchJson(`/api/v1/courses/${this.id}/late_policy`, config);
-            if ('late_policy' in latePolicyResult)
-                return latePolicyResult.late_policy;
-            return undefined;
-        });
-    }
-    getAvailableGradingStandards(config) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            let out = [];
-            console.log(this.name);
-            const { id, account_id, root_account_id } = this.canvasData;
-            console.log(this.id, this.rawData.account_id, this.rawData.root_account_id);
-            if (id) {
-                const courseGradingStandards = yield getGradingStandards(id, "course", config);
-                out = [...out, ...courseGradingStandards];
-            }
-            if (account_id) {
-                const accountGradingStandards = yield getGradingStandards(account_id, 'account', config);
-                out = [...out, ...accountGradingStandards];
-            }
-            if (root_account_id) {
-                const rootAccountGradingStandards = yield getGradingStandards(root_account_id, 'account', config);
-                out = [...out, ...rootAccountGradingStandards];
-            }
-            return out.filter(filterUniqueFunc);
-        });
-    }
-    getCurrentGradingStandard(config) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            const { grading_standard_id, account_id, root_account_id } = this.canvasData;
-            const urls = [];
-            if (grading_standard_id) {
-                urls.push(`/api/v1/courses/${this.id}/grading_standards/${grading_standard_id}`);
-                if (root_account_id)
-                    urls.push(`/api/v1/accounts/${root_account_id}/grading_standards/${grading_standard_id}`);
-                if (account_id)
-                    urls.push(`/api/v1/accounts/${account_id}/grading_standards/${grading_standard_id}`);
-            }
-            for (let url of urls) {
-                let gradingStandard = yield fetchJson(url);
-                console.log(gradingStandard);
-                if (!('errors' in gradingStandard))
-                    return gradingStandard;
-            }
-            return null;
-        });
-    }
-    getContentItemFromUrl() {
-        return course_awaiter(this, arguments, void 0, function* (url = null) {
-            let ContentClass = course_Course.getContentClassFromUrl(url);
-            if (!ContentClass)
-                return null;
-            return ContentClass.getFromUrl(url);
-        });
-    }
-    getModulesByWeekNumber(config) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            if (this.modulesByWeekNumber)
-                return this.modulesByWeekNumber;
-            let modules = yield this.getModules(config);
-            this.modulesByWeekNumber = yield getModulesByWeekNumber(modules);
-            return (this.modulesByWeekNumber);
-        });
-    }
-    /**
-     * Returns a list of links to items in a given module
-     *
-     * @param moduleOrWeekNumber
-     * @param target An object specifying an item or items to look for
-     * type - specifies the type,
-     * search - a string to search for in titles. optional.
-     * index - return the indexth one of these in the week (minus the intro in week 1, which should be index 0)
-     * if none is specified, return all matches
-     */
-    getModuleItemLinks(moduleOrWeekNumber, target) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            assert_default()(target.hasOwnProperty('type'));
-            let targetType = target.type;
-            let contentSearchString = target.hasOwnProperty('search') ? target.search : null;
-            let targetIndex = isNaN(target.index) ? null : target.index;
-            let targetModuleWeekNumber;
-            let targetModule;
-            if (typeof moduleOrWeekNumber === 'number') {
-                let modules = yield this.getModulesByWeekNumber();
-                assert_default()(modules.hasOwnProperty(moduleOrWeekNumber));
-                targetModuleWeekNumber = moduleOrWeekNumber;
-                targetModule = modules[targetModuleWeekNumber];
-            }
-            else {
-                targetModule = moduleOrWeekNumber;
-                targetModuleWeekNumber = getModuleWeekNumber(targetModule);
-            }
-            const urls = [];
-            if (targetModule && typeof targetType !== 'undefined') {
-                //If it's a page, just search for the parameter string
-                if (targetType === 'Page' && contentSearchString) {
-                    let pages = yield this.getPages({
-                        queryParams: { search_term: contentSearchString }
-                    });
-                    pages.forEach((page) => urls.push(page.htmlContentUrl));
-                    //If it's anything else, get only those items in the module and set url to the targetIndexth one.
-                }
-                else if (targetType) {
-                    //bump index for week 1 to account for intro discussion / checking for rubric would require pulling too much data
-                    //and too much performance overhead
-                    if (targetIndex && targetType === 'Discussion' && targetModuleWeekNumber === 1)
-                        targetIndex++;
-                    const matchingTypeItems = targetModule.items.filter((item) => item.type === targetType);
-                    if (targetIndex && matchingTypeItems.length >= targetIndex) {
-                        //We refer to and number the assignments indexed at 1, but the array is indexed at 0
-                        const targetItem = matchingTypeItems[targetIndex - 1];
-                        urls.push(targetItem.html_url);
-                    }
-                    else if (!targetIndex) {
-                        for (let item of matchingTypeItems)
-                            urls.push(item.html_url);
-                    }
-                }
-            }
-            return urls;
-        });
-    }
-    getSyllabus() {
-        return course_awaiter(this, arguments, void 0, function* (config = { queryParams: {} }) {
-            if (!this.canvasData.syllabus_body) {
-                config.queryParams = Object.assign(Object.assign({}, config.queryParams), { include: ['syllabus_body'] });
-                const data = yield course_Course.getCourseById(this.id, config);
-                assert_default()(data.canvasData.syllabus_body);
-                this.canvasData.syllabus_body = data.canvasData.syllabus_body;
-            }
-            return this.canvasData.syllabus_body;
-        });
-    }
-    /**
-     * gets all assignments in a course
-     * @returns {Promise<Assignment[]>}
-     * @param config
-     */
-    getAssignments(config) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            config = validations_overrideConfig(config, { queryParams: { include: ['due_at'] } });
-            return yield Assignment.getAllInCourse(this.id, config);
-        });
-    }
-    getContent(config_1) {
-        return course_awaiter(this, arguments, void 0, function* (config, refresh = false) {
-            if (refresh || this.cachedContent.length == 0) {
-                let discussions = yield this.getDiscussions(config);
-                let assignments = yield this.getAssignments(config);
-                let quizzes = yield this.getQuizzes(config);
-                let pages = yield this.getPages(config);
-                this.cachedContent = [
-                    ...discussions,
-                    ...assignments,
-                    ...quizzes,
-                    ...pages
-                ];
-            }
-            return this.cachedContent;
-        });
-    }
-    getDiscussions(config) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            return yield Discussion.getAllInCourse(this.id, config);
-        });
-    }
-    getAssignmentGroups(config) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            return yield getApiPagedData(`courses/${this.id}/assignment_groups`, config);
-        });
-    }
-    getQuizzes(config) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            return yield Quiz.getAllInCourse(this.id, config);
-        });
-    }
-    getSubsections() {
-        return course_awaiter(this, void 0, void 0, function* () {
-            const url = `/api/v1/courses/${this.id}/sections`;
-            return yield canvasUtils_fetchApiJson(url);
-        });
-    }
-    getTabs(config) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            return yield canvasUtils_fetchApiJson(`courses/${this.id}/tabs`, config);
-        });
-    }
-    getFrontPage() {
-        return course_awaiter(this, void 0, void 0, function* () {
-            try {
-                const data = yield fetchOneKnownApiJson(`${this.contentUrlPath}/front_page`);
-                return new Page(data, this.id);
-            }
-            catch (error) {
-                return null;
-            }
-        });
-    }
-    getTab(label) {
-        return this.canvasData.tabs.find((tab) => tab.label === label) || null;
-    }
-    reload() {
-        return course_awaiter(this, void 0, void 0, function* () {
-            const id = this.id;
-            const reloaded = yield course_Course.getCourseById(id);
-            this.canvasData = reloaded.rawData;
-        });
-    }
-    setNavigationTabHidden(label, value) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            const tab = this.getTab(label);
-            if (!tab)
-                return null;
-            return yield canvasUtils_fetchApiJson(`courses/${this.id}/tabs/${tab.id}`, {
-                queryParams: { 'hidden': value }
-            });
-        });
-    }
-    changeSyllabus(newHtml) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            this.canvasData['syllabus_body'] = newHtml;
-            return yield canvasUtils_fetchApiJson(`courses/${this.id}`, {
-                fetchInit: {
-                    method: 'PUT',
-                    body: canvasUtils_formDataify({
-                        course: {
-                            syllabus_body: newHtml
-                        }
-                    })
-                }
-            });
-        });
-    }
-    getPotentialSections(term) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            return yield course_Course.getAllByCode(this.baseCode, term);
-        });
-    }
-    lockBlueprint() {
-        return course_awaiter(this, void 0, void 0, function* () {
-            const modules = yield this.getModules();
-            let items = [];
-            items = items.concat(...modules.map((a) => [].concat(...a.items)));
-            const promises = items.map((item) => course_awaiter(this, void 0, void 0, function* () {
-                const url = `${this.contentUrlPath}/blueprint_templates/default/restrict_item`;
-                let { type, id } = yield getItemTypeAndId(item);
-                if (!id)
-                    return;
-                let body = {
-                    "content_type": type,
-                    "content_id": id,
-                    "restricted": true,
-                    "_method": 'PUT'
-                };
-                console.log(body);
-                yield canvasUtils_fetchApiJson(url, {
-                    fetchInit: {
-                        method: 'PUT',
-                        body: canvasUtils_formDataify(body)
-                    }
-                });
-            }));
-            yield Promise.all(promises);
-        });
-    }
-    setAsBlueprint() {
-        return course_awaiter(this, void 0, void 0, function* () {
-            const url = `courses/${this.id}`;
-            const payload = {
-                'course[blueprint]': true,
-                'course[use_blueprint_restrictions_by_object_type]': 0,
-                'course[blueprint_restrictions][content]': 1,
-                'course[blueprint_restrictions][points]': 1,
-                'course[blueprint_restrictions][due_dates]': 1,
-                'course[blueprint_restrictions][availability_dates]': 1,
-            };
-            this.canvasData = yield fetchOneKnownApiJson(url, {
-                fetchInit: {
-                    method: 'PUT',
-                    body: JSON.stringify(payload)
-                }
-            });
-            this.resetCache();
-        });
-    }
-    unsetAsBlueprint() {
-        return course_awaiter(this, void 0, void 0, function* () {
-            const url = `courses/${this.id}`;
-            const payload = {
-                'course[blueprint]': false,
-            };
-            this.canvasData = yield fetchOneKnownApiJson(url, {
-                fetchInit: {
-                    method: 'PUT',
-                    body: JSON.stringify(payload)
-                }
-            });
-            this.resetCache();
-        });
-    }
-    resetCache() {
-        //delete this.subsections;
-        //delete this.associatedCourses;
-    }
-    static publishAll(courses, accountId) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            if (courses.length == 0)
-                return false;
-            const courseIds = courses.map((course) => {
-                if (course instanceof course_Course) {
-                    return course.id;
-                }
-                return course;
-            });
-            const url = `accounts/${accountId}/courses`;
-            const data = {
-                'event': 'offer',
-                'course_ids': courseIds,
-            };
-            return yield fetchOneUnknownApiJson(url, {
-                fetchInit: {
-                    method: 'PUT',
-                    body: canvasUtils_formDataify(data),
-                }
-            });
-        });
-    }
-    updateDueDates(offset) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            const promises = [];
-            let assignments = yield this.getAssignments();
-            let quizzes = yield this.getQuizzes();
-            if (offset === 0 || offset) {
-                for (let assignment of assignments) {
-                    console.log(assignment);
-                    promises.push(assignment.dueAtTimeDelta(Number(offset)));
-                }
-                for (let quiz of quizzes) {
-                    promises.push(quiz.dueAtTimeDelta(Number(offset)));
-                }
-            }
-            yield Promise.all(promises);
-            return [...assignments, ...quizzes];
-        });
-    }
-    publish() {
-        return course_awaiter(this, void 0, void 0, function* () {
-            const url = `courses/${this.id}`;
-            const courseData = yield fetchOneKnownApiJson(url, {
-                fetchInit: {
-                    method: 'PUT',
-                    body: canvasUtils_formDataify({ 'offer': true })
-                }
-            });
-            console.log(courseData);
-            this.canvasData = courseData;
-            this.resetCache();
-        });
-    }
-    unpublish() {
-        return course_awaiter(this, void 0, void 0, function* () {
-            const url = `courses/${this.id}`;
-            yield canvasUtils_fetchApiJson(url, {
-                fetchInit: {
-                    method: 'PUT',
-                    body: JSON.stringify({ 'course[event]': 'claim' })
-                }
-            });
-            this.canvasData = Object.assign({}, (yield course_Course.getCourseById(this.id)).canvasData);
-        });
-    }
-    reset() {
-        return course_awaiter(this, arguments, void 0, function* (prompt = true) {
-            if (prompt && !confirm(`Are you sure you want to reset ${this.courseCode}?`)) {
-                return false;
-            }
-            const url = `/courses/${this.id}/reset_content`;
-            const data = yield fetchOneKnownApiJson(url, { fetchInit: { method: 'POST' } });
-            this.canvasData['id'] = data.id;
-            return false;
-        });
-    }
-    /**
-     * NOT IMPLEMENTED
-     * @param prompt Either a boolean or an async function that takes in a source and destination course and returns a boolean
-     * @param updateCallback
-     */
-    importDevCourse() {
-        return course_awaiter(this, arguments, void 0, function* (prompt = false, updateCallback) {
-            const devCourse = yield this.getParentCourse();
-            if (!devCourse) {
-                throw new CourseNotFoundException(`DEV not found for ${this.name}.`);
-            }
-            if (prompt) {
-                const canContinue = yield prompt(devCourse, this);
-                if (!canContinue)
-                    return;
-            }
-            yield this.importCourse(devCourse, updateCallback);
-        });
-    }
-    importCourse(course, updateCallback) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            throw new NotImplementedException();
-        });
-    }
-    getParentCourse() {
-        return course_awaiter(this, arguments, void 0, function* (return_dev_search = false) {
-            let migrations = yield getApiPagedData(`courses/${this.id}/content_migrations`);
-            if (migrations.length < 1) {
-                console.log('no migrations found');
-                if (return_dev_search) {
-                    return course_Course.getByCode('DEV_' + this.baseCode);
-                }
-                else
-                    return;
-            }
-            migrations.sort((a, b) => b.id - a.id);
-            try {
-                for (let migration of migrations) {
-                    let course = yield course_Course.getCourseById(migration['settings']['source_course_id']);
-                    if (course && course.codePrefix.includes("DEV"))
-                        return course;
-                }
-            }
-            catch (e) {
-                return yield course_Course.getByCode('DEV_' + this.baseCode);
-            }
-            return yield course_Course.getByCode('DEV_' + this.baseCode);
-        });
-    }
-    regenerateHomeTiles() {
-        return course_awaiter(this, void 0, void 0, function* () {
-            const modules = yield this.getModules();
-            let urls = yield Promise.all(modules.map((module) => course_awaiter(this, void 0, void 0, function* () {
-                try {
-                    let dataUrl = yield this.generateHomeTile(module);
-                }
-                catch (e) {
-                    console.log(e);
-                }
-            })));
-            console.log('done');
-        });
-    }
-    generateHomeTile(module) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            const overviewPage = yield getModuleOverview(module, this.id);
-            if (!overviewPage)
-                throw new Error("Module does not have an overview");
-            const bannerImg = getBannerImage(overviewPage);
-            if (!bannerImg)
-                throw new Error("No banner image on page");
-            let resizedImageBlob = yield getResizedBlob(bannerImg.src, HOMETILE_WIDTH);
-            let fileName = `hometile${module.position}.png`;
-            assert_default()(resizedImageBlob);
-            let file = new File([resizedImageBlob], fileName);
-            return yield uploadFile(file, 'Images/hometile', this.fileUploadUrl);
-        });
-    }
-    getPages(config = null) {
-        return Page.getAllInCourse(this.id, config);
-    }
-    getFrontPageProfile() {
-        return course_awaiter(this, void 0, void 0, function* () {
-            const frontPage = yield this.getFrontPage();
-            assert_default()(frontPage && frontPage.body, "Course front page not found");
-            const frontPageProfile = getCurioPageFrontPageProfile(frontPage === null || frontPage === void 0 ? void 0 : frontPage.body);
-            frontPageProfile.sourcePage = frontPage;
-            return frontPageProfile;
-        });
-    }
-    getPotentialInstructorProfiles() {
-        return course_awaiter(this, void 0, void 0, function* () {
-            const instructors = yield this.getInstructors();
-            let profiles = [];
-            if (!instructors)
-                return profiles;
-            for (let instructor of instructors) {
-                profiles = profiles.concat(yield getPotentialFacultyProfiles(instructor));
-            }
-            return profiles;
-        });
-    }
-    getSettings(config) {
-        return course_awaiter(this, void 0, void 0, function* () {
-            return yield fetchJson(`/api/v1/courses/${this.id}/settings`, config);
-        });
-    }
-}
-course_Course.CODE_REGEX = /^(.+[^_])?_?(\w{4}\d{3})/i; // Adapted to JavaScript's regex syntax.
-course_Course.nameProperty = 'name';
-course_Course.contentClasses = [Assignment, Discussion, Quiz, Page];
-function getGradingStandards(contextId, contextType, config) {
-    return course_awaiter(this, void 0, void 0, function* () {
-        const url = `/api/v1/${contextType}s/${contextId}/grading_standards`;
-        return yield getPagedData(url, config);
-    });
-}
-function generatorMap(generator, nextMapFunc) {
-    return course_asyncGenerator(this, arguments, function* generatorMap_1() {
-        var _a, e_1, _b, _c;
-        let i = 0;
-        try {
-            for (var _d = true, generator_1 = course_asyncValues(generator), generator_1_1; generator_1_1 = yield course_await(generator_1.next()), _a = generator_1_1.done, !_a; _d = true) {
-                _c = generator_1_1.value;
-                _d = false;
-                let value = _c;
-                yield yield course_await(nextMapFunc(value, i, generator));
-                i++;
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (!_d && !_a && (_b = generator_1.return)) yield course_await(_b.call(generator_1));
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-    });
-}
-function getCourseGenerator(queryString, accountIds, term, config) {
-    if (!Array.isArray(accountIds))
-        accountIds = [accountIds];
-    const defaultConfig = {
-        queryParams: {
-            search_term: queryString,
-        }
-    };
-    if (term && defaultConfig.queryParams)
-        defaultConfig.queryParams.enrollment_term_id = term.id;
-    config = overrideConfig(defaultConfig, config);
-    const generators = accountIds.map(accountId => {
-        let url = `/api/v1/accounts/${accountId}/courses`;
-        return getPagedDataGenerator(url, config);
-    });
-    return generatorMap(mergePagedDataGenerators(generators), courseData => new course_Course(courseData));
-}
-class CourseNotFoundException extends Error {
-}
-
-;// CONCATENATED MODULE: ./src/ui/module/index.ts
-var module_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-(() => module_awaiter(void 0, void 0, void 0, function* () {
-    const course = yield course_Course.getFromUrl(document.documentURI);
+(() => __awaiter(void 0, void 0, void 0, function* () {
+    const course = yield _canvas_course_Course__WEBPACK_IMPORTED_MODULE_2__.Course.getFromUrl(document.documentURI);
     let moduleHeader = document.querySelector('.header-bar-right__buttons');
     if (moduleHeader) {
         if (course === null || course === void 0 ? void 0 : course.isBlueprint) {
@@ -13115,9 +13996,9 @@ var module_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _a
             btn.innerHTML = "Lock All";
             moduleHeader.insertBefore(btn, moduleHeader.firstChild);
             btn.classList.add('btn');
-            btn.addEventListener('click', () => module_awaiter(void 0, void 0, void 0, function* () {
+            btn.addEventListener('click', () => __awaiter(void 0, void 0, void 0, function* () {
                 btn.innerHTML = "Locking...";
-                yield course.lockBlueprint();
+                yield (0,_canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_1__.lockBlueprint)(course.id, yield course.getModules());
                 btn.innerHTML = "Locked!";
                 location.reload();
             }));
@@ -13126,10 +14007,10 @@ var module_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _a
         btn.classList.add('btn');
         btn.innerHTML = "Adjust Due Dates";
         moduleHeader.insertBefore(btn, moduleHeader.firstChild);
-        btn.addEventListener('click', () => module_awaiter(void 0, void 0, void 0, function* () {
+        btn.addEventListener('click', () => __awaiter(void 0, void 0, void 0, function* () {
             let offset = prompt("Days to offset by?");
-            assert_default()(course);
-            assert_default()(offset);
+            assert__WEBPACK_IMPORTED_MODULE_0___default()(course);
+            assert__WEBPACK_IMPORTED_MODULE_0___default()(offset);
             yield course.updateDueDates(parseInt(offset));
             location.reload();
         }));
