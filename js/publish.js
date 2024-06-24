@@ -47631,7 +47631,12 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet, }) {
                 return;
             }
             const accountId = devCourse.accountId;
-            const newBpShell = yield course_createNewCourse(bpify(devCourse.parsedCourseCode), accountId);
+            const bpCode = bpify(devCourse.parsedCourseCode);
+            let bpName = bpCode;
+            if (devCourse.courseCode && devCourse.name.match(devCourse.courseCode)) {
+                bpName = devCourse.name.replace(devCourse.courseCode, bpCode);
+            }
+            const newBpShell = yield course_createNewCourse(bpify(devCourse.parsedCourseCode), accountId, bpName);
             setCurrentBp(new Course(newBpShell));
             const migration = yield startMigration(devCourse.id, newBpShell.id);
             migration.tracked = true;
