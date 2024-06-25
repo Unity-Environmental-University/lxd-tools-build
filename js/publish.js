@@ -46431,6 +46431,11 @@ var courseContent_awaiter = (undefined && undefined.__awaiter) || function (this
     });
 };
 
+function decodeHtml(html) {
+    let text = document.createElement("textarea");
+    text.innerHTML = html;
+    return text.value;
+}
 const weeklyObjectivesTest = {
     name: "Learning Objectives -> Weekly Objectives",
     description: 'Make sure weekly objectives are called "Weekly Objectives" and not "Learning Objectives" throughout',
@@ -46440,8 +46445,8 @@ const weeklyObjectivesTest = {
         const badOverviews = overviews.filter(overview => {
             const el = document.createElement('div');
             el.innerHTML = overview.body;
-            const h2s = el.querySelectorAll('h2');
-            const weeklyObjectivesHeaders = Array.from(h2s).filter(h2 => /Weekly Objectives/i.test(h2.textContent || ''));
+            const headerTexts = [...el.querySelectorAll('h2')].map(h2 => { var _a, _b; return decodeHtml((_b = (_a = h2.textContent) !== null && _a !== void 0 ? _a : h2.innerText) !== null && _b !== void 0 ? _b : ''); });
+            const weeklyObjectivesHeaders = headerTexts.filter(text => /Weekly\sObjectives/i.test(text));
             return weeklyObjectivesHeaders.length === 0;
         });
         const success = badOverviews.length === 0;
