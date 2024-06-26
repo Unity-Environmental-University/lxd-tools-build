@@ -43178,9 +43178,9 @@ function badContentRunFunc(badTest) {
     return (course, config) => validations_awaiter(this, void 0, void 0, function* () {
         const defaultConfig = { queryParams: { include: ['body'], per_page: 50 } };
         let content = yield course.getContent(overrideConfig(config, defaultConfig));
-        const badContent = content.filter(item => item.body && item.body.search(badTest) > -1);
+        const badContent = content.filter(item => item.body && badTest.test(item.body));
         const syllabus = yield course.getSyllabus(config);
-        let syllabusTest = syllabus.search(badTest) > -1;
+        let syllabusTest = badTest.test(syllabus);
         const success = badContent.length === 0 && !syllabusTest;
         let links = [];
         let failureMessage = [];
@@ -43220,26 +43220,45 @@ function badSyllabusFixFunc(validateRegEx, replace) {
         }
     });
 }
-function badContentFixFunc(validateRegEx, replace) {
+function badContentFixFunc(badContentRegex, replace) {
     return (course) => validations_awaiter(this, void 0, void 0, function* () {
         let success = false;
         let messages = [];
-        const errors = [];
         const includeBody = { queryParams: { include: ['body'] } };
         let content = yield course.getContent(includeBody);
-        content = content.filter(item => item.body && item.body.search(validateRegEx) > -1);
-        const replaceText = replaceTextFunc(validateRegEx, replace);
-        yield fixSyllabus(course, validateRegEx, replaceText);
+        content = content.filter(item => item.body && badContentRegex.test(item.body));
+        const replaceText = replaceTextFunc(badContentRegex, replace);
+        yield fixSyllabus(course, badContentRegex, replaceText);
+        if (content.length === 0) {
+            return testResult('not run', {
+                failureMessage: "No content fixed"
+            });
+        }
+        success = true;
         for (let item of content) {
             if (!item.body)
                 continue;
-            if (item.body.search(validateRegEx) === -1)
+            if (!badContentRegex.test(item.body))
                 continue;
             const newText = replaceText(item.body);
-            if (newText.search(validateRegEx) > -1)
-                throw new Error(`Fix broken for ${item.name})`);
-            yield item.updateContent(newText);
-            messages.push();
+            if (badContentRegex.test(newText)) {
+                success = false;
+                messages.push({
+                    bodyLines: [`fix broken for ${item.name}`],
+                    links: [item.htmlContentUrl]
+                });
+                continue;
+            }
+            try {
+                yield item.updateContent(newText);
+                messages.push({
+                    bodyLines: [`fix succeeded for ${item.name}`],
+                    links: [item.htmlContentUrl]
+                });
+            }
+            catch (e) {
+                return errorMessageResult(e, [item.htmlContentUrl]);
+            }
         }
         return {
             success,
@@ -43258,9 +43277,9 @@ function replaceTextFunc(validateRegEx, replace) {
 function fixSyllabus(course, validateRegEx, replaceText) {
     return validations_awaiter(this, void 0, void 0, function* () {
         const syllabus = yield course.getSyllabus();
-        if (syllabus.search(validateRegEx) > -1) {
+        if (validateRegEx.test(syllabus)) {
             const newText = replaceText(syllabus);
-            if (newText.search(validateRegEx) > -1)
+            if (validateRegEx.test(newText))
                 throw new Error("Fix broken for syllabus " + validateRegEx.toString() + newText);
             yield course.changeSyllabus(newText);
         }
@@ -43270,13 +43289,13 @@ function overrideConfig(source, override) {
     var _a;
     return (_a = deepObjectMerge(source, override)) !== null && _a !== void 0 ? _a : {};
 }
-function errorMessageResult(e) {
+function errorMessageResult(e, links) {
     const bodyLines = [
         (e === null || e === void 0 ? void 0 : e.toString()) || 'Error',
     ];
     if (e && e instanceof Error && e.stack)
         bodyLines.push(e.stack);
-    return { success: false, messages: [{ bodyLines }] };
+    return { success: false, messages: [{ bodyLines }], links };
 }
 
 ;// CONCATENATED MODULE: ./src/canvas/baseCanvasObject.ts
@@ -46888,21 +46907,23 @@ var SelectValidations_awaiter = (undefined && undefined.__awaiter) || function (
 
 
 
-
-function SelectValidations({ runTests, testsToRun, setTestsToRun, setCoursesToRunOn, onChangeCustomValidation }) {
+function SelectValidations({ runValidations, validationsToRun, setValidationsToRun, setCoursesToRunOn, onChangeCustomValidation, allValidations }) {
+    const [allValidationOptions, setAllValidationOptions] = (0,react.useState)(optionize(allValidations));
     function getTestName(test) {
         return test.name;
     }
-    const [allValidations, _] = (0,react.useState)(optionize(tests, getTestName, getTestName));
+    (0,react.useEffect)(() => {
+        setAllValidationOptions(optionize(allValidations));
+    }, [allValidations]);
     function onSubmit(e) {
         e.preventDefault();
         e.stopPropagation();
-        runTests();
+        runValidations();
     }
-    return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)(esm_Form, { onSubmit: onSubmit, children: (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsxs)(esm_Col, { sm: 12, children: [(0,jsx_runtime.jsx)(MuliSelect, { options: allValidations, selectedOptions: testsToRun, onSelectionChange: setTestsToRun }), (0,jsx_runtime.jsx)("button", { onClick: runTests, children: "Run Tests" })] }), (0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)("button", { onClick: () => setCoursesToRunOn([]), children: "Clear" }) })] }) }), (0,jsx_runtime.jsx)(esm_Row, { children: (0,jsx_runtime.jsx)(esm_Col, { sm: 12, children: (0,jsx_runtime.jsx)(CustomSearchValidation, { onGenerateSearchValidation: (validation) => SelectValidations_awaiter(this, void 0, void 0, function* () {
-                            setTestsToRun(optionize([validation]));
+    return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)(esm_Form, { onSubmit: onSubmit, children: (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsxs)(esm_Col, { sm: 12, children: [(0,jsx_runtime.jsx)(MuliSelect, { options: optionize(allValidations, a => `${a.name}${a.description}`), selectedOptions: validationsToRun, onSelectionChange: setValidationsToRun }), (0,jsx_runtime.jsx)("button", { onClick: runValidations, children: "Run Tests" })] }), (0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)("button", { onClick: () => setCoursesToRunOn([]), children: "Clear" }) })] }) }), (0,jsx_runtime.jsx)(esm_Row, { children: (0,jsx_runtime.jsx)(esm_Col, { sm: 12, children: (0,jsx_runtime.jsx)(CustomSearchValidation, { onGenerateSearchValidation: (validation) => SelectValidations_awaiter(this, void 0, void 0, function* () {
+                            setValidationsToRun(optionize([validation], undefined, a => a.name));
                             onChangeCustomValidation(optionizeOne(validation, validation.name));
-                            runTests();
+                            runValidations();
                         }) }) }) })] });
 }
 
@@ -46926,10 +46947,10 @@ var AdminApp_awaiter = (undefined && undefined.__awaiter) || function (thisArg, 
 
 
 
-function AdminApp({ course }) {
+function AdminApp({ course, allValidations }) {
     const [isOpen, setIsOpen] = (0,react.useState)(false);
     const [foundCourses, setFoundCourses] = (0,react.useState)([]);
-    const [coursesToRunOn, setCoursesToRunOn] = (0,react.useState)([]);
+    const [coursesToRunOn, setCoursesToRunOn] = (0,react.useState)(course ? optionize([course]) : []);
     const [validationsToRun, setValidationsToRun] = (0,react.useState)([]);
     const [validationResults, setValidationResults] = (0,react.useState)([]);
     const [onlySearchBlueprints, setOnlySearchBlueprints] = (0,react.useState)(true);
@@ -47019,10 +47040,15 @@ function AdminApp({ course }) {
         });
     }
     function ResultsDisplay() {
-        return (0,jsx_runtime.jsx)(esm_Row, { children: coursesToRunOn.map(course => (0,jsx_runtime.jsx)(ResultsDisplayRow, { course: course, parentCourse: parentCourseLut[course.id], sections: sectionLut[course.id] }, course.id)) });
+        return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)(esm_Row, { children: coursesToRunOn.map(course => (0,jsx_runtime.jsx)(ResultsDisplayRow, { course: course, parentCourse: parentCourseLut[course.id], sections: sectionLut[course.id] }, course.id)) }), (0,jsx_runtime.jsx)(esm_Row, { children: validationResults
+                        .filter(a => a.success != false)
+                        .map(result => {
+                        const course = coursesToRunOn.find(a => a.id === result.courseId);
+                        return course && (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsx)(esm_Col, { sm: 4, children: course === null || course === void 0 ? void 0 : course.courseCode }), (0,jsx_runtime.jsx)(esm_Col, { sm: 4, children: course.courseCode }), (0,jsx_runtime.jsx)(esm_Col, { sm: 4, children: (0,jsx_runtime.jsx)(CourseLink, { course: course, label: course.htmlContentUrl }) })] });
+                    }) })] });
     }
     function ResultsDisplayRow({ course, parentCourse, sections }) {
-        return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)(ValidationResultsForCourse, { slim: false, results: validationResultsLut[course.id], course: course }, course.id), includeDev && parentCourse && (0,jsx_runtime.jsx)(ValidationResultsForCourse, { slim: true, course: parentCourse, results: validationResultsLut[parentCourse.id] }, course.id), includeSections && (sections === null || sections === void 0 ? void 0 : sections.map(section => (0,jsx_runtime.jsx)(ValidationResultsForCourse, { slim: true, course: section, results: validationResultsLut[section.id] }, section.id)))] });
+        return (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsx)(ValidationResultsForCourse, { slim: false, results: validationResultsLut[course.id], course: course }, course.id), includeDev && parentCourse && (0,jsx_runtime.jsx)(ValidationResultsForCourse, { slim: true, course: parentCourse, results: validationResultsLut[parentCourse.id] }, course.id), includeSections && (sections === null || sections === void 0 ? void 0 : sections.map(section => (0,jsx_runtime.jsx)(ValidationResultsForCourse, { slim: true, course: section, results: validationResultsLut[section.id] }, section.id)))] });
     }
     function FoundCoursesDisplay() {
         return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("button", { onClick: () => setCoursesToRunOn(Array.from(new Set([...coursesToRunOn, ...foundCourses]))), children: "Add All" }), (0,jsx_runtime.jsx)("button", { onClick: () => setFoundCourses([]), children: "Clear" }), foundCourses.map(course => {
@@ -47030,11 +47056,14 @@ function AdminApp({ course }) {
                     return (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsx)(esm_Col, { children: (_b = (_a = course.label) !== null && _a !== void 0 ? _a : course.parsedCourseCode) !== null && _b !== void 0 ? _b : course.name }), (0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)("button", { onClick: () => setCoursesToRunOn([...coursesToRunOn, course]), children: 'ADD' }) })] }, course.id);
                 })] });
     }
-    return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("button", { onClick: () => setIsOpen(true), children: "Admin" }), (0,jsx_runtime.jsx)(widgets_Modal, { isOpen: isOpen, requestClose: () => setIsOpen(false), children: (0,jsx_runtime.jsx)(esm_Container, { children: (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsxs)(esm_Col, { sm: 9, children: [(0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsxs)(esm_Col, { sm: 4, children: [(0,jsx_runtime.jsx)(esm_Form.Label, { children: "Only Search Blueprints" }), (0,jsx_runtime.jsx)(esm_Form.Check, { checked: onlySearchBlueprints, onChange: (e) => setOnlySearchBlueprints(e.target.checked) })] }), onlySearchBlueprints && (0,jsx_runtime.jsxs)(esm_Col, { sm: 4, children: [(0,jsx_runtime.jsx)(esm_Form.Label, { children: "Include Dev" }), (0,jsx_runtime.jsx)(esm_Form.Check, { checked: includeDev, onChange: (e) => setIncludeDev(e.target.checked) })] }), onlySearchBlueprints && (0,jsx_runtime.jsxs)(esm_Col, { sm: 4, children: [(0,jsx_runtime.jsx)(esm_Form.Label, { children: "Include Sections" }), (0,jsx_runtime.jsx)(esm_Form.Check, { checked: includeSections, onChange: (e) => setIncludeSections(e.target.checked) })] })] }), (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)(SearchCourses, { setFoundCourses: setFoundCourses, onlySearchBlueprints: onlySearchBlueprints, setIsSearching: () => null }) }), coursesToRunOn.length > 0 && (0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)(SelectValidations, { runTests: runTests, testsToRun: validationsToRun, setCoursesToRunOn: (courses) => optionize(courses), onChangeCustomValidation: () => null, setTestsToRun: setValidationsToRun }) })] }), (0,jsx_runtime.jsx)(ResultsDisplay, {})] }), (0,jsx_runtime.jsx)(esm_Col, { sm: 3, children: (0,jsx_runtime.jsx)(FoundCoursesDisplay, {}) })] }) }) })] });
+    return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("button", { onClick: () => setIsOpen(true), children: "Admin" }), (0,jsx_runtime.jsx)(widgets_Modal, { isOpen: isOpen, requestClose: () => setIsOpen(false), children: (0,jsx_runtime.jsx)(esm_Container, { children: (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsxs)(esm_Col, { sm: 9, children: [(0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsxs)(esm_Col, { sm: 4, children: [(0,jsx_runtime.jsx)(esm_Form.Label, { children: "Only Search Blueprints" }), (0,jsx_runtime.jsx)(esm_Form.Check, { checked: onlySearchBlueprints, onChange: (e) => setOnlySearchBlueprints(e.target.checked) })] }), onlySearchBlueprints && (0,jsx_runtime.jsxs)(esm_Col, { sm: 4, children: [(0,jsx_runtime.jsx)(esm_Form.Label, { children: "Include Dev" }), (0,jsx_runtime.jsx)(esm_Form.Check, { checked: includeDev, onChange: (e) => setIncludeDev(e.target.checked) })] }), onlySearchBlueprints && (0,jsx_runtime.jsxs)(esm_Col, { sm: 4, children: [(0,jsx_runtime.jsx)(esm_Form.Label, { children: "Include Sections" }), (0,jsx_runtime.jsx)(esm_Form.Check, { checked: includeSections, onChange: (e) => setIncludeSections(e.target.checked) })] })] }), (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)(SearchCourses, { setFoundCourses: setFoundCourses, onlySearchBlueprints: onlySearchBlueprints, setIsSearching: () => null }) }), coursesToRunOn.length > 0 && (0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)(SelectValidations, { runValidations: runTests, allValidations: allValidations, validationsToRun: validationsToRun, setCoursesToRunOn: (courses) => optionize(courses), onChangeCustomValidation: () => null, setValidationsToRun: setValidationsToRun }) })] }), (0,jsx_runtime.jsx)(ResultsDisplay, {})] }), (0,jsx_runtime.jsx)(esm_Col, { sm: 3, children: (0,jsx_runtime.jsx)(FoundCoursesDisplay, {}) })] }) }) })] });
 }
 function ValidationResultsForCourse({ course, results, slim }) {
     var _a;
     return (0,jsx_runtime.jsxs)(esm_Container, { children: [(0,jsx_runtime.jsx)(esm_Row, { children: (0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)("h3", { style: { fontSize: slim ? '0.5em' : '1em' }, children: (0,jsx_runtime.jsx)("a", { href: course.htmlContentUrl, target: '_blank', children: (_a = course.parsedCourseCode) !== null && _a !== void 0 ? _a : course.name }) }) }) }), results && results.map(result => (0,jsx_runtime.jsx)(ValidationRow, { course: course, slim: slim, initialResult: result, test: result.test, potemkinVillage: true, refreshCourse: () => AdminApp_awaiter(this, void 0, void 0, function* () { return undefined; }) }, result.test.name + course.id))] });
+}
+function CourseLink({ course, label }) {
+    return (0,jsx_runtime.jsx)("a", { href: course.htmlContentUrl, children: label !== null && label !== void 0 ? label : course.name });
 }
 
 ;// CONCATENATED MODULE: ./src/publish/publishInterface/sectionDetails/FacultyProfile.tsx
@@ -47238,7 +47267,7 @@ function EmailLink({ user, emails, course, termData, sectionStart }) {
 ;// CONCATENATED MODULE: ./src/publish/publishInterface/CourseRow.tsx
 
 function CourseRow({ course, frontPageProfile, instructors, onSelectSection, errors }) {
-    return ((0,jsx_runtime.jsxs)("div", { className: 'row course-row', children: [(0,jsx_runtime.jsx)("div", { className: 'col-xs-6', children: (0,jsx_runtime.jsx)("a", { href: `/courses/${course.id}`, className: `course-link ${course === null || course === void 0 ? void 0 : course.workflowState}`, target: "blank_", children: course.parsedCourseCode }) }), (0,jsx_runtime.jsx)("div", { className: 'col-xs-2', children: frontPageProfile && frontPageProfile.displayName }), (0,jsx_runtime.jsx)("div", { className: 'col-xs-1', children: (onSelectSection && course) && ((0,jsx_runtime.jsx)("button", { onClick: () => onSelectSection(course), children: "Details" })) }), (0,jsx_runtime.jsx)("div", { className: 'col-xs-3', children: instructors === null || instructors === void 0 ? void 0 : instructors.map((instructor) => instructor.name).join(', ') })] }));
+    return ((0,jsx_runtime.jsxs)("div", { className: 'row course-row', children: [(0,jsx_runtime.jsx)("div", { className: 'col-xs-6', children: (0,jsx_runtime.jsx)("a", { href: `/courses/${course.id}`, className: `course-link ${course === null || course === void 0 ? void 0 : course.workflowState}`, target: "blank_", children: course.name }) }), (0,jsx_runtime.jsx)("div", { className: 'col-xs-2', children: frontPageProfile && frontPageProfile.displayName }), (0,jsx_runtime.jsx)("div", { className: 'col-xs-1', children: (onSelectSection && course) && ((0,jsx_runtime.jsx)("button", { onClick: () => onSelectSection(course), children: "Details" })) }), (0,jsx_runtime.jsx)("div", { className: 'col-xs-3', children: instructors === null || instructors === void 0 ? void 0 : instructors.map((instructor) => instructor.name).join(', ') })] }));
 }
 
 ;// CONCATENATED MODULE: ./src/publish/publishInterface/SectionRows.tsx
@@ -47249,7 +47278,7 @@ function SectionRows({ onOpenAll, sections, instructorsByCourseId, frontPageProf
         e.preventDefault();
         onOpenAll();
     }
-    return ((0,jsx_runtime.jsxs)("div", { className: 'course-table', children: [(0,jsx_runtime.jsxs)("div", { className: 'row', children: [(0,jsx_runtime.jsxs)("div", { className: 'col-sm-6', children: [(0,jsx_runtime.jsx)("div", { children: (0,jsx_runtime.jsx)("strong", { children: "Code" }) }), (0,jsx_runtime.jsx)("a", { href: '#', onClick: openAll, children: "Open All" })] }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-3', children: (0,jsx_runtime.jsx)("strong", { children: "Name on Front Page" }) }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-3', children: (0,jsx_runtime.jsx)("strong", { children: "Instructor(s)" }) })] }), sections && sections.map((course) => ((0,jsx_runtime.jsx)(CourseRow, { instructors: instructorsByCourseId[course.id], frontPageProfile: frontPageProfilesByCourseId[course.id], facultyProfileMatches: potentialProfilesByCourseId[course.id], errors: errorsByCourseId[course.id], onSelectSection: (section) => setWorkingSection(section), course: course }, course.id)))] }));
+    return ((0,jsx_runtime.jsxs)("div", { className: 'course-table', children: [(0,jsx_runtime.jsxs)("div", { className: 'row', children: [(0,jsx_runtime.jsxs)("div", { className: 'col-sm-6', children: [(0,jsx_runtime.jsx)("div", { children: (0,jsx_runtime.jsx)("strong", { children: "Code" }) }), (0,jsx_runtime.jsx)("a", { href: '#', onClick: openAll, children: "Open All" })] }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-3', children: (0,jsx_runtime.jsx)("strong", { children: "Name on Front Page" }) }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-3', children: (0,jsx_runtime.jsx)("strong", { children: "Instructor(s)" }) })] }), sections && sections.toSorted((a, b) => a.name.localeCompare(b.name)).map((course) => ((0,jsx_runtime.jsx)(CourseRow, { instructors: instructorsByCourseId[course.id], frontPageProfile: frontPageProfilesByCourseId[course.id], facultyProfileMatches: potentialProfilesByCourseId[course.id], errors: errorsByCourseId[course.id], onSelectSection: (section) => setWorkingSection(section), course: course }, course.id)))] }));
 }
 
 ;// CONCATENATED MODULE: ./src/index.ts
@@ -47295,8 +47324,7 @@ var migration_asyncGenerator = (undefined && undefined.__asyncGenerator) || func
 
 function getMigrationsForCourse(courseId, config) {
     const url = `/api/v1/courses/${courseId}/content_migrations`;
-    const generator = getPagedDataGenerator(url, config);
-    return generator;
+    return getPagedDataGenerator(url, config);
 }
 function getMigration(courseId, migrationId, config) {
     return migration_awaiter(this, void 0, void 0, function* () {
@@ -48094,6 +48122,18 @@ const rubricsTiedToGradesTest = {
     })
 };
 
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/proxyServerLinkValidation.ts
+
+const oldProxyRegex = /proxy1\.unity\.edu/g;
+const newProxyReplace = 'unity.idm.oclc.org';
+const proxyServerLinkValidation = {
+    name: "Proxy Server Link Validation",
+    description: `proxy1.unity.edu => unity.idm.oclc.org`,
+    run: badContentRunFunc(oldProxyRegex),
+    fix: badContentFixFunc(oldProxyRegex, newProxyReplace),
+};
+/* harmony default export */ const validations_proxyServerLinkValidation = (proxyServerLinkValidation);
+
 ;// CONCATENATED MODULE: ./src/publish/PublishApp.tsx
 var PublishApp_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -48104,6 +48144,7 @@ var PublishApp_awaiter = (undefined && undefined.__awaiter) || function (thisArg
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 
 
 
@@ -48143,10 +48184,10 @@ function PublishApp() {
         ...syllabusTests,
         ...courseSettings,
         ...courseContent,
-        rubricsTiedToGradesTest
-        //proxyServerLinkValidation,
+        rubricsTiedToGradesTest,
+        validations_proxyServerLinkValidation,
     ];
-    return (user && (0,jsx_runtime.jsxs)("div", { children: [(0,jsx_runtime.jsx)(CourseUpdateInterface, { course: course, parentCourse: parentCourse, allValidations: allValidations, refreshCourse: () => getCourse(true) }), (0,jsx_runtime.jsx)(PublishInterface, { course: course, user: user }), (0,jsx_runtime.jsx)(AdminApp, { course: course })] }));
+    return (user && (0,jsx_runtime.jsxs)("div", { children: [(0,jsx_runtime.jsx)(CourseUpdateInterface, { course: course, parentCourse: parentCourse, allValidations: allValidations, refreshCourse: () => getCourse(true) }), (0,jsx_runtime.jsx)(PublishInterface, { course: course, user: user }), (0,jsx_runtime.jsx)(AdminApp, { course: course, allValidations: allValidations })] }));
 }
 /* harmony default export */ const publish_PublishApp = (PublishApp);
 

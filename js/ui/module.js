@@ -6990,9 +6990,9 @@ function badContentRunFunc(badTest) {
     return (course, config) => validations_awaiter(this, void 0, void 0, function* () {
         const defaultConfig = { queryParams: { include: ['body'], per_page: 50 } };
         let content = yield course.getContent(validations_overrideConfig(config, defaultConfig));
-        const badContent = content.filter(item => item.body && item.body.search(badTest) > -1);
+        const badContent = content.filter(item => item.body && badTest.test(item.body));
         const syllabus = yield course.getSyllabus(config);
-        let syllabusTest = syllabus.search(badTest) > -1;
+        let syllabusTest = badTest.test(syllabus);
         const success = badContent.length === 0 && !syllabusTest;
         let links = [];
         let failureMessage = [];
@@ -7032,26 +7032,45 @@ function badSyllabusFixFunc(validateRegEx, replace) {
         }
     });
 }
-function badContentFixFunc(validateRegEx, replace) {
+function badContentFixFunc(badContentRegex, replace) {
     return (course) => validations_awaiter(this, void 0, void 0, function* () {
         let success = false;
         let messages = [];
-        const errors = [];
         const includeBody = { queryParams: { include: ['body'] } };
         let content = yield course.getContent(includeBody);
-        content = content.filter(item => item.body && item.body.search(validateRegEx) > -1);
-        const replaceText = replaceTextFunc(validateRegEx, replace);
-        yield fixSyllabus(course, validateRegEx, replaceText);
+        content = content.filter(item => item.body && badContentRegex.test(item.body));
+        const replaceText = replaceTextFunc(badContentRegex, replace);
+        yield fixSyllabus(course, badContentRegex, replaceText);
+        if (content.length === 0) {
+            return testResult('not run', {
+                failureMessage: "No content fixed"
+            });
+        }
+        success = true;
         for (let item of content) {
             if (!item.body)
                 continue;
-            if (item.body.search(validateRegEx) === -1)
+            if (!badContentRegex.test(item.body))
                 continue;
             const newText = replaceText(item.body);
-            if (newText.search(validateRegEx) > -1)
-                throw new Error(`Fix broken for ${item.name})`);
-            yield item.updateContent(newText);
-            messages.push();
+            if (badContentRegex.test(newText)) {
+                success = false;
+                messages.push({
+                    bodyLines: [`fix broken for ${item.name}`],
+                    links: [item.htmlContentUrl]
+                });
+                continue;
+            }
+            try {
+                yield item.updateContent(newText);
+                messages.push({
+                    bodyLines: [`fix succeeded for ${item.name}`],
+                    links: [item.htmlContentUrl]
+                });
+            }
+            catch (e) {
+                return errorMessageResult(e, [item.htmlContentUrl]);
+            }
         }
         return {
             success,
@@ -7070,9 +7089,9 @@ function replaceTextFunc(validateRegEx, replace) {
 function fixSyllabus(course, validateRegEx, replaceText) {
     return validations_awaiter(this, void 0, void 0, function* () {
         const syllabus = yield course.getSyllabus();
-        if (syllabus.search(validateRegEx) > -1) {
+        if (validateRegEx.test(syllabus)) {
             const newText = replaceText(syllabus);
-            if (newText.search(validateRegEx) > -1)
+            if (validateRegEx.test(newText))
                 throw new Error("Fix broken for syllabus " + validateRegEx.toString() + newText);
             yield course.changeSyllabus(newText);
         }
@@ -7082,13 +7101,13 @@ function validations_overrideConfig(source, override) {
     var _a;
     return (_a = canvasUtils_deepObjectMerge(source, override)) !== null && _a !== void 0 ? _a : {};
 }
-function errorMessageResult(e) {
+function errorMessageResult(e, links) {
     const bodyLines = [
         (e === null || e === void 0 ? void 0 : e.toString()) || 'Error',
     ];
     if (e && e instanceof Error && e.stack)
         bodyLines.push(e.stack);
-    return { success: false, messages: [{ bodyLines }] };
+    return { success: false, messages: [{ bodyLines }], links };
 }
 
 ;// CONCATENATED MODULE: ./src/canvas/baseCanvasObject.ts
