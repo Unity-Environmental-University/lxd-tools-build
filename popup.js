@@ -56946,9 +56946,11 @@ module.exports = styleTagTransform;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   OPEN_AI_API_KEY_KEY: () => (/* binding */ OPEN_AI_API_KEY_KEY)
+/* harmony export */   OPEN_AI_API_KEY_KEY: () => (/* binding */ OPEN_AI_API_KEY_KEY),
+/* harmony export */   PUBLISH_FORM_EMAIL_TEMPLATE_URL: () => (/* binding */ PUBLISH_FORM_EMAIL_TEMPLATE_URL)
 /* harmony export */ });
 const OPEN_AI_API_KEY_KEY = "OPEN_AI_API_KEY";
+const PUBLISH_FORM_EMAIL_TEMPLATE_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics/Form-Email-Template.md';
 
 
 /***/ }),

@@ -4581,6 +4581,846 @@ function safePolygon(options) {
 
 /***/ }),
 
+/***/ "./node_modules/@restart/hooks/esm/index.js":
+/*!**************************************************!*\
+  !*** ./node_modules/@restart/hooks/esm/index.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useCallbackRef: () => (/* reexport safe */ _useCallbackRef__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   useCommittedRef: () => (/* reexport safe */ _useCommittedRef__WEBPACK_IMPORTED_MODULE_1__["default"]),
+/* harmony export */   useEventCallback: () => (/* reexport safe */ _useEventCallback__WEBPACK_IMPORTED_MODULE_2__["default"]),
+/* harmony export */   useEventListener: () => (/* reexport safe */ _useEventListener__WEBPACK_IMPORTED_MODULE_3__["default"]),
+/* harmony export */   useGlobalListener: () => (/* reexport safe */ _useGlobalListener__WEBPACK_IMPORTED_MODULE_4__["default"]),
+/* harmony export */   useImage: () => (/* reexport safe */ _useImage__WEBPACK_IMPORTED_MODULE_11__["default"]),
+/* harmony export */   useInterval: () => (/* reexport safe */ _useInterval__WEBPACK_IMPORTED_MODULE_5__["default"]),
+/* harmony export */   useMergeState: () => (/* reexport safe */ _useMergeState__WEBPACK_IMPORTED_MODULE_7__["default"]),
+/* harmony export */   useMergeStateFromProps: () => (/* reexport safe */ _useMergeStateFromProps__WEBPACK_IMPORTED_MODULE_8__["default"]),
+/* harmony export */   useMounted: () => (/* reexport safe */ _useMounted__WEBPACK_IMPORTED_MODULE_9__["default"]),
+/* harmony export */   usePrevious: () => (/* reexport safe */ _usePrevious__WEBPACK_IMPORTED_MODULE_10__["default"]),
+/* harmony export */   useRafInterval: () => (/* reexport safe */ _useRafInterval__WEBPACK_IMPORTED_MODULE_6__["default"]),
+/* harmony export */   useResizeObserver: () => (/* reexport safe */ _useResizeObserver__WEBPACK_IMPORTED_MODULE_12__["default"])
+/* harmony export */ });
+/* harmony import */ var _useCallbackRef__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./useCallbackRef */ "./node_modules/@restart/hooks/esm/useCallbackRef.js");
+/* harmony import */ var _useCommittedRef__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./useCommittedRef */ "./node_modules/@restart/hooks/esm/useCommittedRef.js");
+/* harmony import */ var _useEventCallback__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./useEventCallback */ "./node_modules/@restart/hooks/esm/useEventCallback.js");
+/* harmony import */ var _useEventListener__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./useEventListener */ "./node_modules/@restart/hooks/esm/useEventListener.js");
+/* harmony import */ var _useGlobalListener__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./useGlobalListener */ "./node_modules/@restart/hooks/esm/useGlobalListener.js");
+/* harmony import */ var _useInterval__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./useInterval */ "./node_modules/@restart/hooks/esm/useInterval.js");
+/* harmony import */ var _useRafInterval__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./useRafInterval */ "./node_modules/@restart/hooks/esm/useRafInterval.js");
+/* harmony import */ var _useMergeState__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./useMergeState */ "./node_modules/@restart/hooks/esm/useMergeState.js");
+/* harmony import */ var _useMergeStateFromProps__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./useMergeStateFromProps */ "./node_modules/@restart/hooks/esm/useMergeStateFromProps.js");
+/* harmony import */ var _useMounted__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./useMounted */ "./node_modules/@restart/hooks/esm/useMounted.js");
+/* harmony import */ var _usePrevious__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./usePrevious */ "./node_modules/@restart/hooks/esm/usePrevious.js");
+/* harmony import */ var _useImage__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./useImage */ "./node_modules/@restart/hooks/esm/useImage.js");
+/* harmony import */ var _useResizeObserver__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./useResizeObserver */ "./node_modules/@restart/hooks/esm/useResizeObserver.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@restart/hooks/esm/useCallbackRef.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@restart/hooks/esm/useCallbackRef.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ useCallbackRef)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/**
+ * A convenience hook around `useState` designed to be paired with
+ * the component [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs) api.
+ * Callback refs are useful over `useRef()` when you need to respond to the ref being set
+ * instead of lazily accessing it in an effect.
+ *
+ * ```ts
+ * const [element, attachRef] = useCallbackRef<HTMLDivElement>()
+ *
+ * useEffect(() => {
+ *   if (!element) return
+ *
+ *   const calendar = new FullCalendar.Calendar(element)
+ *
+ *   return () => {
+ *     calendar.destroy()
+ *   }
+ * }, [element])
+ *
+ * return <div ref={attachRef} />
+ * ```
+ *
+ * @category refs
+ */
+function useCallbackRef() {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@restart/hooks/esm/useCommittedRef.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@restart/hooks/esm/useCommittedRef.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/**
+ * Creates a `Ref` whose value is updated in an effect, ensuring the most recent
+ * value is the one rendered with. Generally only required for Concurrent mode usage
+ * where previous work in `render()` may be discarded before being used.
+ *
+ * This is safe to access in an event handler.
+ *
+ * @param value The `Ref` value
+ */
+function useCommittedRef(value) {
+  const ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(value);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    ref.current = value;
+  }, [value]);
+  return ref;
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useCommittedRef);
+
+/***/ }),
+
+/***/ "./node_modules/@restart/hooks/esm/useEventCallback.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/@restart/hooks/esm/useEventCallback.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ useEventCallback)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _useCommittedRef__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./useCommittedRef */ "./node_modules/@restart/hooks/esm/useCommittedRef.js");
+
+
+function useEventCallback(fn) {
+  const ref = (0,_useCommittedRef__WEBPACK_IMPORTED_MODULE_1__["default"])(fn);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (...args) {
+    return ref.current && ref.current(...args);
+  }, [ref]);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@restart/hooks/esm/useEventListener.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/@restart/hooks/esm/useEventListener.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ useEventListener)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _useEventCallback__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./useEventCallback */ "./node_modules/@restart/hooks/esm/useEventCallback.js");
+
+
+/**
+ * Attaches an event handler outside directly to specified DOM element
+ * bypassing the react synthetic event system.
+ *
+ * @param element The target to listen for events on
+ * @param event The DOM event name
+ * @param handler An event handler
+ * @param capture Whether or not to listen during the capture event phase
+ */
+function useEventListener(eventTarget, event, listener, capture = false) {
+  const handler = (0,_useEventCallback__WEBPACK_IMPORTED_MODULE_1__["default"])(listener);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const target = typeof eventTarget === 'function' ? eventTarget() : eventTarget;
+    target.addEventListener(event, handler, capture);
+    return () => target.removeEventListener(event, handler, capture);
+  }, [eventTarget]);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@restart/hooks/esm/useGlobalListener.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@restart/hooks/esm/useGlobalListener.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ useGlobalListener)
+/* harmony export */ });
+/* harmony import */ var _useEventListener__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./useEventListener */ "./node_modules/@restart/hooks/esm/useEventListener.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+
+/**
+ * Attaches an event handler outside directly to the `document`,
+ * bypassing the react synthetic event system.
+ *
+ * ```ts
+ * useGlobalListener('keydown', (event) => {
+ *  console.log(event.key)
+ * })
+ * ```
+ *
+ * @param event The DOM event name
+ * @param handler An event handler
+ * @param capture Whether or not to listen during the capture event phase
+ */
+function useGlobalListener(event, handler, capture = false) {
+  const documentTarget = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(() => document, []);
+  return (0,_useEventListener__WEBPACK_IMPORTED_MODULE_0__["default"])(documentTarget, event, handler, capture);
+}
+
+/***/ }),
+
+/***/ "./node_modules/@restart/hooks/esm/useImage.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/@restart/hooks/esm/useImage.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ useImage)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+/**
+ * Fetch and load an image for programatic use such as in a `<canvas>` element.
+ *
+ * @param imageOrUrl The `HtmlImageElement` or image url to load
+ * @param crossOrigin The `crossorigin` attribute to set
+ *
+ * ```ts
+ * const { image, error } = useImage('/static/kittens.png')
+ * const ref = useRef<HTMLCanvasElement>()
+ *
+ * useEffect(() => {
+ *   const ctx = ref.current.getContext('2d')
+ *
+ *   if (image) {
+ *     ctx.drawImage(image, 0, 0)
+ *   }
+ * }, [ref, image])
+ *
+ * return (
+ *   <>
+ *     {error && "there was a problem loading the image"}
+ *     <canvas ref={ref} />
+ *   </>
+ * ```
+ */
+function useImage(imageOrUrl, crossOrigin) {
+  const [state, setState] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    image: null,
+    error: null
+  });
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!imageOrUrl) return undefined;
+    let image;
+    if (typeof imageOrUrl === 'string') {
+      image = new Image();
+      if (crossOrigin) image.crossOrigin = crossOrigin;
+      image.src = imageOrUrl;
+    } else {
+      image = imageOrUrl;
+      if (image.complete && image.naturalHeight > 0) {
+        setState({
+          image,
+          error: null
+        });
+        return;
+      }
+    }
+    function onLoad() {
+      setState({
+        image,
+        error: null
+      });
+    }
+    function onError(error) {
+      setState({
+        image,
+        error
+      });
+    }
+    image.addEventListener('load', onLoad);
+    image.addEventListener('error', onError);
+    return () => {
+      image.removeEventListener('load', onLoad);
+      image.removeEventListener('error', onError);
+    };
+  }, [imageOrUrl, crossOrigin]);
+  return state;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@restart/hooks/esm/useInterval.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@restart/hooks/esm/useInterval.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _useCommittedRef__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./useCommittedRef */ "./node_modules/@restart/hooks/esm/useCommittedRef.js");
+
+
+
+/**
+ * Creates a `setInterval` that is properly cleaned up when a component unmounted
+ *
+ * ```tsx
+ *  function Timer() {
+ *    const [timer, setTimer] = useState(0)
+ *    useInterval(() => setTimer(i => i + 1), 1000)
+ *
+ *    return <span>{timer} seconds past</span>
+ *  }
+ * ```
+ *
+ * @param fn an function run on each interval
+ * @param ms The milliseconds duration of the interval
+ */
+
+/**
+ * Creates a pausable `setInterval` that is properly cleaned up when a component unmounted
+ *
+ * ```tsx
+ *  const [paused, setPaused] = useState(false)
+ *  const [timer, setTimer] = useState(0)
+ *
+ *  useInterval(() => setTimer(i => i + 1), 1000, paused)
+ *
+ *  return (
+ *    <span>
+ *      {timer} seconds past
+ *
+ *      <button onClick={() => setPaused(p => !p)}>{paused ? 'Play' : 'Pause' }</button>
+ *    </span>
+ * )
+ * ```
+ *
+ * @param fn an function run on each interval
+ * @param ms The milliseconds duration of the interval
+ * @param paused Whether or not the interval is currently running
+ */
+
+/**
+ * Creates a pausable `setInterval` that _fires_ immediately and is
+ * properly cleaned up when a component unmounted
+ *
+ * ```tsx
+ *  const [timer, setTimer] = useState(-1)
+ *  useInterval(() => setTimer(i => i + 1), 1000, false, true)
+ *
+ *  // will update to 0 on the first effect
+ *  return <span>{timer} seconds past</span>
+ * ```
+ *
+ * @param fn an function run on each interval
+ * @param ms The milliseconds duration of the interval
+ * @param paused Whether or not the interval is currently running
+ * @param runImmediately Whether to run the function immediately on mount or unpause
+ * rather than waiting for the first interval to elapse
+ *
+
+ */
+
+function useInterval(fn, ms, paused = false, runImmediately = false) {
+  let handle;
+  const fnRef = (0,_useCommittedRef__WEBPACK_IMPORTED_MODULE_1__["default"])(fn);
+  // this ref is necessary b/c useEffect will sometimes miss a paused toggle
+  // orphaning a setTimeout chain in the aether, so relying on it's refresh logic is not reliable.
+  const pausedRef = (0,_useCommittedRef__WEBPACK_IMPORTED_MODULE_1__["default"])(paused);
+  const tick = () => {
+    if (pausedRef.current) return;
+    fnRef.current();
+    schedule(); // eslint-disable-line no-use-before-define
+  };
+
+  const schedule = () => {
+    clearTimeout(handle);
+    handle = setTimeout(tick, ms);
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (runImmediately) {
+      tick();
+    } else {
+      schedule();
+    }
+    return () => clearTimeout(handle);
+  }, [paused, runImmediately]);
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useInterval);
+
+/***/ }),
+
+/***/ "./node_modules/@restart/hooks/esm/useIsomorphicEffect.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@restart/hooks/esm/useIsomorphicEffect.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+const isReactNative = typeof __webpack_require__.g !== 'undefined' &&
+// @ts-ignore
+__webpack_require__.g.navigator &&
+// @ts-ignore
+__webpack_require__.g.navigator.product === 'ReactNative';
+const isDOM = typeof document !== 'undefined';
+
+/**
+ * Is `useLayoutEffect` in a DOM or React Native environment, otherwise resolves to useEffect
+ * Only useful to avoid the console warning.
+ *
+ * PREFER `useEffect` UNLESS YOU KNOW WHAT YOU ARE DOING.
+ *
+ * @category effects
+ */
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (isDOM || isReactNative ? react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect : react__WEBPACK_IMPORTED_MODULE_0__.useEffect);
+
+/***/ }),
+
+/***/ "./node_modules/@restart/hooks/esm/useMergeState.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@restart/hooks/esm/useMergeState.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ useMergeState)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/**
+ * Updates state, partial updates are merged into existing state values
+ */
+
+/**
+ * Mimics a React class component's state model, of having a single unified
+ * `state` object and an updater that merges updates into the existing state, as
+ * opposed to replacing it.
+ *
+ * ```js
+ * const [state, setState] = useMergeState({ name: 'Betsy', age: 24 })
+ *
+ * setState({ name: 'Johan' }) // { name: 'Johan', age: 24 }
+ *
+ * setState(state => ({ age: state.age + 10 })) // { name: 'Johan', age: 34 }
+ * ```
+ *
+ * @param initialState The initial state object
+ */
+function useMergeState(initialState) {
+  const [state, setState] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialState);
+  const updater = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(update => {
+    if (update === null) return;
+    if (typeof update === 'function') {
+      setState(state => {
+        const nextState = update(state);
+        return nextState == null ? state : Object.assign({}, state, nextState);
+      });
+    } else {
+      setState(state => Object.assign({}, state, update));
+    }
+  }, [setState]);
+  return [state, updater];
+}
+
+/***/ }),
+
+/***/ "./node_modules/@restart/hooks/esm/useMergeStateFromProps.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@restart/hooks/esm/useMergeStateFromProps.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ useMergeStateFromProps)
+/* harmony export */ });
+/* harmony import */ var _useMergeState__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./useMergeState */ "./node_modules/@restart/hooks/esm/useMergeState.js");
+
+function useMergeStateFromProps(props, gDSFP, initialState) {
+  const [state, setState] = (0,_useMergeState__WEBPACK_IMPORTED_MODULE_0__["default"])(initialState);
+  const nextState = gDSFP(props, state);
+  if (nextState !== null) setState(nextState);
+  return [state, setState];
+}
+
+/***/ }),
+
+/***/ "./node_modules/@restart/hooks/esm/useMergedRefs.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@restart/hooks/esm/useMergedRefs.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   mergeRefs: () => (/* binding */ mergeRefs)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+const toFnRef = ref => !ref || typeof ref === 'function' ? ref : value => {
+  ref.current = value;
+};
+function mergeRefs(refA, refB) {
+  const a = toFnRef(refA);
+  const b = toFnRef(refB);
+  return value => {
+    if (a) a(value);
+    if (b) b(value);
+  };
+}
+
+/**
+ * Create and returns a single callback ref composed from two other Refs.
+ *
+ * ```tsx
+ * const Button = React.forwardRef((props, ref) => {
+ *   const [element, attachRef] = useCallbackRef<HTMLButtonElement>();
+ *   const mergedRef = useMergedRefs(ref, attachRef);
+ *
+ *   return <button ref={mergedRef} {...props}/>
+ * })
+ * ```
+ *
+ * @param refA A Callback or mutable Ref
+ * @param refB A Callback or mutable Ref
+ * @category refs
+ */
+function useMergedRefs(refA, refB) {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => mergeRefs(refA, refB), [refA, refB]);
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useMergedRefs);
+
+/***/ }),
+
+/***/ "./node_modules/@restart/hooks/esm/useMounted.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@restart/hooks/esm/useMounted.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ useMounted)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/**
+ * Track whether a component is current mounted. Generally less preferable than
+ * properlly canceling effects so they don't run after a component is unmounted,
+ * but helpful in cases where that isn't feasible, such as a `Promise` resolution.
+ *
+ * @returns a function that returns the current isMounted state of the component
+ *
+ * ```ts
+ * const [data, setData] = useState(null)
+ * const isMounted = useMounted()
+ *
+ * useEffect(() => {
+ *   fetchdata().then((newData) => {
+ *      if (isMounted()) {
+ *        setData(newData);
+ *      }
+ *   })
+ * })
+ * ```
+ */
+function useMounted() {
+  const mounted = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
+  const isMounted = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(() => mounted.current);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
+  return isMounted.current;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@restart/hooks/esm/usePrevious.js":
+/*!********************************************************!*\
+  !*** ./node_modules/@restart/hooks/esm/usePrevious.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ usePrevious)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/**
+ * Store the last of some value. Tracked via a `Ref` only updating it
+ * after the component renders.
+ *
+ * Helpful if you need to compare a prop value to it's previous value during render.
+ *
+ * ```ts
+ * function Component(props) {
+ *   const lastProps = usePrevious(props)
+ *
+ *   if (lastProps.foo !== props.foo)
+ *     resetValueFromProps(props.foo)
+ * }
+ * ```
+ *
+ * @param value the value to track
+ */
+function usePrevious(value) {
+  const ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@restart/hooks/esm/useRafInterval.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@restart/hooks/esm/useRafInterval.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _useCommittedRef__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./useCommittedRef */ "./node_modules/@restart/hooks/esm/useCommittedRef.js");
+
+
+function useRafInterval(fn, ms, paused = false) {
+  let handle;
+  let start = new Date().getTime();
+  const fnRef = (0,_useCommittedRef__WEBPACK_IMPORTED_MODULE_1__["default"])(fn);
+  // this ref is necessary b/c useEffect will sometimes miss a paused toggle
+  // orphaning a setTimeout chain in the aether, so relying on it's refresh logic is not reliable.
+  const pausedRef = (0,_useCommittedRef__WEBPACK_IMPORTED_MODULE_1__["default"])(paused);
+  function loop() {
+    const current = new Date().getTime();
+    const delta = current - start;
+    if (pausedRef.current) return;
+    if (delta >= ms && fnRef.current) {
+      fnRef.current();
+      start = new Date().getTime();
+    }
+    cancelAnimationFrame(handle);
+    handle = requestAnimationFrame(loop);
+  }
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    handle = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(handle);
+  }, []);
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useRafInterval);
+
+/***/ }),
+
+/***/ "./node_modules/@restart/hooks/esm/useResizeObserver.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@restart/hooks/esm/useResizeObserver.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ useResizeObserver)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _useIsomorphicEffect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./useIsomorphicEffect */ "./node_modules/@restart/hooks/esm/useIsomorphicEffect.js");
+
+
+const targetMap = new WeakMap();
+let resizeObserver;
+function getResizeObserver() {
+  // eslint-disable-next-line no-return-assign
+  return resizeObserver = resizeObserver || new window.ResizeObserver(entries => {
+    entries.forEach(entry => {
+      const handler = targetMap.get(entry.target);
+      if (handler) handler(entry.contentRect);
+    });
+  });
+}
+
+/**
+ * Efficiently observe size changes on an element. Depends on the `ResizeObserver` api,
+ * and polyfills are needed in older browsers.
+ *
+ * ```ts
+ * const [ref, attachRef] = useCallbackRef(null);
+ *
+ * const rect = useResizeObserver(ref);
+ *
+ * return (
+ *  <div ref={attachRef}>
+ *    {JSON.stringify(rect)}
+ *  </div>
+ * )
+ * ```
+ *
+ * @param element The DOM element to observe
+ */
+function useResizeObserver(element) {
+  const [rect, setRect] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  (0,_useIsomorphicEffect__WEBPACK_IMPORTED_MODULE_1__["default"])(() => {
+    if (!element) return;
+    getResizeObserver().observe(element);
+    setRect(element.getBoundingClientRect());
+    targetMap.set(element, rect => {
+      setRect(rect);
+    });
+    return () => {
+      targetMap.delete(element);
+    };
+  }, [element]);
+  return rect;
+}
+
+/***/ }),
+
+/***/ "./node_modules/@restart/ui/esm/Anchor.js":
+/*!************************************************!*\
+  !*** ./node_modules/@restart/ui/esm/Anchor.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   isTrivialHref: () => (/* binding */ isTrivialHref)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _restart_hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @restart/hooks */ "./node_modules/@restart/hooks/esm/index.js");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Button */ "./node_modules/@restart/ui/esm/Button.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+const _excluded = ["onKeyDown"];
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/anchor-has-content */
+
+
+
+
+
+function isTrivialHref(href) {
+  return !href || href.trim() === '#';
+}
+/**
+ * An generic `<a>` component that covers a few A11y cases, ensuring that
+ * cases where the `href` is missing or trivial like "#" are treated like buttons.
+ */
+const Anchor = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((_ref, ref) => {
+  let {
+      onKeyDown
+    } = _ref,
+    props = _objectWithoutPropertiesLoose(_ref, _excluded);
+  const [buttonProps] = (0,_Button__WEBPACK_IMPORTED_MODULE_3__.useButtonProps)(Object.assign({
+    tagName: 'a'
+  }, props));
+  const handleKeyDown = (0,_restart_hooks__WEBPACK_IMPORTED_MODULE_1__.useEventCallback)(e => {
+    buttonProps.onKeyDown(e);
+    onKeyDown == null ? void 0 : onKeyDown(e);
+  });
+  if (isTrivialHref(props.href) || props.role === 'button') {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", Object.assign({
+      ref: ref
+    }, props, buttonProps, {
+      onKeyDown: handleKeyDown
+    }));
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("a", Object.assign({
+    ref: ref
+  }, props, {
+    onKeyDown: onKeyDown
+  }));
+});
+Anchor.displayName = 'Anchor';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Anchor);
+
+/***/ }),
+
 /***/ "./node_modules/@restart/ui/esm/Button.js":
 /*!************************************************!*\
   !*** ./node_modules/@restart/ui/esm/Button.js ***!
@@ -29866,6 +30706,430 @@ module.exports = defineProperties;
 
 /***/ }),
 
+/***/ "./node_modules/dom-helpers/esm/addEventListener.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/addEventListener.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   onceSupported: () => (/* binding */ onceSupported),
+/* harmony export */   optionsSupported: () => (/* binding */ optionsSupported)
+/* harmony export */ });
+/* harmony import */ var _canUseDOM__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./canUseDOM */ "./node_modules/dom-helpers/esm/canUseDOM.js");
+/* eslint-disable no-return-assign */
+
+var optionsSupported = false;
+var onceSupported = false;
+
+try {
+  var options = {
+    get passive() {
+      return optionsSupported = true;
+    },
+
+    get once() {
+      // eslint-disable-next-line no-multi-assign
+      return onceSupported = optionsSupported = true;
+    }
+
+  };
+
+  if (_canUseDOM__WEBPACK_IMPORTED_MODULE_0__["default"]) {
+    window.addEventListener('test', options, options);
+    window.removeEventListener('test', options, true);
+  }
+} catch (e) {
+  /* */
+}
+
+/**
+ * An `addEventListener` ponyfill, supports the `once` option
+ * 
+ * @param node the element
+ * @param eventName the event name
+ * @param handle the handler
+ * @param options event options
+ */
+function addEventListener(node, eventName, handler, options) {
+  if (options && typeof options !== 'boolean' && !onceSupported) {
+    var once = options.once,
+        capture = options.capture;
+    var wrappedHandler = handler;
+
+    if (!onceSupported && once) {
+      wrappedHandler = handler.__once || function onceHandler(event) {
+        this.removeEventListener(eventName, onceHandler, capture);
+        handler.call(this, event);
+      };
+
+      handler.__once = wrappedHandler;
+    }
+
+    node.addEventListener(eventName, wrappedHandler, optionsSupported ? options : capture);
+  }
+
+  node.addEventListener(eventName, handler, options);
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (addEventListener);
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/esm/canUseDOM.js":
+/*!***************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/canUseDOM.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (!!(typeof window !== 'undefined' && window.document && window.document.createElement));
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/esm/css.js":
+/*!*********************************************!*\
+  !*** ./node_modules/dom-helpers/esm/css.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _getComputedStyle__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getComputedStyle */ "./node_modules/dom-helpers/esm/getComputedStyle.js");
+/* harmony import */ var _hyphenateStyle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hyphenateStyle */ "./node_modules/dom-helpers/esm/hyphenateStyle.js");
+/* harmony import */ var _isTransform__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./isTransform */ "./node_modules/dom-helpers/esm/isTransform.js");
+
+
+
+
+function style(node, property) {
+  var css = '';
+  var transforms = '';
+
+  if (typeof property === 'string') {
+    return node.style.getPropertyValue((0,_hyphenateStyle__WEBPACK_IMPORTED_MODULE_1__["default"])(property)) || (0,_getComputedStyle__WEBPACK_IMPORTED_MODULE_0__["default"])(node).getPropertyValue((0,_hyphenateStyle__WEBPACK_IMPORTED_MODULE_1__["default"])(property));
+  }
+
+  Object.keys(property).forEach(function (key) {
+    var value = property[key];
+
+    if (!value && value !== 0) {
+      node.style.removeProperty((0,_hyphenateStyle__WEBPACK_IMPORTED_MODULE_1__["default"])(key));
+    } else if ((0,_isTransform__WEBPACK_IMPORTED_MODULE_2__["default"])(key)) {
+      transforms += key + "(" + value + ") ";
+    } else {
+      css += (0,_hyphenateStyle__WEBPACK_IMPORTED_MODULE_1__["default"])(key) + ": " + value + ";";
+    }
+  });
+
+  if (transforms) {
+    css += "transform: " + transforms + ";";
+  }
+
+  node.style.cssText += ";" + css;
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (style);
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/esm/getComputedStyle.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/getComputedStyle.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ getComputedStyle)
+/* harmony export */ });
+/* harmony import */ var _ownerWindow__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ownerWindow */ "./node_modules/dom-helpers/esm/ownerWindow.js");
+
+/**
+ * Returns one or all computed style properties of an element.
+ * 
+ * @param node the element
+ * @param psuedoElement the style property
+ */
+
+function getComputedStyle(node, psuedoElement) {
+  return (0,_ownerWindow__WEBPACK_IMPORTED_MODULE_0__["default"])(node).getComputedStyle(node, psuedoElement);
+}
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/esm/hyphenate.js":
+/*!***************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/hyphenate.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ hyphenate)
+/* harmony export */ });
+var rUpper = /([A-Z])/g;
+function hyphenate(string) {
+  return string.replace(rUpper, '-$1').toLowerCase();
+}
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/esm/hyphenateStyle.js":
+/*!********************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/hyphenateStyle.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ hyphenateStyleName)
+/* harmony export */ });
+/* harmony import */ var _hyphenate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hyphenate */ "./node_modules/dom-helpers/esm/hyphenate.js");
+/**
+ * Copyright 2013-2014, Facebook, Inc.
+ * All rights reserved.
+ * https://github.com/facebook/react/blob/2aeb8a2a6beb00617a4217f7f8284924fa2ad819/src/vendor/core/hyphenateStyleName.js
+ */
+
+var msPattern = /^ms-/;
+function hyphenateStyleName(string) {
+  return (0,_hyphenate__WEBPACK_IMPORTED_MODULE_0__["default"])(string).replace(msPattern, '-ms-');
+}
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/esm/isTransform.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/isTransform.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ isTransform)
+/* harmony export */ });
+var supportedTransforms = /^((translate|rotate|scale)(X|Y|Z|3d)?|matrix(3d)?|perspective|skew(X|Y)?)$/i;
+function isTransform(value) {
+  return !!(value && supportedTransforms.test(value));
+}
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/esm/listen.js":
+/*!************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/listen.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _addEventListener__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addEventListener */ "./node_modules/dom-helpers/esm/addEventListener.js");
+/* harmony import */ var _removeEventListener__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./removeEventListener */ "./node_modules/dom-helpers/esm/removeEventListener.js");
+
+
+
+function listen(node, eventName, handler, options) {
+  (0,_addEventListener__WEBPACK_IMPORTED_MODULE_0__["default"])(node, eventName, handler, options);
+  return function () {
+    (0,_removeEventListener__WEBPACK_IMPORTED_MODULE_1__["default"])(node, eventName, handler, options);
+  };
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (listen);
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/esm/ownerDocument.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/ownerDocument.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ownerDocument)
+/* harmony export */ });
+/**
+ * Returns the owner document of a given element.
+ * 
+ * @param node the element
+ */
+function ownerDocument(node) {
+  return node && node.ownerDocument || document;
+}
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/esm/ownerWindow.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/ownerWindow.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ownerWindow)
+/* harmony export */ });
+/* harmony import */ var _ownerDocument__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ownerDocument */ "./node_modules/dom-helpers/esm/ownerDocument.js");
+
+/**
+ * Returns the owner window of a given element.
+ * 
+ * @param node the element
+ */
+
+function ownerWindow(node) {
+  var doc = (0,_ownerDocument__WEBPACK_IMPORTED_MODULE_0__["default"])(node);
+  return doc && doc.defaultView || window;
+}
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/esm/removeEventListener.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/removeEventListener.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * A `removeEventListener` ponyfill
+ * 
+ * @param node the element
+ * @param eventName the event name
+ * @param handle the handler
+ * @param options event options
+ */
+function removeEventListener(node, eventName, handler, options) {
+  var capture = options && typeof options !== 'boolean' ? options.capture : options;
+  node.removeEventListener(eventName, handler, capture);
+
+  if (handler.__once) {
+    node.removeEventListener(eventName, handler.__once, capture);
+  }
+}
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (removeEventListener);
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/esm/transitionEnd.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/transitionEnd.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ transitionEnd)
+/* harmony export */ });
+/* harmony import */ var _css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./css */ "./node_modules/dom-helpers/esm/css.js");
+/* harmony import */ var _listen__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./listen */ "./node_modules/dom-helpers/esm/listen.js");
+/* harmony import */ var _triggerEvent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./triggerEvent */ "./node_modules/dom-helpers/esm/triggerEvent.js");
+
+
+
+
+function parseDuration(node) {
+  var str = (0,_css__WEBPACK_IMPORTED_MODULE_0__["default"])(node, 'transitionDuration') || '';
+  var mult = str.indexOf('ms') === -1 ? 1000 : 1;
+  return parseFloat(str) * mult;
+}
+
+function emulateTransitionEnd(element, duration, padding) {
+  if (padding === void 0) {
+    padding = 5;
+  }
+
+  var called = false;
+  var handle = setTimeout(function () {
+    if (!called) (0,_triggerEvent__WEBPACK_IMPORTED_MODULE_2__["default"])(element, 'transitionend', true);
+  }, duration + padding);
+  var remove = (0,_listen__WEBPACK_IMPORTED_MODULE_1__["default"])(element, 'transitionend', function () {
+    called = true;
+  }, {
+    once: true
+  });
+  return function () {
+    clearTimeout(handle);
+    remove();
+  };
+}
+
+function transitionEnd(element, handler, duration, padding) {
+  if (duration == null) duration = parseDuration(element) || 0;
+  var removeEmulate = emulateTransitionEnd(element, duration, padding);
+  var remove = (0,_listen__WEBPACK_IMPORTED_MODULE_1__["default"])(element, 'transitionend', handler);
+  return function () {
+    removeEmulate();
+    remove();
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/esm/triggerEvent.js":
+/*!******************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/triggerEvent.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ triggerEvent)
+/* harmony export */ });
+/**
+ * Triggers an event on a given element.
+ * 
+ * @param node the element
+ * @param eventName the event name to trigger
+ * @param bubbles whether the event should bubble up
+ * @param cancelable whether the event should be cancelable
+ */
+function triggerEvent(node, eventName, bubbles, cancelable) {
+  if (bubbles === void 0) {
+    bubbles = false;
+  }
+
+  if (cancelable === void 0) {
+    cancelable = true;
+  }
+
+  if (node) {
+    var event = document.createEvent('HTMLEvents');
+    event.initEvent(eventName, bubbles, cancelable);
+    node.dispatchEvent(event);
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/es-define-property/index.js":
 /*!**************************************************!*\
   !*** ./node_modules/es-define-property/index.js ***!
@@ -30786,6 +32050,66 @@ if (typeof Object.create === 'function') {
     }
   }
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/invariant/browser.js":
+/*!*******************************************!*\
+  !*** ./node_modules/invariant/browser.js ***!
+  \*******************************************/
+/***/ ((module) => {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+/**
+ * Use invariant() to assert state which your program assumes to be true.
+ *
+ * Provide sprintf-style format (only %s is supported) and arguments
+ * to provide information about what broke and what you were
+ * expecting.
+ *
+ * The invariant message will be stripped in production, but the invariant
+ * will remain to ensure logic does not differ in production.
+ */
+
+var invariant = function(condition, format, a, b, c, d, e, f) {
+  if (true) {
+    if (format === undefined) {
+      throw new Error('invariant requires an error message argument');
+    }
+  }
+
+  if (!condition) {
+    var error;
+    if (format === undefined) {
+      error = new Error(
+        'Minified exception occurred; use the non-minified dev environment ' +
+        'for the full error message and additional helpful warnings.'
+      );
+    } else {
+      var args = [a, b, c, d, e, f];
+      var argIndex = 0;
+      error = new Error(
+        format.replace(/%s/g, function() { return args[argIndex++]; })
+      );
+      error.name = 'Invariant Violation';
+    }
+
+    error.framesToPop = 1; // we don't care about invariant's own frame
+    throw error;
+  }
+};
+
+module.exports = invariant;
 
 
 /***/ }),
@@ -32864,6 +34188,181 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/react-bootstrap/esm/Alert.js":
+/*!***************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/Alert.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var uncontrollable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! uncontrollable */ "./node_modules/uncontrollable/lib/esm/index.js");
+/* harmony import */ var _restart_hooks_useEventCallback__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @restart/hooks/useEventCallback */ "./node_modules/@restart/hooks/esm/useEventCallback.js");
+/* harmony import */ var _ThemeProvider__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ThemeProvider */ "./node_modules/react-bootstrap/esm/ThemeProvider.js");
+/* harmony import */ var _AlertHeading__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./AlertHeading */ "./node_modules/react-bootstrap/esm/AlertHeading.js");
+/* harmony import */ var _AlertLink__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./AlertLink */ "./node_modules/react-bootstrap/esm/AlertLink.js");
+/* harmony import */ var _Fade__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Fade */ "./node_modules/react-bootstrap/esm/Fade.js");
+/* harmony import */ var _CloseButton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./CloseButton */ "./node_modules/react-bootstrap/esm/CloseButton.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+"use client";
+
+
+
+
+
+
+
+
+
+
+
+
+const Alert = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.forwardRef((uncontrolledProps, ref) => {
+  const {
+    bsPrefix,
+    show = true,
+    closeLabel = 'Close alert',
+    closeVariant,
+    className,
+    children,
+    variant = 'primary',
+    onClose,
+    dismissible,
+    transition = _Fade__WEBPACK_IMPORTED_MODULE_5__["default"],
+    ...props
+  } = (0,uncontrollable__WEBPACK_IMPORTED_MODULE_2__.useUncontrolled)(uncontrolledProps, {
+    show: 'onClose'
+  });
+  const prefix = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_6__.useBootstrapPrefix)(bsPrefix, 'alert');
+  const handleClose = (0,_restart_hooks_useEventCallback__WEBPACK_IMPORTED_MODULE_3__["default"])(e => {
+    if (onClose) {
+      onClose(false, e);
+    }
+  });
+  const Transition = transition === true ? _Fade__WEBPACK_IMPORTED_MODULE_5__["default"] : transition;
+  const alert = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    role: "alert",
+    ...(!Transition ? props : undefined),
+    ref: ref,
+    className: classnames__WEBPACK_IMPORTED_MODULE_0___default()(className, prefix, variant && `${prefix}-${variant}`, dismissible && `${prefix}-dismissible`),
+    children: [dismissible && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_CloseButton__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      onClick: handleClose,
+      "aria-label": closeLabel,
+      variant: closeVariant
+    }), children]
+  });
+  if (!Transition) return show ? alert : null;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(Transition, {
+    unmountOnExit: true,
+    ...props,
+    ref: undefined,
+    in: show,
+    children: alert
+  });
+});
+Alert.displayName = 'Alert';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Object.assign(Alert, {
+  Link: _AlertLink__WEBPACK_IMPORTED_MODULE_8__["default"],
+  Heading: _AlertHeading__WEBPACK_IMPORTED_MODULE_9__["default"]
+}));
+
+/***/ }),
+
+/***/ "./node_modules/react-bootstrap/esm/AlertHeading.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/AlertHeading.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ThemeProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ThemeProvider */ "./node_modules/react-bootstrap/esm/ThemeProvider.js");
+/* harmony import */ var _divWithClassName__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./divWithClassName */ "./node_modules/react-bootstrap/esm/divWithClassName.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+"use client";
+
+
+
+
+
+
+const DivStyledAsH4 = (0,_divWithClassName__WEBPACK_IMPORTED_MODULE_3__["default"])('h4');
+DivStyledAsH4.displayName = 'DivStyledAsH4';
+const AlertHeading = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(({
+  className,
+  bsPrefix,
+  as: Component = DivStyledAsH4,
+  ...props
+}, ref) => {
+  bsPrefix = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_4__.useBootstrapPrefix)(bsPrefix, 'alert-heading');
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Component, {
+    ref: ref,
+    className: classnames__WEBPACK_IMPORTED_MODULE_1___default()(className, bsPrefix),
+    ...props
+  });
+});
+AlertHeading.displayName = 'AlertHeading';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AlertHeading);
+
+/***/ }),
+
+/***/ "./node_modules/react-bootstrap/esm/AlertLink.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/AlertLink.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _restart_ui_Anchor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @restart/ui/Anchor */ "./node_modules/@restart/ui/esm/Anchor.js");
+/* harmony import */ var _ThemeProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ThemeProvider */ "./node_modules/react-bootstrap/esm/ThemeProvider.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+"use client";
+
+
+
+
+
+
+const AlertLink = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(({
+  className,
+  bsPrefix,
+  as: Component = _restart_ui_Anchor__WEBPACK_IMPORTED_MODULE_3__["default"],
+  ...props
+}, ref) => {
+  bsPrefix = (0,_ThemeProvider__WEBPACK_IMPORTED_MODULE_4__.useBootstrapPrefix)(bsPrefix, 'alert-link');
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Component, {
+    ref: ref,
+    className: classnames__WEBPACK_IMPORTED_MODULE_1___default()(className, bsPrefix),
+    ...props
+  });
+});
+AlertLink.displayName = 'AlertLink';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AlertLink);
+
+/***/ }),
+
 /***/ "./node_modules/react-bootstrap/esm/Button.js":
 /*!****************************************************!*\
   !*** ./node_modules/react-bootstrap/esm/Button.js ***!
@@ -32918,6 +34417,58 @@ const Button = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.forwardRef(({
 });
 Button.displayName = 'Button';
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Button);
+
+/***/ }),
+
+/***/ "./node_modules/react-bootstrap/esm/CloseButton.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/CloseButton.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+const propTypes = {
+  /** An accessible label indicating the relevant information about the Close Button. */
+  'aria-label': (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+  /** A callback fired after the Close Button is clicked. */
+  onClick: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+  /**
+   * Render different color variant for the button.
+   *
+   * Omitting this will render the default dark color.
+   */
+  variant: prop_types__WEBPACK_IMPORTED_MODULE_3___default().oneOf(['white'])
+};
+const CloseButton = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(({
+  className,
+  variant,
+  'aria-label': ariaLabel = 'Close',
+  ...props
+}, ref) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+  ref: ref,
+  type: "button",
+  className: classnames__WEBPACK_IMPORTED_MODULE_1___default()('btn-close', variant && `btn-close-${variant}`, className),
+  "aria-label": ariaLabel,
+  ...props
+}));
+CloseButton.displayName = 'CloseButton';
+CloseButton.propTypes = propTypes;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CloseButton);
 
 /***/ }),
 
@@ -33102,6 +34653,74 @@ function hasChildOfType(children, type) {
   return react__WEBPACK_IMPORTED_MODULE_0__.Children.toArray(children).some(child => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.isValidElement(child) && child.type === type);
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/react-bootstrap/esm/Fade.js":
+/*!**************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/Fade.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_transition_group_Transition__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-transition-group/Transition */ "./node_modules/react-transition-group/esm/Transition.js");
+/* harmony import */ var _transitionEndListener__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./transitionEndListener */ "./node_modules/react-bootstrap/esm/transitionEndListener.js");
+/* harmony import */ var _triggerBrowserReflow__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./triggerBrowserReflow */ "./node_modules/react-bootstrap/esm/triggerBrowserReflow.js");
+/* harmony import */ var _TransitionWrapper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./TransitionWrapper */ "./node_modules/react-bootstrap/esm/TransitionWrapper.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+
+
+const fadeStyles = {
+  [react_transition_group_Transition__WEBPACK_IMPORTED_MODULE_3__.ENTERING]: 'show',
+  [react_transition_group_Transition__WEBPACK_IMPORTED_MODULE_3__.ENTERED]: 'show'
+};
+const Fade = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.forwardRef(({
+  className,
+  children,
+  transitionClasses = {},
+  onEnter,
+  ...rest
+}, ref) => {
+  const props = {
+    in: false,
+    timeout: 300,
+    mountOnEnter: false,
+    unmountOnExit: false,
+    appear: false,
+    ...rest
+  };
+  const handleEnter = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((node, isAppearing) => {
+    (0,_triggerBrowserReflow__WEBPACK_IMPORTED_MODULE_4__["default"])(node);
+    onEnter == null ? void 0 : onEnter(node, isAppearing);
+  }, [onEnter]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_TransitionWrapper__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    ref: ref,
+    addEndListener: _transitionEndListener__WEBPACK_IMPORTED_MODULE_6__["default"],
+    ...props,
+    onEnter: handleEnter,
+    childRef: children.ref,
+    children: (status, innerProps) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.cloneElement(children, {
+      ...innerProps,
+      className: classnames__WEBPACK_IMPORTED_MODULE_0___default()('fade', className, children.props.className, fadeStyles[status], transitionClasses[status])
+    })
+  });
+});
+Fade.displayName = 'Fade';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Fade);
 
 /***/ }),
 
@@ -34093,6 +35712,191 @@ function createBootstrapComponent(Component, opts) {
 
 /***/ }),
 
+/***/ "./node_modules/react-bootstrap/esm/TransitionWrapper.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/TransitionWrapper.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_transition_group_Transition__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-transition-group/Transition */ "./node_modules/react-transition-group/esm/Transition.js");
+/* harmony import */ var _restart_hooks_useMergedRefs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @restart/hooks/useMergedRefs */ "./node_modules/@restart/hooks/esm/useMergedRefs.js");
+/* harmony import */ var _safeFindDOMNode__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./safeFindDOMNode */ "./node_modules/react-bootstrap/esm/safeFindDOMNode.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+"use client";
+
+
+
+
+
+
+// Normalizes Transition callbacks when nodeRef is used.
+const TransitionWrapper = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().forwardRef(({
+  onEnter,
+  onEntering,
+  onEntered,
+  onExit,
+  onExiting,
+  onExited,
+  addEndListener,
+  children,
+  childRef,
+  ...props
+}, ref) => {
+  const nodeRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const mergedRef = (0,_restart_hooks_useMergedRefs__WEBPACK_IMPORTED_MODULE_1__["default"])(nodeRef, childRef);
+  const attachRef = r => {
+    mergedRef((0,_safeFindDOMNode__WEBPACK_IMPORTED_MODULE_3__["default"])(r));
+  };
+  const normalize = callback => param => {
+    if (callback && nodeRef.current) {
+      callback(nodeRef.current, param);
+    }
+  };
+
+  /* eslint-disable react-hooks/exhaustive-deps */
+  const handleEnter = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(normalize(onEnter), [onEnter]);
+  const handleEntering = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(normalize(onEntering), [onEntering]);
+  const handleEntered = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(normalize(onEntered), [onEntered]);
+  const handleExit = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(normalize(onExit), [onExit]);
+  const handleExiting = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(normalize(onExiting), [onExiting]);
+  const handleExited = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(normalize(onExited), [onExited]);
+  const handleAddEndListener = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(normalize(addEndListener), [addEndListener]);
+  /* eslint-enable react-hooks/exhaustive-deps */
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_transition_group_Transition__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    ref: ref,
+    ...props,
+    onEnter: handleEnter,
+    onEntered: handleEntered,
+    onEntering: handleEntering,
+    onExit: handleExit,
+    onExited: handleExited,
+    onExiting: handleExiting,
+    addEndListener: handleAddEndListener,
+    nodeRef: nodeRef,
+    children: typeof children === 'function' ? (status, innerProps) =>
+    // TODO: Types for RTG missing innerProps, so need to cast.
+    children(status, {
+      ...innerProps,
+      ref: attachRef
+    }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().cloneElement(children, {
+      ref: attachRef
+    })
+  });
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TransitionWrapper);
+
+/***/ }),
+
+/***/ "./node_modules/react-bootstrap/esm/divWithClassName.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/divWithClassName.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (className => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((p, ref) => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+  ...p,
+  ref: ref,
+  className: classnames__WEBPACK_IMPORTED_MODULE_1___default()(p.className, className)
+})));
+
+/***/ }),
+
+/***/ "./node_modules/react-bootstrap/esm/safeFindDOMNode.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/safeFindDOMNode.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ safeFindDOMNode)
+/* harmony export */ });
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+
+function safeFindDOMNode(componentOrElement) {
+  if (componentOrElement && 'setState' in componentOrElement) {
+    return react_dom__WEBPACK_IMPORTED_MODULE_0__.findDOMNode(componentOrElement);
+  }
+  return componentOrElement != null ? componentOrElement : null;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-bootstrap/esm/transitionEndListener.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/transitionEndListener.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ transitionEndListener)
+/* harmony export */ });
+/* harmony import */ var dom_helpers_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dom-helpers/css */ "./node_modules/dom-helpers/esm/css.js");
+/* harmony import */ var dom_helpers_transitionEnd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! dom-helpers/transitionEnd */ "./node_modules/dom-helpers/esm/transitionEnd.js");
+
+
+function parseDuration(node, property) {
+  const str = (0,dom_helpers_css__WEBPACK_IMPORTED_MODULE_0__["default"])(node, property) || '';
+  const mult = str.indexOf('ms') === -1 ? 1000 : 1;
+  return parseFloat(str) * mult;
+}
+function transitionEndListener(element, handler) {
+  const duration = parseDuration(element, 'transitionDuration');
+  const delay = parseDuration(element, 'transitionDelay');
+  const remove = (0,dom_helpers_transitionEnd__WEBPACK_IMPORTED_MODULE_1__["default"])(element, e => {
+    if (e.target === element) {
+      remove();
+      handler(e);
+    }
+  }, duration + delay);
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-bootstrap/esm/triggerBrowserReflow.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/react-bootstrap/esm/triggerBrowserReflow.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ triggerBrowserReflow)
+/* harmony export */ });
+// reading a dimension prop will cause the browser to recalculate,
+// which will let our animations work
+function triggerBrowserReflow(node) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+  node.offsetHeight;
+}
+
+/***/ }),
+
 /***/ "./node_modules/react-datepicker/dist/react-datepicker.min.js":
 /*!********************************************************************!*\
   !*** ./node_modules/react-datepicker/dist/react-datepicker.min.js ***!
@@ -34105,14071 +35909,6 @@ function createBootstrapComponent(Component, opts) {
   Released under the MIT License.
 */
 !function(e,t){ true?t(exports,__webpack_require__(/*! react */ "./node_modules/react/index.js"),__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"),__webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.js"),__webpack_require__(/*! date-fns/isDate */ "./node_modules/date-fns/isDate.js"),__webpack_require__(/*! date-fns/isValid */ "./node_modules/date-fns/isValid.js"),__webpack_require__(/*! date-fns/format */ "./node_modules/date-fns/format.js"),__webpack_require__(/*! date-fns/addMinutes */ "./node_modules/date-fns/addMinutes.js"),__webpack_require__(/*! date-fns/addHours */ "./node_modules/date-fns/addHours.js"),__webpack_require__(/*! date-fns/addDays */ "./node_modules/date-fns/addDays.js"),__webpack_require__(/*! date-fns/addWeeks */ "./node_modules/date-fns/addWeeks.js"),__webpack_require__(/*! date-fns/addMonths */ "./node_modules/date-fns/addMonths.js"),__webpack_require__(/*! date-fns/addQuarters */ "./node_modules/date-fns/addQuarters.js"),__webpack_require__(/*! date-fns/addYears */ "./node_modules/date-fns/addYears.js"),__webpack_require__(/*! date-fns/subDays */ "./node_modules/date-fns/subDays.js"),__webpack_require__(/*! date-fns/subWeeks */ "./node_modules/date-fns/subWeeks.js"),__webpack_require__(/*! date-fns/subMonths */ "./node_modules/date-fns/subMonths.js"),__webpack_require__(/*! date-fns/subQuarters */ "./node_modules/date-fns/subQuarters.js"),__webpack_require__(/*! date-fns/subYears */ "./node_modules/date-fns/subYears.js"),__webpack_require__(/*! date-fns/getSeconds */ "./node_modules/date-fns/getSeconds.js"),__webpack_require__(/*! date-fns/getMinutes */ "./node_modules/date-fns/getMinutes.js"),__webpack_require__(/*! date-fns/getHours */ "./node_modules/date-fns/getHours.js"),__webpack_require__(/*! date-fns/getDay */ "./node_modules/date-fns/getDay.js"),__webpack_require__(/*! date-fns/getDate */ "./node_modules/date-fns/getDate.js"),__webpack_require__(/*! date-fns/getISOWeek */ "./node_modules/date-fns/getISOWeek.js"),__webpack_require__(/*! date-fns/getMonth */ "./node_modules/date-fns/getMonth.js"),__webpack_require__(/*! date-fns/getQuarter */ "./node_modules/date-fns/getQuarter.js"),__webpack_require__(/*! date-fns/getYear */ "./node_modules/date-fns/getYear.js"),__webpack_require__(/*! date-fns/getTime */ "./node_modules/date-fns/getTime.js"),__webpack_require__(/*! date-fns/setSeconds */ "./node_modules/date-fns/setSeconds.js"),__webpack_require__(/*! date-fns/setMinutes */ "./node_modules/date-fns/setMinutes.js"),__webpack_require__(/*! date-fns/setHours */ "./node_modules/date-fns/setHours.js"),__webpack_require__(/*! date-fns/setMonth */ "./node_modules/date-fns/setMonth.js"),__webpack_require__(/*! date-fns/setQuarter */ "./node_modules/date-fns/setQuarter.js"),__webpack_require__(/*! date-fns/setYear */ "./node_modules/date-fns/setYear.js"),__webpack_require__(/*! date-fns/min */ "./node_modules/date-fns/min.js"),__webpack_require__(/*! date-fns/max */ "./node_modules/date-fns/max.js"),__webpack_require__(/*! date-fns/differenceInCalendarDays */ "./node_modules/date-fns/differenceInCalendarDays.js"),__webpack_require__(/*! date-fns/differenceInCalendarMonths */ "./node_modules/date-fns/differenceInCalendarMonths.js"),__webpack_require__(/*! date-fns/differenceInCalendarYears */ "./node_modules/date-fns/differenceInCalendarYears.js"),__webpack_require__(/*! date-fns/differenceInCalendarQuarters */ "./node_modules/date-fns/differenceInCalendarQuarters.js"),__webpack_require__(/*! date-fns/startOfDay */ "./node_modules/date-fns/startOfDay.js"),__webpack_require__(/*! date-fns/startOfWeek */ "./node_modules/date-fns/startOfWeek.js"),__webpack_require__(/*! date-fns/startOfMonth */ "./node_modules/date-fns/startOfMonth.js"),__webpack_require__(/*! date-fns/startOfQuarter */ "./node_modules/date-fns/startOfQuarter.js"),__webpack_require__(/*! date-fns/startOfYear */ "./node_modules/date-fns/startOfYear.js"),__webpack_require__(/*! date-fns/endOfDay */ "./node_modules/date-fns/endOfDay.js"),__webpack_require__(/*! date-fns/endOfWeek */ "./node_modules/date-fns/endOfWeek.js"),__webpack_require__(/*! date-fns/endOfMonth */ "./node_modules/date-fns/endOfMonth.js"),__webpack_require__(/*! date-fns/endOfYear */ "./node_modules/date-fns/endOfYear.js"),__webpack_require__(/*! date-fns/isEqual */ "./node_modules/date-fns/isEqual.js"),__webpack_require__(/*! date-fns/isSameDay */ "./node_modules/date-fns/isSameDay.js"),__webpack_require__(/*! date-fns/isSameMonth */ "./node_modules/date-fns/isSameMonth.js"),__webpack_require__(/*! date-fns/isSameYear */ "./node_modules/date-fns/isSameYear.js"),__webpack_require__(/*! date-fns/isSameQuarter */ "./node_modules/date-fns/isSameQuarter.js"),__webpack_require__(/*! date-fns/isAfter */ "./node_modules/date-fns/isAfter.js"),__webpack_require__(/*! date-fns/isBefore */ "./node_modules/date-fns/isBefore.js"),__webpack_require__(/*! date-fns/isWithinInterval */ "./node_modules/date-fns/isWithinInterval.js"),__webpack_require__(/*! date-fns/toDate */ "./node_modules/date-fns/toDate.js"),__webpack_require__(/*! date-fns/parse */ "./node_modules/date-fns/parse.js"),__webpack_require__(/*! date-fns/parseISO */ "./node_modules/date-fns/parseISO.js"),__webpack_require__(/*! date-fns */ "./node_modules/date-fns/index.js"),__webpack_require__(/*! react-onclickoutside */ "./node_modules/react-onclickoutside/dist/react-onclickoutside.es.js"),__webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"),__webpack_require__(/*! @floating-ui/react */ "./node_modules/@floating-ui/react/dist/floating-ui.react.esm.js"),__webpack_require__(/*! date-fns/set */ "./node_modules/date-fns/set.js")):0}(this,(function(e,t,r,n,a,o,s,i,p,c,l,d,u,h,f,m,y,g,v,D,k,w,b,S,M,C,_,Y,E,P,N,O,x,I,T,R,L,F,A,W,Q,K,q,B,H,j,V,U,$,z,G,J,X,Z,ee,te,re,ne,ae,oe,se,ie,pe,ce,le,de){"use strict";function ue(e){return e&&"object"==typeof e&&"default"in e?e:{default:e}}var he=ue(t),fe=ue(pe),me=ue(ce);function ye(e,t,r){return t=Ee(t),function(e,t){if(t&&("object"==typeof t||"function"==typeof t))return t;if(void 0!==t)throw new TypeError("Derived constructors may only return object or undefined");return function(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}(e)}(e,ge()?Reflect.construct(t,r||[],Ee(e).constructor):t.apply(e,r))}function ge(){try{var e=!Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],(function(){})))}catch(e){}return(ge=function(){return!!e})()}function ve(e,t){var r=Object.keys(e);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(e);t&&(n=n.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),r.push.apply(r,n)}return r}function De(e){for(var t=1;t<arguments.length;t++){var r=null!=arguments[t]?arguments[t]:{};t%2?ve(Object(r),!0).forEach((function(t){Ce(e,t,r[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(r)):ve(Object(r)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(r,t))}))}return e}function ke(e){var t=function(e,t){if("object"!=typeof e||!e)return e;var r=e[Symbol.toPrimitive];if(void 0!==r){var n=r.call(e,t||"default");if("object"!=typeof n)return n;throw new TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(e)}(e,"string");return"symbol"==typeof t?t:t+""}function we(e){return we="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},we(e)}function be(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function Se(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,ke(n.key),n)}}function Me(e,t,r){return t&&Se(e.prototype,t),r&&Se(e,r),Object.defineProperty(e,"prototype",{writable:!1}),e}function Ce(e,t,r){return(t=ke(t))in e?Object.defineProperty(e,t,{value:r,enumerable:!0,configurable:!0,writable:!0}):e[t]=r,e}function _e(){return _e=Object.assign?Object.assign.bind():function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n])}return e},_e.apply(this,arguments)}function Ye(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),Object.defineProperty(e,"prototype",{writable:!1}),t&&Pe(e,t)}function Ee(e){return Ee=Object.setPrototypeOf?Object.getPrototypeOf.bind():function(e){return e.__proto__||Object.getPrototypeOf(e)},Ee(e)}function Pe(e,t){return Pe=Object.setPrototypeOf?Object.setPrototypeOf.bind():function(e,t){return e.__proto__=t,e},Pe(e,t)}function Ne(e){return function(e){if(Array.isArray(e))return Oe(e)}(e)||function(e){if("undefined"!=typeof Symbol&&null!=e[Symbol.iterator]||null!=e["@@iterator"])return Array.from(e)}(e)||function(e,t){if(!e)return;if("string"==typeof e)return Oe(e,t);var r=Object.prototype.toString.call(e).slice(8,-1);"Object"===r&&e.constructor&&(r=e.constructor.name);if("Map"===r||"Set"===r)return Array.from(e);if("Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r))return Oe(e,t)}(e)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function Oe(e,t){(null==t||t>e.length)&&(t=e.length);for(var r=0,n=new Array(t);r<t;r++)n[r]=e[r];return n}var xe=12,Ie=/P+p+|P+|p+|''|'(''|[^'])+('|$)|./g;function Te(e){var t=e?"string"==typeof e||e instanceof String?se.parseISO(e):ae.toDate(e):new Date;return Re(t)?t:null}function Re(e,t){return t=t||new Date("1/1/1000"),o.isValid(e)&&!re.isBefore(e,t)}function Le(e,t,r){if("en"===r)return s.format(e,t,{useAdditionalWeekYearTokens:!0,useAdditionalDayOfYearTokens:!0});var n=Je(r);return r&&!n&&console.warn('A locale object was not found for the provided string ["'.concat(r,'"].')),!n&&Ge()&&Je(Ge())&&(n=Je(Ge())),s.format(e,t,{locale:n||null,useAdditionalWeekYearTokens:!0,useAdditionalDayOfYearTokens:!0})}function Fe(e,t){var r=t.dateFormat,n=t.locale;return e&&Le(e,Array.isArray(r)?r[0]:r,n)||""}function Ae(e,t){var r=t.hour,n=void 0===r?0:r,a=t.minute,o=void 0===a?0:a,s=t.second,i=void 0===s?0:s;return O.setHours(N.setMinutes(P.setSeconds(e,i),o),n)}function We(e,t,r){var n=Je(t||Ge());return q.startOfWeek(e,{locale:n,weekStartsOn:r})}function Qe(e){return B.startOfMonth(e)}function Ke(e){return j.startOfYear(e)}function qe(e){return H.startOfQuarter(e)}function Be(){return K.startOfDay(Te())}function He(e,t){return e&&t?Z.isSameYear(e,t):!e&&!t}function je(e,t){return e&&t?X.isSameMonth(e,t):!e&&!t}function Ve(e,t){return e&&t?ee.isSameQuarter(e,t):!e&&!t}function Ue(e,t){return e&&t?J.isSameDay(e,t):!e&&!t}function $e(e,t){return e&&t?G.isEqual(e,t):!e&&!t}function ze(e,t,r){var n,a=K.startOfDay(t),o=V.endOfDay(r);try{n=ne.isWithinInterval(e,{start:a,end:o})}catch(e){n=!1}return n}function Ge(){return("undefined"!=typeof window?window:globalThis).__localeId__}function Je(e){if("string"==typeof e){var t="undefined"!=typeof window?window:globalThis;return t.__localeData__?t.__localeData__[e]:null}return e}function Xe(e,t){return Le(x.setMonth(Te(),e),"LLLL",t)}function Ze(e,t){return Le(x.setMonth(Te(),e),"LLL",t)}function et(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},r=t.minDate,n=t.maxDate,a=t.excludeDates,o=t.excludeDateIntervals,s=t.includeDates,i=t.includeDateIntervals,p=t.filterDate;return pt(e,{minDate:r,maxDate:n})||a&&a.some((function(t){return Ue(e,t.date?t.date:t)}))||o&&o.some((function(t){var r=t.start,n=t.end;return ne.isWithinInterval(e,{start:r,end:n})}))||s&&!s.some((function(t){return Ue(e,t)}))||i&&!i.some((function(t){var r=t.start,n=t.end;return ne.isWithinInterval(e,{start:r,end:n})}))||p&&!p(Te(e))||!1}function tt(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},r=t.excludeDates,n=t.excludeDateIntervals;return n&&n.length>0?n.some((function(t){var r=t.start,n=t.end;return ne.isWithinInterval(e,{start:r,end:n})})):r&&r.some((function(t){return Ue(e,t.date?t.date:t)}))||!1}function rt(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},r=t.minDate,n=t.maxDate,a=t.excludeDates,o=t.includeDates,s=t.filterDate;return pt(e,{minDate:B.startOfMonth(r),maxDate:$.endOfMonth(n)})||a&&a.some((function(t){return je(e,t)}))||o&&!o.some((function(t){return je(e,t)}))||s&&!s(Te(e))||!1}function nt(e,t,r,n){var a=Y.getYear(e),o=C.getMonth(e),s=Y.getYear(t),i=C.getMonth(t),p=Y.getYear(n);return a===s&&a===p?o<=r&&r<=i:a<s?p===a&&o<=r||p===s&&i>=r||p<s&&p>a:void 0}function at(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},r=t.minDate,n=t.maxDate,a=t.excludeDates,o=t.includeDates,s=t.filterDate;return pt(e,{minDate:r,maxDate:n})||a&&a.some((function(t){return Ve(e,t)}))||o&&!o.some((function(t){return Ve(e,t)}))||s&&!s(Te(e))||!1}function ot(e,t,r){if(!o.isValid(t)||!o.isValid(r))return!1;var n=Y.getYear(t),a=Y.getYear(r);return n<=e&&a>=e}function st(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},r=t.minDate,n=t.maxDate,a=t.excludeDates,o=t.includeDates,s=t.filterDate,i=new Date(e,0,1);return pt(i,{minDate:j.startOfYear(r),maxDate:z.endOfYear(n)})||a&&a.some((function(e){return He(i,e)}))||o&&!o.some((function(e){return He(i,e)}))||s&&!s(Te(i))||!1}function it(e,t,r,n){var a=Y.getYear(e),o=_.getQuarter(e),s=Y.getYear(t),i=_.getQuarter(t),p=Y.getYear(n);return a===s&&a===p?o<=r&&r<=i:a<s?p===a&&o<=r||p===s&&i>=r||p<s&&p>a:void 0}function pt(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},r=t.minDate,n=t.maxDate;return r&&F.differenceInCalendarDays(e,r)<0||n&&F.differenceInCalendarDays(e,n)>0}function ct(e,t){return t.some((function(t){return w.getHours(t)===w.getHours(e)&&k.getMinutes(t)===k.getMinutes(e)&&D.getSeconds(t)===D.getSeconds(e)}))}function lt(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},r=t.excludeTimes,n=t.includeTimes,a=t.filterTime;return r&&ct(e,r)||n&&!ct(e,n)||a&&!a(e)||!1}function dt(e,t){var r=t.minTime,n=t.maxTime;if(!r||!n)throw new Error("Both minTime and maxTime props required");var a=Te();a=O.setHours(a,w.getHours(e)),a=N.setMinutes(a,k.getMinutes(e)),a=P.setSeconds(a,D.getSeconds(e));var o=Te();o=O.setHours(o,w.getHours(r)),o=N.setMinutes(o,k.getMinutes(r)),o=P.setSeconds(o,D.getSeconds(r));var s,i=Te();i=O.setHours(i,w.getHours(n)),i=N.setMinutes(i,k.getMinutes(n)),i=P.setSeconds(i,D.getSeconds(n));try{s=!ne.isWithinInterval(a,{start:o,end:i})}catch(e){s=!1}return s}function ut(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},r=t.minDate,n=t.includeDates,a=y.subMonths(e,1);return r&&A.differenceInCalendarMonths(r,a)>0||n&&n.every((function(e){return A.differenceInCalendarMonths(e,a)>0}))||!1}function ht(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},r=t.maxDate,n=t.includeDates,a=d.addMonths(e,1);return r&&A.differenceInCalendarMonths(a,r)>0||n&&n.every((function(e){return A.differenceInCalendarMonths(a,e)>0}))||!1}function ft(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},r=t.minDate,n=t.includeDates,a=v.subYears(e,1);return r&&W.differenceInCalendarYears(r,a)>0||n&&n.every((function(e){return W.differenceInCalendarYears(e,a)>0}))||!1}function mt(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},r=t.maxDate,n=t.includeDates,a=h.addYears(e,1);return r&&W.differenceInCalendarYears(a,r)>0||n&&n.every((function(e){return W.differenceInCalendarYears(a,e)>0}))||!1}function yt(e){var t=e.minDate,r=e.includeDates;if(r&&t){var n=r.filter((function(e){return F.differenceInCalendarDays(e,t)>=0}));return R.min(n)}return r?R.min(r):t}function gt(e){var t=e.maxDate,r=e.includeDates;if(r&&t){var n=r.filter((function(e){return F.differenceInCalendarDays(e,t)<=0}));return L.max(n)}return r?L.max(r):t}function vt(){for(var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"react-datepicker__day--highlighted",r=new Map,n=0,o=e.length;n<o;n++){var s=e[n];if(a.isDate(s)){var i=Le(s,"MM.dd.yyyy"),p=r.get(i)||[];p.includes(t)||(p.push(t),r.set(i,p))}else if("object"===we(s)){var c=Object.keys(s),l=c[0],d=s[c[0]];if("string"==typeof l&&d.constructor===Array)for(var u=0,h=d.length;u<h;u++){var f=Le(d[u],"MM.dd.yyyy"),m=r.get(f)||[];m.includes(l)||(m.push(l),r.set(f,m))}}}return r}function Dt(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"react-datepicker__day--holidays",r=new Map;return e.forEach((function(e){var n=e.date,o=e.holidayName;if(a.isDate(n)){var s=Le(n,"MM.dd.yyyy"),i=r.get(s)||{};if(!("className"in i)||i.className!==t||(p=i.holidayNames,c=[o],p.length!==c.length||!p.every((function(e,t){return e===c[t]})))){var p,c;i.className=t;var l=i.holidayNames;i.holidayNames=l?[].concat(Ne(l),[o]):[o],r.set(s,i)}}})),r}function kt(e,t,r,n,a){for(var o=a.length,s=[],c=0;c<o;c++){var l=e;l=p.addHours(l,w.getHours(a[c])),l=i.addMinutes(l,k.getMinutes(a[c])),l=ie.addSeconds(l,D.getSeconds(a[c]));var d=i.addMinutes(e,(r+1)*n);te.isAfter(l,t)&&re.isBefore(l,d)&&s.push(a[c])}return s}function wt(e){return e<10?"0".concat(e):"".concat(e)}function bt(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:xe,r=Math.ceil(Y.getYear(e)/t)*t;return{startPeriod:r-(t-1),endPeriod:r}}function St(e){var t=e.getSeconds(),r=e.getMilliseconds();return ae.toDate(e.getTime()-1e3*t-r)}function Mt(e){if(!a.isDate(e))throw new Error("Invalid date");var t=new Date(e);return t.setHours(0,0,0,0),t}function Ct(e,t){if(!a.isDate(e)||!a.isDate(t))throw new Error("Invalid date received");var r=Mt(e),n=Mt(t);return re.isBefore(r,n)}function _t(e){return" "===e.key}function Yt(e,t,r,n){for(var a=[],o=0;o<2*t+1;o++){var s=e+t-o,i=!0;r&&(i=Y.getYear(r)<=s),n&&i&&(i=Y.getYear(n)>=s),i&&a.push(s)}return a}var Et=function(e){function r(e){var n;be(this,r),Ce(n=ye(this,r,[e]),"renderOptions",(function(){var e=n.props.year,t=n.state.yearsList.map((function(t){return he.default.createElement("div",{className:e===t?"react-datepicker__year-option react-datepicker__year-option--selected_year":"react-datepicker__year-option",key:t,onClick:n.onChange.bind(n,t),"aria-selected":e===t?"true":void 0},e===t?he.default.createElement("span",{className:"react-datepicker__year-option--selected"},"✓"):"",t)})),r=n.props.minDate?Y.getYear(n.props.minDate):null,a=n.props.maxDate?Y.getYear(n.props.maxDate):null;return a&&n.state.yearsList.find((function(e){return e===a}))||t.unshift(he.default.createElement("div",{className:"react-datepicker__year-option",key:"upcoming",onClick:n.incrementYears},he.default.createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--years react-datepicker__navigation--years-upcoming"}))),r&&n.state.yearsList.find((function(e){return e===r}))||t.push(he.default.createElement("div",{className:"react-datepicker__year-option",key:"previous",onClick:n.decrementYears},he.default.createElement("a",{className:"react-datepicker__navigation react-datepicker__navigation--years react-datepicker__navigation--years-previous"}))),t})),Ce(n,"onChange",(function(e){n.props.onChange(e)})),Ce(n,"handleClickOutside",(function(){n.props.onCancel()})),Ce(n,"shiftYears",(function(e){var t=n.state.yearsList.map((function(t){return t+e}));n.setState({yearsList:t})})),Ce(n,"incrementYears",(function(){return n.shiftYears(1)})),Ce(n,"decrementYears",(function(){return n.shiftYears(-1)}));var a=e.yearDropdownItemNumber,o=e.scrollableYearDropdown,s=a||(o?10:5);return n.state={yearsList:Yt(n.props.year,s,n.props.minDate,n.props.maxDate)},n.dropdownRef=t.createRef(),n}return Ye(r,e),Me(r,[{key:"componentDidMount",value:function(){var e=this.dropdownRef.current;if(e){var t=e.children?Array.from(e.children):null,r=t?t.find((function(e){return e.ariaSelected})):null;e.scrollTop=r?r.offsetTop+(r.clientHeight-e.clientHeight)/2:(e.scrollHeight-e.clientHeight)/2}}},{key:"render",value:function(){var e=n.clsx({"react-datepicker__year-dropdown":!0,"react-datepicker__year-dropdown--scrollable":this.props.scrollableYearDropdown});return he.default.createElement("div",{className:e,ref:this.dropdownRef},this.renderOptions())}}])}(he.default.Component),Pt=fe.default(Et),Nt=function(e){function t(){var e;be(this,t);for(var r=arguments.length,n=new Array(r),a=0;a<r;a++)n[a]=arguments[a];return Ce(e=ye(this,t,[].concat(n)),"state",{dropdownVisible:!1}),Ce(e,"renderSelectOptions",(function(){for(var t=e.props.minDate?Y.getYear(e.props.minDate):1900,r=e.props.maxDate?Y.getYear(e.props.maxDate):2100,n=[],a=t;a<=r;a++)n.push(he.default.createElement("option",{key:a,value:a},a));return n})),Ce(e,"onSelectChange",(function(t){e.onChange(t.target.value)})),Ce(e,"renderSelectMode",(function(){return he.default.createElement("select",{value:e.props.year,className:"react-datepicker__year-select",onChange:e.onSelectChange},e.renderSelectOptions())})),Ce(e,"renderReadView",(function(t){return he.default.createElement("div",{key:"read",style:{visibility:t?"visible":"hidden"},className:"react-datepicker__year-read-view",onClick:function(t){return e.toggleDropdown(t)}},he.default.createElement("span",{className:"react-datepicker__year-read-view--down-arrow"}),he.default.createElement("span",{className:"react-datepicker__year-read-view--selected-year"},e.props.year))})),Ce(e,"renderDropdown",(function(){return he.default.createElement(Pt,{key:"dropdown",year:e.props.year,onChange:e.onChange,onCancel:e.toggleDropdown,minDate:e.props.minDate,maxDate:e.props.maxDate,scrollableYearDropdown:e.props.scrollableYearDropdown,yearDropdownItemNumber:e.props.yearDropdownItemNumber})})),Ce(e,"renderScrollMode",(function(){var t=e.state.dropdownVisible,r=[e.renderReadView(!t)];return t&&r.unshift(e.renderDropdown()),r})),Ce(e,"onChange",(function(t){e.toggleDropdown(),t!==e.props.year&&e.props.onChange(t)})),Ce(e,"toggleDropdown",(function(t){e.setState({dropdownVisible:!e.state.dropdownVisible},(function(){e.props.adjustDateOnChange&&e.handleYearChange(e.props.date,t)}))})),Ce(e,"handleYearChange",(function(t,r){e.onSelect(t,r),e.setOpen()})),Ce(e,"onSelect",(function(t,r){e.props.onSelect&&e.props.onSelect(t,r)})),Ce(e,"setOpen",(function(){e.props.setOpen&&e.props.setOpen(!0)})),e}return Ye(t,e),Me(t,[{key:"render",value:function(){var e;switch(this.props.dropdownMode){case"scroll":e=this.renderScrollMode();break;case"select":e=this.renderSelectMode()}return he.default.createElement("div",{className:"react-datepicker__year-dropdown-container react-datepicker__year-dropdown-container--".concat(this.props.dropdownMode)},e)}}])}(he.default.Component),Ot=function(e){function t(){var e;be(this,t);for(var r=arguments.length,n=new Array(r),a=0;a<r;a++)n[a]=arguments[a];return Ce(e=ye(this,t,[].concat(n)),"isSelectedMonth",(function(t){return e.props.month===t})),Ce(e,"renderOptions",(function(){return e.props.monthNames.map((function(t,r){return he.default.createElement("div",{className:e.isSelectedMonth(r)?"react-datepicker__month-option react-datepicker__month-option--selected_month":"react-datepicker__month-option",key:t,onClick:e.onChange.bind(e,r),"aria-selected":e.isSelectedMonth(r)?"true":void 0},e.isSelectedMonth(r)?he.default.createElement("span",{className:"react-datepicker__month-option--selected"},"✓"):"",t)}))})),Ce(e,"onChange",(function(t){return e.props.onChange(t)})),Ce(e,"handleClickOutside",(function(){return e.props.onCancel()})),e}return Ye(t,e),Me(t,[{key:"render",value:function(){return he.default.createElement("div",{className:"react-datepicker__month-dropdown"},this.renderOptions())}}])}(he.default.Component),xt=fe.default(Ot),It=function(e){function t(){var e;be(this,t);for(var r=arguments.length,n=new Array(r),a=0;a<r;a++)n[a]=arguments[a];return Ce(e=ye(this,t,[].concat(n)),"state",{dropdownVisible:!1}),Ce(e,"renderSelectOptions",(function(e){return e.map((function(e,t){return he.default.createElement("option",{key:t,value:t},e)}))})),Ce(e,"renderSelectMode",(function(t){return he.default.createElement("select",{value:e.props.month,className:"react-datepicker__month-select",onChange:function(t){return e.onChange(t.target.value)}},e.renderSelectOptions(t))})),Ce(e,"renderReadView",(function(t,r){return he.default.createElement("div",{key:"read",style:{visibility:t?"visible":"hidden"},className:"react-datepicker__month-read-view",onClick:e.toggleDropdown},he.default.createElement("span",{className:"react-datepicker__month-read-view--down-arrow"}),he.default.createElement("span",{className:"react-datepicker__month-read-view--selected-month"},r[e.props.month]))})),Ce(e,"renderDropdown",(function(t){return he.default.createElement(xt,{key:"dropdown",month:e.props.month,monthNames:t,onChange:e.onChange,onCancel:e.toggleDropdown})})),Ce(e,"renderScrollMode",(function(t){var r=e.state.dropdownVisible,n=[e.renderReadView(!r,t)];return r&&n.unshift(e.renderDropdown(t)),n})),Ce(e,"onChange",(function(t){e.toggleDropdown(),t!==e.props.month&&e.props.onChange(t)})),Ce(e,"toggleDropdown",(function(){return e.setState({dropdownVisible:!e.state.dropdownVisible})})),e}return Ye(t,e),Me(t,[{key:"render",value:function(){var e,t=this,r=[0,1,2,3,4,5,6,7,8,9,10,11].map(this.props.useShortMonthInDropdown?function(e){return Ze(e,t.props.locale)}:function(e){return Xe(e,t.props.locale)});switch(this.props.dropdownMode){case"scroll":e=this.renderScrollMode(r);break;case"select":e=this.renderSelectMode(r)}return he.default.createElement("div",{className:"react-datepicker__month-dropdown-container react-datepicker__month-dropdown-container--".concat(this.props.dropdownMode)},e)}}])}(he.default.Component);function Tt(e,t){for(var r=[],n=Qe(e),a=Qe(t);!te.isAfter(n,a);)r.push(Te(n)),n=d.addMonths(n,1);return r}var Rt=function(e){function t(e){var r;return be(this,t),Ce(r=ye(this,t,[e]),"renderOptions",(function(){return r.state.monthYearsList.map((function(e){var t=E.getTime(e),n=He(r.props.date,e)&&je(r.props.date,e);return he.default.createElement("div",{className:n?"react-datepicker__month-year-option--selected_month-year":"react-datepicker__month-year-option",key:t,onClick:r.onChange.bind(r,t),"aria-selected":n?"true":void 0},n?he.default.createElement("span",{className:"react-datepicker__month-year-option--selected"},"✓"):"",Le(e,r.props.dateFormat,r.props.locale))}))})),Ce(r,"onChange",(function(e){return r.props.onChange(e)})),Ce(r,"handleClickOutside",(function(){r.props.onCancel()})),r.state={monthYearsList:Tt(r.props.minDate,r.props.maxDate)},r}return Ye(t,e),Me(t,[{key:"render",value:function(){var e=n.clsx({"react-datepicker__month-year-dropdown":!0,"react-datepicker__month-year-dropdown--scrollable":this.props.scrollableMonthYearDropdown});return he.default.createElement("div",{className:e},this.renderOptions())}}])}(he.default.Component),Lt=fe.default(Rt),Ft=function(e){function t(){var e;be(this,t);for(var r=arguments.length,n=new Array(r),a=0;a<r;a++)n[a]=arguments[a];return Ce(e=ye(this,t,[].concat(n)),"state",{dropdownVisible:!1}),Ce(e,"renderSelectOptions",(function(){for(var t=Qe(e.props.minDate),r=Qe(e.props.maxDate),n=[];!te.isAfter(t,r);){var a=E.getTime(t);n.push(he.default.createElement("option",{key:a,value:a},Le(t,e.props.dateFormat,e.props.locale))),t=d.addMonths(t,1)}return n})),Ce(e,"onSelectChange",(function(t){e.onChange(t.target.value)})),Ce(e,"renderSelectMode",(function(){return he.default.createElement("select",{value:E.getTime(Qe(e.props.date)),className:"react-datepicker__month-year-select",onChange:e.onSelectChange},e.renderSelectOptions())})),Ce(e,"renderReadView",(function(t){var r=Le(e.props.date,e.props.dateFormat,e.props.locale);return he.default.createElement("div",{key:"read",style:{visibility:t?"visible":"hidden"},className:"react-datepicker__month-year-read-view",onClick:function(t){return e.toggleDropdown(t)}},he.default.createElement("span",{className:"react-datepicker__month-year-read-view--down-arrow"}),he.default.createElement("span",{className:"react-datepicker__month-year-read-view--selected-month-year"},r))})),Ce(e,"renderDropdown",(function(){return he.default.createElement(Lt,{key:"dropdown",date:e.props.date,dateFormat:e.props.dateFormat,onChange:e.onChange,onCancel:e.toggleDropdown,minDate:e.props.minDate,maxDate:e.props.maxDate,scrollableMonthYearDropdown:e.props.scrollableMonthYearDropdown,locale:e.props.locale})})),Ce(e,"renderScrollMode",(function(){var t=e.state.dropdownVisible,r=[e.renderReadView(!t)];return t&&r.unshift(e.renderDropdown()),r})),Ce(e,"onChange",(function(t){e.toggleDropdown();var r=Te(parseInt(t));He(e.props.date,r)&&je(e.props.date,r)||e.props.onChange(r)})),Ce(e,"toggleDropdown",(function(){return e.setState({dropdownVisible:!e.state.dropdownVisible})})),e}return Ye(t,e),Me(t,[{key:"render",value:function(){var e;switch(this.props.dropdownMode){case"scroll":e=this.renderScrollMode();break;case"select":e=this.renderSelectMode()}return he.default.createElement("div",{className:"react-datepicker__month-year-dropdown-container react-datepicker__month-year-dropdown-container--".concat(this.props.dropdownMode)},e)}}])}(he.default.Component),At=function(e){function t(){var e;be(this,t);for(var r=arguments.length,a=new Array(r),o=0;o<r;o++)a[o]=arguments[o];return Ce(e=ye(this,t,[].concat(a)),"dayEl",he.default.createRef()),Ce(e,"handleClick",(function(t){!e.isDisabled()&&e.props.onClick&&e.props.onClick(t)})),Ce(e,"handleMouseEnter",(function(t){!e.isDisabled()&&e.props.onMouseEnter&&e.props.onMouseEnter(t)})),Ce(e,"handleOnKeyDown",(function(t){" "===t.key&&(t.preventDefault(),t.key="Enter"),e.props.handleOnKeyDown(t)})),Ce(e,"isSameDay",(function(t){return Ue(e.props.day,t)})),Ce(e,"isKeyboardSelected",(function(){var t;return!e.props.disabledKeyboardNavigation&&(!(e.props.selectsMultiple?null===(t=e.props.selectedDates)||void 0===t?void 0:t.some((function(t){return e.isSameDayOrWeek(t)})):e.isSameDayOrWeek(e.props.selected))&&e.isSameDayOrWeek(e.props.preSelection))})),Ce(e,"isDisabled",(function(){return et(e.props.day,e.props)})),Ce(e,"isExcluded",(function(){return tt(e.props.day,e.props)})),Ce(e,"isStartOfWeek",(function(){return Ue(e.props.day,We(e.props.day,e.props.locale,e.props.calendarStartDay))})),Ce(e,"isSameWeek",(function(t){return e.props.showWeekPicker&&Ue(t,We(e.props.day,e.props.locale,e.props.calendarStartDay))})),Ce(e,"isSameDayOrWeek",(function(t){return e.isSameDay(t)||e.isSameWeek(t)})),Ce(e,"getHighLightedClass",(function(){var t=e.props,r=t.day,n=t.highlightDates;if(!n)return!1;var a=Le(r,"MM.dd.yyyy");return n.get(a)})),Ce(e,"getHolidaysClass",(function(){var t=e.props,r=t.day,n=t.holidays;if(!n)return!1;var a=Le(r,"MM.dd.yyyy");return n.has(a)?[n.get(a).className]:void 0})),Ce(e,"isInRange",(function(){var t=e.props,r=t.day,n=t.startDate,a=t.endDate;return!(!n||!a)&&ze(r,n,a)})),Ce(e,"isInSelectingRange",(function(){var t,r=e.props,n=r.day,a=r.selectsStart,o=r.selectsEnd,s=r.selectsRange,i=r.selectsDisabledDaysInRange,p=r.startDate,c=r.endDate,l=null!==(t=e.props.selectingDate)&&void 0!==t?t:e.props.preSelection;return!(!(a||o||s)||!l||!i&&e.isDisabled())&&(a&&c&&(re.isBefore(l,c)||$e(l,c))?ze(n,l,c):(o&&p&&(te.isAfter(l,p)||$e(l,p))||!(!s||!p||c||!te.isAfter(l,p)&&!$e(l,p)))&&ze(n,p,l))})),Ce(e,"isSelectingRangeStart",(function(){var t;if(!e.isInSelectingRange())return!1;var r=e.props,n=r.day,a=r.startDate,o=r.selectsStart,s=null!==(t=e.props.selectingDate)&&void 0!==t?t:e.props.preSelection;return Ue(n,o?s:a)})),Ce(e,"isSelectingRangeEnd",(function(){var t;if(!e.isInSelectingRange())return!1;var r=e.props,n=r.day,a=r.endDate,o=r.selectsEnd,s=r.selectsRange,i=null!==(t=e.props.selectingDate)&&void 0!==t?t:e.props.preSelection;return Ue(n,o||s?i:a)})),Ce(e,"isRangeStart",(function(){var t=e.props,r=t.day,n=t.startDate,a=t.endDate;return!(!n||!a)&&Ue(n,r)})),Ce(e,"isRangeEnd",(function(){var t=e.props,r=t.day,n=t.startDate,a=t.endDate;return!(!n||!a)&&Ue(a,r)})),Ce(e,"isWeekend",(function(){var t=b.getDay(e.props.day);return 0===t||6===t})),Ce(e,"isAfterMonth",(function(){return void 0!==e.props.month&&(e.props.month+1)%12===C.getMonth(e.props.day)})),Ce(e,"isBeforeMonth",(function(){return void 0!==e.props.month&&(C.getMonth(e.props.day)+1)%12===e.props.month})),Ce(e,"isCurrentDay",(function(){return e.isSameDay(Te())})),Ce(e,"isSelected",(function(){var t;return e.props.selectsMultiple?null===(t=e.props.selectedDates)||void 0===t?void 0:t.some((function(t){return e.isSameDayOrWeek(t)})):e.isSameDayOrWeek(e.props.selected)})),Ce(e,"getClassNames",(function(t){var r,a=e.props.dayClassName?e.props.dayClassName(t):void 0;return n.clsx("react-datepicker__day",a,"react-datepicker__day--"+Le(e.props.day,"ddd",r),{"react-datepicker__day--disabled":e.isDisabled(),"react-datepicker__day--excluded":e.isExcluded(),"react-datepicker__day--selected":e.isSelected(),"react-datepicker__day--keyboard-selected":e.isKeyboardSelected(),"react-datepicker__day--range-start":e.isRangeStart(),"react-datepicker__day--range-end":e.isRangeEnd(),"react-datepicker__day--in-range":e.isInRange(),"react-datepicker__day--in-selecting-range":e.isInSelectingRange(),"react-datepicker__day--selecting-range-start":e.isSelectingRangeStart(),"react-datepicker__day--selecting-range-end":e.isSelectingRangeEnd(),"react-datepicker__day--today":e.isCurrentDay(),"react-datepicker__day--weekend":e.isWeekend(),"react-datepicker__day--outside-month":e.isAfterMonth()||e.isBeforeMonth()},e.getHighLightedClass("react-datepicker__day--highlighted"),e.getHolidaysClass())})),Ce(e,"getAriaLabel",(function(){var t=e.props,r=t.day,n=t.ariaLabelPrefixWhenEnabled,a=void 0===n?"Choose":n,o=t.ariaLabelPrefixWhenDisabled,s=void 0===o?"Not available":o,i=e.isDisabled()||e.isExcluded()?s:a;return"".concat(i," ").concat(Le(r,"PPPP",e.props.locale))})),Ce(e,"getTitle",(function(){var t=e.props,r=t.day,n=t.holidays,a=void 0===n?new Map:n,o=t.excludeDates,s=Le(r,"MM.dd.yyyy"),i=[];return a.has(s)&&i.push.apply(i,Ne(a.get(s).holidayNames)),e.isExcluded()&&i.push(null==o?void 0:o.filter((function(e){return Ue(e.date?e.date:e,r)})).map((function(e){return e.message}))),i.join(", ")})),Ce(e,"getTabIndex",(function(t,r){var n=t||e.props.selected,a=r||e.props.preSelection;return(!e.props.showWeekPicker||!e.props.showWeekNumber&&e.isStartOfWeek())&&(e.isKeyboardSelected()||e.isSameDay(n)&&Ue(a,n))?0:-1})),Ce(e,"handleFocusDay",(function(){var t,r=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},n=!1;0===e.getTabIndex()&&!r.isInputFocused&&e.isSameDay(e.props.preSelection)&&(document.activeElement&&document.activeElement!==document.body||(n=!0),e.props.inline&&!e.props.shouldFocusDayInline&&(n=!1),e.props.containerRef&&e.props.containerRef.current&&e.props.containerRef.current.contains(document.activeElement)&&document.activeElement.classList.contains("react-datepicker__day")&&(n=!0),e.props.monthShowsDuplicateDaysEnd&&e.isAfterMonth()&&(n=!1),e.props.monthShowsDuplicateDaysStart&&e.isBeforeMonth()&&(n=!1)),n&&(null===(t=e.dayEl.current)||void 0===t||t.focus({preventScroll:!0}))})),Ce(e,"renderDayContents",(function(){return e.props.monthShowsDuplicateDaysEnd&&e.isAfterMonth()||e.props.monthShowsDuplicateDaysStart&&e.isBeforeMonth()?null:e.props.renderDayContents?e.props.renderDayContents(S.getDate(e.props.day),e.props.day):S.getDate(e.props.day)})),Ce(e,"render",(function(){return he.default.createElement("div",{ref:e.dayEl,className:e.getClassNames(e.props.day),onKeyDown:e.handleOnKeyDown,onClick:e.handleClick,onMouseEnter:e.props.usePointerEvent?void 0:e.handleMouseEnter,onPointerEnter:e.props.usePointerEvent?e.handleMouseEnter:void 0,tabIndex:e.getTabIndex(),"aria-label":e.getAriaLabel(),role:"option",title:e.getTitle(),"aria-disabled":e.isDisabled(),"aria-current":e.isCurrentDay()?"date":void 0,"aria-selected":e.isSelected()||e.isInRange()},e.renderDayContents(),""!==e.getTitle()&&he.default.createElement("span",{className:"overlay"},e.getTitle()))})),e}return Ye(t,e),Me(t,[{key:"componentDidMount",value:function(){this.handleFocusDay()}},{key:"componentDidUpdate",value:function(e){this.handleFocusDay(e)}}])}(he.default.Component),Wt=function(e){function t(){var e;be(this,t);for(var r=arguments.length,n=new Array(r),a=0;a<r;a++)n[a]=arguments[a];return Ce(e=ye(this,t,[].concat(n)),"weekNumberEl",he.default.createRef()),Ce(e,"handleClick",(function(t){e.props.onClick&&e.props.onClick(t)})),Ce(e,"handleOnKeyDown",(function(t){" "===t.key&&(t.preventDefault(),t.key="Enter"),e.props.handleOnKeyDown(t)})),Ce(e,"isKeyboardSelected",(function(){return!e.props.disabledKeyboardNavigation&&!Ue(e.props.date,e.props.selected)&&Ue(e.props.date,e.props.preSelection)})),Ce(e,"getTabIndex",(function(){return e.props.showWeekPicker&&e.props.showWeekNumber&&(e.isKeyboardSelected()||Ue(e.props.date,e.props.selected)&&Ue(e.props.preSelection,e.props.selected))?0:-1})),Ce(e,"handleFocusWeekNumber",(function(){var t=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},r=!1;0===e.getTabIndex()&&!t.isInputFocused&&Ue(e.props.date,e.props.preSelection)&&(document.activeElement&&document.activeElement!==document.body||(r=!0),e.props.inline&&!e.props.shouldFocusDayInline&&(r=!1),e.props.containerRef&&e.props.containerRef.current&&e.props.containerRef.current.contains(document.activeElement)&&document.activeElement&&document.activeElement.classList.contains("react-datepicker__week-number")&&(r=!0)),r&&e.weekNumberEl.current&&e.weekNumberEl.current.focus({preventScroll:!0})})),e}return Ye(t,e),Me(t,[{key:"componentDidMount",value:function(){this.handleFocusWeekNumber()}},{key:"componentDidUpdate",value:function(e){this.handleFocusWeekNumber(e)}},{key:"render",value:function(){var e=this.props,t=e.weekNumber,r=e.ariaLabelPrefix,a=void 0===r?"week ":r,o=e.onClick,s={"react-datepicker__week-number":!0,"react-datepicker__week-number--clickable":!!o,"react-datepicker__week-number--selected":!!o&&Ue(this.props.date,this.props.selected),"react-datepicker__week-number--keyboard-selected":this.isKeyboardSelected()};return he.default.createElement("div",{ref:this.weekNumberEl,className:n.clsx(s),"aria-label":"".concat(a," ").concat(this.props.weekNumber),onClick:this.handleClick,onKeyDown:this.handleOnKeyDown,tabIndex:this.getTabIndex()},t)}}],[{key:"defaultProps",get:function(){return{ariaLabelPrefix:"week "}}}])}(he.default.Component),Qt=function(e){function t(){var e;be(this,t);for(var r=arguments.length,n=new Array(r),a=0;a<r;a++)n[a]=arguments[a];return Ce(e=ye(this,t,[].concat(n)),"handleDayClick",(function(t,r){e.props.onDayClick&&e.props.onDayClick(t,r)})),Ce(e,"handleDayMouseEnter",(function(t){e.props.onDayMouseEnter&&e.props.onDayMouseEnter(t)})),Ce(e,"handleWeekClick",(function(t,r,n){"function"==typeof e.props.onWeekSelect&&e.props.onWeekSelect(t,r,n),e.props.showWeekPicker&&e.handleDayClick(t,n),e.props.shouldCloseOnSelect&&e.props.setOpen(!1)})),Ce(e,"formatWeekNumber",(function(t){return e.props.formatWeekNumber?e.props.formatWeekNumber(t):function(e,t){var r=t&&Je(t)||Ge()&&Je(Ge());return M.getISOWeek(e,r?{locale:r}:null)}(t)})),Ce(e,"renderDays",(function(){var t=e.startOfWeek(),r=[],n=e.formatWeekNumber(t);if(e.props.showWeekNumber){var a=e.props.onWeekSelect||e.props.showWeekPicker?e.handleWeekClick.bind(e,t,n):void 0;r.push(he.default.createElement(Wt,{key:"W",weekNumber:n,date:t,onClick:a,selected:e.props.selected,preSelection:e.props.preSelection,ariaLabelPrefix:e.props.ariaLabelPrefix,showWeekPicker:e.props.showWeekPicker,showWeekNumber:e.props.showWeekNumber,disabledKeyboardNavigation:e.props.disabledKeyboardNavigation,handleOnKeyDown:e.props.handleOnKeyDown,isInputFocused:e.props.isInputFocused,containerRef:e.props.containerRef}))}return r.concat([0,1,2,3,4,5,6].map((function(r){var n=c.addDays(t,r);return he.default.createElement(At,{ariaLabelPrefixWhenEnabled:e.props.chooseDayAriaLabelPrefix,ariaLabelPrefixWhenDisabled:e.props.disabledDayAriaLabelPrefix,key:n.valueOf(),day:n,month:e.props.month,onClick:e.handleDayClick.bind(e,n),usePointerEvent:e.props.usePointerEvent,onMouseEnter:e.handleDayMouseEnter.bind(e,n),minDate:e.props.minDate,maxDate:e.props.maxDate,calendarStartDay:e.props.calendarStartDay,excludeDates:e.props.excludeDates,excludeDateIntervals:e.props.excludeDateIntervals,includeDates:e.props.includeDates,includeDateIntervals:e.props.includeDateIntervals,highlightDates:e.props.highlightDates,holidays:e.props.holidays,selectingDate:e.props.selectingDate,filterDate:e.props.filterDate,preSelection:e.props.preSelection,selected:e.props.selected,selectsStart:e.props.selectsStart,selectsEnd:e.props.selectsEnd,selectsRange:e.props.selectsRange,showWeekPicker:e.props.showWeekPicker,showWeekNumber:e.props.showWeekNumber,selectsDisabledDaysInRange:e.props.selectsDisabledDaysInRange,selectsMultiple:e.props.selectsMultiple,selectedDates:e.props.selectedDates,startDate:e.props.startDate,endDate:e.props.endDate,dayClassName:e.props.dayClassName,renderDayContents:e.props.renderDayContents,disabledKeyboardNavigation:e.props.disabledKeyboardNavigation,handleOnKeyDown:e.props.handleOnKeyDown,isInputFocused:e.props.isInputFocused,containerRef:e.props.containerRef,inline:e.props.inline,shouldFocusDayInline:e.props.shouldFocusDayInline,monthShowsDuplicateDaysEnd:e.props.monthShowsDuplicateDaysEnd,monthShowsDuplicateDaysStart:e.props.monthShowsDuplicateDaysStart,locale:e.props.locale})})))})),Ce(e,"startOfWeek",(function(){return We(e.props.day,e.props.locale,e.props.calendarStartDay)})),Ce(e,"isKeyboardSelected",(function(){return!e.props.disabledKeyboardNavigation&&!Ue(e.startOfWeek(),e.props.selected)&&Ue(e.startOfWeek(),e.props.preSelection)})),e}return Ye(t,e),Me(t,[{key:"render",value:function(){var e={"react-datepicker__week":!0,"react-datepicker__week--selected":Ue(this.startOfWeek(),this.props.selected),"react-datepicker__week--keyboard-selected":this.isKeyboardSelected()};return he.default.createElement("div",{className:n.clsx(e)},this.renderDays())}}],[{key:"defaultProps",get:function(){return{shouldCloseOnSelect:!0}}}])}(he.default.Component),Kt="two_columns",qt="three_columns",Bt="four_columns",Ht=Ce(Ce(Ce({},Kt,{grid:[[0,1],[2,3],[4,5],[6,7],[8,9],[10,11]],verticalNavigationOffset:2}),qt,{grid:[[0,1,2],[3,4,5],[6,7,8],[9,10,11]],verticalNavigationOffset:3}),Bt,{grid:[[0,1,2,3],[4,5,6,7],[8,9,10,11]],verticalNavigationOffset:4});function jt(e,t){return e?Bt:t?Kt:qt}var Vt=function(e){function t(){var e;be(this,t);for(var r=arguments.length,a=new Array(r),o=0;o<r;o++)a[o]=arguments[o];return Ce(e=ye(this,t,[].concat(a)),"MONTH_REFS",Ne(Array(12)).map((function(){return he.default.createRef()}))),Ce(e,"QUARTER_REFS",Ne(Array(4)).map((function(){return he.default.createRef()}))),Ce(e,"isDisabled",(function(t){return et(t,e.props)})),Ce(e,"isExcluded",(function(t){return tt(t,e.props)})),Ce(e,"handleDayClick",(function(t,r){e.props.onDayClick&&e.props.onDayClick(t,r,e.props.orderInDisplay)})),Ce(e,"handleDayMouseEnter",(function(t){e.props.onDayMouseEnter&&e.props.onDayMouseEnter(t)})),Ce(e,"handleMouseLeave",(function(){e.props.onMouseLeave&&e.props.onMouseLeave()})),Ce(e,"isRangeStartMonth",(function(t){var r=e.props,n=r.day,a=r.startDate,o=r.endDate;return!(!a||!o)&&je(x.setMonth(n,t),a)})),Ce(e,"isRangeStartQuarter",(function(t){var r=e.props,n=r.day,a=r.startDate,o=r.endDate;return!(!a||!o)&&Ve(I.setQuarter(n,t),a)})),Ce(e,"isRangeEndMonth",(function(t){var r=e.props,n=r.day,a=r.startDate,o=r.endDate;return!(!a||!o)&&je(x.setMonth(n,t),o)})),Ce(e,"isRangeEndQuarter",(function(t){var r=e.props,n=r.day,a=r.startDate,o=r.endDate;return!(!a||!o)&&Ve(I.setQuarter(n,t),o)})),Ce(e,"isInSelectingRangeMonth",(function(t){var r,n=e.props,a=n.day,o=n.selectsStart,s=n.selectsEnd,i=n.selectsRange,p=n.startDate,c=n.endDate,l=null!==(r=e.props.selectingDate)&&void 0!==r?r:e.props.preSelection;return!(!(o||s||i)||!l)&&(o&&c?nt(l,c,t,a):(s&&p||!(!i||!p||c))&&nt(p,l,t,a))})),Ce(e,"isSelectingMonthRangeStart",(function(t){var r;if(!e.isInSelectingRangeMonth(t))return!1;var n=e.props,a=n.day,o=n.startDate,s=n.selectsStart,i=x.setMonth(a,t),p=null!==(r=e.props.selectingDate)&&void 0!==r?r:e.props.preSelection;return je(i,s?p:o)})),Ce(e,"isSelectingMonthRangeEnd",(function(t){var r;if(!e.isInSelectingRangeMonth(t))return!1;var n=e.props,a=n.day,o=n.endDate,s=n.selectsEnd,i=n.selectsRange,p=x.setMonth(a,t),c=null!==(r=e.props.selectingDate)&&void 0!==r?r:e.props.preSelection;return je(p,s||i?c:o)})),Ce(e,"isInSelectingRangeQuarter",(function(t){var r,n=e.props,a=n.day,o=n.selectsStart,s=n.selectsEnd,i=n.selectsRange,p=n.startDate,c=n.endDate,l=null!==(r=e.props.selectingDate)&&void 0!==r?r:e.props.preSelection;return!(!(o||s||i)||!l)&&(o&&c?it(l,c,t,a):(s&&p||!(!i||!p||c))&&it(p,l,t,a))})),Ce(e,"isWeekInMonth",(function(t){var r=e.props.day,n=c.addDays(t,6);return je(t,r)||je(n,r)})),Ce(e,"isCurrentMonth",(function(e,t){return Y.getYear(e)===Y.getYear(Te())&&t===C.getMonth(Te())})),Ce(e,"isCurrentQuarter",(function(e,t){return Y.getYear(e)===Y.getYear(Te())&&t===_.getQuarter(Te())})),Ce(e,"isSelectedMonth",(function(e,t,r){return C.getMonth(r)===t&&Y.getYear(e)===Y.getYear(r)})),Ce(e,"isSelectedQuarter",(function(e,t,r){return _.getQuarter(e)===t&&Y.getYear(e)===Y.getYear(r)})),Ce(e,"renderWeeks",(function(){for(var t=[],r=e.props.fixedHeight,n=0,a=!1,o=We(Qe(e.props.day),e.props.locale,e.props.calendarStartDay),s=e.props.showWeekPicker?We(e.props.selected,e.props.locale,e.props.calendarStartDay):e.props.selected,i=e.props.showWeekPicker?We(e.props.preSelection,e.props.locale,e.props.calendarStartDay):e.props.preSelection;t.push(he.default.createElement(Qt,{ariaLabelPrefix:e.props.weekAriaLabelPrefix,chooseDayAriaLabelPrefix:e.props.chooseDayAriaLabelPrefix,disabledDayAriaLabelPrefix:e.props.disabledDayAriaLabelPrefix,key:n,day:o,month:C.getMonth(e.props.day),onDayClick:e.handleDayClick,usePointerEvent:e.props.usePointerEvent,onDayMouseEnter:e.handleDayMouseEnter,onWeekSelect:e.props.onWeekSelect,formatWeekNumber:e.props.formatWeekNumber,locale:e.props.locale,minDate:e.props.minDate,maxDate:e.props.maxDate,excludeDates:e.props.excludeDates,excludeDateIntervals:e.props.excludeDateIntervals,includeDates:e.props.includeDates,includeDateIntervals:e.props.includeDateIntervals,inline:e.props.inline,shouldFocusDayInline:e.props.shouldFocusDayInline,highlightDates:e.props.highlightDates,holidays:e.props.holidays,selectingDate:e.props.selectingDate,filterDate:e.props.filterDate,preSelection:i,selected:s,selectsStart:e.props.selectsStart,selectsEnd:e.props.selectsEnd,selectsRange:e.props.selectsRange,selectsDisabledDaysInRange:e.props.selectsDisabledDaysInRange,selectsMultiple:e.props.selectsMultiple,selectedDates:e.props.selectedDates,showWeekNumber:e.props.showWeekNumbers,showWeekPicker:e.props.showWeekPicker,startDate:e.props.startDate,endDate:e.props.endDate,dayClassName:e.props.dayClassName,setOpen:e.props.setOpen,shouldCloseOnSelect:e.props.shouldCloseOnSelect,disabledKeyboardNavigation:e.props.disabledKeyboardNavigation,renderDayContents:e.props.renderDayContents,handleOnKeyDown:e.props.handleOnKeyDown,isInputFocused:e.props.isInputFocused,containerRef:e.props.containerRef,calendarStartDay:e.props.calendarStartDay,monthShowsDuplicateDaysEnd:e.props.monthShowsDuplicateDaysEnd,monthShowsDuplicateDaysStart:e.props.monthShowsDuplicateDaysStart})),!a;){n++,o=l.addWeeks(o,1);var p=r&&n>=6,c=!r&&!e.isWeekInMonth(o);if(p||c){if(!e.props.peekNextMonth)break;a=!0}}return t})),Ce(e,"onMonthClick",(function(t,r){var n=x.setMonth(e.props.day,r);rt(n,e.props)||e.handleDayClick(Qe(n),t)})),Ce(e,"onMonthMouseEnter",(function(t){var r=x.setMonth(e.props.day,t);rt(r,e.props)||e.handleDayMouseEnter(Qe(r))})),Ce(e,"handleMonthNavigation",(function(t,r){e.isDisabled(r)||e.isExcluded(r)||(e.props.setPreSelection(r),e.MONTH_REFS[t].current&&e.MONTH_REFS[t].current.focus())})),Ce(e,"onMonthKeyDown",(function(t,r){var n=e.props,a=n.selected,o=n.preSelection,s=n.disabledKeyboardNavigation,i=n.showTwoColumnMonthYearPicker,p=n.showFourColumnMonthYearPicker,c=n.setPreSelection,l=n.handleOnMonthKeyDown,u=t.key;if("Tab"!==u&&t.preventDefault(),!s){var h=jt(p,i),f=Ht[h].verticalNavigationOffset,m=Ht[h].grid;switch(u){case"Enter":e.onMonthClick(t,r),c(a);break;case"ArrowRight":e.handleMonthNavigation(11===r?0:r+1,d.addMonths(o,1));break;case"ArrowLeft":e.handleMonthNavigation(0===r?11:r-1,y.subMonths(o,1));break;case"ArrowUp":e.handleMonthNavigation(m[0].includes(r)?r+12-f:r-f,y.subMonths(o,f));break;case"ArrowDown":e.handleMonthNavigation(m[m.length-1].includes(r)?r-12+f:r+f,d.addMonths(o,f))}}l&&l(t)})),Ce(e,"onQuarterClick",(function(t,r){var n=I.setQuarter(e.props.day,r);at(n,e.props)||e.handleDayClick(qe(n),t)})),Ce(e,"onQuarterMouseEnter",(function(t){var r=I.setQuarter(e.props.day,t);at(r,e.props)||e.handleDayMouseEnter(qe(r))})),Ce(e,"handleQuarterNavigation",(function(t,r){e.isDisabled(r)||e.isExcluded(r)||(e.props.setPreSelection(r),e.QUARTER_REFS[t-1].current&&e.QUARTER_REFS[t-1].current.focus())})),Ce(e,"onQuarterKeyDown",(function(t,r){var n=t.key;if(!e.props.disabledKeyboardNavigation)switch(n){case"Enter":e.onQuarterClick(t,r),e.props.setPreSelection(e.props.selected);break;case"ArrowRight":e.handleQuarterNavigation(4===r?1:r+1,u.addQuarters(e.props.preSelection,1));break;case"ArrowLeft":e.handleQuarterNavigation(1===r?4:r-1,g.subQuarters(e.props.preSelection,1))}})),Ce(e,"isMonthDisabled",(function(t){var r=e.props,n=r.day,a=r.minDate,o=r.maxDate,s=r.excludeDates,i=r.includeDates,p=x.setMonth(n,t);return(a||o||s||i)&&rt(p,e.props)})),Ce(e,"getMonthClassNames",(function(t){var r=e.props,a=r.day,o=r.startDate,s=r.endDate,i=r.selected,p=r.preSelection,c=r.monthClassName,l=c?c(x.setMonth(a,t)):void 0;return n.clsx("react-datepicker__month-text","react-datepicker__month-".concat(t),l,{"react-datepicker__month-text--disabled":e.isMonthDisabled(t),"react-datepicker__month-text--selected":e.isSelectedMonth(a,t,i),"react-datepicker__month-text--keyboard-selected":!e.props.disabledKeyboardNavigation&&e.isSelectedMonth(a,t,p),"react-datepicker__month-text--in-selecting-range":e.isInSelectingRangeMonth(t),"react-datepicker__month-text--in-range":nt(o,s,t,a),"react-datepicker__month-text--range-start":e.isRangeStartMonth(t),"react-datepicker__month-text--range-end":e.isRangeEndMonth(t),"react-datepicker__month-text--selecting-range-start":e.isSelectingMonthRangeStart(t),"react-datepicker__month-text--selecting-range-end":e.isSelectingMonthRangeEnd(t),"react-datepicker__month-text--today":e.isCurrentMonth(a,t)})})),Ce(e,"getTabIndex",(function(t){var r=C.getMonth(e.props.preSelection);return e.props.disabledKeyboardNavigation||t!==r?"-1":"0"})),Ce(e,"getQuarterTabIndex",(function(t){var r=_.getQuarter(e.props.preSelection);return e.props.disabledKeyboardNavigation||t!==r?"-1":"0"})),Ce(e,"getAriaLabel",(function(t){var r=e.props,n=r.chooseDayAriaLabelPrefix,a=void 0===n?"Choose":n,o=r.disabledDayAriaLabelPrefix,s=void 0===o?"Not available":o,i=r.day,p=r.locale,c=x.setMonth(i,t),l=e.isDisabled(c)||e.isExcluded(c)?s:a;return"".concat(l," ").concat(Le(c,"MMMM yyyy",p))})),Ce(e,"getQuarterClassNames",(function(t){var r=e.props,a=r.day,o=r.startDate,s=r.endDate,i=r.selected,p=r.minDate,c=r.maxDate,l=r.preSelection,d=r.disabledKeyboardNavigation;return n.clsx("react-datepicker__quarter-text","react-datepicker__quarter-".concat(t),{"react-datepicker__quarter-text--disabled":(p||c)&&at(I.setQuarter(a,t),e.props),"react-datepicker__quarter-text--selected":e.isSelectedQuarter(a,t,i),"react-datepicker__quarter-text--keyboard-selected":!d&&e.isSelectedQuarter(a,t,l),"react-datepicker__quarter-text--in-selecting-range":e.isInSelectingRangeQuarter(t),"react-datepicker__quarter-text--in-range":it(o,s,t,a),"react-datepicker__quarter-text--range-start":e.isRangeStartQuarter(t),"react-datepicker__quarter-text--range-end":e.isRangeEndQuarter(t)})})),Ce(e,"getMonthContent",(function(t){var r=e.props,n=r.showFullMonthYearPicker,a=r.renderMonthContent,o=r.locale,s=r.day,i=Ze(t,o),p=Xe(t,o);return a?a(t,i,p,s):n?p:i})),Ce(e,"getQuarterContent",(function(t){var r=e.props,n=r.renderQuarterContent,a=function(e,t){return Le(I.setQuarter(Te(),e),"QQQ",t)}(t,r.locale);return n?n(t,a):a})),Ce(e,"renderMonths",(function(){var t=e.props,r=t.showTwoColumnMonthYearPicker,n=t.showFourColumnMonthYearPicker,a=t.day,o=t.selected;return Ht[jt(n,r)].grid.map((function(t,r){return he.default.createElement("div",{className:"react-datepicker__month-wrapper",key:r},t.map((function(t,r){return he.default.createElement("div",{ref:e.MONTH_REFS[t],key:r,onClick:function(r){e.onMonthClick(r,t)},onKeyDown:function(r){_t(r)&&(r.preventDefault(),r.key="Enter"),e.onMonthKeyDown(r,t)},onMouseEnter:e.props.usePointerEvent?void 0:function(){return e.onMonthMouseEnter(t)},onPointerEnter:e.props.usePointerEvent?function(){return e.onMonthMouseEnter(t)}:void 0,tabIndex:e.getTabIndex(t),className:e.getMonthClassNames(t),"aria-disabled":e.isMonthDisabled(t),role:"option","aria-label":e.getAriaLabel(t),"aria-current":e.isCurrentMonth(a,t)?"date":void 0,"aria-selected":e.isSelectedMonth(a,t,o)},e.getMonthContent(t))})))}))})),Ce(e,"renderQuarters",(function(){var t=e.props,r=t.day,n=t.selected;return he.default.createElement("div",{className:"react-datepicker__quarter-wrapper"},[1,2,3,4].map((function(t,a){return he.default.createElement("div",{key:a,ref:e.QUARTER_REFS[a],role:"option",onClick:function(r){e.onQuarterClick(r,t)},onKeyDown:function(r){e.onQuarterKeyDown(r,t)},onMouseEnter:e.props.usePointerEvent?void 0:function(){return e.onQuarterMouseEnter(t)},onPointerEnter:e.props.usePointerEvent?function(){return e.onQuarterMouseEnter(t)}:void 0,className:e.getQuarterClassNames(t),"aria-selected":e.isSelectedQuarter(r,t,n),tabIndex:e.getQuarterTabIndex(t),"aria-current":e.isCurrentQuarter(r,t)?"date":void 0},e.getQuarterContent(t))})))})),Ce(e,"getClassNames",(function(){var t=e.props,r=t.selectingDate,a=t.selectsStart,o=t.selectsEnd,s=t.showMonthYearPicker,i=t.showQuarterYearPicker,p=t.showWeekPicker;return n.clsx("react-datepicker__month",{"react-datepicker__month--selecting-range":r&&(a||o)},{"react-datepicker__monthPicker":s},{"react-datepicker__quarterPicker":i},{"react-datepicker__weekPicker":p})})),e}return Ye(t,e),Me(t,[{key:"render",value:function(){var e=this.props,t=e.showMonthYearPicker,r=e.showQuarterYearPicker,n=e.day,a=e.ariaLabelPrefix,o=void 0===a?"Month ":a,s=o?o.trim()+" ":"";return he.default.createElement("div",{className:this.getClassNames(),onMouseLeave:this.props.usePointerEvent?void 0:this.handleMouseLeave,onPointerLeave:this.props.usePointerEvent?this.handleMouseLeave:void 0,"aria-label":"".concat(s).concat(Le(n,"MMMM, yyyy",this.props.locale)),role:"listbox"},t?this.renderMonths():r?this.renderQuarters():this.renderWeeks())}}])}(he.default.Component),Ut=function(e){function t(){var e;be(this,t);for(var r=arguments.length,n=new Array(r),a=0;a<r;a++)n[a]=arguments[a];return Ce(e=ye(this,t,[].concat(n)),"state",{height:null}),Ce(e,"scrollToTheSelectedTime",(function(){requestAnimationFrame((function(){e.list&&(e.list.scrollTop=e.centerLi&&t.calcCenterPosition(e.props.monthRef?e.props.monthRef.clientHeight-e.header.clientHeight:e.list.clientHeight,e.centerLi))}))})),Ce(e,"handleClick",(function(t){(e.props.minTime||e.props.maxTime)&&dt(t,e.props)||(e.props.excludeTimes||e.props.includeTimes||e.props.filterTime)&&lt(t,e.props)||e.props.onChange(t)})),Ce(e,"isSelectedTime",(function(t){return e.props.selected&&(r=e.props.selected,n=t,St(r).getTime()===St(n).getTime());var r,n})),Ce(e,"isDisabledTime",(function(t){return(e.props.minTime||e.props.maxTime)&&dt(t,e.props)||(e.props.excludeTimes||e.props.includeTimes||e.props.filterTime)&&lt(t,e.props)})),Ce(e,"liClasses",(function(t){var r=["react-datepicker__time-list-item",e.props.timeClassName?e.props.timeClassName(t):void 0];return e.isSelectedTime(t)&&r.push("react-datepicker__time-list-item--selected"),e.isDisabledTime(t)&&r.push("react-datepicker__time-list-item--disabled"),e.props.injectTimes&&(3600*w.getHours(t)+60*k.getMinutes(t)+ie.getSeconds(t))%(60*e.props.intervals)!=0&&r.push("react-datepicker__time-list-item--injected"),r.join(" ")})),Ce(e,"handleOnKeyDown",(function(t,r){" "===t.key&&(t.preventDefault(),t.key="Enter"),"ArrowUp"!==t.key&&"ArrowLeft"!==t.key||!t.target.previousSibling||(t.preventDefault(),t.target.previousSibling.focus()),"ArrowDown"!==t.key&&"ArrowRight"!==t.key||!t.target.nextSibling||(t.preventDefault(),t.target.nextSibling.focus()),"Enter"===t.key&&e.handleClick(r),e.props.handleOnKeyDown(t)})),Ce(e,"renderTimes",(function(){for(var t,r=[],n=e.props.format?e.props.format:"p",a=e.props.intervals,o=e.props.selected||e.props.openToDate||Te(),s=(t=o,K.startOfDay(t)),p=e.props.injectTimes&&e.props.injectTimes.sort((function(e,t){return e-t})),c=60*function(e){var t=new Date(e.getFullYear(),e.getMonth(),e.getDate()),r=new Date(e.getFullYear(),e.getMonth(),e.getDate(),24);return Math.round((+r-+t)/36e5)}(o),l=c/a,d=0;d<l;d++){var u=i.addMinutes(s,d*a);if(r.push(u),p){var h=kt(s,u,d,a,p);r=r.concat(h)}}var f=r.reduce((function(e,t){return t.getTime()<=o.getTime()?t:e}),r[0]);return r.map((function(t,r){return he.default.createElement("li",{key:r,onClick:e.handleClick.bind(e,t),className:e.liClasses(t),ref:function(r){t===f&&(e.centerLi=r)},onKeyDown:function(r){e.handleOnKeyDown(r,t)},tabIndex:t===f?0:-1,role:"option","aria-selected":e.isSelectedTime(t)?"true":void 0,"aria-disabled":e.isDisabledTime(t)?"true":void 0},Le(t,n,e.props.locale))}))})),e}return Ye(t,e),Me(t,[{key:"componentDidMount",value:function(){this.scrollToTheSelectedTime(),this.props.monthRef&&this.header&&this.setState({height:this.props.monthRef.clientHeight-this.header.clientHeight})}},{key:"render",value:function(){var e=this,t=this.state.height;return he.default.createElement("div",{className:"react-datepicker__time-container ".concat(this.props.todayButton?"react-datepicker__time-container--with-today-button":"")},he.default.createElement("div",{className:"react-datepicker__header react-datepicker__header--time ".concat(this.props.showTimeSelectOnly?"react-datepicker__header--time--only":""),ref:function(t){e.header=t}},he.default.createElement("div",{className:"react-datepicker-time__header"},this.props.timeCaption)),he.default.createElement("div",{className:"react-datepicker__time"},he.default.createElement("div",{className:"react-datepicker__time-box"},he.default.createElement("ul",{className:"react-datepicker__time-list",ref:function(t){e.list=t},style:t?{height:t}:{},role:"listbox","aria-label":this.props.timeCaption},this.renderTimes()))))}}],[{key:"defaultProps",get:function(){return{intervals:30,onTimeChange:function(){},todayButton:null,timeCaption:"Time"}}}])}(he.default.Component);Ce(Ut,"calcCenterPosition",(function(e,t){return t.offsetTop-(e/2-t.clientHeight/2)}));var $t=function(e){function t(e){var r;return be(this,t),Ce(r=ye(this,t,[e]),"YEAR_REFS",Ne(Array(r.props.yearItemNumber)).map((function(){return he.default.createRef()}))),Ce(r,"isDisabled",(function(e){return et(e,r.props)})),Ce(r,"isExcluded",(function(e){return tt(e,r.props)})),Ce(r,"selectingDate",(function(){var e;return null!==(e=r.props.selectingDate)&&void 0!==e?e:r.props.preSelection})),Ce(r,"updateFocusOnPaginate",(function(e){var t=function(){this.YEAR_REFS[e].current.focus()}.bind(r);window.requestAnimationFrame(t)})),Ce(r,"handleYearClick",(function(e,t){r.props.onDayClick&&r.props.onDayClick(e,t)})),Ce(r,"handleYearNavigation",(function(e,t){var n=r.props,a=n.date,o=n.yearItemNumber,s=bt(a,o).startPeriod;r.isDisabled(t)||r.isExcluded(t)||(r.props.setPreSelection(t),e-s<0?r.updateFocusOnPaginate(o-(s-e)):e-s>=o?r.updateFocusOnPaginate(Math.abs(o-(e-s))):r.YEAR_REFS[e-s].current.focus())})),Ce(r,"isSameDay",(function(e,t){return Ue(e,t)})),Ce(r,"isCurrentYear",(function(e){return e===Y.getYear(Te())})),Ce(r,"isRangeStart",(function(e){return r.props.startDate&&r.props.endDate&&He(T.setYear(Te(),e),r.props.startDate)})),Ce(r,"isRangeEnd",(function(e){return r.props.startDate&&r.props.endDate&&He(T.setYear(Te(),e),r.props.endDate)})),Ce(r,"isInRange",(function(e){return ot(e,r.props.startDate,r.props.endDate)})),Ce(r,"isInSelectingRange",(function(e){var t=r.props,n=t.selectsStart,a=t.selectsEnd,o=t.selectsRange,s=t.startDate,i=t.endDate;return!(!(n||a||o)||!r.selectingDate())&&(n&&i?ot(e,r.selectingDate(),i):(a&&s||!(!o||!s||i))&&ot(e,s,r.selectingDate()))})),Ce(r,"isSelectingRangeStart",(function(e){if(!r.isInSelectingRange(e))return!1;var t=r.props,n=t.startDate,a=t.selectsStart,o=T.setYear(Te(),e);return He(o,a?r.selectingDate():n)})),Ce(r,"isSelectingRangeEnd",(function(e){if(!r.isInSelectingRange(e))return!1;var t=r.props,n=t.endDate,a=t.selectsEnd,o=t.selectsRange,s=T.setYear(Te(),e);return He(s,a||o?r.selectingDate():n)})),Ce(r,"isKeyboardSelected",(function(e){var t=Ke(T.setYear(r.props.date,e));return!r.props.disabledKeyboardNavigation&&!r.props.inline&&!Ue(t,Ke(r.props.selected))&&Ue(t,Ke(r.props.preSelection))})),Ce(r,"onYearClick",(function(e,t){var n=r.props.date;r.handleYearClick(Ke(T.setYear(n,t)),e)})),Ce(r,"onYearKeyDown",(function(e,t){var n=e.key,a=r.props,o=a.date,s=a.yearItemNumber,i=a.handleOnKeyDown;if("Tab"!==n&&e.preventDefault(),!r.props.disabledKeyboardNavigation)switch(n){case"Enter":r.onYearClick(e,t),r.props.setPreSelection(r.props.selected);break;case"ArrowRight":r.handleYearNavigation(t+1,h.addYears(r.props.preSelection,1));break;case"ArrowLeft":r.handleYearNavigation(t-1,v.subYears(r.props.preSelection,1));break;case"ArrowUp":var p=bt(o,s).startPeriod,c=3,l=t-c;if(l<p){var d=s%c;t>=p&&t<p+d?c=d:c+=d,l=t-c}r.handleYearNavigation(l,v.subYears(r.props.preSelection,c));break;case"ArrowDown":var u=bt(o,s).endPeriod,f=3,m=t+f;if(m>u){var y=s%f;t<=u&&t>u-y?f=y:f+=y,m=t+f}r.handleYearNavigation(m,h.addYears(r.props.preSelection,f))}i&&i(e)})),Ce(r,"getYearClassNames",(function(e){var t=r.props,a=t.date,o=t.minDate,s=t.maxDate,i=t.selected,p=t.excludeDates,c=t.includeDates,l=t.filterDate,d=t.yearClassName;return n.clsx("react-datepicker__year-text","react-datepicker__year-".concat(e),d?d(T.setYear(a,e)):void 0,{"react-datepicker__year-text--selected":e===Y.getYear(i),"react-datepicker__year-text--disabled":(o||s||p||c||l)&&st(e,r.props),"react-datepicker__year-text--keyboard-selected":r.isKeyboardSelected(e),"react-datepicker__year-text--range-start":r.isRangeStart(e),"react-datepicker__year-text--range-end":r.isRangeEnd(e),"react-datepicker__year-text--in-range":r.isInRange(e),"react-datepicker__year-text--in-selecting-range":r.isInSelectingRange(e),"react-datepicker__year-text--selecting-range-start":r.isSelectingRangeStart(e),"react-datepicker__year-text--selecting-range-end":r.isSelectingRangeEnd(e),"react-datepicker__year-text--today":r.isCurrentYear(e)})})),Ce(r,"getYearTabIndex",(function(e){return r.props.disabledKeyboardNavigation?"-1":e===Y.getYear(r.props.preSelection)?"0":"-1"})),Ce(r,"getYearContainerClassNames",(function(){var e=r.props,t=e.selectingDate,a=e.selectsStart,o=e.selectsEnd,s=e.selectsRange;return n.clsx("react-datepicker__year",{"react-datepicker__year--selecting-range":t&&(a||o||s)})})),Ce(r,"getYearContent",(function(e){return r.props.renderYearContent?r.props.renderYearContent(e):e})),r}return Ye(t,e),Me(t,[{key:"render",value:function(){for(var e=this,t=[],r=this.props,n=r.date,a=r.yearItemNumber,o=r.onYearMouseEnter,s=r.onYearMouseLeave,i=bt(n,a),p=i.startPeriod,c=i.endPeriod,l=function(r){t.push(he.default.createElement("div",{ref:e.YEAR_REFS[r-p],onClick:function(t){e.onYearClick(t,r)},onKeyDown:function(t){_t(t)&&(t.preventDefault(),t.key="Enter"),e.onYearKeyDown(t,r)},tabIndex:e.getYearTabIndex(r),className:e.getYearClassNames(r),onMouseEnter:e.props.usePointerEvent?void 0:function(e){return o(e,r)},onPointerEnter:e.props.usePointerEvent?function(e){return o(e,r)}:void 0,onMouseLeave:e.props.usePointerEvent?void 0:function(e){return s(e,r)},onPointerLeave:e.props.usePointerEvent?function(e){return s(e,r)}:void 0,key:r,"aria-current":e.isCurrentYear(r)?"date":void 0},e.getYearContent(r)))},d=p;d<=c;d++)l(d);return he.default.createElement("div",{className:this.getYearContainerClassNames()},he.default.createElement("div",{className:"react-datepicker__year-wrapper",onMouseLeave:this.props.usePointerEvent?void 0:this.props.clearSelectingDate,onPointerLeave:this.props.usePointerEvent?this.props.clearSelectingDate:void 0},t))}}])}(he.default.Component),zt=function(e){function t(e){var r;return be(this,t),Ce(r=ye(this,t,[e]),"onTimeChange",(function(e){r.setState({time:e});var t=r.props.date,n=t instanceof Date&&!isNaN(t)?t:new Date;n.setHours(e.split(":")[0]),n.setMinutes(e.split(":")[1]),r.props.onChange(n)})),Ce(r,"renderTimeInput",(function(){var e=r.state.time,t=r.props,n=t.date,a=t.timeString,o=t.customTimeInput;return o?he.default.cloneElement(o,{date:n,value:e,onChange:r.onTimeChange}):he.default.createElement("input",{type:"time",className:"react-datepicker-time__input",placeholder:"Time",name:"time-input",required:!0,value:e,onChange:function(e){r.onTimeChange(e.target.value||a)}})})),r.state={time:r.props.timeString},r}return Ye(t,e),Me(t,[{key:"render",value:function(){return he.default.createElement("div",{className:"react-datepicker__input-time-container"},he.default.createElement("div",{className:"react-datepicker-time__caption"},this.props.timeInputLabel),he.default.createElement("div",{className:"react-datepicker-time__input-container"},he.default.createElement("div",{className:"react-datepicker-time__input"},this.renderTimeInput())))}}],[{key:"getDerivedStateFromProps",value:function(e,t){return e.timeString!==t.time?{time:e.timeString}:null}}])}(he.default.Component);function Gt(e){var t=e.showTimeSelectOnly,r=void 0!==t&&t,n=e.showTime,a=void 0!==n&&n,o=e.className,s=e.children,i=r?"Choose Time":"Choose Date".concat(a?" and Time":"");return he.default.createElement("div",{className:o,role:"dialog","aria-label":i,"aria-modal":"true"},s)}var Jt=["react-datepicker__year-select","react-datepicker__month-select","react-datepicker__month-year-select"],Xt=function(e){function t(e){var r;return be(this,t),Ce(r=ye(this,t,[e]),"handleClickOutside",(function(e){r.props.onClickOutside(e)})),Ce(r,"setClickOutsideRef",(function(){return r.containerRef.current})),Ce(r,"handleDropdownFocus",(function(e){(function(){var e=((arguments.length>0&&void 0!==arguments[0]?arguments[0]:{}).className||"").split(/\s+/);return Jt.some((function(t){return e.indexOf(t)>=0}))})(e.target)&&r.props.onDropdownFocus()})),Ce(r,"getDateInView",(function(){var e=r.props,t=e.preSelection,n=e.selected,a=e.openToDate,o=yt(r.props),s=gt(r.props),i=Te(),p=a||n||t;return p||(o&&re.isBefore(i,o)?o:s&&te.isAfter(i,s)?s:i)})),Ce(r,"increaseMonth",(function(){r.setState((function(e){var t=e.date;return{date:d.addMonths(t,1)}}),(function(){return r.handleMonthChange(r.state.date)}))})),Ce(r,"decreaseMonth",(function(){r.setState((function(e){var t=e.date;return{date:y.subMonths(t,1)}}),(function(){return r.handleMonthChange(r.state.date)}))})),Ce(r,"handleDayClick",(function(e,t,n){r.props.onSelect(e,t,n),r.props.setPreSelection&&r.props.setPreSelection(e)})),Ce(r,"handleDayMouseEnter",(function(e){r.setState({selectingDate:e}),r.props.onDayMouseEnter&&r.props.onDayMouseEnter(e)})),Ce(r,"handleMonthMouseLeave",(function(){r.setState({selectingDate:null}),r.props.onMonthMouseLeave&&r.props.onMonthMouseLeave()})),Ce(r,"handleYearMouseEnter",(function(e,t){r.setState({selectingDate:T.setYear(Te(),t)}),r.props.onYearMouseEnter&&r.props.onYearMouseEnter(e,t)})),Ce(r,"handleYearMouseLeave",(function(e,t){r.props.onYearMouseLeave&&r.props.onYearMouseLeave(e,t)})),Ce(r,"handleYearChange",(function(e){r.props.onYearChange&&(r.props.onYearChange(e),r.setState({isRenderAriaLiveMessage:!0})),r.props.adjustDateOnChange&&(r.props.onSelect&&r.props.onSelect(e),r.props.setOpen&&r.props.setOpen(!0)),r.props.setPreSelection&&r.props.setPreSelection(e)})),Ce(r,"handleMonthChange",(function(e){r.handleCustomMonthChange(e),r.props.adjustDateOnChange&&(r.props.onSelect&&r.props.onSelect(e),r.props.setOpen&&r.props.setOpen(!0)),r.props.setPreSelection&&r.props.setPreSelection(e)})),Ce(r,"handleCustomMonthChange",(function(e){r.props.onMonthChange&&(r.props.onMonthChange(e),r.setState({isRenderAriaLiveMessage:!0}))})),Ce(r,"handleMonthYearChange",(function(e){r.handleYearChange(e),r.handleMonthChange(e)})),Ce(r,"changeYear",(function(e){r.setState((function(t){var r=t.date;return{date:T.setYear(r,e)}}),(function(){return r.handleYearChange(r.state.date)}))})),Ce(r,"changeMonth",(function(e){r.setState((function(t){var r=t.date;return{date:x.setMonth(r,e)}}),(function(){return r.handleMonthChange(r.state.date)}))})),Ce(r,"changeMonthYear",(function(e){r.setState((function(t){var r=t.date;return{date:T.setYear(x.setMonth(r,C.getMonth(e)),Y.getYear(e))}}),(function(){return r.handleMonthYearChange(r.state.date)}))})),Ce(r,"header",(function(){var e=We(arguments.length>0&&void 0!==arguments[0]?arguments[0]:r.state.date,r.props.locale,r.props.calendarStartDay),t=[];return r.props.showWeekNumbers&&t.push(he.default.createElement("div",{key:"W",className:"react-datepicker__day-name"},r.props.weekLabel||"#")),t.concat([0,1,2,3,4,5,6].map((function(t){var a=c.addDays(e,t),o=r.formatWeekday(a,r.props.locale),s=r.props.weekDayClassName?r.props.weekDayClassName(a):void 0;return he.default.createElement("div",{key:t,"aria-label":Le(a,"EEEE",r.props.locale),className:n.clsx("react-datepicker__day-name",s)},o)})))})),Ce(r,"formatWeekday",(function(e,t){return r.props.formatWeekDay?function(e,t,r){return t(Le(e,"EEEE",r))}(e,r.props.formatWeekDay,t):r.props.useWeekdaysShort?function(e,t){return Le(e,"EEE",t)}(e,t):function(e,t){return Le(e,"EEEEEE",t)}(e,t)})),Ce(r,"decreaseYear",(function(){r.setState((function(e){var t=e.date;return{date:v.subYears(t,r.props.showYearPicker?r.props.yearItemNumber:1)}}),(function(){return r.handleYearChange(r.state.date)}))})),Ce(r,"clearSelectingDate",(function(){r.setState({selectingDate:null})})),Ce(r,"renderPreviousButton",(function(){if(!r.props.renderCustomHeader){var e;switch(!0){case r.props.showMonthYearPicker:e=ft(r.state.date,r.props);break;case r.props.showYearPicker:e=function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},r=t.minDate,n=t.yearItemNumber,a=void 0===n?xe:n,o=bt(Ke(v.subYears(e,a)),a).endPeriod,s=r&&Y.getYear(r);return s&&s>o||!1}(r.state.date,r.props);break;case r.props.showQuarterYearPicker:e=function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},r=t.minDate,n=t.includeDates,a=j.startOfYear(e),o=g.subQuarters(a,1);return r&&Q.differenceInCalendarQuarters(r,o)>0||n&&n.every((function(e){return Q.differenceInCalendarQuarters(e,o)>0}))||!1}(r.state.date,r.props);break;default:e=ut(r.state.date,r.props)}if((r.props.forceShowMonthNavigation||r.props.showDisabledMonthNavigation||!e)&&!r.props.showTimeSelectOnly){var t=["react-datepicker__navigation","react-datepicker__navigation--previous"],n=r.decreaseMonth;(r.props.showMonthYearPicker||r.props.showQuarterYearPicker||r.props.showYearPicker)&&(n=r.decreaseYear),e&&r.props.showDisabledMonthNavigation&&(t.push("react-datepicker__navigation--previous--disabled"),n=null);var a=r.props.showMonthYearPicker||r.props.showQuarterYearPicker||r.props.showYearPicker,o=r.props,s=o.previousMonthButtonLabel,i=o.previousYearButtonLabel,p=r.props,c=p.previousMonthAriaLabel,l=void 0===c?"string"==typeof s?s:"Previous Month":c,d=p.previousYearAriaLabel,u=void 0===d?"string"==typeof i?i:"Previous Year":d;return he.default.createElement("button",{type:"button",className:t.join(" "),onClick:n,onKeyDown:r.props.handleOnKeyDown,"aria-label":a?u:l},he.default.createElement("span",{className:["react-datepicker__navigation-icon","react-datepicker__navigation-icon--previous"].join(" ")},a?r.props.previousYearButtonLabel:r.props.previousMonthButtonLabel))}}})),Ce(r,"increaseYear",(function(){r.setState((function(e){var t=e.date;return{date:h.addYears(t,r.props.showYearPicker?r.props.yearItemNumber:1)}}),(function(){return r.handleYearChange(r.state.date)}))})),Ce(r,"renderNextButton",(function(){if(!r.props.renderCustomHeader){var e;switch(!0){case r.props.showMonthYearPicker:e=mt(r.state.date,r.props);break;case r.props.showYearPicker:e=function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},r=t.maxDate,n=t.yearItemNumber,a=void 0===n?xe:n,o=bt(h.addYears(e,a),a).startPeriod,s=r&&Y.getYear(r);return s&&s<o||!1}(r.state.date,r.props);break;case r.props.showQuarterYearPicker:e=function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},r=t.maxDate,n=t.includeDates,a=z.endOfYear(e),o=u.addQuarters(a,1);return r&&Q.differenceInCalendarQuarters(o,r)>0||n&&n.every((function(e){return Q.differenceInCalendarQuarters(o,e)>0}))||!1}(r.state.date,r.props);break;default:e=ht(r.state.date,r.props)}if((r.props.forceShowMonthNavigation||r.props.showDisabledMonthNavigation||!e)&&!r.props.showTimeSelectOnly){var t=["react-datepicker__navigation","react-datepicker__navigation--next"];r.props.showTimeSelect&&t.push("react-datepicker__navigation--next--with-time"),r.props.todayButton&&t.push("react-datepicker__navigation--next--with-today-button");var n=r.increaseMonth;(r.props.showMonthYearPicker||r.props.showQuarterYearPicker||r.props.showYearPicker)&&(n=r.increaseYear),e&&r.props.showDisabledMonthNavigation&&(t.push("react-datepicker__navigation--next--disabled"),n=null);var a=r.props.showMonthYearPicker||r.props.showQuarterYearPicker||r.props.showYearPicker,o=r.props,s=o.nextMonthButtonLabel,i=o.nextYearButtonLabel,p=r.props,c=p.nextMonthAriaLabel,l=void 0===c?"string"==typeof s?s:"Next Month":c,d=p.nextYearAriaLabel,f=void 0===d?"string"==typeof i?i:"Next Year":d;return he.default.createElement("button",{type:"button",className:t.join(" "),onClick:n,onKeyDown:r.props.handleOnKeyDown,"aria-label":a?f:l},he.default.createElement("span",{className:["react-datepicker__navigation-icon","react-datepicker__navigation-icon--next"].join(" ")},a?r.props.nextYearButtonLabel:r.props.nextMonthButtonLabel))}}})),Ce(r,"renderCurrentMonth",(function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:r.state.date,t=["react-datepicker__current-month"];return r.props.showYearDropdown&&t.push("react-datepicker__current-month--hasYearDropdown"),r.props.showMonthDropdown&&t.push("react-datepicker__current-month--hasMonthDropdown"),r.props.showMonthYearDropdown&&t.push("react-datepicker__current-month--hasMonthYearDropdown"),he.default.createElement("div",{className:t.join(" ")},Le(e,r.props.dateFormat,r.props.locale))})),Ce(r,"renderYearDropdown",(function(){var e=arguments.length>0&&void 0!==arguments[0]&&arguments[0];if(r.props.showYearDropdown&&!e)return he.default.createElement(Nt,{adjustDateOnChange:r.props.adjustDateOnChange,date:r.state.date,onSelect:r.props.onSelect,setOpen:r.props.setOpen,dropdownMode:r.props.dropdownMode,onChange:r.changeYear,minDate:r.props.minDate,maxDate:r.props.maxDate,year:Y.getYear(r.state.date),scrollableYearDropdown:r.props.scrollableYearDropdown,yearDropdownItemNumber:r.props.yearDropdownItemNumber})})),Ce(r,"renderMonthDropdown",(function(){var e=arguments.length>0&&void 0!==arguments[0]&&arguments[0];if(r.props.showMonthDropdown&&!e)return he.default.createElement(It,{dropdownMode:r.props.dropdownMode,locale:r.props.locale,onChange:r.changeMonth,month:C.getMonth(r.state.date),useShortMonthInDropdown:r.props.useShortMonthInDropdown})})),Ce(r,"renderMonthYearDropdown",(function(){var e=arguments.length>0&&void 0!==arguments[0]&&arguments[0];if(r.props.showMonthYearDropdown&&!e)return he.default.createElement(Ft,{dropdownMode:r.props.dropdownMode,locale:r.props.locale,dateFormat:r.props.dateFormat,onChange:r.changeMonthYear,minDate:r.props.minDate,maxDate:r.props.maxDate,date:r.state.date,scrollableMonthYearDropdown:r.props.scrollableMonthYearDropdown})})),Ce(r,"handleTodayButtonClick",(function(e){r.props.onSelect(Be(),e),r.props.setPreSelection&&r.props.setPreSelection(Be())})),Ce(r,"renderTodayButton",(function(){if(r.props.todayButton&&!r.props.showTimeSelectOnly)return he.default.createElement("div",{className:"react-datepicker__today-button",onClick:function(e){return r.handleTodayButtonClick(e)}},r.props.todayButton)})),Ce(r,"renderDefaultHeader",(function(e){var t=e.monthDate,n=e.i;return he.default.createElement("div",{className:"react-datepicker__header ".concat(r.props.showTimeSelect?"react-datepicker__header--has-time-select":"")},r.renderCurrentMonth(t),he.default.createElement("div",{className:"react-datepicker__header__dropdown react-datepicker__header__dropdown--".concat(r.props.dropdownMode),onFocus:r.handleDropdownFocus},r.renderMonthDropdown(0!==n),r.renderMonthYearDropdown(0!==n),r.renderYearDropdown(0!==n)),he.default.createElement("div",{className:"react-datepicker__day-names"},r.header(t)))})),Ce(r,"renderCustomHeader",(function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=e.monthDate,n=e.i;if(r.props.showTimeSelect&&!r.state.monthContainer||r.props.showTimeSelectOnly)return null;var a=ut(r.state.date,r.props),o=ht(r.state.date,r.props),s=ft(r.state.date,r.props),i=mt(r.state.date,r.props),p=!r.props.showMonthYearPicker&&!r.props.showQuarterYearPicker&&!r.props.showYearPicker;return he.default.createElement("div",{className:"react-datepicker__header react-datepicker__header--custom",onFocus:r.props.onDropdownFocus},r.props.renderCustomHeader(De(De({},r.state),{},{customHeaderCount:n,monthDate:t,changeMonth:r.changeMonth,changeYear:r.changeYear,decreaseMonth:r.decreaseMonth,increaseMonth:r.increaseMonth,decreaseYear:r.decreaseYear,increaseYear:r.increaseYear,prevMonthButtonDisabled:a,nextMonthButtonDisabled:o,prevYearButtonDisabled:s,nextYearButtonDisabled:i})),p&&he.default.createElement("div",{className:"react-datepicker__day-names"},r.header(t)))})),Ce(r,"renderYearHeader",(function(e){var t=e.monthDate,n=r.props,a=n.showYearPicker,o=bt(t,n.yearItemNumber),s=o.startPeriod,i=o.endPeriod;return he.default.createElement("div",{className:"react-datepicker__header react-datepicker-year-header"},a?"".concat(s," - ").concat(i):Y.getYear(t))})),Ce(r,"renderHeader",(function(e){switch(!0){case void 0!==r.props.renderCustomHeader:return r.renderCustomHeader(e);case r.props.showMonthYearPicker||r.props.showQuarterYearPicker||r.props.showYearPicker:return r.renderYearHeader(e);default:return r.renderDefaultHeader(e)}})),Ce(r,"renderMonths",(function(){var e;if(!r.props.showTimeSelectOnly&&!r.props.showYearPicker){for(var t=[],n=r.props.showPreviousMonths?r.props.monthsShown-1:0,a=r.props.showMonthYearPicker||r.props.showQuarterYearPicker?h.addYears(r.state.date,n):y.subMonths(r.state.date,n),o=null!==(e=r.props.monthSelectedIn)&&void 0!==e?e:n,s=0;s<r.props.monthsShown;++s){var i=s-o+n,p=r.props.showMonthYearPicker||r.props.showQuarterYearPicker?h.addYears(a,i):d.addMonths(a,i),c="month-".concat(s),l=s<r.props.monthsShown-1,u=s>0;t.push(he.default.createElement("div",{key:c,ref:function(e){r.monthContainer=e},className:"react-datepicker__month-container"},r.renderHeader({monthDate:p,i:s}),he.default.createElement(Vt,{chooseDayAriaLabelPrefix:r.props.chooseDayAriaLabelPrefix,disabledDayAriaLabelPrefix:r.props.disabledDayAriaLabelPrefix,weekAriaLabelPrefix:r.props.weekAriaLabelPrefix,ariaLabelPrefix:r.props.monthAriaLabelPrefix,onChange:r.changeMonthYear,day:p,dayClassName:r.props.dayClassName,calendarStartDay:r.props.calendarStartDay,monthClassName:r.props.monthClassName,onDayClick:r.handleDayClick,handleOnKeyDown:r.props.handleOnDayKeyDown,handleOnMonthKeyDown:r.props.handleOnKeyDown,usePointerEvent:r.props.usePointerEvent,onDayMouseEnter:r.handleDayMouseEnter,onMouseLeave:r.handleMonthMouseLeave,onWeekSelect:r.props.onWeekSelect,orderInDisplay:s,formatWeekNumber:r.props.formatWeekNumber,locale:r.props.locale,minDate:r.props.minDate,maxDate:r.props.maxDate,excludeDates:r.props.excludeDates,excludeDateIntervals:r.props.excludeDateIntervals,highlightDates:r.props.highlightDates,holidays:r.props.holidays,selectingDate:r.state.selectingDate,includeDates:r.props.includeDates,includeDateIntervals:r.props.includeDateIntervals,inline:r.props.inline,shouldFocusDayInline:r.props.shouldFocusDayInline,fixedHeight:r.props.fixedHeight,filterDate:r.props.filterDate,preSelection:r.props.preSelection,setPreSelection:r.props.setPreSelection,selected:r.props.selected,selectsStart:r.props.selectsStart,selectsEnd:r.props.selectsEnd,selectsRange:r.props.selectsRange,selectsDisabledDaysInRange:r.props.selectsDisabledDaysInRange,selectsMultiple:r.props.selectsMultiple,selectedDates:r.props.selectedDates,showWeekNumbers:r.props.showWeekNumbers,startDate:r.props.startDate,endDate:r.props.endDate,peekNextMonth:r.props.peekNextMonth,setOpen:r.props.setOpen,shouldCloseOnSelect:r.props.shouldCloseOnSelect,renderDayContents:r.props.renderDayContents,renderMonthContent:r.props.renderMonthContent,renderQuarterContent:r.props.renderQuarterContent,renderYearContent:r.props.renderYearContent,disabledKeyboardNavigation:r.props.disabledKeyboardNavigation,showMonthYearPicker:r.props.showMonthYearPicker,showFullMonthYearPicker:r.props.showFullMonthYearPicker,showTwoColumnMonthYearPicker:r.props.showTwoColumnMonthYearPicker,showFourColumnMonthYearPicker:r.props.showFourColumnMonthYearPicker,showYearPicker:r.props.showYearPicker,showQuarterYearPicker:r.props.showQuarterYearPicker,showWeekPicker:r.props.showWeekPicker,isInputFocused:r.props.isInputFocused,containerRef:r.containerRef,monthShowsDuplicateDaysEnd:l,monthShowsDuplicateDaysStart:u})))}return t}})),Ce(r,"renderYears",(function(){if(!r.props.showTimeSelectOnly)return r.props.showYearPicker?he.default.createElement("div",{className:"react-datepicker__year--container"},r.renderHeader({monthDate:r.state.date}),he.default.createElement($t,_e({onDayClick:r.handleDayClick,selectingDate:r.state.selectingDate,clearSelectingDate:r.clearSelectingDate,date:r.state.date},r.props,{onYearMouseEnter:r.handleYearMouseEnter,onYearMouseLeave:r.handleYearMouseLeave}))):void 0})),Ce(r,"renderTimeSection",(function(){if(r.props.showTimeSelect&&(r.state.monthContainer||r.props.showTimeSelectOnly))return he.default.createElement(Ut,{selected:r.props.selected,openToDate:r.props.openToDate,onChange:r.props.onTimeChange,timeClassName:r.props.timeClassName,format:r.props.timeFormat,includeTimes:r.props.includeTimes,intervals:r.props.timeIntervals,minTime:r.props.minTime,maxTime:r.props.maxTime,excludeTimes:r.props.excludeTimes,filterTime:r.props.filterTime,timeCaption:r.props.timeCaption,todayButton:r.props.todayButton,showMonthDropdown:r.props.showMonthDropdown,showMonthYearDropdown:r.props.showMonthYearDropdown,showYearDropdown:r.props.showYearDropdown,withPortal:r.props.withPortal,monthRef:r.state.monthContainer,injectTimes:r.props.injectTimes,locale:r.props.locale,handleOnKeyDown:r.props.handleOnKeyDown,showTimeSelectOnly:r.props.showTimeSelectOnly})})),Ce(r,"renderInputTimeSection",(function(){var e=new Date(r.props.selected),t=Re(e)&&Boolean(r.props.selected)?"".concat(wt(e.getHours()),":").concat(wt(e.getMinutes())):"";if(r.props.showTimeInput)return he.default.createElement(zt,{date:e,timeString:t,timeInputLabel:r.props.timeInputLabel,onChange:r.props.onTimeChange,customTimeInput:r.props.customTimeInput})})),Ce(r,"renderAriaLiveRegion",(function(){var e,t=bt(r.state.date,r.props.yearItemNumber),n=t.startPeriod,a=t.endPeriod;return e=r.props.showYearPicker?"".concat(n," - ").concat(a):r.props.showMonthYearPicker||r.props.showQuarterYearPicker?Y.getYear(r.state.date):"".concat(Xe(C.getMonth(r.state.date),r.props.locale)," ").concat(Y.getYear(r.state.date)),he.default.createElement("span",{role:"alert","aria-live":"polite",className:"react-datepicker__aria-live"},r.state.isRenderAriaLiveMessage&&e)})),Ce(r,"renderChildren",(function(){if(r.props.children)return he.default.createElement("div",{className:"react-datepicker__children-container"},r.props.children)})),r.containerRef=he.default.createRef(),r.state={date:r.getDateInView(),selectingDate:null,monthContainer:null,isRenderAriaLiveMessage:!1},r}return Ye(t,e),Me(t,[{key:"componentDidMount",value:function(){var e=this;this.props.showTimeSelect&&(this.assignMonthContainer=void e.setState({monthContainer:e.monthContainer}))}},{key:"componentDidUpdate",value:function(e){var t=this;if(!this.props.preSelection||Ue(this.props.preSelection,e.preSelection)&&this.props.monthSelectedIn===e.monthSelectedIn)this.props.openToDate&&!Ue(this.props.openToDate,e.openToDate)&&this.setState({date:this.props.openToDate});else{var r=!je(this.state.date,this.props.preSelection);this.setState({date:this.props.preSelection},(function(){return r&&t.handleCustomMonthChange(t.state.date)}))}}},{key:"render",value:function(){var e=this.props.container||Gt;return he.default.createElement("div",{style:{display:"contents"},ref:this.containerRef},he.default.createElement(e,{className:n.clsx("react-datepicker",this.props.className,{"react-datepicker--time-only":this.props.showTimeSelectOnly}),showTime:this.props.showTimeSelect||this.props.showTimeInput,showTimeSelectOnly:this.props.showTimeSelectOnly},this.renderAriaLiveRegion(),this.renderPreviousButton(),this.renderNextButton(),this.renderMonths(),this.renderYears(),this.renderTodayButton(),this.renderTimeSection(),this.renderInputTimeSection(),this.renderChildren()))}}],[{key:"defaultProps",get:function(){return{onDropdownFocus:function(){},monthsShown:1,forceShowMonthNavigation:!1,timeCaption:"Time",previousYearButtonLabel:"Previous Year",nextYearButtonLabel:"Next Year",previousMonthButtonLabel:"Previous Month",nextMonthButtonLabel:"Next Month",customTimeInput:null,yearItemNumber:xe}}}])}(he.default.Component),Zt=function(e){var t=e.icon,r=e.className,n=void 0===r?"":r,a=e.onClick,o="react-datepicker__calendar-icon";return he.default.isValidElement(t)?he.default.cloneElement(t,{className:"".concat(t.props.className||""," ").concat(o," ").concat(n),onClick:function(e){"function"==typeof t.props.onClick&&t.props.onClick(e),"function"==typeof a&&a(e)}}):"string"==typeof t?he.default.createElement("i",{className:"".concat(o," ").concat(t," ").concat(n),"aria-hidden":"true",onClick:a}):he.default.createElement("svg",{className:"".concat(o," ").concat(n),xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 448 512",onClick:a},he.default.createElement("path",{d:"M96 32V64H48C21.5 64 0 85.5 0 112v48H448V112c0-26.5-21.5-48-48-48H352V32c0-17.7-14.3-32-32-32s-32 14.3-32 32V64H160V32c0-17.7-14.3-32-32-32S96 14.3 96 32zM448 192H0V464c0 26.5 21.5 48 48 48H400c26.5 0 48-21.5 48-48V192z"}))},er=function(e){function t(e){var r;return be(this,t),(r=ye(this,t,[e])).el=document.createElement("div"),r}return Ye(t,e),Me(t,[{key:"componentDidMount",value:function(){this.portalRoot=(this.props.portalHost||document).getElementById(this.props.portalId),this.portalRoot||(this.portalRoot=document.createElement("div"),this.portalRoot.setAttribute("id",this.props.portalId),(this.props.portalHost||document.body).appendChild(this.portalRoot)),this.portalRoot.appendChild(this.el)}},{key:"componentWillUnmount",value:function(){this.portalRoot.removeChild(this.el)}},{key:"render",value:function(){return me.default.createPortal(this.props.children,this.el)}}])}(he.default.Component),tr=function(e){return!e.disabled&&-1!==e.tabIndex},rr=function(e){function t(e){var r;return be(this,t),Ce(r=ye(this,t,[e]),"getTabChildren",(function(){return Array.prototype.slice.call(r.tabLoopRef.current.querySelectorAll("[tabindex], a, button, input, select, textarea"),1,-1).filter(tr)})),Ce(r,"handleFocusStart",(function(){var e=r.getTabChildren();e&&e.length>1&&e[e.length-1].focus()})),Ce(r,"handleFocusEnd",(function(){var e=r.getTabChildren();e&&e.length>1&&e[0].focus()})),r.tabLoopRef=he.default.createRef(),r}return Ye(t,e),Me(t,[{key:"render",value:function(){return this.props.enableTabLoop?he.default.createElement("div",{className:"react-datepicker__tab-loop",ref:this.tabLoopRef},he.default.createElement("div",{className:"react-datepicker__tab-loop__start",tabIndex:"0",onFocus:this.handleFocusStart}),this.props.children,he.default.createElement("div",{className:"react-datepicker__tab-loop__end",tabIndex:"0",onFocus:this.handleFocusEnd})):this.props.children}}],[{key:"defaultProps",get:function(){return{enableTabLoop:!0}}}])}(he.default.Component);var nr,ar=function(e){function t(){return be(this,t),ye(this,t,arguments)}return Ye(t,e),Me(t,[{key:"render",value:function(){var e,t=this.props,r=t.className,a=t.wrapperClassName,o=t.hidePopper,s=t.popperComponent,i=t.targetComponent,p=t.enableTabLoop,c=t.popperOnKeyDown,l=t.portalId,d=t.portalHost,u=t.popperProps,h=t.showArrow;if(!o){var f=n.clsx("react-datepicker-popper",r);e=he.default.createElement(rr,{enableTabLoop:p},he.default.createElement("div",{ref:u.refs.setFloating,style:u.floatingStyles,className:f,"data-placement":u.placement,onKeyDown:c},s,h&&he.default.createElement(le.FloatingArrow,{ref:u.arrowRef,context:u.context,fill:"currentColor",strokeWidth:1,height:8,width:16,style:{transform:"translateY(-1px)"},className:"react-datepicker__triangle"})))}this.props.popperContainer&&(e=he.default.createElement(this.props.popperContainer,{},e)),l&&!o&&(e=he.default.createElement(er,{portalId:l,portalHost:d},e));var m=n.clsx("react-datepicker-wrapper",a);return he.default.createElement(he.default.Fragment,null,he.default.createElement("div",{ref:u.refs.setReference,className:m},i),e)}}],[{key:"defaultProps",get:function(){return{hidePopper:!0}}}])}(he.default.Component),or=(nr=ar,function(e){var t=De(De({},e),{},{popperModifiers:e.popperModifiers||[],popperProps:e.popperProps||{},hidePopper:"boolean"!=typeof e.hidePopper||e.hidePopper}),r=he.default.useRef(),n=le.useFloating(De({open:!t.hidePopper,whileElementsMounted:le.autoUpdate,placement:t.popperPlacement,middleware:[le.flip({padding:15}),le.offset(10),le.arrow({element:r})].concat(Ne(t.popperModifiers))},t.popperProps));return he.default.createElement(nr,_e({},t,{popperProps:De(De({},n),{},{arrowRef:r})}))}),sr="react-datepicker-ignore-onclickoutside",ir=fe.default(Xt);var pr="Date input not valid.",cr=function(e){function t(e){var r;return be(this,t),Ce(r=ye(this,t,[e]),"getPreSelection",(function(){return r.props.openToDate?r.props.openToDate:r.props.selectsEnd&&r.props.startDate?r.props.startDate:r.props.selectsStart&&r.props.endDate?r.props.endDate:Te()})),Ce(r,"modifyHolidays",(function(){var e;return null===(e=r.props.holidays)||void 0===e?void 0:e.reduce((function(e,t){var r=new Date(t.date);return o.isValid(r)?[].concat(Ne(e),[De(De({},t),{},{date:r})]):e}),[])})),Ce(r,"calcInitialState",(function(){var e,t=r.getPreSelection(),n=yt(r.props),a=gt(r.props),o=n&&re.isBefore(t,K.startOfDay(n))?n:a&&te.isAfter(t,V.endOfDay(a))?a:t;return{open:r.props.startOpen||!1,preventFocus:!1,preSelection:null!==(e=r.props.selectsRange?r.props.startDate:r.props.selected)&&void 0!==e?e:o,highlightDates:vt(r.props.highlightDates),focused:!1,shouldFocusDayInline:!1,isRenderAriaLiveMessage:!1}})),Ce(r,"clearPreventFocusTimeout",(function(){r.preventFocusTimeout&&clearTimeout(r.preventFocusTimeout)})),Ce(r,"setFocus",(function(){r.input&&r.input.focus&&r.input.focus({preventScroll:!0})})),Ce(r,"setBlur",(function(){r.input&&r.input.blur&&r.input.blur(),r.cancelFocusInput()})),Ce(r,"setOpen",(function(e){var t=arguments.length>1&&void 0!==arguments[1]&&arguments[1];r.setState({open:e,preSelection:e&&r.state.open?r.state.preSelection:r.calcInitialState().preSelection,lastPreSelectChange:dr},(function(){e||r.setState((function(e){return{focused:!!t&&e.focused}}),(function(){!t&&r.setBlur(),r.setState({inputValue:null})}))}))})),Ce(r,"inputOk",(function(){return a.isDate(r.state.preSelection)})),Ce(r,"isCalendarOpen",(function(){return void 0===r.props.open?r.state.open&&!r.props.disabled&&!r.props.readOnly:r.props.open})),Ce(r,"handleFocus",(function(e){r.state.preventFocus||(r.props.onFocus(e),r.props.preventOpenOnFocus||r.props.readOnly||r.setOpen(!0)),r.setState({focused:!0})})),Ce(r,"sendFocusBackToInput",(function(){r.preventFocusTimeout&&r.clearPreventFocusTimeout(),r.setState({preventFocus:!0},(function(){r.preventFocusTimeout=setTimeout((function(){r.setFocus(),r.setState({preventFocus:!1})}))}))})),Ce(r,"cancelFocusInput",(function(){clearTimeout(r.inputFocusTimeout),r.inputFocusTimeout=null})),Ce(r,"deferFocusInput",(function(){r.cancelFocusInput(),r.inputFocusTimeout=setTimeout((function(){return r.setFocus()}),1)})),Ce(r,"handleDropdownFocus",(function(){r.cancelFocusInput()})),Ce(r,"handleBlur",(function(e){(!r.state.open||r.props.withPortal||r.props.showTimeInput)&&r.props.onBlur(e),r.setState({focused:!1})})),Ce(r,"handleCalendarClickOutside",(function(e){r.props.inline||r.setOpen(!1),r.props.onClickOutside(e),r.props.withPortal&&e.preventDefault()})),Ce(r,"handleChange",(function(){for(var e=arguments.length,t=new Array(e),n=0;n<e;n++)t[n]=arguments[n];var a=t[0];if(!r.props.onChangeRaw||(r.props.onChangeRaw.apply(r,t),"function"==typeof a.isDefaultPrevented&&!a.isDefaultPrevented())){r.setState({inputValue:a.target.value,lastPreSelectChange:lr});var o,i,p,c,l,d,u,h,f=(o=a.target.value,i=r.props.dateFormat,p=r.props.locale,c=r.props.strictParsing,l=r.props.minDate,d=null,u=Je(p)||Je(Ge()),h=!0,Array.isArray(i)?(i.forEach((function(e){var t=oe.parse(o,e,new Date,{locale:u,useAdditionalWeekYearTokens:!0,useAdditionalDayOfYearTokens:!0});c&&(h=Re(t,l)&&o===Le(t,e,p)),Re(t,l)&&h&&(d=t)})),d):(d=oe.parse(o,i,new Date,{locale:u,useAdditionalWeekYearTokens:!0,useAdditionalDayOfYearTokens:!0}),c?h=Re(d)&&o===Le(d,i,p):Re(d)||(i=i.match(Ie).map((function(e){var t=e[0];if("p"===t||"P"===t){var r=s.longFormatters[t];return u?r(e,u.formatLong):t}return e})).join(""),o.length>0&&(d=oe.parse(o,i.slice(0,o.length),new Date,{useAdditionalWeekYearTokens:!0,useAdditionalDayOfYearTokens:!0})),Re(d)||(d=new Date(o))),Re(d)&&h?d:null));r.props.showTimeSelectOnly&&r.props.selected&&f&&!Ue(f,r.props.selected)&&(f=de.set(r.props.selected,{hours:w.getHours(f),minutes:k.getMinutes(f),seconds:D.getSeconds(f)})),!f&&a.target.value||r.setSelected(f,a,!0)}})),Ce(r,"handleSelect",(function(e,t,n){if(r.props.shouldCloseOnSelect&&!r.props.showTimeSelect&&r.sendFocusBackToInput(),r.props.onChangeRaw&&r.props.onChangeRaw(t),r.setSelected(e,t,!1,n),r.props.showDateSelect&&r.setState({isRenderAriaLiveMessage:!0}),!r.props.shouldCloseOnSelect||r.props.showTimeSelect)r.setPreSelection(e);else if(!r.props.inline){r.props.selectsRange||r.setOpen(!1);var a=r.props,o=a.startDate,s=a.endDate;!o||s||!r.props.swapRange&&Ct(e,o)||r.setOpen(!1)}})),Ce(r,"setSelected",(function(e,t,n,a){var o=e;if(r.props.showYearPicker){if(null!==o&&st(Y.getYear(o),r.props))return}else if(r.props.showMonthYearPicker){if(null!==o&&rt(o,r.props))return}else if(null!==o&&et(o,r.props))return;var s=r.props,i=s.onChange,p=s.selectsRange,c=s.startDate,l=s.endDate,d=s.selectsMultiple,u=s.selectedDates,h=s.minTime,f=s.swapRange;if(!$e(r.props.selected,o)||r.props.allowSameDay||p||d)if(null!==o&&(!r.props.selected||n&&(r.props.showTimeSelect||r.props.showTimeSelectOnly||r.props.showTimeInput)||(o=Ae(o,{hour:w.getHours(r.props.selected),minute:k.getMinutes(r.props.selected),second:D.getSeconds(r.props.selected)})),n||!r.props.showTimeSelect&&!r.props.showTimeSelectOnly||h&&(o=Ae(o,{hour:h.getHours(),minute:h.getMinutes(),second:h.getSeconds()})),r.props.inline||r.setState({preSelection:o}),r.props.focusSelectedMonth||r.setState({monthSelectedIn:a})),p){var m=c&&!l,y=c&&l;!c&&!l?i([o,null],t):m&&(null===o?i([null,null],t):Ct(o,c)?i(f?[o,c]:[o,null],t):i([c,o],t)),y&&i([o,null],t)}else if(d){if(null!=u&&u.length)if(u.some((function(e){return Ue(e,o)})))i(u.filter((function(e){return!Ue(e,o)})),t);else i([].concat(Ne(u),[o]),t);else i([o],t)}else i(o,t);n||(r.props.onSelect(o,t),r.setState({inputValue:null}))})),Ce(r,"setPreSelection",(function(e){var t=void 0!==r.props.minDate,n=void 0!==r.props.maxDate,a=!0;if(e){var o=K.startOfDay(e);if(t&&n)a=ze(e,r.props.minDate,r.props.maxDate);else if(t){var s=K.startOfDay(r.props.minDate);a=te.isAfter(e,s)||$e(o,s)}else if(n){var i=V.endOfDay(r.props.maxDate);a=re.isBefore(e,i)||$e(o,i)}}a&&r.setState({preSelection:e})})),Ce(r,"toggleCalendar",(function(){r.setOpen(!r.state.open)})),Ce(r,"handleTimeChange",(function(e){var t=r.props.selected?r.props.selected:r.getPreSelection(),n=r.props.selected?e:Ae(t,{hour:w.getHours(e),minute:k.getMinutes(e)});r.setState({preSelection:n}),r.props.onChange(n),r.props.shouldCloseOnSelect&&(r.sendFocusBackToInput(),r.setOpen(!1)),r.props.showTimeInput&&r.setOpen(!0),(r.props.showTimeSelectOnly||r.props.showTimeSelect)&&r.setState({isRenderAriaLiveMessage:!0}),r.setState({inputValue:null})})),Ce(r,"onInputClick",(function(){r.props.disabled||r.props.readOnly||r.setOpen(!0),r.props.onInputClick()})),Ce(r,"onInputKeyDown",(function(e){r.props.onKeyDown(e);var t=e.key;if(r.state.open||r.props.inline||r.props.preventOpenOnFocus){if(r.state.open){if("ArrowDown"===t||"ArrowUp"===t){e.preventDefault();var n=r.props.showWeekPicker&&r.props.showWeekNumbers?'.react-datepicker__week-number[tabindex="0"]':r.props.showFullMonthYearPicker||r.props.showMonthYearPicker?'.react-datepicker__month-text[tabindex="0"]':'.react-datepicker__day[tabindex="0"]',a=r.calendar.componentNode&&r.calendar.componentNode.querySelector(n);return void(a&&a.focus({preventScroll:!0}))}var o=Te(r.state.preSelection);"Enter"===t?(e.preventDefault(),r.inputOk()&&r.state.lastPreSelectChange===dr?(r.handleSelect(o,e),!r.props.shouldCloseOnSelect&&r.setPreSelection(o)):r.setOpen(!1)):"Escape"===t?(e.preventDefault(),r.sendFocusBackToInput(),r.setOpen(!1)):"Tab"===t&&r.setOpen(!1),r.inputOk()||r.props.onInputError({code:1,msg:pr})}}else"ArrowDown"!==t&&"ArrowUp"!==t&&"Enter"!==t||r.onInputClick()})),Ce(r,"onPortalKeyDown",(function(e){"Escape"===e.key&&(e.preventDefault(),r.setState({preventFocus:!0},(function(){r.setOpen(!1),setTimeout((function(){r.setFocus(),r.setState({preventFocus:!1})}))})))})),Ce(r,"onDayKeyDown",(function(e){r.props.onKeyDown(e);var t,n=e.key,a=e.shiftKey,o=Te(r.state.preSelection);if("Enter"===n)e.preventDefault(),r.handleSelect(o,e),!r.props.shouldCloseOnSelect&&r.setPreSelection(o);else if("Escape"===n)e.preventDefault(),r.setOpen(!1),r.inputOk()||r.props.onInputError({code:1,msg:pr});else if(!r.props.disabledKeyboardNavigation){var s;switch(n){case"ArrowLeft":s=r.props.showWeekPicker?m.subWeeks(o,1):f.subDays(o,1);break;case"ArrowRight":s=r.props.showWeekPicker?l.addWeeks(o,1):c.addDays(o,1);break;case"ArrowUp":s=m.subWeeks(o,1);break;case"ArrowDown":s=l.addWeeks(o,1);break;case"PageUp":s=a?v.subYears(o,1):y.subMonths(o,1);break;case"PageDown":s=a?h.addYears(o,1):d.addMonths(o,1);break;case"Home":s=We(o,r.props.locale,r.props.calendarStartDay);break;case"End":t=o,s=U.endOfWeek(t);break;default:s=null}if(!s)return void(r.props.onInputError&&r.props.onInputError({code:1,msg:pr}));if(e.preventDefault(),r.setState({lastPreSelectChange:dr}),r.props.adjustDateOnChange&&r.setSelected(s),r.setPreSelection(s),r.props.inline){var i=C.getMonth(o),p=C.getMonth(s),u=Y.getYear(o),g=Y.getYear(s);i!==p||u!==g?r.setState({shouldFocusDayInline:!0}):r.setState({shouldFocusDayInline:!1})}}})),Ce(r,"onPopperKeyDown",(function(e){"Escape"===e.key&&(e.preventDefault(),r.sendFocusBackToInput())})),Ce(r,"onClearClick",(function(e){e&&e.preventDefault&&e.preventDefault(),r.sendFocusBackToInput(),r.props.selectsRange?r.props.onChange([null,null],e):r.props.onChange(null,e),r.setState({inputValue:null})})),Ce(r,"clear",(function(){r.onClearClick()})),Ce(r,"onScroll",(function(e){"boolean"==typeof r.props.closeOnScroll&&r.props.closeOnScroll?e.target!==document&&e.target!==document.documentElement&&e.target!==document.body||r.setOpen(!1):"function"==typeof r.props.closeOnScroll&&r.props.closeOnScroll(e)&&r.setOpen(!1)})),Ce(r,"renderCalendar",(function(){return r.props.inline||r.isCalendarOpen()?he.default.createElement(ir,{ref:function(e){r.calendar=e},locale:r.props.locale,calendarStartDay:r.props.calendarStartDay,chooseDayAriaLabelPrefix:r.props.chooseDayAriaLabelPrefix,disabledDayAriaLabelPrefix:r.props.disabledDayAriaLabelPrefix,weekAriaLabelPrefix:r.props.weekAriaLabelPrefix,monthAriaLabelPrefix:r.props.monthAriaLabelPrefix,adjustDateOnChange:r.props.adjustDateOnChange,setOpen:r.setOpen,shouldCloseOnSelect:r.props.shouldCloseOnSelect,dateFormat:r.props.dateFormatCalendar,useWeekdaysShort:r.props.useWeekdaysShort,formatWeekDay:r.props.formatWeekDay,dropdownMode:r.props.dropdownMode,selected:r.props.selected,preSelection:r.state.preSelection,onSelect:r.handleSelect,onWeekSelect:r.props.onWeekSelect,openToDate:r.props.openToDate,minDate:r.props.minDate,maxDate:r.props.maxDate,selectsStart:r.props.selectsStart,selectsEnd:r.props.selectsEnd,selectsRange:r.props.selectsRange,selectsMultiple:r.props.selectsMultiple,selectedDates:r.props.selectedDates,startDate:r.props.startDate,endDate:r.props.endDate,excludeDates:r.props.excludeDates,excludeDateIntervals:r.props.excludeDateIntervals,filterDate:r.props.filterDate,onClickOutside:r.handleCalendarClickOutside,formatWeekNumber:r.props.formatWeekNumber,highlightDates:r.state.highlightDates,holidays:Dt(r.modifyHolidays()),includeDates:r.props.includeDates,includeDateIntervals:r.props.includeDateIntervals,includeTimes:r.props.includeTimes,injectTimes:r.props.injectTimes,inline:r.props.inline,shouldFocusDayInline:r.state.shouldFocusDayInline,peekNextMonth:r.props.peekNextMonth,showMonthDropdown:r.props.showMonthDropdown,showPreviousMonths:r.props.showPreviousMonths,useShortMonthInDropdown:r.props.useShortMonthInDropdown,showMonthYearDropdown:r.props.showMonthYearDropdown,showWeekNumbers:r.props.showWeekNumbers,showYearDropdown:r.props.showYearDropdown,withPortal:r.props.withPortal,forceShowMonthNavigation:r.props.forceShowMonthNavigation,showDisabledMonthNavigation:r.props.showDisabledMonthNavigation,scrollableYearDropdown:r.props.scrollableYearDropdown,scrollableMonthYearDropdown:r.props.scrollableMonthYearDropdown,todayButton:r.props.todayButton,weekLabel:r.props.weekLabel,outsideClickIgnoreClass:sr,fixedHeight:r.props.fixedHeight,monthsShown:r.props.monthsShown,monthSelectedIn:r.state.monthSelectedIn,onDropdownFocus:r.handleDropdownFocus,onMonthChange:r.props.onMonthChange,onYearChange:r.props.onYearChange,dayClassName:r.props.dayClassName,weekDayClassName:r.props.weekDayClassName,monthClassName:r.props.monthClassName,timeClassName:r.props.timeClassName,showDateSelect:r.props.showDateSelect,showTimeSelect:r.props.showTimeSelect,showTimeSelectOnly:r.props.showTimeSelectOnly,onTimeChange:r.handleTimeChange,timeFormat:r.props.timeFormat,timeIntervals:r.props.timeIntervals,minTime:r.props.minTime,maxTime:r.props.maxTime,excludeTimes:r.props.excludeTimes,filterTime:r.props.filterTime,timeCaption:r.props.timeCaption,className:r.props.calendarClassName,container:r.props.calendarContainer,yearItemNumber:r.props.yearItemNumber,yearDropdownItemNumber:r.props.yearDropdownItemNumber,previousMonthAriaLabel:r.props.previousMonthAriaLabel,previousMonthButtonLabel:r.props.previousMonthButtonLabel,nextMonthAriaLabel:r.props.nextMonthAriaLabel,nextMonthButtonLabel:r.props.nextMonthButtonLabel,previousYearAriaLabel:r.props.previousYearAriaLabel,previousYearButtonLabel:r.props.previousYearButtonLabel,nextYearAriaLabel:r.props.nextYearAriaLabel,nextYearButtonLabel:r.props.nextYearButtonLabel,timeInputLabel:r.props.timeInputLabel,disabledKeyboardNavigation:r.props.disabledKeyboardNavigation,renderCustomHeader:r.props.renderCustomHeader,popperProps:r.props.popperProps,renderDayContents:r.props.renderDayContents,renderMonthContent:r.props.renderMonthContent,renderQuarterContent:r.props.renderQuarterContent,renderYearContent:r.props.renderYearContent,onDayMouseEnter:r.props.onDayMouseEnter,onMonthMouseLeave:r.props.onMonthMouseLeave,onYearMouseEnter:r.props.onYearMouseEnter,onYearMouseLeave:r.props.onYearMouseLeave,selectsDisabledDaysInRange:r.props.selectsDisabledDaysInRange,showTimeInput:r.props.showTimeInput,showMonthYearPicker:r.props.showMonthYearPicker,showFullMonthYearPicker:r.props.showFullMonthYearPicker,showTwoColumnMonthYearPicker:r.props.showTwoColumnMonthYearPicker,showFourColumnMonthYearPicker:r.props.showFourColumnMonthYearPicker,showYearPicker:r.props.showYearPicker,showQuarterYearPicker:r.props.showQuarterYearPicker,showWeekPicker:r.props.showWeekPicker,excludeScrollbar:r.props.excludeScrollbar,handleOnKeyDown:r.props.onKeyDown,handleOnDayKeyDown:r.onDayKeyDown,isInputFocused:r.state.focused,customTimeInput:r.props.customTimeInput,setPreSelection:r.setPreSelection,usePointerEvent:r.props.usePointerEvent,yearClassName:r.props.yearClassName},r.props.children):null})),Ce(r,"renderAriaLiveRegion",(function(){var e,t=r.props,n=t.dateFormat,a=t.locale,o=r.props.showTimeInput||r.props.showTimeSelect?"PPPPp":"PPPP";return e=r.props.selectsRange?"Selected start date: ".concat(Fe(r.props.startDate,{dateFormat:o,locale:a}),". ").concat(r.props.endDate?"End date: "+Fe(r.props.endDate,{dateFormat:o,locale:a}):""):r.props.showTimeSelectOnly?"Selected time: ".concat(Fe(r.props.selected,{dateFormat:n,locale:a})):r.props.showYearPicker?"Selected year: ".concat(Fe(r.props.selected,{dateFormat:"yyyy",locale:a})):r.props.showMonthYearPicker?"Selected month: ".concat(Fe(r.props.selected,{dateFormat:"MMMM yyyy",locale:a})):r.props.showQuarterYearPicker?"Selected quarter: ".concat(Fe(r.props.selected,{dateFormat:"yyyy, QQQ",locale:a})):"Selected date: ".concat(Fe(r.props.selected,{dateFormat:o,locale:a})),he.default.createElement("span",{role:"alert","aria-live":"polite",className:"react-datepicker__aria-live"},e)})),Ce(r,"renderDateInput",(function(){var e,t=n.clsx(r.props.className,Ce({},sr,r.state.open)),a=r.props.customInput||he.default.createElement("input",{type:"text"}),o=r.props.customInputRef||"ref",s="string"==typeof r.props.value?r.props.value:"string"==typeof r.state.inputValue?r.state.inputValue:r.props.selectsRange?function(e,t,r){if(!e)return"";var n=Fe(e,r),a=t?Fe(t,r):"";return"".concat(n," - ").concat(a)}(r.props.startDate,r.props.endDate,r.props):r.props.selectsMultiple?function(e,t){if(null==e||!e.length)return"";var r=Fe(e[0],t);if(1===e.length)return r;if(2===e.length){var n=Fe(e[1],t);return"".concat(r,", ").concat(n)}var a=e.length-1;return"".concat(r," (+").concat(a,")")}(r.props.selectedDates,r.props):Fe(r.props.selected,r.props);return he.default.cloneElement(a,(Ce(Ce(Ce(Ce(Ce(Ce(Ce(Ce(Ce(Ce(e={},o,(function(e){r.input=e})),"value",s),"onBlur",r.handleBlur),"onChange",r.handleChange),"onClick",r.onInputClick),"onFocus",r.handleFocus),"onKeyDown",r.onInputKeyDown),"id",r.props.id),"name",r.props.name),"form",r.props.form),Ce(Ce(Ce(Ce(Ce(Ce(Ce(Ce(Ce(Ce(e,"autoFocus",r.props.autoFocus),"placeholder",r.props.placeholderText),"disabled",r.props.disabled),"autoComplete",r.props.autoComplete),"className",n.clsx(a.props.className,t)),"title",r.props.title),"readOnly",r.props.readOnly),"required",r.props.required),"tabIndex",r.props.tabIndex),"aria-describedby",r.props.ariaDescribedBy),Ce(Ce(Ce(e,"aria-invalid",r.props.ariaInvalid),"aria-labelledby",r.props.ariaLabelledBy),"aria-required",r.props.ariaRequired)))})),Ce(r,"renderClearButton",(function(){var e=r.props,t=e.isClearable,a=e.disabled,o=e.selected,s=e.startDate,i=e.endDate,p=e.clearButtonTitle,c=e.clearButtonClassName,l=void 0===c?"":c,d=e.ariaLabelClose,u=void 0===d?"Close":d,h=e.selectedDates;return t&&(null!=o||null!=s||null!=i||null!=h&&h.length)?he.default.createElement("button",{type:"button",className:n.clsx("react-datepicker__close-icon",l,{"react-datepicker__close-icon--disabled":a}),disabled:a,"aria-label":u,onClick:r.onClearClick,title:p,tabIndex:-1}):null})),r.state=r.calcInitialState(),r.preventFocusTimeout=null,r}return Ye(t,e),Me(t,[{key:"componentDidMount",value:function(){window.addEventListener("scroll",this.onScroll,!0)}},{key:"componentDidUpdate",value:function(e,t){var r,n;e.inline&&(r=e.selected,n=this.props.selected,r&&n?C.getMonth(r)!==C.getMonth(n)||Y.getYear(r)!==Y.getYear(n):r!==n)&&this.setPreSelection(this.props.selected),void 0!==this.state.monthSelectedIn&&e.monthsShown!==this.props.monthsShown&&this.setState({monthSelectedIn:0}),e.highlightDates!==this.props.highlightDates&&this.setState({highlightDates:vt(this.props.highlightDates)}),t.focused||$e(e.selected,this.props.selected)||this.setState({inputValue:null}),t.open!==this.state.open&&(!1===t.open&&!0===this.state.open&&this.props.onCalendarOpen(),!0===t.open&&!1===this.state.open&&this.props.onCalendarClose())}},{key:"componentWillUnmount",value:function(){this.clearPreventFocusTimeout(),window.removeEventListener("scroll",this.onScroll,!0)}},{key:"renderInputContainer",value:function(){var e=this.props,t=e.showIcon,r=e.icon,n=e.calendarIconClassname,a=e.toggleCalendarOnIconClick,o=this.state.open;return he.default.createElement("div",{className:"react-datepicker__input-container".concat(t?" react-datepicker__view-calendar-icon":"")},t&&he.default.createElement(Zt,_e({icon:r,className:"".concat(n," ").concat(o&&"react-datepicker-ignore-onclickoutside")},a?{onClick:this.toggleCalendar}:null)),this.state.isRenderAriaLiveMessage&&this.renderAriaLiveRegion(),this.renderDateInput(),this.renderClearButton())}},{key:"render",value:function(){var e=this.renderCalendar();if(this.props.inline)return e;if(this.props.withPortal){var t=this.state.open?he.default.createElement(rr,{enableTabLoop:this.props.enableTabLoop},he.default.createElement("div",{className:"react-datepicker__portal",tabIndex:-1,onKeyDown:this.onPortalKeyDown},e)):null;return this.state.open&&this.props.portalId&&(t=he.default.createElement(er,{portalId:this.props.portalId,portalHost:this.props.portalHost},t)),he.default.createElement("div",null,this.renderInputContainer(),t)}return he.default.createElement(or,{className:this.props.popperClassName,wrapperClassName:this.props.wrapperClassName,hidePopper:!this.isCalendarOpen(),portalId:this.props.portalId,portalHost:this.props.portalHost,popperModifiers:this.props.popperModifiers,targetComponent:this.renderInputContainer(),popperContainer:this.props.popperContainer,popperComponent:e,popperPlacement:this.props.popperPlacement,popperProps:this.props.popperProps,popperOnKeyDown:this.onPopperKeyDown,enableTabLoop:this.props.enableTabLoop,showArrow:this.props.showPopperArrow})}}],[{key:"defaultProps",get:function(){return{allowSameDay:!1,dateFormat:"MM/dd/yyyy",dateFormatCalendar:"LLLL yyyy",onChange:function(){},disabled:!1,disabledKeyboardNavigation:!1,dropdownMode:"scroll",onFocus:function(){},onBlur:function(){},onKeyDown:function(){},onInputClick:function(){},onSelect:function(){},onClickOutside:function(){},onMonthChange:function(){},onCalendarOpen:function(){},onCalendarClose:function(){},preventOpenOnFocus:!1,onYearChange:function(){},onInputError:function(){},monthsShown:1,readOnly:!1,withPortal:!1,selectsDisabledDaysInRange:!1,shouldCloseOnSelect:!0,showTimeSelect:!1,showTimeInput:!1,showPreviousMonths:!1,showMonthYearPicker:!1,showFullMonthYearPicker:!1,showTwoColumnMonthYearPicker:!1,showFourColumnMonthYearPicker:!1,showYearPicker:!1,showQuarterYearPicker:!1,showWeekPicker:!1,strictParsing:!1,swapRange:!1,timeIntervals:30,timeCaption:"Time",previousMonthAriaLabel:"Previous Month",previousMonthButtonLabel:"Previous Month",nextMonthAriaLabel:"Next Month",nextMonthButtonLabel:"Next Month",previousYearAriaLabel:"Previous Year",previousYearButtonLabel:"Previous Year",nextYearAriaLabel:"Next Year",nextYearButtonLabel:"Next Year",timeInputLabel:"Time",enableTabLoop:!0,yearItemNumber:xe,focusSelectedMonth:!1,showPopperArrow:!0,excludeScrollbar:!0,customTimeInput:null,calendarStartDay:void 0,toggleCalendarOnIconClick:!1,usePointerEvent:!1}}}])}(he.default.Component),lr="input",dr="navigate";e.CalendarContainer=Gt,e.default=cr,e.getDefaultLocale=Ge,e.registerLocale=function(e,t){var r="undefined"!=typeof window?window:globalThis;r.__localeData__||(r.__localeData__={}),r.__localeData__[e]=t},e.setDefaultLocale=function(e){("undefined"!=typeof window?window:globalThis).__localeId__=e},Object.defineProperty(e,"__esModule",{value:!0})}));
-
-
-/***/ }),
-
-/***/ "./node_modules/react-dom/cjs/react-dom-server-legacy.browser.development.js":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/react-dom/cjs/react-dom-server-legacy.browser.development.js ***!
-  \***********************************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-/**
- * @license React
- * react-dom-server-legacy.browser.development.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-
-
-if (true) {
-  (function() {
-'use strict';
-
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var ReactVersion = '18.3.1';
-
-var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
-
-// by calls to these methods by a Babel plugin.
-//
-// In PROD (or in packages without access to React internals),
-// they are left as they are instead.
-
-function warn(format) {
-  {
-    {
-      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        args[_key - 1] = arguments[_key];
-      }
-
-      printWarning('warn', format, args);
-    }
-  }
-}
-function error(format) {
-  {
-    {
-      for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-        args[_key2 - 1] = arguments[_key2];
-      }
-
-      printWarning('error', format, args);
-    }
-  }
-}
-
-function printWarning(level, format, args) {
-  // When changing this logic, you might want to also
-  // update consoleWithStackDev.www.js as well.
-  {
-    var ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
-    var stack = ReactDebugCurrentFrame.getStackAddendum();
-
-    if (stack !== '') {
-      format += '%s';
-      args = args.concat([stack]);
-    } // eslint-disable-next-line react-internal/safe-string-coercion
-
-
-    var argsWithFormat = args.map(function (item) {
-      return String(item);
-    }); // Careful: RN currently depends on this prefix
-
-    argsWithFormat.unshift('Warning: ' + format); // We intentionally don't use spread (or .apply) directly because it
-    // breaks IE9: https://github.com/facebook/react/issues/13610
-    // eslint-disable-next-line react-internal/no-production-logging
-
-    Function.prototype.apply.call(console[level], console, argsWithFormat);
-  }
-}
-
-function scheduleWork(callback) {
-  callback();
-}
-function beginWriting(destination) {}
-function writeChunk(destination, chunk) {
-  writeChunkAndReturn(destination, chunk);
-}
-function writeChunkAndReturn(destination, chunk) {
-  return destination.push(chunk);
-}
-function completeWriting(destination) {}
-function close(destination) {
-  destination.push(null);
-}
-function stringToChunk(content) {
-  return content;
-}
-function stringToPrecomputedChunk(content) {
-  return content;
-}
-function closeWithError(destination, error) {
-  // $FlowFixMe: This is an Error object or the destination accepts other types.
-  destination.destroy(error);
-}
-
-/*
- * The `'' + value` pattern (used in in perf-sensitive code) throws for Symbol
- * and Temporal.* types. See https://github.com/facebook/react/pull/22064.
- *
- * The functions in this module will throw an easier-to-understand,
- * easier-to-debug exception with a clear errors message message explaining the
- * problem. (Instead of a confusing exception thrown inside the implementation
- * of the `value` object).
- */
-// $FlowFixMe only called in DEV, so void return is not possible.
-function typeName(value) {
-  {
-    // toStringTag is needed for namespaced types like Temporal.Instant
-    var hasToStringTag = typeof Symbol === 'function' && Symbol.toStringTag;
-    var type = hasToStringTag && value[Symbol.toStringTag] || value.constructor.name || 'Object';
-    return type;
-  }
-} // $FlowFixMe only called in DEV, so void return is not possible.
-
-
-function willCoercionThrow(value) {
-  {
-    try {
-      testStringCoercion(value);
-      return false;
-    } catch (e) {
-      return true;
-    }
-  }
-}
-
-function testStringCoercion(value) {
-  // If you ended up here by following an exception call stack, here's what's
-  // happened: you supplied an object or symbol value to React (as a prop, key,
-  // DOM attribute, CSS property, string ref, etc.) and when React tried to
-  // coerce it to a string using `'' + value`, an exception was thrown.
-  //
-  // The most common types that will cause this exception are `Symbol` instances
-  // and Temporal objects like `Temporal.Instant`. But any object that has a
-  // `valueOf` or `[Symbol.toPrimitive]` method that throws will also cause this
-  // exception. (Library authors do this to prevent users from using built-in
-  // numeric operators like `+` or comparison operators like `>=` because custom
-  // methods are needed to perform accurate arithmetic or comparison.)
-  //
-  // To fix the problem, coerce this object or symbol value to a string before
-  // passing it to React. The most reliable way is usually `String(value)`.
-  //
-  // To find which value is throwing, check the browser or debugger console.
-  // Before this exception was thrown, there should be `console.error` output
-  // that shows the type (Symbol, Temporal.PlainDate, etc.) that caused the
-  // problem and how that type was used: key, atrribute, input value prop, etc.
-  // In most cases, this console output also shows the component and its
-  // ancestor components where the exception happened.
-  //
-  // eslint-disable-next-line react-internal/safe-string-coercion
-  return '' + value;
-}
-
-function checkAttributeStringCoercion(value, attributeName) {
-  {
-    if (willCoercionThrow(value)) {
-      error('The provided `%s` attribute is an unsupported type %s.' + ' This value must be coerced to a string before before using it here.', attributeName, typeName(value));
-
-      return testStringCoercion(value); // throw (to help callers find troubleshooting comments)
-    }
-  }
-}
-function checkCSSPropertyStringCoercion(value, propName) {
-  {
-    if (willCoercionThrow(value)) {
-      error('The provided `%s` CSS property is an unsupported type %s.' + ' This value must be coerced to a string before before using it here.', propName, typeName(value));
-
-      return testStringCoercion(value); // throw (to help callers find troubleshooting comments)
-    }
-  }
-}
-function checkHtmlStringCoercion(value) {
-  {
-    if (willCoercionThrow(value)) {
-      error('The provided HTML markup uses a value of unsupported type %s.' + ' This value must be coerced to a string before before using it here.', typeName(value));
-
-      return testStringCoercion(value); // throw (to help callers find troubleshooting comments)
-    }
-  }
-}
-
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-// A reserved attribute.
-// It is handled by React separately and shouldn't be written to the DOM.
-var RESERVED = 0; // A simple string attribute.
-// Attributes that aren't in the filter are presumed to have this type.
-
-var STRING = 1; // A string attribute that accepts booleans in React. In HTML, these are called
-// "enumerated" attributes with "true" and "false" as possible values.
-// When true, it should be set to a "true" string.
-// When false, it should be set to a "false" string.
-
-var BOOLEANISH_STRING = 2; // A real boolean attribute.
-// When true, it should be present (set either to an empty string or its name).
-// When false, it should be omitted.
-
-var BOOLEAN = 3; // An attribute that can be used as a flag as well as with a value.
-// When true, it should be present (set either to an empty string or its name).
-// When false, it should be omitted.
-// For any other value, should be present with that value.
-
-var OVERLOADED_BOOLEAN = 4; // An attribute that must be numeric or parse as a numeric.
-// When falsy, it should be removed.
-
-var NUMERIC = 5; // An attribute that must be positive numeric or parse as a positive numeric.
-// When falsy, it should be removed.
-
-var POSITIVE_NUMERIC = 6;
-
-/* eslint-disable max-len */
-var ATTRIBUTE_NAME_START_CHAR = ":A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD";
-/* eslint-enable max-len */
-
-var ATTRIBUTE_NAME_CHAR = ATTRIBUTE_NAME_START_CHAR + "\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040";
-var VALID_ATTRIBUTE_NAME_REGEX = new RegExp('^[' + ATTRIBUTE_NAME_START_CHAR + '][' + ATTRIBUTE_NAME_CHAR + ']*$');
-var illegalAttributeNameCache = {};
-var validatedAttributeNameCache = {};
-function isAttributeNameSafe(attributeName) {
-  if (hasOwnProperty.call(validatedAttributeNameCache, attributeName)) {
-    return true;
-  }
-
-  if (hasOwnProperty.call(illegalAttributeNameCache, attributeName)) {
-    return false;
-  }
-
-  if (VALID_ATTRIBUTE_NAME_REGEX.test(attributeName)) {
-    validatedAttributeNameCache[attributeName] = true;
-    return true;
-  }
-
-  illegalAttributeNameCache[attributeName] = true;
-
-  {
-    error('Invalid attribute name: `%s`', attributeName);
-  }
-
-  return false;
-}
-function shouldRemoveAttributeWithWarning(name, value, propertyInfo, isCustomComponentTag) {
-  if (propertyInfo !== null && propertyInfo.type === RESERVED) {
-    return false;
-  }
-
-  switch (typeof value) {
-    case 'function': // $FlowIssue symbol is perfectly valid here
-
-    case 'symbol':
-      // eslint-disable-line
-      return true;
-
-    case 'boolean':
-      {
-        if (isCustomComponentTag) {
-          return false;
-        }
-
-        if (propertyInfo !== null) {
-          return !propertyInfo.acceptsBooleans;
-        } else {
-          var prefix = name.toLowerCase().slice(0, 5);
-          return prefix !== 'data-' && prefix !== 'aria-';
-        }
-      }
-
-    default:
-      return false;
-  }
-}
-function getPropertyInfo(name) {
-  return properties.hasOwnProperty(name) ? properties[name] : null;
-}
-
-function PropertyInfoRecord(name, type, mustUseProperty, attributeName, attributeNamespace, sanitizeURL, removeEmptyString) {
-  this.acceptsBooleans = type === BOOLEANISH_STRING || type === BOOLEAN || type === OVERLOADED_BOOLEAN;
-  this.attributeName = attributeName;
-  this.attributeNamespace = attributeNamespace;
-  this.mustUseProperty = mustUseProperty;
-  this.propertyName = name;
-  this.type = type;
-  this.sanitizeURL = sanitizeURL;
-  this.removeEmptyString = removeEmptyString;
-} // When adding attributes to this list, be sure to also add them to
-// the `possibleStandardNames` module to ensure casing and incorrect
-// name warnings.
-
-
-var properties = {}; // These props are reserved by React. They shouldn't be written to the DOM.
-
-var reservedProps = ['children', 'dangerouslySetInnerHTML', // TODO: This prevents the assignment of defaultValue to regular
-// elements (not just inputs). Now that ReactDOMInput assigns to the
-// defaultValue property -- do we need this?
-'defaultValue', 'defaultChecked', 'innerHTML', 'suppressContentEditableWarning', 'suppressHydrationWarning', 'style'];
-
-reservedProps.forEach(function (name) {
-  properties[name] = new PropertyInfoRecord(name, RESERVED, false, // mustUseProperty
-  name, // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // A few React string attributes have a different name.
-// This is a mapping from React prop names to the attribute names.
-
-[['acceptCharset', 'accept-charset'], ['className', 'class'], ['htmlFor', 'for'], ['httpEquiv', 'http-equiv']].forEach(function (_ref) {
-  var name = _ref[0],
-      attributeName = _ref[1];
-  properties[name] = new PropertyInfoRecord(name, STRING, false, // mustUseProperty
-  attributeName, // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // These are "enumerated" HTML attributes that accept "true" and "false".
-// In React, we let users pass `true` and `false` even though technically
-// these aren't boolean attributes (they are coerced to strings).
-
-['contentEditable', 'draggable', 'spellCheck', 'value'].forEach(function (name) {
-  properties[name] = new PropertyInfoRecord(name, BOOLEANISH_STRING, false, // mustUseProperty
-  name.toLowerCase(), // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // These are "enumerated" SVG attributes that accept "true" and "false".
-// In React, we let users pass `true` and `false` even though technically
-// these aren't boolean attributes (they are coerced to strings).
-// Since these are SVG attributes, their attribute names are case-sensitive.
-
-['autoReverse', 'externalResourcesRequired', 'focusable', 'preserveAlpha'].forEach(function (name) {
-  properties[name] = new PropertyInfoRecord(name, BOOLEANISH_STRING, false, // mustUseProperty
-  name, // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // These are HTML boolean attributes.
-
-['allowFullScreen', 'async', // Note: there is a special case that prevents it from being written to the DOM
-// on the client side because the browsers are inconsistent. Instead we call focus().
-'autoFocus', 'autoPlay', 'controls', 'default', 'defer', 'disabled', 'disablePictureInPicture', 'disableRemotePlayback', 'formNoValidate', 'hidden', 'loop', 'noModule', 'noValidate', 'open', 'playsInline', 'readOnly', 'required', 'reversed', 'scoped', 'seamless', // Microdata
-'itemScope'].forEach(function (name) {
-  properties[name] = new PropertyInfoRecord(name, BOOLEAN, false, // mustUseProperty
-  name.toLowerCase(), // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // These are the few React props that we set as DOM properties
-// rather than attributes. These are all booleans.
-
-['checked', // Note: `option.selected` is not updated if `select.multiple` is
-// disabled with `removeAttribute`. We have special logic for handling this.
-'multiple', 'muted', 'selected' // NOTE: if you add a camelCased prop to this list,
-// you'll need to set attributeName to name.toLowerCase()
-// instead in the assignment below.
-].forEach(function (name) {
-  properties[name] = new PropertyInfoRecord(name, BOOLEAN, true, // mustUseProperty
-  name, // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // These are HTML attributes that are "overloaded booleans": they behave like
-// booleans, but can also accept a string value.
-
-['capture', 'download' // NOTE: if you add a camelCased prop to this list,
-// you'll need to set attributeName to name.toLowerCase()
-// instead in the assignment below.
-].forEach(function (name) {
-  properties[name] = new PropertyInfoRecord(name, OVERLOADED_BOOLEAN, false, // mustUseProperty
-  name, // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // These are HTML attributes that must be positive numbers.
-
-['cols', 'rows', 'size', 'span' // NOTE: if you add a camelCased prop to this list,
-// you'll need to set attributeName to name.toLowerCase()
-// instead in the assignment below.
-].forEach(function (name) {
-  properties[name] = new PropertyInfoRecord(name, POSITIVE_NUMERIC, false, // mustUseProperty
-  name, // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // These are HTML attributes that must be numbers.
-
-['rowSpan', 'start'].forEach(function (name) {
-  properties[name] = new PropertyInfoRecord(name, NUMERIC, false, // mustUseProperty
-  name.toLowerCase(), // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-});
-var CAMELIZE = /[\-\:]([a-z])/g;
-
-var capitalize = function (token) {
-  return token[1].toUpperCase();
-}; // This is a list of all SVG attributes that need special casing, namespacing,
-// or boolean value assignment. Regular attributes that just accept strings
-// and have the same names are omitted, just like in the HTML attribute filter.
-// Some of these attributes can be hard to find. This list was created by
-// scraping the MDN documentation.
-
-
-['accent-height', 'alignment-baseline', 'arabic-form', 'baseline-shift', 'cap-height', 'clip-path', 'clip-rule', 'color-interpolation', 'color-interpolation-filters', 'color-profile', 'color-rendering', 'dominant-baseline', 'enable-background', 'fill-opacity', 'fill-rule', 'flood-color', 'flood-opacity', 'font-family', 'font-size', 'font-size-adjust', 'font-stretch', 'font-style', 'font-variant', 'font-weight', 'glyph-name', 'glyph-orientation-horizontal', 'glyph-orientation-vertical', 'horiz-adv-x', 'horiz-origin-x', 'image-rendering', 'letter-spacing', 'lighting-color', 'marker-end', 'marker-mid', 'marker-start', 'overline-position', 'overline-thickness', 'paint-order', 'panose-1', 'pointer-events', 'rendering-intent', 'shape-rendering', 'stop-color', 'stop-opacity', 'strikethrough-position', 'strikethrough-thickness', 'stroke-dasharray', 'stroke-dashoffset', 'stroke-linecap', 'stroke-linejoin', 'stroke-miterlimit', 'stroke-opacity', 'stroke-width', 'text-anchor', 'text-decoration', 'text-rendering', 'underline-position', 'underline-thickness', 'unicode-bidi', 'unicode-range', 'units-per-em', 'v-alphabetic', 'v-hanging', 'v-ideographic', 'v-mathematical', 'vector-effect', 'vert-adv-y', 'vert-origin-x', 'vert-origin-y', 'word-spacing', 'writing-mode', 'xmlns:xlink', 'x-height' // NOTE: if you add a camelCased prop to this list,
-// you'll need to set attributeName to name.toLowerCase()
-// instead in the assignment below.
-].forEach(function (attributeName) {
-  var name = attributeName.replace(CAMELIZE, capitalize);
-  properties[name] = new PropertyInfoRecord(name, STRING, false, // mustUseProperty
-  attributeName, null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // String SVG attributes with the xlink namespace.
-
-['xlink:actuate', 'xlink:arcrole', 'xlink:role', 'xlink:show', 'xlink:title', 'xlink:type' // NOTE: if you add a camelCased prop to this list,
-// you'll need to set attributeName to name.toLowerCase()
-// instead in the assignment below.
-].forEach(function (attributeName) {
-  var name = attributeName.replace(CAMELIZE, capitalize);
-  properties[name] = new PropertyInfoRecord(name, STRING, false, // mustUseProperty
-  attributeName, 'http://www.w3.org/1999/xlink', false, // sanitizeURL
-  false);
-}); // String SVG attributes with the xml namespace.
-
-['xml:base', 'xml:lang', 'xml:space' // NOTE: if you add a camelCased prop to this list,
-// you'll need to set attributeName to name.toLowerCase()
-// instead in the assignment below.
-].forEach(function (attributeName) {
-  var name = attributeName.replace(CAMELIZE, capitalize);
-  properties[name] = new PropertyInfoRecord(name, STRING, false, // mustUseProperty
-  attributeName, 'http://www.w3.org/XML/1998/namespace', false, // sanitizeURL
-  false);
-}); // These attribute exists both in HTML and SVG.
-// The attribute name is case-sensitive in SVG so we can't just use
-// the React name like we do for attributes that exist only in HTML.
-
-['tabIndex', 'crossOrigin'].forEach(function (attributeName) {
-  properties[attributeName] = new PropertyInfoRecord(attributeName, STRING, false, // mustUseProperty
-  attributeName.toLowerCase(), // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // These attributes accept URLs. These must not allow javascript: URLS.
-// These will also need to accept Trusted Types object in the future.
-
-var xlinkHref = 'xlinkHref';
-properties[xlinkHref] = new PropertyInfoRecord('xlinkHref', STRING, false, // mustUseProperty
-'xlink:href', 'http://www.w3.org/1999/xlink', true, // sanitizeURL
-false);
-['src', 'href', 'action', 'formAction'].forEach(function (attributeName) {
-  properties[attributeName] = new PropertyInfoRecord(attributeName, STRING, false, // mustUseProperty
-  attributeName.toLowerCase(), // attributeName
-  null, // attributeNamespace
-  true, // sanitizeURL
-  true);
-});
-
-/**
- * CSS properties which accept numbers but are not in units of "px".
- */
-var isUnitlessNumber = {
-  animationIterationCount: true,
-  aspectRatio: true,
-  borderImageOutset: true,
-  borderImageSlice: true,
-  borderImageWidth: true,
-  boxFlex: true,
-  boxFlexGroup: true,
-  boxOrdinalGroup: true,
-  columnCount: true,
-  columns: true,
-  flex: true,
-  flexGrow: true,
-  flexPositive: true,
-  flexShrink: true,
-  flexNegative: true,
-  flexOrder: true,
-  gridArea: true,
-  gridRow: true,
-  gridRowEnd: true,
-  gridRowSpan: true,
-  gridRowStart: true,
-  gridColumn: true,
-  gridColumnEnd: true,
-  gridColumnSpan: true,
-  gridColumnStart: true,
-  fontWeight: true,
-  lineClamp: true,
-  lineHeight: true,
-  opacity: true,
-  order: true,
-  orphans: true,
-  tabSize: true,
-  widows: true,
-  zIndex: true,
-  zoom: true,
-  // SVG-related properties
-  fillOpacity: true,
-  floodOpacity: true,
-  stopOpacity: true,
-  strokeDasharray: true,
-  strokeDashoffset: true,
-  strokeMiterlimit: true,
-  strokeOpacity: true,
-  strokeWidth: true
-};
-/**
- * @param {string} prefix vendor-specific prefix, eg: Webkit
- * @param {string} key style name, eg: transitionDuration
- * @return {string} style name prefixed with `prefix`, properly camelCased, eg:
- * WebkitTransitionDuration
- */
-
-function prefixKey(prefix, key) {
-  return prefix + key.charAt(0).toUpperCase() + key.substring(1);
-}
-/**
- * Support style names that may come passed in prefixed by adding permutations
- * of vendor prefixes.
- */
-
-
-var prefixes = ['Webkit', 'ms', 'Moz', 'O']; // Using Object.keys here, or else the vanilla for-in loop makes IE8 go into an
-// infinite loop, because it iterates over the newly added props too.
-
-Object.keys(isUnitlessNumber).forEach(function (prop) {
-  prefixes.forEach(function (prefix) {
-    isUnitlessNumber[prefixKey(prefix, prop)] = isUnitlessNumber[prop];
-  });
-});
-
-var hasReadOnlyValue = {
-  button: true,
-  checkbox: true,
-  image: true,
-  hidden: true,
-  radio: true,
-  reset: true,
-  submit: true
-};
-function checkControlledValueProps(tagName, props) {
-  {
-    if (!(hasReadOnlyValue[props.type] || props.onChange || props.onInput || props.readOnly || props.disabled || props.value == null)) {
-      error('You provided a `value` prop to a form field without an ' + '`onChange` handler. This will render a read-only field. If ' + 'the field should be mutable use `defaultValue`. Otherwise, ' + 'set either `onChange` or `readOnly`.');
-    }
-
-    if (!(props.onChange || props.readOnly || props.disabled || props.checked == null)) {
-      error('You provided a `checked` prop to a form field without an ' + '`onChange` handler. This will render a read-only field. If ' + 'the field should be mutable use `defaultChecked`. Otherwise, ' + 'set either `onChange` or `readOnly`.');
-    }
-  }
-}
-
-function isCustomComponent(tagName, props) {
-  if (tagName.indexOf('-') === -1) {
-    return typeof props.is === 'string';
-  }
-
-  switch (tagName) {
-    // These are reserved SVG and MathML elements.
-    // We don't mind this list too much because we expect it to never grow.
-    // The alternative is to track the namespace in a few places which is convoluted.
-    // https://w3c.github.io/webcomponents/spec/custom/#custom-elements-core-concepts
-    case 'annotation-xml':
-    case 'color-profile':
-    case 'font-face':
-    case 'font-face-src':
-    case 'font-face-uri':
-    case 'font-face-format':
-    case 'font-face-name':
-    case 'missing-glyph':
-      return false;
-
-    default:
-      return true;
-  }
-}
-
-var ariaProperties = {
-  'aria-current': 0,
-  // state
-  'aria-description': 0,
-  'aria-details': 0,
-  'aria-disabled': 0,
-  // state
-  'aria-hidden': 0,
-  // state
-  'aria-invalid': 0,
-  // state
-  'aria-keyshortcuts': 0,
-  'aria-label': 0,
-  'aria-roledescription': 0,
-  // Widget Attributes
-  'aria-autocomplete': 0,
-  'aria-checked': 0,
-  'aria-expanded': 0,
-  'aria-haspopup': 0,
-  'aria-level': 0,
-  'aria-modal': 0,
-  'aria-multiline': 0,
-  'aria-multiselectable': 0,
-  'aria-orientation': 0,
-  'aria-placeholder': 0,
-  'aria-pressed': 0,
-  'aria-readonly': 0,
-  'aria-required': 0,
-  'aria-selected': 0,
-  'aria-sort': 0,
-  'aria-valuemax': 0,
-  'aria-valuemin': 0,
-  'aria-valuenow': 0,
-  'aria-valuetext': 0,
-  // Live Region Attributes
-  'aria-atomic': 0,
-  'aria-busy': 0,
-  'aria-live': 0,
-  'aria-relevant': 0,
-  // Drag-and-Drop Attributes
-  'aria-dropeffect': 0,
-  'aria-grabbed': 0,
-  // Relationship Attributes
-  'aria-activedescendant': 0,
-  'aria-colcount': 0,
-  'aria-colindex': 0,
-  'aria-colspan': 0,
-  'aria-controls': 0,
-  'aria-describedby': 0,
-  'aria-errormessage': 0,
-  'aria-flowto': 0,
-  'aria-labelledby': 0,
-  'aria-owns': 0,
-  'aria-posinset': 0,
-  'aria-rowcount': 0,
-  'aria-rowindex': 0,
-  'aria-rowspan': 0,
-  'aria-setsize': 0
-};
-
-var warnedProperties = {};
-var rARIA = new RegExp('^(aria)-[' + ATTRIBUTE_NAME_CHAR + ']*$');
-var rARIACamel = new RegExp('^(aria)[A-Z][' + ATTRIBUTE_NAME_CHAR + ']*$');
-
-function validateProperty(tagName, name) {
-  {
-    if (hasOwnProperty.call(warnedProperties, name) && warnedProperties[name]) {
-      return true;
-    }
-
-    if (rARIACamel.test(name)) {
-      var ariaName = 'aria-' + name.slice(4).toLowerCase();
-      var correctName = ariaProperties.hasOwnProperty(ariaName) ? ariaName : null; // If this is an aria-* attribute, but is not listed in the known DOM
-      // DOM properties, then it is an invalid aria-* attribute.
-
-      if (correctName == null) {
-        error('Invalid ARIA attribute `%s`. ARIA attributes follow the pattern aria-* and must be lowercase.', name);
-
-        warnedProperties[name] = true;
-        return true;
-      } // aria-* attributes should be lowercase; suggest the lowercase version.
-
-
-      if (name !== correctName) {
-        error('Invalid ARIA attribute `%s`. Did you mean `%s`?', name, correctName);
-
-        warnedProperties[name] = true;
-        return true;
-      }
-    }
-
-    if (rARIA.test(name)) {
-      var lowerCasedName = name.toLowerCase();
-      var standardName = ariaProperties.hasOwnProperty(lowerCasedName) ? lowerCasedName : null; // If this is an aria-* attribute, but is not listed in the known DOM
-      // DOM properties, then it is an invalid aria-* attribute.
-
-      if (standardName == null) {
-        warnedProperties[name] = true;
-        return false;
-      } // aria-* attributes should be lowercase; suggest the lowercase version.
-
-
-      if (name !== standardName) {
-        error('Unknown ARIA attribute `%s`. Did you mean `%s`?', name, standardName);
-
-        warnedProperties[name] = true;
-        return true;
-      }
-    }
-  }
-
-  return true;
-}
-
-function warnInvalidARIAProps(type, props) {
-  {
-    var invalidProps = [];
-
-    for (var key in props) {
-      var isValid = validateProperty(type, key);
-
-      if (!isValid) {
-        invalidProps.push(key);
-      }
-    }
-
-    var unknownPropString = invalidProps.map(function (prop) {
-      return '`' + prop + '`';
-    }).join(', ');
-
-    if (invalidProps.length === 1) {
-      error('Invalid aria prop %s on <%s> tag. ' + 'For details, see https://reactjs.org/link/invalid-aria-props', unknownPropString, type);
-    } else if (invalidProps.length > 1) {
-      error('Invalid aria props %s on <%s> tag. ' + 'For details, see https://reactjs.org/link/invalid-aria-props', unknownPropString, type);
-    }
-  }
-}
-
-function validateProperties(type, props) {
-  if (isCustomComponent(type, props)) {
-    return;
-  }
-
-  warnInvalidARIAProps(type, props);
-}
-
-var didWarnValueNull = false;
-function validateProperties$1(type, props) {
-  {
-    if (type !== 'input' && type !== 'textarea' && type !== 'select') {
-      return;
-    }
-
-    if (props != null && props.value === null && !didWarnValueNull) {
-      didWarnValueNull = true;
-
-      if (type === 'select' && props.multiple) {
-        error('`value` prop on `%s` should not be null. ' + 'Consider using an empty array when `multiple` is set to `true` ' + 'to clear the component or `undefined` for uncontrolled components.', type);
-      } else {
-        error('`value` prop on `%s` should not be null. ' + 'Consider using an empty string to clear the component or `undefined` ' + 'for uncontrolled components.', type);
-      }
-    }
-  }
-}
-
-// When adding attributes to the HTML or SVG allowed attribute list, be sure to
-// also add them to this module to ensure casing and incorrect name
-// warnings.
-var possibleStandardNames = {
-  // HTML
-  accept: 'accept',
-  acceptcharset: 'acceptCharset',
-  'accept-charset': 'acceptCharset',
-  accesskey: 'accessKey',
-  action: 'action',
-  allowfullscreen: 'allowFullScreen',
-  alt: 'alt',
-  as: 'as',
-  async: 'async',
-  autocapitalize: 'autoCapitalize',
-  autocomplete: 'autoComplete',
-  autocorrect: 'autoCorrect',
-  autofocus: 'autoFocus',
-  autoplay: 'autoPlay',
-  autosave: 'autoSave',
-  capture: 'capture',
-  cellpadding: 'cellPadding',
-  cellspacing: 'cellSpacing',
-  challenge: 'challenge',
-  charset: 'charSet',
-  checked: 'checked',
-  children: 'children',
-  cite: 'cite',
-  class: 'className',
-  classid: 'classID',
-  classname: 'className',
-  cols: 'cols',
-  colspan: 'colSpan',
-  content: 'content',
-  contenteditable: 'contentEditable',
-  contextmenu: 'contextMenu',
-  controls: 'controls',
-  controlslist: 'controlsList',
-  coords: 'coords',
-  crossorigin: 'crossOrigin',
-  dangerouslysetinnerhtml: 'dangerouslySetInnerHTML',
-  data: 'data',
-  datetime: 'dateTime',
-  default: 'default',
-  defaultchecked: 'defaultChecked',
-  defaultvalue: 'defaultValue',
-  defer: 'defer',
-  dir: 'dir',
-  disabled: 'disabled',
-  disablepictureinpicture: 'disablePictureInPicture',
-  disableremoteplayback: 'disableRemotePlayback',
-  download: 'download',
-  draggable: 'draggable',
-  enctype: 'encType',
-  enterkeyhint: 'enterKeyHint',
-  for: 'htmlFor',
-  form: 'form',
-  formmethod: 'formMethod',
-  formaction: 'formAction',
-  formenctype: 'formEncType',
-  formnovalidate: 'formNoValidate',
-  formtarget: 'formTarget',
-  frameborder: 'frameBorder',
-  headers: 'headers',
-  height: 'height',
-  hidden: 'hidden',
-  high: 'high',
-  href: 'href',
-  hreflang: 'hrefLang',
-  htmlfor: 'htmlFor',
-  httpequiv: 'httpEquiv',
-  'http-equiv': 'httpEquiv',
-  icon: 'icon',
-  id: 'id',
-  imagesizes: 'imageSizes',
-  imagesrcset: 'imageSrcSet',
-  innerhtml: 'innerHTML',
-  inputmode: 'inputMode',
-  integrity: 'integrity',
-  is: 'is',
-  itemid: 'itemID',
-  itemprop: 'itemProp',
-  itemref: 'itemRef',
-  itemscope: 'itemScope',
-  itemtype: 'itemType',
-  keyparams: 'keyParams',
-  keytype: 'keyType',
-  kind: 'kind',
-  label: 'label',
-  lang: 'lang',
-  list: 'list',
-  loop: 'loop',
-  low: 'low',
-  manifest: 'manifest',
-  marginwidth: 'marginWidth',
-  marginheight: 'marginHeight',
-  max: 'max',
-  maxlength: 'maxLength',
-  media: 'media',
-  mediagroup: 'mediaGroup',
-  method: 'method',
-  min: 'min',
-  minlength: 'minLength',
-  multiple: 'multiple',
-  muted: 'muted',
-  name: 'name',
-  nomodule: 'noModule',
-  nonce: 'nonce',
-  novalidate: 'noValidate',
-  open: 'open',
-  optimum: 'optimum',
-  pattern: 'pattern',
-  placeholder: 'placeholder',
-  playsinline: 'playsInline',
-  poster: 'poster',
-  preload: 'preload',
-  profile: 'profile',
-  radiogroup: 'radioGroup',
-  readonly: 'readOnly',
-  referrerpolicy: 'referrerPolicy',
-  rel: 'rel',
-  required: 'required',
-  reversed: 'reversed',
-  role: 'role',
-  rows: 'rows',
-  rowspan: 'rowSpan',
-  sandbox: 'sandbox',
-  scope: 'scope',
-  scoped: 'scoped',
-  scrolling: 'scrolling',
-  seamless: 'seamless',
-  selected: 'selected',
-  shape: 'shape',
-  size: 'size',
-  sizes: 'sizes',
-  span: 'span',
-  spellcheck: 'spellCheck',
-  src: 'src',
-  srcdoc: 'srcDoc',
-  srclang: 'srcLang',
-  srcset: 'srcSet',
-  start: 'start',
-  step: 'step',
-  style: 'style',
-  summary: 'summary',
-  tabindex: 'tabIndex',
-  target: 'target',
-  title: 'title',
-  type: 'type',
-  usemap: 'useMap',
-  value: 'value',
-  width: 'width',
-  wmode: 'wmode',
-  wrap: 'wrap',
-  // SVG
-  about: 'about',
-  accentheight: 'accentHeight',
-  'accent-height': 'accentHeight',
-  accumulate: 'accumulate',
-  additive: 'additive',
-  alignmentbaseline: 'alignmentBaseline',
-  'alignment-baseline': 'alignmentBaseline',
-  allowreorder: 'allowReorder',
-  alphabetic: 'alphabetic',
-  amplitude: 'amplitude',
-  arabicform: 'arabicForm',
-  'arabic-form': 'arabicForm',
-  ascent: 'ascent',
-  attributename: 'attributeName',
-  attributetype: 'attributeType',
-  autoreverse: 'autoReverse',
-  azimuth: 'azimuth',
-  basefrequency: 'baseFrequency',
-  baselineshift: 'baselineShift',
-  'baseline-shift': 'baselineShift',
-  baseprofile: 'baseProfile',
-  bbox: 'bbox',
-  begin: 'begin',
-  bias: 'bias',
-  by: 'by',
-  calcmode: 'calcMode',
-  capheight: 'capHeight',
-  'cap-height': 'capHeight',
-  clip: 'clip',
-  clippath: 'clipPath',
-  'clip-path': 'clipPath',
-  clippathunits: 'clipPathUnits',
-  cliprule: 'clipRule',
-  'clip-rule': 'clipRule',
-  color: 'color',
-  colorinterpolation: 'colorInterpolation',
-  'color-interpolation': 'colorInterpolation',
-  colorinterpolationfilters: 'colorInterpolationFilters',
-  'color-interpolation-filters': 'colorInterpolationFilters',
-  colorprofile: 'colorProfile',
-  'color-profile': 'colorProfile',
-  colorrendering: 'colorRendering',
-  'color-rendering': 'colorRendering',
-  contentscripttype: 'contentScriptType',
-  contentstyletype: 'contentStyleType',
-  cursor: 'cursor',
-  cx: 'cx',
-  cy: 'cy',
-  d: 'd',
-  datatype: 'datatype',
-  decelerate: 'decelerate',
-  descent: 'descent',
-  diffuseconstant: 'diffuseConstant',
-  direction: 'direction',
-  display: 'display',
-  divisor: 'divisor',
-  dominantbaseline: 'dominantBaseline',
-  'dominant-baseline': 'dominantBaseline',
-  dur: 'dur',
-  dx: 'dx',
-  dy: 'dy',
-  edgemode: 'edgeMode',
-  elevation: 'elevation',
-  enablebackground: 'enableBackground',
-  'enable-background': 'enableBackground',
-  end: 'end',
-  exponent: 'exponent',
-  externalresourcesrequired: 'externalResourcesRequired',
-  fill: 'fill',
-  fillopacity: 'fillOpacity',
-  'fill-opacity': 'fillOpacity',
-  fillrule: 'fillRule',
-  'fill-rule': 'fillRule',
-  filter: 'filter',
-  filterres: 'filterRes',
-  filterunits: 'filterUnits',
-  floodopacity: 'floodOpacity',
-  'flood-opacity': 'floodOpacity',
-  floodcolor: 'floodColor',
-  'flood-color': 'floodColor',
-  focusable: 'focusable',
-  fontfamily: 'fontFamily',
-  'font-family': 'fontFamily',
-  fontsize: 'fontSize',
-  'font-size': 'fontSize',
-  fontsizeadjust: 'fontSizeAdjust',
-  'font-size-adjust': 'fontSizeAdjust',
-  fontstretch: 'fontStretch',
-  'font-stretch': 'fontStretch',
-  fontstyle: 'fontStyle',
-  'font-style': 'fontStyle',
-  fontvariant: 'fontVariant',
-  'font-variant': 'fontVariant',
-  fontweight: 'fontWeight',
-  'font-weight': 'fontWeight',
-  format: 'format',
-  from: 'from',
-  fx: 'fx',
-  fy: 'fy',
-  g1: 'g1',
-  g2: 'g2',
-  glyphname: 'glyphName',
-  'glyph-name': 'glyphName',
-  glyphorientationhorizontal: 'glyphOrientationHorizontal',
-  'glyph-orientation-horizontal': 'glyphOrientationHorizontal',
-  glyphorientationvertical: 'glyphOrientationVertical',
-  'glyph-orientation-vertical': 'glyphOrientationVertical',
-  glyphref: 'glyphRef',
-  gradienttransform: 'gradientTransform',
-  gradientunits: 'gradientUnits',
-  hanging: 'hanging',
-  horizadvx: 'horizAdvX',
-  'horiz-adv-x': 'horizAdvX',
-  horizoriginx: 'horizOriginX',
-  'horiz-origin-x': 'horizOriginX',
-  ideographic: 'ideographic',
-  imagerendering: 'imageRendering',
-  'image-rendering': 'imageRendering',
-  in2: 'in2',
-  in: 'in',
-  inlist: 'inlist',
-  intercept: 'intercept',
-  k1: 'k1',
-  k2: 'k2',
-  k3: 'k3',
-  k4: 'k4',
-  k: 'k',
-  kernelmatrix: 'kernelMatrix',
-  kernelunitlength: 'kernelUnitLength',
-  kerning: 'kerning',
-  keypoints: 'keyPoints',
-  keysplines: 'keySplines',
-  keytimes: 'keyTimes',
-  lengthadjust: 'lengthAdjust',
-  letterspacing: 'letterSpacing',
-  'letter-spacing': 'letterSpacing',
-  lightingcolor: 'lightingColor',
-  'lighting-color': 'lightingColor',
-  limitingconeangle: 'limitingConeAngle',
-  local: 'local',
-  markerend: 'markerEnd',
-  'marker-end': 'markerEnd',
-  markerheight: 'markerHeight',
-  markermid: 'markerMid',
-  'marker-mid': 'markerMid',
-  markerstart: 'markerStart',
-  'marker-start': 'markerStart',
-  markerunits: 'markerUnits',
-  markerwidth: 'markerWidth',
-  mask: 'mask',
-  maskcontentunits: 'maskContentUnits',
-  maskunits: 'maskUnits',
-  mathematical: 'mathematical',
-  mode: 'mode',
-  numoctaves: 'numOctaves',
-  offset: 'offset',
-  opacity: 'opacity',
-  operator: 'operator',
-  order: 'order',
-  orient: 'orient',
-  orientation: 'orientation',
-  origin: 'origin',
-  overflow: 'overflow',
-  overlineposition: 'overlinePosition',
-  'overline-position': 'overlinePosition',
-  overlinethickness: 'overlineThickness',
-  'overline-thickness': 'overlineThickness',
-  paintorder: 'paintOrder',
-  'paint-order': 'paintOrder',
-  panose1: 'panose1',
-  'panose-1': 'panose1',
-  pathlength: 'pathLength',
-  patterncontentunits: 'patternContentUnits',
-  patterntransform: 'patternTransform',
-  patternunits: 'patternUnits',
-  pointerevents: 'pointerEvents',
-  'pointer-events': 'pointerEvents',
-  points: 'points',
-  pointsatx: 'pointsAtX',
-  pointsaty: 'pointsAtY',
-  pointsatz: 'pointsAtZ',
-  prefix: 'prefix',
-  preservealpha: 'preserveAlpha',
-  preserveaspectratio: 'preserveAspectRatio',
-  primitiveunits: 'primitiveUnits',
-  property: 'property',
-  r: 'r',
-  radius: 'radius',
-  refx: 'refX',
-  refy: 'refY',
-  renderingintent: 'renderingIntent',
-  'rendering-intent': 'renderingIntent',
-  repeatcount: 'repeatCount',
-  repeatdur: 'repeatDur',
-  requiredextensions: 'requiredExtensions',
-  requiredfeatures: 'requiredFeatures',
-  resource: 'resource',
-  restart: 'restart',
-  result: 'result',
-  results: 'results',
-  rotate: 'rotate',
-  rx: 'rx',
-  ry: 'ry',
-  scale: 'scale',
-  security: 'security',
-  seed: 'seed',
-  shaperendering: 'shapeRendering',
-  'shape-rendering': 'shapeRendering',
-  slope: 'slope',
-  spacing: 'spacing',
-  specularconstant: 'specularConstant',
-  specularexponent: 'specularExponent',
-  speed: 'speed',
-  spreadmethod: 'spreadMethod',
-  startoffset: 'startOffset',
-  stddeviation: 'stdDeviation',
-  stemh: 'stemh',
-  stemv: 'stemv',
-  stitchtiles: 'stitchTiles',
-  stopcolor: 'stopColor',
-  'stop-color': 'stopColor',
-  stopopacity: 'stopOpacity',
-  'stop-opacity': 'stopOpacity',
-  strikethroughposition: 'strikethroughPosition',
-  'strikethrough-position': 'strikethroughPosition',
-  strikethroughthickness: 'strikethroughThickness',
-  'strikethrough-thickness': 'strikethroughThickness',
-  string: 'string',
-  stroke: 'stroke',
-  strokedasharray: 'strokeDasharray',
-  'stroke-dasharray': 'strokeDasharray',
-  strokedashoffset: 'strokeDashoffset',
-  'stroke-dashoffset': 'strokeDashoffset',
-  strokelinecap: 'strokeLinecap',
-  'stroke-linecap': 'strokeLinecap',
-  strokelinejoin: 'strokeLinejoin',
-  'stroke-linejoin': 'strokeLinejoin',
-  strokemiterlimit: 'strokeMiterlimit',
-  'stroke-miterlimit': 'strokeMiterlimit',
-  strokewidth: 'strokeWidth',
-  'stroke-width': 'strokeWidth',
-  strokeopacity: 'strokeOpacity',
-  'stroke-opacity': 'strokeOpacity',
-  suppresscontenteditablewarning: 'suppressContentEditableWarning',
-  suppresshydrationwarning: 'suppressHydrationWarning',
-  surfacescale: 'surfaceScale',
-  systemlanguage: 'systemLanguage',
-  tablevalues: 'tableValues',
-  targetx: 'targetX',
-  targety: 'targetY',
-  textanchor: 'textAnchor',
-  'text-anchor': 'textAnchor',
-  textdecoration: 'textDecoration',
-  'text-decoration': 'textDecoration',
-  textlength: 'textLength',
-  textrendering: 'textRendering',
-  'text-rendering': 'textRendering',
-  to: 'to',
-  transform: 'transform',
-  typeof: 'typeof',
-  u1: 'u1',
-  u2: 'u2',
-  underlineposition: 'underlinePosition',
-  'underline-position': 'underlinePosition',
-  underlinethickness: 'underlineThickness',
-  'underline-thickness': 'underlineThickness',
-  unicode: 'unicode',
-  unicodebidi: 'unicodeBidi',
-  'unicode-bidi': 'unicodeBidi',
-  unicoderange: 'unicodeRange',
-  'unicode-range': 'unicodeRange',
-  unitsperem: 'unitsPerEm',
-  'units-per-em': 'unitsPerEm',
-  unselectable: 'unselectable',
-  valphabetic: 'vAlphabetic',
-  'v-alphabetic': 'vAlphabetic',
-  values: 'values',
-  vectoreffect: 'vectorEffect',
-  'vector-effect': 'vectorEffect',
-  version: 'version',
-  vertadvy: 'vertAdvY',
-  'vert-adv-y': 'vertAdvY',
-  vertoriginx: 'vertOriginX',
-  'vert-origin-x': 'vertOriginX',
-  vertoriginy: 'vertOriginY',
-  'vert-origin-y': 'vertOriginY',
-  vhanging: 'vHanging',
-  'v-hanging': 'vHanging',
-  videographic: 'vIdeographic',
-  'v-ideographic': 'vIdeographic',
-  viewbox: 'viewBox',
-  viewtarget: 'viewTarget',
-  visibility: 'visibility',
-  vmathematical: 'vMathematical',
-  'v-mathematical': 'vMathematical',
-  vocab: 'vocab',
-  widths: 'widths',
-  wordspacing: 'wordSpacing',
-  'word-spacing': 'wordSpacing',
-  writingmode: 'writingMode',
-  'writing-mode': 'writingMode',
-  x1: 'x1',
-  x2: 'x2',
-  x: 'x',
-  xchannelselector: 'xChannelSelector',
-  xheight: 'xHeight',
-  'x-height': 'xHeight',
-  xlinkactuate: 'xlinkActuate',
-  'xlink:actuate': 'xlinkActuate',
-  xlinkarcrole: 'xlinkArcrole',
-  'xlink:arcrole': 'xlinkArcrole',
-  xlinkhref: 'xlinkHref',
-  'xlink:href': 'xlinkHref',
-  xlinkrole: 'xlinkRole',
-  'xlink:role': 'xlinkRole',
-  xlinkshow: 'xlinkShow',
-  'xlink:show': 'xlinkShow',
-  xlinktitle: 'xlinkTitle',
-  'xlink:title': 'xlinkTitle',
-  xlinktype: 'xlinkType',
-  'xlink:type': 'xlinkType',
-  xmlbase: 'xmlBase',
-  'xml:base': 'xmlBase',
-  xmllang: 'xmlLang',
-  'xml:lang': 'xmlLang',
-  xmlns: 'xmlns',
-  'xml:space': 'xmlSpace',
-  xmlnsxlink: 'xmlnsXlink',
-  'xmlns:xlink': 'xmlnsXlink',
-  xmlspace: 'xmlSpace',
-  y1: 'y1',
-  y2: 'y2',
-  y: 'y',
-  ychannelselector: 'yChannelSelector',
-  z: 'z',
-  zoomandpan: 'zoomAndPan'
-};
-
-var validateProperty$1 = function () {};
-
-{
-  var warnedProperties$1 = {};
-  var EVENT_NAME_REGEX = /^on./;
-  var INVALID_EVENT_NAME_REGEX = /^on[^A-Z]/;
-  var rARIA$1 = new RegExp('^(aria)-[' + ATTRIBUTE_NAME_CHAR + ']*$');
-  var rARIACamel$1 = new RegExp('^(aria)[A-Z][' + ATTRIBUTE_NAME_CHAR + ']*$');
-
-  validateProperty$1 = function (tagName, name, value, eventRegistry) {
-    if (hasOwnProperty.call(warnedProperties$1, name) && warnedProperties$1[name]) {
-      return true;
-    }
-
-    var lowerCasedName = name.toLowerCase();
-
-    if (lowerCasedName === 'onfocusin' || lowerCasedName === 'onfocusout') {
-      error('React uses onFocus and onBlur instead of onFocusIn and onFocusOut. ' + 'All React events are normalized to bubble, so onFocusIn and onFocusOut ' + 'are not needed/supported by React.');
-
-      warnedProperties$1[name] = true;
-      return true;
-    } // We can't rely on the event system being injected on the server.
-
-
-    if (eventRegistry != null) {
-      var registrationNameDependencies = eventRegistry.registrationNameDependencies,
-          possibleRegistrationNames = eventRegistry.possibleRegistrationNames;
-
-      if (registrationNameDependencies.hasOwnProperty(name)) {
-        return true;
-      }
-
-      var registrationName = possibleRegistrationNames.hasOwnProperty(lowerCasedName) ? possibleRegistrationNames[lowerCasedName] : null;
-
-      if (registrationName != null) {
-        error('Invalid event handler property `%s`. Did you mean `%s`?', name, registrationName);
-
-        warnedProperties$1[name] = true;
-        return true;
-      }
-
-      if (EVENT_NAME_REGEX.test(name)) {
-        error('Unknown event handler property `%s`. It will be ignored.', name);
-
-        warnedProperties$1[name] = true;
-        return true;
-      }
-    } else if (EVENT_NAME_REGEX.test(name)) {
-      // If no event plugins have been injected, we are in a server environment.
-      // So we can't tell if the event name is correct for sure, but we can filter
-      // out known bad ones like `onclick`. We can't suggest a specific replacement though.
-      if (INVALID_EVENT_NAME_REGEX.test(name)) {
-        error('Invalid event handler property `%s`. ' + 'React events use the camelCase naming convention, for example `onClick`.', name);
-      }
-
-      warnedProperties$1[name] = true;
-      return true;
-    } // Let the ARIA attribute hook validate ARIA attributes
-
-
-    if (rARIA$1.test(name) || rARIACamel$1.test(name)) {
-      return true;
-    }
-
-    if (lowerCasedName === 'innerhtml') {
-      error('Directly setting property `innerHTML` is not permitted. ' + 'For more information, lookup documentation on `dangerouslySetInnerHTML`.');
-
-      warnedProperties$1[name] = true;
-      return true;
-    }
-
-    if (lowerCasedName === 'aria') {
-      error('The `aria` attribute is reserved for future use in React. ' + 'Pass individual `aria-` attributes instead.');
-
-      warnedProperties$1[name] = true;
-      return true;
-    }
-
-    if (lowerCasedName === 'is' && value !== null && value !== undefined && typeof value !== 'string') {
-      error('Received a `%s` for a string attribute `is`. If this is expected, cast ' + 'the value to a string.', typeof value);
-
-      warnedProperties$1[name] = true;
-      return true;
-    }
-
-    if (typeof value === 'number' && isNaN(value)) {
-      error('Received NaN for the `%s` attribute. If this is expected, cast ' + 'the value to a string.', name);
-
-      warnedProperties$1[name] = true;
-      return true;
-    }
-
-    var propertyInfo = getPropertyInfo(name);
-    var isReserved = propertyInfo !== null && propertyInfo.type === RESERVED; // Known attributes should match the casing specified in the property config.
-
-    if (possibleStandardNames.hasOwnProperty(lowerCasedName)) {
-      var standardName = possibleStandardNames[lowerCasedName];
-
-      if (standardName !== name) {
-        error('Invalid DOM property `%s`. Did you mean `%s`?', name, standardName);
-
-        warnedProperties$1[name] = true;
-        return true;
-      }
-    } else if (!isReserved && name !== lowerCasedName) {
-      // Unknown attributes should have lowercase casing since that's how they
-      // will be cased anyway with server rendering.
-      error('React does not recognize the `%s` prop on a DOM element. If you ' + 'intentionally want it to appear in the DOM as a custom ' + 'attribute, spell it as lowercase `%s` instead. ' + 'If you accidentally passed it from a parent component, remove ' + 'it from the DOM element.', name, lowerCasedName);
-
-      warnedProperties$1[name] = true;
-      return true;
-    }
-
-    if (typeof value === 'boolean' && shouldRemoveAttributeWithWarning(name, value, propertyInfo, false)) {
-      if (value) {
-        error('Received `%s` for a non-boolean attribute `%s`.\n\n' + 'If you want to write it to the DOM, pass a string instead: ' + '%s="%s" or %s={value.toString()}.', value, name, name, value, name);
-      } else {
-        error('Received `%s` for a non-boolean attribute `%s`.\n\n' + 'If you want to write it to the DOM, pass a string instead: ' + '%s="%s" or %s={value.toString()}.\n\n' + 'If you used to conditionally omit it with %s={condition && value}, ' + 'pass %s={condition ? value : undefined} instead.', value, name, name, value, name, name, name);
-      }
-
-      warnedProperties$1[name] = true;
-      return true;
-    } // Now that we've validated casing, do not validate
-    // data types for reserved props
-
-
-    if (isReserved) {
-      return true;
-    } // Warn when a known attribute is a bad type
-
-
-    if (shouldRemoveAttributeWithWarning(name, value, propertyInfo, false)) {
-      warnedProperties$1[name] = true;
-      return false;
-    } // Warn when passing the strings 'false' or 'true' into a boolean prop
-
-
-    if ((value === 'false' || value === 'true') && propertyInfo !== null && propertyInfo.type === BOOLEAN) {
-      error('Received the string `%s` for the boolean attribute `%s`. ' + '%s ' + 'Did you mean %s={%s}?', value, name, value === 'false' ? 'The browser will interpret it as a truthy value.' : 'Although this works, it will not work as expected if you pass the string "false".', name, value);
-
-      warnedProperties$1[name] = true;
-      return true;
-    }
-
-    return true;
-  };
-}
-
-var warnUnknownProperties = function (type, props, eventRegistry) {
-  {
-    var unknownProps = [];
-
-    for (var key in props) {
-      var isValid = validateProperty$1(type, key, props[key], eventRegistry);
-
-      if (!isValid) {
-        unknownProps.push(key);
-      }
-    }
-
-    var unknownPropString = unknownProps.map(function (prop) {
-      return '`' + prop + '`';
-    }).join(', ');
-
-    if (unknownProps.length === 1) {
-      error('Invalid value for prop %s on <%s> tag. Either remove it from the element, ' + 'or pass a string or number value to keep it in the DOM. ' + 'For details, see https://reactjs.org/link/attribute-behavior ', unknownPropString, type);
-    } else if (unknownProps.length > 1) {
-      error('Invalid values for props %s on <%s> tag. Either remove them from the element, ' + 'or pass a string or number value to keep them in the DOM. ' + 'For details, see https://reactjs.org/link/attribute-behavior ', unknownPropString, type);
-    }
-  }
-};
-
-function validateProperties$2(type, props, eventRegistry) {
-  if (isCustomComponent(type, props)) {
-    return;
-  }
-
-  warnUnknownProperties(type, props, eventRegistry);
-}
-
-var warnValidStyle = function () {};
-
-{
-  // 'msTransform' is correct, but the other prefixes should be capitalized
-  var badVendoredStyleNamePattern = /^(?:webkit|moz|o)[A-Z]/;
-  var msPattern = /^-ms-/;
-  var hyphenPattern = /-(.)/g; // style values shouldn't contain a semicolon
-
-  var badStyleValueWithSemicolonPattern = /;\s*$/;
-  var warnedStyleNames = {};
-  var warnedStyleValues = {};
-  var warnedForNaNValue = false;
-  var warnedForInfinityValue = false;
-
-  var camelize = function (string) {
-    return string.replace(hyphenPattern, function (_, character) {
-      return character.toUpperCase();
-    });
-  };
-
-  var warnHyphenatedStyleName = function (name) {
-    if (warnedStyleNames.hasOwnProperty(name) && warnedStyleNames[name]) {
-      return;
-    }
-
-    warnedStyleNames[name] = true;
-
-    error('Unsupported style property %s. Did you mean %s?', name, // As Andi Smith suggests
-    // (http://www.andismith.com/blog/2012/02/modernizr-prefixed/), an `-ms` prefix
-    // is converted to lowercase `ms`.
-    camelize(name.replace(msPattern, 'ms-')));
-  };
-
-  var warnBadVendoredStyleName = function (name) {
-    if (warnedStyleNames.hasOwnProperty(name) && warnedStyleNames[name]) {
-      return;
-    }
-
-    warnedStyleNames[name] = true;
-
-    error('Unsupported vendor-prefixed style property %s. Did you mean %s?', name, name.charAt(0).toUpperCase() + name.slice(1));
-  };
-
-  var warnStyleValueWithSemicolon = function (name, value) {
-    if (warnedStyleValues.hasOwnProperty(value) && warnedStyleValues[value]) {
-      return;
-    }
-
-    warnedStyleValues[value] = true;
-
-    error("Style property values shouldn't contain a semicolon. " + 'Try "%s: %s" instead.', name, value.replace(badStyleValueWithSemicolonPattern, ''));
-  };
-
-  var warnStyleValueIsNaN = function (name, value) {
-    if (warnedForNaNValue) {
-      return;
-    }
-
-    warnedForNaNValue = true;
-
-    error('`NaN` is an invalid value for the `%s` css style property.', name);
-  };
-
-  var warnStyleValueIsInfinity = function (name, value) {
-    if (warnedForInfinityValue) {
-      return;
-    }
-
-    warnedForInfinityValue = true;
-
-    error('`Infinity` is an invalid value for the `%s` css style property.', name);
-  };
-
-  warnValidStyle = function (name, value) {
-    if (name.indexOf('-') > -1) {
-      warnHyphenatedStyleName(name);
-    } else if (badVendoredStyleNamePattern.test(name)) {
-      warnBadVendoredStyleName(name);
-    } else if (badStyleValueWithSemicolonPattern.test(value)) {
-      warnStyleValueWithSemicolon(name, value);
-    }
-
-    if (typeof value === 'number') {
-      if (isNaN(value)) {
-        warnStyleValueIsNaN(name, value);
-      } else if (!isFinite(value)) {
-        warnStyleValueIsInfinity(name, value);
-      }
-    }
-  };
-}
-
-var warnValidStyle$1 = warnValidStyle;
-
-// code copied and modified from escape-html
-var matchHtmlRegExp = /["'&<>]/;
-/**
- * Escapes special characters and HTML entities in a given html string.
- *
- * @param  {string} string HTML string to escape for later insertion
- * @return {string}
- * @public
- */
-
-function escapeHtml(string) {
-  {
-    checkHtmlStringCoercion(string);
-  }
-
-  var str = '' + string;
-  var match = matchHtmlRegExp.exec(str);
-
-  if (!match) {
-    return str;
-  }
-
-  var escape;
-  var html = '';
-  var index;
-  var lastIndex = 0;
-
-  for (index = match.index; index < str.length; index++) {
-    switch (str.charCodeAt(index)) {
-      case 34:
-        // "
-        escape = '&quot;';
-        break;
-
-      case 38:
-        // &
-        escape = '&amp;';
-        break;
-
-      case 39:
-        // '
-        escape = '&#x27;'; // modified from escape-html; used to be '&#39'
-
-        break;
-
-      case 60:
-        // <
-        escape = '&lt;';
-        break;
-
-      case 62:
-        // >
-        escape = '&gt;';
-        break;
-
-      default:
-        continue;
-    }
-
-    if (lastIndex !== index) {
-      html += str.substring(lastIndex, index);
-    }
-
-    lastIndex = index + 1;
-    html += escape;
-  }
-
-  return lastIndex !== index ? html + str.substring(lastIndex, index) : html;
-} // end code copied and modified from escape-html
-
-/**
- * Escapes text to prevent scripting attacks.
- *
- * @param {*} text Text value to escape.
- * @return {string} An escaped string.
- */
-
-
-function escapeTextForBrowser(text) {
-  if (typeof text === 'boolean' || typeof text === 'number') {
-    // this shortcircuit helps perf for types that we know will never have
-    // special characters, especially given that this function is used often
-    // for numeric dom ids.
-    return '' + text;
-  }
-
-  return escapeHtml(text);
-}
-
-var uppercasePattern = /([A-Z])/g;
-var msPattern$1 = /^ms-/;
-/**
- * Hyphenates a camelcased CSS property name, for example:
- *
- *   > hyphenateStyleName('backgroundColor')
- *   < "background-color"
- *   > hyphenateStyleName('MozTransition')
- *   < "-moz-transition"
- *   > hyphenateStyleName('msTransition')
- *   < "-ms-transition"
- *
- * As Modernizr suggests (http://modernizr.com/docs/#prefixed), an `ms` prefix
- * is converted to `-ms-`.
- */
-
-function hyphenateStyleName(name) {
-  return name.replace(uppercasePattern, '-$1').toLowerCase().replace(msPattern$1, '-ms-');
-}
-
-// and any newline or tab are filtered out as if they're not part of the URL.
-// https://url.spec.whatwg.org/#url-parsing
-// Tab or newline are defined as \r\n\t:
-// https://infra.spec.whatwg.org/#ascii-tab-or-newline
-// A C0 control is a code point in the range \u0000 NULL to \u001F
-// INFORMATION SEPARATOR ONE, inclusive:
-// https://infra.spec.whatwg.org/#c0-control-or-space
-
-/* eslint-disable max-len */
-
-var isJavaScriptProtocol = /^[\u0000-\u001F ]*j[\r\n\t]*a[\r\n\t]*v[\r\n\t]*a[\r\n\t]*s[\r\n\t]*c[\r\n\t]*r[\r\n\t]*i[\r\n\t]*p[\r\n\t]*t[\r\n\t]*\:/i;
-var didWarn = false;
-
-function sanitizeURL(url) {
-  {
-    if (!didWarn && isJavaScriptProtocol.test(url)) {
-      didWarn = true;
-
-      error('A future version of React will block javascript: URLs as a security precaution. ' + 'Use event handlers instead if you can. If you need to generate unsafe HTML try ' + 'using dangerouslySetInnerHTML instead. React was passed %s.', JSON.stringify(url));
-    }
-  }
-}
-
-var isArrayImpl = Array.isArray; // eslint-disable-next-line no-redeclare
-
-function isArray(a) {
-  return isArrayImpl(a);
-}
-
-var startInlineScript = stringToPrecomputedChunk('<script>');
-var endInlineScript = stringToPrecomputedChunk('</script>');
-var startScriptSrc = stringToPrecomputedChunk('<script src="');
-var startModuleSrc = stringToPrecomputedChunk('<script type="module" src="');
-var endAsyncScript = stringToPrecomputedChunk('" async=""></script>');
-/**
- * This escaping function is designed to work with bootstrapScriptContent only.
- * because we know we are escaping the entire script. We can avoid for instance
- * escaping html comment string sequences that are valid javascript as well because
- * if there are no sebsequent <script sequences the html parser will never enter
- * script data double escaped state (see: https://www.w3.org/TR/html53/syntax.html#script-data-double-escaped-state)
- *
- * While untrusted script content should be made safe before using this api it will
- * ensure that the script cannot be early terminated or never terminated state
- */
-
-function escapeBootstrapScriptContent(scriptText) {
-  {
-    checkHtmlStringCoercion(scriptText);
-  }
-
-  return ('' + scriptText).replace(scriptRegex, scriptReplacer);
-}
-
-var scriptRegex = /(<\/|<)(s)(cript)/gi;
-
-var scriptReplacer = function (match, prefix, s, suffix) {
-  return "" + prefix + (s === 's' ? "\\u0073" : "\\u0053") + suffix;
-}; // Allows us to keep track of what we've already written so we can refer back to it.
-
-
-function createResponseState(identifierPrefix, nonce, bootstrapScriptContent, bootstrapScripts, bootstrapModules) {
-  var idPrefix = identifierPrefix === undefined ? '' : identifierPrefix;
-  var inlineScriptWithNonce = nonce === undefined ? startInlineScript : stringToPrecomputedChunk('<script nonce="' + escapeTextForBrowser(nonce) + '">');
-  var bootstrapChunks = [];
-
-  if (bootstrapScriptContent !== undefined) {
-    bootstrapChunks.push(inlineScriptWithNonce, stringToChunk(escapeBootstrapScriptContent(bootstrapScriptContent)), endInlineScript);
-  }
-
-  if (bootstrapScripts !== undefined) {
-    for (var i = 0; i < bootstrapScripts.length; i++) {
-      bootstrapChunks.push(startScriptSrc, stringToChunk(escapeTextForBrowser(bootstrapScripts[i])), endAsyncScript);
-    }
-  }
-
-  if (bootstrapModules !== undefined) {
-    for (var _i = 0; _i < bootstrapModules.length; _i++) {
-      bootstrapChunks.push(startModuleSrc, stringToChunk(escapeTextForBrowser(bootstrapModules[_i])), endAsyncScript);
-    }
-  }
-
-  return {
-    bootstrapChunks: bootstrapChunks,
-    startInlineScript: inlineScriptWithNonce,
-    placeholderPrefix: stringToPrecomputedChunk(idPrefix + 'P:'),
-    segmentPrefix: stringToPrecomputedChunk(idPrefix + 'S:'),
-    boundaryPrefix: idPrefix + 'B:',
-    idPrefix: idPrefix,
-    nextSuspenseID: 0,
-    sentCompleteSegmentFunction: false,
-    sentCompleteBoundaryFunction: false,
-    sentClientRenderFunction: false
-  };
-} // Constants for the insertion mode we're currently writing in. We don't encode all HTML5 insertion
-// modes. We only include the variants as they matter for the sake of our purposes.
-// We don't actually provide the namespace therefore we use constants instead of the string.
-
-var ROOT_HTML_MODE = 0; // Used for the root most element tag.
-
-var HTML_MODE = 1;
-var SVG_MODE = 2;
-var MATHML_MODE = 3;
-var HTML_TABLE_MODE = 4;
-var HTML_TABLE_BODY_MODE = 5;
-var HTML_TABLE_ROW_MODE = 6;
-var HTML_COLGROUP_MODE = 7; // We have a greater than HTML_TABLE_MODE check elsewhere. If you add more cases here, make sure it
-// still makes sense
-
-function createFormatContext(insertionMode, selectedValue) {
-  return {
-    insertionMode: insertionMode,
-    selectedValue: selectedValue
-  };
-}
-function getChildFormatContext(parentContext, type, props) {
-  switch (type) {
-    case 'select':
-      return createFormatContext(HTML_MODE, props.value != null ? props.value : props.defaultValue);
-
-    case 'svg':
-      return createFormatContext(SVG_MODE, null);
-
-    case 'math':
-      return createFormatContext(MATHML_MODE, null);
-
-    case 'foreignObject':
-      return createFormatContext(HTML_MODE, null);
-    // Table parents are special in that their children can only be created at all if they're
-    // wrapped in a table parent. So we need to encode that we're entering this mode.
-
-    case 'table':
-      return createFormatContext(HTML_TABLE_MODE, null);
-
-    case 'thead':
-    case 'tbody':
-    case 'tfoot':
-      return createFormatContext(HTML_TABLE_BODY_MODE, null);
-
-    case 'colgroup':
-      return createFormatContext(HTML_COLGROUP_MODE, null);
-
-    case 'tr':
-      return createFormatContext(HTML_TABLE_ROW_MODE, null);
-  }
-
-  if (parentContext.insertionMode >= HTML_TABLE_MODE) {
-    // Whatever tag this was, it wasn't a table parent or other special parent, so we must have
-    // entered plain HTML again.
-    return createFormatContext(HTML_MODE, null);
-  }
-
-  if (parentContext.insertionMode === ROOT_HTML_MODE) {
-    // We've emitted the root and is now in plain HTML mode.
-    return createFormatContext(HTML_MODE, null);
-  }
-
-  return parentContext;
-}
-var UNINITIALIZED_SUSPENSE_BOUNDARY_ID = null;
-function assignSuspenseBoundaryID(responseState) {
-  var generatedID = responseState.nextSuspenseID++;
-  return stringToPrecomputedChunk(responseState.boundaryPrefix + generatedID.toString(16));
-}
-function makeId(responseState, treeId, localId) {
-  var idPrefix = responseState.idPrefix;
-  var id = ':' + idPrefix + 'R' + treeId; // Unless this is the first id at this level, append a number at the end
-  // that represents the position of this useId hook among all the useId
-  // hooks for this fiber.
-
-  if (localId > 0) {
-    id += 'H' + localId.toString(32);
-  }
-
-  return id + ':';
-}
-
-function encodeHTMLTextNode(text) {
-  return escapeTextForBrowser(text);
-}
-
-var textSeparator = stringToPrecomputedChunk('<!-- -->');
-function pushTextInstance(target, text, responseState, textEmbedded) {
-  if (text === '') {
-    // Empty text doesn't have a DOM node representation and the hydration is aware of this.
-    return textEmbedded;
-  }
-
-  if (textEmbedded) {
-    target.push(textSeparator);
-  }
-
-  target.push(stringToChunk(encodeHTMLTextNode(text)));
-  return true;
-} // Called when Fizz is done with a Segment. Currently the only purpose is to conditionally
-// emit a text separator when we don't know for sure it is safe to omit
-
-function pushSegmentFinale(target, responseState, lastPushedText, textEmbedded) {
-  if (lastPushedText && textEmbedded) {
-    target.push(textSeparator);
-  }
-}
-var styleNameCache = new Map();
-
-function processStyleName(styleName) {
-  var chunk = styleNameCache.get(styleName);
-
-  if (chunk !== undefined) {
-    return chunk;
-  }
-
-  var result = stringToPrecomputedChunk(escapeTextForBrowser(hyphenateStyleName(styleName)));
-  styleNameCache.set(styleName, result);
-  return result;
-}
-
-var styleAttributeStart = stringToPrecomputedChunk(' style="');
-var styleAssign = stringToPrecomputedChunk(':');
-var styleSeparator = stringToPrecomputedChunk(';');
-
-function pushStyle(target, responseState, style) {
-  if (typeof style !== 'object') {
-    throw new Error('The `style` prop expects a mapping from style properties to values, ' + "not a string. For example, style={{marginRight: spacing + 'em'}} when " + 'using JSX.');
-  }
-
-  var isFirst = true;
-
-  for (var styleName in style) {
-    if (!hasOwnProperty.call(style, styleName)) {
-      continue;
-    } // If you provide unsafe user data here they can inject arbitrary CSS
-    // which may be problematic (I couldn't repro this):
-    // https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet
-    // http://www.thespanner.co.uk/2007/11/26/ultimate-xss-css-injection/
-    // This is not an XSS hole but instead a potential CSS injection issue
-    // which has lead to a greater discussion about how we're going to
-    // trust URLs moving forward. See #2115901
-
-
-    var styleValue = style[styleName];
-
-    if (styleValue == null || typeof styleValue === 'boolean' || styleValue === '') {
-      // TODO: We used to set empty string as a style with an empty value. Does that ever make sense?
-      continue;
-    }
-
-    var nameChunk = void 0;
-    var valueChunk = void 0;
-    var isCustomProperty = styleName.indexOf('--') === 0;
-
-    if (isCustomProperty) {
-      nameChunk = stringToChunk(escapeTextForBrowser(styleName));
-
-      {
-        checkCSSPropertyStringCoercion(styleValue, styleName);
-      }
-
-      valueChunk = stringToChunk(escapeTextForBrowser(('' + styleValue).trim()));
-    } else {
-      {
-        warnValidStyle$1(styleName, styleValue);
-      }
-
-      nameChunk = processStyleName(styleName);
-
-      if (typeof styleValue === 'number') {
-        if (styleValue !== 0 && !hasOwnProperty.call(isUnitlessNumber, styleName)) {
-          valueChunk = stringToChunk(styleValue + 'px'); // Presumes implicit 'px' suffix for unitless numbers
-        } else {
-          valueChunk = stringToChunk('' + styleValue);
-        }
-      } else {
-        {
-          checkCSSPropertyStringCoercion(styleValue, styleName);
-        }
-
-        valueChunk = stringToChunk(escapeTextForBrowser(('' + styleValue).trim()));
-      }
-    }
-
-    if (isFirst) {
-      isFirst = false; // If it's first, we don't need any separators prefixed.
-
-      target.push(styleAttributeStart, nameChunk, styleAssign, valueChunk);
-    } else {
-      target.push(styleSeparator, nameChunk, styleAssign, valueChunk);
-    }
-  }
-
-  if (!isFirst) {
-    target.push(attributeEnd);
-  }
-}
-
-var attributeSeparator = stringToPrecomputedChunk(' ');
-var attributeAssign = stringToPrecomputedChunk('="');
-var attributeEnd = stringToPrecomputedChunk('"');
-var attributeEmptyString = stringToPrecomputedChunk('=""');
-
-function pushAttribute(target, responseState, name, value) {
-  switch (name) {
-    case 'style':
-      {
-        pushStyle(target, responseState, value);
-        return;
-      }
-
-    case 'defaultValue':
-    case 'defaultChecked': // These shouldn't be set as attributes on generic HTML elements.
-
-    case 'innerHTML': // Must use dangerouslySetInnerHTML instead.
-
-    case 'suppressContentEditableWarning':
-    case 'suppressHydrationWarning':
-      // Ignored. These are built-in to React on the client.
-      return;
-  }
-
-  if ( // shouldIgnoreAttribute
-  // We have already filtered out null/undefined and reserved words.
-  name.length > 2 && (name[0] === 'o' || name[0] === 'O') && (name[1] === 'n' || name[1] === 'N')) {
-    return;
-  }
-
-  var propertyInfo = getPropertyInfo(name);
-
-  if (propertyInfo !== null) {
-    // shouldRemoveAttribute
-    switch (typeof value) {
-      case 'function': // $FlowIssue symbol is perfectly valid here
-
-      case 'symbol':
-        // eslint-disable-line
-        return;
-
-      case 'boolean':
-        {
-          if (!propertyInfo.acceptsBooleans) {
-            return;
-          }
-        }
-    }
-
-    var attributeName = propertyInfo.attributeName;
-    var attributeNameChunk = stringToChunk(attributeName); // TODO: If it's known we can cache the chunk.
-
-    switch (propertyInfo.type) {
-      case BOOLEAN:
-        if (value) {
-          target.push(attributeSeparator, attributeNameChunk, attributeEmptyString);
-        }
-
-        return;
-
-      case OVERLOADED_BOOLEAN:
-        if (value === true) {
-          target.push(attributeSeparator, attributeNameChunk, attributeEmptyString);
-        } else if (value === false) ; else {
-          target.push(attributeSeparator, attributeNameChunk, attributeAssign, stringToChunk(escapeTextForBrowser(value)), attributeEnd);
-        }
-
-        return;
-
-      case NUMERIC:
-        if (!isNaN(value)) {
-          target.push(attributeSeparator, attributeNameChunk, attributeAssign, stringToChunk(escapeTextForBrowser(value)), attributeEnd);
-        }
-
-        break;
-
-      case POSITIVE_NUMERIC:
-        if (!isNaN(value) && value >= 1) {
-          target.push(attributeSeparator, attributeNameChunk, attributeAssign, stringToChunk(escapeTextForBrowser(value)), attributeEnd);
-        }
-
-        break;
-
-      default:
-        if (propertyInfo.sanitizeURL) {
-          {
-            checkAttributeStringCoercion(value, attributeName);
-          }
-
-          value = '' + value;
-          sanitizeURL(value);
-        }
-
-        target.push(attributeSeparator, attributeNameChunk, attributeAssign, stringToChunk(escapeTextForBrowser(value)), attributeEnd);
-    }
-  } else if (isAttributeNameSafe(name)) {
-    // shouldRemoveAttribute
-    switch (typeof value) {
-      case 'function': // $FlowIssue symbol is perfectly valid here
-
-      case 'symbol':
-        // eslint-disable-line
-        return;
-
-      case 'boolean':
-        {
-          var prefix = name.toLowerCase().slice(0, 5);
-
-          if (prefix !== 'data-' && prefix !== 'aria-') {
-            return;
-          }
-        }
-    }
-
-    target.push(attributeSeparator, stringToChunk(name), attributeAssign, stringToChunk(escapeTextForBrowser(value)), attributeEnd);
-  }
-}
-
-var endOfStartTag = stringToPrecomputedChunk('>');
-var endOfStartTagSelfClosing = stringToPrecomputedChunk('/>');
-
-function pushInnerHTML(target, innerHTML, children) {
-  if (innerHTML != null) {
-    if (children != null) {
-      throw new Error('Can only set one of `children` or `props.dangerouslySetInnerHTML`.');
-    }
-
-    if (typeof innerHTML !== 'object' || !('__html' in innerHTML)) {
-      throw new Error('`props.dangerouslySetInnerHTML` must be in the form `{__html: ...}`. ' + 'Please visit https://reactjs.org/link/dangerously-set-inner-html ' + 'for more information.');
-    }
-
-    var html = innerHTML.__html;
-
-    if (html !== null && html !== undefined) {
-      {
-        checkHtmlStringCoercion(html);
-      }
-
-      target.push(stringToChunk('' + html));
-    }
-  }
-} // TODO: Move these to ResponseState so that we warn for every request.
-// It would help debugging in stateful servers (e.g. service worker).
-
-
-var didWarnDefaultInputValue = false;
-var didWarnDefaultChecked = false;
-var didWarnDefaultSelectValue = false;
-var didWarnDefaultTextareaValue = false;
-var didWarnInvalidOptionChildren = false;
-var didWarnInvalidOptionInnerHTML = false;
-var didWarnSelectedSetOnOption = false;
-
-function checkSelectProp(props, propName) {
-  {
-    var value = props[propName];
-
-    if (value != null) {
-      var array = isArray(value);
-
-      if (props.multiple && !array) {
-        error('The `%s` prop supplied to <select> must be an array if ' + '`multiple` is true.', propName);
-      } else if (!props.multiple && array) {
-        error('The `%s` prop supplied to <select> must be a scalar ' + 'value if `multiple` is false.', propName);
-      }
-    }
-  }
-}
-
-function pushStartSelect(target, props, responseState) {
-  {
-    checkControlledValueProps('select', props);
-    checkSelectProp(props, 'value');
-    checkSelectProp(props, 'defaultValue');
-
-    if (props.value !== undefined && props.defaultValue !== undefined && !didWarnDefaultSelectValue) {
-      error('Select elements must be either controlled or uncontrolled ' + '(specify either the value prop, or the defaultValue prop, but not ' + 'both). Decide between using a controlled or uncontrolled select ' + 'element and remove one of these props. More info: ' + 'https://reactjs.org/link/controlled-components');
-
-      didWarnDefaultSelectValue = true;
-    }
-  }
-
-  target.push(startChunkForTag('select'));
-  var children = null;
-  var innerHTML = null;
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-          children = propValue;
-          break;
-
-        case 'dangerouslySetInnerHTML':
-          // TODO: This doesn't really make sense for select since it can't use the controlled
-          // value in the innerHTML.
-          innerHTML = propValue;
-          break;
-
-        case 'defaultValue':
-        case 'value':
-          // These are set on the Context instead and applied to the nested options.
-          break;
-
-        default:
-          pushAttribute(target, responseState, propKey, propValue);
-          break;
-      }
-    }
-  }
-
-  target.push(endOfStartTag);
-  pushInnerHTML(target, innerHTML, children);
-  return children;
-}
-
-function flattenOptionChildren(children) {
-  var content = ''; // Flatten children and warn if they aren't strings or numbers;
-  // invalid types are ignored.
-
-  React.Children.forEach(children, function (child) {
-    if (child == null) {
-      return;
-    }
-
-    content += child;
-
-    {
-      if (!didWarnInvalidOptionChildren && typeof child !== 'string' && typeof child !== 'number') {
-        didWarnInvalidOptionChildren = true;
-
-        error('Cannot infer the option value of complex children. ' + 'Pass a `value` prop or use a plain string as children to <option>.');
-      }
-    }
-  });
-  return content;
-}
-
-var selectedMarkerAttribute = stringToPrecomputedChunk(' selected=""');
-
-function pushStartOption(target, props, responseState, formatContext) {
-  var selectedValue = formatContext.selectedValue;
-  target.push(startChunkForTag('option'));
-  var children = null;
-  var value = null;
-  var selected = null;
-  var innerHTML = null;
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-          children = propValue;
-          break;
-
-        case 'selected':
-          // ignore
-          selected = propValue;
-
-          {
-            // TODO: Remove support for `selected` in <option>.
-            if (!didWarnSelectedSetOnOption) {
-              error('Use the `defaultValue` or `value` props on <select> instead of ' + 'setting `selected` on <option>.');
-
-              didWarnSelectedSetOnOption = true;
-            }
-          }
-
-          break;
-
-        case 'dangerouslySetInnerHTML':
-          innerHTML = propValue;
-          break;
-        // eslint-disable-next-line-no-fallthrough
-
-        case 'value':
-          value = propValue;
-        // We intentionally fallthrough to also set the attribute on the node.
-        // eslint-disable-next-line-no-fallthrough
-
-        default:
-          pushAttribute(target, responseState, propKey, propValue);
-          break;
-      }
-    }
-  }
-
-  if (selectedValue != null) {
-    var stringValue;
-
-    if (value !== null) {
-      {
-        checkAttributeStringCoercion(value, 'value');
-      }
-
-      stringValue = '' + value;
-    } else {
-      {
-        if (innerHTML !== null) {
-          if (!didWarnInvalidOptionInnerHTML) {
-            didWarnInvalidOptionInnerHTML = true;
-
-            error('Pass a `value` prop if you set dangerouslyInnerHTML so React knows ' + 'which value should be selected.');
-          }
-        }
-      }
-
-      stringValue = flattenOptionChildren(children);
-    }
-
-    if (isArray(selectedValue)) {
-      // multiple
-      for (var i = 0; i < selectedValue.length; i++) {
-        {
-          checkAttributeStringCoercion(selectedValue[i], 'value');
-        }
-
-        var v = '' + selectedValue[i];
-
-        if (v === stringValue) {
-          target.push(selectedMarkerAttribute);
-          break;
-        }
-      }
-    } else {
-      {
-        checkAttributeStringCoercion(selectedValue, 'select.value');
-      }
-
-      if ('' + selectedValue === stringValue) {
-        target.push(selectedMarkerAttribute);
-      }
-    }
-  } else if (selected) {
-    target.push(selectedMarkerAttribute);
-  }
-
-  target.push(endOfStartTag);
-  pushInnerHTML(target, innerHTML, children);
-  return children;
-}
-
-function pushInput(target, props, responseState) {
-  {
-    checkControlledValueProps('input', props);
-
-    if (props.checked !== undefined && props.defaultChecked !== undefined && !didWarnDefaultChecked) {
-      error('%s contains an input of type %s with both checked and defaultChecked props. ' + 'Input elements must be either controlled or uncontrolled ' + '(specify either the checked prop, or the defaultChecked prop, but not ' + 'both). Decide between using a controlled or uncontrolled input ' + 'element and remove one of these props. More info: ' + 'https://reactjs.org/link/controlled-components', 'A component', props.type);
-
-      didWarnDefaultChecked = true;
-    }
-
-    if (props.value !== undefined && props.defaultValue !== undefined && !didWarnDefaultInputValue) {
-      error('%s contains an input of type %s with both value and defaultValue props. ' + 'Input elements must be either controlled or uncontrolled ' + '(specify either the value prop, or the defaultValue prop, but not ' + 'both). Decide between using a controlled or uncontrolled input ' + 'element and remove one of these props. More info: ' + 'https://reactjs.org/link/controlled-components', 'A component', props.type);
-
-      didWarnDefaultInputValue = true;
-    }
-  }
-
-  target.push(startChunkForTag('input'));
-  var value = null;
-  var defaultValue = null;
-  var checked = null;
-  var defaultChecked = null;
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-        case 'dangerouslySetInnerHTML':
-          throw new Error('input' + " is a self-closing tag and must neither have `children` nor " + 'use `dangerouslySetInnerHTML`.');
-        // eslint-disable-next-line-no-fallthrough
-
-        case 'defaultChecked':
-          defaultChecked = propValue;
-          break;
-
-        case 'defaultValue':
-          defaultValue = propValue;
-          break;
-
-        case 'checked':
-          checked = propValue;
-          break;
-
-        case 'value':
-          value = propValue;
-          break;
-
-        default:
-          pushAttribute(target, responseState, propKey, propValue);
-          break;
-      }
-    }
-  }
-
-  if (checked !== null) {
-    pushAttribute(target, responseState, 'checked', checked);
-  } else if (defaultChecked !== null) {
-    pushAttribute(target, responseState, 'checked', defaultChecked);
-  }
-
-  if (value !== null) {
-    pushAttribute(target, responseState, 'value', value);
-  } else if (defaultValue !== null) {
-    pushAttribute(target, responseState, 'value', defaultValue);
-  }
-
-  target.push(endOfStartTagSelfClosing);
-  return null;
-}
-
-function pushStartTextArea(target, props, responseState) {
-  {
-    checkControlledValueProps('textarea', props);
-
-    if (props.value !== undefined && props.defaultValue !== undefined && !didWarnDefaultTextareaValue) {
-      error('Textarea elements must be either controlled or uncontrolled ' + '(specify either the value prop, or the defaultValue prop, but not ' + 'both). Decide between using a controlled or uncontrolled textarea ' + 'and remove one of these props. More info: ' + 'https://reactjs.org/link/controlled-components');
-
-      didWarnDefaultTextareaValue = true;
-    }
-  }
-
-  target.push(startChunkForTag('textarea'));
-  var value = null;
-  var defaultValue = null;
-  var children = null;
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-          children = propValue;
-          break;
-
-        case 'value':
-          value = propValue;
-          break;
-
-        case 'defaultValue':
-          defaultValue = propValue;
-          break;
-
-        case 'dangerouslySetInnerHTML':
-          throw new Error('`dangerouslySetInnerHTML` does not make sense on <textarea>.');
-        // eslint-disable-next-line-no-fallthrough
-
-        default:
-          pushAttribute(target, responseState, propKey, propValue);
-          break;
-      }
-    }
-  }
-
-  if (value === null && defaultValue !== null) {
-    value = defaultValue;
-  }
-
-  target.push(endOfStartTag); // TODO (yungsters): Remove support for children content in <textarea>.
-
-  if (children != null) {
-    {
-      error('Use the `defaultValue` or `value` props instead of setting ' + 'children on <textarea>.');
-    }
-
-    if (value != null) {
-      throw new Error('If you supply `defaultValue` on a <textarea>, do not pass children.');
-    }
-
-    if (isArray(children)) {
-      if (children.length > 1) {
-        throw new Error('<textarea> can only have at most one child.');
-      } // TODO: remove the coercion and the DEV check below because it will
-      // always be overwritten by the coercion several lines below it. #22309
-
-
-      {
-        checkHtmlStringCoercion(children[0]);
-      }
-
-      value = '' + children[0];
-    }
-
-    {
-      checkHtmlStringCoercion(children);
-    }
-
-    value = '' + children;
-  }
-
-  if (typeof value === 'string' && value[0] === '\n') {
-    // text/html ignores the first character in these tags if it's a newline
-    // Prefer to break application/xml over text/html (for now) by adding
-    // a newline specifically to get eaten by the parser. (Alternately for
-    // textareas, replacing "^\n" with "\r\n" doesn't get eaten, and the first
-    // \r is normalized out by HTMLTextAreaElement#value.)
-    // See: <http://www.w3.org/TR/html-polyglot/#newlines-in-textarea-and-pre>
-    // See: <http://www.w3.org/TR/html5/syntax.html#element-restrictions>
-    // See: <http://www.w3.org/TR/html5/syntax.html#newlines>
-    // See: Parsing of "textarea" "listing" and "pre" elements
-    //  from <http://www.w3.org/TR/html5/syntax.html#parsing-main-inbody>
-    target.push(leadingNewline);
-  } // ToString and push directly instead of recurse over children.
-  // We don't really support complex children in the value anyway.
-  // This also currently avoids a trailing comment node which breaks textarea.
-
-
-  if (value !== null) {
-    {
-      checkAttributeStringCoercion(value, 'value');
-    }
-
-    target.push(stringToChunk(encodeHTMLTextNode('' + value)));
-  }
-
-  return null;
-}
-
-function pushSelfClosing(target, props, tag, responseState) {
-  target.push(startChunkForTag(tag));
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-        case 'dangerouslySetInnerHTML':
-          throw new Error(tag + " is a self-closing tag and must neither have `children` nor " + 'use `dangerouslySetInnerHTML`.');
-        // eslint-disable-next-line-no-fallthrough
-
-        default:
-          pushAttribute(target, responseState, propKey, propValue);
-          break;
-      }
-    }
-  }
-
-  target.push(endOfStartTagSelfClosing);
-  return null;
-}
-
-function pushStartMenuItem(target, props, responseState) {
-  target.push(startChunkForTag('menuitem'));
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-        case 'dangerouslySetInnerHTML':
-          throw new Error('menuitems cannot have `children` nor `dangerouslySetInnerHTML`.');
-        // eslint-disable-next-line-no-fallthrough
-
-        default:
-          pushAttribute(target, responseState, propKey, propValue);
-          break;
-      }
-    }
-  }
-
-  target.push(endOfStartTag);
-  return null;
-}
-
-function pushStartTitle(target, props, responseState) {
-  target.push(startChunkForTag('title'));
-  var children = null;
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-          children = propValue;
-          break;
-
-        case 'dangerouslySetInnerHTML':
-          throw new Error('`dangerouslySetInnerHTML` does not make sense on <title>.');
-        // eslint-disable-next-line-no-fallthrough
-
-        default:
-          pushAttribute(target, responseState, propKey, propValue);
-          break;
-      }
-    }
-  }
-
-  target.push(endOfStartTag);
-
-  {
-    var child = Array.isArray(children) && children.length < 2 ? children[0] || null : children;
-
-    if (Array.isArray(children) && children.length > 1) {
-      error('A title element received an array with more than 1 element as children. ' + 'In browsers title Elements can only have Text Nodes as children. If ' + 'the children being rendered output more than a single text node in aggregate the browser ' + 'will display markup and comments as text in the title and hydration will likely fail and ' + 'fall back to client rendering');
-    } else if (child != null && child.$$typeof != null) {
-      error('A title element received a React element for children. ' + 'In the browser title Elements can only have Text Nodes as children. If ' + 'the children being rendered output more than a single text node in aggregate the browser ' + 'will display markup and comments as text in the title and hydration will likely fail and ' + 'fall back to client rendering');
-    } else if (child != null && typeof child !== 'string' && typeof child !== 'number') {
-      error('A title element received a value that was not a string or number for children. ' + 'In the browser title Elements can only have Text Nodes as children. If ' + 'the children being rendered output more than a single text node in aggregate the browser ' + 'will display markup and comments as text in the title and hydration will likely fail and ' + 'fall back to client rendering');
-    }
-  }
-
-  return children;
-}
-
-function pushStartGenericElement(target, props, tag, responseState) {
-  target.push(startChunkForTag(tag));
-  var children = null;
-  var innerHTML = null;
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-          children = propValue;
-          break;
-
-        case 'dangerouslySetInnerHTML':
-          innerHTML = propValue;
-          break;
-
-        default:
-          pushAttribute(target, responseState, propKey, propValue);
-          break;
-      }
-    }
-  }
-
-  target.push(endOfStartTag);
-  pushInnerHTML(target, innerHTML, children);
-
-  if (typeof children === 'string') {
-    // Special case children as a string to avoid the unnecessary comment.
-    // TODO: Remove this special case after the general optimization is in place.
-    target.push(stringToChunk(encodeHTMLTextNode(children)));
-    return null;
-  }
-
-  return children;
-}
-
-function pushStartCustomElement(target, props, tag, responseState) {
-  target.push(startChunkForTag(tag));
-  var children = null;
-  var innerHTML = null;
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-          children = propValue;
-          break;
-
-        case 'dangerouslySetInnerHTML':
-          innerHTML = propValue;
-          break;
-
-        case 'style':
-          pushStyle(target, responseState, propValue);
-          break;
-
-        case 'suppressContentEditableWarning':
-        case 'suppressHydrationWarning':
-          // Ignored. These are built-in to React on the client.
-          break;
-
-        default:
-          if (isAttributeNameSafe(propKey) && typeof propValue !== 'function' && typeof propValue !== 'symbol') {
-            target.push(attributeSeparator, stringToChunk(propKey), attributeAssign, stringToChunk(escapeTextForBrowser(propValue)), attributeEnd);
-          }
-
-          break;
-      }
-    }
-  }
-
-  target.push(endOfStartTag);
-  pushInnerHTML(target, innerHTML, children);
-  return children;
-}
-
-var leadingNewline = stringToPrecomputedChunk('\n');
-
-function pushStartPreformattedElement(target, props, tag, responseState) {
-  target.push(startChunkForTag(tag));
-  var children = null;
-  var innerHTML = null;
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-          children = propValue;
-          break;
-
-        case 'dangerouslySetInnerHTML':
-          innerHTML = propValue;
-          break;
-
-        default:
-          pushAttribute(target, responseState, propKey, propValue);
-          break;
-      }
-    }
-  }
-
-  target.push(endOfStartTag); // text/html ignores the first character in these tags if it's a newline
-  // Prefer to break application/xml over text/html (for now) by adding
-  // a newline specifically to get eaten by the parser. (Alternately for
-  // textareas, replacing "^\n" with "\r\n" doesn't get eaten, and the first
-  // \r is normalized out by HTMLTextAreaElement#value.)
-  // See: <http://www.w3.org/TR/html-polyglot/#newlines-in-textarea-and-pre>
-  // See: <http://www.w3.org/TR/html5/syntax.html#element-restrictions>
-  // See: <http://www.w3.org/TR/html5/syntax.html#newlines>
-  // See: Parsing of "textarea" "listing" and "pre" elements
-  //  from <http://www.w3.org/TR/html5/syntax.html#parsing-main-inbody>
-  // TODO: This doesn't deal with the case where the child is an array
-  // or component that returns a string.
-
-  if (innerHTML != null) {
-    if (children != null) {
-      throw new Error('Can only set one of `children` or `props.dangerouslySetInnerHTML`.');
-    }
-
-    if (typeof innerHTML !== 'object' || !('__html' in innerHTML)) {
-      throw new Error('`props.dangerouslySetInnerHTML` must be in the form `{__html: ...}`. ' + 'Please visit https://reactjs.org/link/dangerously-set-inner-html ' + 'for more information.');
-    }
-
-    var html = innerHTML.__html;
-
-    if (html !== null && html !== undefined) {
-      if (typeof html === 'string' && html.length > 0 && html[0] === '\n') {
-        target.push(leadingNewline, stringToChunk(html));
-      } else {
-        {
-          checkHtmlStringCoercion(html);
-        }
-
-        target.push(stringToChunk('' + html));
-      }
-    }
-  }
-
-  if (typeof children === 'string' && children[0] === '\n') {
-    target.push(leadingNewline);
-  }
-
-  return children;
-} // We accept any tag to be rendered but since this gets injected into arbitrary
-// HTML, we want to make sure that it's a safe tag.
-// http://www.w3.org/TR/REC-xml/#NT-Name
-
-
-var VALID_TAG_REGEX = /^[a-zA-Z][a-zA-Z:_\.\-\d]*$/; // Simplified subset
-
-var validatedTagCache = new Map();
-
-function startChunkForTag(tag) {
-  var tagStartChunk = validatedTagCache.get(tag);
-
-  if (tagStartChunk === undefined) {
-    if (!VALID_TAG_REGEX.test(tag)) {
-      throw new Error("Invalid tag: " + tag);
-    }
-
-    tagStartChunk = stringToPrecomputedChunk('<' + tag);
-    validatedTagCache.set(tag, tagStartChunk);
-  }
-
-  return tagStartChunk;
-}
-
-var DOCTYPE = stringToPrecomputedChunk('<!DOCTYPE html>');
-function pushStartInstance(target, type, props, responseState, formatContext) {
-  {
-    validateProperties(type, props);
-    validateProperties$1(type, props);
-    validateProperties$2(type, props, null);
-
-    if (!props.suppressContentEditableWarning && props.contentEditable && props.children != null) {
-      error('A component is `contentEditable` and contains `children` managed by ' + 'React. It is now your responsibility to guarantee that none of ' + 'those nodes are unexpectedly modified or duplicated. This is ' + 'probably not intentional.');
-    }
-
-    if (formatContext.insertionMode !== SVG_MODE && formatContext.insertionMode !== MATHML_MODE) {
-      if (type.indexOf('-') === -1 && typeof props.is !== 'string' && type.toLowerCase() !== type) {
-        error('<%s /> is using incorrect casing. ' + 'Use PascalCase for React components, ' + 'or lowercase for HTML elements.', type);
-      }
-    }
-  }
-
-  switch (type) {
-    // Special tags
-    case 'select':
-      return pushStartSelect(target, props, responseState);
-
-    case 'option':
-      return pushStartOption(target, props, responseState, formatContext);
-
-    case 'textarea':
-      return pushStartTextArea(target, props, responseState);
-
-    case 'input':
-      return pushInput(target, props, responseState);
-
-    case 'menuitem':
-      return pushStartMenuItem(target, props, responseState);
-
-    case 'title':
-      return pushStartTitle(target, props, responseState);
-    // Newline eating tags
-
-    case 'listing':
-    case 'pre':
-      {
-        return pushStartPreformattedElement(target, props, type, responseState);
-      }
-    // Omitted close tags
-
-    case 'area':
-    case 'base':
-    case 'br':
-    case 'col':
-    case 'embed':
-    case 'hr':
-    case 'img':
-    case 'keygen':
-    case 'link':
-    case 'meta':
-    case 'param':
-    case 'source':
-    case 'track':
-    case 'wbr':
-      {
-        return pushSelfClosing(target, props, type, responseState);
-      }
-    // These are reserved SVG and MathML elements, that are never custom elements.
-    // https://w3c.github.io/webcomponents/spec/custom/#custom-elements-core-concepts
-
-    case 'annotation-xml':
-    case 'color-profile':
-    case 'font-face':
-    case 'font-face-src':
-    case 'font-face-uri':
-    case 'font-face-format':
-    case 'font-face-name':
-    case 'missing-glyph':
-      {
-        return pushStartGenericElement(target, props, type, responseState);
-      }
-
-    case 'html':
-      {
-        if (formatContext.insertionMode === ROOT_HTML_MODE) {
-          // If we're rendering the html tag and we're at the root (i.e. not in foreignObject)
-          // then we also emit the DOCTYPE as part of the root content as a convenience for
-          // rendering the whole document.
-          target.push(DOCTYPE);
-        }
-
-        return pushStartGenericElement(target, props, type, responseState);
-      }
-
-    default:
-      {
-        if (type.indexOf('-') === -1 && typeof props.is !== 'string') {
-          // Generic element
-          return pushStartGenericElement(target, props, type, responseState);
-        } else {
-          // Custom element
-          return pushStartCustomElement(target, props, type, responseState);
-        }
-      }
-  }
-}
-var endTag1 = stringToPrecomputedChunk('</');
-var endTag2 = stringToPrecomputedChunk('>');
-function pushEndInstance(target, type, props) {
-  switch (type) {
-    // Omitted close tags
-    // TODO: Instead of repeating this switch we could try to pass a flag from above.
-    // That would require returning a tuple. Which might be ok if it gets inlined.
-    case 'area':
-    case 'base':
-    case 'br':
-    case 'col':
-    case 'embed':
-    case 'hr':
-    case 'img':
-    case 'input':
-    case 'keygen':
-    case 'link':
-    case 'meta':
-    case 'param':
-    case 'source':
-    case 'track':
-    case 'wbr':
-      {
-        // No close tag needed.
-        break;
-      }
-
-    default:
-      {
-        target.push(endTag1, stringToChunk(type), endTag2);
-      }
-  }
-}
-function writeCompletedRoot(destination, responseState) {
-  var bootstrapChunks = responseState.bootstrapChunks;
-  var i = 0;
-
-  for (; i < bootstrapChunks.length - 1; i++) {
-    writeChunk(destination, bootstrapChunks[i]);
-  }
-
-  if (i < bootstrapChunks.length) {
-    return writeChunkAndReturn(destination, bootstrapChunks[i]);
-  }
-
-  return true;
-} // Structural Nodes
-// A placeholder is a node inside a hidden partial tree that can be filled in later, but before
-// display. It's never visible to users. We use the template tag because it can be used in every
-// type of parent. <script> tags also work in every other tag except <colgroup>.
-
-var placeholder1 = stringToPrecomputedChunk('<template id="');
-var placeholder2 = stringToPrecomputedChunk('"></template>');
-function writePlaceholder(destination, responseState, id) {
-  writeChunk(destination, placeholder1);
-  writeChunk(destination, responseState.placeholderPrefix);
-  var formattedID = stringToChunk(id.toString(16));
-  writeChunk(destination, formattedID);
-  return writeChunkAndReturn(destination, placeholder2);
-} // Suspense boundaries are encoded as comments.
-
-var startCompletedSuspenseBoundary = stringToPrecomputedChunk('<!--$-->');
-var startPendingSuspenseBoundary1 = stringToPrecomputedChunk('<!--$?--><template id="');
-var startPendingSuspenseBoundary2 = stringToPrecomputedChunk('"></template>');
-var startClientRenderedSuspenseBoundary = stringToPrecomputedChunk('<!--$!-->');
-var endSuspenseBoundary = stringToPrecomputedChunk('<!--/$-->');
-var clientRenderedSuspenseBoundaryError1 = stringToPrecomputedChunk('<template');
-var clientRenderedSuspenseBoundaryErrorAttrInterstitial = stringToPrecomputedChunk('"');
-var clientRenderedSuspenseBoundaryError1A = stringToPrecomputedChunk(' data-dgst="');
-var clientRenderedSuspenseBoundaryError1B = stringToPrecomputedChunk(' data-msg="');
-var clientRenderedSuspenseBoundaryError1C = stringToPrecomputedChunk(' data-stck="');
-var clientRenderedSuspenseBoundaryError2 = stringToPrecomputedChunk('></template>');
-function writeStartCompletedSuspenseBoundary(destination, responseState) {
-  return writeChunkAndReturn(destination, startCompletedSuspenseBoundary);
-}
-function writeStartPendingSuspenseBoundary(destination, responseState, id) {
-  writeChunk(destination, startPendingSuspenseBoundary1);
-
-  if (id === null) {
-    throw new Error('An ID must have been assigned before we can complete the boundary.');
-  }
-
-  writeChunk(destination, id);
-  return writeChunkAndReturn(destination, startPendingSuspenseBoundary2);
-}
-function writeStartClientRenderedSuspenseBoundary(destination, responseState, errorDigest, errorMesssage, errorComponentStack) {
-  var result;
-  result = writeChunkAndReturn(destination, startClientRenderedSuspenseBoundary);
-  writeChunk(destination, clientRenderedSuspenseBoundaryError1);
-
-  if (errorDigest) {
-    writeChunk(destination, clientRenderedSuspenseBoundaryError1A);
-    writeChunk(destination, stringToChunk(escapeTextForBrowser(errorDigest)));
-    writeChunk(destination, clientRenderedSuspenseBoundaryErrorAttrInterstitial);
-  }
-
-  {
-    if (errorMesssage) {
-      writeChunk(destination, clientRenderedSuspenseBoundaryError1B);
-      writeChunk(destination, stringToChunk(escapeTextForBrowser(errorMesssage)));
-      writeChunk(destination, clientRenderedSuspenseBoundaryErrorAttrInterstitial);
-    }
-
-    if (errorComponentStack) {
-      writeChunk(destination, clientRenderedSuspenseBoundaryError1C);
-      writeChunk(destination, stringToChunk(escapeTextForBrowser(errorComponentStack)));
-      writeChunk(destination, clientRenderedSuspenseBoundaryErrorAttrInterstitial);
-    }
-  }
-
-  result = writeChunkAndReturn(destination, clientRenderedSuspenseBoundaryError2);
-  return result;
-}
-function writeEndCompletedSuspenseBoundary(destination, responseState) {
-  return writeChunkAndReturn(destination, endSuspenseBoundary);
-}
-function writeEndPendingSuspenseBoundary(destination, responseState) {
-  return writeChunkAndReturn(destination, endSuspenseBoundary);
-}
-function writeEndClientRenderedSuspenseBoundary(destination, responseState) {
-  return writeChunkAndReturn(destination, endSuspenseBoundary);
-}
-var startSegmentHTML = stringToPrecomputedChunk('<div hidden id="');
-var startSegmentHTML2 = stringToPrecomputedChunk('">');
-var endSegmentHTML = stringToPrecomputedChunk('</div>');
-var startSegmentSVG = stringToPrecomputedChunk('<svg aria-hidden="true" style="display:none" id="');
-var startSegmentSVG2 = stringToPrecomputedChunk('">');
-var endSegmentSVG = stringToPrecomputedChunk('</svg>');
-var startSegmentMathML = stringToPrecomputedChunk('<math aria-hidden="true" style="display:none" id="');
-var startSegmentMathML2 = stringToPrecomputedChunk('">');
-var endSegmentMathML = stringToPrecomputedChunk('</math>');
-var startSegmentTable = stringToPrecomputedChunk('<table hidden id="');
-var startSegmentTable2 = stringToPrecomputedChunk('">');
-var endSegmentTable = stringToPrecomputedChunk('</table>');
-var startSegmentTableBody = stringToPrecomputedChunk('<table hidden><tbody id="');
-var startSegmentTableBody2 = stringToPrecomputedChunk('">');
-var endSegmentTableBody = stringToPrecomputedChunk('</tbody></table>');
-var startSegmentTableRow = stringToPrecomputedChunk('<table hidden><tr id="');
-var startSegmentTableRow2 = stringToPrecomputedChunk('">');
-var endSegmentTableRow = stringToPrecomputedChunk('</tr></table>');
-var startSegmentColGroup = stringToPrecomputedChunk('<table hidden><colgroup id="');
-var startSegmentColGroup2 = stringToPrecomputedChunk('">');
-var endSegmentColGroup = stringToPrecomputedChunk('</colgroup></table>');
-function writeStartSegment(destination, responseState, formatContext, id) {
-  switch (formatContext.insertionMode) {
-    case ROOT_HTML_MODE:
-    case HTML_MODE:
-      {
-        writeChunk(destination, startSegmentHTML);
-        writeChunk(destination, responseState.segmentPrefix);
-        writeChunk(destination, stringToChunk(id.toString(16)));
-        return writeChunkAndReturn(destination, startSegmentHTML2);
-      }
-
-    case SVG_MODE:
-      {
-        writeChunk(destination, startSegmentSVG);
-        writeChunk(destination, responseState.segmentPrefix);
-        writeChunk(destination, stringToChunk(id.toString(16)));
-        return writeChunkAndReturn(destination, startSegmentSVG2);
-      }
-
-    case MATHML_MODE:
-      {
-        writeChunk(destination, startSegmentMathML);
-        writeChunk(destination, responseState.segmentPrefix);
-        writeChunk(destination, stringToChunk(id.toString(16)));
-        return writeChunkAndReturn(destination, startSegmentMathML2);
-      }
-
-    case HTML_TABLE_MODE:
-      {
-        writeChunk(destination, startSegmentTable);
-        writeChunk(destination, responseState.segmentPrefix);
-        writeChunk(destination, stringToChunk(id.toString(16)));
-        return writeChunkAndReturn(destination, startSegmentTable2);
-      }
-    // TODO: For the rest of these, there will be extra wrapper nodes that never
-    // get deleted from the document. We need to delete the table too as part
-    // of the injected scripts. They are invisible though so it's not too terrible
-    // and it's kind of an edge case to suspend in a table. Totally supported though.
-
-    case HTML_TABLE_BODY_MODE:
-      {
-        writeChunk(destination, startSegmentTableBody);
-        writeChunk(destination, responseState.segmentPrefix);
-        writeChunk(destination, stringToChunk(id.toString(16)));
-        return writeChunkAndReturn(destination, startSegmentTableBody2);
-      }
-
-    case HTML_TABLE_ROW_MODE:
-      {
-        writeChunk(destination, startSegmentTableRow);
-        writeChunk(destination, responseState.segmentPrefix);
-        writeChunk(destination, stringToChunk(id.toString(16)));
-        return writeChunkAndReturn(destination, startSegmentTableRow2);
-      }
-
-    case HTML_COLGROUP_MODE:
-      {
-        writeChunk(destination, startSegmentColGroup);
-        writeChunk(destination, responseState.segmentPrefix);
-        writeChunk(destination, stringToChunk(id.toString(16)));
-        return writeChunkAndReturn(destination, startSegmentColGroup2);
-      }
-
-    default:
-      {
-        throw new Error('Unknown insertion mode. This is a bug in React.');
-      }
-  }
-}
-function writeEndSegment(destination, formatContext) {
-  switch (formatContext.insertionMode) {
-    case ROOT_HTML_MODE:
-    case HTML_MODE:
-      {
-        return writeChunkAndReturn(destination, endSegmentHTML);
-      }
-
-    case SVG_MODE:
-      {
-        return writeChunkAndReturn(destination, endSegmentSVG);
-      }
-
-    case MATHML_MODE:
-      {
-        return writeChunkAndReturn(destination, endSegmentMathML);
-      }
-
-    case HTML_TABLE_MODE:
-      {
-        return writeChunkAndReturn(destination, endSegmentTable);
-      }
-
-    case HTML_TABLE_BODY_MODE:
-      {
-        return writeChunkAndReturn(destination, endSegmentTableBody);
-      }
-
-    case HTML_TABLE_ROW_MODE:
-      {
-        return writeChunkAndReturn(destination, endSegmentTableRow);
-      }
-
-    case HTML_COLGROUP_MODE:
-      {
-        return writeChunkAndReturn(destination, endSegmentColGroup);
-      }
-
-    default:
-      {
-        throw new Error('Unknown insertion mode. This is a bug in React.');
-      }
-  }
-} // Instruction Set
-// The following code is the source scripts that we then minify and inline below,
-// with renamed function names that we hope don't collide:
-// const COMMENT_NODE = 8;
-// const SUSPENSE_START_DATA = '$';
-// const SUSPENSE_END_DATA = '/$';
-// const SUSPENSE_PENDING_START_DATA = '$?';
-// const SUSPENSE_FALLBACK_START_DATA = '$!';
-//
-// function clientRenderBoundary(suspenseBoundaryID, errorDigest, errorMsg, errorComponentStack) {
-//   // Find the fallback's first element.
-//   const suspenseIdNode = document.getElementById(suspenseBoundaryID);
-//   if (!suspenseIdNode) {
-//     // The user must have already navigated away from this tree.
-//     // E.g. because the parent was hydrated.
-//     return;
-//   }
-//   // Find the boundary around the fallback. This is always the previous node.
-//   const suspenseNode = suspenseIdNode.previousSibling;
-//   // Tag it to be client rendered.
-//   suspenseNode.data = SUSPENSE_FALLBACK_START_DATA;
-//   // assign error metadata to first sibling
-//   let dataset = suspenseIdNode.dataset;
-//   if (errorDigest) dataset.dgst = errorDigest;
-//   if (errorMsg) dataset.msg = errorMsg;
-//   if (errorComponentStack) dataset.stck = errorComponentStack;
-//   // Tell React to retry it if the parent already hydrated.
-//   if (suspenseNode._reactRetry) {
-//     suspenseNode._reactRetry();
-//   }
-// }
-//
-// function completeBoundary(suspenseBoundaryID, contentID) {
-//   // Find the fallback's first element.
-//   const suspenseIdNode = document.getElementById(suspenseBoundaryID);
-//   const contentNode = document.getElementById(contentID);
-//   // We'll detach the content node so that regardless of what happens next we don't leave in the tree.
-//   // This might also help by not causing recalcing each time we move a child from here to the target.
-//   contentNode.parentNode.removeChild(contentNode);
-//   if (!suspenseIdNode) {
-//     // The user must have already navigated away from this tree.
-//     // E.g. because the parent was hydrated. That's fine there's nothing to do
-//     // but we have to make sure that we already deleted the container node.
-//     return;
-//   }
-//   // Find the boundary around the fallback. This is always the previous node.
-//   const suspenseNode = suspenseIdNode.previousSibling;
-//
-//   // Clear all the existing children. This is complicated because
-//   // there can be embedded Suspense boundaries in the fallback.
-//   // This is similar to clearSuspenseBoundary in ReactDOMHostConfig.
-//   // TODO: We could avoid this if we never emitted suspense boundaries in fallback trees.
-//   // They never hydrate anyway. However, currently we support incrementally loading the fallback.
-//   const parentInstance = suspenseNode.parentNode;
-//   let node = suspenseNode.nextSibling;
-//   let depth = 0;
-//   do {
-//     if (node && node.nodeType === COMMENT_NODE) {
-//       const data = node.data;
-//       if (data === SUSPENSE_END_DATA) {
-//         if (depth === 0) {
-//           break;
-//         } else {
-//           depth--;
-//         }
-//       } else if (
-//         data === SUSPENSE_START_DATA ||
-//         data === SUSPENSE_PENDING_START_DATA ||
-//         data === SUSPENSE_FALLBACK_START_DATA
-//       ) {
-//         depth++;
-//       }
-//     }
-//
-//     const nextNode = node.nextSibling;
-//     parentInstance.removeChild(node);
-//     node = nextNode;
-//   } while (node);
-//
-//   const endOfBoundary = node;
-//
-//   // Insert all the children from the contentNode between the start and end of suspense boundary.
-//   while (contentNode.firstChild) {
-//     parentInstance.insertBefore(contentNode.firstChild, endOfBoundary);
-//   }
-//   suspenseNode.data = SUSPENSE_START_DATA;
-//   if (suspenseNode._reactRetry) {
-//     suspenseNode._reactRetry();
-//   }
-// }
-//
-// function completeSegment(containerID, placeholderID) {
-//   const segmentContainer = document.getElementById(containerID);
-//   const placeholderNode = document.getElementById(placeholderID);
-//   // We always expect both nodes to exist here because, while we might
-//   // have navigated away from the main tree, we still expect the detached
-//   // tree to exist.
-//   segmentContainer.parentNode.removeChild(segmentContainer);
-//   while (segmentContainer.firstChild) {
-//     placeholderNode.parentNode.insertBefore(
-//       segmentContainer.firstChild,
-//       placeholderNode,
-//     );
-//   }
-//   placeholderNode.parentNode.removeChild(placeholderNode);
-// }
-
-var completeSegmentFunction = 'function $RS(a,b){a=document.getElementById(a);b=document.getElementById(b);for(a.parentNode.removeChild(a);a.firstChild;)b.parentNode.insertBefore(a.firstChild,b);b.parentNode.removeChild(b)}';
-var completeBoundaryFunction = 'function $RC(a,b){a=document.getElementById(a);b=document.getElementById(b);b.parentNode.removeChild(b);if(a){a=a.previousSibling;var f=a.parentNode,c=a.nextSibling,e=0;do{if(c&&8===c.nodeType){var d=c.data;if("/$"===d)if(0===e)break;else e--;else"$"!==d&&"$?"!==d&&"$!"!==d||e++}d=c.nextSibling;f.removeChild(c);c=d}while(c);for(;b.firstChild;)f.insertBefore(b.firstChild,c);a.data="$";a._reactRetry&&a._reactRetry()}}';
-var clientRenderFunction = 'function $RX(b,c,d,e){var a=document.getElementById(b);a&&(b=a.previousSibling,b.data="$!",a=a.dataset,c&&(a.dgst=c),d&&(a.msg=d),e&&(a.stck=e),b._reactRetry&&b._reactRetry())}';
-var completeSegmentScript1Full = stringToPrecomputedChunk(completeSegmentFunction + ';$RS("');
-var completeSegmentScript1Partial = stringToPrecomputedChunk('$RS("');
-var completeSegmentScript2 = stringToPrecomputedChunk('","');
-var completeSegmentScript3 = stringToPrecomputedChunk('")</script>');
-function writeCompletedSegmentInstruction(destination, responseState, contentSegmentID) {
-  writeChunk(destination, responseState.startInlineScript);
-
-  if (!responseState.sentCompleteSegmentFunction) {
-    // The first time we write this, we'll need to include the full implementation.
-    responseState.sentCompleteSegmentFunction = true;
-    writeChunk(destination, completeSegmentScript1Full);
-  } else {
-    // Future calls can just reuse the same function.
-    writeChunk(destination, completeSegmentScript1Partial);
-  }
-
-  writeChunk(destination, responseState.segmentPrefix);
-  var formattedID = stringToChunk(contentSegmentID.toString(16));
-  writeChunk(destination, formattedID);
-  writeChunk(destination, completeSegmentScript2);
-  writeChunk(destination, responseState.placeholderPrefix);
-  writeChunk(destination, formattedID);
-  return writeChunkAndReturn(destination, completeSegmentScript3);
-}
-var completeBoundaryScript1Full = stringToPrecomputedChunk(completeBoundaryFunction + ';$RC("');
-var completeBoundaryScript1Partial = stringToPrecomputedChunk('$RC("');
-var completeBoundaryScript2 = stringToPrecomputedChunk('","');
-var completeBoundaryScript3 = stringToPrecomputedChunk('")</script>');
-function writeCompletedBoundaryInstruction(destination, responseState, boundaryID, contentSegmentID) {
-  writeChunk(destination, responseState.startInlineScript);
-
-  if (!responseState.sentCompleteBoundaryFunction) {
-    // The first time we write this, we'll need to include the full implementation.
-    responseState.sentCompleteBoundaryFunction = true;
-    writeChunk(destination, completeBoundaryScript1Full);
-  } else {
-    // Future calls can just reuse the same function.
-    writeChunk(destination, completeBoundaryScript1Partial);
-  }
-
-  if (boundaryID === null) {
-    throw new Error('An ID must have been assigned before we can complete the boundary.');
-  }
-
-  var formattedContentID = stringToChunk(contentSegmentID.toString(16));
-  writeChunk(destination, boundaryID);
-  writeChunk(destination, completeBoundaryScript2);
-  writeChunk(destination, responseState.segmentPrefix);
-  writeChunk(destination, formattedContentID);
-  return writeChunkAndReturn(destination, completeBoundaryScript3);
-}
-var clientRenderScript1Full = stringToPrecomputedChunk(clientRenderFunction + ';$RX("');
-var clientRenderScript1Partial = stringToPrecomputedChunk('$RX("');
-var clientRenderScript1A = stringToPrecomputedChunk('"');
-var clientRenderScript2 = stringToPrecomputedChunk(')</script>');
-var clientRenderErrorScriptArgInterstitial = stringToPrecomputedChunk(',');
-function writeClientRenderBoundaryInstruction(destination, responseState, boundaryID, errorDigest, errorMessage, errorComponentStack) {
-  writeChunk(destination, responseState.startInlineScript);
-
-  if (!responseState.sentClientRenderFunction) {
-    // The first time we write this, we'll need to include the full implementation.
-    responseState.sentClientRenderFunction = true;
-    writeChunk(destination, clientRenderScript1Full);
-  } else {
-    // Future calls can just reuse the same function.
-    writeChunk(destination, clientRenderScript1Partial);
-  }
-
-  if (boundaryID === null) {
-    throw new Error('An ID must have been assigned before we can complete the boundary.');
-  }
-
-  writeChunk(destination, boundaryID);
-  writeChunk(destination, clientRenderScript1A);
-
-  if (errorDigest || errorMessage || errorComponentStack) {
-    writeChunk(destination, clientRenderErrorScriptArgInterstitial);
-    writeChunk(destination, stringToChunk(escapeJSStringsForInstructionScripts(errorDigest || '')));
-  }
-
-  if (errorMessage || errorComponentStack) {
-    writeChunk(destination, clientRenderErrorScriptArgInterstitial);
-    writeChunk(destination, stringToChunk(escapeJSStringsForInstructionScripts(errorMessage || '')));
-  }
-
-  if (errorComponentStack) {
-    writeChunk(destination, clientRenderErrorScriptArgInterstitial);
-    writeChunk(destination, stringToChunk(escapeJSStringsForInstructionScripts(errorComponentStack)));
-  }
-
-  return writeChunkAndReturn(destination, clientRenderScript2);
-}
-var regexForJSStringsInScripts = /[<\u2028\u2029]/g;
-
-function escapeJSStringsForInstructionScripts(input) {
-  var escaped = JSON.stringify(input);
-  return escaped.replace(regexForJSStringsInScripts, function (match) {
-    switch (match) {
-      // santizing breaking out of strings and script tags
-      case '<':
-        return "\\u003c";
-
-      case "\u2028":
-        return "\\u2028";
-
-      case "\u2029":
-        return "\\u2029";
-
-      default:
-        {
-          // eslint-disable-next-line react-internal/prod-error-codes
-          throw new Error('escapeJSStringsForInstructionScripts encountered a match it does not know how to replace. this means the match regex and the replacement characters are no longer in sync. This is a bug in React');
-        }
-    }
-  });
-}
-
-function createResponseState$1(generateStaticMarkup, identifierPrefix) {
-  var responseState = createResponseState(identifierPrefix, undefined);
-  return {
-    // Keep this in sync with ReactDOMServerFormatConfig
-    bootstrapChunks: responseState.bootstrapChunks,
-    startInlineScript: responseState.startInlineScript,
-    placeholderPrefix: responseState.placeholderPrefix,
-    segmentPrefix: responseState.segmentPrefix,
-    boundaryPrefix: responseState.boundaryPrefix,
-    idPrefix: responseState.idPrefix,
-    nextSuspenseID: responseState.nextSuspenseID,
-    sentCompleteSegmentFunction: responseState.sentCompleteSegmentFunction,
-    sentCompleteBoundaryFunction: responseState.sentCompleteBoundaryFunction,
-    sentClientRenderFunction: responseState.sentClientRenderFunction,
-    // This is an extra field for the legacy renderer
-    generateStaticMarkup: generateStaticMarkup
-  };
-}
-function createRootFormatContext() {
-  return {
-    insertionMode: HTML_MODE,
-    // We skip the root mode because we don't want to emit the DOCTYPE in legacy mode.
-    selectedValue: null
-  };
-}
-function pushTextInstance$1(target, text, responseState, textEmbedded) {
-  if (responseState.generateStaticMarkup) {
-    target.push(stringToChunk(escapeTextForBrowser(text)));
-    return false;
-  } else {
-    return pushTextInstance(target, text, responseState, textEmbedded);
-  }
-}
-function pushSegmentFinale$1(target, responseState, lastPushedText, textEmbedded) {
-  if (responseState.generateStaticMarkup) {
-    return;
-  } else {
-    return pushSegmentFinale(target, responseState, lastPushedText, textEmbedded);
-  }
-}
-function writeStartCompletedSuspenseBoundary$1(destination, responseState) {
-  if (responseState.generateStaticMarkup) {
-    // A completed boundary is done and doesn't need a representation in the HTML
-    // if we're not going to be hydrating it.
-    return true;
-  }
-
-  return writeStartCompletedSuspenseBoundary(destination);
-}
-function writeStartClientRenderedSuspenseBoundary$1(destination, responseState, // flushing these error arguments are not currently supported in this legacy streaming format.
-errorDigest, errorMessage, errorComponentStack) {
-  if (responseState.generateStaticMarkup) {
-    // A client rendered boundary is done and doesn't need a representation in the HTML
-    // since we'll never hydrate it. This is arguably an error in static generation.
-    return true;
-  }
-
-  return writeStartClientRenderedSuspenseBoundary(destination, responseState, errorDigest, errorMessage, errorComponentStack);
-}
-function writeEndCompletedSuspenseBoundary$1(destination, responseState) {
-  if (responseState.generateStaticMarkup) {
-    return true;
-  }
-
-  return writeEndCompletedSuspenseBoundary(destination);
-}
-function writeEndClientRenderedSuspenseBoundary$1(destination, responseState) {
-  if (responseState.generateStaticMarkup) {
-    return true;
-  }
-
-  return writeEndClientRenderedSuspenseBoundary(destination);
-}
-
-var assign = Object.assign;
-
-// ATTENTION
-// When adding new symbols to this file,
-// Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
-// The Symbol used to tag the ReactElement-like types.
-var REACT_ELEMENT_TYPE = Symbol.for('react.element');
-var REACT_PORTAL_TYPE = Symbol.for('react.portal');
-var REACT_FRAGMENT_TYPE = Symbol.for('react.fragment');
-var REACT_STRICT_MODE_TYPE = Symbol.for('react.strict_mode');
-var REACT_PROFILER_TYPE = Symbol.for('react.profiler');
-var REACT_PROVIDER_TYPE = Symbol.for('react.provider');
-var REACT_CONTEXT_TYPE = Symbol.for('react.context');
-var REACT_FORWARD_REF_TYPE = Symbol.for('react.forward_ref');
-var REACT_SUSPENSE_TYPE = Symbol.for('react.suspense');
-var REACT_SUSPENSE_LIST_TYPE = Symbol.for('react.suspense_list');
-var REACT_MEMO_TYPE = Symbol.for('react.memo');
-var REACT_LAZY_TYPE = Symbol.for('react.lazy');
-var REACT_SCOPE_TYPE = Symbol.for('react.scope');
-var REACT_DEBUG_TRACING_MODE_TYPE = Symbol.for('react.debug_trace_mode');
-var REACT_LEGACY_HIDDEN_TYPE = Symbol.for('react.legacy_hidden');
-var REACT_SERVER_CONTEXT_DEFAULT_VALUE_NOT_LOADED = Symbol.for('react.default_value');
-var MAYBE_ITERATOR_SYMBOL = Symbol.iterator;
-var FAUX_ITERATOR_SYMBOL = '@@iterator';
-function getIteratorFn(maybeIterable) {
-  if (maybeIterable === null || typeof maybeIterable !== 'object') {
-    return null;
-  }
-
-  var maybeIterator = MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL];
-
-  if (typeof maybeIterator === 'function') {
-    return maybeIterator;
-  }
-
-  return null;
-}
-
-function getWrappedName(outerType, innerType, wrapperName) {
-  var displayName = outerType.displayName;
-
-  if (displayName) {
-    return displayName;
-  }
-
-  var functionName = innerType.displayName || innerType.name || '';
-  return functionName !== '' ? wrapperName + "(" + functionName + ")" : wrapperName;
-} // Keep in sync with react-reconciler/getComponentNameFromFiber
-
-
-function getContextName(type) {
-  return type.displayName || 'Context';
-} // Note that the reconciler package should generally prefer to use getComponentNameFromFiber() instead.
-
-
-function getComponentNameFromType(type) {
-  if (type == null) {
-    // Host root, text node or just invalid type.
-    return null;
-  }
-
-  {
-    if (typeof type.tag === 'number') {
-      error('Received an unexpected object in getComponentNameFromType(). ' + 'This is likely a bug in React. Please file an issue.');
-    }
-  }
-
-  if (typeof type === 'function') {
-    return type.displayName || type.name || null;
-  }
-
-  if (typeof type === 'string') {
-    return type;
-  }
-
-  switch (type) {
-    case REACT_FRAGMENT_TYPE:
-      return 'Fragment';
-
-    case REACT_PORTAL_TYPE:
-      return 'Portal';
-
-    case REACT_PROFILER_TYPE:
-      return 'Profiler';
-
-    case REACT_STRICT_MODE_TYPE:
-      return 'StrictMode';
-
-    case REACT_SUSPENSE_TYPE:
-      return 'Suspense';
-
-    case REACT_SUSPENSE_LIST_TYPE:
-      return 'SuspenseList';
-
-  }
-
-  if (typeof type === 'object') {
-    switch (type.$$typeof) {
-      case REACT_CONTEXT_TYPE:
-        var context = type;
-        return getContextName(context) + '.Consumer';
-
-      case REACT_PROVIDER_TYPE:
-        var provider = type;
-        return getContextName(provider._context) + '.Provider';
-
-      case REACT_FORWARD_REF_TYPE:
-        return getWrappedName(type, type.render, 'ForwardRef');
-
-      case REACT_MEMO_TYPE:
-        var outerName = type.displayName || null;
-
-        if (outerName !== null) {
-          return outerName;
-        }
-
-        return getComponentNameFromType(type.type) || 'Memo';
-
-      case REACT_LAZY_TYPE:
-        {
-          var lazyComponent = type;
-          var payload = lazyComponent._payload;
-          var init = lazyComponent._init;
-
-          try {
-            return getComponentNameFromType(init(payload));
-          } catch (x) {
-            return null;
-          }
-        }
-
-      // eslint-disable-next-line no-fallthrough
-    }
-  }
-
-  return null;
-}
-
-// Helpers to patch console.logs to avoid logging during side-effect free
-// replaying on render function. This currently only patches the object
-// lazily which won't cover if the log function was extracted eagerly.
-// We could also eagerly patch the method.
-var disabledDepth = 0;
-var prevLog;
-var prevInfo;
-var prevWarn;
-var prevError;
-var prevGroup;
-var prevGroupCollapsed;
-var prevGroupEnd;
-
-function disabledLog() {}
-
-disabledLog.__reactDisabledLog = true;
-function disableLogs() {
-  {
-    if (disabledDepth === 0) {
-      /* eslint-disable react-internal/no-production-logging */
-      prevLog = console.log;
-      prevInfo = console.info;
-      prevWarn = console.warn;
-      prevError = console.error;
-      prevGroup = console.group;
-      prevGroupCollapsed = console.groupCollapsed;
-      prevGroupEnd = console.groupEnd; // https://github.com/facebook/react/issues/19099
-
-      var props = {
-        configurable: true,
-        enumerable: true,
-        value: disabledLog,
-        writable: true
-      }; // $FlowFixMe Flow thinks console is immutable.
-
-      Object.defineProperties(console, {
-        info: props,
-        log: props,
-        warn: props,
-        error: props,
-        group: props,
-        groupCollapsed: props,
-        groupEnd: props
-      });
-      /* eslint-enable react-internal/no-production-logging */
-    }
-
-    disabledDepth++;
-  }
-}
-function reenableLogs() {
-  {
-    disabledDepth--;
-
-    if (disabledDepth === 0) {
-      /* eslint-disable react-internal/no-production-logging */
-      var props = {
-        configurable: true,
-        enumerable: true,
-        writable: true
-      }; // $FlowFixMe Flow thinks console is immutable.
-
-      Object.defineProperties(console, {
-        log: assign({}, props, {
-          value: prevLog
-        }),
-        info: assign({}, props, {
-          value: prevInfo
-        }),
-        warn: assign({}, props, {
-          value: prevWarn
-        }),
-        error: assign({}, props, {
-          value: prevError
-        }),
-        group: assign({}, props, {
-          value: prevGroup
-        }),
-        groupCollapsed: assign({}, props, {
-          value: prevGroupCollapsed
-        }),
-        groupEnd: assign({}, props, {
-          value: prevGroupEnd
-        })
-      });
-      /* eslint-enable react-internal/no-production-logging */
-    }
-
-    if (disabledDepth < 0) {
-      error('disabledDepth fell below zero. ' + 'This is a bug in React. Please file an issue.');
-    }
-  }
-}
-
-var ReactCurrentDispatcher = ReactSharedInternals.ReactCurrentDispatcher;
-var prefix;
-function describeBuiltInComponentFrame(name, source, ownerFn) {
-  {
-    if (prefix === undefined) {
-      // Extract the VM specific prefix used by each line.
-      try {
-        throw Error();
-      } catch (x) {
-        var match = x.stack.trim().match(/\n( *(at )?)/);
-        prefix = match && match[1] || '';
-      }
-    } // We use the prefix to ensure our stacks line up with native stack frames.
-
-
-    return '\n' + prefix + name;
-  }
-}
-var reentry = false;
-var componentFrameCache;
-
-{
-  var PossiblyWeakMap = typeof WeakMap === 'function' ? WeakMap : Map;
-  componentFrameCache = new PossiblyWeakMap();
-}
-
-function describeNativeComponentFrame(fn, construct) {
-  // If something asked for a stack inside a fake render, it should get ignored.
-  if ( !fn || reentry) {
-    return '';
-  }
-
-  {
-    var frame = componentFrameCache.get(fn);
-
-    if (frame !== undefined) {
-      return frame;
-    }
-  }
-
-  var control;
-  reentry = true;
-  var previousPrepareStackTrace = Error.prepareStackTrace; // $FlowFixMe It does accept undefined.
-
-  Error.prepareStackTrace = undefined;
-  var previousDispatcher;
-
-  {
-    previousDispatcher = ReactCurrentDispatcher.current; // Set the dispatcher in DEV because this might be call in the render function
-    // for warnings.
-
-    ReactCurrentDispatcher.current = null;
-    disableLogs();
-  }
-
-  try {
-    // This should throw.
-    if (construct) {
-      // Something should be setting the props in the constructor.
-      var Fake = function () {
-        throw Error();
-      }; // $FlowFixMe
-
-
-      Object.defineProperty(Fake.prototype, 'props', {
-        set: function () {
-          // We use a throwing setter instead of frozen or non-writable props
-          // because that won't throw in a non-strict mode function.
-          throw Error();
-        }
-      });
-
-      if (typeof Reflect === 'object' && Reflect.construct) {
-        // We construct a different control for this case to include any extra
-        // frames added by the construct call.
-        try {
-          Reflect.construct(Fake, []);
-        } catch (x) {
-          control = x;
-        }
-
-        Reflect.construct(fn, [], Fake);
-      } else {
-        try {
-          Fake.call();
-        } catch (x) {
-          control = x;
-        }
-
-        fn.call(Fake.prototype);
-      }
-    } else {
-      try {
-        throw Error();
-      } catch (x) {
-        control = x;
-      }
-
-      fn();
-    }
-  } catch (sample) {
-    // This is inlined manually because closure doesn't do it for us.
-    if (sample && control && typeof sample.stack === 'string') {
-      // This extracts the first frame from the sample that isn't also in the control.
-      // Skipping one frame that we assume is the frame that calls the two.
-      var sampleLines = sample.stack.split('\n');
-      var controlLines = control.stack.split('\n');
-      var s = sampleLines.length - 1;
-      var c = controlLines.length - 1;
-
-      while (s >= 1 && c >= 0 && sampleLines[s] !== controlLines[c]) {
-        // We expect at least one stack frame to be shared.
-        // Typically this will be the root most one. However, stack frames may be
-        // cut off due to maximum stack limits. In this case, one maybe cut off
-        // earlier than the other. We assume that the sample is longer or the same
-        // and there for cut off earlier. So we should find the root most frame in
-        // the sample somewhere in the control.
-        c--;
-      }
-
-      for (; s >= 1 && c >= 0; s--, c--) {
-        // Next we find the first one that isn't the same which should be the
-        // frame that called our sample function and the control.
-        if (sampleLines[s] !== controlLines[c]) {
-          // In V8, the first line is describing the message but other VMs don't.
-          // If we're about to return the first line, and the control is also on the same
-          // line, that's a pretty good indicator that our sample threw at same line as
-          // the control. I.e. before we entered the sample frame. So we ignore this result.
-          // This can happen if you passed a class to function component, or non-function.
-          if (s !== 1 || c !== 1) {
-            do {
-              s--;
-              c--; // We may still have similar intermediate frames from the construct call.
-              // The next one that isn't the same should be our match though.
-
-              if (c < 0 || sampleLines[s] !== controlLines[c]) {
-                // V8 adds a "new" prefix for native classes. Let's remove it to make it prettier.
-                var _frame = '\n' + sampleLines[s].replace(' at new ', ' at '); // If our component frame is labeled "<anonymous>"
-                // but we have a user-provided "displayName"
-                // splice it in to make the stack more readable.
-
-
-                if (fn.displayName && _frame.includes('<anonymous>')) {
-                  _frame = _frame.replace('<anonymous>', fn.displayName);
-                }
-
-                {
-                  if (typeof fn === 'function') {
-                    componentFrameCache.set(fn, _frame);
-                  }
-                } // Return the line we found.
-
-
-                return _frame;
-              }
-            } while (s >= 1 && c >= 0);
-          }
-
-          break;
-        }
-      }
-    }
-  } finally {
-    reentry = false;
-
-    {
-      ReactCurrentDispatcher.current = previousDispatcher;
-      reenableLogs();
-    }
-
-    Error.prepareStackTrace = previousPrepareStackTrace;
-  } // Fallback to just using the name if we couldn't make it throw.
-
-
-  var name = fn ? fn.displayName || fn.name : '';
-  var syntheticFrame = name ? describeBuiltInComponentFrame(name) : '';
-
-  {
-    if (typeof fn === 'function') {
-      componentFrameCache.set(fn, syntheticFrame);
-    }
-  }
-
-  return syntheticFrame;
-}
-
-function describeClassComponentFrame(ctor, source, ownerFn) {
-  {
-    return describeNativeComponentFrame(ctor, true);
-  }
-}
-function describeFunctionComponentFrame(fn, source, ownerFn) {
-  {
-    return describeNativeComponentFrame(fn, false);
-  }
-}
-
-function shouldConstruct(Component) {
-  var prototype = Component.prototype;
-  return !!(prototype && prototype.isReactComponent);
-}
-
-function describeUnknownElementTypeFrameInDEV(type, source, ownerFn) {
-
-  if (type == null) {
-    return '';
-  }
-
-  if (typeof type === 'function') {
-    {
-      return describeNativeComponentFrame(type, shouldConstruct(type));
-    }
-  }
-
-  if (typeof type === 'string') {
-    return describeBuiltInComponentFrame(type);
-  }
-
-  switch (type) {
-    case REACT_SUSPENSE_TYPE:
-      return describeBuiltInComponentFrame('Suspense');
-
-    case REACT_SUSPENSE_LIST_TYPE:
-      return describeBuiltInComponentFrame('SuspenseList');
-  }
-
-  if (typeof type === 'object') {
-    switch (type.$$typeof) {
-      case REACT_FORWARD_REF_TYPE:
-        return describeFunctionComponentFrame(type.render);
-
-      case REACT_MEMO_TYPE:
-        // Memo may contain any component type so we recursively resolve it.
-        return describeUnknownElementTypeFrameInDEV(type.type, source, ownerFn);
-
-      case REACT_LAZY_TYPE:
-        {
-          var lazyComponent = type;
-          var payload = lazyComponent._payload;
-          var init = lazyComponent._init;
-
-          try {
-            // Lazy may contain any component type so we recursively resolve it.
-            return describeUnknownElementTypeFrameInDEV(init(payload), source, ownerFn);
-          } catch (x) {}
-        }
-    }
-  }
-
-  return '';
-}
-
-var loggedTypeFailures = {};
-var ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
-
-function setCurrentlyValidatingElement(element) {
-  {
-    if (element) {
-      var owner = element._owner;
-      var stack = describeUnknownElementTypeFrameInDEV(element.type, element._source, owner ? owner.type : null);
-      ReactDebugCurrentFrame.setExtraStackFrame(stack);
-    } else {
-      ReactDebugCurrentFrame.setExtraStackFrame(null);
-    }
-  }
-}
-
-function checkPropTypes(typeSpecs, values, location, componentName, element) {
-  {
-    // $FlowFixMe This is okay but Flow doesn't know it.
-    var has = Function.call.bind(hasOwnProperty);
-
-    for (var typeSpecName in typeSpecs) {
-      if (has(typeSpecs, typeSpecName)) {
-        var error$1 = void 0; // Prop type validation may throw. In case they do, we don't want to
-        // fail the render phase where it didn't fail before. So we log it.
-        // After these have been cleaned up, we'll let them throw.
-
-        try {
-          // This is intentionally an invariant that gets caught. It's the same
-          // behavior as without this statement except with a better message.
-          if (typeof typeSpecs[typeSpecName] !== 'function') {
-            // eslint-disable-next-line react-internal/prod-error-codes
-            var err = Error((componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' + 'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.' + 'This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.');
-            err.name = 'Invariant Violation';
-            throw err;
-          }
-
-          error$1 = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED');
-        } catch (ex) {
-          error$1 = ex;
-        }
-
-        if (error$1 && !(error$1 instanceof Error)) {
-          setCurrentlyValidatingElement(element);
-
-          error('%s: type specification of %s' + ' `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', location, typeSpecName, typeof error$1);
-
-          setCurrentlyValidatingElement(null);
-        }
-
-        if (error$1 instanceof Error && !(error$1.message in loggedTypeFailures)) {
-          // Only monitor this failure once because there tends to be a lot of the
-          // same error.
-          loggedTypeFailures[error$1.message] = true;
-          setCurrentlyValidatingElement(element);
-
-          error('Failed %s type: %s', location, error$1.message);
-
-          setCurrentlyValidatingElement(null);
-        }
-      }
-    }
-  }
-}
-
-var warnedAboutMissingGetChildContext;
-
-{
-  warnedAboutMissingGetChildContext = {};
-}
-
-var emptyContextObject = {};
-
-{
-  Object.freeze(emptyContextObject);
-}
-
-function getMaskedContext(type, unmaskedContext) {
-  {
-    var contextTypes = type.contextTypes;
-
-    if (!contextTypes) {
-      return emptyContextObject;
-    }
-
-    var context = {};
-
-    for (var key in contextTypes) {
-      context[key] = unmaskedContext[key];
-    }
-
-    {
-      var name = getComponentNameFromType(type) || 'Unknown';
-      checkPropTypes(contextTypes, context, 'context', name);
-    }
-
-    return context;
-  }
-}
-function processChildContext(instance, type, parentContext, childContextTypes) {
-  {
-    // TODO (bvaughn) Replace this behavior with an invariant() in the future.
-    // It has only been added in Fiber to match the (unintentional) behavior in Stack.
-    if (typeof instance.getChildContext !== 'function') {
-      {
-        var componentName = getComponentNameFromType(type) || 'Unknown';
-
-        if (!warnedAboutMissingGetChildContext[componentName]) {
-          warnedAboutMissingGetChildContext[componentName] = true;
-
-          error('%s.childContextTypes is specified but there is no getChildContext() method ' + 'on the instance. You can either define getChildContext() on %s or remove ' + 'childContextTypes from it.', componentName, componentName);
-        }
-      }
-
-      return parentContext;
-    }
-
-    var childContext = instance.getChildContext();
-
-    for (var contextKey in childContext) {
-      if (!(contextKey in childContextTypes)) {
-        throw new Error((getComponentNameFromType(type) || 'Unknown') + ".getChildContext(): key \"" + contextKey + "\" is not defined in childContextTypes.");
-      }
-    }
-
-    {
-      var name = getComponentNameFromType(type) || 'Unknown';
-      checkPropTypes(childContextTypes, childContext, 'child context', name);
-    }
-
-    return assign({}, parentContext, childContext);
-  }
-}
-
-var rendererSigil;
-
-{
-  // Use this to detect multiple renderers using the same context
-  rendererSigil = {};
-} // Used to store the parent path of all context overrides in a shared linked list.
-// Forming a reverse tree.
-
-
-var rootContextSnapshot = null; // We assume that this runtime owns the "current" field on all ReactContext instances.
-// This global (actually thread local) state represents what state all those "current",
-// fields are currently in.
-
-var currentActiveSnapshot = null;
-
-function popNode(prev) {
-  {
-    prev.context._currentValue2 = prev.parentValue;
-  }
-}
-
-function pushNode(next) {
-  {
-    next.context._currentValue2 = next.value;
-  }
-}
-
-function popToNearestCommonAncestor(prev, next) {
-  if (prev === next) ; else {
-    popNode(prev);
-    var parentPrev = prev.parent;
-    var parentNext = next.parent;
-
-    if (parentPrev === null) {
-      if (parentNext !== null) {
-        throw new Error('The stacks must reach the root at the same time. This is a bug in React.');
-      }
-    } else {
-      if (parentNext === null) {
-        throw new Error('The stacks must reach the root at the same time. This is a bug in React.');
-      }
-
-      popToNearestCommonAncestor(parentPrev, parentNext);
-    } // On the way back, we push the new ones that weren't common.
-
-
-    pushNode(next);
-  }
-}
-
-function popAllPrevious(prev) {
-  popNode(prev);
-  var parentPrev = prev.parent;
-
-  if (parentPrev !== null) {
-    popAllPrevious(parentPrev);
-  }
-}
-
-function pushAllNext(next) {
-  var parentNext = next.parent;
-
-  if (parentNext !== null) {
-    pushAllNext(parentNext);
-  }
-
-  pushNode(next);
-}
-
-function popPreviousToCommonLevel(prev, next) {
-  popNode(prev);
-  var parentPrev = prev.parent;
-
-  if (parentPrev === null) {
-    throw new Error('The depth must equal at least at zero before reaching the root. This is a bug in React.');
-  }
-
-  if (parentPrev.depth === next.depth) {
-    // We found the same level. Now we just need to find a shared ancestor.
-    popToNearestCommonAncestor(parentPrev, next);
-  } else {
-    // We must still be deeper.
-    popPreviousToCommonLevel(parentPrev, next);
-  }
-}
-
-function popNextToCommonLevel(prev, next) {
-  var parentNext = next.parent;
-
-  if (parentNext === null) {
-    throw new Error('The depth must equal at least at zero before reaching the root. This is a bug in React.');
-  }
-
-  if (prev.depth === parentNext.depth) {
-    // We found the same level. Now we just need to find a shared ancestor.
-    popToNearestCommonAncestor(prev, parentNext);
-  } else {
-    // We must still be deeper.
-    popNextToCommonLevel(prev, parentNext);
-  }
-
-  pushNode(next);
-} // Perform context switching to the new snapshot.
-// To make it cheap to read many contexts, while not suspending, we make the switch eagerly by
-// updating all the context's current values. That way reads, always just read the current value.
-// At the cost of updating contexts even if they're never read by this subtree.
-
-
-function switchContext(newSnapshot) {
-  // The basic algorithm we need to do is to pop back any contexts that are no longer on the stack.
-  // We also need to update any new contexts that are now on the stack with the deepest value.
-  // The easiest way to update new contexts is to just reapply them in reverse order from the
-  // perspective of the backpointers. To avoid allocating a lot when switching, we use the stack
-  // for that. Therefore this algorithm is recursive.
-  // 1) First we pop which ever snapshot tree was deepest. Popping old contexts as we go.
-  // 2) Then we find the nearest common ancestor from there. Popping old contexts as we go.
-  // 3) Then we reapply new contexts on the way back up the stack.
-  var prev = currentActiveSnapshot;
-  var next = newSnapshot;
-
-  if (prev !== next) {
-    if (prev === null) {
-      // $FlowFixMe: This has to be non-null since it's not equal to prev.
-      pushAllNext(next);
-    } else if (next === null) {
-      popAllPrevious(prev);
-    } else if (prev.depth === next.depth) {
-      popToNearestCommonAncestor(prev, next);
-    } else if (prev.depth > next.depth) {
-      popPreviousToCommonLevel(prev, next);
-    } else {
-      popNextToCommonLevel(prev, next);
-    }
-
-    currentActiveSnapshot = next;
-  }
-}
-function pushProvider(context, nextValue) {
-  var prevValue;
-
-  {
-    prevValue = context._currentValue2;
-    context._currentValue2 = nextValue;
-
-    {
-      if (context._currentRenderer2 !== undefined && context._currentRenderer2 !== null && context._currentRenderer2 !== rendererSigil) {
-        error('Detected multiple renderers concurrently rendering the ' + 'same context provider. This is currently unsupported.');
-      }
-
-      context._currentRenderer2 = rendererSigil;
-    }
-  }
-
-  var prevNode = currentActiveSnapshot;
-  var newNode = {
-    parent: prevNode,
-    depth: prevNode === null ? 0 : prevNode.depth + 1,
-    context: context,
-    parentValue: prevValue,
-    value: nextValue
-  };
-  currentActiveSnapshot = newNode;
-  return newNode;
-}
-function popProvider(context) {
-  var prevSnapshot = currentActiveSnapshot;
-
-  if (prevSnapshot === null) {
-    throw new Error('Tried to pop a Context at the root of the app. This is a bug in React.');
-  }
-
-  {
-    if (prevSnapshot.context !== context) {
-      error('The parent context is not the expected context. This is probably a bug in React.');
-    }
-  }
-
-  {
-    var _value = prevSnapshot.parentValue;
-
-    if (_value === REACT_SERVER_CONTEXT_DEFAULT_VALUE_NOT_LOADED) {
-      prevSnapshot.context._currentValue2 = prevSnapshot.context._defaultValue;
-    } else {
-      prevSnapshot.context._currentValue2 = _value;
-    }
-
-    {
-      if (context._currentRenderer2 !== undefined && context._currentRenderer2 !== null && context._currentRenderer2 !== rendererSigil) {
-        error('Detected multiple renderers concurrently rendering the ' + 'same context provider. This is currently unsupported.');
-      }
-
-      context._currentRenderer2 = rendererSigil;
-    }
-  }
-
-  return currentActiveSnapshot = prevSnapshot.parent;
-}
-function getActiveContext() {
-  return currentActiveSnapshot;
-}
-function readContext(context) {
-  var value =  context._currentValue2;
-  return value;
-}
-
-/**
- * `ReactInstanceMap` maintains a mapping from a public facing stateful
- * instance (key) and the internal representation (value). This allows public
- * methods to accept the user facing instance as an argument and map them back
- * to internal methods.
- *
- * Note that this module is currently shared and assumed to be stateless.
- * If this becomes an actual Map, that will break.
- */
-function get(key) {
-  return key._reactInternals;
-}
-function set(key, value) {
-  key._reactInternals = value;
-}
-
-var didWarnAboutNoopUpdateForComponent = {};
-var didWarnAboutDeprecatedWillMount = {};
-var didWarnAboutUninitializedState;
-var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
-var didWarnAboutLegacyLifecyclesAndDerivedState;
-var didWarnAboutUndefinedDerivedState;
-var warnOnUndefinedDerivedState;
-var warnOnInvalidCallback;
-var didWarnAboutDirectlyAssigningPropsToState;
-var didWarnAboutContextTypeAndContextTypes;
-var didWarnAboutInvalidateContextType;
-
-{
-  didWarnAboutUninitializedState = new Set();
-  didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate = new Set();
-  didWarnAboutLegacyLifecyclesAndDerivedState = new Set();
-  didWarnAboutDirectlyAssigningPropsToState = new Set();
-  didWarnAboutUndefinedDerivedState = new Set();
-  didWarnAboutContextTypeAndContextTypes = new Set();
-  didWarnAboutInvalidateContextType = new Set();
-  var didWarnOnInvalidCallback = new Set();
-
-  warnOnInvalidCallback = function (callback, callerName) {
-    if (callback === null || typeof callback === 'function') {
-      return;
-    }
-
-    var key = callerName + '_' + callback;
-
-    if (!didWarnOnInvalidCallback.has(key)) {
-      didWarnOnInvalidCallback.add(key);
-
-      error('%s(...): Expected the last optional `callback` argument to be a ' + 'function. Instead received: %s.', callerName, callback);
-    }
-  };
-
-  warnOnUndefinedDerivedState = function (type, partialState) {
-    if (partialState === undefined) {
-      var componentName = getComponentNameFromType(type) || 'Component';
-
-      if (!didWarnAboutUndefinedDerivedState.has(componentName)) {
-        didWarnAboutUndefinedDerivedState.add(componentName);
-
-        error('%s.getDerivedStateFromProps(): A valid state object (or null) must be returned. ' + 'You have returned undefined.', componentName);
-      }
-    }
-  };
-}
-
-function warnNoop(publicInstance, callerName) {
-  {
-    var _constructor = publicInstance.constructor;
-    var componentName = _constructor && getComponentNameFromType(_constructor) || 'ReactClass';
-    var warningKey = componentName + '.' + callerName;
-
-    if (didWarnAboutNoopUpdateForComponent[warningKey]) {
-      return;
-    }
-
-    error('%s(...): Can only update a mounting component. ' + 'This usually means you called %s() outside componentWillMount() on the server. ' + 'This is a no-op.\n\nPlease check the code for the %s component.', callerName, callerName, componentName);
-
-    didWarnAboutNoopUpdateForComponent[warningKey] = true;
-  }
-}
-
-var classComponentUpdater = {
-  isMounted: function (inst) {
-    return false;
-  },
-  enqueueSetState: function (inst, payload, callback) {
-    var internals = get(inst);
-
-    if (internals.queue === null) {
-      warnNoop(inst, 'setState');
-    } else {
-      internals.queue.push(payload);
-
-      {
-        if (callback !== undefined && callback !== null) {
-          warnOnInvalidCallback(callback, 'setState');
-        }
-      }
-    }
-  },
-  enqueueReplaceState: function (inst, payload, callback) {
-    var internals = get(inst);
-    internals.replace = true;
-    internals.queue = [payload];
-
-    {
-      if (callback !== undefined && callback !== null) {
-        warnOnInvalidCallback(callback, 'setState');
-      }
-    }
-  },
-  enqueueForceUpdate: function (inst, callback) {
-    var internals = get(inst);
-
-    if (internals.queue === null) {
-      warnNoop(inst, 'forceUpdate');
-    } else {
-      {
-        if (callback !== undefined && callback !== null) {
-          warnOnInvalidCallback(callback, 'setState');
-        }
-      }
-    }
-  }
-};
-
-function applyDerivedStateFromProps(instance, ctor, getDerivedStateFromProps, prevState, nextProps) {
-  var partialState = getDerivedStateFromProps(nextProps, prevState);
-
-  {
-    warnOnUndefinedDerivedState(ctor, partialState);
-  } // Merge the partial state and the previous state.
-
-
-  var newState = partialState === null || partialState === undefined ? prevState : assign({}, prevState, partialState);
-  return newState;
-}
-
-function constructClassInstance(ctor, props, maskedLegacyContext) {
-  var context = emptyContextObject;
-  var contextType = ctor.contextType;
-
-  {
-    if ('contextType' in ctor) {
-      var isValid = // Allow null for conditional declaration
-      contextType === null || contextType !== undefined && contextType.$$typeof === REACT_CONTEXT_TYPE && contextType._context === undefined; // Not a <Context.Consumer>
-
-      if (!isValid && !didWarnAboutInvalidateContextType.has(ctor)) {
-        didWarnAboutInvalidateContextType.add(ctor);
-        var addendum = '';
-
-        if (contextType === undefined) {
-          addendum = ' However, it is set to undefined. ' + 'This can be caused by a typo or by mixing up named and default imports. ' + 'This can also happen due to a circular dependency, so ' + 'try moving the createContext() call to a separate file.';
-        } else if (typeof contextType !== 'object') {
-          addendum = ' However, it is set to a ' + typeof contextType + '.';
-        } else if (contextType.$$typeof === REACT_PROVIDER_TYPE) {
-          addendum = ' Did you accidentally pass the Context.Provider instead?';
-        } else if (contextType._context !== undefined) {
-          // <Context.Consumer>
-          addendum = ' Did you accidentally pass the Context.Consumer instead?';
-        } else {
-          addendum = ' However, it is set to an object with keys {' + Object.keys(contextType).join(', ') + '}.';
-        }
-
-        error('%s defines an invalid contextType. ' + 'contextType should point to the Context object returned by React.createContext().%s', getComponentNameFromType(ctor) || 'Component', addendum);
-      }
-    }
-  }
-
-  if (typeof contextType === 'object' && contextType !== null) {
-    context = readContext(contextType);
-  } else {
-    context = maskedLegacyContext;
-  }
-
-  var instance = new ctor(props, context);
-
-  {
-    if (typeof ctor.getDerivedStateFromProps === 'function' && (instance.state === null || instance.state === undefined)) {
-      var componentName = getComponentNameFromType(ctor) || 'Component';
-
-      if (!didWarnAboutUninitializedState.has(componentName)) {
-        didWarnAboutUninitializedState.add(componentName);
-
-        error('`%s` uses `getDerivedStateFromProps` but its initial state is ' + '%s. This is not recommended. Instead, define the initial state by ' + 'assigning an object to `this.state` in the constructor of `%s`. ' + 'This ensures that `getDerivedStateFromProps` arguments have a consistent shape.', componentName, instance.state === null ? 'null' : 'undefined', componentName);
-      }
-    } // If new component APIs are defined, "unsafe" lifecycles won't be called.
-    // Warn about these lifecycles if they are present.
-    // Don't warn about react-lifecycles-compat polyfilled methods though.
-
-
-    if (typeof ctor.getDerivedStateFromProps === 'function' || typeof instance.getSnapshotBeforeUpdate === 'function') {
-      var foundWillMountName = null;
-      var foundWillReceivePropsName = null;
-      var foundWillUpdateName = null;
-
-      if (typeof instance.componentWillMount === 'function' && instance.componentWillMount.__suppressDeprecationWarning !== true) {
-        foundWillMountName = 'componentWillMount';
-      } else if (typeof instance.UNSAFE_componentWillMount === 'function') {
-        foundWillMountName = 'UNSAFE_componentWillMount';
-      }
-
-      if (typeof instance.componentWillReceiveProps === 'function' && instance.componentWillReceiveProps.__suppressDeprecationWarning !== true) {
-        foundWillReceivePropsName = 'componentWillReceiveProps';
-      } else if (typeof instance.UNSAFE_componentWillReceiveProps === 'function') {
-        foundWillReceivePropsName = 'UNSAFE_componentWillReceiveProps';
-      }
-
-      if (typeof instance.componentWillUpdate === 'function' && instance.componentWillUpdate.__suppressDeprecationWarning !== true) {
-        foundWillUpdateName = 'componentWillUpdate';
-      } else if (typeof instance.UNSAFE_componentWillUpdate === 'function') {
-        foundWillUpdateName = 'UNSAFE_componentWillUpdate';
-      }
-
-      if (foundWillMountName !== null || foundWillReceivePropsName !== null || foundWillUpdateName !== null) {
-        var _componentName = getComponentNameFromType(ctor) || 'Component';
-
-        var newApiName = typeof ctor.getDerivedStateFromProps === 'function' ? 'getDerivedStateFromProps()' : 'getSnapshotBeforeUpdate()';
-
-        if (!didWarnAboutLegacyLifecyclesAndDerivedState.has(_componentName)) {
-          didWarnAboutLegacyLifecyclesAndDerivedState.add(_componentName);
-
-          error('Unsafe legacy lifecycles will not be called for components using new component APIs.\n\n' + '%s uses %s but also contains the following legacy lifecycles:%s%s%s\n\n' + 'The above lifecycles should be removed. Learn more about this warning here:\n' + 'https://reactjs.org/link/unsafe-component-lifecycles', _componentName, newApiName, foundWillMountName !== null ? "\n  " + foundWillMountName : '', foundWillReceivePropsName !== null ? "\n  " + foundWillReceivePropsName : '', foundWillUpdateName !== null ? "\n  " + foundWillUpdateName : '');
-        }
-      }
-    }
-  }
-
-  return instance;
-}
-
-function checkClassInstance(instance, ctor, newProps) {
-  {
-    var name = getComponentNameFromType(ctor) || 'Component';
-    var renderPresent = instance.render;
-
-    if (!renderPresent) {
-      if (ctor.prototype && typeof ctor.prototype.render === 'function') {
-        error('%s(...): No `render` method found on the returned component ' + 'instance: did you accidentally return an object from the constructor?', name);
-      } else {
-        error('%s(...): No `render` method found on the returned component ' + 'instance: you may have forgotten to define `render`.', name);
-      }
-    }
-
-    if (instance.getInitialState && !instance.getInitialState.isReactClassApproved && !instance.state) {
-      error('getInitialState was defined on %s, a plain JavaScript class. ' + 'This is only supported for classes created using React.createClass. ' + 'Did you mean to define a state property instead?', name);
-    }
-
-    if (instance.getDefaultProps && !instance.getDefaultProps.isReactClassApproved) {
-      error('getDefaultProps was defined on %s, a plain JavaScript class. ' + 'This is only supported for classes created using React.createClass. ' + 'Use a static property to define defaultProps instead.', name);
-    }
-
-    if (instance.propTypes) {
-      error('propTypes was defined as an instance property on %s. Use a static ' + 'property to define propTypes instead.', name);
-    }
-
-    if (instance.contextType) {
-      error('contextType was defined as an instance property on %s. Use a static ' + 'property to define contextType instead.', name);
-    }
-
-    {
-      if (instance.contextTypes) {
-        error('contextTypes was defined as an instance property on %s. Use a static ' + 'property to define contextTypes instead.', name);
-      }
-
-      if (ctor.contextType && ctor.contextTypes && !didWarnAboutContextTypeAndContextTypes.has(ctor)) {
-        didWarnAboutContextTypeAndContextTypes.add(ctor);
-
-        error('%s declares both contextTypes and contextType static properties. ' + 'The legacy contextTypes property will be ignored.', name);
-      }
-    }
-
-    if (typeof instance.componentShouldUpdate === 'function') {
-      error('%s has a method called ' + 'componentShouldUpdate(). Did you mean shouldComponentUpdate()? ' + 'The name is phrased as a question because the function is ' + 'expected to return a value.', name);
-    }
-
-    if (ctor.prototype && ctor.prototype.isPureReactComponent && typeof instance.shouldComponentUpdate !== 'undefined') {
-      error('%s has a method called shouldComponentUpdate(). ' + 'shouldComponentUpdate should not be used when extending React.PureComponent. ' + 'Please extend React.Component if shouldComponentUpdate is used.', getComponentNameFromType(ctor) || 'A pure component');
-    }
-
-    if (typeof instance.componentDidUnmount === 'function') {
-      error('%s has a method called ' + 'componentDidUnmount(). But there is no such lifecycle method. ' + 'Did you mean componentWillUnmount()?', name);
-    }
-
-    if (typeof instance.componentDidReceiveProps === 'function') {
-      error('%s has a method called ' + 'componentDidReceiveProps(). But there is no such lifecycle method. ' + 'If you meant to update the state in response to changing props, ' + 'use componentWillReceiveProps(). If you meant to fetch data or ' + 'run side-effects or mutations after React has updated the UI, use componentDidUpdate().', name);
-    }
-
-    if (typeof instance.componentWillRecieveProps === 'function') {
-      error('%s has a method called ' + 'componentWillRecieveProps(). Did you mean componentWillReceiveProps()?', name);
-    }
-
-    if (typeof instance.UNSAFE_componentWillRecieveProps === 'function') {
-      error('%s has a method called ' + 'UNSAFE_componentWillRecieveProps(). Did you mean UNSAFE_componentWillReceiveProps()?', name);
-    }
-
-    var hasMutatedProps = instance.props !== newProps;
-
-    if (instance.props !== undefined && hasMutatedProps) {
-      error('%s(...): When calling super() in `%s`, make sure to pass ' + "up the same props that your component's constructor was passed.", name, name);
-    }
-
-    if (instance.defaultProps) {
-      error('Setting defaultProps as an instance property on %s is not supported and will be ignored.' + ' Instead, define defaultProps as a static property on %s.', name, name);
-    }
-
-    if (typeof instance.getSnapshotBeforeUpdate === 'function' && typeof instance.componentDidUpdate !== 'function' && !didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate.has(ctor)) {
-      didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate.add(ctor);
-
-      error('%s: getSnapshotBeforeUpdate() should be used with componentDidUpdate(). ' + 'This component defines getSnapshotBeforeUpdate() only.', getComponentNameFromType(ctor));
-    }
-
-    if (typeof instance.getDerivedStateFromProps === 'function') {
-      error('%s: getDerivedStateFromProps() is defined as an instance method ' + 'and will be ignored. Instead, declare it as a static method.', name);
-    }
-
-    if (typeof instance.getDerivedStateFromError === 'function') {
-      error('%s: getDerivedStateFromError() is defined as an instance method ' + 'and will be ignored. Instead, declare it as a static method.', name);
-    }
-
-    if (typeof ctor.getSnapshotBeforeUpdate === 'function') {
-      error('%s: getSnapshotBeforeUpdate() is defined as a static method ' + 'and will be ignored. Instead, declare it as an instance method.', name);
-    }
-
-    var _state = instance.state;
-
-    if (_state && (typeof _state !== 'object' || isArray(_state))) {
-      error('%s.state: must be set to an object or null', name);
-    }
-
-    if (typeof instance.getChildContext === 'function' && typeof ctor.childContextTypes !== 'object') {
-      error('%s.getChildContext(): childContextTypes must be defined in order to ' + 'use getChildContext().', name);
-    }
-  }
-}
-
-function callComponentWillMount(type, instance) {
-  var oldState = instance.state;
-
-  if (typeof instance.componentWillMount === 'function') {
-    {
-      if ( instance.componentWillMount.__suppressDeprecationWarning !== true) {
-        var componentName = getComponentNameFromType(type) || 'Unknown';
-
-        if (!didWarnAboutDeprecatedWillMount[componentName]) {
-          warn( // keep this warning in sync with ReactStrictModeWarning.js
-          'componentWillMount has been renamed, and is not recommended for use. ' + 'See https://reactjs.org/link/unsafe-component-lifecycles for details.\n\n' + '* Move code from componentWillMount to componentDidMount (preferred in most cases) ' + 'or the constructor.\n' + '\nPlease update the following components: %s', componentName);
-
-          didWarnAboutDeprecatedWillMount[componentName] = true;
-        }
-      }
-    }
-
-    instance.componentWillMount();
-  }
-
-  if (typeof instance.UNSAFE_componentWillMount === 'function') {
-    instance.UNSAFE_componentWillMount();
-  }
-
-  if (oldState !== instance.state) {
-    {
-      error('%s.componentWillMount(): Assigning directly to this.state is ' + "deprecated (except inside a component's " + 'constructor). Use setState instead.', getComponentNameFromType(type) || 'Component');
-    }
-
-    classComponentUpdater.enqueueReplaceState(instance, instance.state, null);
-  }
-}
-
-function processUpdateQueue(internalInstance, inst, props, maskedLegacyContext) {
-  if (internalInstance.queue !== null && internalInstance.queue.length > 0) {
-    var oldQueue = internalInstance.queue;
-    var oldReplace = internalInstance.replace;
-    internalInstance.queue = null;
-    internalInstance.replace = false;
-
-    if (oldReplace && oldQueue.length === 1) {
-      inst.state = oldQueue[0];
-    } else {
-      var nextState = oldReplace ? oldQueue[0] : inst.state;
-      var dontMutate = true;
-
-      for (var i = oldReplace ? 1 : 0; i < oldQueue.length; i++) {
-        var partial = oldQueue[i];
-        var partialState = typeof partial === 'function' ? partial.call(inst, nextState, props, maskedLegacyContext) : partial;
-
-        if (partialState != null) {
-          if (dontMutate) {
-            dontMutate = false;
-            nextState = assign({}, nextState, partialState);
-          } else {
-            assign(nextState, partialState);
-          }
-        }
-      }
-
-      inst.state = nextState;
-    }
-  } else {
-    internalInstance.queue = null;
-  }
-} // Invokes the mount life-cycles on a previously never rendered instance.
-
-
-function mountClassInstance(instance, ctor, newProps, maskedLegacyContext) {
-  {
-    checkClassInstance(instance, ctor, newProps);
-  }
-
-  var initialState = instance.state !== undefined ? instance.state : null;
-  instance.updater = classComponentUpdater;
-  instance.props = newProps;
-  instance.state = initialState; // We don't bother initializing the refs object on the server, since we're not going to resolve them anyway.
-  // The internal instance will be used to manage updates that happen during this mount.
-
-  var internalInstance = {
-    queue: [],
-    replace: false
-  };
-  set(instance, internalInstance);
-  var contextType = ctor.contextType;
-
-  if (typeof contextType === 'object' && contextType !== null) {
-    instance.context = readContext(contextType);
-  } else {
-    instance.context = maskedLegacyContext;
-  }
-
-  {
-    if (instance.state === newProps) {
-      var componentName = getComponentNameFromType(ctor) || 'Component';
-
-      if (!didWarnAboutDirectlyAssigningPropsToState.has(componentName)) {
-        didWarnAboutDirectlyAssigningPropsToState.add(componentName);
-
-        error('%s: It is not recommended to assign props directly to state ' + "because updates to props won't be reflected in state. " + 'In most cases, it is better to use props directly.', componentName);
-      }
-    }
-  }
-
-  var getDerivedStateFromProps = ctor.getDerivedStateFromProps;
-
-  if (typeof getDerivedStateFromProps === 'function') {
-    instance.state = applyDerivedStateFromProps(instance, ctor, getDerivedStateFromProps, initialState, newProps);
-  } // In order to support react-lifecycles-compat polyfilled components,
-  // Unsafe lifecycles should not be invoked for components using the new APIs.
-
-
-  if (typeof ctor.getDerivedStateFromProps !== 'function' && typeof instance.getSnapshotBeforeUpdate !== 'function' && (typeof instance.UNSAFE_componentWillMount === 'function' || typeof instance.componentWillMount === 'function')) {
-    callComponentWillMount(ctor, instance); // If we had additional state updates during this life-cycle, let's
-    // process them now.
-
-    processUpdateQueue(internalInstance, instance, newProps, maskedLegacyContext);
-  }
-}
-
-// Ids are base 32 strings whose binary representation corresponds to the
-// position of a node in a tree.
-// Every time the tree forks into multiple children, we add additional bits to
-// the left of the sequence that represent the position of the child within the
-// current level of children.
-//
-//      00101       00010001011010101
-//      ╰─┬─╯       ╰───────┬───────╯
-//   Fork 5 of 20       Parent id
-//
-// The leading 0s are important. In the above example, you only need 3 bits to
-// represent slot 5. However, you need 5 bits to represent all the forks at
-// the current level, so we must account for the empty bits at the end.
-//
-// For this same reason, slots are 1-indexed instead of 0-indexed. Otherwise,
-// the zeroth id at a level would be indistinguishable from its parent.
-//
-// If a node has only one child, and does not materialize an id (i.e. does not
-// contain a useId hook), then we don't need to allocate any space in the
-// sequence. It's treated as a transparent indirection. For example, these two
-// trees produce the same ids:
-//
-// <>                          <>
-//   <Indirection>               <A />
-//     <A />                     <B />
-//   </Indirection>            </>
-//   <B />
-// </>
-//
-// However, we cannot skip any node that materializes an id. Otherwise, a parent
-// id that does not fork would be indistinguishable from its child id. For
-// example, this tree does not fork, but the parent and child must have
-// different ids.
-//
-// <Parent>
-//   <Child />
-// </Parent>
-//
-// To handle this scenario, every time we materialize an id, we allocate a
-// new level with a single slot. You can think of this as a fork with only one
-// prong, or an array of children with length 1.
-//
-// It's possible for the size of the sequence to exceed 32 bits, the max
-// size for bitwise operations. When this happens, we make more room by
-// converting the right part of the id to a string and storing it in an overflow
-// variable. We use a base 32 string representation, because 32 is the largest
-// power of 2 that is supported by toString(). We want the base to be large so
-// that the resulting ids are compact, and we want the base to be a power of 2
-// because every log2(base) bits corresponds to a single character, i.e. every
-// log2(32) = 5 bits. That means we can lop bits off the end 5 at a time without
-// affecting the final result.
-var emptyTreeContext = {
-  id: 1,
-  overflow: ''
-};
-function getTreeId(context) {
-  var overflow = context.overflow;
-  var idWithLeadingBit = context.id;
-  var id = idWithLeadingBit & ~getLeadingBit(idWithLeadingBit);
-  return id.toString(32) + overflow;
-}
-function pushTreeContext(baseContext, totalChildren, index) {
-  var baseIdWithLeadingBit = baseContext.id;
-  var baseOverflow = baseContext.overflow; // The leftmost 1 marks the end of the sequence, non-inclusive. It's not part
-  // of the id; we use it to account for leading 0s.
-
-  var baseLength = getBitLength(baseIdWithLeadingBit) - 1;
-  var baseId = baseIdWithLeadingBit & ~(1 << baseLength);
-  var slot = index + 1;
-  var length = getBitLength(totalChildren) + baseLength; // 30 is the max length we can store without overflowing, taking into
-  // consideration the leading 1 we use to mark the end of the sequence.
-
-  if (length > 30) {
-    // We overflowed the bitwise-safe range. Fall back to slower algorithm.
-    // This branch assumes the length of the base id is greater than 5; it won't
-    // work for smaller ids, because you need 5 bits per character.
-    //
-    // We encode the id in multiple steps: first the base id, then the
-    // remaining digits.
-    //
-    // Each 5 bit sequence corresponds to a single base 32 character. So for
-    // example, if the current id is 23 bits long, we can convert 20 of those
-    // bits into a string of 4 characters, with 3 bits left over.
-    //
-    // First calculate how many bits in the base id represent a complete
-    // sequence of characters.
-    var numberOfOverflowBits = baseLength - baseLength % 5; // Then create a bitmask that selects only those bits.
-
-    var newOverflowBits = (1 << numberOfOverflowBits) - 1; // Select the bits, and convert them to a base 32 string.
-
-    var newOverflow = (baseId & newOverflowBits).toString(32); // Now we can remove those bits from the base id.
-
-    var restOfBaseId = baseId >> numberOfOverflowBits;
-    var restOfBaseLength = baseLength - numberOfOverflowBits; // Finally, encode the rest of the bits using the normal algorithm. Because
-    // we made more room, this time it won't overflow.
-
-    var restOfLength = getBitLength(totalChildren) + restOfBaseLength;
-    var restOfNewBits = slot << restOfBaseLength;
-    var id = restOfNewBits | restOfBaseId;
-    var overflow = newOverflow + baseOverflow;
-    return {
-      id: 1 << restOfLength | id,
-      overflow: overflow
-    };
-  } else {
-    // Normal path
-    var newBits = slot << baseLength;
-
-    var _id = newBits | baseId;
-
-    var _overflow = baseOverflow;
-    return {
-      id: 1 << length | _id,
-      overflow: _overflow
-    };
-  }
-}
-
-function getBitLength(number) {
-  return 32 - clz32(number);
-}
-
-function getLeadingBit(id) {
-  return 1 << getBitLength(id) - 1;
-} // TODO: Math.clz32 is supported in Node 12+. Maybe we can drop the fallback.
-
-
-var clz32 = Math.clz32 ? Math.clz32 : clz32Fallback; // Count leading zeros.
-// Based on:
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/clz32
-
-var log = Math.log;
-var LN2 = Math.LN2;
-
-function clz32Fallback(x) {
-  var asUint = x >>> 0;
-
-  if (asUint === 0) {
-    return 32;
-  }
-
-  return 31 - (log(asUint) / LN2 | 0) | 0;
-}
-
-/**
- * inlined Object.is polyfill to avoid requiring consumers ship their own
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
- */
-function is(x, y) {
-  return x === y && (x !== 0 || 1 / x === 1 / y) || x !== x && y !== y // eslint-disable-line no-self-compare
-  ;
-}
-
-var objectIs = typeof Object.is === 'function' ? Object.is : is;
-
-var currentlyRenderingComponent = null;
-var currentlyRenderingTask = null;
-var firstWorkInProgressHook = null;
-var workInProgressHook = null; // Whether the work-in-progress hook is a re-rendered hook
-
-var isReRender = false; // Whether an update was scheduled during the currently executing render pass.
-
-var didScheduleRenderPhaseUpdate = false; // Counts the number of useId hooks in this component
-
-var localIdCounter = 0; // Lazily created map of render-phase updates
-
-var renderPhaseUpdates = null; // Counter to prevent infinite loops.
-
-var numberOfReRenders = 0;
-var RE_RENDER_LIMIT = 25;
-var isInHookUserCodeInDev = false; // In DEV, this is the name of the currently executing primitive hook
-
-var currentHookNameInDev;
-
-function resolveCurrentlyRenderingComponent() {
-  if (currentlyRenderingComponent === null) {
-    throw new Error('Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for' + ' one of the following reasons:\n' + '1. You might have mismatching versions of React and the renderer (such as React DOM)\n' + '2. You might be breaking the Rules of Hooks\n' + '3. You might have more than one copy of React in the same app\n' + 'See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.');
-  }
-
-  {
-    if (isInHookUserCodeInDev) {
-      error('Do not call Hooks inside useEffect(...), useMemo(...), or other built-in Hooks. ' + 'You can only call Hooks at the top level of your React function. ' + 'For more information, see ' + 'https://reactjs.org/link/rules-of-hooks');
-    }
-  }
-
-  return currentlyRenderingComponent;
-}
-
-function areHookInputsEqual(nextDeps, prevDeps) {
-  if (prevDeps === null) {
-    {
-      error('%s received a final argument during this render, but not during ' + 'the previous render. Even though the final argument is optional, ' + 'its type cannot change between renders.', currentHookNameInDev);
-    }
-
-    return false;
-  }
-
-  {
-    // Don't bother comparing lengths in prod because these arrays should be
-    // passed inline.
-    if (nextDeps.length !== prevDeps.length) {
-      error('The final argument passed to %s changed size between renders. The ' + 'order and size of this array must remain constant.\n\n' + 'Previous: %s\n' + 'Incoming: %s', currentHookNameInDev, "[" + nextDeps.join(', ') + "]", "[" + prevDeps.join(', ') + "]");
-    }
-  }
-
-  for (var i = 0; i < prevDeps.length && i < nextDeps.length; i++) {
-    if (objectIs(nextDeps[i], prevDeps[i])) {
-      continue;
-    }
-
-    return false;
-  }
-
-  return true;
-}
-
-function createHook() {
-  if (numberOfReRenders > 0) {
-    throw new Error('Rendered more hooks than during the previous render');
-  }
-
-  return {
-    memoizedState: null,
-    queue: null,
-    next: null
-  };
-}
-
-function createWorkInProgressHook() {
-  if (workInProgressHook === null) {
-    // This is the first hook in the list
-    if (firstWorkInProgressHook === null) {
-      isReRender = false;
-      firstWorkInProgressHook = workInProgressHook = createHook();
-    } else {
-      // There's already a work-in-progress. Reuse it.
-      isReRender = true;
-      workInProgressHook = firstWorkInProgressHook;
-    }
-  } else {
-    if (workInProgressHook.next === null) {
-      isReRender = false; // Append to the end of the list
-
-      workInProgressHook = workInProgressHook.next = createHook();
-    } else {
-      // There's already a work-in-progress. Reuse it.
-      isReRender = true;
-      workInProgressHook = workInProgressHook.next;
-    }
-  }
-
-  return workInProgressHook;
-}
-
-function prepareToUseHooks(task, componentIdentity) {
-  currentlyRenderingComponent = componentIdentity;
-  currentlyRenderingTask = task;
-
-  {
-    isInHookUserCodeInDev = false;
-  } // The following should have already been reset
-  // didScheduleRenderPhaseUpdate = false;
-  // localIdCounter = 0;
-  // firstWorkInProgressHook = null;
-  // numberOfReRenders = 0;
-  // renderPhaseUpdates = null;
-  // workInProgressHook = null;
-
-
-  localIdCounter = 0;
-}
-function finishHooks(Component, props, children, refOrContext) {
-  // This must be called after every function component to prevent hooks from
-  // being used in classes.
-  while (didScheduleRenderPhaseUpdate) {
-    // Updates were scheduled during the render phase. They are stored in
-    // the `renderPhaseUpdates` map. Call the component again, reusing the
-    // work-in-progress hooks and applying the additional updates on top. Keep
-    // restarting until no more updates are scheduled.
-    didScheduleRenderPhaseUpdate = false;
-    localIdCounter = 0;
-    numberOfReRenders += 1; // Start over from the beginning of the list
-
-    workInProgressHook = null;
-    children = Component(props, refOrContext);
-  }
-
-  resetHooksState();
-  return children;
-}
-function checkDidRenderIdHook() {
-  // This should be called immediately after every finishHooks call.
-  // Conceptually, it's part of the return value of finishHooks; it's only a
-  // separate function to avoid using an array tuple.
-  var didRenderIdHook = localIdCounter !== 0;
-  return didRenderIdHook;
-} // Reset the internal hooks state if an error occurs while rendering a component
-
-function resetHooksState() {
-  {
-    isInHookUserCodeInDev = false;
-  }
-
-  currentlyRenderingComponent = null;
-  currentlyRenderingTask = null;
-  didScheduleRenderPhaseUpdate = false;
-  firstWorkInProgressHook = null;
-  numberOfReRenders = 0;
-  renderPhaseUpdates = null;
-  workInProgressHook = null;
-}
-
-function readContext$1(context) {
-  {
-    if (isInHookUserCodeInDev) {
-      error('Context can only be read while React is rendering. ' + 'In classes, you can read it in the render method or getDerivedStateFromProps. ' + 'In function components, you can read it directly in the function body, but not ' + 'inside Hooks like useReducer() or useMemo().');
-    }
-  }
-
-  return readContext(context);
-}
-
-function useContext(context) {
-  {
-    currentHookNameInDev = 'useContext';
-  }
-
-  resolveCurrentlyRenderingComponent();
-  return readContext(context);
-}
-
-function basicStateReducer(state, action) {
-  // $FlowFixMe: Flow doesn't like mixed types
-  return typeof action === 'function' ? action(state) : action;
-}
-
-function useState(initialState) {
-  {
-    currentHookNameInDev = 'useState';
-  }
-
-  return useReducer(basicStateReducer, // useReducer has a special case to support lazy useState initializers
-  initialState);
-}
-function useReducer(reducer, initialArg, init) {
-  {
-    if (reducer !== basicStateReducer) {
-      currentHookNameInDev = 'useReducer';
-    }
-  }
-
-  currentlyRenderingComponent = resolveCurrentlyRenderingComponent();
-  workInProgressHook = createWorkInProgressHook();
-
-  if (isReRender) {
-    // This is a re-render. Apply the new render phase updates to the previous
-    // current hook.
-    var queue = workInProgressHook.queue;
-    var dispatch = queue.dispatch;
-
-    if (renderPhaseUpdates !== null) {
-      // Render phase updates are stored in a map of queue -> linked list
-      var firstRenderPhaseUpdate = renderPhaseUpdates.get(queue);
-
-      if (firstRenderPhaseUpdate !== undefined) {
-        renderPhaseUpdates.delete(queue);
-        var newState = workInProgressHook.memoizedState;
-        var update = firstRenderPhaseUpdate;
-
-        do {
-          // Process this render phase update. We don't have to check the
-          // priority because it will always be the same as the current
-          // render's.
-          var action = update.action;
-
-          {
-            isInHookUserCodeInDev = true;
-          }
-
-          newState = reducer(newState, action);
-
-          {
-            isInHookUserCodeInDev = false;
-          }
-
-          update = update.next;
-        } while (update !== null);
-
-        workInProgressHook.memoizedState = newState;
-        return [newState, dispatch];
-      }
-    }
-
-    return [workInProgressHook.memoizedState, dispatch];
-  } else {
-    {
-      isInHookUserCodeInDev = true;
-    }
-
-    var initialState;
-
-    if (reducer === basicStateReducer) {
-      // Special case for `useState`.
-      initialState = typeof initialArg === 'function' ? initialArg() : initialArg;
-    } else {
-      initialState = init !== undefined ? init(initialArg) : initialArg;
-    }
-
-    {
-      isInHookUserCodeInDev = false;
-    }
-
-    workInProgressHook.memoizedState = initialState;
-
-    var _queue = workInProgressHook.queue = {
-      last: null,
-      dispatch: null
-    };
-
-    var _dispatch = _queue.dispatch = dispatchAction.bind(null, currentlyRenderingComponent, _queue);
-
-    return [workInProgressHook.memoizedState, _dispatch];
-  }
-}
-
-function useMemo(nextCreate, deps) {
-  currentlyRenderingComponent = resolveCurrentlyRenderingComponent();
-  workInProgressHook = createWorkInProgressHook();
-  var nextDeps = deps === undefined ? null : deps;
-
-  if (workInProgressHook !== null) {
-    var prevState = workInProgressHook.memoizedState;
-
-    if (prevState !== null) {
-      if (nextDeps !== null) {
-        var prevDeps = prevState[1];
-
-        if (areHookInputsEqual(nextDeps, prevDeps)) {
-          return prevState[0];
-        }
-      }
-    }
-  }
-
-  {
-    isInHookUserCodeInDev = true;
-  }
-
-  var nextValue = nextCreate();
-
-  {
-    isInHookUserCodeInDev = false;
-  }
-
-  workInProgressHook.memoizedState = [nextValue, nextDeps];
-  return nextValue;
-}
-
-function useRef(initialValue) {
-  currentlyRenderingComponent = resolveCurrentlyRenderingComponent();
-  workInProgressHook = createWorkInProgressHook();
-  var previousRef = workInProgressHook.memoizedState;
-
-  if (previousRef === null) {
-    var ref = {
-      current: initialValue
-    };
-
-    {
-      Object.seal(ref);
-    }
-
-    workInProgressHook.memoizedState = ref;
-    return ref;
-  } else {
-    return previousRef;
-  }
-}
-
-function useLayoutEffect(create, inputs) {
-  {
-    currentHookNameInDev = 'useLayoutEffect';
-
-    error('useLayoutEffect does nothing on the server, because its effect cannot ' + "be encoded into the server renderer's output format. This will lead " + 'to a mismatch between the initial, non-hydrated UI and the intended ' + 'UI. To avoid this, useLayoutEffect should only be used in ' + 'components that render exclusively on the client. ' + 'See https://reactjs.org/link/uselayouteffect-ssr for common fixes.');
-  }
-}
-
-function dispatchAction(componentIdentity, queue, action) {
-  if (numberOfReRenders >= RE_RENDER_LIMIT) {
-    throw new Error('Too many re-renders. React limits the number of renders to prevent ' + 'an infinite loop.');
-  }
-
-  if (componentIdentity === currentlyRenderingComponent) {
-    // This is a render phase update. Stash it in a lazily-created map of
-    // queue -> linked list of updates. After this render pass, we'll restart
-    // and apply the stashed updates on top of the work-in-progress hook.
-    didScheduleRenderPhaseUpdate = true;
-    var update = {
-      action: action,
-      next: null
-    };
-
-    if (renderPhaseUpdates === null) {
-      renderPhaseUpdates = new Map();
-    }
-
-    var firstRenderPhaseUpdate = renderPhaseUpdates.get(queue);
-
-    if (firstRenderPhaseUpdate === undefined) {
-      renderPhaseUpdates.set(queue, update);
-    } else {
-      // Append the update to the end of the list.
-      var lastRenderPhaseUpdate = firstRenderPhaseUpdate;
-
-      while (lastRenderPhaseUpdate.next !== null) {
-        lastRenderPhaseUpdate = lastRenderPhaseUpdate.next;
-      }
-
-      lastRenderPhaseUpdate.next = update;
-    }
-  }
-}
-
-function useCallback(callback, deps) {
-  return useMemo(function () {
-    return callback;
-  }, deps);
-} // TODO Decide on how to implement this hook for server rendering.
-// If a mutation occurs during render, consider triggering a Suspense boundary
-// and falling back to client rendering.
-
-function useMutableSource(source, getSnapshot, subscribe) {
-  resolveCurrentlyRenderingComponent();
-  return getSnapshot(source._source);
-}
-
-function useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot) {
-  if (getServerSnapshot === undefined) {
-    throw new Error('Missing getServerSnapshot, which is required for ' + 'server-rendered content. Will revert to client rendering.');
-  }
-
-  return getServerSnapshot();
-}
-
-function useDeferredValue(value) {
-  resolveCurrentlyRenderingComponent();
-  return value;
-}
-
-function unsupportedStartTransition() {
-  throw new Error('startTransition cannot be called during server rendering.');
-}
-
-function useTransition() {
-  resolveCurrentlyRenderingComponent();
-  return [false, unsupportedStartTransition];
-}
-
-function useId() {
-  var task = currentlyRenderingTask;
-  var treeId = getTreeId(task.treeContext);
-  var responseState = currentResponseState;
-
-  if (responseState === null) {
-    throw new Error('Invalid hook call. Hooks can only be called inside of the body of a function component.');
-  }
-
-  var localId = localIdCounter++;
-  return makeId(responseState, treeId, localId);
-}
-
-function noop() {}
-
-var Dispatcher = {
-  readContext: readContext$1,
-  useContext: useContext,
-  useMemo: useMemo,
-  useReducer: useReducer,
-  useRef: useRef,
-  useState: useState,
-  useInsertionEffect: noop,
-  useLayoutEffect: useLayoutEffect,
-  useCallback: useCallback,
-  // useImperativeHandle is not run in the server environment
-  useImperativeHandle: noop,
-  // Effects are not run in the server environment.
-  useEffect: noop,
-  // Debugging effect
-  useDebugValue: noop,
-  useDeferredValue: useDeferredValue,
-  useTransition: useTransition,
-  useId: useId,
-  // Subscriptions are not setup in a server environment.
-  useMutableSource: useMutableSource,
-  useSyncExternalStore: useSyncExternalStore
-};
-
-var currentResponseState = null;
-function setCurrentResponseState(responseState) {
-  currentResponseState = responseState;
-}
-
-function getStackByComponentStackNode(componentStack) {
-  try {
-    var info = '';
-    var node = componentStack;
-
-    do {
-      switch (node.tag) {
-        case 0:
-          info += describeBuiltInComponentFrame(node.type, null, null);
-          break;
-
-        case 1:
-          info += describeFunctionComponentFrame(node.type, null, null);
-          break;
-
-        case 2:
-          info += describeClassComponentFrame(node.type, null, null);
-          break;
-      }
-
-      node = node.parent;
-    } while (node);
-
-    return info;
-  } catch (x) {
-    return '\nError generating stack: ' + x.message + '\n' + x.stack;
-  }
-}
-
-var ReactCurrentDispatcher$1 = ReactSharedInternals.ReactCurrentDispatcher;
-var ReactDebugCurrentFrame$1 = ReactSharedInternals.ReactDebugCurrentFrame;
-var PENDING = 0;
-var COMPLETED = 1;
-var FLUSHED = 2;
-var ABORTED = 3;
-var ERRORED = 4;
-var OPEN = 0;
-var CLOSING = 1;
-var CLOSED = 2;
-// This is a default heuristic for how to split up the HTML content into progressive
-// loading. Our goal is to be able to display additional new content about every 500ms.
-// Faster than that is unnecessary and should be throttled on the client. It also
-// adds unnecessary overhead to do more splits. We don't know if it's a higher or lower
-// end device but higher end suffer less from the overhead than lower end does from
-// not getting small enough pieces. We error on the side of low end.
-// We base this on low end 3G speeds which is about 500kbits per second. We assume
-// that there can be a reasonable drop off from max bandwidth which leaves you with
-// as little as 80%. We can receive half of that each 500ms - at best. In practice,
-// a little bandwidth is lost to processing and contention - e.g. CSS and images that
-// are downloaded along with the main content. So we estimate about half of that to be
-// the lower end throughput. In other words, we expect that you can at least show
-// about 12.5kb of content per 500ms. Not counting starting latency for the first
-// paint.
-// 500 * 1024 / 8 * .8 * 0.5 / 2
-var DEFAULT_PROGRESSIVE_CHUNK_SIZE = 12800;
-
-function defaultErrorHandler(error) {
-  console['error'](error); // Don't transform to our wrapper
-
-  return null;
-}
-
-function noop$1() {}
-
-function createRequest(children, responseState, rootFormatContext, progressiveChunkSize, onError, onAllReady, onShellReady, onShellError, onFatalError) {
-  var pingedTasks = [];
-  var abortSet = new Set();
-  var request = {
-    destination: null,
-    responseState: responseState,
-    progressiveChunkSize: progressiveChunkSize === undefined ? DEFAULT_PROGRESSIVE_CHUNK_SIZE : progressiveChunkSize,
-    status: OPEN,
-    fatalError: null,
-    nextSegmentId: 0,
-    allPendingTasks: 0,
-    pendingRootTasks: 0,
-    completedRootSegment: null,
-    abortableTasks: abortSet,
-    pingedTasks: pingedTasks,
-    clientRenderedBoundaries: [],
-    completedBoundaries: [],
-    partialBoundaries: [],
-    onError: onError === undefined ? defaultErrorHandler : onError,
-    onAllReady: onAllReady === undefined ? noop$1 : onAllReady,
-    onShellReady: onShellReady === undefined ? noop$1 : onShellReady,
-    onShellError: onShellError === undefined ? noop$1 : onShellError,
-    onFatalError: onFatalError === undefined ? noop$1 : onFatalError
-  }; // This segment represents the root fallback.
-
-  var rootSegment = createPendingSegment(request, 0, null, rootFormatContext, // Root segments are never embedded in Text on either edge
-  false, false); // There is no parent so conceptually, we're unblocked to flush this segment.
-
-  rootSegment.parentFlushed = true;
-  var rootTask = createTask(request, children, null, rootSegment, abortSet, emptyContextObject, rootContextSnapshot, emptyTreeContext);
-  pingedTasks.push(rootTask);
-  return request;
-}
-
-function pingTask(request, task) {
-  var pingedTasks = request.pingedTasks;
-  pingedTasks.push(task);
-
-  if (pingedTasks.length === 1) {
-    scheduleWork(function () {
-      return performWork(request);
-    });
-  }
-}
-
-function createSuspenseBoundary(request, fallbackAbortableTasks) {
-  return {
-    id: UNINITIALIZED_SUSPENSE_BOUNDARY_ID,
-    rootSegmentID: -1,
-    parentFlushed: false,
-    pendingTasks: 0,
-    forceClientRender: false,
-    completedSegments: [],
-    byteSize: 0,
-    fallbackAbortableTasks: fallbackAbortableTasks,
-    errorDigest: null
-  };
-}
-
-function createTask(request, node, blockedBoundary, blockedSegment, abortSet, legacyContext, context, treeContext) {
-  request.allPendingTasks++;
-
-  if (blockedBoundary === null) {
-    request.pendingRootTasks++;
-  } else {
-    blockedBoundary.pendingTasks++;
-  }
-
-  var task = {
-    node: node,
-    ping: function () {
-      return pingTask(request, task);
-    },
-    blockedBoundary: blockedBoundary,
-    blockedSegment: blockedSegment,
-    abortSet: abortSet,
-    legacyContext: legacyContext,
-    context: context,
-    treeContext: treeContext
-  };
-
-  {
-    task.componentStack = null;
-  }
-
-  abortSet.add(task);
-  return task;
-}
-
-function createPendingSegment(request, index, boundary, formatContext, lastPushedText, textEmbedded) {
-  return {
-    status: PENDING,
-    id: -1,
-    // lazily assigned later
-    index: index,
-    parentFlushed: false,
-    chunks: [],
-    children: [],
-    formatContext: formatContext,
-    boundary: boundary,
-    lastPushedText: lastPushedText,
-    textEmbedded: textEmbedded
-  };
-} // DEV-only global reference to the currently executing task
-
-
-var currentTaskInDEV = null;
-
-function getCurrentStackInDEV() {
-  {
-    if (currentTaskInDEV === null || currentTaskInDEV.componentStack === null) {
-      return '';
-    }
-
-    return getStackByComponentStackNode(currentTaskInDEV.componentStack);
-  }
-}
-
-function pushBuiltInComponentStackInDEV(task, type) {
-  {
-    task.componentStack = {
-      tag: 0,
-      parent: task.componentStack,
-      type: type
-    };
-  }
-}
-
-function pushFunctionComponentStackInDEV(task, type) {
-  {
-    task.componentStack = {
-      tag: 1,
-      parent: task.componentStack,
-      type: type
-    };
-  }
-}
-
-function pushClassComponentStackInDEV(task, type) {
-  {
-    task.componentStack = {
-      tag: 2,
-      parent: task.componentStack,
-      type: type
-    };
-  }
-}
-
-function popComponentStackInDEV(task) {
-  {
-    if (task.componentStack === null) {
-      error('Unexpectedly popped too many stack frames. This is a bug in React.');
-    } else {
-      task.componentStack = task.componentStack.parent;
-    }
-  }
-} // stash the component stack of an unwinding error until it is processed
-
-
-var lastBoundaryErrorComponentStackDev = null;
-
-function captureBoundaryErrorDetailsDev(boundary, error) {
-  {
-    var errorMessage;
-
-    if (typeof error === 'string') {
-      errorMessage = error;
-    } else if (error && typeof error.message === 'string') {
-      errorMessage = error.message;
-    } else {
-      // eslint-disable-next-line react-internal/safe-string-coercion
-      errorMessage = String(error);
-    }
-
-    var errorComponentStack = lastBoundaryErrorComponentStackDev || getCurrentStackInDEV();
-    lastBoundaryErrorComponentStackDev = null;
-    boundary.errorMessage = errorMessage;
-    boundary.errorComponentStack = errorComponentStack;
-  }
-}
-
-function logRecoverableError(request, error) {
-  // If this callback errors, we intentionally let that error bubble up to become a fatal error
-  // so that someone fixes the error reporting instead of hiding it.
-  var errorDigest = request.onError(error);
-
-  if (errorDigest != null && typeof errorDigest !== 'string') {
-    // eslint-disable-next-line react-internal/prod-error-codes
-    throw new Error("onError returned something with a type other than \"string\". onError should return a string and may return null or undefined but must not return anything else. It received something of type \"" + typeof errorDigest + "\" instead");
-  }
-
-  return errorDigest;
-}
-
-function fatalError(request, error) {
-  // This is called outside error handling code such as if the root errors outside
-  // a suspense boundary or if the root suspense boundary's fallback errors.
-  // It's also called if React itself or its host configs errors.
-  var onShellError = request.onShellError;
-  onShellError(error);
-  var onFatalError = request.onFatalError;
-  onFatalError(error);
-
-  if (request.destination !== null) {
-    request.status = CLOSED;
-    closeWithError(request.destination, error);
-  } else {
-    request.status = CLOSING;
-    request.fatalError = error;
-  }
-}
-
-function renderSuspenseBoundary(request, task, props) {
-  pushBuiltInComponentStackInDEV(task, 'Suspense');
-  var parentBoundary = task.blockedBoundary;
-  var parentSegment = task.blockedSegment; // Each time we enter a suspense boundary, we split out into a new segment for
-  // the fallback so that we can later replace that segment with the content.
-  // This also lets us split out the main content even if it doesn't suspend,
-  // in case it ends up generating a large subtree of content.
-
-  var fallback = props.fallback;
-  var content = props.children;
-  var fallbackAbortSet = new Set();
-  var newBoundary = createSuspenseBoundary(request, fallbackAbortSet);
-  var insertionIndex = parentSegment.chunks.length; // The children of the boundary segment is actually the fallback.
-
-  var boundarySegment = createPendingSegment(request, insertionIndex, newBoundary, parentSegment.formatContext, // boundaries never require text embedding at their edges because comment nodes bound them
-  false, false);
-  parentSegment.children.push(boundarySegment); // The parentSegment has a child Segment at this index so we reset the lastPushedText marker on the parent
-
-  parentSegment.lastPushedText = false; // This segment is the actual child content. We can start rendering that immediately.
-
-  var contentRootSegment = createPendingSegment(request, 0, null, parentSegment.formatContext, // boundaries never require text embedding at their edges because comment nodes bound them
-  false, false); // We mark the root segment as having its parent flushed. It's not really flushed but there is
-  // no parent segment so there's nothing to wait on.
-
-  contentRootSegment.parentFlushed = true; // Currently this is running synchronously. We could instead schedule this to pingedTasks.
-  // I suspect that there might be some efficiency benefits from not creating the suspended task
-  // and instead just using the stack if possible.
-  // TODO: Call this directly instead of messing with saving and restoring contexts.
-  // We can reuse the current context and task to render the content immediately without
-  // context switching. We just need to temporarily switch which boundary and which segment
-  // we're writing to. If something suspends, it'll spawn new suspended task with that context.
-
-  task.blockedBoundary = newBoundary;
-  task.blockedSegment = contentRootSegment;
-
-  try {
-    // We use the safe form because we don't handle suspending here. Only error handling.
-    renderNode(request, task, content);
-    pushSegmentFinale$1(contentRootSegment.chunks, request.responseState, contentRootSegment.lastPushedText, contentRootSegment.textEmbedded);
-    contentRootSegment.status = COMPLETED;
-    queueCompletedSegment(newBoundary, contentRootSegment);
-
-    if (newBoundary.pendingTasks === 0) {
-      // This must have been the last segment we were waiting on. This boundary is now complete.
-      // Therefore we won't need the fallback. We early return so that we don't have to create
-      // the fallback.
-      popComponentStackInDEV(task);
-      return;
-    }
-  } catch (error) {
-    contentRootSegment.status = ERRORED;
-    newBoundary.forceClientRender = true;
-    newBoundary.errorDigest = logRecoverableError(request, error);
-
-    {
-      captureBoundaryErrorDetailsDev(newBoundary, error);
-    } // We don't need to decrement any task numbers because we didn't spawn any new task.
-    // We don't need to schedule any task because we know the parent has written yet.
-    // We do need to fallthrough to create the fallback though.
-
-  } finally {
-    task.blockedBoundary = parentBoundary;
-    task.blockedSegment = parentSegment;
-  } // We create suspended task for the fallback because we don't want to actually work
-  // on it yet in case we finish the main content, so we queue for later.
-
-
-  var suspendedFallbackTask = createTask(request, fallback, parentBoundary, boundarySegment, fallbackAbortSet, task.legacyContext, task.context, task.treeContext);
-
-  {
-    suspendedFallbackTask.componentStack = task.componentStack;
-  } // TODO: This should be queued at a separate lower priority queue so that we only work
-  // on preparing fallbacks if we don't have any more main content to task on.
-
-
-  request.pingedTasks.push(suspendedFallbackTask);
-  popComponentStackInDEV(task);
-}
-
-function renderHostElement(request, task, type, props) {
-  pushBuiltInComponentStackInDEV(task, type);
-  var segment = task.blockedSegment;
-  var children = pushStartInstance(segment.chunks, type, props, request.responseState, segment.formatContext);
-  segment.lastPushedText = false;
-  var prevContext = segment.formatContext;
-  segment.formatContext = getChildFormatContext(prevContext, type, props); // We use the non-destructive form because if something suspends, we still
-  // need to pop back up and finish this subtree of HTML.
-
-  renderNode(request, task, children); // We expect that errors will fatal the whole task and that we don't need
-  // the correct context. Therefore this is not in a finally.
-
-  segment.formatContext = prevContext;
-  pushEndInstance(segment.chunks, type);
-  segment.lastPushedText = false;
-  popComponentStackInDEV(task);
-}
-
-function shouldConstruct$1(Component) {
-  return Component.prototype && Component.prototype.isReactComponent;
-}
-
-function renderWithHooks(request, task, Component, props, secondArg) {
-  var componentIdentity = {};
-  prepareToUseHooks(task, componentIdentity);
-  var result = Component(props, secondArg);
-  return finishHooks(Component, props, result, secondArg);
-}
-
-function finishClassComponent(request, task, instance, Component, props) {
-  var nextChildren = instance.render();
-
-  {
-    if (instance.props !== props) {
-      if (!didWarnAboutReassigningProps) {
-        error('It looks like %s is reassigning its own `this.props` while rendering. ' + 'This is not supported and can lead to confusing bugs.', getComponentNameFromType(Component) || 'a component');
-      }
-
-      didWarnAboutReassigningProps = true;
-    }
-  }
-
-  {
-    var childContextTypes = Component.childContextTypes;
-
-    if (childContextTypes !== null && childContextTypes !== undefined) {
-      var previousContext = task.legacyContext;
-      var mergedContext = processChildContext(instance, Component, previousContext, childContextTypes);
-      task.legacyContext = mergedContext;
-      renderNodeDestructive(request, task, nextChildren);
-      task.legacyContext = previousContext;
-      return;
-    }
-  }
-
-  renderNodeDestructive(request, task, nextChildren);
-}
-
-function renderClassComponent(request, task, Component, props) {
-  pushClassComponentStackInDEV(task, Component);
-  var maskedContext =  getMaskedContext(Component, task.legacyContext) ;
-  var instance = constructClassInstance(Component, props, maskedContext);
-  mountClassInstance(instance, Component, props, maskedContext);
-  finishClassComponent(request, task, instance, Component, props);
-  popComponentStackInDEV(task);
-}
-
-var didWarnAboutBadClass = {};
-var didWarnAboutModulePatternComponent = {};
-var didWarnAboutContextTypeOnFunctionComponent = {};
-var didWarnAboutGetDerivedStateOnFunctionComponent = {};
-var didWarnAboutReassigningProps = false;
-var didWarnAboutDefaultPropsOnFunctionComponent = {};
-var didWarnAboutGenerators = false;
-var didWarnAboutMaps = false;
-var hasWarnedAboutUsingContextAsConsumer = false; // This would typically be a function component but we still support module pattern
-// components for some reason.
-
-function renderIndeterminateComponent(request, task, Component, props) {
-  var legacyContext;
-
-  {
-    legacyContext = getMaskedContext(Component, task.legacyContext);
-  }
-
-  pushFunctionComponentStackInDEV(task, Component);
-
-  {
-    if (Component.prototype && typeof Component.prototype.render === 'function') {
-      var componentName = getComponentNameFromType(Component) || 'Unknown';
-
-      if (!didWarnAboutBadClass[componentName]) {
-        error("The <%s /> component appears to have a render method, but doesn't extend React.Component. " + 'This is likely to cause errors. Change %s to extend React.Component instead.', componentName, componentName);
-
-        didWarnAboutBadClass[componentName] = true;
-      }
-    }
-  }
-
-  var value = renderWithHooks(request, task, Component, props, legacyContext);
-  var hasId = checkDidRenderIdHook();
-
-  {
-    // Support for module components is deprecated and is removed behind a flag.
-    // Whether or not it would crash later, we want to show a good message in DEV first.
-    if (typeof value === 'object' && value !== null && typeof value.render === 'function' && value.$$typeof === undefined) {
-      var _componentName = getComponentNameFromType(Component) || 'Unknown';
-
-      if (!didWarnAboutModulePatternComponent[_componentName]) {
-        error('The <%s /> component appears to be a function component that returns a class instance. ' + 'Change %s to a class that extends React.Component instead. ' + "If you can't use a class try assigning the prototype on the function as a workaround. " + "`%s.prototype = React.Component.prototype`. Don't use an arrow function since it " + 'cannot be called with `new` by React.', _componentName, _componentName, _componentName);
-
-        didWarnAboutModulePatternComponent[_componentName] = true;
-      }
-    }
-  }
-
-  if ( // Run these checks in production only if the flag is off.
-  // Eventually we'll delete this branch altogether.
-   typeof value === 'object' && value !== null && typeof value.render === 'function' && value.$$typeof === undefined) {
-    {
-      var _componentName2 = getComponentNameFromType(Component) || 'Unknown';
-
-      if (!didWarnAboutModulePatternComponent[_componentName2]) {
-        error('The <%s /> component appears to be a function component that returns a class instance. ' + 'Change %s to a class that extends React.Component instead. ' + "If you can't use a class try assigning the prototype on the function as a workaround. " + "`%s.prototype = React.Component.prototype`. Don't use an arrow function since it " + 'cannot be called with `new` by React.', _componentName2, _componentName2, _componentName2);
-
-        didWarnAboutModulePatternComponent[_componentName2] = true;
-      }
-    }
-
-    mountClassInstance(value, Component, props, legacyContext);
-    finishClassComponent(request, task, value, Component, props);
-  } else {
-
-    {
-      validateFunctionComponentInDev(Component);
-    } // We're now successfully past this task, and we don't have to pop back to
-    // the previous task every again, so we can use the destructive recursive form.
-
-
-    if (hasId) {
-      // This component materialized an id. We treat this as its own level, with
-      // a single "child" slot.
-      var prevTreeContext = task.treeContext;
-      var totalChildren = 1;
-      var index = 0;
-      task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index);
-
-      try {
-        renderNodeDestructive(request, task, value);
-      } finally {
-        task.treeContext = prevTreeContext;
-      }
-    } else {
-      renderNodeDestructive(request, task, value);
-    }
-  }
-
-  popComponentStackInDEV(task);
-}
-
-function validateFunctionComponentInDev(Component) {
-  {
-    if (Component) {
-      if (Component.childContextTypes) {
-        error('%s(...): childContextTypes cannot be defined on a function component.', Component.displayName || Component.name || 'Component');
-      }
-    }
-
-    if ( Component.defaultProps !== undefined) {
-      var componentName = getComponentNameFromType(Component) || 'Unknown';
-
-      if (!didWarnAboutDefaultPropsOnFunctionComponent[componentName]) {
-        error('%s: Support for defaultProps will be removed from function components ' + 'in a future major release. Use JavaScript default parameters instead.', componentName);
-
-        didWarnAboutDefaultPropsOnFunctionComponent[componentName] = true;
-      }
-    }
-
-    if (typeof Component.getDerivedStateFromProps === 'function') {
-      var _componentName3 = getComponentNameFromType(Component) || 'Unknown';
-
-      if (!didWarnAboutGetDerivedStateOnFunctionComponent[_componentName3]) {
-        error('%s: Function components do not support getDerivedStateFromProps.', _componentName3);
-
-        didWarnAboutGetDerivedStateOnFunctionComponent[_componentName3] = true;
-      }
-    }
-
-    if (typeof Component.contextType === 'object' && Component.contextType !== null) {
-      var _componentName4 = getComponentNameFromType(Component) || 'Unknown';
-
-      if (!didWarnAboutContextTypeOnFunctionComponent[_componentName4]) {
-        error('%s: Function components do not support contextType.', _componentName4);
-
-        didWarnAboutContextTypeOnFunctionComponent[_componentName4] = true;
-      }
-    }
-  }
-}
-
-function resolveDefaultProps(Component, baseProps) {
-  if (Component && Component.defaultProps) {
-    // Resolve default props. Taken from ReactElement
-    var props = assign({}, baseProps);
-    var defaultProps = Component.defaultProps;
-
-    for (var propName in defaultProps) {
-      if (props[propName] === undefined) {
-        props[propName] = defaultProps[propName];
-      }
-    }
-
-    return props;
-  }
-
-  return baseProps;
-}
-
-function renderForwardRef(request, task, type, props, ref) {
-  pushFunctionComponentStackInDEV(task, type.render);
-  var children = renderWithHooks(request, task, type.render, props, ref);
-  var hasId = checkDidRenderIdHook();
-
-  if (hasId) {
-    // This component materialized an id. We treat this as its own level, with
-    // a single "child" slot.
-    var prevTreeContext = task.treeContext;
-    var totalChildren = 1;
-    var index = 0;
-    task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index);
-
-    try {
-      renderNodeDestructive(request, task, children);
-    } finally {
-      task.treeContext = prevTreeContext;
-    }
-  } else {
-    renderNodeDestructive(request, task, children);
-  }
-
-  popComponentStackInDEV(task);
-}
-
-function renderMemo(request, task, type, props, ref) {
-  var innerType = type.type;
-  var resolvedProps = resolveDefaultProps(innerType, props);
-  renderElement(request, task, innerType, resolvedProps, ref);
-}
-
-function renderContextConsumer(request, task, context, props) {
-  // The logic below for Context differs depending on PROD or DEV mode. In
-  // DEV mode, we create a separate object for Context.Consumer that acts
-  // like a proxy to Context. This proxy object adds unnecessary code in PROD
-  // so we use the old behaviour (Context.Consumer references Context) to
-  // reduce size and overhead. The separate object references context via
-  // a property called "_context", which also gives us the ability to check
-  // in DEV mode if this property exists or not and warn if it does not.
-  {
-    if (context._context === undefined) {
-      // This may be because it's a Context (rather than a Consumer).
-      // Or it may be because it's older React where they're the same thing.
-      // We only want to warn if we're sure it's a new React.
-      if (context !== context.Consumer) {
-        if (!hasWarnedAboutUsingContextAsConsumer) {
-          hasWarnedAboutUsingContextAsConsumer = true;
-
-          error('Rendering <Context> directly is not supported and will be removed in ' + 'a future major release. Did you mean to render <Context.Consumer> instead?');
-        }
-      }
-    } else {
-      context = context._context;
-    }
-  }
-
-  var render = props.children;
-
-  {
-    if (typeof render !== 'function') {
-      error('A context consumer was rendered with multiple children, or a child ' + "that isn't a function. A context consumer expects a single child " + 'that is a function. If you did pass a function, make sure there ' + 'is no trailing or leading whitespace around it.');
-    }
-  }
-
-  var newValue = readContext(context);
-  var newChildren = render(newValue);
-  renderNodeDestructive(request, task, newChildren);
-}
-
-function renderContextProvider(request, task, type, props) {
-  var context = type._context;
-  var value = props.value;
-  var children = props.children;
-  var prevSnapshot;
-
-  {
-    prevSnapshot = task.context;
-  }
-
-  task.context = pushProvider(context, value);
-  renderNodeDestructive(request, task, children);
-  task.context = popProvider(context);
-
-  {
-    if (prevSnapshot !== task.context) {
-      error('Popping the context provider did not return back to the original snapshot. This is a bug in React.');
-    }
-  }
-}
-
-function renderLazyComponent(request, task, lazyComponent, props, ref) {
-  pushBuiltInComponentStackInDEV(task, 'Lazy');
-  var payload = lazyComponent._payload;
-  var init = lazyComponent._init;
-  var Component = init(payload);
-  var resolvedProps = resolveDefaultProps(Component, props);
-  renderElement(request, task, Component, resolvedProps, ref);
-  popComponentStackInDEV(task);
-}
-
-function renderElement(request, task, type, props, ref) {
-  if (typeof type === 'function') {
-    if (shouldConstruct$1(type)) {
-      renderClassComponent(request, task, type, props);
-      return;
-    } else {
-      renderIndeterminateComponent(request, task, type, props);
-      return;
-    }
-  }
-
-  if (typeof type === 'string') {
-    renderHostElement(request, task, type, props);
-    return;
-  }
-
-  switch (type) {
-    // TODO: LegacyHidden acts the same as a fragment. This only works
-    // because we currently assume that every instance of LegacyHidden is
-    // accompanied by a host component wrapper. In the hidden mode, the host
-    // component is given a `hidden` attribute, which ensures that the
-    // initial HTML is not visible. To support the use of LegacyHidden as a
-    // true fragment, without an extra DOM node, we would have to hide the
-    // initial HTML in some other way.
-    // TODO: Add REACT_OFFSCREEN_TYPE here too with the same capability.
-    case REACT_LEGACY_HIDDEN_TYPE:
-    case REACT_DEBUG_TRACING_MODE_TYPE:
-    case REACT_STRICT_MODE_TYPE:
-    case REACT_PROFILER_TYPE:
-    case REACT_FRAGMENT_TYPE:
-      {
-        renderNodeDestructive(request, task, props.children);
-        return;
-      }
-
-    case REACT_SUSPENSE_LIST_TYPE:
-      {
-        pushBuiltInComponentStackInDEV(task, 'SuspenseList'); // TODO: SuspenseList should control the boundaries.
-
-        renderNodeDestructive(request, task, props.children);
-        popComponentStackInDEV(task);
-        return;
-      }
-
-    case REACT_SCOPE_TYPE:
-      {
-
-        throw new Error('ReactDOMServer does not yet support scope components.');
-      }
-    // eslint-disable-next-line-no-fallthrough
-
-    case REACT_SUSPENSE_TYPE:
-      {
-        {
-          renderSuspenseBoundary(request, task, props);
-        }
-
-        return;
-      }
-  }
-
-  if (typeof type === 'object' && type !== null) {
-    switch (type.$$typeof) {
-      case REACT_FORWARD_REF_TYPE:
-        {
-          renderForwardRef(request, task, type, props, ref);
-          return;
-        }
-
-      case REACT_MEMO_TYPE:
-        {
-          renderMemo(request, task, type, props, ref);
-          return;
-        }
-
-      case REACT_PROVIDER_TYPE:
-        {
-          renderContextProvider(request, task, type, props);
-          return;
-        }
-
-      case REACT_CONTEXT_TYPE:
-        {
-          renderContextConsumer(request, task, type, props);
-          return;
-        }
-
-      case REACT_LAZY_TYPE:
-        {
-          renderLazyComponent(request, task, type, props);
-          return;
-        }
-    }
-  }
-
-  var info = '';
-
-  {
-    if (type === undefined || typeof type === 'object' && type !== null && Object.keys(type).length === 0) {
-      info += ' You likely forgot to export your component from the file ' + "it's defined in, or you might have mixed up default and " + 'named imports.';
-    }
-  }
-
-  throw new Error('Element type is invalid: expected a string (for built-in ' + 'components) or a class/function (for composite components) ' + ("but got: " + (type == null ? type : typeof type) + "." + info));
-}
-
-function validateIterable(iterable, iteratorFn) {
-  {
-    // We don't support rendering Generators because it's a mutation.
-    // See https://github.com/facebook/react/issues/12995
-    if (typeof Symbol === 'function' && // $FlowFixMe Flow doesn't know about toStringTag
-    iterable[Symbol.toStringTag] === 'Generator') {
-      if (!didWarnAboutGenerators) {
-        error('Using Generators as children is unsupported and will likely yield ' + 'unexpected results because enumerating a generator mutates it. ' + 'You may convert it to an array with `Array.from()` or the ' + '`[...spread]` operator before rendering. Keep in mind ' + 'you might need to polyfill these features for older browsers.');
-      }
-
-      didWarnAboutGenerators = true;
-    } // Warn about using Maps as children
-
-
-    if (iterable.entries === iteratorFn) {
-      if (!didWarnAboutMaps) {
-        error('Using Maps as children is not supported. ' + 'Use an array of keyed ReactElements instead.');
-      }
-
-      didWarnAboutMaps = true;
-    }
-  }
-}
-
-function renderNodeDestructive(request, task, node) {
-  {
-    // In Dev we wrap renderNodeDestructiveImpl in a try / catch so we can capture
-    // a component stack at the right place in the tree. We don't do this in renderNode
-    // becuase it is not called at every layer of the tree and we may lose frames
-    try {
-      return renderNodeDestructiveImpl(request, task, node);
-    } catch (x) {
-      if (typeof x === 'object' && x !== null && typeof x.then === 'function') ; else {
-        // This is an error, stash the component stack if it is null.
-        lastBoundaryErrorComponentStackDev = lastBoundaryErrorComponentStackDev !== null ? lastBoundaryErrorComponentStackDev : getCurrentStackInDEV();
-      } // rethrow so normal suspense logic can handle thrown value accordingly
-
-
-      throw x;
-    }
-  }
-} // This function by it self renders a node and consumes the task by mutating it
-// to update the current execution state.
-
-
-function renderNodeDestructiveImpl(request, task, node) {
-  // Stash the node we're working on. We'll pick up from this task in case
-  // something suspends.
-  task.node = node; // Handle object types
-
-  if (typeof node === 'object' && node !== null) {
-    switch (node.$$typeof) {
-      case REACT_ELEMENT_TYPE:
-        {
-          var element = node;
-          var type = element.type;
-          var props = element.props;
-          var ref = element.ref;
-          renderElement(request, task, type, props, ref);
-          return;
-        }
-
-      case REACT_PORTAL_TYPE:
-        throw new Error('Portals are not currently supported by the server renderer. ' + 'Render them conditionally so that they only appear on the client render.');
-      // eslint-disable-next-line-no-fallthrough
-
-      case REACT_LAZY_TYPE:
-        {
-          var lazyNode = node;
-          var payload = lazyNode._payload;
-          var init = lazyNode._init;
-          var resolvedNode;
-
-          {
-            try {
-              resolvedNode = init(payload);
-            } catch (x) {
-              if (typeof x === 'object' && x !== null && typeof x.then === 'function') {
-                // this Lazy initializer is suspending. push a temporary frame onto the stack so it can be
-                // popped off in spawnNewSuspendedTask. This aligns stack behavior between Lazy in element position
-                // vs Component position. We do not want the frame for Errors so we exclusively do this in
-                // the wakeable branch
-                pushBuiltInComponentStackInDEV(task, 'Lazy');
-              }
-
-              throw x;
-            }
-          }
-
-          renderNodeDestructive(request, task, resolvedNode);
-          return;
-        }
-    }
-
-    if (isArray(node)) {
-      renderChildrenArray(request, task, node);
-      return;
-    }
-
-    var iteratorFn = getIteratorFn(node);
-
-    if (iteratorFn) {
-      {
-        validateIterable(node, iteratorFn);
-      }
-
-      var iterator = iteratorFn.call(node);
-
-      if (iterator) {
-        // We need to know how many total children are in this set, so that we
-        // can allocate enough id slots to acommodate them. So we must exhaust
-        // the iterator before we start recursively rendering the children.
-        // TODO: This is not great but I think it's inherent to the id
-        // generation algorithm.
-        var step = iterator.next(); // If there are not entries, we need to push an empty so we start by checking that.
-
-        if (!step.done) {
-          var children = [];
-
-          do {
-            children.push(step.value);
-            step = iterator.next();
-          } while (!step.done);
-
-          renderChildrenArray(request, task, children);
-          return;
-        }
-
-        return;
-      }
-    }
-
-    var childString = Object.prototype.toString.call(node);
-    throw new Error("Objects are not valid as a React child (found: " + (childString === '[object Object]' ? 'object with keys {' + Object.keys(node).join(', ') + '}' : childString) + "). " + 'If you meant to render a collection of children, use an array ' + 'instead.');
-  }
-
-  if (typeof node === 'string') {
-    var segment = task.blockedSegment;
-    segment.lastPushedText = pushTextInstance$1(task.blockedSegment.chunks, node, request.responseState, segment.lastPushedText);
-    return;
-  }
-
-  if (typeof node === 'number') {
-    var _segment = task.blockedSegment;
-    _segment.lastPushedText = pushTextInstance$1(task.blockedSegment.chunks, '' + node, request.responseState, _segment.lastPushedText);
-    return;
-  }
-
-  {
-    if (typeof node === 'function') {
-      error('Functions are not valid as a React child. This may happen if ' + 'you return a Component instead of <Component /> from render. ' + 'Or maybe you meant to call this function rather than return it.');
-    }
-  }
-}
-
-function renderChildrenArray(request, task, children) {
-  var totalChildren = children.length;
-
-  for (var i = 0; i < totalChildren; i++) {
-    var prevTreeContext = task.treeContext;
-    task.treeContext = pushTreeContext(prevTreeContext, totalChildren, i);
-
-    try {
-      // We need to use the non-destructive form so that we can safely pop back
-      // up and render the sibling if something suspends.
-      renderNode(request, task, children[i]);
-    } finally {
-      task.treeContext = prevTreeContext;
-    }
-  }
-}
-
-function spawnNewSuspendedTask(request, task, x) {
-  // Something suspended, we'll need to create a new segment and resolve it later.
-  var segment = task.blockedSegment;
-  var insertionIndex = segment.chunks.length;
-  var newSegment = createPendingSegment(request, insertionIndex, null, segment.formatContext, // Adopt the parent segment's leading text embed
-  segment.lastPushedText, // Assume we are text embedded at the trailing edge
-  true);
-  segment.children.push(newSegment); // Reset lastPushedText for current Segment since the new Segment "consumed" it
-
-  segment.lastPushedText = false;
-  var newTask = createTask(request, task.node, task.blockedBoundary, newSegment, task.abortSet, task.legacyContext, task.context, task.treeContext);
-
-  {
-    if (task.componentStack !== null) {
-      // We pop one task off the stack because the node that suspended will be tried again,
-      // which will add it back onto the stack.
-      newTask.componentStack = task.componentStack.parent;
-    }
-  }
-
-  var ping = newTask.ping;
-  x.then(ping, ping);
-} // This is a non-destructive form of rendering a node. If it suspends it spawns
-// a new task and restores the context of this task to what it was before.
-
-
-function renderNode(request, task, node) {
-  // TODO: Store segment.children.length here and reset it in case something
-  // suspended partially through writing something.
-  // Snapshot the current context in case something throws to interrupt the
-  // process.
-  var previousFormatContext = task.blockedSegment.formatContext;
-  var previousLegacyContext = task.legacyContext;
-  var previousContext = task.context;
-  var previousComponentStack = null;
-
-  {
-    previousComponentStack = task.componentStack;
-  }
-
-  try {
-    return renderNodeDestructive(request, task, node);
-  } catch (x) {
-    resetHooksState();
-
-    if (typeof x === 'object' && x !== null && typeof x.then === 'function') {
-      spawnNewSuspendedTask(request, task, x); // Restore the context. We assume that this will be restored by the inner
-      // functions in case nothing throws so we don't use "finally" here.
-
-      task.blockedSegment.formatContext = previousFormatContext;
-      task.legacyContext = previousLegacyContext;
-      task.context = previousContext; // Restore all active ReactContexts to what they were before.
-
-      switchContext(previousContext);
-
-      {
-        task.componentStack = previousComponentStack;
-      }
-
-      return;
-    } else {
-      // Restore the context. We assume that this will be restored by the inner
-      // functions in case nothing throws so we don't use "finally" here.
-      task.blockedSegment.formatContext = previousFormatContext;
-      task.legacyContext = previousLegacyContext;
-      task.context = previousContext; // Restore all active ReactContexts to what they were before.
-
-      switchContext(previousContext);
-
-      {
-        task.componentStack = previousComponentStack;
-      } // We assume that we don't need the correct context.
-      // Let's terminate the rest of the tree and don't render any siblings.
-
-
-      throw x;
-    }
-  }
-}
-
-function erroredTask(request, boundary, segment, error) {
-  // Report the error to a global handler.
-  var errorDigest = logRecoverableError(request, error);
-
-  if (boundary === null) {
-    fatalError(request, error);
-  } else {
-    boundary.pendingTasks--;
-
-    if (!boundary.forceClientRender) {
-      boundary.forceClientRender = true;
-      boundary.errorDigest = errorDigest;
-
-      {
-        captureBoundaryErrorDetailsDev(boundary, error);
-      } // Regardless of what happens next, this boundary won't be displayed,
-      // so we can flush it, if the parent already flushed.
-
-
-      if (boundary.parentFlushed) {
-        // We don't have a preference where in the queue this goes since it's likely
-        // to error on the client anyway. However, intentionally client-rendered
-        // boundaries should be flushed earlier so that they can start on the client.
-        // We reuse the same queue for errors.
-        request.clientRenderedBoundaries.push(boundary);
-      }
-    }
-  }
-
-  request.allPendingTasks--;
-
-  if (request.allPendingTasks === 0) {
-    var onAllReady = request.onAllReady;
-    onAllReady();
-  }
-}
-
-function abortTaskSoft(task) {
-  // This aborts task without aborting the parent boundary that it blocks.
-  // It's used for when we didn't need this task to complete the tree.
-  // If task was needed, then it should use abortTask instead.
-  var request = this;
-  var boundary = task.blockedBoundary;
-  var segment = task.blockedSegment;
-  segment.status = ABORTED;
-  finishedTask(request, boundary, segment);
-}
-
-function abortTask(task, request, reason) {
-  // This aborts the task and aborts the parent that it blocks, putting it into
-  // client rendered mode.
-  var boundary = task.blockedBoundary;
-  var segment = task.blockedSegment;
-  segment.status = ABORTED;
-
-  if (boundary === null) {
-    request.allPendingTasks--; // We didn't complete the root so we have nothing to show. We can close
-    // the request;
-
-    if (request.status !== CLOSED) {
-      request.status = CLOSED;
-
-      if (request.destination !== null) {
-        close(request.destination);
-      }
-    }
-  } else {
-    boundary.pendingTasks--;
-
-    if (!boundary.forceClientRender) {
-      boundary.forceClientRender = true;
-
-      var _error = reason === undefined ? new Error('The render was aborted by the server without a reason.') : reason;
-
-      boundary.errorDigest = request.onError(_error);
-
-      {
-        var errorPrefix = 'The server did not finish this Suspense boundary: ';
-
-        if (_error && typeof _error.message === 'string') {
-          _error = errorPrefix + _error.message;
-        } else {
-          // eslint-disable-next-line react-internal/safe-string-coercion
-          _error = errorPrefix + String(_error);
-        }
-
-        var previousTaskInDev = currentTaskInDEV;
-        currentTaskInDEV = task;
-
-        try {
-          captureBoundaryErrorDetailsDev(boundary, _error);
-        } finally {
-          currentTaskInDEV = previousTaskInDev;
-        }
-      }
-
-      if (boundary.parentFlushed) {
-        request.clientRenderedBoundaries.push(boundary);
-      }
-    } // If this boundary was still pending then we haven't already cancelled its fallbacks.
-    // We'll need to abort the fallbacks, which will also error that parent boundary.
-
-
-    boundary.fallbackAbortableTasks.forEach(function (fallbackTask) {
-      return abortTask(fallbackTask, request, reason);
-    });
-    boundary.fallbackAbortableTasks.clear();
-    request.allPendingTasks--;
-
-    if (request.allPendingTasks === 0) {
-      var onAllReady = request.onAllReady;
-      onAllReady();
-    }
-  }
-}
-
-function queueCompletedSegment(boundary, segment) {
-  if (segment.chunks.length === 0 && segment.children.length === 1 && segment.children[0].boundary === null) {
-    // This is an empty segment. There's nothing to write, so we can instead transfer the ID
-    // to the child. That way any existing references point to the child.
-    var childSegment = segment.children[0];
-    childSegment.id = segment.id;
-    childSegment.parentFlushed = true;
-
-    if (childSegment.status === COMPLETED) {
-      queueCompletedSegment(boundary, childSegment);
-    }
-  } else {
-    var completedSegments = boundary.completedSegments;
-    completedSegments.push(segment);
-  }
-}
-
-function finishedTask(request, boundary, segment) {
-  if (boundary === null) {
-    if (segment.parentFlushed) {
-      if (request.completedRootSegment !== null) {
-        throw new Error('There can only be one root segment. This is a bug in React.');
-      }
-
-      request.completedRootSegment = segment;
-    }
-
-    request.pendingRootTasks--;
-
-    if (request.pendingRootTasks === 0) {
-      // We have completed the shell so the shell can't error anymore.
-      request.onShellError = noop$1;
-      var onShellReady = request.onShellReady;
-      onShellReady();
-    }
-  } else {
-    boundary.pendingTasks--;
-
-    if (boundary.forceClientRender) ; else if (boundary.pendingTasks === 0) {
-      // This must have been the last segment we were waiting on. This boundary is now complete.
-      if (segment.parentFlushed) {
-        // Our parent segment already flushed, so we need to schedule this segment to be emitted.
-        // If it is a segment that was aborted, we'll write other content instead so we don't need
-        // to emit it.
-        if (segment.status === COMPLETED) {
-          queueCompletedSegment(boundary, segment);
-        }
-      }
-
-      if (boundary.parentFlushed) {
-        // The segment might be part of a segment that didn't flush yet, but if the boundary's
-        // parent flushed, we need to schedule the boundary to be emitted.
-        request.completedBoundaries.push(boundary);
-      } // We can now cancel any pending task on the fallback since we won't need to show it anymore.
-      // This needs to happen after we read the parentFlushed flags because aborting can finish
-      // work which can trigger user code, which can start flushing, which can change those flags.
-
-
-      boundary.fallbackAbortableTasks.forEach(abortTaskSoft, request);
-      boundary.fallbackAbortableTasks.clear();
-    } else {
-      if (segment.parentFlushed) {
-        // Our parent already flushed, so we need to schedule this segment to be emitted.
-        // If it is a segment that was aborted, we'll write other content instead so we don't need
-        // to emit it.
-        if (segment.status === COMPLETED) {
-          queueCompletedSegment(boundary, segment);
-          var completedSegments = boundary.completedSegments;
-
-          if (completedSegments.length === 1) {
-            // This is the first time since we last flushed that we completed anything.
-            // We can schedule this boundary to emit its partially completed segments early
-            // in case the parent has already been flushed.
-            if (boundary.parentFlushed) {
-              request.partialBoundaries.push(boundary);
-            }
-          }
-        }
-      }
-    }
-  }
-
-  request.allPendingTasks--;
-
-  if (request.allPendingTasks === 0) {
-    // This needs to be called at the very end so that we can synchronously write the result
-    // in the callback if needed.
-    var onAllReady = request.onAllReady;
-    onAllReady();
-  }
-}
-
-function retryTask(request, task) {
-  var segment = task.blockedSegment;
-
-  if (segment.status !== PENDING) {
-    // We completed this by other means before we had a chance to retry it.
-    return;
-  } // We restore the context to what it was when we suspended.
-  // We don't restore it after we leave because it's likely that we'll end up
-  // needing a very similar context soon again.
-
-
-  switchContext(task.context);
-  var prevTaskInDEV = null;
-
-  {
-    prevTaskInDEV = currentTaskInDEV;
-    currentTaskInDEV = task;
-  }
-
-  try {
-    // We call the destructive form that mutates this task. That way if something
-    // suspends again, we can reuse the same task instead of spawning a new one.
-    renderNodeDestructive(request, task, task.node);
-    pushSegmentFinale$1(segment.chunks, request.responseState, segment.lastPushedText, segment.textEmbedded);
-    task.abortSet.delete(task);
-    segment.status = COMPLETED;
-    finishedTask(request, task.blockedBoundary, segment);
-  } catch (x) {
-    resetHooksState();
-
-    if (typeof x === 'object' && x !== null && typeof x.then === 'function') {
-      // Something suspended again, let's pick it back up later.
-      var ping = task.ping;
-      x.then(ping, ping);
-    } else {
-      task.abortSet.delete(task);
-      segment.status = ERRORED;
-      erroredTask(request, task.blockedBoundary, segment, x);
-    }
-  } finally {
-    {
-      currentTaskInDEV = prevTaskInDEV;
-    }
-  }
-}
-
-function performWork(request) {
-  if (request.status === CLOSED) {
-    return;
-  }
-
-  var prevContext = getActiveContext();
-  var prevDispatcher = ReactCurrentDispatcher$1.current;
-  ReactCurrentDispatcher$1.current = Dispatcher;
-  var prevGetCurrentStackImpl;
-
-  {
-    prevGetCurrentStackImpl = ReactDebugCurrentFrame$1.getCurrentStack;
-    ReactDebugCurrentFrame$1.getCurrentStack = getCurrentStackInDEV;
-  }
-
-  var prevResponseState = currentResponseState;
-  setCurrentResponseState(request.responseState);
-
-  try {
-    var pingedTasks = request.pingedTasks;
-    var i;
-
-    for (i = 0; i < pingedTasks.length; i++) {
-      var task = pingedTasks[i];
-      retryTask(request, task);
-    }
-
-    pingedTasks.splice(0, i);
-
-    if (request.destination !== null) {
-      flushCompletedQueues(request, request.destination);
-    }
-  } catch (error) {
-    logRecoverableError(request, error);
-    fatalError(request, error);
-  } finally {
-    setCurrentResponseState(prevResponseState);
-    ReactCurrentDispatcher$1.current = prevDispatcher;
-
-    {
-      ReactDebugCurrentFrame$1.getCurrentStack = prevGetCurrentStackImpl;
-    }
-
-    if (prevDispatcher === Dispatcher) {
-      // This means that we were in a reentrant work loop. This could happen
-      // in a renderer that supports synchronous work like renderToString,
-      // when it's called from within another renderer.
-      // Normally we don't bother switching the contexts to their root/default
-      // values when leaving because we'll likely need the same or similar
-      // context again. However, when we're inside a synchronous loop like this
-      // we'll to restore the context to what it was before returning.
-      switchContext(prevContext);
-    }
-  }
-}
-
-function flushSubtree(request, destination, segment) {
-  segment.parentFlushed = true;
-
-  switch (segment.status) {
-    case PENDING:
-      {
-        // We're emitting a placeholder for this segment to be filled in later.
-        // Therefore we'll need to assign it an ID - to refer to it by.
-        var segmentID = segment.id = request.nextSegmentId++; // When this segment finally completes it won't be embedded in text since it will flush separately
-
-        segment.lastPushedText = false;
-        segment.textEmbedded = false;
-        return writePlaceholder(destination, request.responseState, segmentID);
-      }
-
-    case COMPLETED:
-      {
-        segment.status = FLUSHED;
-        var r = true;
-        var chunks = segment.chunks;
-        var chunkIdx = 0;
-        var children = segment.children;
-
-        for (var childIdx = 0; childIdx < children.length; childIdx++) {
-          var nextChild = children[childIdx]; // Write all the chunks up until the next child.
-
-          for (; chunkIdx < nextChild.index; chunkIdx++) {
-            writeChunk(destination, chunks[chunkIdx]);
-          }
-
-          r = flushSegment(request, destination, nextChild);
-        } // Finally just write all the remaining chunks
-
-
-        for (; chunkIdx < chunks.length - 1; chunkIdx++) {
-          writeChunk(destination, chunks[chunkIdx]);
-        }
-
-        if (chunkIdx < chunks.length) {
-          r = writeChunkAndReturn(destination, chunks[chunkIdx]);
-        }
-
-        return r;
-      }
-
-    default:
-      {
-        throw new Error('Aborted, errored or already flushed boundaries should not be flushed again. This is a bug in React.');
-      }
-  }
-}
-
-function flushSegment(request, destination, segment) {
-  var boundary = segment.boundary;
-
-  if (boundary === null) {
-    // Not a suspense boundary.
-    return flushSubtree(request, destination, segment);
-  }
-
-  boundary.parentFlushed = true; // This segment is a Suspense boundary. We need to decide whether to
-  // emit the content or the fallback now.
-
-  if (boundary.forceClientRender) {
-    // Emit a client rendered suspense boundary wrapper.
-    // We never queue the inner boundary so we'll never emit its content or partial segments.
-    writeStartClientRenderedSuspenseBoundary$1(destination, request.responseState, boundary.errorDigest, boundary.errorMessage, boundary.errorComponentStack); // Flush the fallback.
-
-    flushSubtree(request, destination, segment);
-    return writeEndClientRenderedSuspenseBoundary$1(destination, request.responseState);
-  } else if (boundary.pendingTasks > 0) {
-    // This boundary is still loading. Emit a pending suspense boundary wrapper.
-    // Assign an ID to refer to the future content by.
-    boundary.rootSegmentID = request.nextSegmentId++;
-
-    if (boundary.completedSegments.length > 0) {
-      // If this is at least partially complete, we can queue it to be partially emitted early.
-      request.partialBoundaries.push(boundary);
-    } /// This is the first time we should have referenced this ID.
-
-
-    var id = boundary.id = assignSuspenseBoundaryID(request.responseState);
-    writeStartPendingSuspenseBoundary(destination, request.responseState, id); // Flush the fallback.
-
-    flushSubtree(request, destination, segment);
-    return writeEndPendingSuspenseBoundary(destination, request.responseState);
-  } else if (boundary.byteSize > request.progressiveChunkSize) {
-    // This boundary is large and will be emitted separately so that we can progressively show
-    // other content. We add it to the queue during the flush because we have to ensure that
-    // the parent flushes first so that there's something to inject it into.
-    // We also have to make sure that it's emitted into the queue in a deterministic slot.
-    // I.e. we can't insert it here when it completes.
-    // Assign an ID to refer to the future content by.
-    boundary.rootSegmentID = request.nextSegmentId++;
-    request.completedBoundaries.push(boundary); // Emit a pending rendered suspense boundary wrapper.
-
-    writeStartPendingSuspenseBoundary(destination, request.responseState, boundary.id); // Flush the fallback.
-
-    flushSubtree(request, destination, segment);
-    return writeEndPendingSuspenseBoundary(destination, request.responseState);
-  } else {
-    // We can inline this boundary's content as a complete boundary.
-    writeStartCompletedSuspenseBoundary$1(destination, request.responseState);
-    var completedSegments = boundary.completedSegments;
-
-    if (completedSegments.length !== 1) {
-      throw new Error('A previously unvisited boundary must have exactly one root segment. This is a bug in React.');
-    }
-
-    var contentSegment = completedSegments[0];
-    flushSegment(request, destination, contentSegment);
-    return writeEndCompletedSuspenseBoundary$1(destination, request.responseState);
-  }
-}
-
-function flushClientRenderedBoundary(request, destination, boundary) {
-  return writeClientRenderBoundaryInstruction(destination, request.responseState, boundary.id, boundary.errorDigest, boundary.errorMessage, boundary.errorComponentStack);
-}
-
-function flushSegmentContainer(request, destination, segment) {
-  writeStartSegment(destination, request.responseState, segment.formatContext, segment.id);
-  flushSegment(request, destination, segment);
-  return writeEndSegment(destination, segment.formatContext);
-}
-
-function flushCompletedBoundary(request, destination, boundary) {
-  var completedSegments = boundary.completedSegments;
-  var i = 0;
-
-  for (; i < completedSegments.length; i++) {
-    var segment = completedSegments[i];
-    flushPartiallyCompletedSegment(request, destination, boundary, segment);
-  }
-
-  completedSegments.length = 0;
-  return writeCompletedBoundaryInstruction(destination, request.responseState, boundary.id, boundary.rootSegmentID);
-}
-
-function flushPartialBoundary(request, destination, boundary) {
-  var completedSegments = boundary.completedSegments;
-  var i = 0;
-
-  for (; i < completedSegments.length; i++) {
-    var segment = completedSegments[i];
-
-    if (!flushPartiallyCompletedSegment(request, destination, boundary, segment)) {
-      i++;
-      completedSegments.splice(0, i); // Only write as much as the buffer wants. Something higher priority
-      // might want to write later.
-
-      return false;
-    }
-  }
-
-  completedSegments.splice(0, i);
-  return true;
-}
-
-function flushPartiallyCompletedSegment(request, destination, boundary, segment) {
-  if (segment.status === FLUSHED) {
-    // We've already flushed this inline.
-    return true;
-  }
-
-  var segmentID = segment.id;
-
-  if (segmentID === -1) {
-    // This segment wasn't previously referred to. This happens at the root of
-    // a boundary. We make kind of a leap here and assume this is the root.
-    var rootSegmentID = segment.id = boundary.rootSegmentID;
-
-    if (rootSegmentID === -1) {
-      throw new Error('A root segment ID must have been assigned by now. This is a bug in React.');
-    }
-
-    return flushSegmentContainer(request, destination, segment);
-  } else {
-    flushSegmentContainer(request, destination, segment);
-    return writeCompletedSegmentInstruction(destination, request.responseState, segmentID);
-  }
-}
-
-function flushCompletedQueues(request, destination) {
-
-  try {
-    // The structure of this is to go through each queue one by one and write
-    // until the sink tells us to stop. When we should stop, we still finish writing
-    // that item fully and then yield. At that point we remove the already completed
-    // items up until the point we completed them.
-    // TODO: Emit preloading.
-    // TODO: It's kind of unfortunate to keep checking this array after we've already
-    // emitted the root.
-    var completedRootSegment = request.completedRootSegment;
-
-    if (completedRootSegment !== null && request.pendingRootTasks === 0) {
-      flushSegment(request, destination, completedRootSegment);
-      request.completedRootSegment = null;
-      writeCompletedRoot(destination, request.responseState);
-    } // We emit client rendering instructions for already emitted boundaries first.
-    // This is so that we can signal to the client to start client rendering them as
-    // soon as possible.
-
-
-    var clientRenderedBoundaries = request.clientRenderedBoundaries;
-    var i;
-
-    for (i = 0; i < clientRenderedBoundaries.length; i++) {
-      var boundary = clientRenderedBoundaries[i];
-
-      if (!flushClientRenderedBoundary(request, destination, boundary)) {
-        request.destination = null;
-        i++;
-        clientRenderedBoundaries.splice(0, i);
-        return;
-      }
-    }
-
-    clientRenderedBoundaries.splice(0, i); // Next we emit any complete boundaries. It's better to favor boundaries
-    // that are completely done since we can actually show them, than it is to emit
-    // any individual segments from a partially complete boundary.
-
-    var completedBoundaries = request.completedBoundaries;
-
-    for (i = 0; i < completedBoundaries.length; i++) {
-      var _boundary = completedBoundaries[i];
-
-      if (!flushCompletedBoundary(request, destination, _boundary)) {
-        request.destination = null;
-        i++;
-        completedBoundaries.splice(0, i);
-        return;
-      }
-    }
-
-    completedBoundaries.splice(0, i); // Allow anything written so far to flush to the underlying sink before
-    // we continue with lower priorities.
-
-    completeWriting(destination);
-    beginWriting(destination); // TODO: Here we'll emit data used by hydration.
-    // Next we emit any segments of any boundaries that are partially complete
-    // but not deeply complete.
-
-    var partialBoundaries = request.partialBoundaries;
-
-    for (i = 0; i < partialBoundaries.length; i++) {
-      var _boundary2 = partialBoundaries[i];
-
-      if (!flushPartialBoundary(request, destination, _boundary2)) {
-        request.destination = null;
-        i++;
-        partialBoundaries.splice(0, i);
-        return;
-      }
-    }
-
-    partialBoundaries.splice(0, i); // Next we check the completed boundaries again. This may have had
-    // boundaries added to it in case they were too larged to be inlined.
-    // New ones might be added in this loop.
-
-    var largeBoundaries = request.completedBoundaries;
-
-    for (i = 0; i < largeBoundaries.length; i++) {
-      var _boundary3 = largeBoundaries[i];
-
-      if (!flushCompletedBoundary(request, destination, _boundary3)) {
-        request.destination = null;
-        i++;
-        largeBoundaries.splice(0, i);
-        return;
-      }
-    }
-
-    largeBoundaries.splice(0, i);
-  } finally {
-
-    if (request.allPendingTasks === 0 && request.pingedTasks.length === 0 && request.clientRenderedBoundaries.length === 0 && request.completedBoundaries.length === 0 // We don't need to check any partially completed segments because
-    // either they have pending task or they're complete.
-    ) {
-        {
-          if (request.abortableTasks.size !== 0) {
-            error('There was still abortable task at the root when we closed. This is a bug in React.');
-          }
-        } // We're done.
-
-
-        close(destination);
-      }
-  }
-}
-
-function startWork(request) {
-  scheduleWork(function () {
-    return performWork(request);
-  });
-}
-function startFlowing(request, destination) {
-  if (request.status === CLOSING) {
-    request.status = CLOSED;
-    closeWithError(destination, request.fatalError);
-    return;
-  }
-
-  if (request.status === CLOSED) {
-    return;
-  }
-
-  if (request.destination !== null) {
-    // We're already flowing.
-    return;
-  }
-
-  request.destination = destination;
-
-  try {
-    flushCompletedQueues(request, destination);
-  } catch (error) {
-    logRecoverableError(request, error);
-    fatalError(request, error);
-  }
-} // This is called to early terminate a request. It puts all pending boundaries in client rendered state.
-
-function abort(request, reason) {
-  try {
-    var abortableTasks = request.abortableTasks;
-    abortableTasks.forEach(function (task) {
-      return abortTask(task, request, reason);
-    });
-    abortableTasks.clear();
-
-    if (request.destination !== null) {
-      flushCompletedQueues(request, request.destination);
-    }
-  } catch (error) {
-    logRecoverableError(request, error);
-    fatalError(request, error);
-  }
-}
-
-function onError() {// Non-fatal errors are ignored.
-}
-
-function renderToStringImpl(children, options, generateStaticMarkup, abortReason) {
-  var didFatal = false;
-  var fatalError = null;
-  var result = '';
-  var destination = {
-    push: function (chunk) {
-      if (chunk !== null) {
-        result += chunk;
-      }
-
-      return true;
-    },
-    destroy: function (error) {
-      didFatal = true;
-      fatalError = error;
-    }
-  };
-  var readyToStream = false;
-
-  function onShellReady() {
-    readyToStream = true;
-  }
-
-  var request = createRequest(children, createResponseState$1(generateStaticMarkup, options ? options.identifierPrefix : undefined), createRootFormatContext(), Infinity, onError, undefined, onShellReady, undefined, undefined);
-  startWork(request); // If anything suspended and is still pending, we'll abort it before writing.
-  // That way we write only client-rendered boundaries from the start.
-
-  abort(request, abortReason);
-  startFlowing(request, destination);
-
-  if (didFatal) {
-    throw fatalError;
-  }
-
-  if (!readyToStream) {
-    // Note: This error message is the one we use on the client. It doesn't
-    // really make sense here. But this is the legacy server renderer, anyway.
-    // We're going to delete it soon.
-    throw new Error('A component suspended while responding to synchronous input. This ' + 'will cause the UI to be replaced with a loading indicator. To fix, ' + 'updates that suspend should be wrapped with startTransition.');
-  }
-
-  return result;
-}
-
-function renderToString(children, options) {
-  return renderToStringImpl(children, options, false, 'The server used "renderToString" which does not support Suspense. If you intended for this Suspense boundary to render the fallback content on the server consider throwing an Error somewhere within the Suspense boundary. If you intended to have the server wait for the suspended component please switch to "renderToReadableStream" which supports Suspense on the server');
-}
-
-function renderToStaticMarkup(children, options) {
-  return renderToStringImpl(children, options, true, 'The server used "renderToStaticMarkup" which does not support Suspense. If you intended to have the server wait for the suspended component please switch to "renderToReadableStream" which supports Suspense on the server');
-}
-
-function renderToNodeStream() {
-  throw new Error('ReactDOMServer.renderToNodeStream(): The streaming API is not available ' + 'in the browser. Use ReactDOMServer.renderToString() instead.');
-}
-
-function renderToStaticNodeStream() {
-  throw new Error('ReactDOMServer.renderToStaticNodeStream(): The streaming API is not available ' + 'in the browser. Use ReactDOMServer.renderToStaticMarkup() instead.');
-}
-
-exports.renderToNodeStream = renderToNodeStream;
-exports.renderToStaticMarkup = renderToStaticMarkup;
-exports.renderToStaticNodeStream = renderToStaticNodeStream;
-exports.renderToString = renderToString;
-exports.version = ReactVersion;
-  })();
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/react-dom/cjs/react-dom-server.browser.development.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/react-dom/cjs/react-dom-server.browser.development.js ***!
-  \****************************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-/**
- * @license React
- * react-dom-server.browser.development.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-
-
-if (true) {
-  (function() {
-'use strict';
-
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var ReactVersion = '18.3.1';
-
-var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
-
-// by calls to these methods by a Babel plugin.
-//
-// In PROD (or in packages without access to React internals),
-// they are left as they are instead.
-
-function warn(format) {
-  {
-    {
-      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        args[_key - 1] = arguments[_key];
-      }
-
-      printWarning('warn', format, args);
-    }
-  }
-}
-function error(format) {
-  {
-    {
-      for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-        args[_key2 - 1] = arguments[_key2];
-      }
-
-      printWarning('error', format, args);
-    }
-  }
-}
-
-function printWarning(level, format, args) {
-  // When changing this logic, you might want to also
-  // update consoleWithStackDev.www.js as well.
-  {
-    var ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
-    var stack = ReactDebugCurrentFrame.getStackAddendum();
-
-    if (stack !== '') {
-      format += '%s';
-      args = args.concat([stack]);
-    } // eslint-disable-next-line react-internal/safe-string-coercion
-
-
-    var argsWithFormat = args.map(function (item) {
-      return String(item);
-    }); // Careful: RN currently depends on this prefix
-
-    argsWithFormat.unshift('Warning: ' + format); // We intentionally don't use spread (or .apply) directly because it
-    // breaks IE9: https://github.com/facebook/react/issues/13610
-    // eslint-disable-next-line react-internal/no-production-logging
-
-    Function.prototype.apply.call(console[level], console, argsWithFormat);
-  }
-}
-
-function scheduleWork(callback) {
-  callback();
-}
-var VIEW_SIZE = 512;
-var currentView = null;
-var writtenBytes = 0;
-function beginWriting(destination) {
-  currentView = new Uint8Array(VIEW_SIZE);
-  writtenBytes = 0;
-}
-function writeChunk(destination, chunk) {
-  if (chunk.length === 0) {
-    return;
-  }
-
-  if (chunk.length > VIEW_SIZE) {
-    // this chunk may overflow a single view which implies it was not
-    // one that is cached by the streaming renderer. We will enqueu
-    // it directly and expect it is not re-used
-    if (writtenBytes > 0) {
-      destination.enqueue(new Uint8Array(currentView.buffer, 0, writtenBytes));
-      currentView = new Uint8Array(VIEW_SIZE);
-      writtenBytes = 0;
-    }
-
-    destination.enqueue(chunk);
-    return;
-  }
-
-  var bytesToWrite = chunk;
-  var allowableBytes = currentView.length - writtenBytes;
-
-  if (allowableBytes < bytesToWrite.length) {
-    // this chunk would overflow the current view. We enqueue a full view
-    // and start a new view with the remaining chunk
-    if (allowableBytes === 0) {
-      // the current view is already full, send it
-      destination.enqueue(currentView);
-    } else {
-      // fill up the current view and apply the remaining chunk bytes
-      // to a new view.
-      currentView.set(bytesToWrite.subarray(0, allowableBytes), writtenBytes); // writtenBytes += allowableBytes; // this can be skipped because we are going to immediately reset the view
-
-      destination.enqueue(currentView);
-      bytesToWrite = bytesToWrite.subarray(allowableBytes);
-    }
-
-    currentView = new Uint8Array(VIEW_SIZE);
-    writtenBytes = 0;
-  }
-
-  currentView.set(bytesToWrite, writtenBytes);
-  writtenBytes += bytesToWrite.length;
-}
-function writeChunkAndReturn(destination, chunk) {
-  writeChunk(destination, chunk); // in web streams there is no backpressure so we can alwas write more
-
-  return true;
-}
-function completeWriting(destination) {
-  if (currentView && writtenBytes > 0) {
-    destination.enqueue(new Uint8Array(currentView.buffer, 0, writtenBytes));
-    currentView = null;
-    writtenBytes = 0;
-  }
-}
-function close(destination) {
-  destination.close();
-}
-var textEncoder = new TextEncoder();
-function stringToChunk(content) {
-  return textEncoder.encode(content);
-}
-function stringToPrecomputedChunk(content) {
-  return textEncoder.encode(content);
-}
-function closeWithError(destination, error) {
-  if (typeof destination.error === 'function') {
-    // $FlowFixMe: This is an Error object or the destination accepts other types.
-    destination.error(error);
-  } else {
-    // Earlier implementations doesn't support this method. In that environment you're
-    // supposed to throw from a promise returned but we don't return a promise in our
-    // approach. We could fork this implementation but this is environment is an edge
-    // case to begin with. It's even less common to run this in an older environment.
-    // Even then, this is not where errors are supposed to happen and they get reported
-    // to a global callback in addition to this anyway. So it's fine just to close this.
-    destination.close();
-  }
-}
-
-/*
- * The `'' + value` pattern (used in in perf-sensitive code) throws for Symbol
- * and Temporal.* types. See https://github.com/facebook/react/pull/22064.
- *
- * The functions in this module will throw an easier-to-understand,
- * easier-to-debug exception with a clear errors message message explaining the
- * problem. (Instead of a confusing exception thrown inside the implementation
- * of the `value` object).
- */
-// $FlowFixMe only called in DEV, so void return is not possible.
-function typeName(value) {
-  {
-    // toStringTag is needed for namespaced types like Temporal.Instant
-    var hasToStringTag = typeof Symbol === 'function' && Symbol.toStringTag;
-    var type = hasToStringTag && value[Symbol.toStringTag] || value.constructor.name || 'Object';
-    return type;
-  }
-} // $FlowFixMe only called in DEV, so void return is not possible.
-
-
-function willCoercionThrow(value) {
-  {
-    try {
-      testStringCoercion(value);
-      return false;
-    } catch (e) {
-      return true;
-    }
-  }
-}
-
-function testStringCoercion(value) {
-  // If you ended up here by following an exception call stack, here's what's
-  // happened: you supplied an object or symbol value to React (as a prop, key,
-  // DOM attribute, CSS property, string ref, etc.) and when React tried to
-  // coerce it to a string using `'' + value`, an exception was thrown.
-  //
-  // The most common types that will cause this exception are `Symbol` instances
-  // and Temporal objects like `Temporal.Instant`. But any object that has a
-  // `valueOf` or `[Symbol.toPrimitive]` method that throws will also cause this
-  // exception. (Library authors do this to prevent users from using built-in
-  // numeric operators like `+` or comparison operators like `>=` because custom
-  // methods are needed to perform accurate arithmetic or comparison.)
-  //
-  // To fix the problem, coerce this object or symbol value to a string before
-  // passing it to React. The most reliable way is usually `String(value)`.
-  //
-  // To find which value is throwing, check the browser or debugger console.
-  // Before this exception was thrown, there should be `console.error` output
-  // that shows the type (Symbol, Temporal.PlainDate, etc.) that caused the
-  // problem and how that type was used: key, atrribute, input value prop, etc.
-  // In most cases, this console output also shows the component and its
-  // ancestor components where the exception happened.
-  //
-  // eslint-disable-next-line react-internal/safe-string-coercion
-  return '' + value;
-}
-
-function checkAttributeStringCoercion(value, attributeName) {
-  {
-    if (willCoercionThrow(value)) {
-      error('The provided `%s` attribute is an unsupported type %s.' + ' This value must be coerced to a string before before using it here.', attributeName, typeName(value));
-
-      return testStringCoercion(value); // throw (to help callers find troubleshooting comments)
-    }
-  }
-}
-function checkCSSPropertyStringCoercion(value, propName) {
-  {
-    if (willCoercionThrow(value)) {
-      error('The provided `%s` CSS property is an unsupported type %s.' + ' This value must be coerced to a string before before using it here.', propName, typeName(value));
-
-      return testStringCoercion(value); // throw (to help callers find troubleshooting comments)
-    }
-  }
-}
-function checkHtmlStringCoercion(value) {
-  {
-    if (willCoercionThrow(value)) {
-      error('The provided HTML markup uses a value of unsupported type %s.' + ' This value must be coerced to a string before before using it here.', typeName(value));
-
-      return testStringCoercion(value); // throw (to help callers find troubleshooting comments)
-    }
-  }
-}
-
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-// A reserved attribute.
-// It is handled by React separately and shouldn't be written to the DOM.
-var RESERVED = 0; // A simple string attribute.
-// Attributes that aren't in the filter are presumed to have this type.
-
-var STRING = 1; // A string attribute that accepts booleans in React. In HTML, these are called
-// "enumerated" attributes with "true" and "false" as possible values.
-// When true, it should be set to a "true" string.
-// When false, it should be set to a "false" string.
-
-var BOOLEANISH_STRING = 2; // A real boolean attribute.
-// When true, it should be present (set either to an empty string or its name).
-// When false, it should be omitted.
-
-var BOOLEAN = 3; // An attribute that can be used as a flag as well as with a value.
-// When true, it should be present (set either to an empty string or its name).
-// When false, it should be omitted.
-// For any other value, should be present with that value.
-
-var OVERLOADED_BOOLEAN = 4; // An attribute that must be numeric or parse as a numeric.
-// When falsy, it should be removed.
-
-var NUMERIC = 5; // An attribute that must be positive numeric or parse as a positive numeric.
-// When falsy, it should be removed.
-
-var POSITIVE_NUMERIC = 6;
-
-/* eslint-disable max-len */
-var ATTRIBUTE_NAME_START_CHAR = ":A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD";
-/* eslint-enable max-len */
-
-var ATTRIBUTE_NAME_CHAR = ATTRIBUTE_NAME_START_CHAR + "\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040";
-var VALID_ATTRIBUTE_NAME_REGEX = new RegExp('^[' + ATTRIBUTE_NAME_START_CHAR + '][' + ATTRIBUTE_NAME_CHAR + ']*$');
-var illegalAttributeNameCache = {};
-var validatedAttributeNameCache = {};
-function isAttributeNameSafe(attributeName) {
-  if (hasOwnProperty.call(validatedAttributeNameCache, attributeName)) {
-    return true;
-  }
-
-  if (hasOwnProperty.call(illegalAttributeNameCache, attributeName)) {
-    return false;
-  }
-
-  if (VALID_ATTRIBUTE_NAME_REGEX.test(attributeName)) {
-    validatedAttributeNameCache[attributeName] = true;
-    return true;
-  }
-
-  illegalAttributeNameCache[attributeName] = true;
-
-  {
-    error('Invalid attribute name: `%s`', attributeName);
-  }
-
-  return false;
-}
-function shouldRemoveAttributeWithWarning(name, value, propertyInfo, isCustomComponentTag) {
-  if (propertyInfo !== null && propertyInfo.type === RESERVED) {
-    return false;
-  }
-
-  switch (typeof value) {
-    case 'function': // $FlowIssue symbol is perfectly valid here
-
-    case 'symbol':
-      // eslint-disable-line
-      return true;
-
-    case 'boolean':
-      {
-        if (isCustomComponentTag) {
-          return false;
-        }
-
-        if (propertyInfo !== null) {
-          return !propertyInfo.acceptsBooleans;
-        } else {
-          var prefix = name.toLowerCase().slice(0, 5);
-          return prefix !== 'data-' && prefix !== 'aria-';
-        }
-      }
-
-    default:
-      return false;
-  }
-}
-function getPropertyInfo(name) {
-  return properties.hasOwnProperty(name) ? properties[name] : null;
-}
-
-function PropertyInfoRecord(name, type, mustUseProperty, attributeName, attributeNamespace, sanitizeURL, removeEmptyString) {
-  this.acceptsBooleans = type === BOOLEANISH_STRING || type === BOOLEAN || type === OVERLOADED_BOOLEAN;
-  this.attributeName = attributeName;
-  this.attributeNamespace = attributeNamespace;
-  this.mustUseProperty = mustUseProperty;
-  this.propertyName = name;
-  this.type = type;
-  this.sanitizeURL = sanitizeURL;
-  this.removeEmptyString = removeEmptyString;
-} // When adding attributes to this list, be sure to also add them to
-// the `possibleStandardNames` module to ensure casing and incorrect
-// name warnings.
-
-
-var properties = {}; // These props are reserved by React. They shouldn't be written to the DOM.
-
-var reservedProps = ['children', 'dangerouslySetInnerHTML', // TODO: This prevents the assignment of defaultValue to regular
-// elements (not just inputs). Now that ReactDOMInput assigns to the
-// defaultValue property -- do we need this?
-'defaultValue', 'defaultChecked', 'innerHTML', 'suppressContentEditableWarning', 'suppressHydrationWarning', 'style'];
-
-reservedProps.forEach(function (name) {
-  properties[name] = new PropertyInfoRecord(name, RESERVED, false, // mustUseProperty
-  name, // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // A few React string attributes have a different name.
-// This is a mapping from React prop names to the attribute names.
-
-[['acceptCharset', 'accept-charset'], ['className', 'class'], ['htmlFor', 'for'], ['httpEquiv', 'http-equiv']].forEach(function (_ref) {
-  var name = _ref[0],
-      attributeName = _ref[1];
-  properties[name] = new PropertyInfoRecord(name, STRING, false, // mustUseProperty
-  attributeName, // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // These are "enumerated" HTML attributes that accept "true" and "false".
-// In React, we let users pass `true` and `false` even though technically
-// these aren't boolean attributes (they are coerced to strings).
-
-['contentEditable', 'draggable', 'spellCheck', 'value'].forEach(function (name) {
-  properties[name] = new PropertyInfoRecord(name, BOOLEANISH_STRING, false, // mustUseProperty
-  name.toLowerCase(), // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // These are "enumerated" SVG attributes that accept "true" and "false".
-// In React, we let users pass `true` and `false` even though technically
-// these aren't boolean attributes (they are coerced to strings).
-// Since these are SVG attributes, their attribute names are case-sensitive.
-
-['autoReverse', 'externalResourcesRequired', 'focusable', 'preserveAlpha'].forEach(function (name) {
-  properties[name] = new PropertyInfoRecord(name, BOOLEANISH_STRING, false, // mustUseProperty
-  name, // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // These are HTML boolean attributes.
-
-['allowFullScreen', 'async', // Note: there is a special case that prevents it from being written to the DOM
-// on the client side because the browsers are inconsistent. Instead we call focus().
-'autoFocus', 'autoPlay', 'controls', 'default', 'defer', 'disabled', 'disablePictureInPicture', 'disableRemotePlayback', 'formNoValidate', 'hidden', 'loop', 'noModule', 'noValidate', 'open', 'playsInline', 'readOnly', 'required', 'reversed', 'scoped', 'seamless', // Microdata
-'itemScope'].forEach(function (name) {
-  properties[name] = new PropertyInfoRecord(name, BOOLEAN, false, // mustUseProperty
-  name.toLowerCase(), // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // These are the few React props that we set as DOM properties
-// rather than attributes. These are all booleans.
-
-['checked', // Note: `option.selected` is not updated if `select.multiple` is
-// disabled with `removeAttribute`. We have special logic for handling this.
-'multiple', 'muted', 'selected' // NOTE: if you add a camelCased prop to this list,
-// you'll need to set attributeName to name.toLowerCase()
-// instead in the assignment below.
-].forEach(function (name) {
-  properties[name] = new PropertyInfoRecord(name, BOOLEAN, true, // mustUseProperty
-  name, // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // These are HTML attributes that are "overloaded booleans": they behave like
-// booleans, but can also accept a string value.
-
-['capture', 'download' // NOTE: if you add a camelCased prop to this list,
-// you'll need to set attributeName to name.toLowerCase()
-// instead in the assignment below.
-].forEach(function (name) {
-  properties[name] = new PropertyInfoRecord(name, OVERLOADED_BOOLEAN, false, // mustUseProperty
-  name, // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // These are HTML attributes that must be positive numbers.
-
-['cols', 'rows', 'size', 'span' // NOTE: if you add a camelCased prop to this list,
-// you'll need to set attributeName to name.toLowerCase()
-// instead in the assignment below.
-].forEach(function (name) {
-  properties[name] = new PropertyInfoRecord(name, POSITIVE_NUMERIC, false, // mustUseProperty
-  name, // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // These are HTML attributes that must be numbers.
-
-['rowSpan', 'start'].forEach(function (name) {
-  properties[name] = new PropertyInfoRecord(name, NUMERIC, false, // mustUseProperty
-  name.toLowerCase(), // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-});
-var CAMELIZE = /[\-\:]([a-z])/g;
-
-var capitalize = function (token) {
-  return token[1].toUpperCase();
-}; // This is a list of all SVG attributes that need special casing, namespacing,
-// or boolean value assignment. Regular attributes that just accept strings
-// and have the same names are omitted, just like in the HTML attribute filter.
-// Some of these attributes can be hard to find. This list was created by
-// scraping the MDN documentation.
-
-
-['accent-height', 'alignment-baseline', 'arabic-form', 'baseline-shift', 'cap-height', 'clip-path', 'clip-rule', 'color-interpolation', 'color-interpolation-filters', 'color-profile', 'color-rendering', 'dominant-baseline', 'enable-background', 'fill-opacity', 'fill-rule', 'flood-color', 'flood-opacity', 'font-family', 'font-size', 'font-size-adjust', 'font-stretch', 'font-style', 'font-variant', 'font-weight', 'glyph-name', 'glyph-orientation-horizontal', 'glyph-orientation-vertical', 'horiz-adv-x', 'horiz-origin-x', 'image-rendering', 'letter-spacing', 'lighting-color', 'marker-end', 'marker-mid', 'marker-start', 'overline-position', 'overline-thickness', 'paint-order', 'panose-1', 'pointer-events', 'rendering-intent', 'shape-rendering', 'stop-color', 'stop-opacity', 'strikethrough-position', 'strikethrough-thickness', 'stroke-dasharray', 'stroke-dashoffset', 'stroke-linecap', 'stroke-linejoin', 'stroke-miterlimit', 'stroke-opacity', 'stroke-width', 'text-anchor', 'text-decoration', 'text-rendering', 'underline-position', 'underline-thickness', 'unicode-bidi', 'unicode-range', 'units-per-em', 'v-alphabetic', 'v-hanging', 'v-ideographic', 'v-mathematical', 'vector-effect', 'vert-adv-y', 'vert-origin-x', 'vert-origin-y', 'word-spacing', 'writing-mode', 'xmlns:xlink', 'x-height' // NOTE: if you add a camelCased prop to this list,
-// you'll need to set attributeName to name.toLowerCase()
-// instead in the assignment below.
-].forEach(function (attributeName) {
-  var name = attributeName.replace(CAMELIZE, capitalize);
-  properties[name] = new PropertyInfoRecord(name, STRING, false, // mustUseProperty
-  attributeName, null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // String SVG attributes with the xlink namespace.
-
-['xlink:actuate', 'xlink:arcrole', 'xlink:role', 'xlink:show', 'xlink:title', 'xlink:type' // NOTE: if you add a camelCased prop to this list,
-// you'll need to set attributeName to name.toLowerCase()
-// instead in the assignment below.
-].forEach(function (attributeName) {
-  var name = attributeName.replace(CAMELIZE, capitalize);
-  properties[name] = new PropertyInfoRecord(name, STRING, false, // mustUseProperty
-  attributeName, 'http://www.w3.org/1999/xlink', false, // sanitizeURL
-  false);
-}); // String SVG attributes with the xml namespace.
-
-['xml:base', 'xml:lang', 'xml:space' // NOTE: if you add a camelCased prop to this list,
-// you'll need to set attributeName to name.toLowerCase()
-// instead in the assignment below.
-].forEach(function (attributeName) {
-  var name = attributeName.replace(CAMELIZE, capitalize);
-  properties[name] = new PropertyInfoRecord(name, STRING, false, // mustUseProperty
-  attributeName, 'http://www.w3.org/XML/1998/namespace', false, // sanitizeURL
-  false);
-}); // These attribute exists both in HTML and SVG.
-// The attribute name is case-sensitive in SVG so we can't just use
-// the React name like we do for attributes that exist only in HTML.
-
-['tabIndex', 'crossOrigin'].forEach(function (attributeName) {
-  properties[attributeName] = new PropertyInfoRecord(attributeName, STRING, false, // mustUseProperty
-  attributeName.toLowerCase(), // attributeName
-  null, // attributeNamespace
-  false, // sanitizeURL
-  false);
-}); // These attributes accept URLs. These must not allow javascript: URLS.
-// These will also need to accept Trusted Types object in the future.
-
-var xlinkHref = 'xlinkHref';
-properties[xlinkHref] = new PropertyInfoRecord('xlinkHref', STRING, false, // mustUseProperty
-'xlink:href', 'http://www.w3.org/1999/xlink', true, // sanitizeURL
-false);
-['src', 'href', 'action', 'formAction'].forEach(function (attributeName) {
-  properties[attributeName] = new PropertyInfoRecord(attributeName, STRING, false, // mustUseProperty
-  attributeName.toLowerCase(), // attributeName
-  null, // attributeNamespace
-  true, // sanitizeURL
-  true);
-});
-
-/**
- * CSS properties which accept numbers but are not in units of "px".
- */
-var isUnitlessNumber = {
-  animationIterationCount: true,
-  aspectRatio: true,
-  borderImageOutset: true,
-  borderImageSlice: true,
-  borderImageWidth: true,
-  boxFlex: true,
-  boxFlexGroup: true,
-  boxOrdinalGroup: true,
-  columnCount: true,
-  columns: true,
-  flex: true,
-  flexGrow: true,
-  flexPositive: true,
-  flexShrink: true,
-  flexNegative: true,
-  flexOrder: true,
-  gridArea: true,
-  gridRow: true,
-  gridRowEnd: true,
-  gridRowSpan: true,
-  gridRowStart: true,
-  gridColumn: true,
-  gridColumnEnd: true,
-  gridColumnSpan: true,
-  gridColumnStart: true,
-  fontWeight: true,
-  lineClamp: true,
-  lineHeight: true,
-  opacity: true,
-  order: true,
-  orphans: true,
-  tabSize: true,
-  widows: true,
-  zIndex: true,
-  zoom: true,
-  // SVG-related properties
-  fillOpacity: true,
-  floodOpacity: true,
-  stopOpacity: true,
-  strokeDasharray: true,
-  strokeDashoffset: true,
-  strokeMiterlimit: true,
-  strokeOpacity: true,
-  strokeWidth: true
-};
-/**
- * @param {string} prefix vendor-specific prefix, eg: Webkit
- * @param {string} key style name, eg: transitionDuration
- * @return {string} style name prefixed with `prefix`, properly camelCased, eg:
- * WebkitTransitionDuration
- */
-
-function prefixKey(prefix, key) {
-  return prefix + key.charAt(0).toUpperCase() + key.substring(1);
-}
-/**
- * Support style names that may come passed in prefixed by adding permutations
- * of vendor prefixes.
- */
-
-
-var prefixes = ['Webkit', 'ms', 'Moz', 'O']; // Using Object.keys here, or else the vanilla for-in loop makes IE8 go into an
-// infinite loop, because it iterates over the newly added props too.
-
-Object.keys(isUnitlessNumber).forEach(function (prop) {
-  prefixes.forEach(function (prefix) {
-    isUnitlessNumber[prefixKey(prefix, prop)] = isUnitlessNumber[prop];
-  });
-});
-
-var hasReadOnlyValue = {
-  button: true,
-  checkbox: true,
-  image: true,
-  hidden: true,
-  radio: true,
-  reset: true,
-  submit: true
-};
-function checkControlledValueProps(tagName, props) {
-  {
-    if (!(hasReadOnlyValue[props.type] || props.onChange || props.onInput || props.readOnly || props.disabled || props.value == null)) {
-      error('You provided a `value` prop to a form field without an ' + '`onChange` handler. This will render a read-only field. If ' + 'the field should be mutable use `defaultValue`. Otherwise, ' + 'set either `onChange` or `readOnly`.');
-    }
-
-    if (!(props.onChange || props.readOnly || props.disabled || props.checked == null)) {
-      error('You provided a `checked` prop to a form field without an ' + '`onChange` handler. This will render a read-only field. If ' + 'the field should be mutable use `defaultChecked`. Otherwise, ' + 'set either `onChange` or `readOnly`.');
-    }
-  }
-}
-
-function isCustomComponent(tagName, props) {
-  if (tagName.indexOf('-') === -1) {
-    return typeof props.is === 'string';
-  }
-
-  switch (tagName) {
-    // These are reserved SVG and MathML elements.
-    // We don't mind this list too much because we expect it to never grow.
-    // The alternative is to track the namespace in a few places which is convoluted.
-    // https://w3c.github.io/webcomponents/spec/custom/#custom-elements-core-concepts
-    case 'annotation-xml':
-    case 'color-profile':
-    case 'font-face':
-    case 'font-face-src':
-    case 'font-face-uri':
-    case 'font-face-format':
-    case 'font-face-name':
-    case 'missing-glyph':
-      return false;
-
-    default:
-      return true;
-  }
-}
-
-var ariaProperties = {
-  'aria-current': 0,
-  // state
-  'aria-description': 0,
-  'aria-details': 0,
-  'aria-disabled': 0,
-  // state
-  'aria-hidden': 0,
-  // state
-  'aria-invalid': 0,
-  // state
-  'aria-keyshortcuts': 0,
-  'aria-label': 0,
-  'aria-roledescription': 0,
-  // Widget Attributes
-  'aria-autocomplete': 0,
-  'aria-checked': 0,
-  'aria-expanded': 0,
-  'aria-haspopup': 0,
-  'aria-level': 0,
-  'aria-modal': 0,
-  'aria-multiline': 0,
-  'aria-multiselectable': 0,
-  'aria-orientation': 0,
-  'aria-placeholder': 0,
-  'aria-pressed': 0,
-  'aria-readonly': 0,
-  'aria-required': 0,
-  'aria-selected': 0,
-  'aria-sort': 0,
-  'aria-valuemax': 0,
-  'aria-valuemin': 0,
-  'aria-valuenow': 0,
-  'aria-valuetext': 0,
-  // Live Region Attributes
-  'aria-atomic': 0,
-  'aria-busy': 0,
-  'aria-live': 0,
-  'aria-relevant': 0,
-  // Drag-and-Drop Attributes
-  'aria-dropeffect': 0,
-  'aria-grabbed': 0,
-  // Relationship Attributes
-  'aria-activedescendant': 0,
-  'aria-colcount': 0,
-  'aria-colindex': 0,
-  'aria-colspan': 0,
-  'aria-controls': 0,
-  'aria-describedby': 0,
-  'aria-errormessage': 0,
-  'aria-flowto': 0,
-  'aria-labelledby': 0,
-  'aria-owns': 0,
-  'aria-posinset': 0,
-  'aria-rowcount': 0,
-  'aria-rowindex': 0,
-  'aria-rowspan': 0,
-  'aria-setsize': 0
-};
-
-var warnedProperties = {};
-var rARIA = new RegExp('^(aria)-[' + ATTRIBUTE_NAME_CHAR + ']*$');
-var rARIACamel = new RegExp('^(aria)[A-Z][' + ATTRIBUTE_NAME_CHAR + ']*$');
-
-function validateProperty(tagName, name) {
-  {
-    if (hasOwnProperty.call(warnedProperties, name) && warnedProperties[name]) {
-      return true;
-    }
-
-    if (rARIACamel.test(name)) {
-      var ariaName = 'aria-' + name.slice(4).toLowerCase();
-      var correctName = ariaProperties.hasOwnProperty(ariaName) ? ariaName : null; // If this is an aria-* attribute, but is not listed in the known DOM
-      // DOM properties, then it is an invalid aria-* attribute.
-
-      if (correctName == null) {
-        error('Invalid ARIA attribute `%s`. ARIA attributes follow the pattern aria-* and must be lowercase.', name);
-
-        warnedProperties[name] = true;
-        return true;
-      } // aria-* attributes should be lowercase; suggest the lowercase version.
-
-
-      if (name !== correctName) {
-        error('Invalid ARIA attribute `%s`. Did you mean `%s`?', name, correctName);
-
-        warnedProperties[name] = true;
-        return true;
-      }
-    }
-
-    if (rARIA.test(name)) {
-      var lowerCasedName = name.toLowerCase();
-      var standardName = ariaProperties.hasOwnProperty(lowerCasedName) ? lowerCasedName : null; // If this is an aria-* attribute, but is not listed in the known DOM
-      // DOM properties, then it is an invalid aria-* attribute.
-
-      if (standardName == null) {
-        warnedProperties[name] = true;
-        return false;
-      } // aria-* attributes should be lowercase; suggest the lowercase version.
-
-
-      if (name !== standardName) {
-        error('Unknown ARIA attribute `%s`. Did you mean `%s`?', name, standardName);
-
-        warnedProperties[name] = true;
-        return true;
-      }
-    }
-  }
-
-  return true;
-}
-
-function warnInvalidARIAProps(type, props) {
-  {
-    var invalidProps = [];
-
-    for (var key in props) {
-      var isValid = validateProperty(type, key);
-
-      if (!isValid) {
-        invalidProps.push(key);
-      }
-    }
-
-    var unknownPropString = invalidProps.map(function (prop) {
-      return '`' + prop + '`';
-    }).join(', ');
-
-    if (invalidProps.length === 1) {
-      error('Invalid aria prop %s on <%s> tag. ' + 'For details, see https://reactjs.org/link/invalid-aria-props', unknownPropString, type);
-    } else if (invalidProps.length > 1) {
-      error('Invalid aria props %s on <%s> tag. ' + 'For details, see https://reactjs.org/link/invalid-aria-props', unknownPropString, type);
-    }
-  }
-}
-
-function validateProperties(type, props) {
-  if (isCustomComponent(type, props)) {
-    return;
-  }
-
-  warnInvalidARIAProps(type, props);
-}
-
-var didWarnValueNull = false;
-function validateProperties$1(type, props) {
-  {
-    if (type !== 'input' && type !== 'textarea' && type !== 'select') {
-      return;
-    }
-
-    if (props != null && props.value === null && !didWarnValueNull) {
-      didWarnValueNull = true;
-
-      if (type === 'select' && props.multiple) {
-        error('`value` prop on `%s` should not be null. ' + 'Consider using an empty array when `multiple` is set to `true` ' + 'to clear the component or `undefined` for uncontrolled components.', type);
-      } else {
-        error('`value` prop on `%s` should not be null. ' + 'Consider using an empty string to clear the component or `undefined` ' + 'for uncontrolled components.', type);
-      }
-    }
-  }
-}
-
-// When adding attributes to the HTML or SVG allowed attribute list, be sure to
-// also add them to this module to ensure casing and incorrect name
-// warnings.
-var possibleStandardNames = {
-  // HTML
-  accept: 'accept',
-  acceptcharset: 'acceptCharset',
-  'accept-charset': 'acceptCharset',
-  accesskey: 'accessKey',
-  action: 'action',
-  allowfullscreen: 'allowFullScreen',
-  alt: 'alt',
-  as: 'as',
-  async: 'async',
-  autocapitalize: 'autoCapitalize',
-  autocomplete: 'autoComplete',
-  autocorrect: 'autoCorrect',
-  autofocus: 'autoFocus',
-  autoplay: 'autoPlay',
-  autosave: 'autoSave',
-  capture: 'capture',
-  cellpadding: 'cellPadding',
-  cellspacing: 'cellSpacing',
-  challenge: 'challenge',
-  charset: 'charSet',
-  checked: 'checked',
-  children: 'children',
-  cite: 'cite',
-  class: 'className',
-  classid: 'classID',
-  classname: 'className',
-  cols: 'cols',
-  colspan: 'colSpan',
-  content: 'content',
-  contenteditable: 'contentEditable',
-  contextmenu: 'contextMenu',
-  controls: 'controls',
-  controlslist: 'controlsList',
-  coords: 'coords',
-  crossorigin: 'crossOrigin',
-  dangerouslysetinnerhtml: 'dangerouslySetInnerHTML',
-  data: 'data',
-  datetime: 'dateTime',
-  default: 'default',
-  defaultchecked: 'defaultChecked',
-  defaultvalue: 'defaultValue',
-  defer: 'defer',
-  dir: 'dir',
-  disabled: 'disabled',
-  disablepictureinpicture: 'disablePictureInPicture',
-  disableremoteplayback: 'disableRemotePlayback',
-  download: 'download',
-  draggable: 'draggable',
-  enctype: 'encType',
-  enterkeyhint: 'enterKeyHint',
-  for: 'htmlFor',
-  form: 'form',
-  formmethod: 'formMethod',
-  formaction: 'formAction',
-  formenctype: 'formEncType',
-  formnovalidate: 'formNoValidate',
-  formtarget: 'formTarget',
-  frameborder: 'frameBorder',
-  headers: 'headers',
-  height: 'height',
-  hidden: 'hidden',
-  high: 'high',
-  href: 'href',
-  hreflang: 'hrefLang',
-  htmlfor: 'htmlFor',
-  httpequiv: 'httpEquiv',
-  'http-equiv': 'httpEquiv',
-  icon: 'icon',
-  id: 'id',
-  imagesizes: 'imageSizes',
-  imagesrcset: 'imageSrcSet',
-  innerhtml: 'innerHTML',
-  inputmode: 'inputMode',
-  integrity: 'integrity',
-  is: 'is',
-  itemid: 'itemID',
-  itemprop: 'itemProp',
-  itemref: 'itemRef',
-  itemscope: 'itemScope',
-  itemtype: 'itemType',
-  keyparams: 'keyParams',
-  keytype: 'keyType',
-  kind: 'kind',
-  label: 'label',
-  lang: 'lang',
-  list: 'list',
-  loop: 'loop',
-  low: 'low',
-  manifest: 'manifest',
-  marginwidth: 'marginWidth',
-  marginheight: 'marginHeight',
-  max: 'max',
-  maxlength: 'maxLength',
-  media: 'media',
-  mediagroup: 'mediaGroup',
-  method: 'method',
-  min: 'min',
-  minlength: 'minLength',
-  multiple: 'multiple',
-  muted: 'muted',
-  name: 'name',
-  nomodule: 'noModule',
-  nonce: 'nonce',
-  novalidate: 'noValidate',
-  open: 'open',
-  optimum: 'optimum',
-  pattern: 'pattern',
-  placeholder: 'placeholder',
-  playsinline: 'playsInline',
-  poster: 'poster',
-  preload: 'preload',
-  profile: 'profile',
-  radiogroup: 'radioGroup',
-  readonly: 'readOnly',
-  referrerpolicy: 'referrerPolicy',
-  rel: 'rel',
-  required: 'required',
-  reversed: 'reversed',
-  role: 'role',
-  rows: 'rows',
-  rowspan: 'rowSpan',
-  sandbox: 'sandbox',
-  scope: 'scope',
-  scoped: 'scoped',
-  scrolling: 'scrolling',
-  seamless: 'seamless',
-  selected: 'selected',
-  shape: 'shape',
-  size: 'size',
-  sizes: 'sizes',
-  span: 'span',
-  spellcheck: 'spellCheck',
-  src: 'src',
-  srcdoc: 'srcDoc',
-  srclang: 'srcLang',
-  srcset: 'srcSet',
-  start: 'start',
-  step: 'step',
-  style: 'style',
-  summary: 'summary',
-  tabindex: 'tabIndex',
-  target: 'target',
-  title: 'title',
-  type: 'type',
-  usemap: 'useMap',
-  value: 'value',
-  width: 'width',
-  wmode: 'wmode',
-  wrap: 'wrap',
-  // SVG
-  about: 'about',
-  accentheight: 'accentHeight',
-  'accent-height': 'accentHeight',
-  accumulate: 'accumulate',
-  additive: 'additive',
-  alignmentbaseline: 'alignmentBaseline',
-  'alignment-baseline': 'alignmentBaseline',
-  allowreorder: 'allowReorder',
-  alphabetic: 'alphabetic',
-  amplitude: 'amplitude',
-  arabicform: 'arabicForm',
-  'arabic-form': 'arabicForm',
-  ascent: 'ascent',
-  attributename: 'attributeName',
-  attributetype: 'attributeType',
-  autoreverse: 'autoReverse',
-  azimuth: 'azimuth',
-  basefrequency: 'baseFrequency',
-  baselineshift: 'baselineShift',
-  'baseline-shift': 'baselineShift',
-  baseprofile: 'baseProfile',
-  bbox: 'bbox',
-  begin: 'begin',
-  bias: 'bias',
-  by: 'by',
-  calcmode: 'calcMode',
-  capheight: 'capHeight',
-  'cap-height': 'capHeight',
-  clip: 'clip',
-  clippath: 'clipPath',
-  'clip-path': 'clipPath',
-  clippathunits: 'clipPathUnits',
-  cliprule: 'clipRule',
-  'clip-rule': 'clipRule',
-  color: 'color',
-  colorinterpolation: 'colorInterpolation',
-  'color-interpolation': 'colorInterpolation',
-  colorinterpolationfilters: 'colorInterpolationFilters',
-  'color-interpolation-filters': 'colorInterpolationFilters',
-  colorprofile: 'colorProfile',
-  'color-profile': 'colorProfile',
-  colorrendering: 'colorRendering',
-  'color-rendering': 'colorRendering',
-  contentscripttype: 'contentScriptType',
-  contentstyletype: 'contentStyleType',
-  cursor: 'cursor',
-  cx: 'cx',
-  cy: 'cy',
-  d: 'd',
-  datatype: 'datatype',
-  decelerate: 'decelerate',
-  descent: 'descent',
-  diffuseconstant: 'diffuseConstant',
-  direction: 'direction',
-  display: 'display',
-  divisor: 'divisor',
-  dominantbaseline: 'dominantBaseline',
-  'dominant-baseline': 'dominantBaseline',
-  dur: 'dur',
-  dx: 'dx',
-  dy: 'dy',
-  edgemode: 'edgeMode',
-  elevation: 'elevation',
-  enablebackground: 'enableBackground',
-  'enable-background': 'enableBackground',
-  end: 'end',
-  exponent: 'exponent',
-  externalresourcesrequired: 'externalResourcesRequired',
-  fill: 'fill',
-  fillopacity: 'fillOpacity',
-  'fill-opacity': 'fillOpacity',
-  fillrule: 'fillRule',
-  'fill-rule': 'fillRule',
-  filter: 'filter',
-  filterres: 'filterRes',
-  filterunits: 'filterUnits',
-  floodopacity: 'floodOpacity',
-  'flood-opacity': 'floodOpacity',
-  floodcolor: 'floodColor',
-  'flood-color': 'floodColor',
-  focusable: 'focusable',
-  fontfamily: 'fontFamily',
-  'font-family': 'fontFamily',
-  fontsize: 'fontSize',
-  'font-size': 'fontSize',
-  fontsizeadjust: 'fontSizeAdjust',
-  'font-size-adjust': 'fontSizeAdjust',
-  fontstretch: 'fontStretch',
-  'font-stretch': 'fontStretch',
-  fontstyle: 'fontStyle',
-  'font-style': 'fontStyle',
-  fontvariant: 'fontVariant',
-  'font-variant': 'fontVariant',
-  fontweight: 'fontWeight',
-  'font-weight': 'fontWeight',
-  format: 'format',
-  from: 'from',
-  fx: 'fx',
-  fy: 'fy',
-  g1: 'g1',
-  g2: 'g2',
-  glyphname: 'glyphName',
-  'glyph-name': 'glyphName',
-  glyphorientationhorizontal: 'glyphOrientationHorizontal',
-  'glyph-orientation-horizontal': 'glyphOrientationHorizontal',
-  glyphorientationvertical: 'glyphOrientationVertical',
-  'glyph-orientation-vertical': 'glyphOrientationVertical',
-  glyphref: 'glyphRef',
-  gradienttransform: 'gradientTransform',
-  gradientunits: 'gradientUnits',
-  hanging: 'hanging',
-  horizadvx: 'horizAdvX',
-  'horiz-adv-x': 'horizAdvX',
-  horizoriginx: 'horizOriginX',
-  'horiz-origin-x': 'horizOriginX',
-  ideographic: 'ideographic',
-  imagerendering: 'imageRendering',
-  'image-rendering': 'imageRendering',
-  in2: 'in2',
-  in: 'in',
-  inlist: 'inlist',
-  intercept: 'intercept',
-  k1: 'k1',
-  k2: 'k2',
-  k3: 'k3',
-  k4: 'k4',
-  k: 'k',
-  kernelmatrix: 'kernelMatrix',
-  kernelunitlength: 'kernelUnitLength',
-  kerning: 'kerning',
-  keypoints: 'keyPoints',
-  keysplines: 'keySplines',
-  keytimes: 'keyTimes',
-  lengthadjust: 'lengthAdjust',
-  letterspacing: 'letterSpacing',
-  'letter-spacing': 'letterSpacing',
-  lightingcolor: 'lightingColor',
-  'lighting-color': 'lightingColor',
-  limitingconeangle: 'limitingConeAngle',
-  local: 'local',
-  markerend: 'markerEnd',
-  'marker-end': 'markerEnd',
-  markerheight: 'markerHeight',
-  markermid: 'markerMid',
-  'marker-mid': 'markerMid',
-  markerstart: 'markerStart',
-  'marker-start': 'markerStart',
-  markerunits: 'markerUnits',
-  markerwidth: 'markerWidth',
-  mask: 'mask',
-  maskcontentunits: 'maskContentUnits',
-  maskunits: 'maskUnits',
-  mathematical: 'mathematical',
-  mode: 'mode',
-  numoctaves: 'numOctaves',
-  offset: 'offset',
-  opacity: 'opacity',
-  operator: 'operator',
-  order: 'order',
-  orient: 'orient',
-  orientation: 'orientation',
-  origin: 'origin',
-  overflow: 'overflow',
-  overlineposition: 'overlinePosition',
-  'overline-position': 'overlinePosition',
-  overlinethickness: 'overlineThickness',
-  'overline-thickness': 'overlineThickness',
-  paintorder: 'paintOrder',
-  'paint-order': 'paintOrder',
-  panose1: 'panose1',
-  'panose-1': 'panose1',
-  pathlength: 'pathLength',
-  patterncontentunits: 'patternContentUnits',
-  patterntransform: 'patternTransform',
-  patternunits: 'patternUnits',
-  pointerevents: 'pointerEvents',
-  'pointer-events': 'pointerEvents',
-  points: 'points',
-  pointsatx: 'pointsAtX',
-  pointsaty: 'pointsAtY',
-  pointsatz: 'pointsAtZ',
-  prefix: 'prefix',
-  preservealpha: 'preserveAlpha',
-  preserveaspectratio: 'preserveAspectRatio',
-  primitiveunits: 'primitiveUnits',
-  property: 'property',
-  r: 'r',
-  radius: 'radius',
-  refx: 'refX',
-  refy: 'refY',
-  renderingintent: 'renderingIntent',
-  'rendering-intent': 'renderingIntent',
-  repeatcount: 'repeatCount',
-  repeatdur: 'repeatDur',
-  requiredextensions: 'requiredExtensions',
-  requiredfeatures: 'requiredFeatures',
-  resource: 'resource',
-  restart: 'restart',
-  result: 'result',
-  results: 'results',
-  rotate: 'rotate',
-  rx: 'rx',
-  ry: 'ry',
-  scale: 'scale',
-  security: 'security',
-  seed: 'seed',
-  shaperendering: 'shapeRendering',
-  'shape-rendering': 'shapeRendering',
-  slope: 'slope',
-  spacing: 'spacing',
-  specularconstant: 'specularConstant',
-  specularexponent: 'specularExponent',
-  speed: 'speed',
-  spreadmethod: 'spreadMethod',
-  startoffset: 'startOffset',
-  stddeviation: 'stdDeviation',
-  stemh: 'stemh',
-  stemv: 'stemv',
-  stitchtiles: 'stitchTiles',
-  stopcolor: 'stopColor',
-  'stop-color': 'stopColor',
-  stopopacity: 'stopOpacity',
-  'stop-opacity': 'stopOpacity',
-  strikethroughposition: 'strikethroughPosition',
-  'strikethrough-position': 'strikethroughPosition',
-  strikethroughthickness: 'strikethroughThickness',
-  'strikethrough-thickness': 'strikethroughThickness',
-  string: 'string',
-  stroke: 'stroke',
-  strokedasharray: 'strokeDasharray',
-  'stroke-dasharray': 'strokeDasharray',
-  strokedashoffset: 'strokeDashoffset',
-  'stroke-dashoffset': 'strokeDashoffset',
-  strokelinecap: 'strokeLinecap',
-  'stroke-linecap': 'strokeLinecap',
-  strokelinejoin: 'strokeLinejoin',
-  'stroke-linejoin': 'strokeLinejoin',
-  strokemiterlimit: 'strokeMiterlimit',
-  'stroke-miterlimit': 'strokeMiterlimit',
-  strokewidth: 'strokeWidth',
-  'stroke-width': 'strokeWidth',
-  strokeopacity: 'strokeOpacity',
-  'stroke-opacity': 'strokeOpacity',
-  suppresscontenteditablewarning: 'suppressContentEditableWarning',
-  suppresshydrationwarning: 'suppressHydrationWarning',
-  surfacescale: 'surfaceScale',
-  systemlanguage: 'systemLanguage',
-  tablevalues: 'tableValues',
-  targetx: 'targetX',
-  targety: 'targetY',
-  textanchor: 'textAnchor',
-  'text-anchor': 'textAnchor',
-  textdecoration: 'textDecoration',
-  'text-decoration': 'textDecoration',
-  textlength: 'textLength',
-  textrendering: 'textRendering',
-  'text-rendering': 'textRendering',
-  to: 'to',
-  transform: 'transform',
-  typeof: 'typeof',
-  u1: 'u1',
-  u2: 'u2',
-  underlineposition: 'underlinePosition',
-  'underline-position': 'underlinePosition',
-  underlinethickness: 'underlineThickness',
-  'underline-thickness': 'underlineThickness',
-  unicode: 'unicode',
-  unicodebidi: 'unicodeBidi',
-  'unicode-bidi': 'unicodeBidi',
-  unicoderange: 'unicodeRange',
-  'unicode-range': 'unicodeRange',
-  unitsperem: 'unitsPerEm',
-  'units-per-em': 'unitsPerEm',
-  unselectable: 'unselectable',
-  valphabetic: 'vAlphabetic',
-  'v-alphabetic': 'vAlphabetic',
-  values: 'values',
-  vectoreffect: 'vectorEffect',
-  'vector-effect': 'vectorEffect',
-  version: 'version',
-  vertadvy: 'vertAdvY',
-  'vert-adv-y': 'vertAdvY',
-  vertoriginx: 'vertOriginX',
-  'vert-origin-x': 'vertOriginX',
-  vertoriginy: 'vertOriginY',
-  'vert-origin-y': 'vertOriginY',
-  vhanging: 'vHanging',
-  'v-hanging': 'vHanging',
-  videographic: 'vIdeographic',
-  'v-ideographic': 'vIdeographic',
-  viewbox: 'viewBox',
-  viewtarget: 'viewTarget',
-  visibility: 'visibility',
-  vmathematical: 'vMathematical',
-  'v-mathematical': 'vMathematical',
-  vocab: 'vocab',
-  widths: 'widths',
-  wordspacing: 'wordSpacing',
-  'word-spacing': 'wordSpacing',
-  writingmode: 'writingMode',
-  'writing-mode': 'writingMode',
-  x1: 'x1',
-  x2: 'x2',
-  x: 'x',
-  xchannelselector: 'xChannelSelector',
-  xheight: 'xHeight',
-  'x-height': 'xHeight',
-  xlinkactuate: 'xlinkActuate',
-  'xlink:actuate': 'xlinkActuate',
-  xlinkarcrole: 'xlinkArcrole',
-  'xlink:arcrole': 'xlinkArcrole',
-  xlinkhref: 'xlinkHref',
-  'xlink:href': 'xlinkHref',
-  xlinkrole: 'xlinkRole',
-  'xlink:role': 'xlinkRole',
-  xlinkshow: 'xlinkShow',
-  'xlink:show': 'xlinkShow',
-  xlinktitle: 'xlinkTitle',
-  'xlink:title': 'xlinkTitle',
-  xlinktype: 'xlinkType',
-  'xlink:type': 'xlinkType',
-  xmlbase: 'xmlBase',
-  'xml:base': 'xmlBase',
-  xmllang: 'xmlLang',
-  'xml:lang': 'xmlLang',
-  xmlns: 'xmlns',
-  'xml:space': 'xmlSpace',
-  xmlnsxlink: 'xmlnsXlink',
-  'xmlns:xlink': 'xmlnsXlink',
-  xmlspace: 'xmlSpace',
-  y1: 'y1',
-  y2: 'y2',
-  y: 'y',
-  ychannelselector: 'yChannelSelector',
-  z: 'z',
-  zoomandpan: 'zoomAndPan'
-};
-
-var validateProperty$1 = function () {};
-
-{
-  var warnedProperties$1 = {};
-  var EVENT_NAME_REGEX = /^on./;
-  var INVALID_EVENT_NAME_REGEX = /^on[^A-Z]/;
-  var rARIA$1 = new RegExp('^(aria)-[' + ATTRIBUTE_NAME_CHAR + ']*$');
-  var rARIACamel$1 = new RegExp('^(aria)[A-Z][' + ATTRIBUTE_NAME_CHAR + ']*$');
-
-  validateProperty$1 = function (tagName, name, value, eventRegistry) {
-    if (hasOwnProperty.call(warnedProperties$1, name) && warnedProperties$1[name]) {
-      return true;
-    }
-
-    var lowerCasedName = name.toLowerCase();
-
-    if (lowerCasedName === 'onfocusin' || lowerCasedName === 'onfocusout') {
-      error('React uses onFocus and onBlur instead of onFocusIn and onFocusOut. ' + 'All React events are normalized to bubble, so onFocusIn and onFocusOut ' + 'are not needed/supported by React.');
-
-      warnedProperties$1[name] = true;
-      return true;
-    } // We can't rely on the event system being injected on the server.
-
-
-    if (eventRegistry != null) {
-      var registrationNameDependencies = eventRegistry.registrationNameDependencies,
-          possibleRegistrationNames = eventRegistry.possibleRegistrationNames;
-
-      if (registrationNameDependencies.hasOwnProperty(name)) {
-        return true;
-      }
-
-      var registrationName = possibleRegistrationNames.hasOwnProperty(lowerCasedName) ? possibleRegistrationNames[lowerCasedName] : null;
-
-      if (registrationName != null) {
-        error('Invalid event handler property `%s`. Did you mean `%s`?', name, registrationName);
-
-        warnedProperties$1[name] = true;
-        return true;
-      }
-
-      if (EVENT_NAME_REGEX.test(name)) {
-        error('Unknown event handler property `%s`. It will be ignored.', name);
-
-        warnedProperties$1[name] = true;
-        return true;
-      }
-    } else if (EVENT_NAME_REGEX.test(name)) {
-      // If no event plugins have been injected, we are in a server environment.
-      // So we can't tell if the event name is correct for sure, but we can filter
-      // out known bad ones like `onclick`. We can't suggest a specific replacement though.
-      if (INVALID_EVENT_NAME_REGEX.test(name)) {
-        error('Invalid event handler property `%s`. ' + 'React events use the camelCase naming convention, for example `onClick`.', name);
-      }
-
-      warnedProperties$1[name] = true;
-      return true;
-    } // Let the ARIA attribute hook validate ARIA attributes
-
-
-    if (rARIA$1.test(name) || rARIACamel$1.test(name)) {
-      return true;
-    }
-
-    if (lowerCasedName === 'innerhtml') {
-      error('Directly setting property `innerHTML` is not permitted. ' + 'For more information, lookup documentation on `dangerouslySetInnerHTML`.');
-
-      warnedProperties$1[name] = true;
-      return true;
-    }
-
-    if (lowerCasedName === 'aria') {
-      error('The `aria` attribute is reserved for future use in React. ' + 'Pass individual `aria-` attributes instead.');
-
-      warnedProperties$1[name] = true;
-      return true;
-    }
-
-    if (lowerCasedName === 'is' && value !== null && value !== undefined && typeof value !== 'string') {
-      error('Received a `%s` for a string attribute `is`. If this is expected, cast ' + 'the value to a string.', typeof value);
-
-      warnedProperties$1[name] = true;
-      return true;
-    }
-
-    if (typeof value === 'number' && isNaN(value)) {
-      error('Received NaN for the `%s` attribute. If this is expected, cast ' + 'the value to a string.', name);
-
-      warnedProperties$1[name] = true;
-      return true;
-    }
-
-    var propertyInfo = getPropertyInfo(name);
-    var isReserved = propertyInfo !== null && propertyInfo.type === RESERVED; // Known attributes should match the casing specified in the property config.
-
-    if (possibleStandardNames.hasOwnProperty(lowerCasedName)) {
-      var standardName = possibleStandardNames[lowerCasedName];
-
-      if (standardName !== name) {
-        error('Invalid DOM property `%s`. Did you mean `%s`?', name, standardName);
-
-        warnedProperties$1[name] = true;
-        return true;
-      }
-    } else if (!isReserved && name !== lowerCasedName) {
-      // Unknown attributes should have lowercase casing since that's how they
-      // will be cased anyway with server rendering.
-      error('React does not recognize the `%s` prop on a DOM element. If you ' + 'intentionally want it to appear in the DOM as a custom ' + 'attribute, spell it as lowercase `%s` instead. ' + 'If you accidentally passed it from a parent component, remove ' + 'it from the DOM element.', name, lowerCasedName);
-
-      warnedProperties$1[name] = true;
-      return true;
-    }
-
-    if (typeof value === 'boolean' && shouldRemoveAttributeWithWarning(name, value, propertyInfo, false)) {
-      if (value) {
-        error('Received `%s` for a non-boolean attribute `%s`.\n\n' + 'If you want to write it to the DOM, pass a string instead: ' + '%s="%s" or %s={value.toString()}.', value, name, name, value, name);
-      } else {
-        error('Received `%s` for a non-boolean attribute `%s`.\n\n' + 'If you want to write it to the DOM, pass a string instead: ' + '%s="%s" or %s={value.toString()}.\n\n' + 'If you used to conditionally omit it with %s={condition && value}, ' + 'pass %s={condition ? value : undefined} instead.', value, name, name, value, name, name, name);
-      }
-
-      warnedProperties$1[name] = true;
-      return true;
-    } // Now that we've validated casing, do not validate
-    // data types for reserved props
-
-
-    if (isReserved) {
-      return true;
-    } // Warn when a known attribute is a bad type
-
-
-    if (shouldRemoveAttributeWithWarning(name, value, propertyInfo, false)) {
-      warnedProperties$1[name] = true;
-      return false;
-    } // Warn when passing the strings 'false' or 'true' into a boolean prop
-
-
-    if ((value === 'false' || value === 'true') && propertyInfo !== null && propertyInfo.type === BOOLEAN) {
-      error('Received the string `%s` for the boolean attribute `%s`. ' + '%s ' + 'Did you mean %s={%s}?', value, name, value === 'false' ? 'The browser will interpret it as a truthy value.' : 'Although this works, it will not work as expected if you pass the string "false".', name, value);
-
-      warnedProperties$1[name] = true;
-      return true;
-    }
-
-    return true;
-  };
-}
-
-var warnUnknownProperties = function (type, props, eventRegistry) {
-  {
-    var unknownProps = [];
-
-    for (var key in props) {
-      var isValid = validateProperty$1(type, key, props[key], eventRegistry);
-
-      if (!isValid) {
-        unknownProps.push(key);
-      }
-    }
-
-    var unknownPropString = unknownProps.map(function (prop) {
-      return '`' + prop + '`';
-    }).join(', ');
-
-    if (unknownProps.length === 1) {
-      error('Invalid value for prop %s on <%s> tag. Either remove it from the element, ' + 'or pass a string or number value to keep it in the DOM. ' + 'For details, see https://reactjs.org/link/attribute-behavior ', unknownPropString, type);
-    } else if (unknownProps.length > 1) {
-      error('Invalid values for props %s on <%s> tag. Either remove them from the element, ' + 'or pass a string or number value to keep them in the DOM. ' + 'For details, see https://reactjs.org/link/attribute-behavior ', unknownPropString, type);
-    }
-  }
-};
-
-function validateProperties$2(type, props, eventRegistry) {
-  if (isCustomComponent(type, props)) {
-    return;
-  }
-
-  warnUnknownProperties(type, props, eventRegistry);
-}
-
-var warnValidStyle = function () {};
-
-{
-  // 'msTransform' is correct, but the other prefixes should be capitalized
-  var badVendoredStyleNamePattern = /^(?:webkit|moz|o)[A-Z]/;
-  var msPattern = /^-ms-/;
-  var hyphenPattern = /-(.)/g; // style values shouldn't contain a semicolon
-
-  var badStyleValueWithSemicolonPattern = /;\s*$/;
-  var warnedStyleNames = {};
-  var warnedStyleValues = {};
-  var warnedForNaNValue = false;
-  var warnedForInfinityValue = false;
-
-  var camelize = function (string) {
-    return string.replace(hyphenPattern, function (_, character) {
-      return character.toUpperCase();
-    });
-  };
-
-  var warnHyphenatedStyleName = function (name) {
-    if (warnedStyleNames.hasOwnProperty(name) && warnedStyleNames[name]) {
-      return;
-    }
-
-    warnedStyleNames[name] = true;
-
-    error('Unsupported style property %s. Did you mean %s?', name, // As Andi Smith suggests
-    // (http://www.andismith.com/blog/2012/02/modernizr-prefixed/), an `-ms` prefix
-    // is converted to lowercase `ms`.
-    camelize(name.replace(msPattern, 'ms-')));
-  };
-
-  var warnBadVendoredStyleName = function (name) {
-    if (warnedStyleNames.hasOwnProperty(name) && warnedStyleNames[name]) {
-      return;
-    }
-
-    warnedStyleNames[name] = true;
-
-    error('Unsupported vendor-prefixed style property %s. Did you mean %s?', name, name.charAt(0).toUpperCase() + name.slice(1));
-  };
-
-  var warnStyleValueWithSemicolon = function (name, value) {
-    if (warnedStyleValues.hasOwnProperty(value) && warnedStyleValues[value]) {
-      return;
-    }
-
-    warnedStyleValues[value] = true;
-
-    error("Style property values shouldn't contain a semicolon. " + 'Try "%s: %s" instead.', name, value.replace(badStyleValueWithSemicolonPattern, ''));
-  };
-
-  var warnStyleValueIsNaN = function (name, value) {
-    if (warnedForNaNValue) {
-      return;
-    }
-
-    warnedForNaNValue = true;
-
-    error('`NaN` is an invalid value for the `%s` css style property.', name);
-  };
-
-  var warnStyleValueIsInfinity = function (name, value) {
-    if (warnedForInfinityValue) {
-      return;
-    }
-
-    warnedForInfinityValue = true;
-
-    error('`Infinity` is an invalid value for the `%s` css style property.', name);
-  };
-
-  warnValidStyle = function (name, value) {
-    if (name.indexOf('-') > -1) {
-      warnHyphenatedStyleName(name);
-    } else if (badVendoredStyleNamePattern.test(name)) {
-      warnBadVendoredStyleName(name);
-    } else if (badStyleValueWithSemicolonPattern.test(value)) {
-      warnStyleValueWithSemicolon(name, value);
-    }
-
-    if (typeof value === 'number') {
-      if (isNaN(value)) {
-        warnStyleValueIsNaN(name, value);
-      } else if (!isFinite(value)) {
-        warnStyleValueIsInfinity(name, value);
-      }
-    }
-  };
-}
-
-var warnValidStyle$1 = warnValidStyle;
-
-// code copied and modified from escape-html
-var matchHtmlRegExp = /["'&<>]/;
-/**
- * Escapes special characters and HTML entities in a given html string.
- *
- * @param  {string} string HTML string to escape for later insertion
- * @return {string}
- * @public
- */
-
-function escapeHtml(string) {
-  {
-    checkHtmlStringCoercion(string);
-  }
-
-  var str = '' + string;
-  var match = matchHtmlRegExp.exec(str);
-
-  if (!match) {
-    return str;
-  }
-
-  var escape;
-  var html = '';
-  var index;
-  var lastIndex = 0;
-
-  for (index = match.index; index < str.length; index++) {
-    switch (str.charCodeAt(index)) {
-      case 34:
-        // "
-        escape = '&quot;';
-        break;
-
-      case 38:
-        // &
-        escape = '&amp;';
-        break;
-
-      case 39:
-        // '
-        escape = '&#x27;'; // modified from escape-html; used to be '&#39'
-
-        break;
-
-      case 60:
-        // <
-        escape = '&lt;';
-        break;
-
-      case 62:
-        // >
-        escape = '&gt;';
-        break;
-
-      default:
-        continue;
-    }
-
-    if (lastIndex !== index) {
-      html += str.substring(lastIndex, index);
-    }
-
-    lastIndex = index + 1;
-    html += escape;
-  }
-
-  return lastIndex !== index ? html + str.substring(lastIndex, index) : html;
-} // end code copied and modified from escape-html
-
-/**
- * Escapes text to prevent scripting attacks.
- *
- * @param {*} text Text value to escape.
- * @return {string} An escaped string.
- */
-
-
-function escapeTextForBrowser(text) {
-  if (typeof text === 'boolean' || typeof text === 'number') {
-    // this shortcircuit helps perf for types that we know will never have
-    // special characters, especially given that this function is used often
-    // for numeric dom ids.
-    return '' + text;
-  }
-
-  return escapeHtml(text);
-}
-
-var uppercasePattern = /([A-Z])/g;
-var msPattern$1 = /^ms-/;
-/**
- * Hyphenates a camelcased CSS property name, for example:
- *
- *   > hyphenateStyleName('backgroundColor')
- *   < "background-color"
- *   > hyphenateStyleName('MozTransition')
- *   < "-moz-transition"
- *   > hyphenateStyleName('msTransition')
- *   < "-ms-transition"
- *
- * As Modernizr suggests (http://modernizr.com/docs/#prefixed), an `ms` prefix
- * is converted to `-ms-`.
- */
-
-function hyphenateStyleName(name) {
-  return name.replace(uppercasePattern, '-$1').toLowerCase().replace(msPattern$1, '-ms-');
-}
-
-// and any newline or tab are filtered out as if they're not part of the URL.
-// https://url.spec.whatwg.org/#url-parsing
-// Tab or newline are defined as \r\n\t:
-// https://infra.spec.whatwg.org/#ascii-tab-or-newline
-// A C0 control is a code point in the range \u0000 NULL to \u001F
-// INFORMATION SEPARATOR ONE, inclusive:
-// https://infra.spec.whatwg.org/#c0-control-or-space
-
-/* eslint-disable max-len */
-
-var isJavaScriptProtocol = /^[\u0000-\u001F ]*j[\r\n\t]*a[\r\n\t]*v[\r\n\t]*a[\r\n\t]*s[\r\n\t]*c[\r\n\t]*r[\r\n\t]*i[\r\n\t]*p[\r\n\t]*t[\r\n\t]*\:/i;
-var didWarn = false;
-
-function sanitizeURL(url) {
-  {
-    if (!didWarn && isJavaScriptProtocol.test(url)) {
-      didWarn = true;
-
-      error('A future version of React will block javascript: URLs as a security precaution. ' + 'Use event handlers instead if you can. If you need to generate unsafe HTML try ' + 'using dangerouslySetInnerHTML instead. React was passed %s.', JSON.stringify(url));
-    }
-  }
-}
-
-var isArrayImpl = Array.isArray; // eslint-disable-next-line no-redeclare
-
-function isArray(a) {
-  return isArrayImpl(a);
-}
-
-var startInlineScript = stringToPrecomputedChunk('<script>');
-var endInlineScript = stringToPrecomputedChunk('</script>');
-var startScriptSrc = stringToPrecomputedChunk('<script src="');
-var startModuleSrc = stringToPrecomputedChunk('<script type="module" src="');
-var endAsyncScript = stringToPrecomputedChunk('" async=""></script>');
-/**
- * This escaping function is designed to work with bootstrapScriptContent only.
- * because we know we are escaping the entire script. We can avoid for instance
- * escaping html comment string sequences that are valid javascript as well because
- * if there are no sebsequent <script sequences the html parser will never enter
- * script data double escaped state (see: https://www.w3.org/TR/html53/syntax.html#script-data-double-escaped-state)
- *
- * While untrusted script content should be made safe before using this api it will
- * ensure that the script cannot be early terminated or never terminated state
- */
-
-function escapeBootstrapScriptContent(scriptText) {
-  {
-    checkHtmlStringCoercion(scriptText);
-  }
-
-  return ('' + scriptText).replace(scriptRegex, scriptReplacer);
-}
-
-var scriptRegex = /(<\/|<)(s)(cript)/gi;
-
-var scriptReplacer = function (match, prefix, s, suffix) {
-  return "" + prefix + (s === 's' ? "\\u0073" : "\\u0053") + suffix;
-}; // Allows us to keep track of what we've already written so we can refer back to it.
-
-
-function createResponseState(identifierPrefix, nonce, bootstrapScriptContent, bootstrapScripts, bootstrapModules) {
-  var idPrefix = identifierPrefix === undefined ? '' : identifierPrefix;
-  var inlineScriptWithNonce = nonce === undefined ? startInlineScript : stringToPrecomputedChunk('<script nonce="' + escapeTextForBrowser(nonce) + '">');
-  var bootstrapChunks = [];
-
-  if (bootstrapScriptContent !== undefined) {
-    bootstrapChunks.push(inlineScriptWithNonce, stringToChunk(escapeBootstrapScriptContent(bootstrapScriptContent)), endInlineScript);
-  }
-
-  if (bootstrapScripts !== undefined) {
-    for (var i = 0; i < bootstrapScripts.length; i++) {
-      bootstrapChunks.push(startScriptSrc, stringToChunk(escapeTextForBrowser(bootstrapScripts[i])), endAsyncScript);
-    }
-  }
-
-  if (bootstrapModules !== undefined) {
-    for (var _i = 0; _i < bootstrapModules.length; _i++) {
-      bootstrapChunks.push(startModuleSrc, stringToChunk(escapeTextForBrowser(bootstrapModules[_i])), endAsyncScript);
-    }
-  }
-
-  return {
-    bootstrapChunks: bootstrapChunks,
-    startInlineScript: inlineScriptWithNonce,
-    placeholderPrefix: stringToPrecomputedChunk(idPrefix + 'P:'),
-    segmentPrefix: stringToPrecomputedChunk(idPrefix + 'S:'),
-    boundaryPrefix: idPrefix + 'B:',
-    idPrefix: idPrefix,
-    nextSuspenseID: 0,
-    sentCompleteSegmentFunction: false,
-    sentCompleteBoundaryFunction: false,
-    sentClientRenderFunction: false
-  };
-} // Constants for the insertion mode we're currently writing in. We don't encode all HTML5 insertion
-// modes. We only include the variants as they matter for the sake of our purposes.
-// We don't actually provide the namespace therefore we use constants instead of the string.
-
-var ROOT_HTML_MODE = 0; // Used for the root most element tag.
-
-var HTML_MODE = 1;
-var SVG_MODE = 2;
-var MATHML_MODE = 3;
-var HTML_TABLE_MODE = 4;
-var HTML_TABLE_BODY_MODE = 5;
-var HTML_TABLE_ROW_MODE = 6;
-var HTML_COLGROUP_MODE = 7; // We have a greater than HTML_TABLE_MODE check elsewhere. If you add more cases here, make sure it
-// still makes sense
-
-function createFormatContext(insertionMode, selectedValue) {
-  return {
-    insertionMode: insertionMode,
-    selectedValue: selectedValue
-  };
-}
-
-function createRootFormatContext(namespaceURI) {
-  var insertionMode = namespaceURI === 'http://www.w3.org/2000/svg' ? SVG_MODE : namespaceURI === 'http://www.w3.org/1998/Math/MathML' ? MATHML_MODE : ROOT_HTML_MODE;
-  return createFormatContext(insertionMode, null);
-}
-function getChildFormatContext(parentContext, type, props) {
-  switch (type) {
-    case 'select':
-      return createFormatContext(HTML_MODE, props.value != null ? props.value : props.defaultValue);
-
-    case 'svg':
-      return createFormatContext(SVG_MODE, null);
-
-    case 'math':
-      return createFormatContext(MATHML_MODE, null);
-
-    case 'foreignObject':
-      return createFormatContext(HTML_MODE, null);
-    // Table parents are special in that their children can only be created at all if they're
-    // wrapped in a table parent. So we need to encode that we're entering this mode.
-
-    case 'table':
-      return createFormatContext(HTML_TABLE_MODE, null);
-
-    case 'thead':
-    case 'tbody':
-    case 'tfoot':
-      return createFormatContext(HTML_TABLE_BODY_MODE, null);
-
-    case 'colgroup':
-      return createFormatContext(HTML_COLGROUP_MODE, null);
-
-    case 'tr':
-      return createFormatContext(HTML_TABLE_ROW_MODE, null);
-  }
-
-  if (parentContext.insertionMode >= HTML_TABLE_MODE) {
-    // Whatever tag this was, it wasn't a table parent or other special parent, so we must have
-    // entered plain HTML again.
-    return createFormatContext(HTML_MODE, null);
-  }
-
-  if (parentContext.insertionMode === ROOT_HTML_MODE) {
-    // We've emitted the root and is now in plain HTML mode.
-    return createFormatContext(HTML_MODE, null);
-  }
-
-  return parentContext;
-}
-var UNINITIALIZED_SUSPENSE_BOUNDARY_ID = null;
-function assignSuspenseBoundaryID(responseState) {
-  var generatedID = responseState.nextSuspenseID++;
-  return stringToPrecomputedChunk(responseState.boundaryPrefix + generatedID.toString(16));
-}
-function makeId(responseState, treeId, localId) {
-  var idPrefix = responseState.idPrefix;
-  var id = ':' + idPrefix + 'R' + treeId; // Unless this is the first id at this level, append a number at the end
-  // that represents the position of this useId hook among all the useId
-  // hooks for this fiber.
-
-  if (localId > 0) {
-    id += 'H' + localId.toString(32);
-  }
-
-  return id + ':';
-}
-
-function encodeHTMLTextNode(text) {
-  return escapeTextForBrowser(text);
-}
-
-var textSeparator = stringToPrecomputedChunk('<!-- -->');
-function pushTextInstance(target, text, responseState, textEmbedded) {
-  if (text === '') {
-    // Empty text doesn't have a DOM node representation and the hydration is aware of this.
-    return textEmbedded;
-  }
-
-  if (textEmbedded) {
-    target.push(textSeparator);
-  }
-
-  target.push(stringToChunk(encodeHTMLTextNode(text)));
-  return true;
-} // Called when Fizz is done with a Segment. Currently the only purpose is to conditionally
-// emit a text separator when we don't know for sure it is safe to omit
-
-function pushSegmentFinale(target, responseState, lastPushedText, textEmbedded) {
-  if (lastPushedText && textEmbedded) {
-    target.push(textSeparator);
-  }
-}
-var styleNameCache = new Map();
-
-function processStyleName(styleName) {
-  var chunk = styleNameCache.get(styleName);
-
-  if (chunk !== undefined) {
-    return chunk;
-  }
-
-  var result = stringToPrecomputedChunk(escapeTextForBrowser(hyphenateStyleName(styleName)));
-  styleNameCache.set(styleName, result);
-  return result;
-}
-
-var styleAttributeStart = stringToPrecomputedChunk(' style="');
-var styleAssign = stringToPrecomputedChunk(':');
-var styleSeparator = stringToPrecomputedChunk(';');
-
-function pushStyle(target, responseState, style) {
-  if (typeof style !== 'object') {
-    throw new Error('The `style` prop expects a mapping from style properties to values, ' + "not a string. For example, style={{marginRight: spacing + 'em'}} when " + 'using JSX.');
-  }
-
-  var isFirst = true;
-
-  for (var styleName in style) {
-    if (!hasOwnProperty.call(style, styleName)) {
-      continue;
-    } // If you provide unsafe user data here they can inject arbitrary CSS
-    // which may be problematic (I couldn't repro this):
-    // https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet
-    // http://www.thespanner.co.uk/2007/11/26/ultimate-xss-css-injection/
-    // This is not an XSS hole but instead a potential CSS injection issue
-    // which has lead to a greater discussion about how we're going to
-    // trust URLs moving forward. See #2115901
-
-
-    var styleValue = style[styleName];
-
-    if (styleValue == null || typeof styleValue === 'boolean' || styleValue === '') {
-      // TODO: We used to set empty string as a style with an empty value. Does that ever make sense?
-      continue;
-    }
-
-    var nameChunk = void 0;
-    var valueChunk = void 0;
-    var isCustomProperty = styleName.indexOf('--') === 0;
-
-    if (isCustomProperty) {
-      nameChunk = stringToChunk(escapeTextForBrowser(styleName));
-
-      {
-        checkCSSPropertyStringCoercion(styleValue, styleName);
-      }
-
-      valueChunk = stringToChunk(escapeTextForBrowser(('' + styleValue).trim()));
-    } else {
-      {
-        warnValidStyle$1(styleName, styleValue);
-      }
-
-      nameChunk = processStyleName(styleName);
-
-      if (typeof styleValue === 'number') {
-        if (styleValue !== 0 && !hasOwnProperty.call(isUnitlessNumber, styleName)) {
-          valueChunk = stringToChunk(styleValue + 'px'); // Presumes implicit 'px' suffix for unitless numbers
-        } else {
-          valueChunk = stringToChunk('' + styleValue);
-        }
-      } else {
-        {
-          checkCSSPropertyStringCoercion(styleValue, styleName);
-        }
-
-        valueChunk = stringToChunk(escapeTextForBrowser(('' + styleValue).trim()));
-      }
-    }
-
-    if (isFirst) {
-      isFirst = false; // If it's first, we don't need any separators prefixed.
-
-      target.push(styleAttributeStart, nameChunk, styleAssign, valueChunk);
-    } else {
-      target.push(styleSeparator, nameChunk, styleAssign, valueChunk);
-    }
-  }
-
-  if (!isFirst) {
-    target.push(attributeEnd);
-  }
-}
-
-var attributeSeparator = stringToPrecomputedChunk(' ');
-var attributeAssign = stringToPrecomputedChunk('="');
-var attributeEnd = stringToPrecomputedChunk('"');
-var attributeEmptyString = stringToPrecomputedChunk('=""');
-
-function pushAttribute(target, responseState, name, value) {
-  switch (name) {
-    case 'style':
-      {
-        pushStyle(target, responseState, value);
-        return;
-      }
-
-    case 'defaultValue':
-    case 'defaultChecked': // These shouldn't be set as attributes on generic HTML elements.
-
-    case 'innerHTML': // Must use dangerouslySetInnerHTML instead.
-
-    case 'suppressContentEditableWarning':
-    case 'suppressHydrationWarning':
-      // Ignored. These are built-in to React on the client.
-      return;
-  }
-
-  if ( // shouldIgnoreAttribute
-  // We have already filtered out null/undefined and reserved words.
-  name.length > 2 && (name[0] === 'o' || name[0] === 'O') && (name[1] === 'n' || name[1] === 'N')) {
-    return;
-  }
-
-  var propertyInfo = getPropertyInfo(name);
-
-  if (propertyInfo !== null) {
-    // shouldRemoveAttribute
-    switch (typeof value) {
-      case 'function': // $FlowIssue symbol is perfectly valid here
-
-      case 'symbol':
-        // eslint-disable-line
-        return;
-
-      case 'boolean':
-        {
-          if (!propertyInfo.acceptsBooleans) {
-            return;
-          }
-        }
-    }
-
-    var attributeName = propertyInfo.attributeName;
-    var attributeNameChunk = stringToChunk(attributeName); // TODO: If it's known we can cache the chunk.
-
-    switch (propertyInfo.type) {
-      case BOOLEAN:
-        if (value) {
-          target.push(attributeSeparator, attributeNameChunk, attributeEmptyString);
-        }
-
-        return;
-
-      case OVERLOADED_BOOLEAN:
-        if (value === true) {
-          target.push(attributeSeparator, attributeNameChunk, attributeEmptyString);
-        } else if (value === false) ; else {
-          target.push(attributeSeparator, attributeNameChunk, attributeAssign, stringToChunk(escapeTextForBrowser(value)), attributeEnd);
-        }
-
-        return;
-
-      case NUMERIC:
-        if (!isNaN(value)) {
-          target.push(attributeSeparator, attributeNameChunk, attributeAssign, stringToChunk(escapeTextForBrowser(value)), attributeEnd);
-        }
-
-        break;
-
-      case POSITIVE_NUMERIC:
-        if (!isNaN(value) && value >= 1) {
-          target.push(attributeSeparator, attributeNameChunk, attributeAssign, stringToChunk(escapeTextForBrowser(value)), attributeEnd);
-        }
-
-        break;
-
-      default:
-        if (propertyInfo.sanitizeURL) {
-          {
-            checkAttributeStringCoercion(value, attributeName);
-          }
-
-          value = '' + value;
-          sanitizeURL(value);
-        }
-
-        target.push(attributeSeparator, attributeNameChunk, attributeAssign, stringToChunk(escapeTextForBrowser(value)), attributeEnd);
-    }
-  } else if (isAttributeNameSafe(name)) {
-    // shouldRemoveAttribute
-    switch (typeof value) {
-      case 'function': // $FlowIssue symbol is perfectly valid here
-
-      case 'symbol':
-        // eslint-disable-line
-        return;
-
-      case 'boolean':
-        {
-          var prefix = name.toLowerCase().slice(0, 5);
-
-          if (prefix !== 'data-' && prefix !== 'aria-') {
-            return;
-          }
-        }
-    }
-
-    target.push(attributeSeparator, stringToChunk(name), attributeAssign, stringToChunk(escapeTextForBrowser(value)), attributeEnd);
-  }
-}
-
-var endOfStartTag = stringToPrecomputedChunk('>');
-var endOfStartTagSelfClosing = stringToPrecomputedChunk('/>');
-
-function pushInnerHTML(target, innerHTML, children) {
-  if (innerHTML != null) {
-    if (children != null) {
-      throw new Error('Can only set one of `children` or `props.dangerouslySetInnerHTML`.');
-    }
-
-    if (typeof innerHTML !== 'object' || !('__html' in innerHTML)) {
-      throw new Error('`props.dangerouslySetInnerHTML` must be in the form `{__html: ...}`. ' + 'Please visit https://reactjs.org/link/dangerously-set-inner-html ' + 'for more information.');
-    }
-
-    var html = innerHTML.__html;
-
-    if (html !== null && html !== undefined) {
-      {
-        checkHtmlStringCoercion(html);
-      }
-
-      target.push(stringToChunk('' + html));
-    }
-  }
-} // TODO: Move these to ResponseState so that we warn for every request.
-// It would help debugging in stateful servers (e.g. service worker).
-
-
-var didWarnDefaultInputValue = false;
-var didWarnDefaultChecked = false;
-var didWarnDefaultSelectValue = false;
-var didWarnDefaultTextareaValue = false;
-var didWarnInvalidOptionChildren = false;
-var didWarnInvalidOptionInnerHTML = false;
-var didWarnSelectedSetOnOption = false;
-
-function checkSelectProp(props, propName) {
-  {
-    var value = props[propName];
-
-    if (value != null) {
-      var array = isArray(value);
-
-      if (props.multiple && !array) {
-        error('The `%s` prop supplied to <select> must be an array if ' + '`multiple` is true.', propName);
-      } else if (!props.multiple && array) {
-        error('The `%s` prop supplied to <select> must be a scalar ' + 'value if `multiple` is false.', propName);
-      }
-    }
-  }
-}
-
-function pushStartSelect(target, props, responseState) {
-  {
-    checkControlledValueProps('select', props);
-    checkSelectProp(props, 'value');
-    checkSelectProp(props, 'defaultValue');
-
-    if (props.value !== undefined && props.defaultValue !== undefined && !didWarnDefaultSelectValue) {
-      error('Select elements must be either controlled or uncontrolled ' + '(specify either the value prop, or the defaultValue prop, but not ' + 'both). Decide between using a controlled or uncontrolled select ' + 'element and remove one of these props. More info: ' + 'https://reactjs.org/link/controlled-components');
-
-      didWarnDefaultSelectValue = true;
-    }
-  }
-
-  target.push(startChunkForTag('select'));
-  var children = null;
-  var innerHTML = null;
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-          children = propValue;
-          break;
-
-        case 'dangerouslySetInnerHTML':
-          // TODO: This doesn't really make sense for select since it can't use the controlled
-          // value in the innerHTML.
-          innerHTML = propValue;
-          break;
-
-        case 'defaultValue':
-        case 'value':
-          // These are set on the Context instead and applied to the nested options.
-          break;
-
-        default:
-          pushAttribute(target, responseState, propKey, propValue);
-          break;
-      }
-    }
-  }
-
-  target.push(endOfStartTag);
-  pushInnerHTML(target, innerHTML, children);
-  return children;
-}
-
-function flattenOptionChildren(children) {
-  var content = ''; // Flatten children and warn if they aren't strings or numbers;
-  // invalid types are ignored.
-
-  React.Children.forEach(children, function (child) {
-    if (child == null) {
-      return;
-    }
-
-    content += child;
-
-    {
-      if (!didWarnInvalidOptionChildren && typeof child !== 'string' && typeof child !== 'number') {
-        didWarnInvalidOptionChildren = true;
-
-        error('Cannot infer the option value of complex children. ' + 'Pass a `value` prop or use a plain string as children to <option>.');
-      }
-    }
-  });
-  return content;
-}
-
-var selectedMarkerAttribute = stringToPrecomputedChunk(' selected=""');
-
-function pushStartOption(target, props, responseState, formatContext) {
-  var selectedValue = formatContext.selectedValue;
-  target.push(startChunkForTag('option'));
-  var children = null;
-  var value = null;
-  var selected = null;
-  var innerHTML = null;
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-          children = propValue;
-          break;
-
-        case 'selected':
-          // ignore
-          selected = propValue;
-
-          {
-            // TODO: Remove support for `selected` in <option>.
-            if (!didWarnSelectedSetOnOption) {
-              error('Use the `defaultValue` or `value` props on <select> instead of ' + 'setting `selected` on <option>.');
-
-              didWarnSelectedSetOnOption = true;
-            }
-          }
-
-          break;
-
-        case 'dangerouslySetInnerHTML':
-          innerHTML = propValue;
-          break;
-        // eslint-disable-next-line-no-fallthrough
-
-        case 'value':
-          value = propValue;
-        // We intentionally fallthrough to also set the attribute on the node.
-        // eslint-disable-next-line-no-fallthrough
-
-        default:
-          pushAttribute(target, responseState, propKey, propValue);
-          break;
-      }
-    }
-  }
-
-  if (selectedValue != null) {
-    var stringValue;
-
-    if (value !== null) {
-      {
-        checkAttributeStringCoercion(value, 'value');
-      }
-
-      stringValue = '' + value;
-    } else {
-      {
-        if (innerHTML !== null) {
-          if (!didWarnInvalidOptionInnerHTML) {
-            didWarnInvalidOptionInnerHTML = true;
-
-            error('Pass a `value` prop if you set dangerouslyInnerHTML so React knows ' + 'which value should be selected.');
-          }
-        }
-      }
-
-      stringValue = flattenOptionChildren(children);
-    }
-
-    if (isArray(selectedValue)) {
-      // multiple
-      for (var i = 0; i < selectedValue.length; i++) {
-        {
-          checkAttributeStringCoercion(selectedValue[i], 'value');
-        }
-
-        var v = '' + selectedValue[i];
-
-        if (v === stringValue) {
-          target.push(selectedMarkerAttribute);
-          break;
-        }
-      }
-    } else {
-      {
-        checkAttributeStringCoercion(selectedValue, 'select.value');
-      }
-
-      if ('' + selectedValue === stringValue) {
-        target.push(selectedMarkerAttribute);
-      }
-    }
-  } else if (selected) {
-    target.push(selectedMarkerAttribute);
-  }
-
-  target.push(endOfStartTag);
-  pushInnerHTML(target, innerHTML, children);
-  return children;
-}
-
-function pushInput(target, props, responseState) {
-  {
-    checkControlledValueProps('input', props);
-
-    if (props.checked !== undefined && props.defaultChecked !== undefined && !didWarnDefaultChecked) {
-      error('%s contains an input of type %s with both checked and defaultChecked props. ' + 'Input elements must be either controlled or uncontrolled ' + '(specify either the checked prop, or the defaultChecked prop, but not ' + 'both). Decide between using a controlled or uncontrolled input ' + 'element and remove one of these props. More info: ' + 'https://reactjs.org/link/controlled-components', 'A component', props.type);
-
-      didWarnDefaultChecked = true;
-    }
-
-    if (props.value !== undefined && props.defaultValue !== undefined && !didWarnDefaultInputValue) {
-      error('%s contains an input of type %s with both value and defaultValue props. ' + 'Input elements must be either controlled or uncontrolled ' + '(specify either the value prop, or the defaultValue prop, but not ' + 'both). Decide between using a controlled or uncontrolled input ' + 'element and remove one of these props. More info: ' + 'https://reactjs.org/link/controlled-components', 'A component', props.type);
-
-      didWarnDefaultInputValue = true;
-    }
-  }
-
-  target.push(startChunkForTag('input'));
-  var value = null;
-  var defaultValue = null;
-  var checked = null;
-  var defaultChecked = null;
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-        case 'dangerouslySetInnerHTML':
-          throw new Error('input' + " is a self-closing tag and must neither have `children` nor " + 'use `dangerouslySetInnerHTML`.');
-        // eslint-disable-next-line-no-fallthrough
-
-        case 'defaultChecked':
-          defaultChecked = propValue;
-          break;
-
-        case 'defaultValue':
-          defaultValue = propValue;
-          break;
-
-        case 'checked':
-          checked = propValue;
-          break;
-
-        case 'value':
-          value = propValue;
-          break;
-
-        default:
-          pushAttribute(target, responseState, propKey, propValue);
-          break;
-      }
-    }
-  }
-
-  if (checked !== null) {
-    pushAttribute(target, responseState, 'checked', checked);
-  } else if (defaultChecked !== null) {
-    pushAttribute(target, responseState, 'checked', defaultChecked);
-  }
-
-  if (value !== null) {
-    pushAttribute(target, responseState, 'value', value);
-  } else if (defaultValue !== null) {
-    pushAttribute(target, responseState, 'value', defaultValue);
-  }
-
-  target.push(endOfStartTagSelfClosing);
-  return null;
-}
-
-function pushStartTextArea(target, props, responseState) {
-  {
-    checkControlledValueProps('textarea', props);
-
-    if (props.value !== undefined && props.defaultValue !== undefined && !didWarnDefaultTextareaValue) {
-      error('Textarea elements must be either controlled or uncontrolled ' + '(specify either the value prop, or the defaultValue prop, but not ' + 'both). Decide between using a controlled or uncontrolled textarea ' + 'and remove one of these props. More info: ' + 'https://reactjs.org/link/controlled-components');
-
-      didWarnDefaultTextareaValue = true;
-    }
-  }
-
-  target.push(startChunkForTag('textarea'));
-  var value = null;
-  var defaultValue = null;
-  var children = null;
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-          children = propValue;
-          break;
-
-        case 'value':
-          value = propValue;
-          break;
-
-        case 'defaultValue':
-          defaultValue = propValue;
-          break;
-
-        case 'dangerouslySetInnerHTML':
-          throw new Error('`dangerouslySetInnerHTML` does not make sense on <textarea>.');
-        // eslint-disable-next-line-no-fallthrough
-
-        default:
-          pushAttribute(target, responseState, propKey, propValue);
-          break;
-      }
-    }
-  }
-
-  if (value === null && defaultValue !== null) {
-    value = defaultValue;
-  }
-
-  target.push(endOfStartTag); // TODO (yungsters): Remove support for children content in <textarea>.
-
-  if (children != null) {
-    {
-      error('Use the `defaultValue` or `value` props instead of setting ' + 'children on <textarea>.');
-    }
-
-    if (value != null) {
-      throw new Error('If you supply `defaultValue` on a <textarea>, do not pass children.');
-    }
-
-    if (isArray(children)) {
-      if (children.length > 1) {
-        throw new Error('<textarea> can only have at most one child.');
-      } // TODO: remove the coercion and the DEV check below because it will
-      // always be overwritten by the coercion several lines below it. #22309
-
-
-      {
-        checkHtmlStringCoercion(children[0]);
-      }
-
-      value = '' + children[0];
-    }
-
-    {
-      checkHtmlStringCoercion(children);
-    }
-
-    value = '' + children;
-  }
-
-  if (typeof value === 'string' && value[0] === '\n') {
-    // text/html ignores the first character in these tags if it's a newline
-    // Prefer to break application/xml over text/html (for now) by adding
-    // a newline specifically to get eaten by the parser. (Alternately for
-    // textareas, replacing "^\n" with "\r\n" doesn't get eaten, and the first
-    // \r is normalized out by HTMLTextAreaElement#value.)
-    // See: <http://www.w3.org/TR/html-polyglot/#newlines-in-textarea-and-pre>
-    // See: <http://www.w3.org/TR/html5/syntax.html#element-restrictions>
-    // See: <http://www.w3.org/TR/html5/syntax.html#newlines>
-    // See: Parsing of "textarea" "listing" and "pre" elements
-    //  from <http://www.w3.org/TR/html5/syntax.html#parsing-main-inbody>
-    target.push(leadingNewline);
-  } // ToString and push directly instead of recurse over children.
-  // We don't really support complex children in the value anyway.
-  // This also currently avoids a trailing comment node which breaks textarea.
-
-
-  if (value !== null) {
-    {
-      checkAttributeStringCoercion(value, 'value');
-    }
-
-    target.push(stringToChunk(encodeHTMLTextNode('' + value)));
-  }
-
-  return null;
-}
-
-function pushSelfClosing(target, props, tag, responseState) {
-  target.push(startChunkForTag(tag));
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-        case 'dangerouslySetInnerHTML':
-          throw new Error(tag + " is a self-closing tag and must neither have `children` nor " + 'use `dangerouslySetInnerHTML`.');
-        // eslint-disable-next-line-no-fallthrough
-
-        default:
-          pushAttribute(target, responseState, propKey, propValue);
-          break;
-      }
-    }
-  }
-
-  target.push(endOfStartTagSelfClosing);
-  return null;
-}
-
-function pushStartMenuItem(target, props, responseState) {
-  target.push(startChunkForTag('menuitem'));
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-        case 'dangerouslySetInnerHTML':
-          throw new Error('menuitems cannot have `children` nor `dangerouslySetInnerHTML`.');
-        // eslint-disable-next-line-no-fallthrough
-
-        default:
-          pushAttribute(target, responseState, propKey, propValue);
-          break;
-      }
-    }
-  }
-
-  target.push(endOfStartTag);
-  return null;
-}
-
-function pushStartTitle(target, props, responseState) {
-  target.push(startChunkForTag('title'));
-  var children = null;
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-          children = propValue;
-          break;
-
-        case 'dangerouslySetInnerHTML':
-          throw new Error('`dangerouslySetInnerHTML` does not make sense on <title>.');
-        // eslint-disable-next-line-no-fallthrough
-
-        default:
-          pushAttribute(target, responseState, propKey, propValue);
-          break;
-      }
-    }
-  }
-
-  target.push(endOfStartTag);
-
-  {
-    var child = Array.isArray(children) && children.length < 2 ? children[0] || null : children;
-
-    if (Array.isArray(children) && children.length > 1) {
-      error('A title element received an array with more than 1 element as children. ' + 'In browsers title Elements can only have Text Nodes as children. If ' + 'the children being rendered output more than a single text node in aggregate the browser ' + 'will display markup and comments as text in the title and hydration will likely fail and ' + 'fall back to client rendering');
-    } else if (child != null && child.$$typeof != null) {
-      error('A title element received a React element for children. ' + 'In the browser title Elements can only have Text Nodes as children. If ' + 'the children being rendered output more than a single text node in aggregate the browser ' + 'will display markup and comments as text in the title and hydration will likely fail and ' + 'fall back to client rendering');
-    } else if (child != null && typeof child !== 'string' && typeof child !== 'number') {
-      error('A title element received a value that was not a string or number for children. ' + 'In the browser title Elements can only have Text Nodes as children. If ' + 'the children being rendered output more than a single text node in aggregate the browser ' + 'will display markup and comments as text in the title and hydration will likely fail and ' + 'fall back to client rendering');
-    }
-  }
-
-  return children;
-}
-
-function pushStartGenericElement(target, props, tag, responseState) {
-  target.push(startChunkForTag(tag));
-  var children = null;
-  var innerHTML = null;
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-          children = propValue;
-          break;
-
-        case 'dangerouslySetInnerHTML':
-          innerHTML = propValue;
-          break;
-
-        default:
-          pushAttribute(target, responseState, propKey, propValue);
-          break;
-      }
-    }
-  }
-
-  target.push(endOfStartTag);
-  pushInnerHTML(target, innerHTML, children);
-
-  if (typeof children === 'string') {
-    // Special case children as a string to avoid the unnecessary comment.
-    // TODO: Remove this special case after the general optimization is in place.
-    target.push(stringToChunk(encodeHTMLTextNode(children)));
-    return null;
-  }
-
-  return children;
-}
-
-function pushStartCustomElement(target, props, tag, responseState) {
-  target.push(startChunkForTag(tag));
-  var children = null;
-  var innerHTML = null;
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-          children = propValue;
-          break;
-
-        case 'dangerouslySetInnerHTML':
-          innerHTML = propValue;
-          break;
-
-        case 'style':
-          pushStyle(target, responseState, propValue);
-          break;
-
-        case 'suppressContentEditableWarning':
-        case 'suppressHydrationWarning':
-          // Ignored. These are built-in to React on the client.
-          break;
-
-        default:
-          if (isAttributeNameSafe(propKey) && typeof propValue !== 'function' && typeof propValue !== 'symbol') {
-            target.push(attributeSeparator, stringToChunk(propKey), attributeAssign, stringToChunk(escapeTextForBrowser(propValue)), attributeEnd);
-          }
-
-          break;
-      }
-    }
-  }
-
-  target.push(endOfStartTag);
-  pushInnerHTML(target, innerHTML, children);
-  return children;
-}
-
-var leadingNewline = stringToPrecomputedChunk('\n');
-
-function pushStartPreformattedElement(target, props, tag, responseState) {
-  target.push(startChunkForTag(tag));
-  var children = null;
-  var innerHTML = null;
-
-  for (var propKey in props) {
-    if (hasOwnProperty.call(props, propKey)) {
-      var propValue = props[propKey];
-
-      if (propValue == null) {
-        continue;
-      }
-
-      switch (propKey) {
-        case 'children':
-          children = propValue;
-          break;
-
-        case 'dangerouslySetInnerHTML':
-          innerHTML = propValue;
-          break;
-
-        default:
-          pushAttribute(target, responseState, propKey, propValue);
-          break;
-      }
-    }
-  }
-
-  target.push(endOfStartTag); // text/html ignores the first character in these tags if it's a newline
-  // Prefer to break application/xml over text/html (for now) by adding
-  // a newline specifically to get eaten by the parser. (Alternately for
-  // textareas, replacing "^\n" with "\r\n" doesn't get eaten, and the first
-  // \r is normalized out by HTMLTextAreaElement#value.)
-  // See: <http://www.w3.org/TR/html-polyglot/#newlines-in-textarea-and-pre>
-  // See: <http://www.w3.org/TR/html5/syntax.html#element-restrictions>
-  // See: <http://www.w3.org/TR/html5/syntax.html#newlines>
-  // See: Parsing of "textarea" "listing" and "pre" elements
-  //  from <http://www.w3.org/TR/html5/syntax.html#parsing-main-inbody>
-  // TODO: This doesn't deal with the case where the child is an array
-  // or component that returns a string.
-
-  if (innerHTML != null) {
-    if (children != null) {
-      throw new Error('Can only set one of `children` or `props.dangerouslySetInnerHTML`.');
-    }
-
-    if (typeof innerHTML !== 'object' || !('__html' in innerHTML)) {
-      throw new Error('`props.dangerouslySetInnerHTML` must be in the form `{__html: ...}`. ' + 'Please visit https://reactjs.org/link/dangerously-set-inner-html ' + 'for more information.');
-    }
-
-    var html = innerHTML.__html;
-
-    if (html !== null && html !== undefined) {
-      if (typeof html === 'string' && html.length > 0 && html[0] === '\n') {
-        target.push(leadingNewline, stringToChunk(html));
-      } else {
-        {
-          checkHtmlStringCoercion(html);
-        }
-
-        target.push(stringToChunk('' + html));
-      }
-    }
-  }
-
-  if (typeof children === 'string' && children[0] === '\n') {
-    target.push(leadingNewline);
-  }
-
-  return children;
-} // We accept any tag to be rendered but since this gets injected into arbitrary
-// HTML, we want to make sure that it's a safe tag.
-// http://www.w3.org/TR/REC-xml/#NT-Name
-
-
-var VALID_TAG_REGEX = /^[a-zA-Z][a-zA-Z:_\.\-\d]*$/; // Simplified subset
-
-var validatedTagCache = new Map();
-
-function startChunkForTag(tag) {
-  var tagStartChunk = validatedTagCache.get(tag);
-
-  if (tagStartChunk === undefined) {
-    if (!VALID_TAG_REGEX.test(tag)) {
-      throw new Error("Invalid tag: " + tag);
-    }
-
-    tagStartChunk = stringToPrecomputedChunk('<' + tag);
-    validatedTagCache.set(tag, tagStartChunk);
-  }
-
-  return tagStartChunk;
-}
-
-var DOCTYPE = stringToPrecomputedChunk('<!DOCTYPE html>');
-function pushStartInstance(target, type, props, responseState, formatContext) {
-  {
-    validateProperties(type, props);
-    validateProperties$1(type, props);
-    validateProperties$2(type, props, null);
-
-    if (!props.suppressContentEditableWarning && props.contentEditable && props.children != null) {
-      error('A component is `contentEditable` and contains `children` managed by ' + 'React. It is now your responsibility to guarantee that none of ' + 'those nodes are unexpectedly modified or duplicated. This is ' + 'probably not intentional.');
-    }
-
-    if (formatContext.insertionMode !== SVG_MODE && formatContext.insertionMode !== MATHML_MODE) {
-      if (type.indexOf('-') === -1 && typeof props.is !== 'string' && type.toLowerCase() !== type) {
-        error('<%s /> is using incorrect casing. ' + 'Use PascalCase for React components, ' + 'or lowercase for HTML elements.', type);
-      }
-    }
-  }
-
-  switch (type) {
-    // Special tags
-    case 'select':
-      return pushStartSelect(target, props, responseState);
-
-    case 'option':
-      return pushStartOption(target, props, responseState, formatContext);
-
-    case 'textarea':
-      return pushStartTextArea(target, props, responseState);
-
-    case 'input':
-      return pushInput(target, props, responseState);
-
-    case 'menuitem':
-      return pushStartMenuItem(target, props, responseState);
-
-    case 'title':
-      return pushStartTitle(target, props, responseState);
-    // Newline eating tags
-
-    case 'listing':
-    case 'pre':
-      {
-        return pushStartPreformattedElement(target, props, type, responseState);
-      }
-    // Omitted close tags
-
-    case 'area':
-    case 'base':
-    case 'br':
-    case 'col':
-    case 'embed':
-    case 'hr':
-    case 'img':
-    case 'keygen':
-    case 'link':
-    case 'meta':
-    case 'param':
-    case 'source':
-    case 'track':
-    case 'wbr':
-      {
-        return pushSelfClosing(target, props, type, responseState);
-      }
-    // These are reserved SVG and MathML elements, that are never custom elements.
-    // https://w3c.github.io/webcomponents/spec/custom/#custom-elements-core-concepts
-
-    case 'annotation-xml':
-    case 'color-profile':
-    case 'font-face':
-    case 'font-face-src':
-    case 'font-face-uri':
-    case 'font-face-format':
-    case 'font-face-name':
-    case 'missing-glyph':
-      {
-        return pushStartGenericElement(target, props, type, responseState);
-      }
-
-    case 'html':
-      {
-        if (formatContext.insertionMode === ROOT_HTML_MODE) {
-          // If we're rendering the html tag and we're at the root (i.e. not in foreignObject)
-          // then we also emit the DOCTYPE as part of the root content as a convenience for
-          // rendering the whole document.
-          target.push(DOCTYPE);
-        }
-
-        return pushStartGenericElement(target, props, type, responseState);
-      }
-
-    default:
-      {
-        if (type.indexOf('-') === -1 && typeof props.is !== 'string') {
-          // Generic element
-          return pushStartGenericElement(target, props, type, responseState);
-        } else {
-          // Custom element
-          return pushStartCustomElement(target, props, type, responseState);
-        }
-      }
-  }
-}
-var endTag1 = stringToPrecomputedChunk('</');
-var endTag2 = stringToPrecomputedChunk('>');
-function pushEndInstance(target, type, props) {
-  switch (type) {
-    // Omitted close tags
-    // TODO: Instead of repeating this switch we could try to pass a flag from above.
-    // That would require returning a tuple. Which might be ok if it gets inlined.
-    case 'area':
-    case 'base':
-    case 'br':
-    case 'col':
-    case 'embed':
-    case 'hr':
-    case 'img':
-    case 'input':
-    case 'keygen':
-    case 'link':
-    case 'meta':
-    case 'param':
-    case 'source':
-    case 'track':
-    case 'wbr':
-      {
-        // No close tag needed.
-        break;
-      }
-
-    default:
-      {
-        target.push(endTag1, stringToChunk(type), endTag2);
-      }
-  }
-}
-function writeCompletedRoot(destination, responseState) {
-  var bootstrapChunks = responseState.bootstrapChunks;
-  var i = 0;
-
-  for (; i < bootstrapChunks.length - 1; i++) {
-    writeChunk(destination, bootstrapChunks[i]);
-  }
-
-  if (i < bootstrapChunks.length) {
-    return writeChunkAndReturn(destination, bootstrapChunks[i]);
-  }
-
-  return true;
-} // Structural Nodes
-// A placeholder is a node inside a hidden partial tree that can be filled in later, but before
-// display. It's never visible to users. We use the template tag because it can be used in every
-// type of parent. <script> tags also work in every other tag except <colgroup>.
-
-var placeholder1 = stringToPrecomputedChunk('<template id="');
-var placeholder2 = stringToPrecomputedChunk('"></template>');
-function writePlaceholder(destination, responseState, id) {
-  writeChunk(destination, placeholder1);
-  writeChunk(destination, responseState.placeholderPrefix);
-  var formattedID = stringToChunk(id.toString(16));
-  writeChunk(destination, formattedID);
-  return writeChunkAndReturn(destination, placeholder2);
-} // Suspense boundaries are encoded as comments.
-
-var startCompletedSuspenseBoundary = stringToPrecomputedChunk('<!--$-->');
-var startPendingSuspenseBoundary1 = stringToPrecomputedChunk('<!--$?--><template id="');
-var startPendingSuspenseBoundary2 = stringToPrecomputedChunk('"></template>');
-var startClientRenderedSuspenseBoundary = stringToPrecomputedChunk('<!--$!-->');
-var endSuspenseBoundary = stringToPrecomputedChunk('<!--/$-->');
-var clientRenderedSuspenseBoundaryError1 = stringToPrecomputedChunk('<template');
-var clientRenderedSuspenseBoundaryErrorAttrInterstitial = stringToPrecomputedChunk('"');
-var clientRenderedSuspenseBoundaryError1A = stringToPrecomputedChunk(' data-dgst="');
-var clientRenderedSuspenseBoundaryError1B = stringToPrecomputedChunk(' data-msg="');
-var clientRenderedSuspenseBoundaryError1C = stringToPrecomputedChunk(' data-stck="');
-var clientRenderedSuspenseBoundaryError2 = stringToPrecomputedChunk('></template>');
-function writeStartCompletedSuspenseBoundary(destination, responseState) {
-  return writeChunkAndReturn(destination, startCompletedSuspenseBoundary);
-}
-function writeStartPendingSuspenseBoundary(destination, responseState, id) {
-  writeChunk(destination, startPendingSuspenseBoundary1);
-
-  if (id === null) {
-    throw new Error('An ID must have been assigned before we can complete the boundary.');
-  }
-
-  writeChunk(destination, id);
-  return writeChunkAndReturn(destination, startPendingSuspenseBoundary2);
-}
-function writeStartClientRenderedSuspenseBoundary(destination, responseState, errorDigest, errorMesssage, errorComponentStack) {
-  var result;
-  result = writeChunkAndReturn(destination, startClientRenderedSuspenseBoundary);
-  writeChunk(destination, clientRenderedSuspenseBoundaryError1);
-
-  if (errorDigest) {
-    writeChunk(destination, clientRenderedSuspenseBoundaryError1A);
-    writeChunk(destination, stringToChunk(escapeTextForBrowser(errorDigest)));
-    writeChunk(destination, clientRenderedSuspenseBoundaryErrorAttrInterstitial);
-  }
-
-  {
-    if (errorMesssage) {
-      writeChunk(destination, clientRenderedSuspenseBoundaryError1B);
-      writeChunk(destination, stringToChunk(escapeTextForBrowser(errorMesssage)));
-      writeChunk(destination, clientRenderedSuspenseBoundaryErrorAttrInterstitial);
-    }
-
-    if (errorComponentStack) {
-      writeChunk(destination, clientRenderedSuspenseBoundaryError1C);
-      writeChunk(destination, stringToChunk(escapeTextForBrowser(errorComponentStack)));
-      writeChunk(destination, clientRenderedSuspenseBoundaryErrorAttrInterstitial);
-    }
-  }
-
-  result = writeChunkAndReturn(destination, clientRenderedSuspenseBoundaryError2);
-  return result;
-}
-function writeEndCompletedSuspenseBoundary(destination, responseState) {
-  return writeChunkAndReturn(destination, endSuspenseBoundary);
-}
-function writeEndPendingSuspenseBoundary(destination, responseState) {
-  return writeChunkAndReturn(destination, endSuspenseBoundary);
-}
-function writeEndClientRenderedSuspenseBoundary(destination, responseState) {
-  return writeChunkAndReturn(destination, endSuspenseBoundary);
-}
-var startSegmentHTML = stringToPrecomputedChunk('<div hidden id="');
-var startSegmentHTML2 = stringToPrecomputedChunk('">');
-var endSegmentHTML = stringToPrecomputedChunk('</div>');
-var startSegmentSVG = stringToPrecomputedChunk('<svg aria-hidden="true" style="display:none" id="');
-var startSegmentSVG2 = stringToPrecomputedChunk('">');
-var endSegmentSVG = stringToPrecomputedChunk('</svg>');
-var startSegmentMathML = stringToPrecomputedChunk('<math aria-hidden="true" style="display:none" id="');
-var startSegmentMathML2 = stringToPrecomputedChunk('">');
-var endSegmentMathML = stringToPrecomputedChunk('</math>');
-var startSegmentTable = stringToPrecomputedChunk('<table hidden id="');
-var startSegmentTable2 = stringToPrecomputedChunk('">');
-var endSegmentTable = stringToPrecomputedChunk('</table>');
-var startSegmentTableBody = stringToPrecomputedChunk('<table hidden><tbody id="');
-var startSegmentTableBody2 = stringToPrecomputedChunk('">');
-var endSegmentTableBody = stringToPrecomputedChunk('</tbody></table>');
-var startSegmentTableRow = stringToPrecomputedChunk('<table hidden><tr id="');
-var startSegmentTableRow2 = stringToPrecomputedChunk('">');
-var endSegmentTableRow = stringToPrecomputedChunk('</tr></table>');
-var startSegmentColGroup = stringToPrecomputedChunk('<table hidden><colgroup id="');
-var startSegmentColGroup2 = stringToPrecomputedChunk('">');
-var endSegmentColGroup = stringToPrecomputedChunk('</colgroup></table>');
-function writeStartSegment(destination, responseState, formatContext, id) {
-  switch (formatContext.insertionMode) {
-    case ROOT_HTML_MODE:
-    case HTML_MODE:
-      {
-        writeChunk(destination, startSegmentHTML);
-        writeChunk(destination, responseState.segmentPrefix);
-        writeChunk(destination, stringToChunk(id.toString(16)));
-        return writeChunkAndReturn(destination, startSegmentHTML2);
-      }
-
-    case SVG_MODE:
-      {
-        writeChunk(destination, startSegmentSVG);
-        writeChunk(destination, responseState.segmentPrefix);
-        writeChunk(destination, stringToChunk(id.toString(16)));
-        return writeChunkAndReturn(destination, startSegmentSVG2);
-      }
-
-    case MATHML_MODE:
-      {
-        writeChunk(destination, startSegmentMathML);
-        writeChunk(destination, responseState.segmentPrefix);
-        writeChunk(destination, stringToChunk(id.toString(16)));
-        return writeChunkAndReturn(destination, startSegmentMathML2);
-      }
-
-    case HTML_TABLE_MODE:
-      {
-        writeChunk(destination, startSegmentTable);
-        writeChunk(destination, responseState.segmentPrefix);
-        writeChunk(destination, stringToChunk(id.toString(16)));
-        return writeChunkAndReturn(destination, startSegmentTable2);
-      }
-    // TODO: For the rest of these, there will be extra wrapper nodes that never
-    // get deleted from the document. We need to delete the table too as part
-    // of the injected scripts. They are invisible though so it's not too terrible
-    // and it's kind of an edge case to suspend in a table. Totally supported though.
-
-    case HTML_TABLE_BODY_MODE:
-      {
-        writeChunk(destination, startSegmentTableBody);
-        writeChunk(destination, responseState.segmentPrefix);
-        writeChunk(destination, stringToChunk(id.toString(16)));
-        return writeChunkAndReturn(destination, startSegmentTableBody2);
-      }
-
-    case HTML_TABLE_ROW_MODE:
-      {
-        writeChunk(destination, startSegmentTableRow);
-        writeChunk(destination, responseState.segmentPrefix);
-        writeChunk(destination, stringToChunk(id.toString(16)));
-        return writeChunkAndReturn(destination, startSegmentTableRow2);
-      }
-
-    case HTML_COLGROUP_MODE:
-      {
-        writeChunk(destination, startSegmentColGroup);
-        writeChunk(destination, responseState.segmentPrefix);
-        writeChunk(destination, stringToChunk(id.toString(16)));
-        return writeChunkAndReturn(destination, startSegmentColGroup2);
-      }
-
-    default:
-      {
-        throw new Error('Unknown insertion mode. This is a bug in React.');
-      }
-  }
-}
-function writeEndSegment(destination, formatContext) {
-  switch (formatContext.insertionMode) {
-    case ROOT_HTML_MODE:
-    case HTML_MODE:
-      {
-        return writeChunkAndReturn(destination, endSegmentHTML);
-      }
-
-    case SVG_MODE:
-      {
-        return writeChunkAndReturn(destination, endSegmentSVG);
-      }
-
-    case MATHML_MODE:
-      {
-        return writeChunkAndReturn(destination, endSegmentMathML);
-      }
-
-    case HTML_TABLE_MODE:
-      {
-        return writeChunkAndReturn(destination, endSegmentTable);
-      }
-
-    case HTML_TABLE_BODY_MODE:
-      {
-        return writeChunkAndReturn(destination, endSegmentTableBody);
-      }
-
-    case HTML_TABLE_ROW_MODE:
-      {
-        return writeChunkAndReturn(destination, endSegmentTableRow);
-      }
-
-    case HTML_COLGROUP_MODE:
-      {
-        return writeChunkAndReturn(destination, endSegmentColGroup);
-      }
-
-    default:
-      {
-        throw new Error('Unknown insertion mode. This is a bug in React.');
-      }
-  }
-} // Instruction Set
-// The following code is the source scripts that we then minify and inline below,
-// with renamed function names that we hope don't collide:
-// const COMMENT_NODE = 8;
-// const SUSPENSE_START_DATA = '$';
-// const SUSPENSE_END_DATA = '/$';
-// const SUSPENSE_PENDING_START_DATA = '$?';
-// const SUSPENSE_FALLBACK_START_DATA = '$!';
-//
-// function clientRenderBoundary(suspenseBoundaryID, errorDigest, errorMsg, errorComponentStack) {
-//   // Find the fallback's first element.
-//   const suspenseIdNode = document.getElementById(suspenseBoundaryID);
-//   if (!suspenseIdNode) {
-//     // The user must have already navigated away from this tree.
-//     // E.g. because the parent was hydrated.
-//     return;
-//   }
-//   // Find the boundary around the fallback. This is always the previous node.
-//   const suspenseNode = suspenseIdNode.previousSibling;
-//   // Tag it to be client rendered.
-//   suspenseNode.data = SUSPENSE_FALLBACK_START_DATA;
-//   // assign error metadata to first sibling
-//   let dataset = suspenseIdNode.dataset;
-//   if (errorDigest) dataset.dgst = errorDigest;
-//   if (errorMsg) dataset.msg = errorMsg;
-//   if (errorComponentStack) dataset.stck = errorComponentStack;
-//   // Tell React to retry it if the parent already hydrated.
-//   if (suspenseNode._reactRetry) {
-//     suspenseNode._reactRetry();
-//   }
-// }
-//
-// function completeBoundary(suspenseBoundaryID, contentID) {
-//   // Find the fallback's first element.
-//   const suspenseIdNode = document.getElementById(suspenseBoundaryID);
-//   const contentNode = document.getElementById(contentID);
-//   // We'll detach the content node so that regardless of what happens next we don't leave in the tree.
-//   // This might also help by not causing recalcing each time we move a child from here to the target.
-//   contentNode.parentNode.removeChild(contentNode);
-//   if (!suspenseIdNode) {
-//     // The user must have already navigated away from this tree.
-//     // E.g. because the parent was hydrated. That's fine there's nothing to do
-//     // but we have to make sure that we already deleted the container node.
-//     return;
-//   }
-//   // Find the boundary around the fallback. This is always the previous node.
-//   const suspenseNode = suspenseIdNode.previousSibling;
-//
-//   // Clear all the existing children. This is complicated because
-//   // there can be embedded Suspense boundaries in the fallback.
-//   // This is similar to clearSuspenseBoundary in ReactDOMHostConfig.
-//   // TODO: We could avoid this if we never emitted suspense boundaries in fallback trees.
-//   // They never hydrate anyway. However, currently we support incrementally loading the fallback.
-//   const parentInstance = suspenseNode.parentNode;
-//   let node = suspenseNode.nextSibling;
-//   let depth = 0;
-//   do {
-//     if (node && node.nodeType === COMMENT_NODE) {
-//       const data = node.data;
-//       if (data === SUSPENSE_END_DATA) {
-//         if (depth === 0) {
-//           break;
-//         } else {
-//           depth--;
-//         }
-//       } else if (
-//         data === SUSPENSE_START_DATA ||
-//         data === SUSPENSE_PENDING_START_DATA ||
-//         data === SUSPENSE_FALLBACK_START_DATA
-//       ) {
-//         depth++;
-//       }
-//     }
-//
-//     const nextNode = node.nextSibling;
-//     parentInstance.removeChild(node);
-//     node = nextNode;
-//   } while (node);
-//
-//   const endOfBoundary = node;
-//
-//   // Insert all the children from the contentNode between the start and end of suspense boundary.
-//   while (contentNode.firstChild) {
-//     parentInstance.insertBefore(contentNode.firstChild, endOfBoundary);
-//   }
-//   suspenseNode.data = SUSPENSE_START_DATA;
-//   if (suspenseNode._reactRetry) {
-//     suspenseNode._reactRetry();
-//   }
-// }
-//
-// function completeSegment(containerID, placeholderID) {
-//   const segmentContainer = document.getElementById(containerID);
-//   const placeholderNode = document.getElementById(placeholderID);
-//   // We always expect both nodes to exist here because, while we might
-//   // have navigated away from the main tree, we still expect the detached
-//   // tree to exist.
-//   segmentContainer.parentNode.removeChild(segmentContainer);
-//   while (segmentContainer.firstChild) {
-//     placeholderNode.parentNode.insertBefore(
-//       segmentContainer.firstChild,
-//       placeholderNode,
-//     );
-//   }
-//   placeholderNode.parentNode.removeChild(placeholderNode);
-// }
-
-var completeSegmentFunction = 'function $RS(a,b){a=document.getElementById(a);b=document.getElementById(b);for(a.parentNode.removeChild(a);a.firstChild;)b.parentNode.insertBefore(a.firstChild,b);b.parentNode.removeChild(b)}';
-var completeBoundaryFunction = 'function $RC(a,b){a=document.getElementById(a);b=document.getElementById(b);b.parentNode.removeChild(b);if(a){a=a.previousSibling;var f=a.parentNode,c=a.nextSibling,e=0;do{if(c&&8===c.nodeType){var d=c.data;if("/$"===d)if(0===e)break;else e--;else"$"!==d&&"$?"!==d&&"$!"!==d||e++}d=c.nextSibling;f.removeChild(c);c=d}while(c);for(;b.firstChild;)f.insertBefore(b.firstChild,c);a.data="$";a._reactRetry&&a._reactRetry()}}';
-var clientRenderFunction = 'function $RX(b,c,d,e){var a=document.getElementById(b);a&&(b=a.previousSibling,b.data="$!",a=a.dataset,c&&(a.dgst=c),d&&(a.msg=d),e&&(a.stck=e),b._reactRetry&&b._reactRetry())}';
-var completeSegmentScript1Full = stringToPrecomputedChunk(completeSegmentFunction + ';$RS("');
-var completeSegmentScript1Partial = stringToPrecomputedChunk('$RS("');
-var completeSegmentScript2 = stringToPrecomputedChunk('","');
-var completeSegmentScript3 = stringToPrecomputedChunk('")</script>');
-function writeCompletedSegmentInstruction(destination, responseState, contentSegmentID) {
-  writeChunk(destination, responseState.startInlineScript);
-
-  if (!responseState.sentCompleteSegmentFunction) {
-    // The first time we write this, we'll need to include the full implementation.
-    responseState.sentCompleteSegmentFunction = true;
-    writeChunk(destination, completeSegmentScript1Full);
-  } else {
-    // Future calls can just reuse the same function.
-    writeChunk(destination, completeSegmentScript1Partial);
-  }
-
-  writeChunk(destination, responseState.segmentPrefix);
-  var formattedID = stringToChunk(contentSegmentID.toString(16));
-  writeChunk(destination, formattedID);
-  writeChunk(destination, completeSegmentScript2);
-  writeChunk(destination, responseState.placeholderPrefix);
-  writeChunk(destination, formattedID);
-  return writeChunkAndReturn(destination, completeSegmentScript3);
-}
-var completeBoundaryScript1Full = stringToPrecomputedChunk(completeBoundaryFunction + ';$RC("');
-var completeBoundaryScript1Partial = stringToPrecomputedChunk('$RC("');
-var completeBoundaryScript2 = stringToPrecomputedChunk('","');
-var completeBoundaryScript3 = stringToPrecomputedChunk('")</script>');
-function writeCompletedBoundaryInstruction(destination, responseState, boundaryID, contentSegmentID) {
-  writeChunk(destination, responseState.startInlineScript);
-
-  if (!responseState.sentCompleteBoundaryFunction) {
-    // The first time we write this, we'll need to include the full implementation.
-    responseState.sentCompleteBoundaryFunction = true;
-    writeChunk(destination, completeBoundaryScript1Full);
-  } else {
-    // Future calls can just reuse the same function.
-    writeChunk(destination, completeBoundaryScript1Partial);
-  }
-
-  if (boundaryID === null) {
-    throw new Error('An ID must have been assigned before we can complete the boundary.');
-  }
-
-  var formattedContentID = stringToChunk(contentSegmentID.toString(16));
-  writeChunk(destination, boundaryID);
-  writeChunk(destination, completeBoundaryScript2);
-  writeChunk(destination, responseState.segmentPrefix);
-  writeChunk(destination, formattedContentID);
-  return writeChunkAndReturn(destination, completeBoundaryScript3);
-}
-var clientRenderScript1Full = stringToPrecomputedChunk(clientRenderFunction + ';$RX("');
-var clientRenderScript1Partial = stringToPrecomputedChunk('$RX("');
-var clientRenderScript1A = stringToPrecomputedChunk('"');
-var clientRenderScript2 = stringToPrecomputedChunk(')</script>');
-var clientRenderErrorScriptArgInterstitial = stringToPrecomputedChunk(',');
-function writeClientRenderBoundaryInstruction(destination, responseState, boundaryID, errorDigest, errorMessage, errorComponentStack) {
-  writeChunk(destination, responseState.startInlineScript);
-
-  if (!responseState.sentClientRenderFunction) {
-    // The first time we write this, we'll need to include the full implementation.
-    responseState.sentClientRenderFunction = true;
-    writeChunk(destination, clientRenderScript1Full);
-  } else {
-    // Future calls can just reuse the same function.
-    writeChunk(destination, clientRenderScript1Partial);
-  }
-
-  if (boundaryID === null) {
-    throw new Error('An ID must have been assigned before we can complete the boundary.');
-  }
-
-  writeChunk(destination, boundaryID);
-  writeChunk(destination, clientRenderScript1A);
-
-  if (errorDigest || errorMessage || errorComponentStack) {
-    writeChunk(destination, clientRenderErrorScriptArgInterstitial);
-    writeChunk(destination, stringToChunk(escapeJSStringsForInstructionScripts(errorDigest || '')));
-  }
-
-  if (errorMessage || errorComponentStack) {
-    writeChunk(destination, clientRenderErrorScriptArgInterstitial);
-    writeChunk(destination, stringToChunk(escapeJSStringsForInstructionScripts(errorMessage || '')));
-  }
-
-  if (errorComponentStack) {
-    writeChunk(destination, clientRenderErrorScriptArgInterstitial);
-    writeChunk(destination, stringToChunk(escapeJSStringsForInstructionScripts(errorComponentStack)));
-  }
-
-  return writeChunkAndReturn(destination, clientRenderScript2);
-}
-var regexForJSStringsInScripts = /[<\u2028\u2029]/g;
-
-function escapeJSStringsForInstructionScripts(input) {
-  var escaped = JSON.stringify(input);
-  return escaped.replace(regexForJSStringsInScripts, function (match) {
-    switch (match) {
-      // santizing breaking out of strings and script tags
-      case '<':
-        return "\\u003c";
-
-      case "\u2028":
-        return "\\u2028";
-
-      case "\u2029":
-        return "\\u2029";
-
-      default:
-        {
-          // eslint-disable-next-line react-internal/prod-error-codes
-          throw new Error('escapeJSStringsForInstructionScripts encountered a match it does not know how to replace. this means the match regex and the replacement characters are no longer in sync. This is a bug in React');
-        }
-    }
-  });
-}
-
-var assign = Object.assign;
-
-// ATTENTION
-// When adding new symbols to this file,
-// Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
-// The Symbol used to tag the ReactElement-like types.
-var REACT_ELEMENT_TYPE = Symbol.for('react.element');
-var REACT_PORTAL_TYPE = Symbol.for('react.portal');
-var REACT_FRAGMENT_TYPE = Symbol.for('react.fragment');
-var REACT_STRICT_MODE_TYPE = Symbol.for('react.strict_mode');
-var REACT_PROFILER_TYPE = Symbol.for('react.profiler');
-var REACT_PROVIDER_TYPE = Symbol.for('react.provider');
-var REACT_CONTEXT_TYPE = Symbol.for('react.context');
-var REACT_FORWARD_REF_TYPE = Symbol.for('react.forward_ref');
-var REACT_SUSPENSE_TYPE = Symbol.for('react.suspense');
-var REACT_SUSPENSE_LIST_TYPE = Symbol.for('react.suspense_list');
-var REACT_MEMO_TYPE = Symbol.for('react.memo');
-var REACT_LAZY_TYPE = Symbol.for('react.lazy');
-var REACT_SCOPE_TYPE = Symbol.for('react.scope');
-var REACT_DEBUG_TRACING_MODE_TYPE = Symbol.for('react.debug_trace_mode');
-var REACT_LEGACY_HIDDEN_TYPE = Symbol.for('react.legacy_hidden');
-var REACT_SERVER_CONTEXT_DEFAULT_VALUE_NOT_LOADED = Symbol.for('react.default_value');
-var MAYBE_ITERATOR_SYMBOL = Symbol.iterator;
-var FAUX_ITERATOR_SYMBOL = '@@iterator';
-function getIteratorFn(maybeIterable) {
-  if (maybeIterable === null || typeof maybeIterable !== 'object') {
-    return null;
-  }
-
-  var maybeIterator = MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL];
-
-  if (typeof maybeIterator === 'function') {
-    return maybeIterator;
-  }
-
-  return null;
-}
-
-function getWrappedName(outerType, innerType, wrapperName) {
-  var displayName = outerType.displayName;
-
-  if (displayName) {
-    return displayName;
-  }
-
-  var functionName = innerType.displayName || innerType.name || '';
-  return functionName !== '' ? wrapperName + "(" + functionName + ")" : wrapperName;
-} // Keep in sync with react-reconciler/getComponentNameFromFiber
-
-
-function getContextName(type) {
-  return type.displayName || 'Context';
-} // Note that the reconciler package should generally prefer to use getComponentNameFromFiber() instead.
-
-
-function getComponentNameFromType(type) {
-  if (type == null) {
-    // Host root, text node or just invalid type.
-    return null;
-  }
-
-  {
-    if (typeof type.tag === 'number') {
-      error('Received an unexpected object in getComponentNameFromType(). ' + 'This is likely a bug in React. Please file an issue.');
-    }
-  }
-
-  if (typeof type === 'function') {
-    return type.displayName || type.name || null;
-  }
-
-  if (typeof type === 'string') {
-    return type;
-  }
-
-  switch (type) {
-    case REACT_FRAGMENT_TYPE:
-      return 'Fragment';
-
-    case REACT_PORTAL_TYPE:
-      return 'Portal';
-
-    case REACT_PROFILER_TYPE:
-      return 'Profiler';
-
-    case REACT_STRICT_MODE_TYPE:
-      return 'StrictMode';
-
-    case REACT_SUSPENSE_TYPE:
-      return 'Suspense';
-
-    case REACT_SUSPENSE_LIST_TYPE:
-      return 'SuspenseList';
-
-  }
-
-  if (typeof type === 'object') {
-    switch (type.$$typeof) {
-      case REACT_CONTEXT_TYPE:
-        var context = type;
-        return getContextName(context) + '.Consumer';
-
-      case REACT_PROVIDER_TYPE:
-        var provider = type;
-        return getContextName(provider._context) + '.Provider';
-
-      case REACT_FORWARD_REF_TYPE:
-        return getWrappedName(type, type.render, 'ForwardRef');
-
-      case REACT_MEMO_TYPE:
-        var outerName = type.displayName || null;
-
-        if (outerName !== null) {
-          return outerName;
-        }
-
-        return getComponentNameFromType(type.type) || 'Memo';
-
-      case REACT_LAZY_TYPE:
-        {
-          var lazyComponent = type;
-          var payload = lazyComponent._payload;
-          var init = lazyComponent._init;
-
-          try {
-            return getComponentNameFromType(init(payload));
-          } catch (x) {
-            return null;
-          }
-        }
-
-      // eslint-disable-next-line no-fallthrough
-    }
-  }
-
-  return null;
-}
-
-// Helpers to patch console.logs to avoid logging during side-effect free
-// replaying on render function. This currently only patches the object
-// lazily which won't cover if the log function was extracted eagerly.
-// We could also eagerly patch the method.
-var disabledDepth = 0;
-var prevLog;
-var prevInfo;
-var prevWarn;
-var prevError;
-var prevGroup;
-var prevGroupCollapsed;
-var prevGroupEnd;
-
-function disabledLog() {}
-
-disabledLog.__reactDisabledLog = true;
-function disableLogs() {
-  {
-    if (disabledDepth === 0) {
-      /* eslint-disable react-internal/no-production-logging */
-      prevLog = console.log;
-      prevInfo = console.info;
-      prevWarn = console.warn;
-      prevError = console.error;
-      prevGroup = console.group;
-      prevGroupCollapsed = console.groupCollapsed;
-      prevGroupEnd = console.groupEnd; // https://github.com/facebook/react/issues/19099
-
-      var props = {
-        configurable: true,
-        enumerable: true,
-        value: disabledLog,
-        writable: true
-      }; // $FlowFixMe Flow thinks console is immutable.
-
-      Object.defineProperties(console, {
-        info: props,
-        log: props,
-        warn: props,
-        error: props,
-        group: props,
-        groupCollapsed: props,
-        groupEnd: props
-      });
-      /* eslint-enable react-internal/no-production-logging */
-    }
-
-    disabledDepth++;
-  }
-}
-function reenableLogs() {
-  {
-    disabledDepth--;
-
-    if (disabledDepth === 0) {
-      /* eslint-disable react-internal/no-production-logging */
-      var props = {
-        configurable: true,
-        enumerable: true,
-        writable: true
-      }; // $FlowFixMe Flow thinks console is immutable.
-
-      Object.defineProperties(console, {
-        log: assign({}, props, {
-          value: prevLog
-        }),
-        info: assign({}, props, {
-          value: prevInfo
-        }),
-        warn: assign({}, props, {
-          value: prevWarn
-        }),
-        error: assign({}, props, {
-          value: prevError
-        }),
-        group: assign({}, props, {
-          value: prevGroup
-        }),
-        groupCollapsed: assign({}, props, {
-          value: prevGroupCollapsed
-        }),
-        groupEnd: assign({}, props, {
-          value: prevGroupEnd
-        })
-      });
-      /* eslint-enable react-internal/no-production-logging */
-    }
-
-    if (disabledDepth < 0) {
-      error('disabledDepth fell below zero. ' + 'This is a bug in React. Please file an issue.');
-    }
-  }
-}
-
-var ReactCurrentDispatcher = ReactSharedInternals.ReactCurrentDispatcher;
-var prefix;
-function describeBuiltInComponentFrame(name, source, ownerFn) {
-  {
-    if (prefix === undefined) {
-      // Extract the VM specific prefix used by each line.
-      try {
-        throw Error();
-      } catch (x) {
-        var match = x.stack.trim().match(/\n( *(at )?)/);
-        prefix = match && match[1] || '';
-      }
-    } // We use the prefix to ensure our stacks line up with native stack frames.
-
-
-    return '\n' + prefix + name;
-  }
-}
-var reentry = false;
-var componentFrameCache;
-
-{
-  var PossiblyWeakMap = typeof WeakMap === 'function' ? WeakMap : Map;
-  componentFrameCache = new PossiblyWeakMap();
-}
-
-function describeNativeComponentFrame(fn, construct) {
-  // If something asked for a stack inside a fake render, it should get ignored.
-  if ( !fn || reentry) {
-    return '';
-  }
-
-  {
-    var frame = componentFrameCache.get(fn);
-
-    if (frame !== undefined) {
-      return frame;
-    }
-  }
-
-  var control;
-  reentry = true;
-  var previousPrepareStackTrace = Error.prepareStackTrace; // $FlowFixMe It does accept undefined.
-
-  Error.prepareStackTrace = undefined;
-  var previousDispatcher;
-
-  {
-    previousDispatcher = ReactCurrentDispatcher.current; // Set the dispatcher in DEV because this might be call in the render function
-    // for warnings.
-
-    ReactCurrentDispatcher.current = null;
-    disableLogs();
-  }
-
-  try {
-    // This should throw.
-    if (construct) {
-      // Something should be setting the props in the constructor.
-      var Fake = function () {
-        throw Error();
-      }; // $FlowFixMe
-
-
-      Object.defineProperty(Fake.prototype, 'props', {
-        set: function () {
-          // We use a throwing setter instead of frozen or non-writable props
-          // because that won't throw in a non-strict mode function.
-          throw Error();
-        }
-      });
-
-      if (typeof Reflect === 'object' && Reflect.construct) {
-        // We construct a different control for this case to include any extra
-        // frames added by the construct call.
-        try {
-          Reflect.construct(Fake, []);
-        } catch (x) {
-          control = x;
-        }
-
-        Reflect.construct(fn, [], Fake);
-      } else {
-        try {
-          Fake.call();
-        } catch (x) {
-          control = x;
-        }
-
-        fn.call(Fake.prototype);
-      }
-    } else {
-      try {
-        throw Error();
-      } catch (x) {
-        control = x;
-      }
-
-      fn();
-    }
-  } catch (sample) {
-    // This is inlined manually because closure doesn't do it for us.
-    if (sample && control && typeof sample.stack === 'string') {
-      // This extracts the first frame from the sample that isn't also in the control.
-      // Skipping one frame that we assume is the frame that calls the two.
-      var sampleLines = sample.stack.split('\n');
-      var controlLines = control.stack.split('\n');
-      var s = sampleLines.length - 1;
-      var c = controlLines.length - 1;
-
-      while (s >= 1 && c >= 0 && sampleLines[s] !== controlLines[c]) {
-        // We expect at least one stack frame to be shared.
-        // Typically this will be the root most one. However, stack frames may be
-        // cut off due to maximum stack limits. In this case, one maybe cut off
-        // earlier than the other. We assume that the sample is longer or the same
-        // and there for cut off earlier. So we should find the root most frame in
-        // the sample somewhere in the control.
-        c--;
-      }
-
-      for (; s >= 1 && c >= 0; s--, c--) {
-        // Next we find the first one that isn't the same which should be the
-        // frame that called our sample function and the control.
-        if (sampleLines[s] !== controlLines[c]) {
-          // In V8, the first line is describing the message but other VMs don't.
-          // If we're about to return the first line, and the control is also on the same
-          // line, that's a pretty good indicator that our sample threw at same line as
-          // the control. I.e. before we entered the sample frame. So we ignore this result.
-          // This can happen if you passed a class to function component, or non-function.
-          if (s !== 1 || c !== 1) {
-            do {
-              s--;
-              c--; // We may still have similar intermediate frames from the construct call.
-              // The next one that isn't the same should be our match though.
-
-              if (c < 0 || sampleLines[s] !== controlLines[c]) {
-                // V8 adds a "new" prefix for native classes. Let's remove it to make it prettier.
-                var _frame = '\n' + sampleLines[s].replace(' at new ', ' at '); // If our component frame is labeled "<anonymous>"
-                // but we have a user-provided "displayName"
-                // splice it in to make the stack more readable.
-
-
-                if (fn.displayName && _frame.includes('<anonymous>')) {
-                  _frame = _frame.replace('<anonymous>', fn.displayName);
-                }
-
-                {
-                  if (typeof fn === 'function') {
-                    componentFrameCache.set(fn, _frame);
-                  }
-                } // Return the line we found.
-
-
-                return _frame;
-              }
-            } while (s >= 1 && c >= 0);
-          }
-
-          break;
-        }
-      }
-    }
-  } finally {
-    reentry = false;
-
-    {
-      ReactCurrentDispatcher.current = previousDispatcher;
-      reenableLogs();
-    }
-
-    Error.prepareStackTrace = previousPrepareStackTrace;
-  } // Fallback to just using the name if we couldn't make it throw.
-
-
-  var name = fn ? fn.displayName || fn.name : '';
-  var syntheticFrame = name ? describeBuiltInComponentFrame(name) : '';
-
-  {
-    if (typeof fn === 'function') {
-      componentFrameCache.set(fn, syntheticFrame);
-    }
-  }
-
-  return syntheticFrame;
-}
-
-function describeClassComponentFrame(ctor, source, ownerFn) {
-  {
-    return describeNativeComponentFrame(ctor, true);
-  }
-}
-function describeFunctionComponentFrame(fn, source, ownerFn) {
-  {
-    return describeNativeComponentFrame(fn, false);
-  }
-}
-
-function shouldConstruct(Component) {
-  var prototype = Component.prototype;
-  return !!(prototype && prototype.isReactComponent);
-}
-
-function describeUnknownElementTypeFrameInDEV(type, source, ownerFn) {
-
-  if (type == null) {
-    return '';
-  }
-
-  if (typeof type === 'function') {
-    {
-      return describeNativeComponentFrame(type, shouldConstruct(type));
-    }
-  }
-
-  if (typeof type === 'string') {
-    return describeBuiltInComponentFrame(type);
-  }
-
-  switch (type) {
-    case REACT_SUSPENSE_TYPE:
-      return describeBuiltInComponentFrame('Suspense');
-
-    case REACT_SUSPENSE_LIST_TYPE:
-      return describeBuiltInComponentFrame('SuspenseList');
-  }
-
-  if (typeof type === 'object') {
-    switch (type.$$typeof) {
-      case REACT_FORWARD_REF_TYPE:
-        return describeFunctionComponentFrame(type.render);
-
-      case REACT_MEMO_TYPE:
-        // Memo may contain any component type so we recursively resolve it.
-        return describeUnknownElementTypeFrameInDEV(type.type, source, ownerFn);
-
-      case REACT_LAZY_TYPE:
-        {
-          var lazyComponent = type;
-          var payload = lazyComponent._payload;
-          var init = lazyComponent._init;
-
-          try {
-            // Lazy may contain any component type so we recursively resolve it.
-            return describeUnknownElementTypeFrameInDEV(init(payload), source, ownerFn);
-          } catch (x) {}
-        }
-    }
-  }
-
-  return '';
-}
-
-var loggedTypeFailures = {};
-var ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
-
-function setCurrentlyValidatingElement(element) {
-  {
-    if (element) {
-      var owner = element._owner;
-      var stack = describeUnknownElementTypeFrameInDEV(element.type, element._source, owner ? owner.type : null);
-      ReactDebugCurrentFrame.setExtraStackFrame(stack);
-    } else {
-      ReactDebugCurrentFrame.setExtraStackFrame(null);
-    }
-  }
-}
-
-function checkPropTypes(typeSpecs, values, location, componentName, element) {
-  {
-    // $FlowFixMe This is okay but Flow doesn't know it.
-    var has = Function.call.bind(hasOwnProperty);
-
-    for (var typeSpecName in typeSpecs) {
-      if (has(typeSpecs, typeSpecName)) {
-        var error$1 = void 0; // Prop type validation may throw. In case they do, we don't want to
-        // fail the render phase where it didn't fail before. So we log it.
-        // After these have been cleaned up, we'll let them throw.
-
-        try {
-          // This is intentionally an invariant that gets caught. It's the same
-          // behavior as without this statement except with a better message.
-          if (typeof typeSpecs[typeSpecName] !== 'function') {
-            // eslint-disable-next-line react-internal/prod-error-codes
-            var err = Error((componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' + 'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.' + 'This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.');
-            err.name = 'Invariant Violation';
-            throw err;
-          }
-
-          error$1 = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED');
-        } catch (ex) {
-          error$1 = ex;
-        }
-
-        if (error$1 && !(error$1 instanceof Error)) {
-          setCurrentlyValidatingElement(element);
-
-          error('%s: type specification of %s' + ' `%s` is invalid; the type checker ' + 'function must return `null` or an `Error` but returned a %s. ' + 'You may have forgotten to pass an argument to the type checker ' + 'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' + 'shape all require an argument).', componentName || 'React class', location, typeSpecName, typeof error$1);
-
-          setCurrentlyValidatingElement(null);
-        }
-
-        if (error$1 instanceof Error && !(error$1.message in loggedTypeFailures)) {
-          // Only monitor this failure once because there tends to be a lot of the
-          // same error.
-          loggedTypeFailures[error$1.message] = true;
-          setCurrentlyValidatingElement(element);
-
-          error('Failed %s type: %s', location, error$1.message);
-
-          setCurrentlyValidatingElement(null);
-        }
-      }
-    }
-  }
-}
-
-var warnedAboutMissingGetChildContext;
-
-{
-  warnedAboutMissingGetChildContext = {};
-}
-
-var emptyContextObject = {};
-
-{
-  Object.freeze(emptyContextObject);
-}
-
-function getMaskedContext(type, unmaskedContext) {
-  {
-    var contextTypes = type.contextTypes;
-
-    if (!contextTypes) {
-      return emptyContextObject;
-    }
-
-    var context = {};
-
-    for (var key in contextTypes) {
-      context[key] = unmaskedContext[key];
-    }
-
-    {
-      var name = getComponentNameFromType(type) || 'Unknown';
-      checkPropTypes(contextTypes, context, 'context', name);
-    }
-
-    return context;
-  }
-}
-function processChildContext(instance, type, parentContext, childContextTypes) {
-  {
-    // TODO (bvaughn) Replace this behavior with an invariant() in the future.
-    // It has only been added in Fiber to match the (unintentional) behavior in Stack.
-    if (typeof instance.getChildContext !== 'function') {
-      {
-        var componentName = getComponentNameFromType(type) || 'Unknown';
-
-        if (!warnedAboutMissingGetChildContext[componentName]) {
-          warnedAboutMissingGetChildContext[componentName] = true;
-
-          error('%s.childContextTypes is specified but there is no getChildContext() method ' + 'on the instance. You can either define getChildContext() on %s or remove ' + 'childContextTypes from it.', componentName, componentName);
-        }
-      }
-
-      return parentContext;
-    }
-
-    var childContext = instance.getChildContext();
-
-    for (var contextKey in childContext) {
-      if (!(contextKey in childContextTypes)) {
-        throw new Error((getComponentNameFromType(type) || 'Unknown') + ".getChildContext(): key \"" + contextKey + "\" is not defined in childContextTypes.");
-      }
-    }
-
-    {
-      var name = getComponentNameFromType(type) || 'Unknown';
-      checkPropTypes(childContextTypes, childContext, 'child context', name);
-    }
-
-    return assign({}, parentContext, childContext);
-  }
-}
-
-var rendererSigil;
-
-{
-  // Use this to detect multiple renderers using the same context
-  rendererSigil = {};
-} // Used to store the parent path of all context overrides in a shared linked list.
-// Forming a reverse tree.
-
-
-var rootContextSnapshot = null; // We assume that this runtime owns the "current" field on all ReactContext instances.
-// This global (actually thread local) state represents what state all those "current",
-// fields are currently in.
-
-var currentActiveSnapshot = null;
-
-function popNode(prev) {
-  {
-    prev.context._currentValue = prev.parentValue;
-  }
-}
-
-function pushNode(next) {
-  {
-    next.context._currentValue = next.value;
-  }
-}
-
-function popToNearestCommonAncestor(prev, next) {
-  if (prev === next) ; else {
-    popNode(prev);
-    var parentPrev = prev.parent;
-    var parentNext = next.parent;
-
-    if (parentPrev === null) {
-      if (parentNext !== null) {
-        throw new Error('The stacks must reach the root at the same time. This is a bug in React.');
-      }
-    } else {
-      if (parentNext === null) {
-        throw new Error('The stacks must reach the root at the same time. This is a bug in React.');
-      }
-
-      popToNearestCommonAncestor(parentPrev, parentNext);
-    } // On the way back, we push the new ones that weren't common.
-
-
-    pushNode(next);
-  }
-}
-
-function popAllPrevious(prev) {
-  popNode(prev);
-  var parentPrev = prev.parent;
-
-  if (parentPrev !== null) {
-    popAllPrevious(parentPrev);
-  }
-}
-
-function pushAllNext(next) {
-  var parentNext = next.parent;
-
-  if (parentNext !== null) {
-    pushAllNext(parentNext);
-  }
-
-  pushNode(next);
-}
-
-function popPreviousToCommonLevel(prev, next) {
-  popNode(prev);
-  var parentPrev = prev.parent;
-
-  if (parentPrev === null) {
-    throw new Error('The depth must equal at least at zero before reaching the root. This is a bug in React.');
-  }
-
-  if (parentPrev.depth === next.depth) {
-    // We found the same level. Now we just need to find a shared ancestor.
-    popToNearestCommonAncestor(parentPrev, next);
-  } else {
-    // We must still be deeper.
-    popPreviousToCommonLevel(parentPrev, next);
-  }
-}
-
-function popNextToCommonLevel(prev, next) {
-  var parentNext = next.parent;
-
-  if (parentNext === null) {
-    throw new Error('The depth must equal at least at zero before reaching the root. This is a bug in React.');
-  }
-
-  if (prev.depth === parentNext.depth) {
-    // We found the same level. Now we just need to find a shared ancestor.
-    popToNearestCommonAncestor(prev, parentNext);
-  } else {
-    // We must still be deeper.
-    popNextToCommonLevel(prev, parentNext);
-  }
-
-  pushNode(next);
-} // Perform context switching to the new snapshot.
-// To make it cheap to read many contexts, while not suspending, we make the switch eagerly by
-// updating all the context's current values. That way reads, always just read the current value.
-// At the cost of updating contexts even if they're never read by this subtree.
-
-
-function switchContext(newSnapshot) {
-  // The basic algorithm we need to do is to pop back any contexts that are no longer on the stack.
-  // We also need to update any new contexts that are now on the stack with the deepest value.
-  // The easiest way to update new contexts is to just reapply them in reverse order from the
-  // perspective of the backpointers. To avoid allocating a lot when switching, we use the stack
-  // for that. Therefore this algorithm is recursive.
-  // 1) First we pop which ever snapshot tree was deepest. Popping old contexts as we go.
-  // 2) Then we find the nearest common ancestor from there. Popping old contexts as we go.
-  // 3) Then we reapply new contexts on the way back up the stack.
-  var prev = currentActiveSnapshot;
-  var next = newSnapshot;
-
-  if (prev !== next) {
-    if (prev === null) {
-      // $FlowFixMe: This has to be non-null since it's not equal to prev.
-      pushAllNext(next);
-    } else if (next === null) {
-      popAllPrevious(prev);
-    } else if (prev.depth === next.depth) {
-      popToNearestCommonAncestor(prev, next);
-    } else if (prev.depth > next.depth) {
-      popPreviousToCommonLevel(prev, next);
-    } else {
-      popNextToCommonLevel(prev, next);
-    }
-
-    currentActiveSnapshot = next;
-  }
-}
-function pushProvider(context, nextValue) {
-  var prevValue;
-
-  {
-    prevValue = context._currentValue;
-    context._currentValue = nextValue;
-
-    {
-      if (context._currentRenderer !== undefined && context._currentRenderer !== null && context._currentRenderer !== rendererSigil) {
-        error('Detected multiple renderers concurrently rendering the ' + 'same context provider. This is currently unsupported.');
-      }
-
-      context._currentRenderer = rendererSigil;
-    }
-  }
-
-  var prevNode = currentActiveSnapshot;
-  var newNode = {
-    parent: prevNode,
-    depth: prevNode === null ? 0 : prevNode.depth + 1,
-    context: context,
-    parentValue: prevValue,
-    value: nextValue
-  };
-  currentActiveSnapshot = newNode;
-  return newNode;
-}
-function popProvider(context) {
-  var prevSnapshot = currentActiveSnapshot;
-
-  if (prevSnapshot === null) {
-    throw new Error('Tried to pop a Context at the root of the app. This is a bug in React.');
-  }
-
-  {
-    if (prevSnapshot.context !== context) {
-      error('The parent context is not the expected context. This is probably a bug in React.');
-    }
-  }
-
-  {
-    var value = prevSnapshot.parentValue;
-
-    if (value === REACT_SERVER_CONTEXT_DEFAULT_VALUE_NOT_LOADED) {
-      prevSnapshot.context._currentValue = prevSnapshot.context._defaultValue;
-    } else {
-      prevSnapshot.context._currentValue = value;
-    }
-
-    {
-      if (context._currentRenderer !== undefined && context._currentRenderer !== null && context._currentRenderer !== rendererSigil) {
-        error('Detected multiple renderers concurrently rendering the ' + 'same context provider. This is currently unsupported.');
-      }
-
-      context._currentRenderer = rendererSigil;
-    }
-  }
-
-  return currentActiveSnapshot = prevSnapshot.parent;
-}
-function getActiveContext() {
-  return currentActiveSnapshot;
-}
-function readContext(context) {
-  var value =  context._currentValue ;
-  return value;
-}
-
-/**
- * `ReactInstanceMap` maintains a mapping from a public facing stateful
- * instance (key) and the internal representation (value). This allows public
- * methods to accept the user facing instance as an argument and map them back
- * to internal methods.
- *
- * Note that this module is currently shared and assumed to be stateless.
- * If this becomes an actual Map, that will break.
- */
-function get(key) {
-  return key._reactInternals;
-}
-function set(key, value) {
-  key._reactInternals = value;
-}
-
-var didWarnAboutNoopUpdateForComponent = {};
-var didWarnAboutDeprecatedWillMount = {};
-var didWarnAboutUninitializedState;
-var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
-var didWarnAboutLegacyLifecyclesAndDerivedState;
-var didWarnAboutUndefinedDerivedState;
-var warnOnUndefinedDerivedState;
-var warnOnInvalidCallback;
-var didWarnAboutDirectlyAssigningPropsToState;
-var didWarnAboutContextTypeAndContextTypes;
-var didWarnAboutInvalidateContextType;
-
-{
-  didWarnAboutUninitializedState = new Set();
-  didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate = new Set();
-  didWarnAboutLegacyLifecyclesAndDerivedState = new Set();
-  didWarnAboutDirectlyAssigningPropsToState = new Set();
-  didWarnAboutUndefinedDerivedState = new Set();
-  didWarnAboutContextTypeAndContextTypes = new Set();
-  didWarnAboutInvalidateContextType = new Set();
-  var didWarnOnInvalidCallback = new Set();
-
-  warnOnInvalidCallback = function (callback, callerName) {
-    if (callback === null || typeof callback === 'function') {
-      return;
-    }
-
-    var key = callerName + '_' + callback;
-
-    if (!didWarnOnInvalidCallback.has(key)) {
-      didWarnOnInvalidCallback.add(key);
-
-      error('%s(...): Expected the last optional `callback` argument to be a ' + 'function. Instead received: %s.', callerName, callback);
-    }
-  };
-
-  warnOnUndefinedDerivedState = function (type, partialState) {
-    if (partialState === undefined) {
-      var componentName = getComponentNameFromType(type) || 'Component';
-
-      if (!didWarnAboutUndefinedDerivedState.has(componentName)) {
-        didWarnAboutUndefinedDerivedState.add(componentName);
-
-        error('%s.getDerivedStateFromProps(): A valid state object (or null) must be returned. ' + 'You have returned undefined.', componentName);
-      }
-    }
-  };
-}
-
-function warnNoop(publicInstance, callerName) {
-  {
-    var _constructor = publicInstance.constructor;
-    var componentName = _constructor && getComponentNameFromType(_constructor) || 'ReactClass';
-    var warningKey = componentName + '.' + callerName;
-
-    if (didWarnAboutNoopUpdateForComponent[warningKey]) {
-      return;
-    }
-
-    error('%s(...): Can only update a mounting component. ' + 'This usually means you called %s() outside componentWillMount() on the server. ' + 'This is a no-op.\n\nPlease check the code for the %s component.', callerName, callerName, componentName);
-
-    didWarnAboutNoopUpdateForComponent[warningKey] = true;
-  }
-}
-
-var classComponentUpdater = {
-  isMounted: function (inst) {
-    return false;
-  },
-  enqueueSetState: function (inst, payload, callback) {
-    var internals = get(inst);
-
-    if (internals.queue === null) {
-      warnNoop(inst, 'setState');
-    } else {
-      internals.queue.push(payload);
-
-      {
-        if (callback !== undefined && callback !== null) {
-          warnOnInvalidCallback(callback, 'setState');
-        }
-      }
-    }
-  },
-  enqueueReplaceState: function (inst, payload, callback) {
-    var internals = get(inst);
-    internals.replace = true;
-    internals.queue = [payload];
-
-    {
-      if (callback !== undefined && callback !== null) {
-        warnOnInvalidCallback(callback, 'setState');
-      }
-    }
-  },
-  enqueueForceUpdate: function (inst, callback) {
-    var internals = get(inst);
-
-    if (internals.queue === null) {
-      warnNoop(inst, 'forceUpdate');
-    } else {
-      {
-        if (callback !== undefined && callback !== null) {
-          warnOnInvalidCallback(callback, 'setState');
-        }
-      }
-    }
-  }
-};
-
-function applyDerivedStateFromProps(instance, ctor, getDerivedStateFromProps, prevState, nextProps) {
-  var partialState = getDerivedStateFromProps(nextProps, prevState);
-
-  {
-    warnOnUndefinedDerivedState(ctor, partialState);
-  } // Merge the partial state and the previous state.
-
-
-  var newState = partialState === null || partialState === undefined ? prevState : assign({}, prevState, partialState);
-  return newState;
-}
-
-function constructClassInstance(ctor, props, maskedLegacyContext) {
-  var context = emptyContextObject;
-  var contextType = ctor.contextType;
-
-  {
-    if ('contextType' in ctor) {
-      var isValid = // Allow null for conditional declaration
-      contextType === null || contextType !== undefined && contextType.$$typeof === REACT_CONTEXT_TYPE && contextType._context === undefined; // Not a <Context.Consumer>
-
-      if (!isValid && !didWarnAboutInvalidateContextType.has(ctor)) {
-        didWarnAboutInvalidateContextType.add(ctor);
-        var addendum = '';
-
-        if (contextType === undefined) {
-          addendum = ' However, it is set to undefined. ' + 'This can be caused by a typo or by mixing up named and default imports. ' + 'This can also happen due to a circular dependency, so ' + 'try moving the createContext() call to a separate file.';
-        } else if (typeof contextType !== 'object') {
-          addendum = ' However, it is set to a ' + typeof contextType + '.';
-        } else if (contextType.$$typeof === REACT_PROVIDER_TYPE) {
-          addendum = ' Did you accidentally pass the Context.Provider instead?';
-        } else if (contextType._context !== undefined) {
-          // <Context.Consumer>
-          addendum = ' Did you accidentally pass the Context.Consumer instead?';
-        } else {
-          addendum = ' However, it is set to an object with keys {' + Object.keys(contextType).join(', ') + '}.';
-        }
-
-        error('%s defines an invalid contextType. ' + 'contextType should point to the Context object returned by React.createContext().%s', getComponentNameFromType(ctor) || 'Component', addendum);
-      }
-    }
-  }
-
-  if (typeof contextType === 'object' && contextType !== null) {
-    context = readContext(contextType);
-  } else {
-    context = maskedLegacyContext;
-  }
-
-  var instance = new ctor(props, context);
-
-  {
-    if (typeof ctor.getDerivedStateFromProps === 'function' && (instance.state === null || instance.state === undefined)) {
-      var componentName = getComponentNameFromType(ctor) || 'Component';
-
-      if (!didWarnAboutUninitializedState.has(componentName)) {
-        didWarnAboutUninitializedState.add(componentName);
-
-        error('`%s` uses `getDerivedStateFromProps` but its initial state is ' + '%s. This is not recommended. Instead, define the initial state by ' + 'assigning an object to `this.state` in the constructor of `%s`. ' + 'This ensures that `getDerivedStateFromProps` arguments have a consistent shape.', componentName, instance.state === null ? 'null' : 'undefined', componentName);
-      }
-    } // If new component APIs are defined, "unsafe" lifecycles won't be called.
-    // Warn about these lifecycles if they are present.
-    // Don't warn about react-lifecycles-compat polyfilled methods though.
-
-
-    if (typeof ctor.getDerivedStateFromProps === 'function' || typeof instance.getSnapshotBeforeUpdate === 'function') {
-      var foundWillMountName = null;
-      var foundWillReceivePropsName = null;
-      var foundWillUpdateName = null;
-
-      if (typeof instance.componentWillMount === 'function' && instance.componentWillMount.__suppressDeprecationWarning !== true) {
-        foundWillMountName = 'componentWillMount';
-      } else if (typeof instance.UNSAFE_componentWillMount === 'function') {
-        foundWillMountName = 'UNSAFE_componentWillMount';
-      }
-
-      if (typeof instance.componentWillReceiveProps === 'function' && instance.componentWillReceiveProps.__suppressDeprecationWarning !== true) {
-        foundWillReceivePropsName = 'componentWillReceiveProps';
-      } else if (typeof instance.UNSAFE_componentWillReceiveProps === 'function') {
-        foundWillReceivePropsName = 'UNSAFE_componentWillReceiveProps';
-      }
-
-      if (typeof instance.componentWillUpdate === 'function' && instance.componentWillUpdate.__suppressDeprecationWarning !== true) {
-        foundWillUpdateName = 'componentWillUpdate';
-      } else if (typeof instance.UNSAFE_componentWillUpdate === 'function') {
-        foundWillUpdateName = 'UNSAFE_componentWillUpdate';
-      }
-
-      if (foundWillMountName !== null || foundWillReceivePropsName !== null || foundWillUpdateName !== null) {
-        var _componentName = getComponentNameFromType(ctor) || 'Component';
-
-        var newApiName = typeof ctor.getDerivedStateFromProps === 'function' ? 'getDerivedStateFromProps()' : 'getSnapshotBeforeUpdate()';
-
-        if (!didWarnAboutLegacyLifecyclesAndDerivedState.has(_componentName)) {
-          didWarnAboutLegacyLifecyclesAndDerivedState.add(_componentName);
-
-          error('Unsafe legacy lifecycles will not be called for components using new component APIs.\n\n' + '%s uses %s but also contains the following legacy lifecycles:%s%s%s\n\n' + 'The above lifecycles should be removed. Learn more about this warning here:\n' + 'https://reactjs.org/link/unsafe-component-lifecycles', _componentName, newApiName, foundWillMountName !== null ? "\n  " + foundWillMountName : '', foundWillReceivePropsName !== null ? "\n  " + foundWillReceivePropsName : '', foundWillUpdateName !== null ? "\n  " + foundWillUpdateName : '');
-        }
-      }
-    }
-  }
-
-  return instance;
-}
-
-function checkClassInstance(instance, ctor, newProps) {
-  {
-    var name = getComponentNameFromType(ctor) || 'Component';
-    var renderPresent = instance.render;
-
-    if (!renderPresent) {
-      if (ctor.prototype && typeof ctor.prototype.render === 'function') {
-        error('%s(...): No `render` method found on the returned component ' + 'instance: did you accidentally return an object from the constructor?', name);
-      } else {
-        error('%s(...): No `render` method found on the returned component ' + 'instance: you may have forgotten to define `render`.', name);
-      }
-    }
-
-    if (instance.getInitialState && !instance.getInitialState.isReactClassApproved && !instance.state) {
-      error('getInitialState was defined on %s, a plain JavaScript class. ' + 'This is only supported for classes created using React.createClass. ' + 'Did you mean to define a state property instead?', name);
-    }
-
-    if (instance.getDefaultProps && !instance.getDefaultProps.isReactClassApproved) {
-      error('getDefaultProps was defined on %s, a plain JavaScript class. ' + 'This is only supported for classes created using React.createClass. ' + 'Use a static property to define defaultProps instead.', name);
-    }
-
-    if (instance.propTypes) {
-      error('propTypes was defined as an instance property on %s. Use a static ' + 'property to define propTypes instead.', name);
-    }
-
-    if (instance.contextType) {
-      error('contextType was defined as an instance property on %s. Use a static ' + 'property to define contextType instead.', name);
-    }
-
-    {
-      if (instance.contextTypes) {
-        error('contextTypes was defined as an instance property on %s. Use a static ' + 'property to define contextTypes instead.', name);
-      }
-
-      if (ctor.contextType && ctor.contextTypes && !didWarnAboutContextTypeAndContextTypes.has(ctor)) {
-        didWarnAboutContextTypeAndContextTypes.add(ctor);
-
-        error('%s declares both contextTypes and contextType static properties. ' + 'The legacy contextTypes property will be ignored.', name);
-      }
-    }
-
-    if (typeof instance.componentShouldUpdate === 'function') {
-      error('%s has a method called ' + 'componentShouldUpdate(). Did you mean shouldComponentUpdate()? ' + 'The name is phrased as a question because the function is ' + 'expected to return a value.', name);
-    }
-
-    if (ctor.prototype && ctor.prototype.isPureReactComponent && typeof instance.shouldComponentUpdate !== 'undefined') {
-      error('%s has a method called shouldComponentUpdate(). ' + 'shouldComponentUpdate should not be used when extending React.PureComponent. ' + 'Please extend React.Component if shouldComponentUpdate is used.', getComponentNameFromType(ctor) || 'A pure component');
-    }
-
-    if (typeof instance.componentDidUnmount === 'function') {
-      error('%s has a method called ' + 'componentDidUnmount(). But there is no such lifecycle method. ' + 'Did you mean componentWillUnmount()?', name);
-    }
-
-    if (typeof instance.componentDidReceiveProps === 'function') {
-      error('%s has a method called ' + 'componentDidReceiveProps(). But there is no such lifecycle method. ' + 'If you meant to update the state in response to changing props, ' + 'use componentWillReceiveProps(). If you meant to fetch data or ' + 'run side-effects or mutations after React has updated the UI, use componentDidUpdate().', name);
-    }
-
-    if (typeof instance.componentWillRecieveProps === 'function') {
-      error('%s has a method called ' + 'componentWillRecieveProps(). Did you mean componentWillReceiveProps()?', name);
-    }
-
-    if (typeof instance.UNSAFE_componentWillRecieveProps === 'function') {
-      error('%s has a method called ' + 'UNSAFE_componentWillRecieveProps(). Did you mean UNSAFE_componentWillReceiveProps()?', name);
-    }
-
-    var hasMutatedProps = instance.props !== newProps;
-
-    if (instance.props !== undefined && hasMutatedProps) {
-      error('%s(...): When calling super() in `%s`, make sure to pass ' + "up the same props that your component's constructor was passed.", name, name);
-    }
-
-    if (instance.defaultProps) {
-      error('Setting defaultProps as an instance property on %s is not supported and will be ignored.' + ' Instead, define defaultProps as a static property on %s.', name, name);
-    }
-
-    if (typeof instance.getSnapshotBeforeUpdate === 'function' && typeof instance.componentDidUpdate !== 'function' && !didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate.has(ctor)) {
-      didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate.add(ctor);
-
-      error('%s: getSnapshotBeforeUpdate() should be used with componentDidUpdate(). ' + 'This component defines getSnapshotBeforeUpdate() only.', getComponentNameFromType(ctor));
-    }
-
-    if (typeof instance.getDerivedStateFromProps === 'function') {
-      error('%s: getDerivedStateFromProps() is defined as an instance method ' + 'and will be ignored. Instead, declare it as a static method.', name);
-    }
-
-    if (typeof instance.getDerivedStateFromError === 'function') {
-      error('%s: getDerivedStateFromError() is defined as an instance method ' + 'and will be ignored. Instead, declare it as a static method.', name);
-    }
-
-    if (typeof ctor.getSnapshotBeforeUpdate === 'function') {
-      error('%s: getSnapshotBeforeUpdate() is defined as a static method ' + 'and will be ignored. Instead, declare it as an instance method.', name);
-    }
-
-    var _state = instance.state;
-
-    if (_state && (typeof _state !== 'object' || isArray(_state))) {
-      error('%s.state: must be set to an object or null', name);
-    }
-
-    if (typeof instance.getChildContext === 'function' && typeof ctor.childContextTypes !== 'object') {
-      error('%s.getChildContext(): childContextTypes must be defined in order to ' + 'use getChildContext().', name);
-    }
-  }
-}
-
-function callComponentWillMount(type, instance) {
-  var oldState = instance.state;
-
-  if (typeof instance.componentWillMount === 'function') {
-    {
-      if ( instance.componentWillMount.__suppressDeprecationWarning !== true) {
-        var componentName = getComponentNameFromType(type) || 'Unknown';
-
-        if (!didWarnAboutDeprecatedWillMount[componentName]) {
-          warn( // keep this warning in sync with ReactStrictModeWarning.js
-          'componentWillMount has been renamed, and is not recommended for use. ' + 'See https://reactjs.org/link/unsafe-component-lifecycles for details.\n\n' + '* Move code from componentWillMount to componentDidMount (preferred in most cases) ' + 'or the constructor.\n' + '\nPlease update the following components: %s', componentName);
-
-          didWarnAboutDeprecatedWillMount[componentName] = true;
-        }
-      }
-    }
-
-    instance.componentWillMount();
-  }
-
-  if (typeof instance.UNSAFE_componentWillMount === 'function') {
-    instance.UNSAFE_componentWillMount();
-  }
-
-  if (oldState !== instance.state) {
-    {
-      error('%s.componentWillMount(): Assigning directly to this.state is ' + "deprecated (except inside a component's " + 'constructor). Use setState instead.', getComponentNameFromType(type) || 'Component');
-    }
-
-    classComponentUpdater.enqueueReplaceState(instance, instance.state, null);
-  }
-}
-
-function processUpdateQueue(internalInstance, inst, props, maskedLegacyContext) {
-  if (internalInstance.queue !== null && internalInstance.queue.length > 0) {
-    var oldQueue = internalInstance.queue;
-    var oldReplace = internalInstance.replace;
-    internalInstance.queue = null;
-    internalInstance.replace = false;
-
-    if (oldReplace && oldQueue.length === 1) {
-      inst.state = oldQueue[0];
-    } else {
-      var nextState = oldReplace ? oldQueue[0] : inst.state;
-      var dontMutate = true;
-
-      for (var i = oldReplace ? 1 : 0; i < oldQueue.length; i++) {
-        var partial = oldQueue[i];
-        var partialState = typeof partial === 'function' ? partial.call(inst, nextState, props, maskedLegacyContext) : partial;
-
-        if (partialState != null) {
-          if (dontMutate) {
-            dontMutate = false;
-            nextState = assign({}, nextState, partialState);
-          } else {
-            assign(nextState, partialState);
-          }
-        }
-      }
-
-      inst.state = nextState;
-    }
-  } else {
-    internalInstance.queue = null;
-  }
-} // Invokes the mount life-cycles on a previously never rendered instance.
-
-
-function mountClassInstance(instance, ctor, newProps, maskedLegacyContext) {
-  {
-    checkClassInstance(instance, ctor, newProps);
-  }
-
-  var initialState = instance.state !== undefined ? instance.state : null;
-  instance.updater = classComponentUpdater;
-  instance.props = newProps;
-  instance.state = initialState; // We don't bother initializing the refs object on the server, since we're not going to resolve them anyway.
-  // The internal instance will be used to manage updates that happen during this mount.
-
-  var internalInstance = {
-    queue: [],
-    replace: false
-  };
-  set(instance, internalInstance);
-  var contextType = ctor.contextType;
-
-  if (typeof contextType === 'object' && contextType !== null) {
-    instance.context = readContext(contextType);
-  } else {
-    instance.context = maskedLegacyContext;
-  }
-
-  {
-    if (instance.state === newProps) {
-      var componentName = getComponentNameFromType(ctor) || 'Component';
-
-      if (!didWarnAboutDirectlyAssigningPropsToState.has(componentName)) {
-        didWarnAboutDirectlyAssigningPropsToState.add(componentName);
-
-        error('%s: It is not recommended to assign props directly to state ' + "because updates to props won't be reflected in state. " + 'In most cases, it is better to use props directly.', componentName);
-      }
-    }
-  }
-
-  var getDerivedStateFromProps = ctor.getDerivedStateFromProps;
-
-  if (typeof getDerivedStateFromProps === 'function') {
-    instance.state = applyDerivedStateFromProps(instance, ctor, getDerivedStateFromProps, initialState, newProps);
-  } // In order to support react-lifecycles-compat polyfilled components,
-  // Unsafe lifecycles should not be invoked for components using the new APIs.
-
-
-  if (typeof ctor.getDerivedStateFromProps !== 'function' && typeof instance.getSnapshotBeforeUpdate !== 'function' && (typeof instance.UNSAFE_componentWillMount === 'function' || typeof instance.componentWillMount === 'function')) {
-    callComponentWillMount(ctor, instance); // If we had additional state updates during this life-cycle, let's
-    // process them now.
-
-    processUpdateQueue(internalInstance, instance, newProps, maskedLegacyContext);
-  }
-}
-
-// Ids are base 32 strings whose binary representation corresponds to the
-// position of a node in a tree.
-// Every time the tree forks into multiple children, we add additional bits to
-// the left of the sequence that represent the position of the child within the
-// current level of children.
-//
-//      00101       00010001011010101
-//      ╰─┬─╯       ╰───────┬───────╯
-//   Fork 5 of 20       Parent id
-//
-// The leading 0s are important. In the above example, you only need 3 bits to
-// represent slot 5. However, you need 5 bits to represent all the forks at
-// the current level, so we must account for the empty bits at the end.
-//
-// For this same reason, slots are 1-indexed instead of 0-indexed. Otherwise,
-// the zeroth id at a level would be indistinguishable from its parent.
-//
-// If a node has only one child, and does not materialize an id (i.e. does not
-// contain a useId hook), then we don't need to allocate any space in the
-// sequence. It's treated as a transparent indirection. For example, these two
-// trees produce the same ids:
-//
-// <>                          <>
-//   <Indirection>               <A />
-//     <A />                     <B />
-//   </Indirection>            </>
-//   <B />
-// </>
-//
-// However, we cannot skip any node that materializes an id. Otherwise, a parent
-// id that does not fork would be indistinguishable from its child id. For
-// example, this tree does not fork, but the parent and child must have
-// different ids.
-//
-// <Parent>
-//   <Child />
-// </Parent>
-//
-// To handle this scenario, every time we materialize an id, we allocate a
-// new level with a single slot. You can think of this as a fork with only one
-// prong, or an array of children with length 1.
-//
-// It's possible for the size of the sequence to exceed 32 bits, the max
-// size for bitwise operations. When this happens, we make more room by
-// converting the right part of the id to a string and storing it in an overflow
-// variable. We use a base 32 string representation, because 32 is the largest
-// power of 2 that is supported by toString(). We want the base to be large so
-// that the resulting ids are compact, and we want the base to be a power of 2
-// because every log2(base) bits corresponds to a single character, i.e. every
-// log2(32) = 5 bits. That means we can lop bits off the end 5 at a time without
-// affecting the final result.
-var emptyTreeContext = {
-  id: 1,
-  overflow: ''
-};
-function getTreeId(context) {
-  var overflow = context.overflow;
-  var idWithLeadingBit = context.id;
-  var id = idWithLeadingBit & ~getLeadingBit(idWithLeadingBit);
-  return id.toString(32) + overflow;
-}
-function pushTreeContext(baseContext, totalChildren, index) {
-  var baseIdWithLeadingBit = baseContext.id;
-  var baseOverflow = baseContext.overflow; // The leftmost 1 marks the end of the sequence, non-inclusive. It's not part
-  // of the id; we use it to account for leading 0s.
-
-  var baseLength = getBitLength(baseIdWithLeadingBit) - 1;
-  var baseId = baseIdWithLeadingBit & ~(1 << baseLength);
-  var slot = index + 1;
-  var length = getBitLength(totalChildren) + baseLength; // 30 is the max length we can store without overflowing, taking into
-  // consideration the leading 1 we use to mark the end of the sequence.
-
-  if (length > 30) {
-    // We overflowed the bitwise-safe range. Fall back to slower algorithm.
-    // This branch assumes the length of the base id is greater than 5; it won't
-    // work for smaller ids, because you need 5 bits per character.
-    //
-    // We encode the id in multiple steps: first the base id, then the
-    // remaining digits.
-    //
-    // Each 5 bit sequence corresponds to a single base 32 character. So for
-    // example, if the current id is 23 bits long, we can convert 20 of those
-    // bits into a string of 4 characters, with 3 bits left over.
-    //
-    // First calculate how many bits in the base id represent a complete
-    // sequence of characters.
-    var numberOfOverflowBits = baseLength - baseLength % 5; // Then create a bitmask that selects only those bits.
-
-    var newOverflowBits = (1 << numberOfOverflowBits) - 1; // Select the bits, and convert them to a base 32 string.
-
-    var newOverflow = (baseId & newOverflowBits).toString(32); // Now we can remove those bits from the base id.
-
-    var restOfBaseId = baseId >> numberOfOverflowBits;
-    var restOfBaseLength = baseLength - numberOfOverflowBits; // Finally, encode the rest of the bits using the normal algorithm. Because
-    // we made more room, this time it won't overflow.
-
-    var restOfLength = getBitLength(totalChildren) + restOfBaseLength;
-    var restOfNewBits = slot << restOfBaseLength;
-    var id = restOfNewBits | restOfBaseId;
-    var overflow = newOverflow + baseOverflow;
-    return {
-      id: 1 << restOfLength | id,
-      overflow: overflow
-    };
-  } else {
-    // Normal path
-    var newBits = slot << baseLength;
-
-    var _id = newBits | baseId;
-
-    var _overflow = baseOverflow;
-    return {
-      id: 1 << length | _id,
-      overflow: _overflow
-    };
-  }
-}
-
-function getBitLength(number) {
-  return 32 - clz32(number);
-}
-
-function getLeadingBit(id) {
-  return 1 << getBitLength(id) - 1;
-} // TODO: Math.clz32 is supported in Node 12+. Maybe we can drop the fallback.
-
-
-var clz32 = Math.clz32 ? Math.clz32 : clz32Fallback; // Count leading zeros.
-// Based on:
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/clz32
-
-var log = Math.log;
-var LN2 = Math.LN2;
-
-function clz32Fallback(x) {
-  var asUint = x >>> 0;
-
-  if (asUint === 0) {
-    return 32;
-  }
-
-  return 31 - (log(asUint) / LN2 | 0) | 0;
-}
-
-/**
- * inlined Object.is polyfill to avoid requiring consumers ship their own
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
- */
-function is(x, y) {
-  return x === y && (x !== 0 || 1 / x === 1 / y) || x !== x && y !== y // eslint-disable-line no-self-compare
-  ;
-}
-
-var objectIs = typeof Object.is === 'function' ? Object.is : is;
-
-var currentlyRenderingComponent = null;
-var currentlyRenderingTask = null;
-var firstWorkInProgressHook = null;
-var workInProgressHook = null; // Whether the work-in-progress hook is a re-rendered hook
-
-var isReRender = false; // Whether an update was scheduled during the currently executing render pass.
-
-var didScheduleRenderPhaseUpdate = false; // Counts the number of useId hooks in this component
-
-var localIdCounter = 0; // Lazily created map of render-phase updates
-
-var renderPhaseUpdates = null; // Counter to prevent infinite loops.
-
-var numberOfReRenders = 0;
-var RE_RENDER_LIMIT = 25;
-var isInHookUserCodeInDev = false; // In DEV, this is the name of the currently executing primitive hook
-
-var currentHookNameInDev;
-
-function resolveCurrentlyRenderingComponent() {
-  if (currentlyRenderingComponent === null) {
-    throw new Error('Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for' + ' one of the following reasons:\n' + '1. You might have mismatching versions of React and the renderer (such as React DOM)\n' + '2. You might be breaking the Rules of Hooks\n' + '3. You might have more than one copy of React in the same app\n' + 'See https://reactjs.org/link/invalid-hook-call for tips about how to debug and fix this problem.');
-  }
-
-  {
-    if (isInHookUserCodeInDev) {
-      error('Do not call Hooks inside useEffect(...), useMemo(...), or other built-in Hooks. ' + 'You can only call Hooks at the top level of your React function. ' + 'For more information, see ' + 'https://reactjs.org/link/rules-of-hooks');
-    }
-  }
-
-  return currentlyRenderingComponent;
-}
-
-function areHookInputsEqual(nextDeps, prevDeps) {
-  if (prevDeps === null) {
-    {
-      error('%s received a final argument during this render, but not during ' + 'the previous render. Even though the final argument is optional, ' + 'its type cannot change between renders.', currentHookNameInDev);
-    }
-
-    return false;
-  }
-
-  {
-    // Don't bother comparing lengths in prod because these arrays should be
-    // passed inline.
-    if (nextDeps.length !== prevDeps.length) {
-      error('The final argument passed to %s changed size between renders. The ' + 'order and size of this array must remain constant.\n\n' + 'Previous: %s\n' + 'Incoming: %s', currentHookNameInDev, "[" + nextDeps.join(', ') + "]", "[" + prevDeps.join(', ') + "]");
-    }
-  }
-
-  for (var i = 0; i < prevDeps.length && i < nextDeps.length; i++) {
-    if (objectIs(nextDeps[i], prevDeps[i])) {
-      continue;
-    }
-
-    return false;
-  }
-
-  return true;
-}
-
-function createHook() {
-  if (numberOfReRenders > 0) {
-    throw new Error('Rendered more hooks than during the previous render');
-  }
-
-  return {
-    memoizedState: null,
-    queue: null,
-    next: null
-  };
-}
-
-function createWorkInProgressHook() {
-  if (workInProgressHook === null) {
-    // This is the first hook in the list
-    if (firstWorkInProgressHook === null) {
-      isReRender = false;
-      firstWorkInProgressHook = workInProgressHook = createHook();
-    } else {
-      // There's already a work-in-progress. Reuse it.
-      isReRender = true;
-      workInProgressHook = firstWorkInProgressHook;
-    }
-  } else {
-    if (workInProgressHook.next === null) {
-      isReRender = false; // Append to the end of the list
-
-      workInProgressHook = workInProgressHook.next = createHook();
-    } else {
-      // There's already a work-in-progress. Reuse it.
-      isReRender = true;
-      workInProgressHook = workInProgressHook.next;
-    }
-  }
-
-  return workInProgressHook;
-}
-
-function prepareToUseHooks(task, componentIdentity) {
-  currentlyRenderingComponent = componentIdentity;
-  currentlyRenderingTask = task;
-
-  {
-    isInHookUserCodeInDev = false;
-  } // The following should have already been reset
-  // didScheduleRenderPhaseUpdate = false;
-  // localIdCounter = 0;
-  // firstWorkInProgressHook = null;
-  // numberOfReRenders = 0;
-  // renderPhaseUpdates = null;
-  // workInProgressHook = null;
-
-
-  localIdCounter = 0;
-}
-function finishHooks(Component, props, children, refOrContext) {
-  // This must be called after every function component to prevent hooks from
-  // being used in classes.
-  while (didScheduleRenderPhaseUpdate) {
-    // Updates were scheduled during the render phase. They are stored in
-    // the `renderPhaseUpdates` map. Call the component again, reusing the
-    // work-in-progress hooks and applying the additional updates on top. Keep
-    // restarting until no more updates are scheduled.
-    didScheduleRenderPhaseUpdate = false;
-    localIdCounter = 0;
-    numberOfReRenders += 1; // Start over from the beginning of the list
-
-    workInProgressHook = null;
-    children = Component(props, refOrContext);
-  }
-
-  resetHooksState();
-  return children;
-}
-function checkDidRenderIdHook() {
-  // This should be called immediately after every finishHooks call.
-  // Conceptually, it's part of the return value of finishHooks; it's only a
-  // separate function to avoid using an array tuple.
-  var didRenderIdHook = localIdCounter !== 0;
-  return didRenderIdHook;
-} // Reset the internal hooks state if an error occurs while rendering a component
-
-function resetHooksState() {
-  {
-    isInHookUserCodeInDev = false;
-  }
-
-  currentlyRenderingComponent = null;
-  currentlyRenderingTask = null;
-  didScheduleRenderPhaseUpdate = false;
-  firstWorkInProgressHook = null;
-  numberOfReRenders = 0;
-  renderPhaseUpdates = null;
-  workInProgressHook = null;
-}
-
-function readContext$1(context) {
-  {
-    if (isInHookUserCodeInDev) {
-      error('Context can only be read while React is rendering. ' + 'In classes, you can read it in the render method or getDerivedStateFromProps. ' + 'In function components, you can read it directly in the function body, but not ' + 'inside Hooks like useReducer() or useMemo().');
-    }
-  }
-
-  return readContext(context);
-}
-
-function useContext(context) {
-  {
-    currentHookNameInDev = 'useContext';
-  }
-
-  resolveCurrentlyRenderingComponent();
-  return readContext(context);
-}
-
-function basicStateReducer(state, action) {
-  // $FlowFixMe: Flow doesn't like mixed types
-  return typeof action === 'function' ? action(state) : action;
-}
-
-function useState(initialState) {
-  {
-    currentHookNameInDev = 'useState';
-  }
-
-  return useReducer(basicStateReducer, // useReducer has a special case to support lazy useState initializers
-  initialState);
-}
-function useReducer(reducer, initialArg, init) {
-  {
-    if (reducer !== basicStateReducer) {
-      currentHookNameInDev = 'useReducer';
-    }
-  }
-
-  currentlyRenderingComponent = resolveCurrentlyRenderingComponent();
-  workInProgressHook = createWorkInProgressHook();
-
-  if (isReRender) {
-    // This is a re-render. Apply the new render phase updates to the previous
-    // current hook.
-    var queue = workInProgressHook.queue;
-    var dispatch = queue.dispatch;
-
-    if (renderPhaseUpdates !== null) {
-      // Render phase updates are stored in a map of queue -> linked list
-      var firstRenderPhaseUpdate = renderPhaseUpdates.get(queue);
-
-      if (firstRenderPhaseUpdate !== undefined) {
-        renderPhaseUpdates.delete(queue);
-        var newState = workInProgressHook.memoizedState;
-        var update = firstRenderPhaseUpdate;
-
-        do {
-          // Process this render phase update. We don't have to check the
-          // priority because it will always be the same as the current
-          // render's.
-          var action = update.action;
-
-          {
-            isInHookUserCodeInDev = true;
-          }
-
-          newState = reducer(newState, action);
-
-          {
-            isInHookUserCodeInDev = false;
-          }
-
-          update = update.next;
-        } while (update !== null);
-
-        workInProgressHook.memoizedState = newState;
-        return [newState, dispatch];
-      }
-    }
-
-    return [workInProgressHook.memoizedState, dispatch];
-  } else {
-    {
-      isInHookUserCodeInDev = true;
-    }
-
-    var initialState;
-
-    if (reducer === basicStateReducer) {
-      // Special case for `useState`.
-      initialState = typeof initialArg === 'function' ? initialArg() : initialArg;
-    } else {
-      initialState = init !== undefined ? init(initialArg) : initialArg;
-    }
-
-    {
-      isInHookUserCodeInDev = false;
-    }
-
-    workInProgressHook.memoizedState = initialState;
-
-    var _queue = workInProgressHook.queue = {
-      last: null,
-      dispatch: null
-    };
-
-    var _dispatch = _queue.dispatch = dispatchAction.bind(null, currentlyRenderingComponent, _queue);
-
-    return [workInProgressHook.memoizedState, _dispatch];
-  }
-}
-
-function useMemo(nextCreate, deps) {
-  currentlyRenderingComponent = resolveCurrentlyRenderingComponent();
-  workInProgressHook = createWorkInProgressHook();
-  var nextDeps = deps === undefined ? null : deps;
-
-  if (workInProgressHook !== null) {
-    var prevState = workInProgressHook.memoizedState;
-
-    if (prevState !== null) {
-      if (nextDeps !== null) {
-        var prevDeps = prevState[1];
-
-        if (areHookInputsEqual(nextDeps, prevDeps)) {
-          return prevState[0];
-        }
-      }
-    }
-  }
-
-  {
-    isInHookUserCodeInDev = true;
-  }
-
-  var nextValue = nextCreate();
-
-  {
-    isInHookUserCodeInDev = false;
-  }
-
-  workInProgressHook.memoizedState = [nextValue, nextDeps];
-  return nextValue;
-}
-
-function useRef(initialValue) {
-  currentlyRenderingComponent = resolveCurrentlyRenderingComponent();
-  workInProgressHook = createWorkInProgressHook();
-  var previousRef = workInProgressHook.memoizedState;
-
-  if (previousRef === null) {
-    var ref = {
-      current: initialValue
-    };
-
-    {
-      Object.seal(ref);
-    }
-
-    workInProgressHook.memoizedState = ref;
-    return ref;
-  } else {
-    return previousRef;
-  }
-}
-
-function useLayoutEffect(create, inputs) {
-  {
-    currentHookNameInDev = 'useLayoutEffect';
-
-    error('useLayoutEffect does nothing on the server, because its effect cannot ' + "be encoded into the server renderer's output format. This will lead " + 'to a mismatch between the initial, non-hydrated UI and the intended ' + 'UI. To avoid this, useLayoutEffect should only be used in ' + 'components that render exclusively on the client. ' + 'See https://reactjs.org/link/uselayouteffect-ssr for common fixes.');
-  }
-}
-
-function dispatchAction(componentIdentity, queue, action) {
-  if (numberOfReRenders >= RE_RENDER_LIMIT) {
-    throw new Error('Too many re-renders. React limits the number of renders to prevent ' + 'an infinite loop.');
-  }
-
-  if (componentIdentity === currentlyRenderingComponent) {
-    // This is a render phase update. Stash it in a lazily-created map of
-    // queue -> linked list of updates. After this render pass, we'll restart
-    // and apply the stashed updates on top of the work-in-progress hook.
-    didScheduleRenderPhaseUpdate = true;
-    var update = {
-      action: action,
-      next: null
-    };
-
-    if (renderPhaseUpdates === null) {
-      renderPhaseUpdates = new Map();
-    }
-
-    var firstRenderPhaseUpdate = renderPhaseUpdates.get(queue);
-
-    if (firstRenderPhaseUpdate === undefined) {
-      renderPhaseUpdates.set(queue, update);
-    } else {
-      // Append the update to the end of the list.
-      var lastRenderPhaseUpdate = firstRenderPhaseUpdate;
-
-      while (lastRenderPhaseUpdate.next !== null) {
-        lastRenderPhaseUpdate = lastRenderPhaseUpdate.next;
-      }
-
-      lastRenderPhaseUpdate.next = update;
-    }
-  }
-}
-
-function useCallback(callback, deps) {
-  return useMemo(function () {
-    return callback;
-  }, deps);
-} // TODO Decide on how to implement this hook for server rendering.
-// If a mutation occurs during render, consider triggering a Suspense boundary
-// and falling back to client rendering.
-
-function useMutableSource(source, getSnapshot, subscribe) {
-  resolveCurrentlyRenderingComponent();
-  return getSnapshot(source._source);
-}
-
-function useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot) {
-  if (getServerSnapshot === undefined) {
-    throw new Error('Missing getServerSnapshot, which is required for ' + 'server-rendered content. Will revert to client rendering.');
-  }
-
-  return getServerSnapshot();
-}
-
-function useDeferredValue(value) {
-  resolveCurrentlyRenderingComponent();
-  return value;
-}
-
-function unsupportedStartTransition() {
-  throw new Error('startTransition cannot be called during server rendering.');
-}
-
-function useTransition() {
-  resolveCurrentlyRenderingComponent();
-  return [false, unsupportedStartTransition];
-}
-
-function useId() {
-  var task = currentlyRenderingTask;
-  var treeId = getTreeId(task.treeContext);
-  var responseState = currentResponseState;
-
-  if (responseState === null) {
-    throw new Error('Invalid hook call. Hooks can only be called inside of the body of a function component.');
-  }
-
-  var localId = localIdCounter++;
-  return makeId(responseState, treeId, localId);
-}
-
-function noop() {}
-
-var Dispatcher = {
-  readContext: readContext$1,
-  useContext: useContext,
-  useMemo: useMemo,
-  useReducer: useReducer,
-  useRef: useRef,
-  useState: useState,
-  useInsertionEffect: noop,
-  useLayoutEffect: useLayoutEffect,
-  useCallback: useCallback,
-  // useImperativeHandle is not run in the server environment
-  useImperativeHandle: noop,
-  // Effects are not run in the server environment.
-  useEffect: noop,
-  // Debugging effect
-  useDebugValue: noop,
-  useDeferredValue: useDeferredValue,
-  useTransition: useTransition,
-  useId: useId,
-  // Subscriptions are not setup in a server environment.
-  useMutableSource: useMutableSource,
-  useSyncExternalStore: useSyncExternalStore
-};
-
-var currentResponseState = null;
-function setCurrentResponseState(responseState) {
-  currentResponseState = responseState;
-}
-
-function getStackByComponentStackNode(componentStack) {
-  try {
-    var info = '';
-    var node = componentStack;
-
-    do {
-      switch (node.tag) {
-        case 0:
-          info += describeBuiltInComponentFrame(node.type, null, null);
-          break;
-
-        case 1:
-          info += describeFunctionComponentFrame(node.type, null, null);
-          break;
-
-        case 2:
-          info += describeClassComponentFrame(node.type, null, null);
-          break;
-      }
-
-      node = node.parent;
-    } while (node);
-
-    return info;
-  } catch (x) {
-    return '\nError generating stack: ' + x.message + '\n' + x.stack;
-  }
-}
-
-var ReactCurrentDispatcher$1 = ReactSharedInternals.ReactCurrentDispatcher;
-var ReactDebugCurrentFrame$1 = ReactSharedInternals.ReactDebugCurrentFrame;
-var PENDING = 0;
-var COMPLETED = 1;
-var FLUSHED = 2;
-var ABORTED = 3;
-var ERRORED = 4;
-var OPEN = 0;
-var CLOSING = 1;
-var CLOSED = 2;
-// This is a default heuristic for how to split up the HTML content into progressive
-// loading. Our goal is to be able to display additional new content about every 500ms.
-// Faster than that is unnecessary and should be throttled on the client. It also
-// adds unnecessary overhead to do more splits. We don't know if it's a higher or lower
-// end device but higher end suffer less from the overhead than lower end does from
-// not getting small enough pieces. We error on the side of low end.
-// We base this on low end 3G speeds which is about 500kbits per second. We assume
-// that there can be a reasonable drop off from max bandwidth which leaves you with
-// as little as 80%. We can receive half of that each 500ms - at best. In practice,
-// a little bandwidth is lost to processing and contention - e.g. CSS and images that
-// are downloaded along with the main content. So we estimate about half of that to be
-// the lower end throughput. In other words, we expect that you can at least show
-// about 12.5kb of content per 500ms. Not counting starting latency for the first
-// paint.
-// 500 * 1024 / 8 * .8 * 0.5 / 2
-var DEFAULT_PROGRESSIVE_CHUNK_SIZE = 12800;
-
-function defaultErrorHandler(error) {
-  console['error'](error); // Don't transform to our wrapper
-
-  return null;
-}
-
-function noop$1() {}
-
-function createRequest(children, responseState, rootFormatContext, progressiveChunkSize, onError, onAllReady, onShellReady, onShellError, onFatalError) {
-  var pingedTasks = [];
-  var abortSet = new Set();
-  var request = {
-    destination: null,
-    responseState: responseState,
-    progressiveChunkSize: progressiveChunkSize === undefined ? DEFAULT_PROGRESSIVE_CHUNK_SIZE : progressiveChunkSize,
-    status: OPEN,
-    fatalError: null,
-    nextSegmentId: 0,
-    allPendingTasks: 0,
-    pendingRootTasks: 0,
-    completedRootSegment: null,
-    abortableTasks: abortSet,
-    pingedTasks: pingedTasks,
-    clientRenderedBoundaries: [],
-    completedBoundaries: [],
-    partialBoundaries: [],
-    onError: onError === undefined ? defaultErrorHandler : onError,
-    onAllReady: onAllReady === undefined ? noop$1 : onAllReady,
-    onShellReady: onShellReady === undefined ? noop$1 : onShellReady,
-    onShellError: onShellError === undefined ? noop$1 : onShellError,
-    onFatalError: onFatalError === undefined ? noop$1 : onFatalError
-  }; // This segment represents the root fallback.
-
-  var rootSegment = createPendingSegment(request, 0, null, rootFormatContext, // Root segments are never embedded in Text on either edge
-  false, false); // There is no parent so conceptually, we're unblocked to flush this segment.
-
-  rootSegment.parentFlushed = true;
-  var rootTask = createTask(request, children, null, rootSegment, abortSet, emptyContextObject, rootContextSnapshot, emptyTreeContext);
-  pingedTasks.push(rootTask);
-  return request;
-}
-
-function pingTask(request, task) {
-  var pingedTasks = request.pingedTasks;
-  pingedTasks.push(task);
-
-  if (pingedTasks.length === 1) {
-    scheduleWork(function () {
-      return performWork(request);
-    });
-  }
-}
-
-function createSuspenseBoundary(request, fallbackAbortableTasks) {
-  return {
-    id: UNINITIALIZED_SUSPENSE_BOUNDARY_ID,
-    rootSegmentID: -1,
-    parentFlushed: false,
-    pendingTasks: 0,
-    forceClientRender: false,
-    completedSegments: [],
-    byteSize: 0,
-    fallbackAbortableTasks: fallbackAbortableTasks,
-    errorDigest: null
-  };
-}
-
-function createTask(request, node, blockedBoundary, blockedSegment, abortSet, legacyContext, context, treeContext) {
-  request.allPendingTasks++;
-
-  if (blockedBoundary === null) {
-    request.pendingRootTasks++;
-  } else {
-    blockedBoundary.pendingTasks++;
-  }
-
-  var task = {
-    node: node,
-    ping: function () {
-      return pingTask(request, task);
-    },
-    blockedBoundary: blockedBoundary,
-    blockedSegment: blockedSegment,
-    abortSet: abortSet,
-    legacyContext: legacyContext,
-    context: context,
-    treeContext: treeContext
-  };
-
-  {
-    task.componentStack = null;
-  }
-
-  abortSet.add(task);
-  return task;
-}
-
-function createPendingSegment(request, index, boundary, formatContext, lastPushedText, textEmbedded) {
-  return {
-    status: PENDING,
-    id: -1,
-    // lazily assigned later
-    index: index,
-    parentFlushed: false,
-    chunks: [],
-    children: [],
-    formatContext: formatContext,
-    boundary: boundary,
-    lastPushedText: lastPushedText,
-    textEmbedded: textEmbedded
-  };
-} // DEV-only global reference to the currently executing task
-
-
-var currentTaskInDEV = null;
-
-function getCurrentStackInDEV() {
-  {
-    if (currentTaskInDEV === null || currentTaskInDEV.componentStack === null) {
-      return '';
-    }
-
-    return getStackByComponentStackNode(currentTaskInDEV.componentStack);
-  }
-}
-
-function pushBuiltInComponentStackInDEV(task, type) {
-  {
-    task.componentStack = {
-      tag: 0,
-      parent: task.componentStack,
-      type: type
-    };
-  }
-}
-
-function pushFunctionComponentStackInDEV(task, type) {
-  {
-    task.componentStack = {
-      tag: 1,
-      parent: task.componentStack,
-      type: type
-    };
-  }
-}
-
-function pushClassComponentStackInDEV(task, type) {
-  {
-    task.componentStack = {
-      tag: 2,
-      parent: task.componentStack,
-      type: type
-    };
-  }
-}
-
-function popComponentStackInDEV(task) {
-  {
-    if (task.componentStack === null) {
-      error('Unexpectedly popped too many stack frames. This is a bug in React.');
-    } else {
-      task.componentStack = task.componentStack.parent;
-    }
-  }
-} // stash the component stack of an unwinding error until it is processed
-
-
-var lastBoundaryErrorComponentStackDev = null;
-
-function captureBoundaryErrorDetailsDev(boundary, error) {
-  {
-    var errorMessage;
-
-    if (typeof error === 'string') {
-      errorMessage = error;
-    } else if (error && typeof error.message === 'string') {
-      errorMessage = error.message;
-    } else {
-      // eslint-disable-next-line react-internal/safe-string-coercion
-      errorMessage = String(error);
-    }
-
-    var errorComponentStack = lastBoundaryErrorComponentStackDev || getCurrentStackInDEV();
-    lastBoundaryErrorComponentStackDev = null;
-    boundary.errorMessage = errorMessage;
-    boundary.errorComponentStack = errorComponentStack;
-  }
-}
-
-function logRecoverableError(request, error) {
-  // If this callback errors, we intentionally let that error bubble up to become a fatal error
-  // so that someone fixes the error reporting instead of hiding it.
-  var errorDigest = request.onError(error);
-
-  if (errorDigest != null && typeof errorDigest !== 'string') {
-    // eslint-disable-next-line react-internal/prod-error-codes
-    throw new Error("onError returned something with a type other than \"string\". onError should return a string and may return null or undefined but must not return anything else. It received something of type \"" + typeof errorDigest + "\" instead");
-  }
-
-  return errorDigest;
-}
-
-function fatalError(request, error) {
-  // This is called outside error handling code such as if the root errors outside
-  // a suspense boundary or if the root suspense boundary's fallback errors.
-  // It's also called if React itself or its host configs errors.
-  var onShellError = request.onShellError;
-  onShellError(error);
-  var onFatalError = request.onFatalError;
-  onFatalError(error);
-
-  if (request.destination !== null) {
-    request.status = CLOSED;
-    closeWithError(request.destination, error);
-  } else {
-    request.status = CLOSING;
-    request.fatalError = error;
-  }
-}
-
-function renderSuspenseBoundary(request, task, props) {
-  pushBuiltInComponentStackInDEV(task, 'Suspense');
-  var parentBoundary = task.blockedBoundary;
-  var parentSegment = task.blockedSegment; // Each time we enter a suspense boundary, we split out into a new segment for
-  // the fallback so that we can later replace that segment with the content.
-  // This also lets us split out the main content even if it doesn't suspend,
-  // in case it ends up generating a large subtree of content.
-
-  var fallback = props.fallback;
-  var content = props.children;
-  var fallbackAbortSet = new Set();
-  var newBoundary = createSuspenseBoundary(request, fallbackAbortSet);
-  var insertionIndex = parentSegment.chunks.length; // The children of the boundary segment is actually the fallback.
-
-  var boundarySegment = createPendingSegment(request, insertionIndex, newBoundary, parentSegment.formatContext, // boundaries never require text embedding at their edges because comment nodes bound them
-  false, false);
-  parentSegment.children.push(boundarySegment); // The parentSegment has a child Segment at this index so we reset the lastPushedText marker on the parent
-
-  parentSegment.lastPushedText = false; // This segment is the actual child content. We can start rendering that immediately.
-
-  var contentRootSegment = createPendingSegment(request, 0, null, parentSegment.formatContext, // boundaries never require text embedding at their edges because comment nodes bound them
-  false, false); // We mark the root segment as having its parent flushed. It's not really flushed but there is
-  // no parent segment so there's nothing to wait on.
-
-  contentRootSegment.parentFlushed = true; // Currently this is running synchronously. We could instead schedule this to pingedTasks.
-  // I suspect that there might be some efficiency benefits from not creating the suspended task
-  // and instead just using the stack if possible.
-  // TODO: Call this directly instead of messing with saving and restoring contexts.
-  // We can reuse the current context and task to render the content immediately without
-  // context switching. We just need to temporarily switch which boundary and which segment
-  // we're writing to. If something suspends, it'll spawn new suspended task with that context.
-
-  task.blockedBoundary = newBoundary;
-  task.blockedSegment = contentRootSegment;
-
-  try {
-    // We use the safe form because we don't handle suspending here. Only error handling.
-    renderNode(request, task, content);
-    pushSegmentFinale(contentRootSegment.chunks, request.responseState, contentRootSegment.lastPushedText, contentRootSegment.textEmbedded);
-    contentRootSegment.status = COMPLETED;
-    queueCompletedSegment(newBoundary, contentRootSegment);
-
-    if (newBoundary.pendingTasks === 0) {
-      // This must have been the last segment we were waiting on. This boundary is now complete.
-      // Therefore we won't need the fallback. We early return so that we don't have to create
-      // the fallback.
-      popComponentStackInDEV(task);
-      return;
-    }
-  } catch (error) {
-    contentRootSegment.status = ERRORED;
-    newBoundary.forceClientRender = true;
-    newBoundary.errorDigest = logRecoverableError(request, error);
-
-    {
-      captureBoundaryErrorDetailsDev(newBoundary, error);
-    } // We don't need to decrement any task numbers because we didn't spawn any new task.
-    // We don't need to schedule any task because we know the parent has written yet.
-    // We do need to fallthrough to create the fallback though.
-
-  } finally {
-    task.blockedBoundary = parentBoundary;
-    task.blockedSegment = parentSegment;
-  } // We create suspended task for the fallback because we don't want to actually work
-  // on it yet in case we finish the main content, so we queue for later.
-
-
-  var suspendedFallbackTask = createTask(request, fallback, parentBoundary, boundarySegment, fallbackAbortSet, task.legacyContext, task.context, task.treeContext);
-
-  {
-    suspendedFallbackTask.componentStack = task.componentStack;
-  } // TODO: This should be queued at a separate lower priority queue so that we only work
-  // on preparing fallbacks if we don't have any more main content to task on.
-
-
-  request.pingedTasks.push(suspendedFallbackTask);
-  popComponentStackInDEV(task);
-}
-
-function renderHostElement(request, task, type, props) {
-  pushBuiltInComponentStackInDEV(task, type);
-  var segment = task.blockedSegment;
-  var children = pushStartInstance(segment.chunks, type, props, request.responseState, segment.formatContext);
-  segment.lastPushedText = false;
-  var prevContext = segment.formatContext;
-  segment.formatContext = getChildFormatContext(prevContext, type, props); // We use the non-destructive form because if something suspends, we still
-  // need to pop back up and finish this subtree of HTML.
-
-  renderNode(request, task, children); // We expect that errors will fatal the whole task and that we don't need
-  // the correct context. Therefore this is not in a finally.
-
-  segment.formatContext = prevContext;
-  pushEndInstance(segment.chunks, type);
-  segment.lastPushedText = false;
-  popComponentStackInDEV(task);
-}
-
-function shouldConstruct$1(Component) {
-  return Component.prototype && Component.prototype.isReactComponent;
-}
-
-function renderWithHooks(request, task, Component, props, secondArg) {
-  var componentIdentity = {};
-  prepareToUseHooks(task, componentIdentity);
-  var result = Component(props, secondArg);
-  return finishHooks(Component, props, result, secondArg);
-}
-
-function finishClassComponent(request, task, instance, Component, props) {
-  var nextChildren = instance.render();
-
-  {
-    if (instance.props !== props) {
-      if (!didWarnAboutReassigningProps) {
-        error('It looks like %s is reassigning its own `this.props` while rendering. ' + 'This is not supported and can lead to confusing bugs.', getComponentNameFromType(Component) || 'a component');
-      }
-
-      didWarnAboutReassigningProps = true;
-    }
-  }
-
-  {
-    var childContextTypes = Component.childContextTypes;
-
-    if (childContextTypes !== null && childContextTypes !== undefined) {
-      var previousContext = task.legacyContext;
-      var mergedContext = processChildContext(instance, Component, previousContext, childContextTypes);
-      task.legacyContext = mergedContext;
-      renderNodeDestructive(request, task, nextChildren);
-      task.legacyContext = previousContext;
-      return;
-    }
-  }
-
-  renderNodeDestructive(request, task, nextChildren);
-}
-
-function renderClassComponent(request, task, Component, props) {
-  pushClassComponentStackInDEV(task, Component);
-  var maskedContext =  getMaskedContext(Component, task.legacyContext) ;
-  var instance = constructClassInstance(Component, props, maskedContext);
-  mountClassInstance(instance, Component, props, maskedContext);
-  finishClassComponent(request, task, instance, Component, props);
-  popComponentStackInDEV(task);
-}
-
-var didWarnAboutBadClass = {};
-var didWarnAboutModulePatternComponent = {};
-var didWarnAboutContextTypeOnFunctionComponent = {};
-var didWarnAboutGetDerivedStateOnFunctionComponent = {};
-var didWarnAboutReassigningProps = false;
-var didWarnAboutDefaultPropsOnFunctionComponent = {};
-var didWarnAboutGenerators = false;
-var didWarnAboutMaps = false;
-var hasWarnedAboutUsingContextAsConsumer = false; // This would typically be a function component but we still support module pattern
-// components for some reason.
-
-function renderIndeterminateComponent(request, task, Component, props) {
-  var legacyContext;
-
-  {
-    legacyContext = getMaskedContext(Component, task.legacyContext);
-  }
-
-  pushFunctionComponentStackInDEV(task, Component);
-
-  {
-    if (Component.prototype && typeof Component.prototype.render === 'function') {
-      var componentName = getComponentNameFromType(Component) || 'Unknown';
-
-      if (!didWarnAboutBadClass[componentName]) {
-        error("The <%s /> component appears to have a render method, but doesn't extend React.Component. " + 'This is likely to cause errors. Change %s to extend React.Component instead.', componentName, componentName);
-
-        didWarnAboutBadClass[componentName] = true;
-      }
-    }
-  }
-
-  var value = renderWithHooks(request, task, Component, props, legacyContext);
-  var hasId = checkDidRenderIdHook();
-
-  {
-    // Support for module components is deprecated and is removed behind a flag.
-    // Whether or not it would crash later, we want to show a good message in DEV first.
-    if (typeof value === 'object' && value !== null && typeof value.render === 'function' && value.$$typeof === undefined) {
-      var _componentName = getComponentNameFromType(Component) || 'Unknown';
-
-      if (!didWarnAboutModulePatternComponent[_componentName]) {
-        error('The <%s /> component appears to be a function component that returns a class instance. ' + 'Change %s to a class that extends React.Component instead. ' + "If you can't use a class try assigning the prototype on the function as a workaround. " + "`%s.prototype = React.Component.prototype`. Don't use an arrow function since it " + 'cannot be called with `new` by React.', _componentName, _componentName, _componentName);
-
-        didWarnAboutModulePatternComponent[_componentName] = true;
-      }
-    }
-  }
-
-  if ( // Run these checks in production only if the flag is off.
-  // Eventually we'll delete this branch altogether.
-   typeof value === 'object' && value !== null && typeof value.render === 'function' && value.$$typeof === undefined) {
-    {
-      var _componentName2 = getComponentNameFromType(Component) || 'Unknown';
-
-      if (!didWarnAboutModulePatternComponent[_componentName2]) {
-        error('The <%s /> component appears to be a function component that returns a class instance. ' + 'Change %s to a class that extends React.Component instead. ' + "If you can't use a class try assigning the prototype on the function as a workaround. " + "`%s.prototype = React.Component.prototype`. Don't use an arrow function since it " + 'cannot be called with `new` by React.', _componentName2, _componentName2, _componentName2);
-
-        didWarnAboutModulePatternComponent[_componentName2] = true;
-      }
-    }
-
-    mountClassInstance(value, Component, props, legacyContext);
-    finishClassComponent(request, task, value, Component, props);
-  } else {
-
-    {
-      validateFunctionComponentInDev(Component);
-    } // We're now successfully past this task, and we don't have to pop back to
-    // the previous task every again, so we can use the destructive recursive form.
-
-
-    if (hasId) {
-      // This component materialized an id. We treat this as its own level, with
-      // a single "child" slot.
-      var prevTreeContext = task.treeContext;
-      var totalChildren = 1;
-      var index = 0;
-      task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index);
-
-      try {
-        renderNodeDestructive(request, task, value);
-      } finally {
-        task.treeContext = prevTreeContext;
-      }
-    } else {
-      renderNodeDestructive(request, task, value);
-    }
-  }
-
-  popComponentStackInDEV(task);
-}
-
-function validateFunctionComponentInDev(Component) {
-  {
-    if (Component) {
-      if (Component.childContextTypes) {
-        error('%s(...): childContextTypes cannot be defined on a function component.', Component.displayName || Component.name || 'Component');
-      }
-    }
-
-    if ( Component.defaultProps !== undefined) {
-      var componentName = getComponentNameFromType(Component) || 'Unknown';
-
-      if (!didWarnAboutDefaultPropsOnFunctionComponent[componentName]) {
-        error('%s: Support for defaultProps will be removed from function components ' + 'in a future major release. Use JavaScript default parameters instead.', componentName);
-
-        didWarnAboutDefaultPropsOnFunctionComponent[componentName] = true;
-      }
-    }
-
-    if (typeof Component.getDerivedStateFromProps === 'function') {
-      var _componentName3 = getComponentNameFromType(Component) || 'Unknown';
-
-      if (!didWarnAboutGetDerivedStateOnFunctionComponent[_componentName3]) {
-        error('%s: Function components do not support getDerivedStateFromProps.', _componentName3);
-
-        didWarnAboutGetDerivedStateOnFunctionComponent[_componentName3] = true;
-      }
-    }
-
-    if (typeof Component.contextType === 'object' && Component.contextType !== null) {
-      var _componentName4 = getComponentNameFromType(Component) || 'Unknown';
-
-      if (!didWarnAboutContextTypeOnFunctionComponent[_componentName4]) {
-        error('%s: Function components do not support contextType.', _componentName4);
-
-        didWarnAboutContextTypeOnFunctionComponent[_componentName4] = true;
-      }
-    }
-  }
-}
-
-function resolveDefaultProps(Component, baseProps) {
-  if (Component && Component.defaultProps) {
-    // Resolve default props. Taken from ReactElement
-    var props = assign({}, baseProps);
-    var defaultProps = Component.defaultProps;
-
-    for (var propName in defaultProps) {
-      if (props[propName] === undefined) {
-        props[propName] = defaultProps[propName];
-      }
-    }
-
-    return props;
-  }
-
-  return baseProps;
-}
-
-function renderForwardRef(request, task, type, props, ref) {
-  pushFunctionComponentStackInDEV(task, type.render);
-  var children = renderWithHooks(request, task, type.render, props, ref);
-  var hasId = checkDidRenderIdHook();
-
-  if (hasId) {
-    // This component materialized an id. We treat this as its own level, with
-    // a single "child" slot.
-    var prevTreeContext = task.treeContext;
-    var totalChildren = 1;
-    var index = 0;
-    task.treeContext = pushTreeContext(prevTreeContext, totalChildren, index);
-
-    try {
-      renderNodeDestructive(request, task, children);
-    } finally {
-      task.treeContext = prevTreeContext;
-    }
-  } else {
-    renderNodeDestructive(request, task, children);
-  }
-
-  popComponentStackInDEV(task);
-}
-
-function renderMemo(request, task, type, props, ref) {
-  var innerType = type.type;
-  var resolvedProps = resolveDefaultProps(innerType, props);
-  renderElement(request, task, innerType, resolvedProps, ref);
-}
-
-function renderContextConsumer(request, task, context, props) {
-  // The logic below for Context differs depending on PROD or DEV mode. In
-  // DEV mode, we create a separate object for Context.Consumer that acts
-  // like a proxy to Context. This proxy object adds unnecessary code in PROD
-  // so we use the old behaviour (Context.Consumer references Context) to
-  // reduce size and overhead. The separate object references context via
-  // a property called "_context", which also gives us the ability to check
-  // in DEV mode if this property exists or not and warn if it does not.
-  {
-    if (context._context === undefined) {
-      // This may be because it's a Context (rather than a Consumer).
-      // Or it may be because it's older React where they're the same thing.
-      // We only want to warn if we're sure it's a new React.
-      if (context !== context.Consumer) {
-        if (!hasWarnedAboutUsingContextAsConsumer) {
-          hasWarnedAboutUsingContextAsConsumer = true;
-
-          error('Rendering <Context> directly is not supported and will be removed in ' + 'a future major release. Did you mean to render <Context.Consumer> instead?');
-        }
-      }
-    } else {
-      context = context._context;
-    }
-  }
-
-  var render = props.children;
-
-  {
-    if (typeof render !== 'function') {
-      error('A context consumer was rendered with multiple children, or a child ' + "that isn't a function. A context consumer expects a single child " + 'that is a function. If you did pass a function, make sure there ' + 'is no trailing or leading whitespace around it.');
-    }
-  }
-
-  var newValue = readContext(context);
-  var newChildren = render(newValue);
-  renderNodeDestructive(request, task, newChildren);
-}
-
-function renderContextProvider(request, task, type, props) {
-  var context = type._context;
-  var value = props.value;
-  var children = props.children;
-  var prevSnapshot;
-
-  {
-    prevSnapshot = task.context;
-  }
-
-  task.context = pushProvider(context, value);
-  renderNodeDestructive(request, task, children);
-  task.context = popProvider(context);
-
-  {
-    if (prevSnapshot !== task.context) {
-      error('Popping the context provider did not return back to the original snapshot. This is a bug in React.');
-    }
-  }
-}
-
-function renderLazyComponent(request, task, lazyComponent, props, ref) {
-  pushBuiltInComponentStackInDEV(task, 'Lazy');
-  var payload = lazyComponent._payload;
-  var init = lazyComponent._init;
-  var Component = init(payload);
-  var resolvedProps = resolveDefaultProps(Component, props);
-  renderElement(request, task, Component, resolvedProps, ref);
-  popComponentStackInDEV(task);
-}
-
-function renderElement(request, task, type, props, ref) {
-  if (typeof type === 'function') {
-    if (shouldConstruct$1(type)) {
-      renderClassComponent(request, task, type, props);
-      return;
-    } else {
-      renderIndeterminateComponent(request, task, type, props);
-      return;
-    }
-  }
-
-  if (typeof type === 'string') {
-    renderHostElement(request, task, type, props);
-    return;
-  }
-
-  switch (type) {
-    // TODO: LegacyHidden acts the same as a fragment. This only works
-    // because we currently assume that every instance of LegacyHidden is
-    // accompanied by a host component wrapper. In the hidden mode, the host
-    // component is given a `hidden` attribute, which ensures that the
-    // initial HTML is not visible. To support the use of LegacyHidden as a
-    // true fragment, without an extra DOM node, we would have to hide the
-    // initial HTML in some other way.
-    // TODO: Add REACT_OFFSCREEN_TYPE here too with the same capability.
-    case REACT_LEGACY_HIDDEN_TYPE:
-    case REACT_DEBUG_TRACING_MODE_TYPE:
-    case REACT_STRICT_MODE_TYPE:
-    case REACT_PROFILER_TYPE:
-    case REACT_FRAGMENT_TYPE:
-      {
-        renderNodeDestructive(request, task, props.children);
-        return;
-      }
-
-    case REACT_SUSPENSE_LIST_TYPE:
-      {
-        pushBuiltInComponentStackInDEV(task, 'SuspenseList'); // TODO: SuspenseList should control the boundaries.
-
-        renderNodeDestructive(request, task, props.children);
-        popComponentStackInDEV(task);
-        return;
-      }
-
-    case REACT_SCOPE_TYPE:
-      {
-
-        throw new Error('ReactDOMServer does not yet support scope components.');
-      }
-    // eslint-disable-next-line-no-fallthrough
-
-    case REACT_SUSPENSE_TYPE:
-      {
-        {
-          renderSuspenseBoundary(request, task, props);
-        }
-
-        return;
-      }
-  }
-
-  if (typeof type === 'object' && type !== null) {
-    switch (type.$$typeof) {
-      case REACT_FORWARD_REF_TYPE:
-        {
-          renderForwardRef(request, task, type, props, ref);
-          return;
-        }
-
-      case REACT_MEMO_TYPE:
-        {
-          renderMemo(request, task, type, props, ref);
-          return;
-        }
-
-      case REACT_PROVIDER_TYPE:
-        {
-          renderContextProvider(request, task, type, props);
-          return;
-        }
-
-      case REACT_CONTEXT_TYPE:
-        {
-          renderContextConsumer(request, task, type, props);
-          return;
-        }
-
-      case REACT_LAZY_TYPE:
-        {
-          renderLazyComponent(request, task, type, props);
-          return;
-        }
-    }
-  }
-
-  var info = '';
-
-  {
-    if (type === undefined || typeof type === 'object' && type !== null && Object.keys(type).length === 0) {
-      info += ' You likely forgot to export your component from the file ' + "it's defined in, or you might have mixed up default and " + 'named imports.';
-    }
-  }
-
-  throw new Error('Element type is invalid: expected a string (for built-in ' + 'components) or a class/function (for composite components) ' + ("but got: " + (type == null ? type : typeof type) + "." + info));
-}
-
-function validateIterable(iterable, iteratorFn) {
-  {
-    // We don't support rendering Generators because it's a mutation.
-    // See https://github.com/facebook/react/issues/12995
-    if (typeof Symbol === 'function' && // $FlowFixMe Flow doesn't know about toStringTag
-    iterable[Symbol.toStringTag] === 'Generator') {
-      if (!didWarnAboutGenerators) {
-        error('Using Generators as children is unsupported and will likely yield ' + 'unexpected results because enumerating a generator mutates it. ' + 'You may convert it to an array with `Array.from()` or the ' + '`[...spread]` operator before rendering. Keep in mind ' + 'you might need to polyfill these features for older browsers.');
-      }
-
-      didWarnAboutGenerators = true;
-    } // Warn about using Maps as children
-
-
-    if (iterable.entries === iteratorFn) {
-      if (!didWarnAboutMaps) {
-        error('Using Maps as children is not supported. ' + 'Use an array of keyed ReactElements instead.');
-      }
-
-      didWarnAboutMaps = true;
-    }
-  }
-}
-
-function renderNodeDestructive(request, task, node) {
-  {
-    // In Dev we wrap renderNodeDestructiveImpl in a try / catch so we can capture
-    // a component stack at the right place in the tree. We don't do this in renderNode
-    // becuase it is not called at every layer of the tree and we may lose frames
-    try {
-      return renderNodeDestructiveImpl(request, task, node);
-    } catch (x) {
-      if (typeof x === 'object' && x !== null && typeof x.then === 'function') ; else {
-        // This is an error, stash the component stack if it is null.
-        lastBoundaryErrorComponentStackDev = lastBoundaryErrorComponentStackDev !== null ? lastBoundaryErrorComponentStackDev : getCurrentStackInDEV();
-      } // rethrow so normal suspense logic can handle thrown value accordingly
-
-
-      throw x;
-    }
-  }
-} // This function by it self renders a node and consumes the task by mutating it
-// to update the current execution state.
-
-
-function renderNodeDestructiveImpl(request, task, node) {
-  // Stash the node we're working on. We'll pick up from this task in case
-  // something suspends.
-  task.node = node; // Handle object types
-
-  if (typeof node === 'object' && node !== null) {
-    switch (node.$$typeof) {
-      case REACT_ELEMENT_TYPE:
-        {
-          var element = node;
-          var type = element.type;
-          var props = element.props;
-          var ref = element.ref;
-          renderElement(request, task, type, props, ref);
-          return;
-        }
-
-      case REACT_PORTAL_TYPE:
-        throw new Error('Portals are not currently supported by the server renderer. ' + 'Render them conditionally so that they only appear on the client render.');
-      // eslint-disable-next-line-no-fallthrough
-
-      case REACT_LAZY_TYPE:
-        {
-          var lazyNode = node;
-          var payload = lazyNode._payload;
-          var init = lazyNode._init;
-          var resolvedNode;
-
-          {
-            try {
-              resolvedNode = init(payload);
-            } catch (x) {
-              if (typeof x === 'object' && x !== null && typeof x.then === 'function') {
-                // this Lazy initializer is suspending. push a temporary frame onto the stack so it can be
-                // popped off in spawnNewSuspendedTask. This aligns stack behavior between Lazy in element position
-                // vs Component position. We do not want the frame for Errors so we exclusively do this in
-                // the wakeable branch
-                pushBuiltInComponentStackInDEV(task, 'Lazy');
-              }
-
-              throw x;
-            }
-          }
-
-          renderNodeDestructive(request, task, resolvedNode);
-          return;
-        }
-    }
-
-    if (isArray(node)) {
-      renderChildrenArray(request, task, node);
-      return;
-    }
-
-    var iteratorFn = getIteratorFn(node);
-
-    if (iteratorFn) {
-      {
-        validateIterable(node, iteratorFn);
-      }
-
-      var iterator = iteratorFn.call(node);
-
-      if (iterator) {
-        // We need to know how many total children are in this set, so that we
-        // can allocate enough id slots to acommodate them. So we must exhaust
-        // the iterator before we start recursively rendering the children.
-        // TODO: This is not great but I think it's inherent to the id
-        // generation algorithm.
-        var step = iterator.next(); // If there are not entries, we need to push an empty so we start by checking that.
-
-        if (!step.done) {
-          var children = [];
-
-          do {
-            children.push(step.value);
-            step = iterator.next();
-          } while (!step.done);
-
-          renderChildrenArray(request, task, children);
-          return;
-        }
-
-        return;
-      }
-    }
-
-    var childString = Object.prototype.toString.call(node);
-    throw new Error("Objects are not valid as a React child (found: " + (childString === '[object Object]' ? 'object with keys {' + Object.keys(node).join(', ') + '}' : childString) + "). " + 'If you meant to render a collection of children, use an array ' + 'instead.');
-  }
-
-  if (typeof node === 'string') {
-    var segment = task.blockedSegment;
-    segment.lastPushedText = pushTextInstance(task.blockedSegment.chunks, node, request.responseState, segment.lastPushedText);
-    return;
-  }
-
-  if (typeof node === 'number') {
-    var _segment = task.blockedSegment;
-    _segment.lastPushedText = pushTextInstance(task.blockedSegment.chunks, '' + node, request.responseState, _segment.lastPushedText);
-    return;
-  }
-
-  {
-    if (typeof node === 'function') {
-      error('Functions are not valid as a React child. This may happen if ' + 'you return a Component instead of <Component /> from render. ' + 'Or maybe you meant to call this function rather than return it.');
-    }
-  }
-}
-
-function renderChildrenArray(request, task, children) {
-  var totalChildren = children.length;
-
-  for (var i = 0; i < totalChildren; i++) {
-    var prevTreeContext = task.treeContext;
-    task.treeContext = pushTreeContext(prevTreeContext, totalChildren, i);
-
-    try {
-      // We need to use the non-destructive form so that we can safely pop back
-      // up and render the sibling if something suspends.
-      renderNode(request, task, children[i]);
-    } finally {
-      task.treeContext = prevTreeContext;
-    }
-  }
-}
-
-function spawnNewSuspendedTask(request, task, x) {
-  // Something suspended, we'll need to create a new segment and resolve it later.
-  var segment = task.blockedSegment;
-  var insertionIndex = segment.chunks.length;
-  var newSegment = createPendingSegment(request, insertionIndex, null, segment.formatContext, // Adopt the parent segment's leading text embed
-  segment.lastPushedText, // Assume we are text embedded at the trailing edge
-  true);
-  segment.children.push(newSegment); // Reset lastPushedText for current Segment since the new Segment "consumed" it
-
-  segment.lastPushedText = false;
-  var newTask = createTask(request, task.node, task.blockedBoundary, newSegment, task.abortSet, task.legacyContext, task.context, task.treeContext);
-
-  {
-    if (task.componentStack !== null) {
-      // We pop one task off the stack because the node that suspended will be tried again,
-      // which will add it back onto the stack.
-      newTask.componentStack = task.componentStack.parent;
-    }
-  }
-
-  var ping = newTask.ping;
-  x.then(ping, ping);
-} // This is a non-destructive form of rendering a node. If it suspends it spawns
-// a new task and restores the context of this task to what it was before.
-
-
-function renderNode(request, task, node) {
-  // TODO: Store segment.children.length here and reset it in case something
-  // suspended partially through writing something.
-  // Snapshot the current context in case something throws to interrupt the
-  // process.
-  var previousFormatContext = task.blockedSegment.formatContext;
-  var previousLegacyContext = task.legacyContext;
-  var previousContext = task.context;
-  var previousComponentStack = null;
-
-  {
-    previousComponentStack = task.componentStack;
-  }
-
-  try {
-    return renderNodeDestructive(request, task, node);
-  } catch (x) {
-    resetHooksState();
-
-    if (typeof x === 'object' && x !== null && typeof x.then === 'function') {
-      spawnNewSuspendedTask(request, task, x); // Restore the context. We assume that this will be restored by the inner
-      // functions in case nothing throws so we don't use "finally" here.
-
-      task.blockedSegment.formatContext = previousFormatContext;
-      task.legacyContext = previousLegacyContext;
-      task.context = previousContext; // Restore all active ReactContexts to what they were before.
-
-      switchContext(previousContext);
-
-      {
-        task.componentStack = previousComponentStack;
-      }
-
-      return;
-    } else {
-      // Restore the context. We assume that this will be restored by the inner
-      // functions in case nothing throws so we don't use "finally" here.
-      task.blockedSegment.formatContext = previousFormatContext;
-      task.legacyContext = previousLegacyContext;
-      task.context = previousContext; // Restore all active ReactContexts to what they were before.
-
-      switchContext(previousContext);
-
-      {
-        task.componentStack = previousComponentStack;
-      } // We assume that we don't need the correct context.
-      // Let's terminate the rest of the tree and don't render any siblings.
-
-
-      throw x;
-    }
-  }
-}
-
-function erroredTask(request, boundary, segment, error) {
-  // Report the error to a global handler.
-  var errorDigest = logRecoverableError(request, error);
-
-  if (boundary === null) {
-    fatalError(request, error);
-  } else {
-    boundary.pendingTasks--;
-
-    if (!boundary.forceClientRender) {
-      boundary.forceClientRender = true;
-      boundary.errorDigest = errorDigest;
-
-      {
-        captureBoundaryErrorDetailsDev(boundary, error);
-      } // Regardless of what happens next, this boundary won't be displayed,
-      // so we can flush it, if the parent already flushed.
-
-
-      if (boundary.parentFlushed) {
-        // We don't have a preference where in the queue this goes since it's likely
-        // to error on the client anyway. However, intentionally client-rendered
-        // boundaries should be flushed earlier so that they can start on the client.
-        // We reuse the same queue for errors.
-        request.clientRenderedBoundaries.push(boundary);
-      }
-    }
-  }
-
-  request.allPendingTasks--;
-
-  if (request.allPendingTasks === 0) {
-    var onAllReady = request.onAllReady;
-    onAllReady();
-  }
-}
-
-function abortTaskSoft(task) {
-  // This aborts task without aborting the parent boundary that it blocks.
-  // It's used for when we didn't need this task to complete the tree.
-  // If task was needed, then it should use abortTask instead.
-  var request = this;
-  var boundary = task.blockedBoundary;
-  var segment = task.blockedSegment;
-  segment.status = ABORTED;
-  finishedTask(request, boundary, segment);
-}
-
-function abortTask(task, request, reason) {
-  // This aborts the task and aborts the parent that it blocks, putting it into
-  // client rendered mode.
-  var boundary = task.blockedBoundary;
-  var segment = task.blockedSegment;
-  segment.status = ABORTED;
-
-  if (boundary === null) {
-    request.allPendingTasks--; // We didn't complete the root so we have nothing to show. We can close
-    // the request;
-
-    if (request.status !== CLOSED) {
-      request.status = CLOSED;
-
-      if (request.destination !== null) {
-        close(request.destination);
-      }
-    }
-  } else {
-    boundary.pendingTasks--;
-
-    if (!boundary.forceClientRender) {
-      boundary.forceClientRender = true;
-
-      var _error = reason === undefined ? new Error('The render was aborted by the server without a reason.') : reason;
-
-      boundary.errorDigest = request.onError(_error);
-
-      {
-        var errorPrefix = 'The server did not finish this Suspense boundary: ';
-
-        if (_error && typeof _error.message === 'string') {
-          _error = errorPrefix + _error.message;
-        } else {
-          // eslint-disable-next-line react-internal/safe-string-coercion
-          _error = errorPrefix + String(_error);
-        }
-
-        var previousTaskInDev = currentTaskInDEV;
-        currentTaskInDEV = task;
-
-        try {
-          captureBoundaryErrorDetailsDev(boundary, _error);
-        } finally {
-          currentTaskInDEV = previousTaskInDev;
-        }
-      }
-
-      if (boundary.parentFlushed) {
-        request.clientRenderedBoundaries.push(boundary);
-      }
-    } // If this boundary was still pending then we haven't already cancelled its fallbacks.
-    // We'll need to abort the fallbacks, which will also error that parent boundary.
-
-
-    boundary.fallbackAbortableTasks.forEach(function (fallbackTask) {
-      return abortTask(fallbackTask, request, reason);
-    });
-    boundary.fallbackAbortableTasks.clear();
-    request.allPendingTasks--;
-
-    if (request.allPendingTasks === 0) {
-      var onAllReady = request.onAllReady;
-      onAllReady();
-    }
-  }
-}
-
-function queueCompletedSegment(boundary, segment) {
-  if (segment.chunks.length === 0 && segment.children.length === 1 && segment.children[0].boundary === null) {
-    // This is an empty segment. There's nothing to write, so we can instead transfer the ID
-    // to the child. That way any existing references point to the child.
-    var childSegment = segment.children[0];
-    childSegment.id = segment.id;
-    childSegment.parentFlushed = true;
-
-    if (childSegment.status === COMPLETED) {
-      queueCompletedSegment(boundary, childSegment);
-    }
-  } else {
-    var completedSegments = boundary.completedSegments;
-    completedSegments.push(segment);
-  }
-}
-
-function finishedTask(request, boundary, segment) {
-  if (boundary === null) {
-    if (segment.parentFlushed) {
-      if (request.completedRootSegment !== null) {
-        throw new Error('There can only be one root segment. This is a bug in React.');
-      }
-
-      request.completedRootSegment = segment;
-    }
-
-    request.pendingRootTasks--;
-
-    if (request.pendingRootTasks === 0) {
-      // We have completed the shell so the shell can't error anymore.
-      request.onShellError = noop$1;
-      var onShellReady = request.onShellReady;
-      onShellReady();
-    }
-  } else {
-    boundary.pendingTasks--;
-
-    if (boundary.forceClientRender) ; else if (boundary.pendingTasks === 0) {
-      // This must have been the last segment we were waiting on. This boundary is now complete.
-      if (segment.parentFlushed) {
-        // Our parent segment already flushed, so we need to schedule this segment to be emitted.
-        // If it is a segment that was aborted, we'll write other content instead so we don't need
-        // to emit it.
-        if (segment.status === COMPLETED) {
-          queueCompletedSegment(boundary, segment);
-        }
-      }
-
-      if (boundary.parentFlushed) {
-        // The segment might be part of a segment that didn't flush yet, but if the boundary's
-        // parent flushed, we need to schedule the boundary to be emitted.
-        request.completedBoundaries.push(boundary);
-      } // We can now cancel any pending task on the fallback since we won't need to show it anymore.
-      // This needs to happen after we read the parentFlushed flags because aborting can finish
-      // work which can trigger user code, which can start flushing, which can change those flags.
-
-
-      boundary.fallbackAbortableTasks.forEach(abortTaskSoft, request);
-      boundary.fallbackAbortableTasks.clear();
-    } else {
-      if (segment.parentFlushed) {
-        // Our parent already flushed, so we need to schedule this segment to be emitted.
-        // If it is a segment that was aborted, we'll write other content instead so we don't need
-        // to emit it.
-        if (segment.status === COMPLETED) {
-          queueCompletedSegment(boundary, segment);
-          var completedSegments = boundary.completedSegments;
-
-          if (completedSegments.length === 1) {
-            // This is the first time since we last flushed that we completed anything.
-            // We can schedule this boundary to emit its partially completed segments early
-            // in case the parent has already been flushed.
-            if (boundary.parentFlushed) {
-              request.partialBoundaries.push(boundary);
-            }
-          }
-        }
-      }
-    }
-  }
-
-  request.allPendingTasks--;
-
-  if (request.allPendingTasks === 0) {
-    // This needs to be called at the very end so that we can synchronously write the result
-    // in the callback if needed.
-    var onAllReady = request.onAllReady;
-    onAllReady();
-  }
-}
-
-function retryTask(request, task) {
-  var segment = task.blockedSegment;
-
-  if (segment.status !== PENDING) {
-    // We completed this by other means before we had a chance to retry it.
-    return;
-  } // We restore the context to what it was when we suspended.
-  // We don't restore it after we leave because it's likely that we'll end up
-  // needing a very similar context soon again.
-
-
-  switchContext(task.context);
-  var prevTaskInDEV = null;
-
-  {
-    prevTaskInDEV = currentTaskInDEV;
-    currentTaskInDEV = task;
-  }
-
-  try {
-    // We call the destructive form that mutates this task. That way if something
-    // suspends again, we can reuse the same task instead of spawning a new one.
-    renderNodeDestructive(request, task, task.node);
-    pushSegmentFinale(segment.chunks, request.responseState, segment.lastPushedText, segment.textEmbedded);
-    task.abortSet.delete(task);
-    segment.status = COMPLETED;
-    finishedTask(request, task.blockedBoundary, segment);
-  } catch (x) {
-    resetHooksState();
-
-    if (typeof x === 'object' && x !== null && typeof x.then === 'function') {
-      // Something suspended again, let's pick it back up later.
-      var ping = task.ping;
-      x.then(ping, ping);
-    } else {
-      task.abortSet.delete(task);
-      segment.status = ERRORED;
-      erroredTask(request, task.blockedBoundary, segment, x);
-    }
-  } finally {
-    {
-      currentTaskInDEV = prevTaskInDEV;
-    }
-  }
-}
-
-function performWork(request) {
-  if (request.status === CLOSED) {
-    return;
-  }
-
-  var prevContext = getActiveContext();
-  var prevDispatcher = ReactCurrentDispatcher$1.current;
-  ReactCurrentDispatcher$1.current = Dispatcher;
-  var prevGetCurrentStackImpl;
-
-  {
-    prevGetCurrentStackImpl = ReactDebugCurrentFrame$1.getCurrentStack;
-    ReactDebugCurrentFrame$1.getCurrentStack = getCurrentStackInDEV;
-  }
-
-  var prevResponseState = currentResponseState;
-  setCurrentResponseState(request.responseState);
-
-  try {
-    var pingedTasks = request.pingedTasks;
-    var i;
-
-    for (i = 0; i < pingedTasks.length; i++) {
-      var task = pingedTasks[i];
-      retryTask(request, task);
-    }
-
-    pingedTasks.splice(0, i);
-
-    if (request.destination !== null) {
-      flushCompletedQueues(request, request.destination);
-    }
-  } catch (error) {
-    logRecoverableError(request, error);
-    fatalError(request, error);
-  } finally {
-    setCurrentResponseState(prevResponseState);
-    ReactCurrentDispatcher$1.current = prevDispatcher;
-
-    {
-      ReactDebugCurrentFrame$1.getCurrentStack = prevGetCurrentStackImpl;
-    }
-
-    if (prevDispatcher === Dispatcher) {
-      // This means that we were in a reentrant work loop. This could happen
-      // in a renderer that supports synchronous work like renderToString,
-      // when it's called from within another renderer.
-      // Normally we don't bother switching the contexts to their root/default
-      // values when leaving because we'll likely need the same or similar
-      // context again. However, when we're inside a synchronous loop like this
-      // we'll to restore the context to what it was before returning.
-      switchContext(prevContext);
-    }
-  }
-}
-
-function flushSubtree(request, destination, segment) {
-  segment.parentFlushed = true;
-
-  switch (segment.status) {
-    case PENDING:
-      {
-        // We're emitting a placeholder for this segment to be filled in later.
-        // Therefore we'll need to assign it an ID - to refer to it by.
-        var segmentID = segment.id = request.nextSegmentId++; // When this segment finally completes it won't be embedded in text since it will flush separately
-
-        segment.lastPushedText = false;
-        segment.textEmbedded = false;
-        return writePlaceholder(destination, request.responseState, segmentID);
-      }
-
-    case COMPLETED:
-      {
-        segment.status = FLUSHED;
-        var r = true;
-        var chunks = segment.chunks;
-        var chunkIdx = 0;
-        var children = segment.children;
-
-        for (var childIdx = 0; childIdx < children.length; childIdx++) {
-          var nextChild = children[childIdx]; // Write all the chunks up until the next child.
-
-          for (; chunkIdx < nextChild.index; chunkIdx++) {
-            writeChunk(destination, chunks[chunkIdx]);
-          }
-
-          r = flushSegment(request, destination, nextChild);
-        } // Finally just write all the remaining chunks
-
-
-        for (; chunkIdx < chunks.length - 1; chunkIdx++) {
-          writeChunk(destination, chunks[chunkIdx]);
-        }
-
-        if (chunkIdx < chunks.length) {
-          r = writeChunkAndReturn(destination, chunks[chunkIdx]);
-        }
-
-        return r;
-      }
-
-    default:
-      {
-        throw new Error('Aborted, errored or already flushed boundaries should not be flushed again. This is a bug in React.');
-      }
-  }
-}
-
-function flushSegment(request, destination, segment) {
-  var boundary = segment.boundary;
-
-  if (boundary === null) {
-    // Not a suspense boundary.
-    return flushSubtree(request, destination, segment);
-  }
-
-  boundary.parentFlushed = true; // This segment is a Suspense boundary. We need to decide whether to
-  // emit the content or the fallback now.
-
-  if (boundary.forceClientRender) {
-    // Emit a client rendered suspense boundary wrapper.
-    // We never queue the inner boundary so we'll never emit its content or partial segments.
-    writeStartClientRenderedSuspenseBoundary(destination, request.responseState, boundary.errorDigest, boundary.errorMessage, boundary.errorComponentStack); // Flush the fallback.
-
-    flushSubtree(request, destination, segment);
-    return writeEndClientRenderedSuspenseBoundary(destination, request.responseState);
-  } else if (boundary.pendingTasks > 0) {
-    // This boundary is still loading. Emit a pending suspense boundary wrapper.
-    // Assign an ID to refer to the future content by.
-    boundary.rootSegmentID = request.nextSegmentId++;
-
-    if (boundary.completedSegments.length > 0) {
-      // If this is at least partially complete, we can queue it to be partially emitted early.
-      request.partialBoundaries.push(boundary);
-    } /// This is the first time we should have referenced this ID.
-
-
-    var id = boundary.id = assignSuspenseBoundaryID(request.responseState);
-    writeStartPendingSuspenseBoundary(destination, request.responseState, id); // Flush the fallback.
-
-    flushSubtree(request, destination, segment);
-    return writeEndPendingSuspenseBoundary(destination, request.responseState);
-  } else if (boundary.byteSize > request.progressiveChunkSize) {
-    // This boundary is large and will be emitted separately so that we can progressively show
-    // other content. We add it to the queue during the flush because we have to ensure that
-    // the parent flushes first so that there's something to inject it into.
-    // We also have to make sure that it's emitted into the queue in a deterministic slot.
-    // I.e. we can't insert it here when it completes.
-    // Assign an ID to refer to the future content by.
-    boundary.rootSegmentID = request.nextSegmentId++;
-    request.completedBoundaries.push(boundary); // Emit a pending rendered suspense boundary wrapper.
-
-    writeStartPendingSuspenseBoundary(destination, request.responseState, boundary.id); // Flush the fallback.
-
-    flushSubtree(request, destination, segment);
-    return writeEndPendingSuspenseBoundary(destination, request.responseState);
-  } else {
-    // We can inline this boundary's content as a complete boundary.
-    writeStartCompletedSuspenseBoundary(destination, request.responseState);
-    var completedSegments = boundary.completedSegments;
-
-    if (completedSegments.length !== 1) {
-      throw new Error('A previously unvisited boundary must have exactly one root segment. This is a bug in React.');
-    }
-
-    var contentSegment = completedSegments[0];
-    flushSegment(request, destination, contentSegment);
-    return writeEndCompletedSuspenseBoundary(destination, request.responseState);
-  }
-}
-
-function flushClientRenderedBoundary(request, destination, boundary) {
-  return writeClientRenderBoundaryInstruction(destination, request.responseState, boundary.id, boundary.errorDigest, boundary.errorMessage, boundary.errorComponentStack);
-}
-
-function flushSegmentContainer(request, destination, segment) {
-  writeStartSegment(destination, request.responseState, segment.formatContext, segment.id);
-  flushSegment(request, destination, segment);
-  return writeEndSegment(destination, segment.formatContext);
-}
-
-function flushCompletedBoundary(request, destination, boundary) {
-  var completedSegments = boundary.completedSegments;
-  var i = 0;
-
-  for (; i < completedSegments.length; i++) {
-    var segment = completedSegments[i];
-    flushPartiallyCompletedSegment(request, destination, boundary, segment);
-  }
-
-  completedSegments.length = 0;
-  return writeCompletedBoundaryInstruction(destination, request.responseState, boundary.id, boundary.rootSegmentID);
-}
-
-function flushPartialBoundary(request, destination, boundary) {
-  var completedSegments = boundary.completedSegments;
-  var i = 0;
-
-  for (; i < completedSegments.length; i++) {
-    var segment = completedSegments[i];
-
-    if (!flushPartiallyCompletedSegment(request, destination, boundary, segment)) {
-      i++;
-      completedSegments.splice(0, i); // Only write as much as the buffer wants. Something higher priority
-      // might want to write later.
-
-      return false;
-    }
-  }
-
-  completedSegments.splice(0, i);
-  return true;
-}
-
-function flushPartiallyCompletedSegment(request, destination, boundary, segment) {
-  if (segment.status === FLUSHED) {
-    // We've already flushed this inline.
-    return true;
-  }
-
-  var segmentID = segment.id;
-
-  if (segmentID === -1) {
-    // This segment wasn't previously referred to. This happens at the root of
-    // a boundary. We make kind of a leap here and assume this is the root.
-    var rootSegmentID = segment.id = boundary.rootSegmentID;
-
-    if (rootSegmentID === -1) {
-      throw new Error('A root segment ID must have been assigned by now. This is a bug in React.');
-    }
-
-    return flushSegmentContainer(request, destination, segment);
-  } else {
-    flushSegmentContainer(request, destination, segment);
-    return writeCompletedSegmentInstruction(destination, request.responseState, segmentID);
-  }
-}
-
-function flushCompletedQueues(request, destination) {
-  beginWriting();
-
-  try {
-    // The structure of this is to go through each queue one by one and write
-    // until the sink tells us to stop. When we should stop, we still finish writing
-    // that item fully and then yield. At that point we remove the already completed
-    // items up until the point we completed them.
-    // TODO: Emit preloading.
-    // TODO: It's kind of unfortunate to keep checking this array after we've already
-    // emitted the root.
-    var completedRootSegment = request.completedRootSegment;
-
-    if (completedRootSegment !== null && request.pendingRootTasks === 0) {
-      flushSegment(request, destination, completedRootSegment);
-      request.completedRootSegment = null;
-      writeCompletedRoot(destination, request.responseState);
-    } // We emit client rendering instructions for already emitted boundaries first.
-    // This is so that we can signal to the client to start client rendering them as
-    // soon as possible.
-
-
-    var clientRenderedBoundaries = request.clientRenderedBoundaries;
-    var i;
-
-    for (i = 0; i < clientRenderedBoundaries.length; i++) {
-      var boundary = clientRenderedBoundaries[i];
-
-      if (!flushClientRenderedBoundary(request, destination, boundary)) {
-        request.destination = null;
-        i++;
-        clientRenderedBoundaries.splice(0, i);
-        return;
-      }
-    }
-
-    clientRenderedBoundaries.splice(0, i); // Next we emit any complete boundaries. It's better to favor boundaries
-    // that are completely done since we can actually show them, than it is to emit
-    // any individual segments from a partially complete boundary.
-
-    var completedBoundaries = request.completedBoundaries;
-
-    for (i = 0; i < completedBoundaries.length; i++) {
-      var _boundary = completedBoundaries[i];
-
-      if (!flushCompletedBoundary(request, destination, _boundary)) {
-        request.destination = null;
-        i++;
-        completedBoundaries.splice(0, i);
-        return;
-      }
-    }
-
-    completedBoundaries.splice(0, i); // Allow anything written so far to flush to the underlying sink before
-    // we continue with lower priorities.
-
-    completeWriting(destination);
-    beginWriting(destination); // TODO: Here we'll emit data used by hydration.
-    // Next we emit any segments of any boundaries that are partially complete
-    // but not deeply complete.
-
-    var partialBoundaries = request.partialBoundaries;
-
-    for (i = 0; i < partialBoundaries.length; i++) {
-      var _boundary2 = partialBoundaries[i];
-
-      if (!flushPartialBoundary(request, destination, _boundary2)) {
-        request.destination = null;
-        i++;
-        partialBoundaries.splice(0, i);
-        return;
-      }
-    }
-
-    partialBoundaries.splice(0, i); // Next we check the completed boundaries again. This may have had
-    // boundaries added to it in case they were too larged to be inlined.
-    // New ones might be added in this loop.
-
-    var largeBoundaries = request.completedBoundaries;
-
-    for (i = 0; i < largeBoundaries.length; i++) {
-      var _boundary3 = largeBoundaries[i];
-
-      if (!flushCompletedBoundary(request, destination, _boundary3)) {
-        request.destination = null;
-        i++;
-        largeBoundaries.splice(0, i);
-        return;
-      }
-    }
-
-    largeBoundaries.splice(0, i);
-  } finally {
-    completeWriting(destination);
-
-    if (request.allPendingTasks === 0 && request.pingedTasks.length === 0 && request.clientRenderedBoundaries.length === 0 && request.completedBoundaries.length === 0 // We don't need to check any partially completed segments because
-    // either they have pending task or they're complete.
-    ) {
-        {
-          if (request.abortableTasks.size !== 0) {
-            error('There was still abortable task at the root when we closed. This is a bug in React.');
-          }
-        } // We're done.
-
-
-        close(destination);
-      }
-  }
-}
-
-function startWork(request) {
-  scheduleWork(function () {
-    return performWork(request);
-  });
-}
-function startFlowing(request, destination) {
-  if (request.status === CLOSING) {
-    request.status = CLOSED;
-    closeWithError(destination, request.fatalError);
-    return;
-  }
-
-  if (request.status === CLOSED) {
-    return;
-  }
-
-  if (request.destination !== null) {
-    // We're already flowing.
-    return;
-  }
-
-  request.destination = destination;
-
-  try {
-    flushCompletedQueues(request, destination);
-  } catch (error) {
-    logRecoverableError(request, error);
-    fatalError(request, error);
-  }
-} // This is called to early terminate a request. It puts all pending boundaries in client rendered state.
-
-function abort(request, reason) {
-  try {
-    var abortableTasks = request.abortableTasks;
-    abortableTasks.forEach(function (task) {
-      return abortTask(task, request, reason);
-    });
-    abortableTasks.clear();
-
-    if (request.destination !== null) {
-      flushCompletedQueues(request, request.destination);
-    }
-  } catch (error) {
-    logRecoverableError(request, error);
-    fatalError(request, error);
-  }
-}
-
-function renderToReadableStream(children, options) {
-  return new Promise(function (resolve, reject) {
-    var onFatalError;
-    var onAllReady;
-    var allReady = new Promise(function (res, rej) {
-      onAllReady = res;
-      onFatalError = rej;
-    });
-
-    function onShellReady() {
-      var stream = new ReadableStream({
-        type: 'bytes',
-        pull: function (controller) {
-          startFlowing(request, controller);
-        },
-        cancel: function (reason) {
-          abort(request);
-        }
-      }, // $FlowFixMe size() methods are not allowed on byte streams.
-      {
-        highWaterMark: 0
-      }); // TODO: Move to sub-classing ReadableStream.
-
-      stream.allReady = allReady;
-      resolve(stream);
-    }
-
-    function onShellError(error) {
-      // If the shell errors the caller of `renderToReadableStream` won't have access to `allReady`.
-      // However, `allReady` will be rejected by `onFatalError` as well.
-      // So we need to catch the duplicate, uncatchable fatal error in `allReady` to prevent a `UnhandledPromiseRejection`.
-      allReady.catch(function () {});
-      reject(error);
-    }
-
-    var request = createRequest(children, createResponseState(options ? options.identifierPrefix : undefined, options ? options.nonce : undefined, options ? options.bootstrapScriptContent : undefined, options ? options.bootstrapScripts : undefined, options ? options.bootstrapModules : undefined), createRootFormatContext(options ? options.namespaceURI : undefined), options ? options.progressiveChunkSize : undefined, options ? options.onError : undefined, onAllReady, onShellReady, onShellError, onFatalError);
-
-    if (options && options.signal) {
-      var signal = options.signal;
-
-      var listener = function () {
-        abort(request, signal.reason);
-        signal.removeEventListener('abort', listener);
-      };
-
-      signal.addEventListener('abort', listener);
-    }
-
-    startWork(request);
-  });
-}
-
-exports.renderToReadableStream = renderToReadableStream;
-exports.version = ReactVersion;
-  })();
-}
 
 
 /***/ }),
@@ -78180,27 +65919,175 @@ if (false) {} else {
 
 /***/ }),
 
-/***/ "./node_modules/react-dom/server.browser.js":
-/*!**************************************************!*\
-  !*** ./node_modules/react-dom/server.browser.js ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ "./node_modules/react-lifecycles-compat/react-lifecycles-compat.es.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/react-lifecycles-compat/react-lifecycles-compat.es.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   polyfill: () => (/* binding */ polyfill)
+/* harmony export */ });
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
 
-
-var l, s;
-if (false) {} else {
-  l = __webpack_require__(/*! ./cjs/react-dom-server-legacy.browser.development.js */ "./node_modules/react-dom/cjs/react-dom-server-legacy.browser.development.js");
-  s = __webpack_require__(/*! ./cjs/react-dom-server.browser.development.js */ "./node_modules/react-dom/cjs/react-dom-server.browser.development.js");
+function componentWillMount() {
+  // Call this.constructor.gDSFP to support sub-classes.
+  var state = this.constructor.getDerivedStateFromProps(this.props, this.state);
+  if (state !== null && state !== undefined) {
+    this.setState(state);
+  }
 }
 
-exports.version = l.version;
-exports.renderToString = l.renderToString;
-exports.renderToStaticMarkup = l.renderToStaticMarkup;
-exports.renderToNodeStream = l.renderToNodeStream;
-exports.renderToStaticNodeStream = l.renderToStaticNodeStream;
-exports.renderToReadableStream = s.renderToReadableStream;
+function componentWillReceiveProps(nextProps) {
+  // Call this.constructor.gDSFP to support sub-classes.
+  // Use the setState() updater to ensure state isn't stale in certain edge cases.
+  function updater(prevState) {
+    var state = this.constructor.getDerivedStateFromProps(nextProps, prevState);
+    return state !== null && state !== undefined ? state : null;
+  }
+  // Binding "this" is important for shallow renderer support.
+  this.setState(updater.bind(this));
+}
+
+function componentWillUpdate(nextProps, nextState) {
+  try {
+    var prevProps = this.props;
+    var prevState = this.state;
+    this.props = nextProps;
+    this.state = nextState;
+    this.__reactInternalSnapshotFlag = true;
+    this.__reactInternalSnapshot = this.getSnapshotBeforeUpdate(
+      prevProps,
+      prevState
+    );
+  } finally {
+    this.props = prevProps;
+    this.state = prevState;
+  }
+}
+
+// React may warn about cWM/cWRP/cWU methods being deprecated.
+// Add a flag to suppress these warnings for this special case.
+componentWillMount.__suppressDeprecationWarning = true;
+componentWillReceiveProps.__suppressDeprecationWarning = true;
+componentWillUpdate.__suppressDeprecationWarning = true;
+
+function polyfill(Component) {
+  var prototype = Component.prototype;
+
+  if (!prototype || !prototype.isReactComponent) {
+    throw new Error('Can only polyfill class components');
+  }
+
+  if (
+    typeof Component.getDerivedStateFromProps !== 'function' &&
+    typeof prototype.getSnapshotBeforeUpdate !== 'function'
+  ) {
+    return Component;
+  }
+
+  // If new component APIs are defined, "unsafe" lifecycles won't be called.
+  // Error if any of these lifecycles are present,
+  // Because they would work differently between older and newer (16.3+) versions of React.
+  var foundWillMountName = null;
+  var foundWillReceivePropsName = null;
+  var foundWillUpdateName = null;
+  if (typeof prototype.componentWillMount === 'function') {
+    foundWillMountName = 'componentWillMount';
+  } else if (typeof prototype.UNSAFE_componentWillMount === 'function') {
+    foundWillMountName = 'UNSAFE_componentWillMount';
+  }
+  if (typeof prototype.componentWillReceiveProps === 'function') {
+    foundWillReceivePropsName = 'componentWillReceiveProps';
+  } else if (typeof prototype.UNSAFE_componentWillReceiveProps === 'function') {
+    foundWillReceivePropsName = 'UNSAFE_componentWillReceiveProps';
+  }
+  if (typeof prototype.componentWillUpdate === 'function') {
+    foundWillUpdateName = 'componentWillUpdate';
+  } else if (typeof prototype.UNSAFE_componentWillUpdate === 'function') {
+    foundWillUpdateName = 'UNSAFE_componentWillUpdate';
+  }
+  if (
+    foundWillMountName !== null ||
+    foundWillReceivePropsName !== null ||
+    foundWillUpdateName !== null
+  ) {
+    var componentName = Component.displayName || Component.name;
+    var newApiName =
+      typeof Component.getDerivedStateFromProps === 'function'
+        ? 'getDerivedStateFromProps()'
+        : 'getSnapshotBeforeUpdate()';
+
+    throw Error(
+      'Unsafe legacy lifecycles will not be called for components using new component APIs.\n\n' +
+        componentName +
+        ' uses ' +
+        newApiName +
+        ' but also contains the following legacy lifecycles:' +
+        (foundWillMountName !== null ? '\n  ' + foundWillMountName : '') +
+        (foundWillReceivePropsName !== null
+          ? '\n  ' + foundWillReceivePropsName
+          : '') +
+        (foundWillUpdateName !== null ? '\n  ' + foundWillUpdateName : '') +
+        '\n\nThe above lifecycles should be removed. Learn more about this warning here:\n' +
+        'https://fb.me/react-async-component-lifecycle-hooks'
+    );
+  }
+
+  // React <= 16.2 does not support static getDerivedStateFromProps.
+  // As a workaround, use cWM and cWRP to invoke the new static lifecycle.
+  // Newer versions of React will ignore these lifecycles if gDSFP exists.
+  if (typeof Component.getDerivedStateFromProps === 'function') {
+    prototype.componentWillMount = componentWillMount;
+    prototype.componentWillReceiveProps = componentWillReceiveProps;
+  }
+
+  // React <= 16.2 does not support getSnapshotBeforeUpdate.
+  // As a workaround, use cWU to invoke the new lifecycle.
+  // Newer versions of React will ignore that lifecycle if gSBU exists.
+  if (typeof prototype.getSnapshotBeforeUpdate === 'function') {
+    if (typeof prototype.componentDidUpdate !== 'function') {
+      throw new Error(
+        'Cannot polyfill getSnapshotBeforeUpdate() for components that do not define componentDidUpdate() on the prototype'
+      );
+    }
+
+    prototype.componentWillUpdate = componentWillUpdate;
+
+    var componentDidUpdate = prototype.componentDidUpdate;
+
+    prototype.componentDidUpdate = function componentDidUpdatePolyfill(
+      prevProps,
+      prevState,
+      maybeSnapshot
+    ) {
+      // 16.3+ will not execute our will-update method;
+      // It will pass a snapshot value to did-update though.
+      // Older versions will require our polyfilled will-update value.
+      // We need to handle both cases, but can't just check for the presence of "maybeSnapshot",
+      // Because for <= 15.x versions this might be a "prevContext" object.
+      // We also can't just check "__reactInternalSnapshot",
+      // Because get-snapshot might return a falsy value.
+      // So check for the explicit __reactInternalSnapshotFlag flag to determine behavior.
+      var snapshot = this.__reactInternalSnapshotFlag
+        ? this.__reactInternalSnapshot
+        : maybeSnapshot;
+
+      componentDidUpdate.call(this, prevProps, prevState, snapshot);
+    };
+  }
+
+  return Component;
+}
+
+
 
 
 /***/ }),
@@ -78576,6 +66463,748 @@ function onClickOutsideHOC(WrappedComponent, config) {
     return WrappedComponent.getClass ? WrappedComponent.getClass() : WrappedComponent;
   }, _temp;
 }/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (onClickOutsideHOC);
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/esm/Transition.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/react-transition-group/esm/Transition.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ENTERED: () => (/* binding */ ENTERED),
+/* harmony export */   ENTERING: () => (/* binding */ ENTERING),
+/* harmony export */   EXITED: () => (/* binding */ EXITED),
+/* harmony export */   EXITING: () => (/* binding */ EXITING),
+/* harmony export */   UNMOUNTED: () => (/* binding */ UNMOUNTED),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./config */ "./node_modules/react-transition-group/esm/config.js");
+/* harmony import */ var _utils_PropTypes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./utils/PropTypes */ "./node_modules/react-transition-group/esm/utils/PropTypes.js");
+/* harmony import */ var _TransitionGroupContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./TransitionGroupContext */ "./node_modules/react-transition-group/esm/TransitionGroupContext.js");
+/* harmony import */ var _utils_reflow__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/reflow */ "./node_modules/react-transition-group/esm/utils/reflow.js");
+
+
+
+
+
+
+
+
+
+var UNMOUNTED = 'unmounted';
+var EXITED = 'exited';
+var ENTERING = 'entering';
+var ENTERED = 'entered';
+var EXITING = 'exiting';
+/**
+ * The Transition component lets you describe a transition from one component
+ * state to another _over time_ with a simple declarative API. Most commonly
+ * it's used to animate the mounting and unmounting of a component, but can also
+ * be used to describe in-place transition states as well.
+ *
+ * ---
+ *
+ * **Note**: `Transition` is a platform-agnostic base component. If you're using
+ * transitions in CSS, you'll probably want to use
+ * [`CSSTransition`](https://reactcommunity.org/react-transition-group/css-transition)
+ * instead. It inherits all the features of `Transition`, but contains
+ * additional features necessary to play nice with CSS transitions (hence the
+ * name of the component).
+ *
+ * ---
+ *
+ * By default the `Transition` component does not alter the behavior of the
+ * component it renders, it only tracks "enter" and "exit" states for the
+ * components. It's up to you to give meaning and effect to those states. For
+ * example we can add styles to a component when it enters or exits:
+ *
+ * ```jsx
+ * import { Transition } from 'react-transition-group';
+ *
+ * const duration = 300;
+ *
+ * const defaultStyle = {
+ *   transition: `opacity ${duration}ms ease-in-out`,
+ *   opacity: 0,
+ * }
+ *
+ * const transitionStyles = {
+ *   entering: { opacity: 1 },
+ *   entered:  { opacity: 1 },
+ *   exiting:  { opacity: 0 },
+ *   exited:  { opacity: 0 },
+ * };
+ *
+ * const Fade = ({ in: inProp }) => (
+ *   <Transition in={inProp} timeout={duration}>
+ *     {state => (
+ *       <div style={{
+ *         ...defaultStyle,
+ *         ...transitionStyles[state]
+ *       }}>
+ *         I'm a fade Transition!
+ *       </div>
+ *     )}
+ *   </Transition>
+ * );
+ * ```
+ *
+ * There are 4 main states a Transition can be in:
+ *  - `'entering'`
+ *  - `'entered'`
+ *  - `'exiting'`
+ *  - `'exited'`
+ *
+ * Transition state is toggled via the `in` prop. When `true` the component
+ * begins the "Enter" stage. During this stage, the component will shift from
+ * its current transition state, to `'entering'` for the duration of the
+ * transition and then to the `'entered'` stage once it's complete. Let's take
+ * the following example (we'll use the
+ * [useState](https://reactjs.org/docs/hooks-reference.html#usestate) hook):
+ *
+ * ```jsx
+ * function App() {
+ *   const [inProp, setInProp] = useState(false);
+ *   return (
+ *     <div>
+ *       <Transition in={inProp} timeout={500}>
+ *         {state => (
+ *           // ...
+ *         )}
+ *       </Transition>
+ *       <button onClick={() => setInProp(true)}>
+ *         Click to Enter
+ *       </button>
+ *     </div>
+ *   );
+ * }
+ * ```
+ *
+ * When the button is clicked the component will shift to the `'entering'` state
+ * and stay there for 500ms (the value of `timeout`) before it finally switches
+ * to `'entered'`.
+ *
+ * When `in` is `false` the same thing happens except the state moves from
+ * `'exiting'` to `'exited'`.
+ */
+
+var Transition = /*#__PURE__*/function (_React$Component) {
+  (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(Transition, _React$Component);
+
+  function Transition(props, context) {
+    var _this;
+
+    _this = _React$Component.call(this, props, context) || this;
+    var parentGroup = context; // In the context of a TransitionGroup all enters are really appears
+
+    var appear = parentGroup && !parentGroup.isMounting ? props.enter : props.appear;
+    var initialStatus;
+    _this.appearStatus = null;
+
+    if (props.in) {
+      if (appear) {
+        initialStatus = EXITED;
+        _this.appearStatus = ENTERING;
+      } else {
+        initialStatus = ENTERED;
+      }
+    } else {
+      if (props.unmountOnExit || props.mountOnEnter) {
+        initialStatus = UNMOUNTED;
+      } else {
+        initialStatus = EXITED;
+      }
+    }
+
+    _this.state = {
+      status: initialStatus
+    };
+    _this.nextCallback = null;
+    return _this;
+  }
+
+  Transition.getDerivedStateFromProps = function getDerivedStateFromProps(_ref, prevState) {
+    var nextIn = _ref.in;
+
+    if (nextIn && prevState.status === UNMOUNTED) {
+      return {
+        status: EXITED
+      };
+    }
+
+    return null;
+  } // getSnapshotBeforeUpdate(prevProps) {
+  //   let nextStatus = null
+  //   if (prevProps !== this.props) {
+  //     const { status } = this.state
+  //     if (this.props.in) {
+  //       if (status !== ENTERING && status !== ENTERED) {
+  //         nextStatus = ENTERING
+  //       }
+  //     } else {
+  //       if (status === ENTERING || status === ENTERED) {
+  //         nextStatus = EXITING
+  //       }
+  //     }
+  //   }
+  //   return { nextStatus }
+  // }
+  ;
+
+  var _proto = Transition.prototype;
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.updateStatus(true, this.appearStatus);
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
+    var nextStatus = null;
+
+    if (prevProps !== this.props) {
+      var status = this.state.status;
+
+      if (this.props.in) {
+        if (status !== ENTERING && status !== ENTERED) {
+          nextStatus = ENTERING;
+        }
+      } else {
+        if (status === ENTERING || status === ENTERED) {
+          nextStatus = EXITING;
+        }
+      }
+    }
+
+    this.updateStatus(false, nextStatus);
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    this.cancelNextCallback();
+  };
+
+  _proto.getTimeouts = function getTimeouts() {
+    var timeout = this.props.timeout;
+    var exit, enter, appear;
+    exit = enter = appear = timeout;
+
+    if (timeout != null && typeof timeout !== 'number') {
+      exit = timeout.exit;
+      enter = timeout.enter; // TODO: remove fallback for next major
+
+      appear = timeout.appear !== undefined ? timeout.appear : enter;
+    }
+
+    return {
+      exit: exit,
+      enter: enter,
+      appear: appear
+    };
+  };
+
+  _proto.updateStatus = function updateStatus(mounting, nextStatus) {
+    if (mounting === void 0) {
+      mounting = false;
+    }
+
+    if (nextStatus !== null) {
+      // nextStatus will always be ENTERING or EXITING.
+      this.cancelNextCallback();
+
+      if (nextStatus === ENTERING) {
+        if (this.props.unmountOnExit || this.props.mountOnEnter) {
+          var node = this.props.nodeRef ? this.props.nodeRef.current : react_dom__WEBPACK_IMPORTED_MODULE_3__.findDOMNode(this); // https://github.com/reactjs/react-transition-group/pull/749
+          // With unmountOnExit or mountOnEnter, the enter animation should happen at the transition between `exited` and `entering`.
+          // To make the animation happen,  we have to separate each rendering and avoid being processed as batched.
+
+          if (node) (0,_utils_reflow__WEBPACK_IMPORTED_MODULE_4__.forceReflow)(node);
+        }
+
+        this.performEnter(mounting);
+      } else {
+        this.performExit();
+      }
+    } else if (this.props.unmountOnExit && this.state.status === EXITED) {
+      this.setState({
+        status: UNMOUNTED
+      });
+    }
+  };
+
+  _proto.performEnter = function performEnter(mounting) {
+    var _this2 = this;
+
+    var enter = this.props.enter;
+    var appearing = this.context ? this.context.isMounting : mounting;
+
+    var _ref2 = this.props.nodeRef ? [appearing] : [react_dom__WEBPACK_IMPORTED_MODULE_3__.findDOMNode(this), appearing],
+        maybeNode = _ref2[0],
+        maybeAppearing = _ref2[1];
+
+    var timeouts = this.getTimeouts();
+    var enterTimeout = appearing ? timeouts.appear : timeouts.enter; // no enter animation skip right to ENTERED
+    // if we are mounting and running this it means appear _must_ be set
+
+    if (!mounting && !enter || _config__WEBPACK_IMPORTED_MODULE_5__["default"].disabled) {
+      this.safeSetState({
+        status: ENTERED
+      }, function () {
+        _this2.props.onEntered(maybeNode);
+      });
+      return;
+    }
+
+    this.props.onEnter(maybeNode, maybeAppearing);
+    this.safeSetState({
+      status: ENTERING
+    }, function () {
+      _this2.props.onEntering(maybeNode, maybeAppearing);
+
+      _this2.onTransitionEnd(enterTimeout, function () {
+        _this2.safeSetState({
+          status: ENTERED
+        }, function () {
+          _this2.props.onEntered(maybeNode, maybeAppearing);
+        });
+      });
+    });
+  };
+
+  _proto.performExit = function performExit() {
+    var _this3 = this;
+
+    var exit = this.props.exit;
+    var timeouts = this.getTimeouts();
+    var maybeNode = this.props.nodeRef ? undefined : react_dom__WEBPACK_IMPORTED_MODULE_3__.findDOMNode(this); // no exit animation skip right to EXITED
+
+    if (!exit || _config__WEBPACK_IMPORTED_MODULE_5__["default"].disabled) {
+      this.safeSetState({
+        status: EXITED
+      }, function () {
+        _this3.props.onExited(maybeNode);
+      });
+      return;
+    }
+
+    this.props.onExit(maybeNode);
+    this.safeSetState({
+      status: EXITING
+    }, function () {
+      _this3.props.onExiting(maybeNode);
+
+      _this3.onTransitionEnd(timeouts.exit, function () {
+        _this3.safeSetState({
+          status: EXITED
+        }, function () {
+          _this3.props.onExited(maybeNode);
+        });
+      });
+    });
+  };
+
+  _proto.cancelNextCallback = function cancelNextCallback() {
+    if (this.nextCallback !== null) {
+      this.nextCallback.cancel();
+      this.nextCallback = null;
+    }
+  };
+
+  _proto.safeSetState = function safeSetState(nextState, callback) {
+    // This shouldn't be necessary, but there are weird race conditions with
+    // setState callbacks and unmounting in testing, so always make sure that
+    // we can cancel any pending setState callbacks after we unmount.
+    callback = this.setNextCallback(callback);
+    this.setState(nextState, callback);
+  };
+
+  _proto.setNextCallback = function setNextCallback(callback) {
+    var _this4 = this;
+
+    var active = true;
+
+    this.nextCallback = function (event) {
+      if (active) {
+        active = false;
+        _this4.nextCallback = null;
+        callback(event);
+      }
+    };
+
+    this.nextCallback.cancel = function () {
+      active = false;
+    };
+
+    return this.nextCallback;
+  };
+
+  _proto.onTransitionEnd = function onTransitionEnd(timeout, handler) {
+    this.setNextCallback(handler);
+    var node = this.props.nodeRef ? this.props.nodeRef.current : react_dom__WEBPACK_IMPORTED_MODULE_3__.findDOMNode(this);
+    var doesNotHaveTimeoutOrListener = timeout == null && !this.props.addEndListener;
+
+    if (!node || doesNotHaveTimeoutOrListener) {
+      setTimeout(this.nextCallback, 0);
+      return;
+    }
+
+    if (this.props.addEndListener) {
+      var _ref3 = this.props.nodeRef ? [this.nextCallback] : [node, this.nextCallback],
+          maybeNode = _ref3[0],
+          maybeNextCallback = _ref3[1];
+
+      this.props.addEndListener(maybeNode, maybeNextCallback);
+    }
+
+    if (timeout != null) {
+      setTimeout(this.nextCallback, timeout);
+    }
+  };
+
+  _proto.render = function render() {
+    var status = this.state.status;
+
+    if (status === UNMOUNTED) {
+      return null;
+    }
+
+    var _this$props = this.props,
+        children = _this$props.children,
+        _in = _this$props.in,
+        _mountOnEnter = _this$props.mountOnEnter,
+        _unmountOnExit = _this$props.unmountOnExit,
+        _appear = _this$props.appear,
+        _enter = _this$props.enter,
+        _exit = _this$props.exit,
+        _timeout = _this$props.timeout,
+        _addEndListener = _this$props.addEndListener,
+        _onEnter = _this$props.onEnter,
+        _onEntering = _this$props.onEntering,
+        _onEntered = _this$props.onEntered,
+        _onExit = _this$props.onExit,
+        _onExiting = _this$props.onExiting,
+        _onExited = _this$props.onExited,
+        _nodeRef = _this$props.nodeRef,
+        childProps = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(_this$props, ["children", "in", "mountOnEnter", "unmountOnExit", "appear", "enter", "exit", "timeout", "addEndListener", "onEnter", "onEntering", "onEntered", "onExit", "onExiting", "onExited", "nodeRef"]);
+
+    return (
+      /*#__PURE__*/
+      // allows for nested Transitions
+      react__WEBPACK_IMPORTED_MODULE_2___default().createElement(_TransitionGroupContext__WEBPACK_IMPORTED_MODULE_6__["default"].Provider, {
+        value: null
+      }, typeof children === 'function' ? children(status, childProps) : react__WEBPACK_IMPORTED_MODULE_2___default().cloneElement(react__WEBPACK_IMPORTED_MODULE_2___default().Children.only(children), childProps))
+    );
+  };
+
+  return Transition;
+}((react__WEBPACK_IMPORTED_MODULE_2___default().Component));
+
+Transition.contextType = _TransitionGroupContext__WEBPACK_IMPORTED_MODULE_6__["default"];
+Transition.propTypes =  true ? {
+  /**
+   * A React reference to DOM element that need to transition:
+   * https://stackoverflow.com/a/51127130/4671932
+   *
+   *   - When `nodeRef` prop is used, `node` is not passed to callback functions
+   *      (e.g. `onEnter`) because user already has direct access to the node.
+   *   - When changing `key` prop of `Transition` in a `TransitionGroup` a new
+   *     `nodeRef` need to be provided to `Transition` with changed `key` prop
+   *     (see
+   *     [test/CSSTransition-test.js](https://github.com/reactjs/react-transition-group/blob/13435f897b3ab71f6e19d724f145596f5910581c/test/CSSTransition-test.js#L362-L437)).
+   */
+  nodeRef: prop_types__WEBPACK_IMPORTED_MODULE_7___default().shape({
+    current: typeof Element === 'undefined' ? (prop_types__WEBPACK_IMPORTED_MODULE_7___default().any) : function (propValue, key, componentName, location, propFullName, secret) {
+      var value = propValue[key];
+      return prop_types__WEBPACK_IMPORTED_MODULE_7___default().instanceOf(value && 'ownerDocument' in value ? value.ownerDocument.defaultView.Element : Element)(propValue, key, componentName, location, propFullName, secret);
+    }
+  }),
+
+  /**
+   * A `function` child can be used instead of a React element. This function is
+   * called with the current transition status (`'entering'`, `'entered'`,
+   * `'exiting'`, `'exited'`), which can be used to apply context
+   * specific props to a component.
+   *
+   * ```jsx
+   * <Transition in={this.state.in} timeout={150}>
+   *   {state => (
+   *     <MyComponent className={`fade fade-${state}`} />
+   *   )}
+   * </Transition>
+   * ```
+   */
+  children: prop_types__WEBPACK_IMPORTED_MODULE_7___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_7___default().func).isRequired, (prop_types__WEBPACK_IMPORTED_MODULE_7___default().element).isRequired]).isRequired,
+
+  /**
+   * Show the component; triggers the enter or exit states
+   */
+  in: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
+
+  /**
+   * By default the child component is mounted immediately along with
+   * the parent `Transition` component. If you want to "lazy mount" the component on the
+   * first `in={true}` you can set `mountOnEnter`. After the first enter transition the component will stay
+   * mounted, even on "exited", unless you also specify `unmountOnExit`.
+   */
+  mountOnEnter: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
+
+  /**
+   * By default the child component stays mounted after it reaches the `'exited'` state.
+   * Set `unmountOnExit` if you'd prefer to unmount the component after it finishes exiting.
+   */
+  unmountOnExit: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
+
+  /**
+   * By default the child component does not perform the enter transition when
+   * it first mounts, regardless of the value of `in`. If you want this
+   * behavior, set both `appear` and `in` to `true`.
+   *
+   * > **Note**: there are no special appear states like `appearing`/`appeared`, this prop
+   * > only adds an additional enter transition. However, in the
+   * > `<CSSTransition>` component that first enter transition does result in
+   * > additional `.appear-*` classes, that way you can choose to style it
+   * > differently.
+   */
+  appear: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
+
+  /**
+   * Enable or disable enter transitions.
+   */
+  enter: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
+
+  /**
+   * Enable or disable exit transitions.
+   */
+  exit: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().bool),
+
+  /**
+   * The duration of the transition, in milliseconds.
+   * Required unless `addEndListener` is provided.
+   *
+   * You may specify a single timeout for all transitions:
+   *
+   * ```jsx
+   * timeout={500}
+   * ```
+   *
+   * or individually:
+   *
+   * ```jsx
+   * timeout={{
+   *  appear: 500,
+   *  enter: 300,
+   *  exit: 500,
+   * }}
+   * ```
+   *
+   * - `appear` defaults to the value of `enter`
+   * - `enter` defaults to `0`
+   * - `exit` defaults to `0`
+   *
+   * @type {number | { enter?: number, exit?: number, appear?: number }}
+   */
+  timeout: function timeout(props) {
+    var pt = _utils_PropTypes__WEBPACK_IMPORTED_MODULE_8__.timeoutsShape;
+    if (!props.addEndListener) pt = pt.isRequired;
+
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    return pt.apply(void 0, [props].concat(args));
+  },
+
+  /**
+   * Add a custom transition end trigger. Called with the transitioning
+   * DOM node and a `done` callback. Allows for more fine grained transition end
+   * logic. Timeouts are still used as a fallback if provided.
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed.
+   *
+   * ```jsx
+   * addEndListener={(node, done) => {
+   *   // use the css transitionend event to mark the finish of a transition
+   *   node.addEventListener('transitionend', done, false);
+   * }}
+   * ```
+   */
+  addEndListener: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().func),
+
+  /**
+   * Callback fired before the "entering" status is applied. An extra parameter
+   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed.
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool) -> void
+   */
+  onEnter: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().func),
+
+  /**
+   * Callback fired after the "entering" status is applied. An extra parameter
+   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed.
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool)
+   */
+  onEntering: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().func),
+
+  /**
+   * Callback fired after the "entered" status is applied. An extra parameter
+   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed.
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool) -> void
+   */
+  onEntered: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().func),
+
+  /**
+   * Callback fired before the "exiting" status is applied.
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed.
+   *
+   * @type Function(node: HtmlElement) -> void
+   */
+  onExit: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().func),
+
+  /**
+   * Callback fired after the "exiting" status is applied.
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed.
+   *
+   * @type Function(node: HtmlElement) -> void
+   */
+  onExiting: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().func),
+
+  /**
+   * Callback fired after the "exited" status is applied.
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed
+   *
+   * @type Function(node: HtmlElement) -> void
+   */
+  onExited: (prop_types__WEBPACK_IMPORTED_MODULE_7___default().func)
+} : 0; // Name the function so it is clearer in the documentation
+
+function noop() {}
+
+Transition.defaultProps = {
+  in: false,
+  mountOnEnter: false,
+  unmountOnExit: false,
+  appear: false,
+  enter: true,
+  exit: true,
+  onEnter: noop,
+  onEntering: noop,
+  onEntered: noop,
+  onExit: noop,
+  onExiting: noop,
+  onExited: noop
+};
+Transition.UNMOUNTED = UNMOUNTED;
+Transition.EXITED = EXITED;
+Transition.ENTERING = ENTERING;
+Transition.ENTERED = ENTERED;
+Transition.EXITING = EXITING;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Transition);
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/esm/TransitionGroupContext.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/react-transition-group/esm/TransitionGroupContext.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (react__WEBPACK_IMPORTED_MODULE_0___default().createContext(null));
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/esm/config.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/react-transition-group/esm/config.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  disabled: false
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/esm/utils/PropTypes.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/react-transition-group/esm/utils/PropTypes.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   classNamesShape: () => (/* binding */ classNamesShape),
+/* harmony export */   timeoutsShape: () => (/* binding */ timeoutsShape)
+/* harmony export */ });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+
+var timeoutsShape =  true ? prop_types__WEBPACK_IMPORTED_MODULE_0___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_0___default().number), prop_types__WEBPACK_IMPORTED_MODULE_0___default().shape({
+  enter: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().number),
+  exit: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().number),
+  appear: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().number)
+}).isRequired]) : 0;
+var classNamesShape =  true ? prop_types__WEBPACK_IMPORTED_MODULE_0___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_0___default().string), prop_types__WEBPACK_IMPORTED_MODULE_0___default().shape({
+  enter: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().string),
+  exit: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().string),
+  active: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().string)
+}), prop_types__WEBPACK_IMPORTED_MODULE_0___default().shape({
+  enter: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().string),
+  enterDone: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().string),
+  enterActive: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().string),
+  exit: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().string),
+  exitDone: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().string),
+  exitActive: (prop_types__WEBPACK_IMPORTED_MODULE_0___default().string)
+})]) : 0;
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/esm/utils/reflow.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/react-transition-group/esm/utils/reflow.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   forceReflow: () => (/* binding */ forceReflow)
+/* harmony export */ });
+var forceReflow = function forceReflow(node) {
+  return node.scrollTop;
+};
 
 /***/ }),
 
@@ -84518,15 +73147,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _ui_widgets_MuliSelect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ui/widgets/MuliSelect */ "./src/ui/widgets/MuliSelect.tsx");
-/* harmony import */ var _ui_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ui/widgets/Modal/index */ "./src/ui/widgets/Modal/index.tsx");
+/* harmony import */ var _ui_widgets_MuliSelect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/ui/widgets/MuliSelect */ "./src/ui/widgets/MuliSelect.tsx");
+/* harmony import */ var _ui_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/ui/widgets/Modal/index */ "./src/ui/widgets/Modal/index.tsx");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Container.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Form.js");
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
-/* harmony import */ var _publish_fixesAndUpdates_ValidationRow__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../publish/fixesAndUpdates/ValidationRow */ "./src/publish/fixesAndUpdates/ValidationRow.tsx");
-/* harmony import */ var _ui_reducerDispatchers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../ui/reducerDispatchers */ "./src/ui/reducerDispatchers.ts");
+/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var _publish_fixesAndUpdates_ValidationRow__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/publish/fixesAndUpdates/ValidationRow */ "./src/publish/fixesAndUpdates/ValidationRow.tsx");
+/* harmony import */ var _ui_reducerDispatchers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/ui/reducerDispatchers */ "./src/ui/reducerDispatchers.ts");
 /* harmony import */ var _SearchCourses__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./SearchCourses */ "./src/admin/SearchCourses.tsx");
 /* harmony import */ var _SelectValidations__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./SelectValidations */ "./src/admin/SelectValidations.tsx");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -88296,6 +76925,24 @@ function getRubric(courseId, rubricId, options, config) {
 
 /***/ }),
 
+/***/ "./src/consts.ts":
+/*!***********************!*\
+  !*** ./src/consts.ts ***!
+  \***********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   OPEN_AI_API_KEY_KEY: () => (/* binding */ OPEN_AI_API_KEY_KEY),
+/* harmony export */   PUBLISH_FORM_EMAIL_TEMPLATE_URL: () => (/* binding */ PUBLISH_FORM_EMAIL_TEMPLATE_URL)
+/* harmony export */ });
+const OPEN_AI_API_KEY_KEY = "OPEN_AI_API_KEY";
+const PUBLISH_FORM_EMAIL_TEMPLATE_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics/Form-Email-Template.md';
+
+
+/***/ }),
+
 /***/ "./src/date.ts":
 /*!*********************!*\
   !*** ./src/date.ts ***!
@@ -89067,7 +77714,7 @@ function getOverview(course, config) {
         return overview;
     });
 }
-const codeAndCodeOfCodeTest = Object.assign({ name: "Code and Code of Code", negativeExemplars: [
+const codeAndCodeOfCodeTest = Object.assign({ name: "Code and Code of Code", beforeAndAfters: [
         ['<p>Honor Code and Code of Code of Conduct</p>', '<p>Honor Code and Code of Conduct</p>']
     ], getContent: getOverview, description: 'First bullet of course overview should read ... Unity DE Honor Code and Code of Conduct ..., not ' }, badContentReplaceFuncs(/Code and Code of Code of Conduct/ig, 'Code and Code of Conduct', getOverview));
 function badContentReplaceFuncs(badTest, replace, getContentFunc) {
@@ -89277,7 +77924,7 @@ __webpack_require__.r(__webpack_exports__);
 const projectRegex = /(research proposal|course project)/ig;
 const courseProjectToCapstoneProjectProposal = {
     courseCodes: ['PROF590', 'PROF690'],
-    negativeExemplars: [['your research proposals', 'your capstone project proposals'], ['our course project', 'our capstone project proposal']],
+    beforeAndAfters: [['your research proposals', 'your capstone project proposals'], ['our course project', 'our capstone project proposal']],
     positiveExemplars: ['this Capstone Project Proposal'],
     name: "Capstone project -> Capstone Project Proposal",
     description: `Replace 'Research Proposal' and 'Course Project' with 'Capstone Project Proposal'`,
@@ -89287,7 +77934,7 @@ const courseProjectToCapstoneProjectProposal = {
 const partnerRegex = /([^-])\bpartner(s|)\b/ig;
 const partnerToCollaborator = {
     courseCodes: ['PROF590', 'PROF690'],
-    negativeExemplars: [['your partner', 'your collaborator'], ['your Partners', 'your Collaborators']],
+    beforeAndAfters: [['your partner', 'your collaborator'], ['your Partners', 'your Collaborators']],
     positiveExemplars: ['our collaborator'],
     name: "Capstone partner -> collaborator",
     description: "Replace partner with collaborator",
@@ -89297,7 +77944,7 @@ const partnerToCollaborator = {
 const partnershipRegex = /\bpartnership(s|)\b/ig;
 const partnershipToCollaboration = {
     courseCodes: ['PROF590', 'PROF690'],
-    negativeExemplars: [['Partnerships begin with', 'Collaborations begin with'], ['this partnership should', 'this collaboration should']],
+    beforeAndAfters: [['Partnerships begin with', 'Collaborations begin with'], ['this partnership should', 'this collaboration should']],
     positiveExemplars: ['Our new collaboration'],
     name: "Capstone partnership -> collaboration",
     description: "Replace partnership with collaboration",
@@ -89563,7 +78210,7 @@ const proxiedUrl = 'www.google.com';
 const proxyServerLinkValidation = {
     name: "Proxy Server Link Validation",
     description: `proxy1.unity.edu => unity.idm.oclc.org`,
-    negativeExemplars: [[
+    beforeAndAfters: [[
             `<div><a href="https://login.proxy1.unity.edu/login?auth=shibboleth&amp;url=${proxiedUrl}">PROXY LINK</a></div>`,
             `<div><a href="https://login.unity.idm.oclc.org/login?url=${proxiedUrl}">PROXY LINK</a></div>`
         ]],
@@ -89680,7 +78327,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   courseCreditsInSyllabusTest: () => (/* binding */ courseCreditsInSyllabusTest),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   finalNotInGradingPolicyParaTest: () => (/* binding */ finalNotInGradingPolicyParaTest),
-/* harmony export */   gradeTableHeadersCorrectTest: () => (/* binding */ gradeTableHeadersCorrectTest)
+/* harmony export */   gradeTableHeadersCorrectTest: () => (/* binding */ gradeTableHeadersCorrectTest),
+/* harmony export */   secondDiscussionParaOff: () => (/* binding */ secondDiscussionParaOff)
 /* harmony export */ });
 /* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "./src/publish/fixesAndUpdates/validations/index.ts");
@@ -89695,10 +78343,11 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 };
 
 
+const justSyllabusContentFunc = () => [];
 //Syllabus Tests
 const finalNotInGradingPolicyParaTest = {
     name: "Remove Final",
-    negativeExemplars: [['off the final grade', 'off the grade'], ['final exam', 'final exam']],
+    beforeAndAfters: [['off the final grade', 'off the grade'], ['final exam', 'final exam']],
     description: 'Remove "final" from the grading policy paragraphs of syllabus',
     run: (course, config) => __awaiter(void 0, void 0, void 0, function* () {
         const syllabus = yield course.getSyllabus(config);
@@ -89780,6 +78429,65 @@ const gradeTableHeadersCorrectTest = {
         });
     }
 };
+function htmlDiv(text) {
+    const el = document.createElement('div');
+    el.innerHTML = text;
+    return el;
+}
+const iteratorFindOptionDefaults = {
+    maxIterations: 1000,
+};
+function findSecondParaOfDiscExpect(syllabusEl) {
+    const discussExpectEl = [...document.querySelectorAll('h3')]
+        .find(h3 => { var _a, _b; return ((_b = (_a = h3.innerText) !== null && _a !== void 0 ? _a : h3.textContent) !== null && _b !== void 0 ? _b : '').includes('Discussion Expectations'); });
+    if (!discussExpectEl)
+        return undefined;
+    return discussExpectEl.querySelectorAll('p')[1];
+}
+const correctSecondPara = 'To access a discussion\'s grading rubric, click on the "View Rubric" button in the discussion directions and/or the "Dot Dot Dot" (for screen readers, titled "Manage this Discussion") button in the upper right corner of the discussion, and then click "show rubric".';
+const secondDiscussionParaOff = {
+    name: "Second discussion expectation paragraph",
+    description: 'To access a discussion\'s grading rubric, click on the "View Rubric" button in the discussion directions and/or the "Dot Dot Dot" ' +
+        '(for screen readers, titled "Manage this Discussion") button in the upper right corner of the discussion, and then click "show rubric".',
+    run(course, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
+            const el = htmlDiv(yield course.getSyllabus(config));
+            const secondPara = findSecondParaOfDiscExpect(el);
+            const userData = { el, secondPara };
+            if (!secondPara)
+                return (0,_index__WEBPACK_IMPORTED_MODULE_1__.testResult)('not run', {
+                    notFailureMessage: "Second paragraph of discussion expectations not found",
+                    userData,
+                });
+            const secondParaText = (_b = (_a = secondPara.textContent) !== null && _a !== void 0 ? _a : secondPara.innerText) !== null && _b !== void 0 ? _b : '';
+            const success = secondParaText.toLowerCase().replace(/\W*/, '')
+                === correctSecondPara.toLowerCase().replace(/\W*/, '');
+            return (0,_index__WEBPACK_IMPORTED_MODULE_1__.testResult)(success, {
+                failureMessage: `Second paragraph does not match ${correctSecondPara}`,
+                userData
+            });
+        });
+    },
+    fix(course) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let { success, userData } = yield this.run(course);
+            if (success)
+                return (0,_index__WEBPACK_IMPORTED_MODULE_1__.testResult)('not run', { notFailureMessage: "No need to run fix" });
+            if (!(userData === null || userData === void 0 ? void 0 : userData.secondPara))
+                return (0,_index__WEBPACK_IMPORTED_MODULE_1__.testResult)(false, { failureMessage: "There was a problem accessing the syllabus." });
+            const { el, secondPara } = userData;
+            secondPara.innerHTML = correctSecondPara;
+            try {
+                yield course.changeSyllabus(el.innerHTML);
+                return (0,_index__WEBPACK_IMPORTED_MODULE_1__.testResult)(true);
+            }
+            catch (e) {
+                return (0,_index__WEBPACK_IMPORTED_MODULE_1__.errorMessageResult)(e);
+            }
+        });
+    }
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ([
     courseCreditsInSyllabusTest,
     finalNotInGradingPolicyParaTest,
@@ -89821,10 +78529,15 @@ function CourseRow({ course, frontPageProfile, instructors, onSelectSection, err
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   EmailLink: () => (/* binding */ EmailLink)
+/* harmony export */   EmailLink: () => (/* binding */ EmailLink),
+/* harmony export */   renderEmailTemplate: () => (/* binding */ renderEmailTemplate)
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var react_dom_server__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom/server */ "./node_modules/react-dom/server.browser.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ui_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/ui/utils */ "./src/ui/utils.tsx");
+/* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/consts */ "./src/consts.ts");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Alert.js");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -89834,6 +78547,9 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
+
+
 
 
 /**
@@ -89846,14 +78562,40 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
  * @constructor
  */
 function EmailLink({ user, emails, course, termData, sectionStart }) {
-    var _a, _b;
+    var _a;
     const bcc = emails.join(',');
     const subject = encodeURIComponent(((_a = course.name) === null || _a === void 0 ? void 0 : _a.replace('BP_', '')) + ' Section(s) Ready Notification');
+    const [emailTemplate, setEmailTemplate] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)();
+    const [errorMessages, setErrorMessages] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]);
+    (0,_ui_utils__WEBPACK_IMPORTED_MODULE_2__.useEffectAsync)(() => __awaiter(this, void 0, void 0, function* () {
+        if (emailTemplate)
+            return;
+        const emailResponse = yield fetch(_consts__WEBPACK_IMPORTED_MODULE_3__.PUBLISH_FORM_EMAIL_TEMPLATE_URL);
+        if (!emailResponse.ok) {
+            setErrorMessages([emailResponse.statusText, yield emailResponse.text()]);
+            return;
+        }
+        let template = yield emailResponse.text();
+        setEmailTemplate(template);
+    }), []);
     function copyToClipboard() {
         return __awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
+            if (!emailTemplate) {
+                setErrorMessages([`Can't find template email to fill at ` + _consts__WEBPACK_IMPORTED_MODULE_3__.PUBLISH_FORM_EMAIL_TEMPLATE_URL]);
+                return;
+            }
+            const body = renderEmailTemplate(emailTemplate, {
+                userName: user.name,
+                userTitle: "Learning Experience Designer",
+                courseCode: (_b = (_a = course.parsedCourseCode) === null || _a === void 0 ? void 0 : _a.replace('BP_', '')) !== null && _b !== void 0 ? _b : '[[CODE NOT FOUND]]',
+                termName: termData ? termData.name : '[[TERM NAME]]',
+                courseStart: getCourseStart(),
+                publishDate: getPublishDate(),
+            });
             yield navigator.clipboard.write([
                 new ClipboardItem({
-                    'text/html': new Blob([(0,react_dom_server__WEBPACK_IMPORTED_MODULE_1__.renderToString)(body)], { type: 'text/html' })
+                    'text/html': new Blob([body], { type: 'text/html' })
                 })
             ]);
         });
@@ -89876,8 +78618,11 @@ function EmailLink({ user, emails, course, termData, sectionStart }) {
             day: 'numeric'
         });
     }
-    const body = ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { children: ["My name is ", user.name, " and I\u2019m the Learning Experience Designer who is preparing your course to run this term. Your course section(s) of ", (_b = course.parsedCourseCode) === null || _b === void 0 ? void 0 : _b.replace('BP_', ''), " has/have been created for you to teach for ", termData ? termData.name : '[[TERM NAME]]', ". Your students will have access to the syllabus and homepage on ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("strong", { children: ["Monday, ", getPublishDate()] }), ". Actual course assignments will become available to the students on ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("strong", { children: ["Monday, ", getCourseStart()] }), ", the official start of the term."] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("li", { children: ["Please do not make any corrections or changes to your live course yourself, no matter how small. In order to maintain consistency between the live section and the course template, submit any issues via the ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: 'https://docs.google.com/forms/d/e/1FAIpQLSeybl9b-xk-pL1bsWX7x9esQYoHHyi3rPPOq75mK4Q4n4b5tQ/viewform', children: "Course Edit and Feedback Form" }), " so a Learning Technology Support Specialist can make sure the changes are made everywhere they need to be made."] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", { children: "Let me know, when you have a chance to look, if you have any questions, or spot any issues with the course content." }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", { children: "Be sure to check out the Instructor Orientation for useful information, such as your instructor bio/picture, grading. There is also a Labster Instructor Guide that you should review if your course contains a Labster simulation(s) in the course modules." }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", { children: "Consult the Instructor Guide in your course for a brief overview of important information for teaching the course" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("li", { children: ["If you have technology or Canvas related questions, please contact ", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: 'helpdesk@unity.edu', children: "helpdesk@unity.edu" }), "."] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("li", { children: ["For other questions or issues, please contact my supervisor, Chris Malmberg (", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: 'cmalmberg@unity.edu', children: "cmalmberg@unity.edu" }), ")."] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { children: "We appreciate your help in making sure these courses are good to go. Have a wonderful term." }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { children: "Cheers," }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { children: user.name })] }));
-    return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: `mailto:${user.email}?subject=${subject}&bcc=${bcc}`, children: emails.join(', ') }), termData && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: copyToClipboard, children: "Copy Form Email to Clipboard" })] });
+    return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: `mailto:${user.email}?subject=${subject}&bcc=${bcc}`, children: emails.join(', ') }), termData && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: copyToClipboard, children: "Copy Form Email to Clipboard" }), errorMessages.map(msg => (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { children: msg }))] });
+}
+function renderEmailTemplate(emailTemplate, props) {
+    let renderedTemplate = emailTemplate.split('\n').slice(1).join('\n');
+    return Object.entries(props).reduce((accumulator, [key, value]) => accumulator.replaceAll(`{{${key}}}`, value), renderedTemplate);
 }
 
 
@@ -90156,7 +78901,7 @@ function MigrationBar({ migration, course, onFinishMigration }) {
     const [progress, setProgress] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)();
     (0,_ui_utils__WEBPACK_IMPORTED_MODULE_3__.useEffectAsync)(() => __awaiter(this, void 0, void 0, function* () {
         var _a, e_1, _b, _c;
-        let progressGen = (0,_canvas_course_migration__WEBPACK_IMPORTED_MODULE_1__.getMigrationProgressGen)(migration);
+        let progressGen = (0,_canvas_course_migration__WEBPACK_IMPORTED_MODULE_1__.getMigrationProgressGen)(migration, 2500);
         try {
             for (var _d = true, progressGen_1 = __asyncValues(progressGen), progressGen_1_1; progressGen_1_1 = yield progressGen_1.next(), _a = progressGen_1_1.done, !_a; _d = true) {
                 _c = progressGen_1_1.value;
@@ -90890,6 +79635,368 @@ function MultiSelect({ alwaysOpen, options, selectedOptions, onSelectionChange }
 ;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MultiSelect);
 
+
+/***/ }),
+
+/***/ "./node_modules/uncontrollable/lib/esm/hook.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/uncontrollable/lib/esm/hook.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ useUncontrolled),
+/* harmony export */   useUncontrolledProp: () => (/* binding */ useUncontrolledProp)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils */ "./node_modules/uncontrollable/lib/esm/utils.js");
+
+
+
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return typeof key === "symbol" ? key : String(key); }
+
+function _toPrimitive(input, hint) { if (typeof input !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (typeof res !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+
+
+
+
+function useUncontrolledProp(propValue, defaultValue, handler) {
+  var wasPropRef = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)(propValue !== undefined);
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(defaultValue),
+      stateValue = _useState[0],
+      setState = _useState[1];
+
+  var isProp = propValue !== undefined;
+  var wasProp = wasPropRef.current;
+  wasPropRef.current = isProp;
+  /**
+   * If a prop switches from controlled to Uncontrolled
+   * reset its value to the defaultValue
+   */
+
+  if (!isProp && wasProp && stateValue !== defaultValue) {
+    setState(defaultValue);
+  }
+
+  return [isProp ? propValue : stateValue, (0,react__WEBPACK_IMPORTED_MODULE_2__.useCallback)(function (value) {
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    if (handler) handler.apply(void 0, [value].concat(args));
+    setState(value);
+  }, [handler])];
+}
+
+
+function useUncontrolled(props, config) {
+  return Object.keys(config).reduce(function (result, fieldName) {
+    var _extends2;
+
+    var _ref = result,
+        defaultValue = _ref[_utils__WEBPACK_IMPORTED_MODULE_3__.defaultKey(fieldName)],
+        propsValue = _ref[fieldName],
+        rest = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(_ref, [_utils__WEBPACK_IMPORTED_MODULE_3__.defaultKey(fieldName), fieldName].map(_toPropertyKey));
+
+    var handlerName = config[fieldName];
+
+    var _useUncontrolledProp = useUncontrolledProp(propsValue, defaultValue, props[handlerName]),
+        value = _useUncontrolledProp[0],
+        handler = _useUncontrolledProp[1];
+
+    return (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, rest, (_extends2 = {}, _extends2[fieldName] = value, _extends2[handlerName] = handler, _extends2));
+  }, props);
+}
+
+/***/ }),
+
+/***/ "./node_modules/uncontrollable/lib/esm/index.js":
+/*!******************************************************!*\
+  !*** ./node_modules/uncontrollable/lib/esm/index.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   uncontrollable: () => (/* reexport safe */ _uncontrollable__WEBPACK_IMPORTED_MODULE_1__["default"]),
+/* harmony export */   useUncontrolled: () => (/* reexport safe */ _hook__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   useUncontrolledProp: () => (/* reexport safe */ _hook__WEBPACK_IMPORTED_MODULE_0__.useUncontrolledProp)
+/* harmony export */ });
+/* harmony import */ var _hook__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hook */ "./node_modules/uncontrollable/lib/esm/hook.js");
+/* harmony import */ var _uncontrollable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./uncontrollable */ "./node_modules/uncontrollable/lib/esm/uncontrollable.js");
+
+
+
+/***/ }),
+
+/***/ "./node_modules/uncontrollable/lib/esm/uncontrollable.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/uncontrollable/lib/esm/uncontrollable.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ uncontrollable)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_lifecycles_compat__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-lifecycles-compat */ "./node_modules/react-lifecycles-compat/react-lifecycles-compat.es.js");
+/* harmony import */ var invariant__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! invariant */ "./node_modules/invariant/browser.js");
+/* harmony import */ var invariant__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(invariant__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils */ "./node_modules/uncontrollable/lib/esm/utils.js");
+
+
+
+var _jsxFileName = "/Users/jquense/src/uncontrollable/src/uncontrollable.js";
+
+
+
+
+function uncontrollable(Component, controlledValues, methods) {
+  if (methods === void 0) {
+    methods = [];
+  }
+
+  var displayName = Component.displayName || Component.name || 'Component';
+  var canAcceptRef = _utils__WEBPACK_IMPORTED_MODULE_6__.canAcceptRef(Component);
+  var controlledProps = Object.keys(controlledValues);
+  var PROPS_TO_OMIT = controlledProps.map(_utils__WEBPACK_IMPORTED_MODULE_6__.defaultKey);
+  !(canAcceptRef || !methods.length) ?  true ? invariant__WEBPACK_IMPORTED_MODULE_5___default()(false, '[uncontrollable] stateless function components cannot pass through methods ' + 'because they have no associated instances. Check component: ' + displayName + ', ' + 'attempting to pass through methods: ' + methods.join(', ')) : 0 : void 0;
+
+  var UncontrolledComponent =
+  /*#__PURE__*/
+  function (_React$Component) {
+    (0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_2__["default"])(UncontrolledComponent, _React$Component);
+
+    function UncontrolledComponent() {
+      var _this;
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
+      _this.handlers = Object.create(null);
+      controlledProps.forEach(function (propName) {
+        var handlerName = controlledValues[propName];
+
+        var handleChange = function handleChange(value) {
+          if (_this.props[handlerName]) {
+            var _this$props;
+
+            _this._notifying = true;
+
+            for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+              args[_key2 - 1] = arguments[_key2];
+            }
+
+            (_this$props = _this.props)[handlerName].apply(_this$props, [value].concat(args));
+
+            _this._notifying = false;
+          }
+
+          if (!_this.unmounted) _this.setState(function (_ref) {
+            var _extends2;
+
+            var values = _ref.values;
+            return {
+              values: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])(Object.create(null), values, (_extends2 = {}, _extends2[propName] = value, _extends2))
+            };
+          });
+        };
+
+        _this.handlers[handlerName] = handleChange;
+      });
+      if (methods.length) _this.attachRef = function (ref) {
+        _this.inner = ref;
+      };
+      var values = Object.create(null);
+      controlledProps.forEach(function (key) {
+        values[key] = _this.props[_utils__WEBPACK_IMPORTED_MODULE_6__.defaultKey(key)];
+      });
+      _this.state = {
+        values: values,
+        prevProps: {}
+      };
+      return _this;
+    }
+
+    var _proto = UncontrolledComponent.prototype;
+
+    _proto.shouldComponentUpdate = function shouldComponentUpdate() {
+      //let setState trigger the update
+      return !this._notifying;
+    };
+
+    UncontrolledComponent.getDerivedStateFromProps = function getDerivedStateFromProps(props, _ref2) {
+      var values = _ref2.values,
+          prevProps = _ref2.prevProps;
+      var nextState = {
+        values: (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])(Object.create(null), values),
+        prevProps: {}
+      };
+      controlledProps.forEach(function (key) {
+        /**
+         * If a prop switches from controlled to Uncontrolled
+         * reset its value to the defaultValue
+         */
+        nextState.prevProps[key] = props[key];
+
+        if (!_utils__WEBPACK_IMPORTED_MODULE_6__.isProp(props, key) && _utils__WEBPACK_IMPORTED_MODULE_6__.isProp(prevProps, key)) {
+          nextState.values[key] = props[_utils__WEBPACK_IMPORTED_MODULE_6__.defaultKey(key)];
+        }
+      });
+      return nextState;
+    };
+
+    _proto.componentWillUnmount = function componentWillUnmount() {
+      this.unmounted = true;
+    };
+
+    _proto.render = function render() {
+      var _this2 = this;
+
+      var _this$props2 = this.props,
+          innerRef = _this$props2.innerRef,
+          props = (0,_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(_this$props2, ["innerRef"]);
+
+      PROPS_TO_OMIT.forEach(function (prop) {
+        delete props[prop];
+      });
+      var newProps = {};
+      controlledProps.forEach(function (propName) {
+        var propValue = _this2.props[propName];
+        newProps[propName] = propValue !== undefined ? propValue : _this2.state.values[propName];
+      });
+      return react__WEBPACK_IMPORTED_MODULE_3___default().createElement(Component, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, props, newProps, this.handlers, {
+        ref: innerRef || this.attachRef
+      }));
+    };
+
+    return UncontrolledComponent;
+  }((react__WEBPACK_IMPORTED_MODULE_3___default().Component));
+
+  (0,react_lifecycles_compat__WEBPACK_IMPORTED_MODULE_4__.polyfill)(UncontrolledComponent);
+  UncontrolledComponent.displayName = "Uncontrolled(" + displayName + ")";
+  UncontrolledComponent.propTypes = (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+    innerRef: function innerRef() {}
+  }, _utils__WEBPACK_IMPORTED_MODULE_6__.uncontrolledPropTypes(controlledValues, displayName));
+  methods.forEach(function (method) {
+    UncontrolledComponent.prototype[method] = function $proxiedMethod() {
+      var _this$inner;
+
+      return (_this$inner = this.inner)[method].apply(_this$inner, arguments);
+    };
+  });
+  var WrappedComponent = UncontrolledComponent;
+
+  if ((react__WEBPACK_IMPORTED_MODULE_3___default().forwardRef)) {
+    WrappedComponent = react__WEBPACK_IMPORTED_MODULE_3___default().forwardRef(function (props, ref) {
+      return react__WEBPACK_IMPORTED_MODULE_3___default().createElement(UncontrolledComponent, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, props, {
+        innerRef: ref,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 128
+        },
+        __self: this
+      }));
+    });
+    WrappedComponent.propTypes = UncontrolledComponent.propTypes;
+  }
+
+  WrappedComponent.ControlledComponent = Component;
+  /**
+   * useful when wrapping a Component and you want to control
+   * everything
+   */
+
+  WrappedComponent.deferControlTo = function (newComponent, additions, nextMethods) {
+    if (additions === void 0) {
+      additions = {};
+    }
+
+    return uncontrollable(newComponent, (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, controlledValues, additions), nextMethods);
+  };
+
+  return WrappedComponent;
+}
+
+/***/ }),
+
+/***/ "./node_modules/uncontrollable/lib/esm/utils.js":
+/*!******************************************************!*\
+  !*** ./node_modules/uncontrollable/lib/esm/utils.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   canAcceptRef: () => (/* binding */ canAcceptRef),
+/* harmony export */   defaultKey: () => (/* binding */ defaultKey),
+/* harmony export */   isProp: () => (/* binding */ isProp),
+/* harmony export */   uncontrolledPropTypes: () => (/* binding */ uncontrolledPropTypes)
+/* harmony export */ });
+/* harmony import */ var invariant__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! invariant */ "./node_modules/invariant/browser.js");
+/* harmony import */ var invariant__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(invariant__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var noop = function noop() {};
+
+function readOnlyPropType(handler, name) {
+  return function (props, propName) {
+    if (props[propName] !== undefined) {
+      if (!props[handler]) {
+        return new Error("You have provided a `" + propName + "` prop to `" + name + "` " + ("without an `" + handler + "` handler prop. This will render a read-only field. ") + ("If the field should be mutable use `" + defaultKey(propName) + "`. ") + ("Otherwise, set `" + handler + "`."));
+      }
+    }
+  };
+}
+
+function uncontrolledPropTypes(controlledValues, displayName) {
+  var propTypes = {};
+  Object.keys(controlledValues).forEach(function (prop) {
+    // add default propTypes for folks that use runtime checks
+    propTypes[defaultKey(prop)] = noop;
+
+    if (true) {
+      var handler = controlledValues[prop];
+      !(typeof handler === 'string' && handler.trim().length) ?  true ? invariant__WEBPACK_IMPORTED_MODULE_0___default()(false, 'Uncontrollable - [%s]: the prop `%s` needs a valid handler key name in order to make it uncontrollable', displayName, prop) : 0 : void 0;
+      propTypes[prop] = readOnlyPropType(handler, displayName);
+    }
+  });
+  return propTypes;
+}
+function isProp(props, prop) {
+  return props[prop] !== undefined;
+}
+function defaultKey(key) {
+  return 'default' + key.charAt(0).toUpperCase() + key.substr(1);
+}
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+function canAcceptRef(component) {
+  return !!component && (typeof component !== 'function' || component.prototype && component.prototype.isReactComponent);
+}
 
 /***/ }),
 
@@ -93563,6 +82670,94 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	} else {}
 }());
+
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/esm/extends.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/extends.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _extends)
+/* harmony export */ });
+function _extends() {
+  return _extends = Object.assign ? Object.assign.bind() : function (n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
+    }
+    return n;
+  }, _extends.apply(null, arguments);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _inheritsLoose)
+/* harmony export */ });
+/* harmony import */ var _setPrototypeOf_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./setPrototypeOf.js */ "./node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js");
+
+function _inheritsLoose(t, o) {
+  t.prototype = Object.create(o.prototype), t.prototype.constructor = t, (0,_setPrototypeOf_js__WEBPACK_IMPORTED_MODULE_0__["default"])(t, o);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _objectWithoutPropertiesLoose)
+/* harmony export */ });
+function _objectWithoutPropertiesLoose(r, e) {
+  if (null == r) return {};
+  var t = {};
+  for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
+    if (e.indexOf(n) >= 0) continue;
+    t[n] = r[n];
+  }
+  return t;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _setPrototypeOf)
+/* harmony export */ });
+function _setPrototypeOf(t, e) {
+  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) {
+    return t.__proto__ = e, t;
+  }, _setPrototypeOf(t, e);
+}
 
 
 /***/ }),
