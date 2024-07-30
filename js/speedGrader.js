@@ -37734,6 +37734,4079 @@ var update = injectStylesIntoStyleTag_default()(speedGrader/* default */.A, opti
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(6540);
+// EXTERNAL MODULE: ./node_modules/classnames/index.js
+var classnames = __webpack_require__(6942);
+var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/canUseDOM.js
+/* harmony default export */ const canUseDOM = (!!(typeof window !== 'undefined' && window.document && window.document.createElement));
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/addEventListener.js
+/* eslint-disable no-return-assign */
+
+var optionsSupported = false;
+var onceSupported = false;
+
+try {
+  var addEventListener_options = {
+    get passive() {
+      return optionsSupported = true;
+    },
+
+    get once() {
+      // eslint-disable-next-line no-multi-assign
+      return onceSupported = optionsSupported = true;
+    }
+
+  };
+
+  if (canUseDOM) {
+    window.addEventListener('test', addEventListener_options, addEventListener_options);
+    window.removeEventListener('test', addEventListener_options, true);
+  }
+} catch (e) {
+  /* */
+}
+
+/**
+ * An `addEventListener` ponyfill, supports the `once` option
+ * 
+ * @param node the element
+ * @param eventName the event name
+ * @param handle the handler
+ * @param options event options
+ */
+function addEventListener(node, eventName, handler, options) {
+  if (options && typeof options !== 'boolean' && !onceSupported) {
+    var once = options.once,
+        capture = options.capture;
+    var wrappedHandler = handler;
+
+    if (!onceSupported && once) {
+      wrappedHandler = handler.__once || function onceHandler(event) {
+        this.removeEventListener(eventName, onceHandler, capture);
+        handler.call(this, event);
+      };
+
+      handler.__once = wrappedHandler;
+    }
+
+    node.addEventListener(eventName, wrappedHandler, optionsSupported ? options : capture);
+  }
+
+  node.addEventListener(eventName, handler, options);
+}
+
+/* harmony default export */ const esm_addEventListener = (addEventListener);
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/ownerDocument.js
+/**
+ * Returns the owner document of a given element.
+ * 
+ * @param node the element
+ */
+function ownerDocument(node) {
+  return node && node.ownerDocument || document;
+}
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/removeEventListener.js
+/**
+ * A `removeEventListener` ponyfill
+ * 
+ * @param node the element
+ * @param eventName the event name
+ * @param handle the handler
+ * @param options event options
+ */
+function removeEventListener(node, eventName, handler, options) {
+  var capture = options && typeof options !== 'boolean' ? options.capture : options;
+  node.removeEventListener(eventName, handler, capture);
+
+  if (handler.__once) {
+    node.removeEventListener(eventName, handler.__once, capture);
+  }
+}
+
+/* harmony default export */ const esm_removeEventListener = (removeEventListener);
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/scrollbarSize.js
+
+var size;
+function scrollbarSize(recalc) {
+  if (!size && size !== 0 || recalc) {
+    if (canUseDOM) {
+      var scrollDiv = document.createElement('div');
+      scrollDiv.style.position = 'absolute';
+      scrollDiv.style.top = '-9999px';
+      scrollDiv.style.width = '50px';
+      scrollDiv.style.height = '50px';
+      scrollDiv.style.overflow = 'scroll';
+      document.body.appendChild(scrollDiv);
+      size = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+      document.body.removeChild(scrollDiv);
+    }
+  }
+
+  return size;
+}
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useCallbackRef.js
+
+
+/**
+ * A convenience hook around `useState` designed to be paired with
+ * the component [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs) api.
+ * Callback refs are useful over `useRef()` when you need to respond to the ref being set
+ * instead of lazily accessing it in an effect.
+ *
+ * ```ts
+ * const [element, attachRef] = useCallbackRef<HTMLDivElement>()
+ *
+ * useEffect(() => {
+ *   if (!element) return
+ *
+ *   const calendar = new FullCalendar.Calendar(element)
+ *
+ *   return () => {
+ *     calendar.destroy()
+ *   }
+ * }, [element])
+ *
+ * return <div ref={attachRef} />
+ * ```
+ *
+ * @category refs
+ */
+function useCallbackRef() {
+  return (0,react.useState)(null);
+}
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useCommittedRef.js
+
+
+/**
+ * Creates a `Ref` whose value is updated in an effect, ensuring the most recent
+ * value is the one rendered with. Generally only required for Concurrent mode usage
+ * where previous work in `render()` may be discarded before being used.
+ *
+ * This is safe to access in an event handler.
+ *
+ * @param value The `Ref` value
+ */
+function useCommittedRef(value) {
+  const ref = (0,react.useRef)(value);
+  (0,react.useEffect)(() => {
+    ref.current = value;
+  }, [value]);
+  return ref;
+}
+/* harmony default export */ const esm_useCommittedRef = (useCommittedRef);
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useEventCallback.js
+
+
+function useEventCallback(fn) {
+  const ref = esm_useCommittedRef(fn);
+  return (0,react.useCallback)(function (...args) {
+    return ref.current && ref.current(...args);
+  }, [ref]);
+}
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useMergedRefs.js
+
+const toFnRef = ref => !ref || typeof ref === 'function' ? ref : value => {
+  ref.current = value;
+};
+function mergeRefs(refA, refB) {
+  const a = toFnRef(refA);
+  const b = toFnRef(refB);
+  return value => {
+    if (a) a(value);
+    if (b) b(value);
+  };
+}
+
+/**
+ * Create and returns a single callback ref composed from two other Refs.
+ *
+ * ```tsx
+ * const Button = React.forwardRef((props, ref) => {
+ *   const [element, attachRef] = useCallbackRef<HTMLButtonElement>();
+ *   const mergedRef = useMergedRefs(ref, attachRef);
+ *
+ *   return <button ref={mergedRef} {...props}/>
+ * })
+ * ```
+ *
+ * @param refA A Callback or mutable Ref
+ * @param refB A Callback or mutable Ref
+ * @category refs
+ */
+function useMergedRefs(refA, refB) {
+  return (0,react.useMemo)(() => mergeRefs(refA, refB), [refA, refB]);
+}
+/* harmony default export */ const esm_useMergedRefs = (useMergedRefs);
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useUpdatedRef.js
+
+
+/**
+ * Returns a ref that is immediately updated with the new value
+ *
+ * @param value The Ref value
+ * @category refs
+ */
+function useUpdatedRef(value) {
+  const valueRef = (0,react.useRef)(value);
+  valueRef.current = value;
+  return valueRef;
+}
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useWillUnmount.js
+
+
+
+/**
+ * Attach a callback that fires when a component unmounts
+ *
+ * @param fn Handler to run when the component unmounts
+ * @category effects
+ */
+function useWillUnmount(fn) {
+  const onUnmount = useUpdatedRef(fn);
+  (0,react.useEffect)(() => () => onUnmount.current(), []);
+}
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/ownerWindow.js
+
+/**
+ * Returns the owner window of a given element.
+ * 
+ * @param node the element
+ */
+
+function ownerWindow(node) {
+  var doc = ownerDocument(node);
+  return doc && doc.defaultView || window;
+}
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/getComputedStyle.js
+
+/**
+ * Returns one or all computed style properties of an element.
+ * 
+ * @param node the element
+ * @param psuedoElement the style property
+ */
+
+function speedGrader_getComputedStyle(node, psuedoElement) {
+  return ownerWindow(node).getComputedStyle(node, psuedoElement);
+}
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/hyphenate.js
+var rUpper = /([A-Z])/g;
+function hyphenate(string) {
+  return string.replace(rUpper, '-$1').toLowerCase();
+}
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/hyphenateStyle.js
+/**
+ * Copyright 2013-2014, Facebook, Inc.
+ * All rights reserved.
+ * https://github.com/facebook/react/blob/2aeb8a2a6beb00617a4217f7f8284924fa2ad819/src/vendor/core/hyphenateStyleName.js
+ */
+
+var msPattern = /^ms-/;
+function hyphenateStyleName(string) {
+  return hyphenate(string).replace(msPattern, '-ms-');
+}
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/isTransform.js
+var supportedTransforms = /^((translate|rotate|scale)(X|Y|Z|3d)?|matrix(3d)?|perspective|skew(X|Y)?)$/i;
+function isTransform(value) {
+  return !!(value && supportedTransforms.test(value));
+}
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/css.js
+
+
+
+
+function style(node, property) {
+  var css = '';
+  var transforms = '';
+
+  if (typeof property === 'string') {
+    return node.style.getPropertyValue(hyphenateStyleName(property)) || speedGrader_getComputedStyle(node).getPropertyValue(hyphenateStyleName(property));
+  }
+
+  Object.keys(property).forEach(function (key) {
+    var value = property[key];
+
+    if (!value && value !== 0) {
+      node.style.removeProperty(hyphenateStyleName(key));
+    } else if (isTransform(key)) {
+      transforms += key + "(" + value + ") ";
+    } else {
+      css += hyphenateStyleName(key) + ": " + value + ";";
+    }
+  });
+
+  if (transforms) {
+    css += "transform: " + transforms + ";";
+  }
+
+  node.style.cssText += ";" + css;
+}
+
+/* harmony default export */ const css = (style);
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/listen.js
+
+
+
+function listen(node, eventName, handler, options) {
+  esm_addEventListener(node, eventName, handler, options);
+  return function () {
+    esm_removeEventListener(node, eventName, handler, options);
+  };
+}
+
+/* harmony default export */ const esm_listen = (listen);
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/triggerEvent.js
+/**
+ * Triggers an event on a given element.
+ * 
+ * @param node the element
+ * @param eventName the event name to trigger
+ * @param bubbles whether the event should bubble up
+ * @param cancelable whether the event should be cancelable
+ */
+function triggerEvent(node, eventName, bubbles, cancelable) {
+  if (bubbles === void 0) {
+    bubbles = false;
+  }
+
+  if (cancelable === void 0) {
+    cancelable = true;
+  }
+
+  if (node) {
+    var event = document.createEvent('HTMLEvents');
+    event.initEvent(eventName, bubbles, cancelable);
+    node.dispatchEvent(event);
+  }
+}
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/transitionEnd.js
+
+
+
+
+function parseDuration(node) {
+  var str = css(node, 'transitionDuration') || '';
+  var mult = str.indexOf('ms') === -1 ? 1000 : 1;
+  return parseFloat(str) * mult;
+}
+
+function emulateTransitionEnd(element, duration, padding) {
+  if (padding === void 0) {
+    padding = 5;
+  }
+
+  var called = false;
+  var handle = setTimeout(function () {
+    if (!called) triggerEvent(element, 'transitionend', true);
+  }, duration + padding);
+  var remove = esm_listen(element, 'transitionend', function () {
+    called = true;
+  }, {
+    once: true
+  });
+  return function () {
+    clearTimeout(handle);
+    remove();
+  };
+}
+
+function transitionEnd(element, handler, duration, padding) {
+  if (duration == null) duration = parseDuration(element) || 0;
+  var removeEmulate = emulateTransitionEnd(element, duration, padding);
+  var remove = esm_listen(element, 'transitionend', handler);
+  return function () {
+    removeEmulate();
+    remove();
+  };
+}
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/activeElement.js
+
+/**
+ * Returns the actively focused element safely.
+ *
+ * @param doc the document to check
+ */
+
+function activeElement(doc) {
+  if (doc === void 0) {
+    doc = ownerDocument();
+  }
+
+  // Support: IE 9 only
+  // IE9 throws an "Unspecified error" accessing document.activeElement from an <iframe>
+  try {
+    var active = doc.activeElement; // IE11 returns a seemingly empty object in some cases when accessing
+    // document.activeElement from an <iframe>
+
+    if (!active || !active.nodeName) return null;
+    return active;
+  } catch (e) {
+    /* ie throws if no active element */
+    return doc.body;
+  }
+}
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/contains.js
+/* eslint-disable no-bitwise, no-cond-assign */
+
+/**
+ * Checks if an element contains another given element.
+ * 
+ * @param context the context element
+ * @param node the element to check
+ */
+function contains(context, node) {
+  // HTML DOM and SVG DOM may have different support levels,
+  // so we need to check on context instead of a document root element.
+  if (context.contains) return context.contains(node);
+  if (context.compareDocumentPosition) return context === node || !!(context.compareDocumentPosition(node) & 16);
+}
+// EXTERNAL MODULE: ./node_modules/react-dom/index.js
+var react_dom = __webpack_require__(961);
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useMounted.js
+
+
+/**
+ * Track whether a component is current mounted. Generally less preferable than
+ * properlly canceling effects so they don't run after a component is unmounted,
+ * but helpful in cases where that isn't feasible, such as a `Promise` resolution.
+ *
+ * @returns a function that returns the current isMounted state of the component
+ *
+ * ```ts
+ * const [data, setData] = useState(null)
+ * const isMounted = useMounted()
+ *
+ * useEffect(() => {
+ *   fetchdata().then((newData) => {
+ *      if (isMounted()) {
+ *        setData(newData);
+ *      }
+ *   })
+ * })
+ * ```
+ */
+function useMounted() {
+  const mounted = (0,react.useRef)(true);
+  const isMounted = (0,react.useRef)(() => mounted.current);
+  (0,react.useEffect)(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
+  return isMounted.current;
+}
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/usePrevious.js
+
+
+/**
+ * Store the last of some value. Tracked via a `Ref` only updating it
+ * after the component renders.
+ *
+ * Helpful if you need to compare a prop value to it's previous value during render.
+ *
+ * ```ts
+ * function Component(props) {
+ *   const lastProps = usePrevious(props)
+ *
+ *   if (lastProps.foo !== props.foo)
+ *     resetValueFromProps(props.foo)
+ * }
+ * ```
+ *
+ * @param value the value to track
+ */
+function usePrevious(value) {
+  const ref = (0,react.useRef)(null);
+  (0,react.useEffect)(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/DataKey.js
+const ATTRIBUTE_PREFIX = `data-rr-ui-`;
+const PROPERTY_PREFIX = (/* unused pure expression or super */ null && (`rrUi`));
+function dataAttr(property) {
+  return `${ATTRIBUTE_PREFIX}${property}`;
+}
+function dataProp(property) {
+  return `${PROPERTY_PREFIX}${property}`;
+}
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/getScrollbarWidth.js
+/**
+ * Get the width of the vertical window scrollbar if it's visible
+ */
+function getBodyScrollbarWidth(ownerDocument = document) {
+  const window = ownerDocument.defaultView;
+  return Math.abs(window.innerWidth - ownerDocument.documentElement.clientWidth);
+}
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/ModalManager.js
+
+
+
+const OPEN_DATA_ATTRIBUTE = dataAttr('modal-open');
+
+/**
+ * Manages a stack of Modals as well as ensuring
+ * body scrolling is is disabled and padding accounted for
+ */
+class ModalManager {
+  constructor({
+    ownerDocument,
+    handleContainerOverflow = true,
+    isRTL = false
+  } = {}) {
+    this.handleContainerOverflow = handleContainerOverflow;
+    this.isRTL = isRTL;
+    this.modals = [];
+    this.ownerDocument = ownerDocument;
+  }
+  getScrollbarWidth() {
+    return getBodyScrollbarWidth(this.ownerDocument);
+  }
+  getElement() {
+    return (this.ownerDocument || document).body;
+  }
+  setModalAttributes(_modal) {
+    // For overriding
+  }
+  removeModalAttributes(_modal) {
+    // For overriding
+  }
+  setContainerStyle(containerState) {
+    const style = {
+      overflow: 'hidden'
+    };
+
+    // we are only interested in the actual `style` here
+    // because we will override it
+    const paddingProp = this.isRTL ? 'paddingLeft' : 'paddingRight';
+    const container = this.getElement();
+    containerState.style = {
+      overflow: container.style.overflow,
+      [paddingProp]: container.style[paddingProp]
+    };
+    if (containerState.scrollBarWidth) {
+      // use computed style, here to get the real padding
+      // to add our scrollbar width
+      style[paddingProp] = `${parseInt(css(container, paddingProp) || '0', 10) + containerState.scrollBarWidth}px`;
+    }
+    container.setAttribute(OPEN_DATA_ATTRIBUTE, '');
+    css(container, style);
+  }
+  reset() {
+    [...this.modals].forEach(m => this.remove(m));
+  }
+  removeContainerStyle(containerState) {
+    const container = this.getElement();
+    container.removeAttribute(OPEN_DATA_ATTRIBUTE);
+    Object.assign(container.style, containerState.style);
+  }
+  add(modal) {
+    let modalIdx = this.modals.indexOf(modal);
+    if (modalIdx !== -1) {
+      return modalIdx;
+    }
+    modalIdx = this.modals.length;
+    this.modals.push(modal);
+    this.setModalAttributes(modal);
+    if (modalIdx !== 0) {
+      return modalIdx;
+    }
+    this.state = {
+      scrollBarWidth: this.getScrollbarWidth(),
+      style: {}
+    };
+    if (this.handleContainerOverflow) {
+      this.setContainerStyle(this.state);
+    }
+    return modalIdx;
+  }
+  remove(modal) {
+    const modalIdx = this.modals.indexOf(modal);
+    if (modalIdx === -1) {
+      return;
+    }
+    this.modals.splice(modalIdx, 1);
+
+    // if that was the last modal in a container,
+    // clean up the container
+    if (!this.modals.length && this.handleContainerOverflow) {
+      this.removeContainerStyle(this.state);
+    }
+    this.removeModalAttributes(modal);
+  }
+  isTopModal(modal) {
+    return !!this.modals.length && this.modals[this.modals.length - 1] === modal;
+  }
+}
+/* harmony default export */ const esm_ModalManager = (ModalManager);
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/useWindow.js
+
+
+const Context = /*#__PURE__*/(0,react.createContext)(canUseDOM ? window : undefined);
+const WindowProvider = Context.Provider;
+
+/**
+ * The document "window" placed in React context. Helpful for determining
+ * SSR context, or when rendering into an iframe.
+ *
+ * @returns the current window
+ */
+function useWindow() {
+  return (0,react.useContext)(Context);
+}
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/useWaitForDOMRef.js
+
+
+
+
+const resolveContainerRef = (ref, document) => {
+  if (!canUseDOM) return null;
+  if (ref == null) return (document || ownerDocument()).body;
+  if (typeof ref === 'function') ref = ref();
+  if (ref && 'current' in ref) ref = ref.current;
+  if (ref && ('nodeType' in ref || ref.getBoundingClientRect)) return ref;
+  return null;
+};
+function useWaitForDOMRef(ref, onResolved) {
+  const window = useWindow();
+  const [resolvedRef, setRef] = (0,react.useState)(() => resolveContainerRef(ref, window == null ? void 0 : window.document));
+  if (!resolvedRef) {
+    const earlyRef = resolveContainerRef(ref);
+    if (earlyRef) setRef(earlyRef);
+  }
+  (0,react.useEffect)(() => {
+    if (onResolved && resolvedRef) {
+      onResolved(resolvedRef);
+    }
+  }, [onResolved, resolvedRef]);
+  (0,react.useEffect)(() => {
+    const nextRef = resolveContainerRef(ref);
+    if (nextRef !== resolvedRef) {
+      setRef(nextRef);
+    }
+  }, [ref, resolvedRef]);
+  return resolvedRef;
+}
+;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useIsomorphicEffect.js
+
+const isReactNative = typeof __webpack_require__.g !== 'undefined' &&
+// @ts-ignore
+__webpack_require__.g.navigator &&
+// @ts-ignore
+__webpack_require__.g.navigator.product === 'ReactNative';
+const isDOM = typeof document !== 'undefined';
+
+/**
+ * Is `useLayoutEffect` in a DOM or React Native environment, otherwise resolves to useEffect
+ * Only useful to avoid the console warning.
+ *
+ * PREFER `useEffect` UNLESS YOU KNOW WHAT YOU ARE DOING.
+ *
+ * @category effects
+ */
+/* harmony default export */ const useIsomorphicEffect = (isDOM || isReactNative ? react.useLayoutEffect : react.useEffect);
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/NoopTransition.js
+
+
+
+function NoopTransition({
+  children,
+  in: inProp,
+  onExited,
+  mountOnEnter,
+  unmountOnExit
+}) {
+  const ref = (0,react.useRef)(null);
+  const hasEnteredRef = (0,react.useRef)(inProp);
+  const handleExited = useEventCallback(onExited);
+  (0,react.useEffect)(() => {
+    if (inProp) hasEnteredRef.current = true;else {
+      handleExited(ref.current);
+    }
+  }, [inProp, handleExited]);
+  const combinedRef = esm_useMergedRefs(ref, children.ref);
+  const child = /*#__PURE__*/(0,react.cloneElement)(children, {
+    ref: combinedRef
+  });
+  if (inProp) return child;
+  if (unmountOnExit) {
+    return null;
+  }
+  if (!hasEnteredRef.current && mountOnEnter) {
+    return null;
+  }
+  return child;
+}
+/* harmony default export */ const esm_NoopTransition = (NoopTransition);
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/utils.js
+
+function isEscKey(e) {
+  return e.code === 'Escape' || e.keyCode === 27;
+}
+function getReactVersion() {
+  const parts = react.version.split('.');
+  return {
+    major: +parts[0],
+    minor: +parts[1],
+    patch: +parts[2]
+  };
+}
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/useRTGTransitionProps.js
+const _excluded = ["onEnter", "onEntering", "onEntered", "onExit", "onExiting", "onExited", "addEndListener", "children"];
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+/**
+ * Normalizes RTG transition callbacks with nodeRef to better support
+ * strict mode.
+ *
+ * @param props Transition props.
+ * @returns Normalized transition props.
+ */
+function useRTGTransitionProps(_ref) {
+  let {
+      onEnter,
+      onEntering,
+      onEntered,
+      onExit,
+      onExiting,
+      onExited,
+      addEndListener,
+      children
+    } = _ref,
+    props = _objectWithoutPropertiesLoose(_ref, _excluded);
+  const {
+    major
+  } = getReactVersion();
+  const childRef = major >= 19 ? children.props.ref : children.ref;
+  const nodeRef = (0,react.useRef)(null);
+  const mergedRef = esm_useMergedRefs(nodeRef, typeof children === 'function' ? null : childRef);
+  const normalize = callback => param => {
+    if (callback && nodeRef.current) {
+      callback(nodeRef.current, param);
+    }
+  };
+
+  /* eslint-disable react-hooks/exhaustive-deps */
+  const handleEnter = (0,react.useCallback)(normalize(onEnter), [onEnter]);
+  const handleEntering = (0,react.useCallback)(normalize(onEntering), [onEntering]);
+  const handleEntered = (0,react.useCallback)(normalize(onEntered), [onEntered]);
+  const handleExit = (0,react.useCallback)(normalize(onExit), [onExit]);
+  const handleExiting = (0,react.useCallback)(normalize(onExiting), [onExiting]);
+  const handleExited = (0,react.useCallback)(normalize(onExited), [onExited]);
+  const handleAddEndListener = (0,react.useCallback)(normalize(addEndListener), [addEndListener]);
+  /* eslint-enable react-hooks/exhaustive-deps */
+
+  return Object.assign({}, props, {
+    nodeRef
+  }, onEnter && {
+    onEnter: handleEnter
+  }, onEntering && {
+    onEntering: handleEntering
+  }, onEntered && {
+    onEntered: handleEntered
+  }, onExit && {
+    onExit: handleExit
+  }, onExiting && {
+    onExiting: handleExiting
+  }, onExited && {
+    onExited: handleExited
+  }, addEndListener && {
+    addEndListener: handleAddEndListener
+  }, {
+    children: typeof children === 'function' ? (status, innerProps) =>
+    // TODO: Types for RTG missing innerProps, so need to cast.
+    children(status, Object.assign({}, innerProps, {
+      ref: mergedRef
+    })) : /*#__PURE__*/(0,react.cloneElement)(children, {
+      ref: mergedRef
+    })
+  });
+}
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/RTGTransition.js
+const RTGTransition_excluded = ["component"];
+function RTGTransition_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+
+// Normalizes Transition callbacks when nodeRef is used.
+const RTGTransition = /*#__PURE__*/react.forwardRef((_ref, ref) => {
+  let {
+      component: Component
+    } = _ref,
+    props = RTGTransition_objectWithoutPropertiesLoose(_ref, RTGTransition_excluded);
+  const transitionProps = useRTGTransitionProps(props);
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, Object.assign({
+    ref: ref
+  }, transitionProps));
+});
+/* harmony default export */ const esm_RTGTransition = (RTGTransition);
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/ImperativeTransition.js
+
+
+
+
+
+
+
+function useTransition({
+  in: inProp,
+  onTransition
+}) {
+  const ref = (0,react.useRef)(null);
+  const isInitialRef = (0,react.useRef)(true);
+  const handleTransition = useEventCallback(onTransition);
+  useIsomorphicEffect(() => {
+    if (!ref.current) {
+      return undefined;
+    }
+    let stale = false;
+    handleTransition({
+      in: inProp,
+      element: ref.current,
+      initial: isInitialRef.current,
+      isStale: () => stale
+    });
+    return () => {
+      stale = true;
+    };
+  }, [inProp, handleTransition]);
+  useIsomorphicEffect(() => {
+    isInitialRef.current = false;
+    // this is for strict mode
+    return () => {
+      isInitialRef.current = true;
+    };
+  }, []);
+  return ref;
+}
+/**
+ * Adapts an imperative transition function to a subset of the RTG `<Transition>` component API.
+ *
+ * ImperativeTransition does not support mounting options or `appear` at the moment, meaning
+ * that it always acts like: `mountOnEnter={true} unmountOnExit={true} appear={true}`
+ */
+function ImperativeTransition({
+  children,
+  in: inProp,
+  onExited,
+  onEntered,
+  transition
+}) {
+  const [exited, setExited] = (0,react.useState)(!inProp);
+
+  // TODO: I think this needs to be in an effect
+  if (inProp && exited) {
+    setExited(false);
+  }
+  const ref = useTransition({
+    in: !!inProp,
+    onTransition: options => {
+      const onFinish = () => {
+        if (options.isStale()) return;
+        if (options.in) {
+          onEntered == null ? void 0 : onEntered(options.element, options.initial);
+        } else {
+          setExited(true);
+          onExited == null ? void 0 : onExited(options.element);
+        }
+      };
+      Promise.resolve(transition(options)).then(onFinish, error => {
+        if (!options.in) setExited(true);
+        throw error;
+      });
+    }
+  });
+  const combinedRef = esm_useMergedRefs(ref, children.ref);
+  return exited && !inProp ? null : /*#__PURE__*/(0,react.cloneElement)(children, {
+    ref: combinedRef
+  });
+}
+function renderTransition(component, runTransition, props) {
+  if (component) {
+    return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_RTGTransition, Object.assign({}, props, {
+      component: component
+    }));
+  }
+  if (runTransition) {
+    return /*#__PURE__*/(0,jsx_runtime.jsx)(ImperativeTransition, Object.assign({}, props, {
+      transition: runTransition
+    }));
+  }
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_NoopTransition, Object.assign({}, props));
+}
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/Modal.js
+const Modal_excluded = ["show", "role", "className", "style", "children", "backdrop", "keyboard", "onBackdropClick", "onEscapeKeyDown", "transition", "runTransition", "backdropTransition", "runBackdropTransition", "autoFocus", "enforceFocus", "restoreFocus", "restoreFocusOptions", "renderDialog", "renderBackdrop", "manager", "container", "onShow", "onHide", "onExit", "onExited", "onExiting", "onEnter", "onEntering", "onEntered"];
+function Modal_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+/* eslint-disable @typescript-eslint/no-use-before-define, react/prop-types */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let manager;
+function getManager(window) {
+  if (!manager) manager = new esm_ModalManager({
+    ownerDocument: window == null ? void 0 : window.document
+  });
+  return manager;
+}
+function useModalManager(provided) {
+  const window = useWindow();
+  const modalManager = provided || getManager(window);
+  const modal = (0,react.useRef)({
+    dialog: null,
+    backdrop: null
+  });
+  return Object.assign(modal.current, {
+    add: () => modalManager.add(modal.current),
+    remove: () => modalManager.remove(modal.current),
+    isTopModal: () => modalManager.isTopModal(modal.current),
+    setDialogRef: (0,react.useCallback)(ref => {
+      modal.current.dialog = ref;
+    }, []),
+    setBackdropRef: (0,react.useCallback)(ref => {
+      modal.current.backdrop = ref;
+    }, [])
+  });
+}
+const Modal = /*#__PURE__*/(0,react.forwardRef)((_ref, ref) => {
+  let {
+      show = false,
+      role = 'dialog',
+      className,
+      style,
+      children,
+      backdrop = true,
+      keyboard = true,
+      onBackdropClick,
+      onEscapeKeyDown,
+      transition,
+      runTransition,
+      backdropTransition,
+      runBackdropTransition,
+      autoFocus = true,
+      enforceFocus = true,
+      restoreFocus = true,
+      restoreFocusOptions,
+      renderDialog,
+      renderBackdrop = props => /*#__PURE__*/(0,jsx_runtime.jsx)("div", Object.assign({}, props)),
+      manager: providedManager,
+      container: containerRef,
+      onShow,
+      onHide = () => {},
+      onExit,
+      onExited,
+      onExiting,
+      onEnter,
+      onEntering,
+      onEntered
+    } = _ref,
+    rest = Modal_objectWithoutPropertiesLoose(_ref, Modal_excluded);
+  const ownerWindow = useWindow();
+  const container = useWaitForDOMRef(containerRef);
+  const modal = useModalManager(providedManager);
+  const isMounted = useMounted();
+  const prevShow = usePrevious(show);
+  const [exited, setExited] = (0,react.useState)(!show);
+  const lastFocusRef = (0,react.useRef)(null);
+  (0,react.useImperativeHandle)(ref, () => modal, [modal]);
+  if (canUseDOM && !prevShow && show) {
+    lastFocusRef.current = activeElement(ownerWindow == null ? void 0 : ownerWindow.document);
+  }
+
+  // TODO: I think this needs to be in an effect
+  if (show && exited) {
+    setExited(false);
+  }
+  const handleShow = useEventCallback(() => {
+    modal.add();
+    removeKeydownListenerRef.current = esm_listen(document, 'keydown', handleDocumentKeyDown);
+    removeFocusListenerRef.current = esm_listen(document, 'focus',
+    // the timeout is necessary b/c this will run before the new modal is mounted
+    // and so steals focus from it
+    () => setTimeout(handleEnforceFocus), true);
+    if (onShow) {
+      onShow();
+    }
+
+    // autofocus after onShow to not trigger a focus event for previous
+    // modals before this one is shown.
+    if (autoFocus) {
+      var _modal$dialog$ownerDo, _modal$dialog;
+      const currentActiveElement = activeElement((_modal$dialog$ownerDo = (_modal$dialog = modal.dialog) == null ? void 0 : _modal$dialog.ownerDocument) != null ? _modal$dialog$ownerDo : ownerWindow == null ? void 0 : ownerWindow.document);
+      if (modal.dialog && currentActiveElement && !contains(modal.dialog, currentActiveElement)) {
+        lastFocusRef.current = currentActiveElement;
+        modal.dialog.focus();
+      }
+    }
+  });
+  const handleHide = useEventCallback(() => {
+    modal.remove();
+    removeKeydownListenerRef.current == null ? void 0 : removeKeydownListenerRef.current();
+    removeFocusListenerRef.current == null ? void 0 : removeFocusListenerRef.current();
+    if (restoreFocus) {
+      var _lastFocusRef$current;
+      // Support: <=IE11 doesn't support `focus()` on svg elements (RB: #917)
+      (_lastFocusRef$current = lastFocusRef.current) == null ? void 0 : _lastFocusRef$current.focus == null ? void 0 : _lastFocusRef$current.focus(restoreFocusOptions);
+      lastFocusRef.current = null;
+    }
+  });
+
+  // TODO: try and combine these effects: https://github.com/react-bootstrap/react-overlays/pull/794#discussion_r409954120
+
+  // Show logic when:
+  //  - show is `true` _and_ `container` has resolved
+  (0,react.useEffect)(() => {
+    if (!show || !container) return;
+    handleShow();
+  }, [show, container, /* should never change: */handleShow]);
+
+  // Hide cleanup logic when:
+  //  - `exited` switches to true
+  //  - component unmounts;
+  (0,react.useEffect)(() => {
+    if (!exited) return;
+    handleHide();
+  }, [exited, handleHide]);
+  useWillUnmount(() => {
+    handleHide();
+  });
+
+  // --------------------------------
+
+  const handleEnforceFocus = useEventCallback(() => {
+    if (!enforceFocus || !isMounted() || !modal.isTopModal()) {
+      return;
+    }
+    const currentActiveElement = activeElement(ownerWindow == null ? void 0 : ownerWindow.document);
+    if (modal.dialog && currentActiveElement && !contains(modal.dialog, currentActiveElement)) {
+      modal.dialog.focus();
+    }
+  });
+  const handleBackdropClick = useEventCallback(e => {
+    if (e.target !== e.currentTarget) {
+      return;
+    }
+    onBackdropClick == null ? void 0 : onBackdropClick(e);
+    if (backdrop === true) {
+      onHide();
+    }
+  });
+  const handleDocumentKeyDown = useEventCallback(e => {
+    if (keyboard && isEscKey(e) && modal.isTopModal()) {
+      onEscapeKeyDown == null ? void 0 : onEscapeKeyDown(e);
+      if (!e.defaultPrevented) {
+        onHide();
+      }
+    }
+  });
+  const removeFocusListenerRef = (0,react.useRef)();
+  const removeKeydownListenerRef = (0,react.useRef)();
+  const handleHidden = (...args) => {
+    setExited(true);
+    onExited == null ? void 0 : onExited(...args);
+  };
+  if (!container) {
+    return null;
+  }
+  const dialogProps = Object.assign({
+    role,
+    ref: modal.setDialogRef,
+    // apparently only works on the dialog role element
+    'aria-modal': role === 'dialog' ? true : undefined
+  }, rest, {
+    style,
+    className,
+    tabIndex: -1
+  });
+  let dialog = renderDialog ? renderDialog(dialogProps) : /*#__PURE__*/(0,jsx_runtime.jsx)("div", Object.assign({}, dialogProps, {
+    children: /*#__PURE__*/react.cloneElement(children, {
+      role: 'document'
+    })
+  }));
+  dialog = renderTransition(transition, runTransition, {
+    unmountOnExit: true,
+    mountOnEnter: true,
+    appear: true,
+    in: !!show,
+    onExit,
+    onExiting,
+    onExited: handleHidden,
+    onEnter,
+    onEntering,
+    onEntered,
+    children: dialog
+  });
+  let backdropElement = null;
+  if (backdrop) {
+    backdropElement = renderBackdrop({
+      ref: modal.setBackdropRef,
+      onClick: handleBackdropClick
+    });
+    backdropElement = renderTransition(backdropTransition, runBackdropTransition, {
+      in: !!show,
+      appear: true,
+      mountOnEnter: true,
+      unmountOnExit: true,
+      children: backdropElement
+    });
+  }
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(jsx_runtime.Fragment, {
+    children: /*#__PURE__*/react_dom.createPortal( /*#__PURE__*/(0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
+      children: [backdropElement, dialog]
+    }), container)
+  });
+});
+Modal.displayName = 'Modal';
+/* harmony default export */ const esm_Modal = (Object.assign(Modal, {
+  Manager: esm_ModalManager
+}));
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/hasClass.js
+/**
+ * Checks if a given element has a CSS class.
+ * 
+ * @param element the element
+ * @param className the CSS class name
+ */
+function hasClass(element, className) {
+  if (element.classList) return !!className && element.classList.contains(className);
+  return (" " + (element.className.baseVal || element.className) + " ").indexOf(" " + className + " ") !== -1;
+}
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/addClass.js
+
+/**
+ * Adds a CSS class to a given element.
+ * 
+ * @param element the element
+ * @param className the CSS class name
+ */
+
+function addClass(element, className) {
+  if (element.classList) element.classList.add(className);else if (!hasClass(element, className)) if (typeof element.className === 'string') element.className = element.className + " " + className;else element.setAttribute('class', (element.className && element.className.baseVal || '') + " " + className);
+}
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/querySelectorAll.js
+var toArray = Function.prototype.bind.call(Function.prototype.call, [].slice);
+/**
+ * Runs `querySelectorAll` on a given element.
+ * 
+ * @param element the element
+ * @param selector the selector
+ */
+
+function qsa(element, selector) {
+  return toArray(element.querySelectorAll(selector));
+}
+;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/removeClass.js
+function replaceClassName(origClass, classToRemove) {
+  return origClass.replace(new RegExp("(^|\\s)" + classToRemove + "(?:\\s|$)", 'g'), '$1').replace(/\s+/g, ' ').replace(/^\s*|\s*$/g, '');
+}
+/**
+ * Removes a CSS class from a given element.
+ * 
+ * @param element the element
+ * @param className the CSS class name
+ */
+
+
+function removeClass(element, className) {
+  if (element.classList) {
+    element.classList.remove(className);
+  } else if (typeof element.className === 'string') {
+    element.className = replaceClassName(element.className, className);
+  } else {
+    element.setAttribute('class', replaceClassName(element.className && element.className.baseVal || '', className));
+  }
+}
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/BootstrapModalManager.js
+
+
+
+
+
+const Selector = {
+  FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
+  STICKY_CONTENT: '.sticky-top',
+  NAVBAR_TOGGLER: '.navbar-toggler'
+};
+class BootstrapModalManager extends esm_ModalManager {
+  adjustAndStore(prop, element, adjust) {
+    const actual = element.style[prop];
+    // TODO: DOMStringMap and CSSStyleDeclaration aren't strictly compatible
+    // @ts-ignore
+    element.dataset[prop] = actual;
+    css(element, {
+      [prop]: `${parseFloat(css(element, prop)) + adjust}px`
+    });
+  }
+  restore(prop, element) {
+    const value = element.dataset[prop];
+    if (value !== undefined) {
+      delete element.dataset[prop];
+      css(element, {
+        [prop]: value
+      });
+    }
+  }
+  setContainerStyle(containerState) {
+    super.setContainerStyle(containerState);
+    const container = this.getElement();
+    addClass(container, 'modal-open');
+    if (!containerState.scrollBarWidth) return;
+    const paddingProp = this.isRTL ? 'paddingLeft' : 'paddingRight';
+    const marginProp = this.isRTL ? 'marginLeft' : 'marginRight';
+    qsa(container, Selector.FIXED_CONTENT).forEach(el => this.adjustAndStore(paddingProp, el, containerState.scrollBarWidth));
+    qsa(container, Selector.STICKY_CONTENT).forEach(el => this.adjustAndStore(marginProp, el, -containerState.scrollBarWidth));
+    qsa(container, Selector.NAVBAR_TOGGLER).forEach(el => this.adjustAndStore(marginProp, el, containerState.scrollBarWidth));
+  }
+  removeContainerStyle(containerState) {
+    super.removeContainerStyle(containerState);
+    const container = this.getElement();
+    removeClass(container, 'modal-open');
+    const paddingProp = this.isRTL ? 'paddingLeft' : 'paddingRight';
+    const marginProp = this.isRTL ? 'marginLeft' : 'marginRight';
+    qsa(container, Selector.FIXED_CONTENT).forEach(el => this.restore(paddingProp, el));
+    qsa(container, Selector.STICKY_CONTENT).forEach(el => this.restore(marginProp, el));
+    qsa(container, Selector.NAVBAR_TOGGLER).forEach(el => this.restore(marginProp, el));
+  }
+}
+let sharedManager;
+function getSharedManager(options) {
+  if (!sharedManager) sharedManager = new BootstrapModalManager(options);
+  return sharedManager;
+}
+/* harmony default export */ const esm_BootstrapModalManager = ((/* unused pure expression or super */ null && (BootstrapModalManager)));
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
+function objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(r, e) {
+  if (null == r) return {};
+  var t = {};
+  for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
+    if (e.indexOf(n) >= 0) continue;
+    t[n] = r[n];
+  }
+  return t;
+}
+
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js
+function _setPrototypeOf(t, e) {
+  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) {
+    return t.__proto__ = e, t;
+  }, _setPrototypeOf(t, e);
+}
+
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
+
+function _inheritsLoose(t, o) {
+  t.prototype = Object.create(o.prototype), t.prototype.constructor = t, _setPrototypeOf(t, o);
+}
+
+;// CONCATENATED MODULE: ./node_modules/react-transition-group/esm/config.js
+/* harmony default export */ const config = ({
+  disabled: false
+});
+;// CONCATENATED MODULE: ./node_modules/react-transition-group/esm/TransitionGroupContext.js
+
+/* harmony default export */ const TransitionGroupContext = (react.createContext(null));
+;// CONCATENATED MODULE: ./node_modules/react-transition-group/esm/utils/reflow.js
+var forceReflow = function forceReflow(node) {
+  return node.scrollTop;
+};
+;// CONCATENATED MODULE: ./node_modules/react-transition-group/esm/Transition.js
+
+
+
+
+
+
+
+
+
+var UNMOUNTED = 'unmounted';
+var EXITED = 'exited';
+var ENTERING = 'entering';
+var ENTERED = 'entered';
+var EXITING = 'exiting';
+/**
+ * The Transition component lets you describe a transition from one component
+ * state to another _over time_ with a simple declarative API. Most commonly
+ * it's used to animate the mounting and unmounting of a component, but can also
+ * be used to describe in-place transition states as well.
+ *
+ * ---
+ *
+ * **Note**: `Transition` is a platform-agnostic base component. If you're using
+ * transitions in CSS, you'll probably want to use
+ * [`CSSTransition`](https://reactcommunity.org/react-transition-group/css-transition)
+ * instead. It inherits all the features of `Transition`, but contains
+ * additional features necessary to play nice with CSS transitions (hence the
+ * name of the component).
+ *
+ * ---
+ *
+ * By default the `Transition` component does not alter the behavior of the
+ * component it renders, it only tracks "enter" and "exit" states for the
+ * components. It's up to you to give meaning and effect to those states. For
+ * example we can add styles to a component when it enters or exits:
+ *
+ * ```jsx
+ * import { Transition } from 'react-transition-group';
+ *
+ * const duration = 300;
+ *
+ * const defaultStyle = {
+ *   transition: `opacity ${duration}ms ease-in-out`,
+ *   opacity: 0,
+ * }
+ *
+ * const transitionStyles = {
+ *   entering: { opacity: 1 },
+ *   entered:  { opacity: 1 },
+ *   exiting:  { opacity: 0 },
+ *   exited:  { opacity: 0 },
+ * };
+ *
+ * const Fade = ({ in: inProp }) => (
+ *   <Transition in={inProp} timeout={duration}>
+ *     {state => (
+ *       <div style={{
+ *         ...defaultStyle,
+ *         ...transitionStyles[state]
+ *       }}>
+ *         I'm a fade Transition!
+ *       </div>
+ *     )}
+ *   </Transition>
+ * );
+ * ```
+ *
+ * There are 4 main states a Transition can be in:
+ *  - `'entering'`
+ *  - `'entered'`
+ *  - `'exiting'`
+ *  - `'exited'`
+ *
+ * Transition state is toggled via the `in` prop. When `true` the component
+ * begins the "Enter" stage. During this stage, the component will shift from
+ * its current transition state, to `'entering'` for the duration of the
+ * transition and then to the `'entered'` stage once it's complete. Let's take
+ * the following example (we'll use the
+ * [useState](https://reactjs.org/docs/hooks-reference.html#usestate) hook):
+ *
+ * ```jsx
+ * function App() {
+ *   const [inProp, setInProp] = useState(false);
+ *   return (
+ *     <div>
+ *       <Transition in={inProp} timeout={500}>
+ *         {state => (
+ *           // ...
+ *         )}
+ *       </Transition>
+ *       <button onClick={() => setInProp(true)}>
+ *         Click to Enter
+ *       </button>
+ *     </div>
+ *   );
+ * }
+ * ```
+ *
+ * When the button is clicked the component will shift to the `'entering'` state
+ * and stay there for 500ms (the value of `timeout`) before it finally switches
+ * to `'entered'`.
+ *
+ * When `in` is `false` the same thing happens except the state moves from
+ * `'exiting'` to `'exited'`.
+ */
+
+var Transition = /*#__PURE__*/function (_React$Component) {
+  _inheritsLoose(Transition, _React$Component);
+
+  function Transition(props, context) {
+    var _this;
+
+    _this = _React$Component.call(this, props, context) || this;
+    var parentGroup = context; // In the context of a TransitionGroup all enters are really appears
+
+    var appear = parentGroup && !parentGroup.isMounting ? props.enter : props.appear;
+    var initialStatus;
+    _this.appearStatus = null;
+
+    if (props.in) {
+      if (appear) {
+        initialStatus = EXITED;
+        _this.appearStatus = ENTERING;
+      } else {
+        initialStatus = ENTERED;
+      }
+    } else {
+      if (props.unmountOnExit || props.mountOnEnter) {
+        initialStatus = UNMOUNTED;
+      } else {
+        initialStatus = EXITED;
+      }
+    }
+
+    _this.state = {
+      status: initialStatus
+    };
+    _this.nextCallback = null;
+    return _this;
+  }
+
+  Transition.getDerivedStateFromProps = function getDerivedStateFromProps(_ref, prevState) {
+    var nextIn = _ref.in;
+
+    if (nextIn && prevState.status === UNMOUNTED) {
+      return {
+        status: EXITED
+      };
+    }
+
+    return null;
+  } // getSnapshotBeforeUpdate(prevProps) {
+  //   let nextStatus = null
+  //   if (prevProps !== this.props) {
+  //     const { status } = this.state
+  //     if (this.props.in) {
+  //       if (status !== ENTERING && status !== ENTERED) {
+  //         nextStatus = ENTERING
+  //       }
+  //     } else {
+  //       if (status === ENTERING || status === ENTERED) {
+  //         nextStatus = EXITING
+  //       }
+  //     }
+  //   }
+  //   return { nextStatus }
+  // }
+  ;
+
+  var _proto = Transition.prototype;
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.updateStatus(true, this.appearStatus);
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
+    var nextStatus = null;
+
+    if (prevProps !== this.props) {
+      var status = this.state.status;
+
+      if (this.props.in) {
+        if (status !== ENTERING && status !== ENTERED) {
+          nextStatus = ENTERING;
+        }
+      } else {
+        if (status === ENTERING || status === ENTERED) {
+          nextStatus = EXITING;
+        }
+      }
+    }
+
+    this.updateStatus(false, nextStatus);
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    this.cancelNextCallback();
+  };
+
+  _proto.getTimeouts = function getTimeouts() {
+    var timeout = this.props.timeout;
+    var exit, enter, appear;
+    exit = enter = appear = timeout;
+
+    if (timeout != null && typeof timeout !== 'number') {
+      exit = timeout.exit;
+      enter = timeout.enter; // TODO: remove fallback for next major
+
+      appear = timeout.appear !== undefined ? timeout.appear : enter;
+    }
+
+    return {
+      exit: exit,
+      enter: enter,
+      appear: appear
+    };
+  };
+
+  _proto.updateStatus = function updateStatus(mounting, nextStatus) {
+    if (mounting === void 0) {
+      mounting = false;
+    }
+
+    if (nextStatus !== null) {
+      // nextStatus will always be ENTERING or EXITING.
+      this.cancelNextCallback();
+
+      if (nextStatus === ENTERING) {
+        if (this.props.unmountOnExit || this.props.mountOnEnter) {
+          var node = this.props.nodeRef ? this.props.nodeRef.current : react_dom.findDOMNode(this); // https://github.com/reactjs/react-transition-group/pull/749
+          // With unmountOnExit or mountOnEnter, the enter animation should happen at the transition between `exited` and `entering`.
+          // To make the animation happen,  we have to separate each rendering and avoid being processed as batched.
+
+          if (node) forceReflow(node);
+        }
+
+        this.performEnter(mounting);
+      } else {
+        this.performExit();
+      }
+    } else if (this.props.unmountOnExit && this.state.status === EXITED) {
+      this.setState({
+        status: UNMOUNTED
+      });
+    }
+  };
+
+  _proto.performEnter = function performEnter(mounting) {
+    var _this2 = this;
+
+    var enter = this.props.enter;
+    var appearing = this.context ? this.context.isMounting : mounting;
+
+    var _ref2 = this.props.nodeRef ? [appearing] : [react_dom.findDOMNode(this), appearing],
+        maybeNode = _ref2[0],
+        maybeAppearing = _ref2[1];
+
+    var timeouts = this.getTimeouts();
+    var enterTimeout = appearing ? timeouts.appear : timeouts.enter; // no enter animation skip right to ENTERED
+    // if we are mounting and running this it means appear _must_ be set
+
+    if (!mounting && !enter || config.disabled) {
+      this.safeSetState({
+        status: ENTERED
+      }, function () {
+        _this2.props.onEntered(maybeNode);
+      });
+      return;
+    }
+
+    this.props.onEnter(maybeNode, maybeAppearing);
+    this.safeSetState({
+      status: ENTERING
+    }, function () {
+      _this2.props.onEntering(maybeNode, maybeAppearing);
+
+      _this2.onTransitionEnd(enterTimeout, function () {
+        _this2.safeSetState({
+          status: ENTERED
+        }, function () {
+          _this2.props.onEntered(maybeNode, maybeAppearing);
+        });
+      });
+    });
+  };
+
+  _proto.performExit = function performExit() {
+    var _this3 = this;
+
+    var exit = this.props.exit;
+    var timeouts = this.getTimeouts();
+    var maybeNode = this.props.nodeRef ? undefined : react_dom.findDOMNode(this); // no exit animation skip right to EXITED
+
+    if (!exit || config.disabled) {
+      this.safeSetState({
+        status: EXITED
+      }, function () {
+        _this3.props.onExited(maybeNode);
+      });
+      return;
+    }
+
+    this.props.onExit(maybeNode);
+    this.safeSetState({
+      status: EXITING
+    }, function () {
+      _this3.props.onExiting(maybeNode);
+
+      _this3.onTransitionEnd(timeouts.exit, function () {
+        _this3.safeSetState({
+          status: EXITED
+        }, function () {
+          _this3.props.onExited(maybeNode);
+        });
+      });
+    });
+  };
+
+  _proto.cancelNextCallback = function cancelNextCallback() {
+    if (this.nextCallback !== null) {
+      this.nextCallback.cancel();
+      this.nextCallback = null;
+    }
+  };
+
+  _proto.safeSetState = function safeSetState(nextState, callback) {
+    // This shouldn't be necessary, but there are weird race conditions with
+    // setState callbacks and unmounting in testing, so always make sure that
+    // we can cancel any pending setState callbacks after we unmount.
+    callback = this.setNextCallback(callback);
+    this.setState(nextState, callback);
+  };
+
+  _proto.setNextCallback = function setNextCallback(callback) {
+    var _this4 = this;
+
+    var active = true;
+
+    this.nextCallback = function (event) {
+      if (active) {
+        active = false;
+        _this4.nextCallback = null;
+        callback(event);
+      }
+    };
+
+    this.nextCallback.cancel = function () {
+      active = false;
+    };
+
+    return this.nextCallback;
+  };
+
+  _proto.onTransitionEnd = function onTransitionEnd(timeout, handler) {
+    this.setNextCallback(handler);
+    var node = this.props.nodeRef ? this.props.nodeRef.current : react_dom.findDOMNode(this);
+    var doesNotHaveTimeoutOrListener = timeout == null && !this.props.addEndListener;
+
+    if (!node || doesNotHaveTimeoutOrListener) {
+      setTimeout(this.nextCallback, 0);
+      return;
+    }
+
+    if (this.props.addEndListener) {
+      var _ref3 = this.props.nodeRef ? [this.nextCallback] : [node, this.nextCallback],
+          maybeNode = _ref3[0],
+          maybeNextCallback = _ref3[1];
+
+      this.props.addEndListener(maybeNode, maybeNextCallback);
+    }
+
+    if (timeout != null) {
+      setTimeout(this.nextCallback, timeout);
+    }
+  };
+
+  _proto.render = function render() {
+    var status = this.state.status;
+
+    if (status === UNMOUNTED) {
+      return null;
+    }
+
+    var _this$props = this.props,
+        children = _this$props.children,
+        _in = _this$props.in,
+        _mountOnEnter = _this$props.mountOnEnter,
+        _unmountOnExit = _this$props.unmountOnExit,
+        _appear = _this$props.appear,
+        _enter = _this$props.enter,
+        _exit = _this$props.exit,
+        _timeout = _this$props.timeout,
+        _addEndListener = _this$props.addEndListener,
+        _onEnter = _this$props.onEnter,
+        _onEntering = _this$props.onEntering,
+        _onEntered = _this$props.onEntered,
+        _onExit = _this$props.onExit,
+        _onExiting = _this$props.onExiting,
+        _onExited = _this$props.onExited,
+        _nodeRef = _this$props.nodeRef,
+        childProps = objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(_this$props, ["children", "in", "mountOnEnter", "unmountOnExit", "appear", "enter", "exit", "timeout", "addEndListener", "onEnter", "onEntering", "onEntered", "onExit", "onExiting", "onExited", "nodeRef"]);
+
+    return (
+      /*#__PURE__*/
+      // allows for nested Transitions
+      react.createElement(TransitionGroupContext.Provider, {
+        value: null
+      }, typeof children === 'function' ? children(status, childProps) : react.cloneElement(react.Children.only(children), childProps))
+    );
+  };
+
+  return Transition;
+}(react.Component);
+
+Transition.contextType = TransitionGroupContext;
+Transition.propTypes =  false ? 0 : {}; // Name the function so it is clearer in the documentation
+
+function noop() {}
+
+Transition.defaultProps = {
+  in: false,
+  mountOnEnter: false,
+  unmountOnExit: false,
+  appear: false,
+  enter: true,
+  exit: true,
+  onEnter: noop,
+  onEntering: noop,
+  onEntered: noop,
+  onExit: noop,
+  onExiting: noop,
+  onExited: noop
+};
+Transition.UNMOUNTED = UNMOUNTED;
+Transition.EXITED = EXITED;
+Transition.ENTERING = ENTERING;
+Transition.ENTERED = ENTERED;
+Transition.EXITING = EXITING;
+/* harmony default export */ const esm_Transition = (Transition);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/transitionEndListener.js
+
+
+function transitionEndListener_parseDuration(node, property) {
+  const str = css(node, property) || '';
+  const mult = str.indexOf('ms') === -1 ? 1000 : 1;
+  return parseFloat(str) * mult;
+}
+function transitionEndListener(element, handler) {
+  const duration = transitionEndListener_parseDuration(element, 'transitionDuration');
+  const delay = transitionEndListener_parseDuration(element, 'transitionDelay');
+  const remove = transitionEnd(element, e => {
+    if (e.target === element) {
+      remove();
+      handler(e);
+    }
+  }, duration + delay);
+}
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/triggerBrowserReflow.js
+// reading a dimension prop will cause the browser to recalculate,
+// which will let our animations work
+function triggerBrowserReflow(node) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+  node.offsetHeight;
+}
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/safeFindDOMNode.js
+
+function safeFindDOMNode(componentOrElement) {
+  if (componentOrElement && 'setState' in componentOrElement) {
+    return react_dom.findDOMNode(componentOrElement);
+  }
+  return componentOrElement != null ? componentOrElement : null;
+}
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/TransitionWrapper.js
+"use client";
+
+
+
+
+
+
+// Normalizes Transition callbacks when nodeRef is used.
+const TransitionWrapper = /*#__PURE__*/react.forwardRef(({
+  onEnter,
+  onEntering,
+  onEntered,
+  onExit,
+  onExiting,
+  onExited,
+  addEndListener,
+  children,
+  childRef,
+  ...props
+}, ref) => {
+  const nodeRef = (0,react.useRef)(null);
+  const mergedRef = esm_useMergedRefs(nodeRef, childRef);
+  const attachRef = r => {
+    mergedRef(safeFindDOMNode(r));
+  };
+  const normalize = callback => param => {
+    if (callback && nodeRef.current) {
+      callback(nodeRef.current, param);
+    }
+  };
+
+  /* eslint-disable react-hooks/exhaustive-deps */
+  const handleEnter = (0,react.useCallback)(normalize(onEnter), [onEnter]);
+  const handleEntering = (0,react.useCallback)(normalize(onEntering), [onEntering]);
+  const handleEntered = (0,react.useCallback)(normalize(onEntered), [onEntered]);
+  const handleExit = (0,react.useCallback)(normalize(onExit), [onExit]);
+  const handleExiting = (0,react.useCallback)(normalize(onExiting), [onExiting]);
+  const handleExited = (0,react.useCallback)(normalize(onExited), [onExited]);
+  const handleAddEndListener = (0,react.useCallback)(normalize(addEndListener), [addEndListener]);
+  /* eslint-enable react-hooks/exhaustive-deps */
+
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_Transition, {
+    ref: ref,
+    ...props,
+    onEnter: handleEnter,
+    onEntered: handleEntered,
+    onEntering: handleEntering,
+    onExit: handleExit,
+    onExited: handleExited,
+    onExiting: handleExiting,
+    addEndListener: handleAddEndListener,
+    nodeRef: nodeRef,
+    children: typeof children === 'function' ? (status, innerProps) =>
+    // TODO: Types for RTG missing innerProps, so need to cast.
+    children(status, {
+      ...innerProps,
+      ref: attachRef
+    }) : /*#__PURE__*/react.cloneElement(children, {
+      ref: attachRef
+    })
+  });
+});
+/* harmony default export */ const esm_TransitionWrapper = (TransitionWrapper);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Fade.js
+
+
+
+
+
+
+
+
+const fadeStyles = {
+  [ENTERING]: 'show',
+  [ENTERED]: 'show'
+};
+const Fade = /*#__PURE__*/react.forwardRef(({
+  className,
+  children,
+  transitionClasses = {},
+  onEnter,
+  ...rest
+}, ref) => {
+  const props = {
+    in: false,
+    timeout: 300,
+    mountOnEnter: false,
+    unmountOnExit: false,
+    appear: false,
+    ...rest
+  };
+  const handleEnter = (0,react.useCallback)((node, isAppearing) => {
+    triggerBrowserReflow(node);
+    onEnter == null ? void 0 : onEnter(node, isAppearing);
+  }, [onEnter]);
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_TransitionWrapper, {
+    ref: ref,
+    addEndListener: transitionEndListener,
+    ...props,
+    onEnter: handleEnter,
+    childRef: children.ref,
+    children: (status, innerProps) => /*#__PURE__*/react.cloneElement(children, {
+      ...innerProps,
+      className: classnames_default()('fade', className, children.props.className, fadeStyles[status], transitionClasses[status])
+    })
+  });
+});
+Fade.displayName = 'Fade';
+/* harmony default export */ const esm_Fade = (Fade);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/ThemeProvider.js
+"use client";
+
+
+
+
+const DEFAULT_BREAKPOINTS = ['xxl', 'xl', 'lg', 'md', 'sm', 'xs'];
+const DEFAULT_MIN_BREAKPOINT = 'xs';
+const ThemeContext = /*#__PURE__*/react.createContext({
+  prefixes: {},
+  breakpoints: DEFAULT_BREAKPOINTS,
+  minBreakpoint: DEFAULT_MIN_BREAKPOINT
+});
+const {
+  Consumer,
+  Provider
+} = ThemeContext;
+function ThemeProvider({
+  prefixes = {},
+  breakpoints = DEFAULT_BREAKPOINTS,
+  minBreakpoint = DEFAULT_MIN_BREAKPOINT,
+  dir,
+  children
+}) {
+  const contextValue = useMemo(() => ({
+    prefixes: {
+      ...prefixes
+    },
+    breakpoints,
+    minBreakpoint,
+    dir
+  }), [prefixes, breakpoints, minBreakpoint, dir]);
+  return /*#__PURE__*/_jsx(Provider, {
+    value: contextValue,
+    children: children
+  });
+}
+function useBootstrapPrefix(prefix, defaultPrefix) {
+  const {
+    prefixes
+  } = (0,react.useContext)(ThemeContext);
+  return prefix || prefixes[defaultPrefix] || defaultPrefix;
+}
+function useBootstrapBreakpoints() {
+  const {
+    breakpoints
+  } = (0,react.useContext)(ThemeContext);
+  return breakpoints;
+}
+function useBootstrapMinBreakpoint() {
+  const {
+    minBreakpoint
+  } = (0,react.useContext)(ThemeContext);
+  return minBreakpoint;
+}
+function useIsRTL() {
+  const {
+    dir
+  } = (0,react.useContext)(ThemeContext);
+  return dir === 'rtl';
+}
+function createBootstrapComponent(Component, opts) {
+  if (typeof opts === 'string') opts = {
+    prefix: opts
+  };
+  const isClassy = Component.prototype && Component.prototype.isReactComponent;
+  // If it's a functional component make sure we don't break it with a ref
+  const {
+    prefix,
+    forwardRefAs = isClassy ? 'ref' : 'innerRef'
+  } = opts;
+  const Wrapped = /*#__PURE__*/React.forwardRef(({
+    ...props
+  }, ref) => {
+    props[forwardRefAs] = ref;
+    const bsPrefix = useBootstrapPrefix(props.bsPrefix, prefix);
+    return /*#__PURE__*/_jsx(Component, {
+      ...props,
+      bsPrefix: bsPrefix
+    });
+  });
+  Wrapped.displayName = `Bootstrap(${Component.displayName || Component.name})`;
+  return Wrapped;
+}
+
+/* harmony default export */ const esm_ThemeProvider = ((/* unused pure expression or super */ null && (ThemeProvider)));
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/ModalBody.js
+"use client";
+
+
+
+
+
+const ModalBody = /*#__PURE__*/react.forwardRef(({
+  className,
+  bsPrefix,
+  as: Component = 'div',
+  ...props
+}, ref) => {
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'modal-body');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+    ref: ref,
+    className: classnames_default()(className, bsPrefix),
+    ...props
+  });
+});
+ModalBody.displayName = 'ModalBody';
+/* harmony default export */ const esm_ModalBody = (ModalBody);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/ModalContext.js
+"use client";
+
+
+const ModalContext = /*#__PURE__*/react.createContext({
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onHide() {}
+});
+/* harmony default export */ const esm_ModalContext = (ModalContext);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/ModalDialog.js
+"use client";
+
+
+
+
+
+const ModalDialog = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  className,
+  contentClassName,
+  centered,
+  size,
+  fullscreen,
+  children,
+  scrollable,
+  ...props
+}, ref) => {
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'modal');
+  const dialogClass = `${bsPrefix}-dialog`;
+  const fullScreenClass = typeof fullscreen === 'string' ? `${bsPrefix}-fullscreen-${fullscreen}` : `${bsPrefix}-fullscreen`;
+  return /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+    ...props,
+    ref: ref,
+    className: classnames_default()(dialogClass, className, size && `${bsPrefix}-${size}`, centered && `${dialogClass}-centered`, scrollable && `${dialogClass}-scrollable`, fullscreen && fullScreenClass),
+    children: /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+      className: classnames_default()(`${bsPrefix}-content`, contentClassName),
+      children: children
+    })
+  });
+});
+ModalDialog.displayName = 'ModalDialog';
+/* harmony default export */ const esm_ModalDialog = (ModalDialog);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/ModalFooter.js
+"use client";
+
+
+
+
+
+const ModalFooter = /*#__PURE__*/react.forwardRef(({
+  className,
+  bsPrefix,
+  as: Component = 'div',
+  ...props
+}, ref) => {
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'modal-footer');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+    ref: ref,
+    className: classnames_default()(className, bsPrefix),
+    ...props
+  });
+});
+ModalFooter.displayName = 'ModalFooter';
+/* harmony default export */ const esm_ModalFooter = (ModalFooter);
+// EXTERNAL MODULE: ./node_modules/prop-types/index.js
+var prop_types = __webpack_require__(5556);
+var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CloseButton.js
+
+
+
+
+const propTypes = {
+  /** An accessible label indicating the relevant information about the Close Button. */
+  'aria-label': (prop_types_default()).string,
+  /** A callback fired after the Close Button is clicked. */
+  onClick: (prop_types_default()).func,
+  /**
+   * Render different color variant for the button.
+   *
+   * Omitting this will render the default dark color.
+   */
+  variant: prop_types_default().oneOf(['white'])
+};
+const CloseButton = /*#__PURE__*/react.forwardRef(({
+  className,
+  variant,
+  'aria-label': ariaLabel = 'Close',
+  ...props
+}, ref) => /*#__PURE__*/(0,jsx_runtime.jsx)("button", {
+  ref: ref,
+  type: "button",
+  className: classnames_default()('btn-close', variant && `btn-close-${variant}`, className),
+  "aria-label": ariaLabel,
+  ...props
+}));
+CloseButton.displayName = 'CloseButton';
+CloseButton.propTypes = propTypes;
+/* harmony default export */ const esm_CloseButton = (CloseButton);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/AbstractModalHeader.js
+"use client";
+
+
+
+
+
+
+
+
+const AbstractModalHeader = /*#__PURE__*/react.forwardRef(({
+  closeLabel = 'Close',
+  closeVariant,
+  closeButton = false,
+  onHide,
+  children,
+  ...props
+}, ref) => {
+  const context = (0,react.useContext)(esm_ModalContext);
+  const handleClick = useEventCallback(() => {
+    context == null ? void 0 : context.onHide();
+    onHide == null ? void 0 : onHide();
+  });
+  return /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+    ref: ref,
+    ...props,
+    children: [children, closeButton && /*#__PURE__*/(0,jsx_runtime.jsx)(esm_CloseButton, {
+      "aria-label": closeLabel,
+      variant: closeVariant,
+      onClick: handleClick
+    })]
+  });
+});
+/* harmony default export */ const esm_AbstractModalHeader = (AbstractModalHeader);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/ModalHeader.js
+"use client";
+
+
+
+
+
+
+const ModalHeader = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  className,
+  closeLabel = 'Close',
+  closeButton = false,
+  ...props
+}, ref) => {
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'modal-header');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_AbstractModalHeader, {
+    ref: ref,
+    ...props,
+    className: classnames_default()(className, bsPrefix),
+    closeLabel: closeLabel,
+    closeButton: closeButton
+  });
+});
+ModalHeader.displayName = 'ModalHeader';
+/* harmony default export */ const esm_ModalHeader = (ModalHeader);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/divWithClassName.js
+
+
+
+/* harmony default export */ const divWithClassName = (className => /*#__PURE__*/react.forwardRef((p, ref) => /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+  ...p,
+  ref: ref,
+  className: classnames_default()(p.className, className)
+})));
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/ModalTitle.js
+"use client";
+
+
+
+
+
+
+const DivStyledAsH4 = divWithClassName('h4');
+const ModalTitle = /*#__PURE__*/react.forwardRef(({
+  className,
+  bsPrefix,
+  as: Component = DivStyledAsH4,
+  ...props
+}, ref) => {
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'modal-title');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+    ref: ref,
+    className: classnames_default()(className, bsPrefix),
+    ...props
+  });
+});
+ModalTitle.displayName = 'ModalTitle';
+/* harmony default export */ const esm_ModalTitle = (ModalTitle);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Modal.js
+"use client";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* eslint-disable no-use-before-define, react/no-multi-comp */
+function DialogTransition(props) {
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_Fade, {
+    ...props,
+    timeout: null
+  });
+}
+function BackdropTransition(props) {
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_Fade, {
+    ...props,
+    timeout: null
+  });
+}
+
+/* eslint-enable no-use-before-define */
+const Modal_Modal = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  className,
+  style,
+  dialogClassName,
+  contentClassName,
+  children,
+  dialogAs: Dialog = esm_ModalDialog,
+  'data-bs-theme': dataBsTheme,
+  'aria-labelledby': ariaLabelledby,
+  'aria-describedby': ariaDescribedby,
+  'aria-label': ariaLabel,
+  /* BaseModal props */
+
+  show = false,
+  animation = true,
+  backdrop = true,
+  keyboard = true,
+  onEscapeKeyDown,
+  onShow,
+  onHide,
+  container,
+  autoFocus = true,
+  enforceFocus = true,
+  restoreFocus = true,
+  restoreFocusOptions,
+  onEntered,
+  onExit,
+  onExiting,
+  onEnter,
+  onEntering,
+  onExited,
+  backdropClassName,
+  manager: propsManager,
+  ...props
+}, ref) => {
+  const [modalStyle, setStyle] = (0,react.useState)({});
+  const [animateStaticModal, setAnimateStaticModal] = (0,react.useState)(false);
+  const waitingForMouseUpRef = (0,react.useRef)(false);
+  const ignoreBackdropClickRef = (0,react.useRef)(false);
+  const removeStaticModalAnimationRef = (0,react.useRef)(null);
+  const [modal, setModalRef] = useCallbackRef();
+  const mergedRef = esm_useMergedRefs(ref, setModalRef);
+  const handleHide = useEventCallback(onHide);
+  const isRTL = useIsRTL();
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'modal');
+  const modalContext = (0,react.useMemo)(() => ({
+    onHide: handleHide
+  }), [handleHide]);
+  function getModalManager() {
+    if (propsManager) return propsManager;
+    return getSharedManager({
+      isRTL
+    });
+  }
+  function updateDialogStyle(node) {
+    if (!canUseDOM) return;
+    const containerIsOverflowing = getModalManager().getScrollbarWidth() > 0;
+    const modalIsOverflowing = node.scrollHeight > ownerDocument(node).documentElement.clientHeight;
+    setStyle({
+      paddingRight: containerIsOverflowing && !modalIsOverflowing ? scrollbarSize() : undefined,
+      paddingLeft: !containerIsOverflowing && modalIsOverflowing ? scrollbarSize() : undefined
+    });
+  }
+  const handleWindowResize = useEventCallback(() => {
+    if (modal) {
+      updateDialogStyle(modal.dialog);
+    }
+  });
+  useWillUnmount(() => {
+    esm_removeEventListener(window, 'resize', handleWindowResize);
+    removeStaticModalAnimationRef.current == null ? void 0 : removeStaticModalAnimationRef.current();
+  });
+
+  // We prevent the modal from closing during a drag by detecting where the
+  // click originates from. If it starts in the modal and then ends outside
+  // don't close.
+  const handleDialogMouseDown = () => {
+    waitingForMouseUpRef.current = true;
+  };
+  const handleMouseUp = e => {
+    if (waitingForMouseUpRef.current && modal && e.target === modal.dialog) {
+      ignoreBackdropClickRef.current = true;
+    }
+    waitingForMouseUpRef.current = false;
+  };
+  const handleStaticModalAnimation = () => {
+    setAnimateStaticModal(true);
+    removeStaticModalAnimationRef.current = transitionEnd(modal.dialog, () => {
+      setAnimateStaticModal(false);
+    });
+  };
+  const handleStaticBackdropClick = e => {
+    if (e.target !== e.currentTarget) {
+      return;
+    }
+    handleStaticModalAnimation();
+  };
+  const handleClick = e => {
+    if (backdrop === 'static') {
+      handleStaticBackdropClick(e);
+      return;
+    }
+    if (ignoreBackdropClickRef.current || e.target !== e.currentTarget) {
+      ignoreBackdropClickRef.current = false;
+      return;
+    }
+    onHide == null ? void 0 : onHide();
+  };
+  const handleEscapeKeyDown = e => {
+    if (keyboard) {
+      onEscapeKeyDown == null ? void 0 : onEscapeKeyDown(e);
+    } else {
+      // Call preventDefault to stop modal from closing in @restart/ui.
+      e.preventDefault();
+      if (backdrop === 'static') {
+        // Play static modal animation.
+        handleStaticModalAnimation();
+      }
+    }
+  };
+  const handleEnter = (node, isAppearing) => {
+    if (node) {
+      updateDialogStyle(node);
+    }
+    onEnter == null ? void 0 : onEnter(node, isAppearing);
+  };
+  const handleExit = node => {
+    removeStaticModalAnimationRef.current == null ? void 0 : removeStaticModalAnimationRef.current();
+    onExit == null ? void 0 : onExit(node);
+  };
+  const handleEntering = (node, isAppearing) => {
+    onEntering == null ? void 0 : onEntering(node, isAppearing);
+
+    // FIXME: This should work even when animation is disabled.
+    esm_addEventListener(window, 'resize', handleWindowResize);
+  };
+  const handleExited = node => {
+    if (node) node.style.display = ''; // RHL removes it sometimes
+    onExited == null ? void 0 : onExited(node);
+
+    // FIXME: This should work even when animation is disabled.
+    esm_removeEventListener(window, 'resize', handleWindowResize);
+  };
+  const renderBackdrop = (0,react.useCallback)(backdropProps => /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+    ...backdropProps,
+    className: classnames_default()(`${bsPrefix}-backdrop`, backdropClassName, !animation && 'show')
+  }), [animation, backdropClassName, bsPrefix]);
+  const baseModalStyle = {
+    ...style,
+    ...modalStyle
+  };
+
+  // If `display` is not set to block, autoFocus inside the modal fails
+  // https://github.com/react-bootstrap/react-bootstrap/issues/5102
+  baseModalStyle.display = 'block';
+  const renderDialog = dialogProps => /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+    role: "dialog",
+    ...dialogProps,
+    style: baseModalStyle,
+    className: classnames_default()(className, bsPrefix, animateStaticModal && `${bsPrefix}-static`, !animation && 'show'),
+    onClick: backdrop ? handleClick : undefined,
+    onMouseUp: handleMouseUp,
+    "data-bs-theme": dataBsTheme,
+    "aria-label": ariaLabel,
+    "aria-labelledby": ariaLabelledby,
+    "aria-describedby": ariaDescribedby,
+    children: /*#__PURE__*/(0,jsx_runtime.jsx)(Dialog, {
+      ...props,
+      onMouseDown: handleDialogMouseDown,
+      className: dialogClassName,
+      contentClassName: contentClassName,
+      children: children
+    })
+  });
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_ModalContext.Provider, {
+    value: modalContext,
+    children: /*#__PURE__*/(0,jsx_runtime.jsx)(esm_Modal, {
+      show: show,
+      ref: mergedRef,
+      backdrop: backdrop,
+      container: container,
+      keyboard: true // Always set true - see handleEscapeKeyDown
+      ,
+      autoFocus: autoFocus,
+      enforceFocus: enforceFocus,
+      restoreFocus: restoreFocus,
+      restoreFocusOptions: restoreFocusOptions,
+      onEscapeKeyDown: handleEscapeKeyDown,
+      onShow: onShow,
+      onHide: onHide,
+      onEnter: handleEnter,
+      onEntering: handleEntering,
+      onEntered: onEntered,
+      onExit: handleExit,
+      onExiting: onExiting,
+      onExited: handleExited,
+      manager: getModalManager(),
+      transition: animation ? DialogTransition : undefined,
+      backdropTransition: animation ? BackdropTransition : undefined,
+      renderBackdrop: renderBackdrop,
+      renderDialog: renderDialog
+    })
+  });
+});
+Modal_Modal.displayName = 'Modal';
+/* harmony default export */ const react_bootstrap_esm_Modal = (Object.assign(Modal_Modal, {
+  Body: esm_ModalBody,
+  Header: esm_ModalHeader,
+  Title: esm_ModalTitle,
+  Footer: esm_ModalFooter,
+  Dialog: esm_ModalDialog,
+  TRANSITION_DURATION: 300,
+  BACKDROP_TRANSITION_DURATION: 150
+}));
+;// CONCATENATED MODULE: ./src/ui/speedGrader/controls/SpeedGraderModalDialog.tsx
+
+
+function SpeedGraderModalDialog(props) {
+    const { show, canClose, message, header } = props;
+    return ((0,jsx_runtime.jsx)(jsx_runtime.Fragment, { children: (0,jsx_runtime.jsxs)(react_bootstrap_esm_Modal, { show: show, children: [(0,jsx_runtime.jsx)(react_bootstrap_esm_Modal.Header, { closeButton: canClose, children: (0,jsx_runtime.jsx)(react_bootstrap_esm_Modal.Title, { children: header }) }), (0,jsx_runtime.jsx)(react_bootstrap_esm_Modal.Body, { children: message })] }) }));
+}
+
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Row.js
+"use client";
+
+
+
+
+
+const Row = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  className,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  ...props
+}, ref) => {
+  const decoratedBsPrefix = useBootstrapPrefix(bsPrefix, 'row');
+  const breakpoints = useBootstrapBreakpoints();
+  const minBreakpoint = useBootstrapMinBreakpoint();
+  const sizePrefix = `${decoratedBsPrefix}-cols`;
+  const classes = [];
+  breakpoints.forEach(brkPoint => {
+    const propValue = props[brkPoint];
+    delete props[brkPoint];
+    let cols;
+    if (propValue != null && typeof propValue === 'object') {
+      ({
+        cols
+      } = propValue);
+    } else {
+      cols = propValue;
+    }
+    const infix = brkPoint !== minBreakpoint ? `-${brkPoint}` : '';
+    if (cols != null) classes.push(`${sizePrefix}${infix}-${cols}`);
+  });
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+    ref: ref,
+    ...props,
+    className: classnames_default()(className, decoratedBsPrefix, ...classes)
+  });
+});
+Row.displayName = 'Row';
+/* harmony default export */ const esm_Row = (Row);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Col.js
+"use client";
+
+
+
+
+
+function useCol({
+  as,
+  bsPrefix,
+  className,
+  ...props
+}) {
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'col');
+  const breakpoints = useBootstrapBreakpoints();
+  const minBreakpoint = useBootstrapMinBreakpoint();
+  const spans = [];
+  const classes = [];
+  breakpoints.forEach(brkPoint => {
+    const propValue = props[brkPoint];
+    delete props[brkPoint];
+    let span;
+    let offset;
+    let order;
+    if (typeof propValue === 'object' && propValue != null) {
+      ({
+        span,
+        offset,
+        order
+      } = propValue);
+    } else {
+      span = propValue;
+    }
+    const infix = brkPoint !== minBreakpoint ? `-${brkPoint}` : '';
+    if (span) spans.push(span === true ? `${bsPrefix}${infix}` : `${bsPrefix}${infix}-${span}`);
+    if (order != null) classes.push(`order${infix}-${order}`);
+    if (offset != null) classes.push(`offset${infix}-${offset}`);
+  });
+  return [{
+    ...props,
+    className: classnames_default()(className, ...spans, ...classes)
+  }, {
+    as,
+    bsPrefix,
+    spans
+  }];
+}
+const Col = /*#__PURE__*/react.forwardRef(
+// Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+(props, ref) => {
+  const [{
+    className,
+    ...colProps
+  }, {
+    as: Component = 'div',
+    bsPrefix,
+    spans
+  }] = useCol(props);
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+    ...colProps,
+    ref: ref,
+    className: classnames_default()(className, !spans.length && bsPrefix)
+  });
+});
+Col.displayName = 'Col';
+/* harmony default export */ const esm_Col = (Col);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardBody.js
+"use client";
+
+
+
+
+
+const CardBody = /*#__PURE__*/react.forwardRef(({
+  className,
+  bsPrefix,
+  as: Component = 'div',
+  ...props
+}, ref) => {
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'card-body');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+    ref: ref,
+    className: classnames_default()(className, bsPrefix),
+    ...props
+  });
+});
+CardBody.displayName = 'CardBody';
+/* harmony default export */ const esm_CardBody = (CardBody);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardFooter.js
+"use client";
+
+
+
+
+
+const CardFooter = /*#__PURE__*/react.forwardRef(({
+  className,
+  bsPrefix,
+  as: Component = 'div',
+  ...props
+}, ref) => {
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'card-footer');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+    ref: ref,
+    className: classnames_default()(className, bsPrefix),
+    ...props
+  });
+});
+CardFooter.displayName = 'CardFooter';
+/* harmony default export */ const esm_CardFooter = (CardFooter);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardHeaderContext.js
+"use client";
+
+
+const context = /*#__PURE__*/react.createContext(null);
+context.displayName = 'CardHeaderContext';
+/* harmony default export */ const CardHeaderContext = (context);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardHeader.js
+"use client";
+
+
+
+
+
+
+
+const CardHeader = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  className,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  ...props
+}, ref) => {
+  const prefix = useBootstrapPrefix(bsPrefix, 'card-header');
+  const contextValue = (0,react.useMemo)(() => ({
+    cardHeaderBsPrefix: prefix
+  }), [prefix]);
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(CardHeaderContext.Provider, {
+    value: contextValue,
+    children: /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+      ref: ref,
+      ...props,
+      className: classnames_default()(className, prefix)
+    })
+  });
+});
+CardHeader.displayName = 'CardHeader';
+/* harmony default export */ const esm_CardHeader = (CardHeader);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardImg.js
+"use client";
+
+
+
+
+
+const CardImg = /*#__PURE__*/react.forwardRef(
+// Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+({
+  bsPrefix,
+  className,
+  variant,
+  as: Component = 'img',
+  ...props
+}, ref) => {
+  const prefix = useBootstrapPrefix(bsPrefix, 'card-img');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+    ref: ref,
+    className: classnames_default()(variant ? `${prefix}-${variant}` : prefix, className),
+    ...props
+  });
+});
+CardImg.displayName = 'CardImg';
+/* harmony default export */ const esm_CardImg = (CardImg);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardImgOverlay.js
+"use client";
+
+
+
+
+
+const CardImgOverlay = /*#__PURE__*/react.forwardRef(({
+  className,
+  bsPrefix,
+  as: Component = 'div',
+  ...props
+}, ref) => {
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'card-img-overlay');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+    ref: ref,
+    className: classnames_default()(className, bsPrefix),
+    ...props
+  });
+});
+CardImgOverlay.displayName = 'CardImgOverlay';
+/* harmony default export */ const esm_CardImgOverlay = (CardImgOverlay);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardLink.js
+"use client";
+
+
+
+
+
+const CardLink = /*#__PURE__*/react.forwardRef(({
+  className,
+  bsPrefix,
+  as: Component = 'a',
+  ...props
+}, ref) => {
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'card-link');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+    ref: ref,
+    className: classnames_default()(className, bsPrefix),
+    ...props
+  });
+});
+CardLink.displayName = 'CardLink';
+/* harmony default export */ const esm_CardLink = (CardLink);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardSubtitle.js
+"use client";
+
+
+
+
+
+
+const DivStyledAsH6 = divWithClassName('h6');
+const CardSubtitle = /*#__PURE__*/react.forwardRef(({
+  className,
+  bsPrefix,
+  as: Component = DivStyledAsH6,
+  ...props
+}, ref) => {
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'card-subtitle');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+    ref: ref,
+    className: classnames_default()(className, bsPrefix),
+    ...props
+  });
+});
+CardSubtitle.displayName = 'CardSubtitle';
+/* harmony default export */ const esm_CardSubtitle = (CardSubtitle);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardText.js
+"use client";
+
+
+
+
+
+const CardText = /*#__PURE__*/react.forwardRef(({
+  className,
+  bsPrefix,
+  as: Component = 'p',
+  ...props
+}, ref) => {
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'card-text');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+    ref: ref,
+    className: classnames_default()(className, bsPrefix),
+    ...props
+  });
+});
+CardText.displayName = 'CardText';
+/* harmony default export */ const esm_CardText = (CardText);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardTitle.js
+"use client";
+
+
+
+
+
+
+const DivStyledAsH5 = divWithClassName('h5');
+const CardTitle = /*#__PURE__*/react.forwardRef(({
+  className,
+  bsPrefix,
+  as: Component = DivStyledAsH5,
+  ...props
+}, ref) => {
+  bsPrefix = useBootstrapPrefix(bsPrefix, 'card-title');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+    ref: ref,
+    className: classnames_default()(className, bsPrefix),
+    ...props
+  });
+});
+CardTitle.displayName = 'CardTitle';
+/* harmony default export */ const esm_CardTitle = (CardTitle);
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Card.js
+"use client";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const Card = /*#__PURE__*/react.forwardRef(({
+  bsPrefix,
+  className,
+  bg,
+  text,
+  border,
+  body = false,
+  children,
+  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+  as: Component = 'div',
+  ...props
+}, ref) => {
+  const prefix = useBootstrapPrefix(bsPrefix, 'card');
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+    ref: ref,
+    ...props,
+    className: classnames_default()(className, prefix, bg && `bg-${bg}`, text && `text-${text}`, border && `border-${border}`),
+    children: body ? /*#__PURE__*/(0,jsx_runtime.jsx)(esm_CardBody, {
+      children: children
+    }) : children
+  });
+});
+Card.displayName = 'Card';
+/* harmony default export */ const esm_Card = (Object.assign(Card, {
+  Img: esm_CardImg,
+  Title: esm_CardTitle,
+  Subtitle: esm_CardSubtitle,
+  Body: esm_CardBody,
+  Link: esm_CardLink,
+  Text: esm_CardText,
+  Header: esm_CardHeader,
+  Footer: esm_CardFooter,
+  ImgOverlay: esm_CardImgOverlay
+}));
+;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/Button.js
+const Button_excluded = ["as", "disabled"];
+function Button_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+
+function isTrivialHref(href) {
+  return !href || href.trim() === '#';
+}
+function useButtonProps({
+  tagName,
+  disabled,
+  href,
+  target,
+  rel,
+  role,
+  onClick,
+  tabIndex = 0,
+  type
+}) {
+  if (!tagName) {
+    if (href != null || target != null || rel != null) {
+      tagName = 'a';
+    } else {
+      tagName = 'button';
+    }
+  }
+  const meta = {
+    tagName
+  };
+  if (tagName === 'button') {
+    return [{
+      type: type || 'button',
+      disabled
+    }, meta];
+  }
+  const handleClick = event => {
+    if (disabled || tagName === 'a' && isTrivialHref(href)) {
+      event.preventDefault();
+    }
+    if (disabled) {
+      event.stopPropagation();
+      return;
+    }
+    onClick == null ? void 0 : onClick(event);
+  };
+  const handleKeyDown = event => {
+    if (event.key === ' ') {
+      event.preventDefault();
+      handleClick(event);
+    }
+  };
+  if (tagName === 'a') {
+    // Ensure there's a href so Enter can trigger anchor button.
+    href || (href = '#');
+    if (disabled) {
+      href = undefined;
+    }
+  }
+  return [{
+    role: role != null ? role : 'button',
+    // explicitly undefined so that it overrides the props disabled in a spread
+    // e.g. <Tag {...props} {...hookProps} />
+    disabled: undefined,
+    tabIndex: disabled ? undefined : tabIndex,
+    href,
+    target: tagName === 'a' ? target : undefined,
+    'aria-disabled': !disabled ? undefined : disabled,
+    rel: tagName === 'a' ? rel : undefined,
+    onClick: handleClick,
+    onKeyDown: handleKeyDown
+  }, meta];
+}
+const Button = /*#__PURE__*/react.forwardRef((_ref, ref) => {
+  let {
+      as: asProp,
+      disabled
+    } = _ref,
+    props = Button_objectWithoutPropertiesLoose(_ref, Button_excluded);
+  const [buttonProps, {
+    tagName: Component
+  }] = useButtonProps(Object.assign({
+    tagName: asProp,
+    disabled
+  }, props));
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, Object.assign({}, props, buttonProps, {
+    ref: ref
+  }));
+});
+Button.displayName = 'Button';
+/* harmony default export */ const esm_Button = ((/* unused pure expression or super */ null && (Button)));
+;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Button.js
+"use client";
+
+
+
+
+
+
+const Button_Button = /*#__PURE__*/react.forwardRef(({
+  as,
+  bsPrefix,
+  variant = 'primary',
+  size,
+  active = false,
+  disabled = false,
+  className,
+  ...props
+}, ref) => {
+  const prefix = useBootstrapPrefix(bsPrefix, 'btn');
+  const [buttonProps, {
+    tagName
+  }] = useButtonProps({
+    tagName: as,
+    disabled,
+    ...props
+  });
+  const Component = tagName;
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
+    ...buttonProps,
+    ...props,
+    ref: ref,
+    disabled: disabled,
+    className: classnames_default()(className, prefix, active && 'active', variant && `${prefix}-${variant}`, size && `${prefix}-${size}`, props.href && disabled && 'disabled')
+  });
+});
+Button_Button.displayName = 'Button';
+/* harmony default export */ const react_bootstrap_esm_Button = (Button_Button);
+// EXTERNAL MODULE: ./node_modules/react-datepicker/dist/react-datepicker.min.js
+var react_datepicker_min = __webpack_require__(9386);
+var react_datepicker_min_default = /*#__PURE__*/__webpack_require__.n(react_datepicker_min);
+;// CONCATENATED MODULE: ./src/ui/speedGrader/consts.ts
+const MAX_SECTION_SLICE_SIZE = 5; //The number of sections to query data for at once.
+const FILE_HEADER = [
+    'Term', 'Instructor', 'Class', 'Section', 'Student Name', 'Student Id', 'Enrollment State',
+    'Week Number', 'Module', 'Assignment Type', 'Assignment Number', 'Assignment Id', 'Assignment Title',
+    'Submission Status', 'Rubric Id', 'Rubric Line', 'Line Name', 'Score', 'Max Score',
+].join(',') + '\n';
+
+;// CONCATENATED MODULE: ./src/ui/speedGrader/saveDataGenFunc.tsx
+
+function saveDataGenFunc() {
+    let a = document.createElement("a");
+    document.body.appendChild(a);
+    a.setAttribute('display', 'none');
+    return function (textArray, fileName, type = 'text') {
+        textArray = [...textArray];
+        textArray.unshift(FILE_HEADER);
+        let blob = new Blob(textArray, { type: type }), url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = fileName;
+        a.click();
+        window.URL.revokeObjectURL(url);
+    };
+}
+
+;// CONCATENATED MODULE: ./src/canvas/fetch/fetchJson.ts
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+function fetchJson_fetchJson(url_1) {
+    return __awaiter(this, arguments, void 0, function* (url, config = null) {
+        const match = url.search(/^(\/|\w+:\/\/)/);
+        if (match < 0)
+            throw new Error("url does not start with / or http");
+        if (config === null || config === void 0 ? void 0 : config.queryParams) {
+            url += '?' + new URLSearchParams(config.queryParams);
+        }
+        config !== null && config !== void 0 ? config : (config = {});
+        const response = yield fetch(url, config.fetchInit);
+        return yield response.json();
+    });
+}
+
+// EXTERNAL MODULE: ./node_modules/assert/build/assert.js
+var build_assert = __webpack_require__(4148);
+var assert_default = /*#__PURE__*/__webpack_require__.n(build_assert);
+;// CONCATENATED MODULE: ./src/canvas/canvasUtils.ts
+var canvasUtils_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+function isWithParamsFunc(func) {
+    return typeof func === 'function' && func.length > 0;
+}
+function isWithoutParamsFunc(func) {
+    return typeof func === 'function' && func.length === 0;
+}
+function callAll(funcs, params) {
+    const output = [];
+    for (let func of funcs) {
+        if ((typeof func === 'object')) {
+            output.push(func.func(func.params));
+            continue;
+        }
+        if (isWithoutParamsFunc(func)) {
+            output.push(func());
+            continue;
+        }
+        if (isWithParamsFunc(func) && typeof params !== 'undefined') {
+            output.push(func(params));
+        }
+    }
+    return output;
+}
+
+/**
+ * Traverses up the DOM and finds a parent with a matching Tag
+ * @param el
+ * @param tagName
+ */
+function parentElement(el, tagName) {
+    if (!el)
+        return null;
+    while (el && el.parentElement) {
+        el = el.parentElement;
+        if (el.tagName && el.tagName.toLowerCase() == tagName) {
+            return el;
+        }
+    }
+    return null;
+}
+const type_lut = {
+    Assignment: 'assignment',
+    Discussion: 'discussion_topic',
+    Quiz: 'quiz',
+    ExternalTool: 'external_tool',
+    File: 'attachment',
+    Page: 'wiki_page',
+    ExternalUrl: null, //Not passable to restrict
+    Subheader: null, //Not passable to restrict
+};
+function canvasUtils_formDataify(data) {
+    let formData = new FormData();
+    for (let key in data) {
+        addToFormData(formData, key, data[key]);
+    }
+    if (document) {
+        const el = document.querySelector("input[name='authenticity_token']");
+        const authenticityToken = el ? el.value : null;
+        const cookies = getCookies();
+        let csrfToken = cookies['_csrf_token'];
+        if (authenticityToken)
+            formData.append('authenticity_token', authenticityToken);
+        else if (csrfToken) {
+            csrfToken = csrfToken.replaceAll(/%([0-9A-F]{2})/g, (substring, hex) => {
+                const hexCode = hex;
+                return String.fromCharCode(parseInt(hexCode, 16));
+            });
+            console.log(csrfToken);
+            formData.append('authenticity_token', csrfToken);
+        }
+    }
+    return formData;
+}
+function deepObjectCopy(toCopy, complexObjectsTracker = []) {
+    return canvasUtils_deepObjectMerge(toCopy, {}, true, complexObjectsTracker);
+}
+function canvasUtils_deepObjectMerge(a, b, overrideWithA = false, complexObjectsTracker = []) {
+    for (let value of [a, b]) {
+        if (typeof value == "object" &&
+            complexObjectsTracker.includes(value))
+            throw new Error(`Infinite Loop: Element ${value} contains itself`);
+    }
+    //if the types don't match
+    if (a && b && (typeof a !== typeof b ||
+        Array.isArray(a) != Array.isArray(b))) {
+        if (a === b)
+            return a;
+        if (overrideWithA)
+            return a;
+        throw new Error(`Type clash on merge ${typeof a} ${a}, ${typeof b} ${b}`);
+    }
+    //If either or both are arrays, merge if able to
+    if (Array.isArray(a)) {
+        if (!b)
+            return deepObjectCopy(a, complexObjectsTracker);
+        assert_default()(Array.isArray(b), "We should not get here if b is not an array");
+        let mergedArray = [...a, ...b];
+        const outputArray = mergedArray.map(value => {
+            if (!value)
+                return value;
+            if (typeof value === 'object' && Object.getPrototypeOf(value) === Object.prototype) {
+                //Make a deep of any object literal
+                if (!value)
+                    return value;
+                value = deepObjectCopy(value, [...complexObjectsTracker, a, b]);
+            }
+            return value;
+        });
+        return outputArray;
+    }
+    if (Array.isArray(b))
+        return deepObjectCopy(b, complexObjectsTracker); //we already know a is not an array at this point, return a deep copy of b
+    if ((a && typeof a === 'object') || (b && typeof b === 'object')) {
+        if (a instanceof File && b instanceof File) {
+            if (!overrideWithA)
+                assert_default()(a.size == b.size && a.name == b.name, `File value clash ${a.name} ${b.name}`);
+            return a;
+        }
+        if (a && Object.getPrototypeOf(a) != Object.prototype
+            || b && Object.getPrototypeOf(b) != Object.prototype) {
+            if (!overrideWithA)
+                assert_default()(!a || !b || a === b, `Non-mergeable object clash ${a} ${b}`);
+            if (a)
+                return a;
+            if (b)
+                return b;
+        }
+        if (a && !b)
+            return deepObjectCopy(a, complexObjectsTracker);
+        if (b && !a)
+            return deepObjectCopy(b, complexObjectsTracker);
+        assert_default()(a && typeof a === 'object' && Object.getPrototypeOf(a) === Object.prototype, "a should always be defined here.");
+        assert_default()(b && typeof b === 'object' && Object.getPrototypeOf(b) === Object.prototype, "b should always be defined here.");
+        const allKeys = [...Object.keys(a), ...Object.keys(b)].filter(filterUniqueFunc);
+        const aRecord = a;
+        const bRecord = b;
+        const entries = allKeys.map((key) => [
+            key,
+            canvasUtils_deepObjectMerge(aRecord[key], bRecord[key], overrideWithA, [...complexObjectsTracker, a, b])
+        ]);
+        return Object.fromEntries(entries);
+    }
+    if (a && b) {
+        if (overrideWithA || a === b)
+            return a;
+        throw new Error(`Values unmergeable, ${a}>:${typeof a}, ${b} ${typeof b}`);
+    }
+    if (a)
+        return a;
+    if (b)
+        return b;
+    if (a === null)
+        return a;
+    if (b === null)
+        return b;
+    assert_default()(typeof a === 'undefined');
+    return a;
+}
+function deFormDataify(formData) {
+    return [...formData.entries()].reduce((aggregator, [key, value]) => {
+        const isArray = key.includes('[]');
+        const keys = key.split('[').map(key => key.replaceAll(/[\[\]]/g, ''));
+        if (isArray)
+            keys.pop(); //remove the last, empty, key if it's an array
+        let currentValue = isArray ? [value] : value;
+        while (keys.length > 0) {
+            let newValue;
+            newValue = {
+                [keys.pop()]: currentValue
+            };
+            currentValue = newValue;
+        }
+        return canvasUtils_deepObjectMerge(aggregator, currentValue) || Object.assign({}, aggregator);
+    }, {});
+}
+function getCookies() {
+    const cookieString = document.cookie;
+    const cookies = cookieString.split('; ');
+    const out = {};
+    for (let cookie of cookies) {
+        const [key, value] = cookie.split('=');
+        out[key] = value;
+    }
+    return out;
+}
+/**
+ * Adds arrays and objects in the form formData posts expects
+ * @param formData
+ * @param key
+ * @param value
+ */
+function addToFormData(formData, key, value) {
+    if (Array.isArray(value)) {
+        for (let item of value) {
+            addToFormData(formData, `${key}[]`, item);
+        }
+    }
+    else if (typeof value === 'object') {
+        for (let itemKey in value) {
+            const itemValue = value[itemKey];
+            addToFormData(formData, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
+        }
+    }
+    else {
+        formData.append(key, value);
+    }
+}
+function queryStringify(data) {
+    let searchParams = new URLSearchParams();
+    for (let key in data) {
+        addToQuery(searchParams, key, data[key]);
+    }
+    return searchParams;
+}
+function addToQuery(searchParams, key, value) {
+    if (Array.isArray(value)) {
+        for (let item of value) {
+            addToQuery(searchParams, `${key}[]`, item);
+        }
+    }
+    else if (typeof value === 'object') {
+        for (let itemKey in value) {
+            const itemValue = value[itemKey];
+            addToQuery(searchParams, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
+        }
+    }
+    else {
+        searchParams.append(key, value);
+    }
+}
+/**
+ * Takes in a module item and returns an object specifying its type and content id
+ * @param item
+ */
+function canvasUtils_getItemTypeAndId(item) {
+    return canvasUtils_awaiter(this, void 0, void 0, function* () {
+        let id;
+        let type;
+        assert(type_lut.hasOwnProperty(item.type), "Unexpected type " + item.type);
+        type = type_lut[item.type];
+        if (type === "wiki_page") {
+            assert(item.url); //wiki_page items always have a url param
+            const pageData = yield fetchJson(item.url);
+            id = pageData.page_id;
+        }
+        else {
+            id = item.content_id;
+        }
+        return { type, id };
+    });
+}
+/**
+ * @param queryParams
+ * @returns {URLSearchParams} The correctly formatted parameters
+ */
+function searchParamsFromObject(queryParams) {
+    return queryStringify(queryParams);
+}
+/**
+ * sort courses (or course Data) alphabetically by name
+ * @param a item to compare.
+ * @param b item to compare.
+ */
+function courseNameSort(a, b) {
+    if (a.name < b.name)
+        return -1;
+    if (b.name < a.name)
+        return 1;
+    return 0;
+}
+function* canvasUtils_range(start, end, step = 1) {
+    if (typeof end === 'undefined') {
+        let i = start;
+        while (true) {
+            yield i;
+            i += step;
+        }
+    }
+    for (let i = start; i <= end; i++) {
+        yield i;
+    }
+}
+function* numbers(start, step = 1) {
+    let i = 0;
+    while (true) {
+        yield i;
+        i += step;
+    }
+}
+function getPlainTextFromHtml(html) {
+    const el = document.createElement('div');
+    el.innerHTML = html;
+    return el.innerText || el.textContent || "";
+}
+function batchify(toBatch, batchSize) {
+    const out = [];
+    for (let i = 0; i < toBatch.length; i += batchSize) {
+        out.push(toBatch.slice(i, i + batchSize));
+    }
+    return out;
+}
+function filterUniqueFunc(item, index, array) {
+    return array.indexOf(item) === index;
+}
+
+;// CONCATENATED MODULE: ./src/canvas/fetch/getPagedDataGenerator.ts
+var getPagedDataGenerator_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
+var __await = (undefined && undefined.__await) || function (v) { return this instanceof __await ? (this.v = v, this) : new __await(v); }
+var __asyncGenerator = (undefined && undefined.__asyncGenerator) || function (thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function awaitReturn(f) { return function (v) { return Promise.resolve(v).then(f, reject); }; }
+    function verb(n, f) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; if (f) i[n] = f(i[n]); } }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+};
+
+/**
+ * @param url The entire path of the url
+ * @param config a configuration object of type ICanvasCallConfig
+ * @returns {Promise<Record<string, any>[]>}
+ */
+function getPagedData(url_1) {
+    return getPagedDataGenerator_awaiter(this, arguments, void 0, function* (url, config = null) {
+        var _a, e_1, _b, _c;
+        const generator = getPagedDataGenerator(url, config);
+        const out = [];
+        try {
+            for (var _d = true, generator_1 = __asyncValues(generator), generator_1_1; generator_1_1 = yield generator_1.next(), _a = generator_1_1.done, !_a; _d = true) {
+                _c = generator_1_1.value;
+                _d = false;
+                let value = _c;
+                out.push(value);
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (!_d && !_a && (_b = generator_1.return)) yield _b.call(generator_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        return out;
+    });
+}
+/**
+ * returns a single pagedDataGenerator that returns generator results from each, looping through results for each
+ * @param generators
+ */
+function mergePagedDataGenerators(generators) {
+    return __asyncGenerator(this, arguments, function* mergePagedDataGenerators_1() {
+        var _a, e_2, _b, _c;
+        for (let generator of generators) {
+            try {
+                for (var _d = true, generator_2 = (e_2 = void 0, __asyncValues(generator)), generator_2_1; generator_2_1 = yield __await(generator_2.next()), _a = generator_2_1.done, !_a; _d = true) {
+                    _c = generator_2_1.value;
+                    _d = false;
+                    let result = _c;
+                    yield yield __await(result);
+                }
+            }
+            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+            finally {
+                try {
+                    if (!_d && !_a && (_b = generator_2.return)) yield __await(_b.call(generator_2));
+                }
+                finally { if (e_2) throw e_2.error; }
+            }
+        }
+    });
+}
+function handleResponseData(data, url) {
+    if (data !== null && typeof data === 'object' && !Array.isArray(data)) {
+        let values = Array.from(Object.values(data));
+        if (values) {
+            data = values.find((a) => Array.isArray(a));
+        }
+    }
+    if (!Array.isArray(data)) {
+        console.warn(`no data for ${url}`);
+        return [];
+    }
+    return data;
+}
+function getPagedDataGenerator(url_1) {
+    return __asyncGenerator(this, arguments, function* getPagedDataGenerator_1(url, config = null) {
+        if (config === null || config === void 0 ? void 0 : config.queryParams) {
+            url += '?' + searchParamsFromObject(config.queryParams);
+        }
+        if (url.includes('undefined')) {
+            console.warn(url);
+        }
+        /* Returns a list of data from a GET request, going through multiple pages of data requests as necessary */
+        let response = yield __await(fetch(url, config === null || config === void 0 ? void 0 : config.fetchInit));
+        let data = handleResponseData(yield __await(response.json()), url);
+        if (data.length === 0)
+            return yield __await(data);
+        for (let value of data)
+            yield yield __await(value);
+        let next_page_link = "!";
+        while (next_page_link.length !== 0 &&
+            response &&
+            response.ok) {
+            const nextLink = getNextLink(response);
+            if (!nextLink)
+                break;
+            next_page_link = nextLink.split(";")[0].split("<")[1].split(">")[0];
+            response = yield __await(fetch(next_page_link, config === null || config === void 0 ? void 0 : config.fetchInit));
+            let responseData = handleResponseData(yield __await(response.json()), url);
+            data = [data, ...responseData];
+            for (let value of responseData) {
+                yield yield __await(value);
+            }
+        }
+    });
+}
+function getNextLink(response) {
+    const link = response.headers.get("Link");
+    if (!link)
+        return null;
+    const paginationLinks = link.split(",");
+    return paginationLinks.find((link) => link.includes('next'));
+}
+
+;// CONCATENATED MODULE: ./src/canvas/files.ts
+var files_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+function uploadFile(file, folder, url) {
+    return files_awaiter(this, void 0, void 0, function* () {
+        const initialParams = {
+            name: file.name,
+            no_redirect: true,
+            on_duplicate: 'overwrite'
+        };
+        if (typeof folder === 'number')
+            initialParams.parent_folder_id = folder;
+        else
+            initialParams.parent_folder_path = folder;
+        let response = yield fetch(url, {
+            body: canvasUtils_formDataify(initialParams),
+            method: 'POST'
+        });
+        const data = yield response.json();
+        const uploadParams = data.upload_params;
+        const uploadFormData = canvasUtils_formDataify(uploadParams);
+        uploadFormData.append('file', file);
+        response = yield fetch(data.upload_url, {
+            method: 'POST',
+            body: uploadFormData,
+        });
+        assert_default()(response.ok);
+    });
+}
+
+;// CONCATENATED MODULE: ./src/canvas/fetch/index.ts
+var fetch_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var fetch_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
+var fetch_await = (undefined && undefined.__await) || function (v) { return this instanceof fetch_await ? (this.v = v, this) : new fetch_await(v); }
+var fetch_asyncGenerator = (undefined && undefined.__asyncGenerator) || function (thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function awaitReturn(f) { return function (v) { return Promise.resolve(v).then(f, reject); }; }
+    function verb(n, f) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; if (f) i[n] = f(i[n]); } }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof fetch_await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+};
+
+function fetch_overrideConfig(source, override) {
+    var _a;
+    return (_a = canvasUtils_deepObjectMerge(source, override)) !== null && _a !== void 0 ? _a : {};
+}
+function fetch_renderAsyncGen(generator) {
+    return fetch_awaiter(this, void 0, void 0, function* () {
+        var _a, generator_1, generator_1_1;
+        var _b, e_1, _c, _d;
+        const out = [];
+        try {
+            for (_a = true, generator_1 = fetch_asyncValues(generator); generator_1_1 = yield generator_1.next(), _b = generator_1_1.done, !_b; _a = true) {
+                _d = generator_1_1.value;
+                _a = false;
+                let item = _d;
+                out.push(item);
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (!_a && !_b && (_c = generator_1.return)) yield _c.call(generator_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        return out;
+    });
+}
+function fetch_fetchGetConfig(options, baseConfig) {
+    return fetch_overrideConfig(baseConfig, {
+        queryParams: options,
+    });
+}
+function fetch_generatorMap(generator, nextMapFunc) {
+    return fetch_asyncGenerator(this, arguments, function* generatorMap_1() {
+        var _a, e_2, _b, _c;
+        let i = 0;
+        try {
+            for (var _d = true, generator_2 = fetch_asyncValues(generator), generator_2_1; generator_2_1 = yield fetch_await(generator_2.next()), _a = generator_2_1.done, !_a; _d = true) {
+                _c = generator_2_1.value;
+                _d = false;
+                let value = _c;
+                yield yield fetch_await(nextMapFunc(value, i, generator));
+                i++;
+            }
+        }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (!_d && !_a && (_b = generator_2.return)) yield fetch_await(_b.call(generator_2));
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
+    });
+}
+
+;// CONCATENATED MODULE: ./src/canvas/baseCanvasObject.ts
+var baseCanvasObject_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+class BaseCanvasObject {
+    get accountId() {
+        return this._accountId;
+    }
+    constructor(data) {
+        this._accountId = null;
+        this.canvasData = data || {}; // A dict holding the decoded json representation of the object in Canvas
+    }
+    getClass() {
+        return this.constructor;
+    }
+    getItem(item) {
+        return this.canvasData[item];
+    }
+    get myClass() {
+        return this.constructor;
+    }
+    get nameKey() {
+        assert_default()(this.myClass.nameProperty);
+        return this.myClass.nameProperty;
+    }
+    get rawData() {
+        return Object.assign({}, this.canvasData);
+    }
+    get contentUrlPath() {
+        const constructor = this.constructor;
+        assert_default()(typeof this.accountId === 'number');
+        assert_default()(typeof constructor.contentUrlTemplate === 'string');
+        return '/api/v1/' + constructor.contentUrlTemplate
+            .replace('{content_id}', this.id.toString())
+            .replace('{account_id}', this.accountId.toString());
+    }
+    get htmlContentUrl() {
+        return `${this.contentUrlPath}`;
+    }
+    get data() {
+        return this.canvasData;
+    }
+    static getDataById(contentId_1) {
+        return baseCanvasObject_awaiter(this, arguments, void 0, function* (contentId, courseId = null, config = null) {
+            let url = this.getUrlPathFromIds(contentId, courseId);
+            const response = yield fetchJson_fetchJson(url, config);
+            assert_default()(!Array.isArray(response));
+            return response;
+        });
+    }
+    static getUrlPathFromIds(contentId, courseId) {
+        assert_default()(typeof this.contentUrlTemplate === 'string');
+        let url = this.contentUrlTemplate
+            .replace('{content_id}', contentId.toString());
+        if (courseId)
+            url = url.replace('{course_id}', courseId.toString());
+        return url;
+    }
+    /**
+     * @param courseId - The course ID to get elements within, if applicable
+     * @param accountId - The account ID to get elements within, if applicable
+     */
+    static getAllUrl(courseId = null, accountId = null) {
+        assert_default()(typeof this.allContentUrlTemplate === 'string');
+        let replaced = this.allContentUrlTemplate;
+        if (courseId)
+            replaced = replaced.replace('{course_id}', courseId.toString());
+        if (accountId)
+            replaced = replaced.replace('{account_id}', accountId.toString());
+        return replaced;
+    }
+    static getAll() {
+        return baseCanvasObject_awaiter(this, arguments, void 0, function* (config = null) {
+            let url = this.getAllUrl();
+            return yield fetch_renderAsyncGen(getPagedDataGenerator(this.getAllUrl(), config));
+        });
+    }
+    get id() {
+        const id = this.canvasData[this.constructor.idProperty];
+        return parseInt(id);
+    }
+    get name() {
+        let nameProperty = this.getClass().nameProperty;
+        if (!nameProperty)
+            return 'NAME PROPERTY NOT SET';
+        return this.getItem(nameProperty);
+    }
+    saveData(data, config) {
+        return baseCanvasObject_awaiter(this, void 0, void 0, function* () {
+            assert_default()(this.contentUrlPath);
+            config = fetch_overrideConfig({
+                fetchInit: {
+                    method: 'PUT',
+                    body: canvasUtils_formDataify(data)
+                }
+            }, config);
+            let results = yield fetchJson_fetchJson(this.contentUrlPath, config);
+            if (Array.isArray(results))
+                results = results[0];
+            this.canvasData = Object.assign(Object.assign({}, this.canvasData), results);
+            return this.canvasData;
+        });
+    }
+}
+BaseCanvasObject.idProperty = 'id'; // The field name of the id of the canvas object type
+BaseCanvasObject.nameProperty = 'name'; // The field name of the primary name of the canvas object type
+BaseCanvasObject.contentUrlTemplate = null; // A templated url to get a single item
+BaseCanvasObject.allContentUrlTemplate = null; // A templated url to get all items
+
+;// CONCATENATED MODULE: ./src/canvas/index.ts
+// noinspection GrazieInspection
+/* Very Initial refactor to JS using ChatGPT4
+NOTE: Almost all of this code has had to be rewritten since then.
+And starting to convert to ts
+ */
+/* THis has since been almost entirely rewritten. It did not do a great job at first pass.
+ It kept inventing code that should work but didn't */
+
+
+class NotImplementedException extends Error {
+}
+function canvas_apiWriteConfig(method, data, baseConfig) {
+    const body = formDataify(data);
+    return overrideConfig({
+        fetchInit: {
+            method,
+            body,
+        }
+    }, baseConfig);
+}
+
+
+// EXTERNAL MODULE: ./node_modules/webextension-polyfill/dist/browser-polyfill.js
+var browser_polyfill = __webpack_require__(6815);
+;// CONCATENATED MODULE: ./src/canvas/image.ts
+var image_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+function getResizedBlob(src_1, width_1) {
+    return image_awaiter(this, arguments, void 0, function* (src, width, height = undefined) {
+        let imageSrc = yield contentDownloadImage(src);
+        let canvas = document.createElement('canvas');
+        let image = new Image();
+        image.src = imageSrc;
+        let ctx = canvas.getContext('2d');
+        return new Promise((resolve) => {
+            image.onload = () => {
+                height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
+                assert_default()(ctx);
+                console.log(image.src);
+                canvas.width = width;
+                canvas.height = height;
+                ctx.drawImage(image, 0, 0, width, height);
+                canvas.toBlob(resolve);
+            };
+        });
+    });
+}
+function contentDownloadImage(src) {
+    return image_awaiter(this, void 0, void 0, function* () {
+        const base64 = yield browser_polyfill.runtime.sendMessage({ downloadImage: src });
+        return base64;
+    });
+}
+function backgroundDownloadImage(src) {
+    //if(!height) height = src.height / src.width * width;
+    const imageUrl = src;
+    return new Promise((resolve) => image_awaiter(this, void 0, void 0, function* () {
+        const imageFileResponse = yield fetch(imageUrl);
+        let reader = new FileReader();
+        reader.onload = event => {
+            console.log(reader.result);
+            resolve(reader.result);
+        };
+        const blob = yield imageFileResponse.blob();
+        reader.readAsDataURL(blob);
+    }));
+}
+
+;// CONCATENATED MODULE: ./src/canvas/course/getCourseIdFromUrl.ts
+function getCourseIdFromUrl(url) {
+    let match = /courses\/(\d+)/.exec(url);
+    if (match) {
+        return parseInt(match[1]);
+    }
+    return null;
+}
+
+;// CONCATENATED MODULE: ./src/consts.ts
+const OPEN_AI_API_KEY_KEY = "OPEN_AI_API_KEY";
+const PUBLISH_FORM_EMAIL_TEMPLATE_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics/Form-Email-Template.md';
+const DIST_REPO_URL = 'https://github.com/Unity-Environmental-University/lxd-tools-build';
+const DIST_REPO_MANIFEST = 'https://raw.githubusercontent.com/Unity-Environmental-University/lxd-tools-build/stable/manifest.json';
+const SAFE_MAX_BANNER_WIDTH = 1400;
+
+;// CONCATENATED MODULE: ./src/canvas/content/BaseContentItem.ts
+var BaseContentItem_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+
+
+
+
+
+class BaseContentItem extends BaseCanvasObject {
+    constructor(canvasData, courseId) {
+        super(canvasData);
+        this.kind = undefined;
+        this._courseId = courseId;
+    }
+    get htmlContentUrl() {
+        return `${this.contentUrlPath}`.replace('/api/v1/', '/');
+    }
+    static get contentUrlPart() {
+        assert_default()(this.allContentUrlTemplate, "Not a content url template");
+        const urlTermMatch = /\/([\w_]+)$/.exec(this.allContentUrlTemplate);
+        if (!urlTermMatch)
+            return null;
+        return urlTermMatch[1];
+    }
+    static getAllInCourse(courseId_1) {
+        return BaseContentItem_awaiter(this, arguments, void 0, function* (courseId, config = null) {
+            let url = this.getAllUrl(courseId);
+            let data = yield getPagedData(url, config);
+            return data.map(item => new this(item, courseId));
+        });
+    }
+    static clearAddedContentTags(text) {
+        let out = text.replace(/<\/?link[^>]*>/g, '');
+        out = out.replace(/<\/?script[^>]*>/g, '');
+        return out;
+    }
+    static getFromUrl() {
+        return BaseContentItem_awaiter(this, arguments, void 0, function* (url = null, courseId = null) {
+            if (url === null) {
+                url = document.documentURI;
+            }
+            url = url.replace(/\.com/, '.com/api/v1');
+            let data = yield fetchJson_fetchJson(url);
+            if (!courseId) {
+                courseId = getCourseIdFromUrl(url);
+                if (!courseId)
+                    return null;
+            }
+            //If this is a collection of data, we can't process it as a Canvas Object
+            if (Array.isArray(data))
+                return null;
+            assert_default()(!Array.isArray(data));
+            if (data) {
+                return new this(data, courseId);
+            }
+            return null;
+        });
+    }
+    static getById(contentId, courseId) {
+        return BaseContentItem_awaiter(this, void 0, void 0, function* () {
+            return new this(yield this.getDataById(contentId, courseId), courseId);
+        });
+    }
+    get bodyKey() {
+        return this.myClass.bodyProperty;
+    }
+    get body() {
+        if (!this.bodyKey)
+            return null;
+        return this.myClass.clearAddedContentTags(this.canvasData[this.bodyKey]);
+    }
+    get dueAt() {
+        if (!this.canvasData.hasOwnProperty('due_at')) {
+            return null;
+        }
+        if (!this.canvasData.due_at)
+            return null;
+        return new Date(this.canvasData.due_at);
+    }
+    setDueAt(date) {
+        return BaseContentItem_awaiter(this, void 0, void 0, function* () {
+            throw new NotImplementedException();
+        });
+    }
+    dueAtTimeDelta(timeDelta) {
+        return BaseContentItem_awaiter(this, void 0, void 0, function* () {
+            if (!this.dueAt)
+                return null;
+            let result = new Date(this.dueAt);
+            result.setDate(result.getDate() + timeDelta);
+            return yield this.setDueAt(result);
+        });
+    }
+    get contentUrlPath() {
+        let url = this.constructor.contentUrlTemplate;
+        assert_default()(url);
+        url = url.replace('{course_id}', this.courseId.toString());
+        url = url.replace('{content_id}', this.id.toString());
+        return url;
+    }
+    get courseId() {
+        return this._courseId;
+    }
+    updateContent(text, name, config) {
+        return BaseContentItem_awaiter(this, void 0, void 0, function* () {
+            const data = {};
+            const constructor = this.constructor;
+            assert_default()(constructor.bodyProperty);
+            assert_default()(constructor.nameProperty);
+            const nameProp = constructor.nameProperty;
+            const bodyProp = constructor.bodyProperty;
+            if (text && bodyProp) {
+                this.canvasData[bodyProp] = text;
+                data[bodyProp] = text;
+            }
+            if (name && nameProp) {
+                this.canvasData[nameProp] = name;
+                data[nameProp] = name;
+            }
+            return this.saveData(data, config);
+        });
+    }
+    getMeInAnotherCourse(targetCourseId) {
+        return BaseContentItem_awaiter(this, void 0, void 0, function* () {
+            let ContentClass = this.constructor;
+            let targets = yield ContentClass.getAllInCourse(targetCourseId, { queryParams: { search_term: this.name } });
+            return targets.find((target) => target.name == this.name);
+        });
+    }
+    getAllLinks() {
+        const el = this.bodyAsElement;
+        const anchors = el.querySelectorAll('a');
+        const urls = [];
+        for (let link of anchors)
+            urls.push(link.href);
+        return urls;
+    }
+    get bodyAsElement() {
+        assert_default()(this.body, "This content item has no body property");
+        let el = document.createElement('div');
+        el.innerHTML = this.body;
+        return el;
+    }
+    resizeBanner() {
+        return BaseContentItem_awaiter(this, arguments, void 0, function* (maxWidth = SAFE_MAX_BANNER_WIDTH) {
+            const bannerImg = getBannerImage(this);
+            if (!bannerImg)
+                throw new Error("No banner");
+            let fileData = yield getFileDataFromUrl(bannerImg.src, this.courseId);
+            if (!fileData)
+                throw new Error("File not found");
+            if (bannerImg.naturalWidth < maxWidth)
+                return; //Dont resize image unless we're shrinking it
+            let resizedImageBlob = yield getResizedBlob(bannerImg.src, maxWidth);
+            let fileName = fileData.filename;
+            let fileUploadUrl = `/api/v1/courses/${this.courseId}/files`;
+            assert_default()(resizedImageBlob);
+            let file = new File([resizedImageBlob], fileName);
+            return yield uploadFile(file, fileData.folder_id, fileUploadUrl);
+        });
+    }
+}
+BaseContentItem.nameProperty = 'name';
+function getFileDataFromUrl(url, courseId) {
+    return BaseContentItem_awaiter(this, void 0, void 0, function* () {
+        const match = /.*\/files\/(\d+)/.exec(url);
+        if (!match)
+            return null;
+        if (match) {
+            const fileId = parseInt(match[1]);
+            return yield getFileData(fileId, courseId);
+        }
+    });
+}
+function getBannerImage(overviewPage) {
+    const pageBody = document.createElement('html');
+    if (!overviewPage.body)
+        throw new Error(`Content item ${overviewPage.name} has no html body`);
+    pageBody.innerHTML = overviewPage.body;
+    return pageBody.querySelector('.cbt-banner-image img');
+}
+function getFileData(fileId, courseId) {
+    return BaseContentItem_awaiter(this, void 0, void 0, function* () {
+        const url = `/api/v1/courses/${courseId}/files/${fileId}`;
+        return yield fetchJson_fetchJson(url);
+    });
+}
+function putContentConfig(data, config) {
+    return canvasUtils_deepObjectMerge(config, {
+        fetchInit: {
+            method: 'PUT',
+            body: canvasUtils_formDataify(data)
+        }
+    }, true);
+}
+
+;// CONCATENATED MODULE: ./src/canvas/content/ContentKind.ts
+var ContentKind_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+function contentUrlFuncs(contentUrlPart) {
+    const urlRegex = new RegExp(`courses\/(\\d+)\/${contentUrlPart}/(\\d+)`, 'i');
+    const getApiUrl = courseContentUrlFunc(`/api/v1/courses/{courseId}/${contentUrlPart}/{contentId}`);
+    const getAllApiUrl = (courseId) => `/api/v1/courses/${courseId}/${contentUrlPart}`;
+    const getHtmlUrl = courseContentUrlFunc(`/courses/{courseId}/${contentUrlPart}/{contentId}`);
+    function getCourseAndContentIdFromUrl(url) {
+        var _a;
+        const [full, courseId, contentId] = (_a = url.match(urlRegex)) !== null && _a !== void 0 ? _a : [undefined, undefined, undefined];
+        return [courseId, contentId].map(a => a ? parseInt(a) : undefined);
+    }
+    const isValidUrl = (url) => typeof url === 'string' && typeof getCourseAndContentIdFromUrl(url)[0] !== 'undefined';
+    return {
+        getApiUrl,
+        getAllApiUrl,
+        getHtmlUrl,
+        getCourseAndContentIdFromUrl,
+        isValidUrl,
+    };
+}
+function courseContentUrlFunc(url) {
+    return (courseId, contentId) => url
+        .replaceAll('{courseId}', courseId.toString())
+        .replaceAll('{contentId}', contentId.toString());
+}
+function putContentFunc(getApiUrl) {
+    return function (courseId, contentId, content, config) {
+        return ContentKind_awaiter(this, void 0, void 0, function* () {
+            const url = getApiUrl(courseId, contentId);
+            return yield fetchJson_fetchJson(url, putContentConfig(content, config));
+        });
+    };
+}
+
+;// CONCATENATED MODULE: ./src/canvas/content/assignments/AssignmentKind.ts
+var AssignmentKind_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+const AssignmentUrlFuncs = contentUrlFuncs('assignments');
+const AssignmentKind = Object.assign(Object.assign({ getId: (data) => data.id, dataIsThisKind: (data) => {
+        return 'submission_types' in data;
+    }, getName: (data) => data.name, getBody: (data) => data.description, get(courseId, contentId, config) {
+        return AssignmentKind_awaiter(this, void 0, void 0, function* () {
+            const data = yield fetchJson_fetchJson(this.getApiUrl(courseId, contentId), config);
+            return data;
+        });
+    } }, AssignmentUrlFuncs), { dataGenerator: (courseId, config) => getPagedDataGenerator(AssignmentUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(AssignmentUrlFuncs.getApiUrl) });
+
 ;// CONCATENATED MODULE: ./node_modules/temporal-polyfill/chunks/internal.js
 function clampProp(e, n, t, o, r) {
   return clampEntity(n, getDefinedProp(e, n), t, o, r);
@@ -41772,1073 +45845,7 @@ const xn = {
 
 
 
-// EXTERNAL MODULE: ./node_modules/assert/build/assert.js
-var build_assert = __webpack_require__(4148);
-var assert_default = /*#__PURE__*/__webpack_require__.n(build_assert);
-;// CONCATENATED MODULE: ./src/canvas/fetch/fetchJson.ts
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-function fetchJson_fetchJson(url_1) {
-    return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        const match = url.search(/^(\/|\w+:\/\/)/);
-        if (match < 0)
-            throw new Error("url does not start with / or http");
-        if (config === null || config === void 0 ? void 0 : config.queryParams) {
-            url += '?' + new URLSearchParams(config.queryParams);
-        }
-        config !== null && config !== void 0 ? config : (config = {});
-        const response = yield fetch(url, config.fetchInit);
-        return yield response.json();
-    });
-}
-
-;// CONCATENATED MODULE: ./src/canvas/canvasUtils.ts
-var canvasUtils_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-function isWithParamsFunc(func) {
-    return typeof func === 'function' && func.length > 0;
-}
-function isWithoutParamsFunc(func) {
-    return typeof func === 'function' && func.length === 0;
-}
-function callAll(funcs, params) {
-    const output = [];
-    for (let func of funcs) {
-        if ((typeof func === 'object')) {
-            output.push(func.func(func.params));
-            continue;
-        }
-        if (isWithoutParamsFunc(func)) {
-            output.push(func());
-            continue;
-        }
-        if (isWithParamsFunc(func) && typeof params !== 'undefined') {
-            output.push(func(params));
-        }
-    }
-    return output;
-}
-
-/**
- * Traverses up the DOM and finds a parent with a matching Tag
- * @param el
- * @param tagName
- */
-function parentElement(el, tagName) {
-    if (!el)
-        return null;
-    while (el && el.parentElement) {
-        el = el.parentElement;
-        if (el.tagName && el.tagName.toLowerCase() == tagName) {
-            return el;
-        }
-    }
-    return null;
-}
-const type_lut = {
-    Assignment: 'assignment',
-    Discussion: 'discussion_topic',
-    Quiz: 'quiz',
-    ExternalTool: 'external_tool',
-    File: 'attachment',
-    Page: 'wiki_page',
-    ExternalUrl: null, //Not passable to restrict
-    Subheader: null, //Not passable to restrict
-};
-function canvasUtils_formDataify(data) {
-    let formData = new FormData();
-    for (let key in data) {
-        addToFormData(formData, key, data[key]);
-    }
-    if (document) {
-        const el = document.querySelector("input[name='authenticity_token']");
-        const authenticityToken = el ? el.value : null;
-        const cookies = getCookies();
-        let csrfToken = cookies['_csrf_token'];
-        if (authenticityToken)
-            formData.append('authenticity_token', authenticityToken);
-        else if (csrfToken) {
-            csrfToken = csrfToken.replaceAll(/%([0-9A-F]{2})/g, (substring, hex) => {
-                const hexCode = hex;
-                return String.fromCharCode(parseInt(hexCode, 16));
-            });
-            console.log(csrfToken);
-            formData.append('authenticity_token', csrfToken);
-        }
-    }
-    return formData;
-}
-function deepObjectCopy(toCopy, complexObjectsTracker = []) {
-    return canvasUtils_deepObjectMerge(toCopy, {}, true, complexObjectsTracker);
-}
-function canvasUtils_deepObjectMerge(a, b, overrideWithA = false, complexObjectsTracker = []) {
-    for (let value of [a, b]) {
-        if (typeof value == "object" &&
-            complexObjectsTracker.includes(value))
-            throw new Error(`Infinite Loop: Element ${value} contains itself`);
-    }
-    //if the types don't match
-    if (a && b && (typeof a !== typeof b ||
-        Array.isArray(a) != Array.isArray(b))) {
-        if (a === b)
-            return a;
-        if (overrideWithA)
-            return a;
-        throw new Error(`Type clash on merge ${typeof a} ${a}, ${typeof b} ${b}`);
-    }
-    //If either or both are arrays, merge if able to
-    if (Array.isArray(a)) {
-        if (!b)
-            return deepObjectCopy(a, complexObjectsTracker);
-        assert_default()(Array.isArray(b), "We should not get here if b is not an array");
-        let mergedArray = [...a, ...b];
-        const outputArray = mergedArray.map(value => {
-            if (!value)
-                return value;
-            if (typeof value === 'object' && Object.getPrototypeOf(value) === Object.prototype) {
-                //Make a deep of any object literal
-                if (!value)
-                    return value;
-                value = deepObjectCopy(value, [...complexObjectsTracker, a, b]);
-            }
-            return value;
-        });
-        return outputArray;
-    }
-    if (Array.isArray(b))
-        return deepObjectCopy(b, complexObjectsTracker); //we already know a is not an array at this point, return a deep copy of b
-    if ((a && typeof a === 'object') || (b && typeof b === 'object')) {
-        if (a instanceof File && b instanceof File) {
-            if (!overrideWithA)
-                assert_default()(a.size == b.size && a.name == b.name, `File value clash ${a.name} ${b.name}`);
-            return a;
-        }
-        if (a && Object.getPrototypeOf(a) != Object.prototype
-            || b && Object.getPrototypeOf(b) != Object.prototype) {
-            if (!overrideWithA)
-                assert_default()(!a || !b || a === b, `Non-mergeable object clash ${a} ${b}`);
-            if (a)
-                return a;
-            if (b)
-                return b;
-        }
-        if (a && !b)
-            return deepObjectCopy(a, complexObjectsTracker);
-        if (b && !a)
-            return deepObjectCopy(b, complexObjectsTracker);
-        assert_default()(a && typeof a === 'object' && Object.getPrototypeOf(a) === Object.prototype, "a should always be defined here.");
-        assert_default()(b && typeof b === 'object' && Object.getPrototypeOf(b) === Object.prototype, "b should always be defined here.");
-        const allKeys = [...Object.keys(a), ...Object.keys(b)].filter(filterUniqueFunc);
-        const aRecord = a;
-        const bRecord = b;
-        const entries = allKeys.map((key) => [
-            key,
-            canvasUtils_deepObjectMerge(aRecord[key], bRecord[key], overrideWithA, [...complexObjectsTracker, a, b])
-        ]);
-        return Object.fromEntries(entries);
-    }
-    if (a && b) {
-        if (overrideWithA || a === b)
-            return a;
-        throw new Error(`Values unmergeable, ${a}>:${typeof a}, ${b} ${typeof b}`);
-    }
-    if (a)
-        return a;
-    if (b)
-        return b;
-    if (a === null)
-        return a;
-    if (b === null)
-        return b;
-    assert_default()(typeof a === 'undefined');
-    return a;
-}
-function deFormDataify(formData) {
-    return [...formData.entries()].reduce((aggregator, [key, value]) => {
-        const isArray = key.includes('[]');
-        const keys = key.split('[').map(key => key.replaceAll(/[\[\]]/g, ''));
-        if (isArray)
-            keys.pop(); //remove the last, empty, key if it's an array
-        let currentValue = isArray ? [value] : value;
-        while (keys.length > 0) {
-            let newValue;
-            newValue = {
-                [keys.pop()]: currentValue
-            };
-            currentValue = newValue;
-        }
-        return canvasUtils_deepObjectMerge(aggregator, currentValue) || Object.assign({}, aggregator);
-    }, {});
-}
-function getCookies() {
-    const cookieString = document.cookie;
-    const cookies = cookieString.split('; ');
-    const out = {};
-    for (let cookie of cookies) {
-        const [key, value] = cookie.split('=');
-        out[key] = value;
-    }
-    return out;
-}
-/**
- * Adds arrays and objects in the form formData posts expects
- * @param formData
- * @param key
- * @param value
- */
-function addToFormData(formData, key, value) {
-    if (Array.isArray(value)) {
-        for (let item of value) {
-            addToFormData(formData, `${key}[]`, item);
-        }
-    }
-    else if (typeof value === 'object') {
-        for (let itemKey in value) {
-            const itemValue = value[itemKey];
-            addToFormData(formData, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
-        }
-    }
-    else {
-        formData.append(key, value);
-    }
-}
-function queryStringify(data) {
-    let searchParams = new URLSearchParams();
-    for (let key in data) {
-        addToQuery(searchParams, key, data[key]);
-    }
-    return searchParams;
-}
-function addToQuery(searchParams, key, value) {
-    if (Array.isArray(value)) {
-        for (let item of value) {
-            addToQuery(searchParams, `${key}[]`, item);
-        }
-    }
-    else if (typeof value === 'object') {
-        for (let itemKey in value) {
-            const itemValue = value[itemKey];
-            addToQuery(searchParams, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
-        }
-    }
-    else {
-        searchParams.append(key, value);
-    }
-}
-/**
- * Takes in a module item and returns an object specifying its type and content id
- * @param item
- */
-function canvasUtils_getItemTypeAndId(item) {
-    return canvasUtils_awaiter(this, void 0, void 0, function* () {
-        let id;
-        let type;
-        assert(type_lut.hasOwnProperty(item.type), "Unexpected type " + item.type);
-        type = type_lut[item.type];
-        if (type === "wiki_page") {
-            assert(item.url); //wiki_page items always have a url param
-            const pageData = yield fetchJson(item.url);
-            id = pageData.page_id;
-        }
-        else {
-            id = item.content_id;
-        }
-        return { type, id };
-    });
-}
-/**
- * @param queryParams
- * @returns {URLSearchParams} The correctly formatted parameters
- */
-function searchParamsFromObject(queryParams) {
-    return queryStringify(queryParams);
-}
-/**
- * sort courses (or course Data) alphabetically by name
- * @param a item to compare.
- * @param b item to compare.
- */
-function courseNameSort(a, b) {
-    if (a.name < b.name)
-        return -1;
-    if (b.name < a.name)
-        return 1;
-    return 0;
-}
-function* canvasUtils_range(start, end, step = 1) {
-    if (typeof end === 'undefined') {
-        let i = start;
-        while (true) {
-            yield i;
-            i += step;
-        }
-    }
-    for (let i = start; i <= end; i++) {
-        yield i;
-    }
-}
-function* numbers(start, step = 1) {
-    let i = 0;
-    while (true) {
-        yield i;
-        i += step;
-    }
-}
-function getPlainTextFromHtml(html) {
-    const el = document.createElement('div');
-    el.innerHTML = html;
-    return el.innerText || el.textContent || "";
-}
-function batchify(toBatch, batchSize) {
-    const out = [];
-    for (let i = 0; i < toBatch.length; i += batchSize) {
-        out.push(toBatch.slice(i, i + batchSize));
-    }
-    return out;
-}
-function filterUniqueFunc(item, index, array) {
-    return array.indexOf(item) === index;
-}
-
-;// CONCATENATED MODULE: ./src/canvas/files.ts
-var files_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-function uploadFile(file, folder, url) {
-    return files_awaiter(this, void 0, void 0, function* () {
-        const initialParams = {
-            name: file.name,
-            no_redirect: true,
-            on_duplicate: 'overwrite'
-        };
-        if (typeof folder === 'number')
-            initialParams.parent_folder_id = folder;
-        else
-            initialParams.parent_folder_path = folder;
-        let response = yield fetch(url, {
-            body: canvasUtils_formDataify(initialParams),
-            method: 'POST'
-        });
-        const data = yield response.json();
-        const uploadParams = data.upload_params;
-        const uploadFormData = canvasUtils_formDataify(uploadParams);
-        uploadFormData.append('file', file);
-        response = yield fetch(data.upload_url, {
-            method: 'POST',
-            body: uploadFormData,
-        });
-        assert_default()(response.ok);
-    });
-}
-
-;// CONCATENATED MODULE: ./src/canvas/fetch/getPagedDataGenerator.ts
-var getPagedDataGenerator_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
-var __await = (undefined && undefined.__await) || function (v) { return this instanceof __await ? (this.v = v, this) : new __await(v); }
-var __asyncGenerator = (undefined && undefined.__asyncGenerator) || function (thisArg, _arguments, generator) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var g = generator.apply(thisArg, _arguments || []), i, q = [];
-    return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function () { return this; }, i;
-    function awaitReturn(f) { return function (v) { return Promise.resolve(v).then(f, reject); }; }
-    function verb(n, f) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; if (f) i[n] = f(i[n]); } }
-    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-    function fulfill(value) { resume("next", value); }
-    function reject(value) { resume("throw", value); }
-    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-};
-
-/**
- * @param url The entire path of the url
- * @param config a configuration object of type ICanvasCallConfig
- * @returns {Promise<Record<string, any>[]>}
- */
-function getPagedData(url_1) {
-    return getPagedDataGenerator_awaiter(this, arguments, void 0, function* (url, config = null) {
-        var _a, e_1, _b, _c;
-        const generator = getPagedDataGenerator(url, config);
-        const out = [];
-        try {
-            for (var _d = true, generator_1 = __asyncValues(generator), generator_1_1; generator_1_1 = yield generator_1.next(), _a = generator_1_1.done, !_a; _d = true) {
-                _c = generator_1_1.value;
-                _d = false;
-                let value = _c;
-                out.push(value);
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (!_d && !_a && (_b = generator_1.return)) yield _b.call(generator_1);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-        return out;
-    });
-}
-/**
- * returns a single pagedDataGenerator that returns generator results from each, looping through results for each
- * @param generators
- */
-function mergePagedDataGenerators(generators) {
-    return __asyncGenerator(this, arguments, function* mergePagedDataGenerators_1() {
-        var _a, e_2, _b, _c;
-        for (let generator of generators) {
-            try {
-                for (var _d = true, generator_2 = (e_2 = void 0, __asyncValues(generator)), generator_2_1; generator_2_1 = yield __await(generator_2.next()), _a = generator_2_1.done, !_a; _d = true) {
-                    _c = generator_2_1.value;
-                    _d = false;
-                    let result = _c;
-                    yield yield __await(result);
-                }
-            }
-            catch (e_2_1) { e_2 = { error: e_2_1 }; }
-            finally {
-                try {
-                    if (!_d && !_a && (_b = generator_2.return)) yield __await(_b.call(generator_2));
-                }
-                finally { if (e_2) throw e_2.error; }
-            }
-        }
-    });
-}
-function handleResponseData(data, url) {
-    if (data !== null && typeof data === 'object' && !Array.isArray(data)) {
-        let values = Array.from(Object.values(data));
-        if (values) {
-            data = values.find((a) => Array.isArray(a));
-        }
-    }
-    if (!Array.isArray(data)) {
-        console.warn(`no data for ${url}`);
-        return [];
-    }
-    return data;
-}
-function getPagedDataGenerator(url_1) {
-    return __asyncGenerator(this, arguments, function* getPagedDataGenerator_1(url, config = null) {
-        if (config === null || config === void 0 ? void 0 : config.queryParams) {
-            url += '?' + searchParamsFromObject(config.queryParams);
-        }
-        if (url.includes('undefined')) {
-            console.warn(url);
-        }
-        /* Returns a list of data from a GET request, going through multiple pages of data requests as necessary */
-        let response = yield __await(fetch(url, config === null || config === void 0 ? void 0 : config.fetchInit));
-        let data = handleResponseData(yield __await(response.json()), url);
-        if (data.length === 0)
-            return yield __await(data);
-        for (let value of data)
-            yield yield __await(value);
-        let next_page_link = "!";
-        while (next_page_link.length !== 0 &&
-            response &&
-            response.ok) {
-            const nextLink = getNextLink(response);
-            if (!nextLink)
-                break;
-            next_page_link = nextLink.split(";")[0].split("<")[1].split(">")[0];
-            response = yield __await(fetch(next_page_link, config === null || config === void 0 ? void 0 : config.fetchInit));
-            let responseData = handleResponseData(yield __await(response.json()), url);
-            data = [data, ...responseData];
-            for (let value of responseData) {
-                yield yield __await(value);
-            }
-        }
-    });
-}
-function getNextLink(response) {
-    const link = response.headers.get("Link");
-    if (!link)
-        return null;
-    const paginationLinks = link.split(",");
-    return paginationLinks.find((link) => link.includes('next'));
-}
-
-;// CONCATENATED MODULE: ./src/canvas/fetch/index.ts
-var fetch_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var fetch_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
-var fetch_await = (undefined && undefined.__await) || function (v) { return this instanceof fetch_await ? (this.v = v, this) : new fetch_await(v); }
-var fetch_asyncGenerator = (undefined && undefined.__asyncGenerator) || function (thisArg, _arguments, generator) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var g = generator.apply(thisArg, _arguments || []), i, q = [];
-    return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function () { return this; }, i;
-    function awaitReturn(f) { return function (v) { return Promise.resolve(v).then(f, reject); }; }
-    function verb(n, f) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; if (f) i[n] = f(i[n]); } }
-    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-    function step(r) { r.value instanceof fetch_await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-    function fulfill(value) { resume("next", value); }
-    function reject(value) { resume("throw", value); }
-    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-};
-
-function fetch_overrideConfig(source, override) {
-    var _a;
-    return (_a = canvasUtils_deepObjectMerge(source, override)) !== null && _a !== void 0 ? _a : {};
-}
-function fetch_renderAsyncGen(generator) {
-    return fetch_awaiter(this, void 0, void 0, function* () {
-        var _a, generator_1, generator_1_1;
-        var _b, e_1, _c, _d;
-        const out = [];
-        try {
-            for (_a = true, generator_1 = fetch_asyncValues(generator); generator_1_1 = yield generator_1.next(), _b = generator_1_1.done, !_b; _a = true) {
-                _d = generator_1_1.value;
-                _a = false;
-                let item = _d;
-                out.push(item);
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (!_a && !_b && (_c = generator_1.return)) yield _c.call(generator_1);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-        return out;
-    });
-}
-function fetch_fetchGetConfig(options, baseConfig) {
-    return fetch_overrideConfig(baseConfig, {
-        queryParams: options,
-    });
-}
-function fetch_generatorMap(generator, nextMapFunc) {
-    return fetch_asyncGenerator(this, arguments, function* generatorMap_1() {
-        var _a, e_2, _b, _c;
-        let i = 0;
-        try {
-            for (var _d = true, generator_2 = fetch_asyncValues(generator), generator_2_1; generator_2_1 = yield fetch_await(generator_2.next()), _a = generator_2_1.done, !_a; _d = true) {
-                _c = generator_2_1.value;
-                _d = false;
-                let value = _c;
-                yield yield fetch_await(nextMapFunc(value, i, generator));
-                i++;
-            }
-        }
-        catch (e_2_1) { e_2 = { error: e_2_1 }; }
-        finally {
-            try {
-                if (!_d && !_a && (_b = generator_2.return)) yield fetch_await(_b.call(generator_2));
-            }
-            finally { if (e_2) throw e_2.error; }
-        }
-    });
-}
-
-;// CONCATENATED MODULE: ./src/canvas/baseCanvasObject.ts
-var baseCanvasObject_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-
-
-class BaseCanvasObject {
-    get accountId() {
-        return this._accountId;
-    }
-    constructor(data) {
-        this._accountId = null;
-        this.canvasData = data || {}; // A dict holding the decoded json representation of the object in Canvas
-    }
-    getClass() {
-        return this.constructor;
-    }
-    getItem(item) {
-        return this.canvasData[item];
-    }
-    get myClass() {
-        return this.constructor;
-    }
-    get nameKey() {
-        assert_default()(this.myClass.nameProperty);
-        return this.myClass.nameProperty;
-    }
-    get rawData() {
-        return Object.assign({}, this.canvasData);
-    }
-    get contentUrlPath() {
-        const constructor = this.constructor;
-        assert_default()(typeof this.accountId === 'number');
-        assert_default()(typeof constructor.contentUrlTemplate === 'string');
-        return '/api/v1/' + constructor.contentUrlTemplate
-            .replace('{content_id}', this.id.toString())
-            .replace('{account_id}', this.accountId.toString());
-    }
-    get htmlContentUrl() {
-        return `${this.contentUrlPath}`;
-    }
-    get data() {
-        return this.canvasData;
-    }
-    static getDataById(contentId_1) {
-        return baseCanvasObject_awaiter(this, arguments, void 0, function* (contentId, courseId = null, config = null) {
-            let url = this.getUrlPathFromIds(contentId, courseId);
-            const response = yield fetchJson_fetchJson(url, config);
-            assert_default()(!Array.isArray(response));
-            return response;
-        });
-    }
-    static getUrlPathFromIds(contentId, courseId) {
-        assert_default()(typeof this.contentUrlTemplate === 'string');
-        let url = this.contentUrlTemplate
-            .replace('{content_id}', contentId.toString());
-        if (courseId)
-            url = url.replace('{course_id}', courseId.toString());
-        return url;
-    }
-    /**
-     * @param courseId - The course ID to get elements within, if applicable
-     * @param accountId - The account ID to get elements within, if applicable
-     */
-    static getAllUrl(courseId = null, accountId = null) {
-        assert_default()(typeof this.allContentUrlTemplate === 'string');
-        let replaced = this.allContentUrlTemplate;
-        if (courseId)
-            replaced = replaced.replace('{course_id}', courseId.toString());
-        if (accountId)
-            replaced = replaced.replace('{account_id}', accountId.toString());
-        return replaced;
-    }
-    static getAll() {
-        return baseCanvasObject_awaiter(this, arguments, void 0, function* (config = null) {
-            let url = this.getAllUrl();
-            return yield fetch_renderAsyncGen(getPagedDataGenerator(this.getAllUrl(), config));
-        });
-    }
-    get id() {
-        const id = this.canvasData[this.constructor.idProperty];
-        return parseInt(id);
-    }
-    get name() {
-        let nameProperty = this.getClass().nameProperty;
-        if (!nameProperty)
-            return 'NAME PROPERTY NOT SET';
-        return this.getItem(nameProperty);
-    }
-    saveData(data, config) {
-        return baseCanvasObject_awaiter(this, void 0, void 0, function* () {
-            assert_default()(this.contentUrlPath);
-            config = fetch_overrideConfig({
-                fetchInit: {
-                    method: 'PUT',
-                    body: canvasUtils_formDataify(data)
-                }
-            }, config);
-            let results = yield fetchJson_fetchJson(this.contentUrlPath, config);
-            if (Array.isArray(results))
-                results = results[0];
-            this.canvasData = Object.assign(Object.assign({}, this.canvasData), results);
-            return this.canvasData;
-        });
-    }
-}
-BaseCanvasObject.idProperty = 'id'; // The field name of the id of the canvas object type
-BaseCanvasObject.nameProperty = 'name'; // The field name of the primary name of the canvas object type
-BaseCanvasObject.contentUrlTemplate = null; // A templated url to get a single item
-BaseCanvasObject.allContentUrlTemplate = null; // A templated url to get all items
-
-;// CONCATENATED MODULE: ./src/canvas/index.ts
-// noinspection GrazieInspection
-/* Very Initial refactor to JS using ChatGPT4
-NOTE: Almost all of this code has had to be rewritten since then.
-And starting to convert to ts
- */
-/* THis has since been almost entirely rewritten. It did not do a great job at first pass.
- It kept inventing code that should work but didn't */
-
-
-class NotImplementedException extends Error {
-}
-function canvas_apiWriteConfig(method, data, baseConfig) {
-    const body = formDataify(data);
-    return overrideConfig({
-        fetchInit: {
-            method,
-            body,
-        }
-    }, baseConfig);
-}
-
-
-// EXTERNAL MODULE: ./node_modules/webextension-polyfill/dist/browser-polyfill.js
-var browser_polyfill = __webpack_require__(6815);
-;// CONCATENATED MODULE: ./src/canvas/image.ts
-var image_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-function getResizedBlob(src_1, width_1) {
-    return image_awaiter(this, arguments, void 0, function* (src, width, height = undefined) {
-        let imageSrc = yield contentDownloadImage(src);
-        let canvas = document.createElement('canvas');
-        let image = new Image();
-        image.src = imageSrc;
-        let ctx = canvas.getContext('2d');
-        return new Promise((resolve) => {
-            image.onload = () => {
-                height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
-                assert_default()(ctx);
-                console.log(image.src);
-                canvas.width = width;
-                canvas.height = height;
-                ctx.drawImage(image, 0, 0, width, height);
-                canvas.toBlob(resolve);
-            };
-        });
-    });
-}
-function contentDownloadImage(src) {
-    return image_awaiter(this, void 0, void 0, function* () {
-        const base64 = yield browser_polyfill.runtime.sendMessage({ downloadImage: src });
-        return base64;
-    });
-}
-function backgroundDownloadImage(src) {
-    //if(!height) height = src.height / src.width * width;
-    const imageUrl = src;
-    return new Promise((resolve) => image_awaiter(this, void 0, void 0, function* () {
-        const imageFileResponse = yield fetch(imageUrl);
-        let reader = new FileReader();
-        reader.onload = event => {
-            console.log(reader.result);
-            resolve(reader.result);
-        };
-        const blob = yield imageFileResponse.blob();
-        reader.readAsDataURL(blob);
-    }));
-}
-
-;// CONCATENATED MODULE: ./src/canvas/course/getCourseIdFromUrl.ts
-function getCourseIdFromUrl(url) {
-    let match = /courses\/(\d+)/.exec(url);
-    if (match) {
-        return parseInt(match[1]);
-    }
-    return null;
-}
-
-;// CONCATENATED MODULE: ./src/canvas/content/BaseContentItem.ts
-var BaseContentItem_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-
-
-
-
-
-
-const SAFE_MAX_BANNER_WIDTH = 1400;
-class BaseContentItem extends BaseCanvasObject {
-    constructor(canvasData, courseId) {
-        super(canvasData);
-        this._courseId = courseId;
-    }
-    get htmlContentUrl() {
-        return `${this.contentUrlPath}`.replace('/api/v1/', '/');
-    }
-    static get contentUrlPart() {
-        assert_default()(this.allContentUrlTemplate, "Not a content url template");
-        const urlTermMatch = /\/([\w_]+)$/.exec(this.allContentUrlTemplate);
-        if (!urlTermMatch)
-            return null;
-        return urlTermMatch[1];
-    }
-    static getAllInCourse(courseId_1) {
-        return BaseContentItem_awaiter(this, arguments, void 0, function* (courseId, config = null) {
-            let url = this.getAllUrl(courseId);
-            let data = yield getPagedData(url, config);
-            return data.map(item => new this(item, courseId));
-        });
-    }
-    static clearAddedContentTags(text) {
-        let out = text.replace(/<\/?link[^>]*>/g, '');
-        out = out.replace(/<\/?script[^>]*>/g, '');
-        return out;
-    }
-    static getFromUrl() {
-        return BaseContentItem_awaiter(this, arguments, void 0, function* (url = null, courseId = null) {
-            if (url === null) {
-                url = document.documentURI;
-            }
-            url = url.replace(/\.com/, '.com/api/v1');
-            let data = yield fetchJson_fetchJson(url);
-            if (!courseId) {
-                courseId = getCourseIdFromUrl(url);
-                if (!courseId)
-                    return null;
-            }
-            //If this is a collection of data, we can't process it as a Canvas Object
-            if (Array.isArray(data))
-                return null;
-            assert_default()(!Array.isArray(data));
-            if (data) {
-                return new this(data, courseId);
-            }
-            return null;
-        });
-    }
-    static getById(contentId, courseId) {
-        return BaseContentItem_awaiter(this, void 0, void 0, function* () {
-            return new this(yield this.getDataById(contentId, courseId), courseId);
-        });
-    }
-    get bodyKey() {
-        return this.myClass.bodyProperty;
-    }
-    get body() {
-        if (!this.bodyKey)
-            return null;
-        return this.myClass.clearAddedContentTags(this.canvasData[this.bodyKey]);
-    }
-    get dueAt() {
-        if (!this.canvasData.hasOwnProperty('due_at')) {
-            return null;
-        }
-        if (!this.canvasData.due_at)
-            return null;
-        return new Date(this.canvasData.due_at);
-    }
-    setDueAt(date) {
-        return BaseContentItem_awaiter(this, void 0, void 0, function* () {
-            throw new NotImplementedException();
-        });
-    }
-    dueAtTimeDelta(timeDelta) {
-        return BaseContentItem_awaiter(this, void 0, void 0, function* () {
-            if (!this.dueAt)
-                return null;
-            let result = new Date(this.dueAt);
-            result.setDate(result.getDate() + timeDelta);
-            return yield this.setDueAt(result);
-        });
-    }
-    get contentUrlPath() {
-        let url = this.constructor.contentUrlTemplate;
-        assert_default()(url);
-        url = url.replace('{course_id}', this.courseId.toString());
-        url = url.replace('{content_id}', this.id.toString());
-        return url;
-    }
-    get courseId() {
-        return this._courseId;
-    }
-    updateContent(text, name, config) {
-        return BaseContentItem_awaiter(this, void 0, void 0, function* () {
-            const data = {};
-            const constructor = this.constructor;
-            assert_default()(constructor.bodyProperty);
-            assert_default()(constructor.nameProperty);
-            const nameProp = constructor.nameProperty;
-            const bodyProp = constructor.bodyProperty;
-            if (text && bodyProp) {
-                this.canvasData[bodyProp] = text;
-                data[bodyProp] = text;
-            }
-            if (name && nameProp) {
-                this.canvasData[nameProp] = name;
-                data[nameProp] = name;
-            }
-            return this.saveData(data, config);
-        });
-    }
-    getMeInAnotherCourse(targetCourseId) {
-        return BaseContentItem_awaiter(this, void 0, void 0, function* () {
-            let ContentClass = this.constructor;
-            let targets = yield ContentClass.getAllInCourse(targetCourseId, { queryParams: { search_term: this.name } });
-            return targets.find((target) => target.name == this.name);
-        });
-    }
-    getAllLinks() {
-        const el = this.bodyAsElement;
-        const anchors = el.querySelectorAll('a');
-        const urls = [];
-        for (let link of anchors)
-            urls.push(link.href);
-        return urls;
-    }
-    get bodyAsElement() {
-        assert_default()(this.body, "This content item has no body property");
-        let el = document.createElement('div');
-        el.innerHTML = this.body;
-        return el;
-    }
-    resizeBanner() {
-        return BaseContentItem_awaiter(this, arguments, void 0, function* (maxWidth = SAFE_MAX_BANNER_WIDTH) {
-            const bannerImg = getBannerImage(this);
-            if (!bannerImg)
-                throw new Error("No banner");
-            let fileData = yield getFileDataFromUrl(bannerImg.src, this.courseId);
-            if (!fileData)
-                throw new Error("File not found");
-            if (bannerImg.naturalWidth < maxWidth)
-                return; //Dont resize image unless we're shrinking it
-            let resizedImageBlob = yield getResizedBlob(bannerImg.src, maxWidth);
-            let fileName = fileData.filename;
-            let fileUploadUrl = `/api/v1/courses/${this.courseId}/files`;
-            assert_default()(resizedImageBlob);
-            let file = new File([resizedImageBlob], fileName);
-            return yield uploadFile(file, fileData.folder_id, fileUploadUrl);
-        });
-    }
-}
-BaseContentItem.nameProperty = 'name';
-function getFileDataFromUrl(url, courseId) {
-    return BaseContentItem_awaiter(this, void 0, void 0, function* () {
-        const match = /.*\/files\/(\d+)/.exec(url);
-        if (!match)
-            return null;
-        if (match) {
-            const fileId = parseInt(match[1]);
-            return yield getFileData(fileId, courseId);
-        }
-    });
-}
-function getBannerImage(overviewPage) {
-    const pageBody = document.createElement('html');
-    if (!overviewPage.body)
-        throw new Error(`Content item ${overviewPage.name} has no html body`);
-    pageBody.innerHTML = overviewPage.body;
-    return pageBody.querySelector('.cbt-banner-image img');
-}
-function getFileData(fileId, courseId) {
-    return BaseContentItem_awaiter(this, void 0, void 0, function* () {
-        const url = `/api/v1/courses/${courseId}/files/${fileId}`;
-        return yield fetchJson_fetchJson(url);
-    });
-}
-function putContentConfig(data, config) {
-    return canvasUtils_deepObjectMerge(config, {
-        fetchInit: {
-            method: 'PUT',
-            body: canvasUtils_formDataify(data)
-        }
-    }, true);
-}
-
-;// CONCATENATED MODULE: ./src/canvas/content/contentGenFuncs.ts
-var contentGenFuncs_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-function contentUrlFuncs(contentUrlPart) {
-    const urlRegex = new RegExp(`courses\/(\\d+)\/${contentUrlPart}/(\\d+)`, 'i');
-    const getApiUrl = courseContentUrlFunc(`/api/v1/courses/{courseId}/${contentUrlPart}/{contentId}`);
-    const getAllApiUrl = (courseId) => `/api/v1/courses/${courseId}/${contentUrlPart}`;
-    const getHtmlUrl = courseContentUrlFunc(`/courses/{courseId}/${contentUrlPart}/{contentId}`);
-    function getCourseAndContentIdFromUrl(url) {
-        var _a;
-        const [full, courseId, contentId] = (_a = url.match(urlRegex)) !== null && _a !== void 0 ? _a : [undefined, undefined, undefined];
-        return [courseId, contentId].map(a => a ? parseInt(a) : undefined);
-    }
-    const isValidUrl = (url) => typeof url === 'string' && typeof getCourseAndContentIdFromUrl(url)[0] !== 'undefined';
-    return {
-        getApiUrl,
-        getAllApiUrl,
-        getHtmlUrl,
-        getCourseAndContentIdFromUrl,
-        isValidUrl,
-    };
-}
-function courseContentUrlFunc(url) {
-    return (courseId, contentId) => url
-        .replaceAll('{courseId}', courseId.toString())
-        .replaceAll('{contentId}', contentId.toString());
-}
-function putContentFunc(getApiUrl) {
-    return function (courseId, contentId, content, config) {
-        return contentGenFuncs_awaiter(this, void 0, void 0, function* () {
-            const url = getApiUrl(courseId, contentId);
-            return yield fetchJson_fetchJson(url, putContentConfig(content, config));
-        });
-    };
-}
-
-;// CONCATENATED MODULE: ./src/canvas/content/Assignment.ts
+;// CONCATENATED MODULE: ./src/canvas/content/assignments/Assignment.ts
 var Assignment_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -42852,16 +45859,7 @@ var Assignment_awaiter = (undefined && undefined.__awaiter) || function (thisArg
 
 
 
-
-
-const AssignmentUrlFuncs = contentUrlFuncs('assignments');
-const AssignmentKindInfo = Object.assign(Object.assign({ getId: (data) => data.id, getName: (data) => data.name, getBody: (data) => data.description, get(courseId, contentId, config) {
-        return Assignment_awaiter(this, void 0, void 0, function* () {
-            const data = yield fetchJson_fetchJson(this.getApiUrl(courseId, contentId), config);
-            return data;
-        });
-    } }, AssignmentUrlFuncs), { dataGenerator: (courseId, config) => getPagedDataGenerator(AssignmentUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(AssignmentUrlFuncs.getApiUrl) });
-class Assignment extends BaseContentItem {
+class Assignment_Assignment extends BaseContentItem {
     constructor(assignmentData, courseId) {
         super(assignmentData, courseId);
     }
@@ -42909,2989 +45907,65 @@ class Assignment extends BaseContentItem {
         });
     }
 }
-Assignment.kind = AssignmentKindInfo;
-Assignment.nameProperty = 'name';
-Assignment.bodyProperty = 'description';
-Assignment.contentUrlTemplate = "/api/v1/courses/{course_id}/assignments/{content_id}";
-Assignment.allContentUrlTemplate = "/api/v1/courses/{course_id}/assignments";
-const assignmentDataGen = AssignmentKindInfo.dataGenerator;
-const updateAssignmentData = AssignmentKindInfo.put;
-const getAssignmentData = AssignmentKindInfo.get;
-
-// EXTERNAL MODULE: ./node_modules/classnames/index.js
-var classnames = __webpack_require__(6942);
-var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/canUseDOM.js
-/* harmony default export */ const canUseDOM = (!!(typeof window !== 'undefined' && window.document && window.document.createElement));
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/addEventListener.js
-/* eslint-disable no-return-assign */
-
-var optionsSupported = false;
-var onceSupported = false;
-
-try {
-  var addEventListener_options = {
-    get passive() {
-      return optionsSupported = true;
-    },
-
-    get once() {
-      // eslint-disable-next-line no-multi-assign
-      return onceSupported = optionsSupported = true;
-    }
-
-  };
-
-  if (canUseDOM) {
-    window.addEventListener('test', addEventListener_options, addEventListener_options);
-    window.removeEventListener('test', addEventListener_options, true);
-  }
-} catch (e) {
-  /* */
-}
-
-/**
- * An `addEventListener` ponyfill, supports the `once` option
- * 
- * @param node the element
- * @param eventName the event name
- * @param handle the handler
- * @param options event options
- */
-function addEventListener(node, eventName, handler, options) {
-  if (options && typeof options !== 'boolean' && !onceSupported) {
-    var once = options.once,
-        capture = options.capture;
-    var wrappedHandler = handler;
-
-    if (!onceSupported && once) {
-      wrappedHandler = handler.__once || function onceHandler(event) {
-        this.removeEventListener(eventName, onceHandler, capture);
-        handler.call(this, event);
-      };
-
-      handler.__once = wrappedHandler;
-    }
-
-    node.addEventListener(eventName, wrappedHandler, optionsSupported ? options : capture);
-  }
-
-  node.addEventListener(eventName, handler, options);
-}
-
-/* harmony default export */ const esm_addEventListener = (addEventListener);
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/ownerDocument.js
-/**
- * Returns the owner document of a given element.
- * 
- * @param node the element
- */
-function ownerDocument(node) {
-  return node && node.ownerDocument || document;
-}
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/removeEventListener.js
-/**
- * A `removeEventListener` ponyfill
- * 
- * @param node the element
- * @param eventName the event name
- * @param handle the handler
- * @param options event options
- */
-function removeEventListener(node, eventName, handler, options) {
-  var capture = options && typeof options !== 'boolean' ? options.capture : options;
-  node.removeEventListener(eventName, handler, capture);
-
-  if (handler.__once) {
-    node.removeEventListener(eventName, handler.__once, capture);
-  }
-}
-
-/* harmony default export */ const esm_removeEventListener = (removeEventListener);
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/scrollbarSize.js
-
-var size;
-function scrollbarSize(recalc) {
-  if (!size && size !== 0 || recalc) {
-    if (canUseDOM) {
-      var scrollDiv = document.createElement('div');
-      scrollDiv.style.position = 'absolute';
-      scrollDiv.style.top = '-9999px';
-      scrollDiv.style.width = '50px';
-      scrollDiv.style.height = '50px';
-      scrollDiv.style.overflow = 'scroll';
-      document.body.appendChild(scrollDiv);
-      size = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-      document.body.removeChild(scrollDiv);
-    }
-  }
-
-  return size;
-}
-;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useCallbackRef.js
-
-
-/**
- * A convenience hook around `useState` designed to be paired with
- * the component [callback ref](https://reactjs.org/docs/refs-and-the-dom.html#callback-refs) api.
- * Callback refs are useful over `useRef()` when you need to respond to the ref being set
- * instead of lazily accessing it in an effect.
- *
- * ```ts
- * const [element, attachRef] = useCallbackRef<HTMLDivElement>()
- *
- * useEffect(() => {
- *   if (!element) return
- *
- *   const calendar = new FullCalendar.Calendar(element)
- *
- *   return () => {
- *     calendar.destroy()
- *   }
- * }, [element])
- *
- * return <div ref={attachRef} />
- * ```
- *
- * @category refs
- */
-function useCallbackRef() {
-  return (0,react.useState)(null);
-}
-;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useCommittedRef.js
-
-
-/**
- * Creates a `Ref` whose value is updated in an effect, ensuring the most recent
- * value is the one rendered with. Generally only required for Concurrent mode usage
- * where previous work in `render()` may be discarded before being used.
- *
- * This is safe to access in an event handler.
- *
- * @param value The `Ref` value
- */
-function useCommittedRef(value) {
-  const ref = (0,react.useRef)(value);
-  (0,react.useEffect)(() => {
-    ref.current = value;
-  }, [value]);
-  return ref;
-}
-/* harmony default export */ const esm_useCommittedRef = (useCommittedRef);
-;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useEventCallback.js
-
-
-function useEventCallback(fn) {
-  const ref = esm_useCommittedRef(fn);
-  return (0,react.useCallback)(function (...args) {
-    return ref.current && ref.current(...args);
-  }, [ref]);
-}
-;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useMergedRefs.js
-
-const toFnRef = ref => !ref || typeof ref === 'function' ? ref : value => {
-  ref.current = value;
-};
-function mergeRefs(refA, refB) {
-  const a = toFnRef(refA);
-  const b = toFnRef(refB);
-  return value => {
-    if (a) a(value);
-    if (b) b(value);
-  };
-}
-
-/**
- * Create and returns a single callback ref composed from two other Refs.
- *
- * ```tsx
- * const Button = React.forwardRef((props, ref) => {
- *   const [element, attachRef] = useCallbackRef<HTMLButtonElement>();
- *   const mergedRef = useMergedRefs(ref, attachRef);
- *
- *   return <button ref={mergedRef} {...props}/>
- * })
- * ```
- *
- * @param refA A Callback or mutable Ref
- * @param refB A Callback or mutable Ref
- * @category refs
- */
-function useMergedRefs(refA, refB) {
-  return (0,react.useMemo)(() => mergeRefs(refA, refB), [refA, refB]);
-}
-/* harmony default export */ const esm_useMergedRefs = (useMergedRefs);
-;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useUpdatedRef.js
-
-
-/**
- * Returns a ref that is immediately updated with the new value
- *
- * @param value The Ref value
- * @category refs
- */
-function useUpdatedRef(value) {
-  const valueRef = (0,react.useRef)(value);
-  valueRef.current = value;
-  return valueRef;
-}
-;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useWillUnmount.js
-
-
-
-/**
- * Attach a callback that fires when a component unmounts
- *
- * @param fn Handler to run when the component unmounts
- * @category effects
- */
-function useWillUnmount(fn) {
-  const onUnmount = useUpdatedRef(fn);
-  (0,react.useEffect)(() => () => onUnmount.current(), []);
-}
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/ownerWindow.js
-
-/**
- * Returns the owner window of a given element.
- * 
- * @param node the element
- */
-
-function ownerWindow(node) {
-  var doc = ownerDocument(node);
-  return doc && doc.defaultView || window;
-}
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/getComputedStyle.js
-
-/**
- * Returns one or all computed style properties of an element.
- * 
- * @param node the element
- * @param psuedoElement the style property
- */
-
-function speedGrader_getComputedStyle(node, psuedoElement) {
-  return ownerWindow(node).getComputedStyle(node, psuedoElement);
-}
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/hyphenate.js
-var rUpper = /([A-Z])/g;
-function hyphenate(string) {
-  return string.replace(rUpper, '-$1').toLowerCase();
-}
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/hyphenateStyle.js
-/**
- * Copyright 2013-2014, Facebook, Inc.
- * All rights reserved.
- * https://github.com/facebook/react/blob/2aeb8a2a6beb00617a4217f7f8284924fa2ad819/src/vendor/core/hyphenateStyleName.js
- */
-
-var msPattern = /^ms-/;
-function hyphenateStyleName(string) {
-  return hyphenate(string).replace(msPattern, '-ms-');
-}
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/isTransform.js
-var supportedTransforms = /^((translate|rotate|scale)(X|Y|Z|3d)?|matrix(3d)?|perspective|skew(X|Y)?)$/i;
-function isTransform(value) {
-  return !!(value && supportedTransforms.test(value));
-}
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/css.js
-
-
-
-
-function style(node, property) {
-  var css = '';
-  var transforms = '';
-
-  if (typeof property === 'string') {
-    return node.style.getPropertyValue(hyphenateStyleName(property)) || speedGrader_getComputedStyle(node).getPropertyValue(hyphenateStyleName(property));
-  }
-
-  Object.keys(property).forEach(function (key) {
-    var value = property[key];
-
-    if (!value && value !== 0) {
-      node.style.removeProperty(hyphenateStyleName(key));
-    } else if (isTransform(key)) {
-      transforms += key + "(" + value + ") ";
-    } else {
-      css += hyphenateStyleName(key) + ": " + value + ";";
-    }
-  });
-
-  if (transforms) {
-    css += "transform: " + transforms + ";";
-  }
-
-  node.style.cssText += ";" + css;
-}
-
-/* harmony default export */ const css = (style);
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/listen.js
-
-
-
-function listen(node, eventName, handler, options) {
-  esm_addEventListener(node, eventName, handler, options);
-  return function () {
-    esm_removeEventListener(node, eventName, handler, options);
-  };
-}
-
-/* harmony default export */ const esm_listen = (listen);
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/triggerEvent.js
-/**
- * Triggers an event on a given element.
- * 
- * @param node the element
- * @param eventName the event name to trigger
- * @param bubbles whether the event should bubble up
- * @param cancelable whether the event should be cancelable
- */
-function triggerEvent(node, eventName, bubbles, cancelable) {
-  if (bubbles === void 0) {
-    bubbles = false;
-  }
-
-  if (cancelable === void 0) {
-    cancelable = true;
-  }
-
-  if (node) {
-    var event = document.createEvent('HTMLEvents');
-    event.initEvent(eventName, bubbles, cancelable);
-    node.dispatchEvent(event);
-  }
-}
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/transitionEnd.js
-
-
-
-
-function parseDuration(node) {
-  var str = css(node, 'transitionDuration') || '';
-  var mult = str.indexOf('ms') === -1 ? 1000 : 1;
-  return parseFloat(str) * mult;
-}
-
-function emulateTransitionEnd(element, duration, padding) {
-  if (padding === void 0) {
-    padding = 5;
-  }
-
-  var called = false;
-  var handle = setTimeout(function () {
-    if (!called) triggerEvent(element, 'transitionend', true);
-  }, duration + padding);
-  var remove = esm_listen(element, 'transitionend', function () {
-    called = true;
-  }, {
-    once: true
-  });
-  return function () {
-    clearTimeout(handle);
-    remove();
-  };
-}
-
-function transitionEnd(element, handler, duration, padding) {
-  if (duration == null) duration = parseDuration(element) || 0;
-  var removeEmulate = emulateTransitionEnd(element, duration, padding);
-  var remove = esm_listen(element, 'transitionend', handler);
-  return function () {
-    removeEmulate();
-    remove();
-  };
-}
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/activeElement.js
-
-/**
- * Returns the actively focused element safely.
- *
- * @param doc the document to check
- */
-
-function activeElement(doc) {
-  if (doc === void 0) {
-    doc = ownerDocument();
-  }
-
-  // Support: IE 9 only
-  // IE9 throws an "Unspecified error" accessing document.activeElement from an <iframe>
-  try {
-    var active = doc.activeElement; // IE11 returns a seemingly empty object in some cases when accessing
-    // document.activeElement from an <iframe>
-
-    if (!active || !active.nodeName) return null;
-    return active;
-  } catch (e) {
-    /* ie throws if no active element */
-    return doc.body;
-  }
-}
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/contains.js
-/* eslint-disable no-bitwise, no-cond-assign */
-
-/**
- * Checks if an element contains another given element.
- * 
- * @param context the context element
- * @param node the element to check
- */
-function contains(context, node) {
-  // HTML DOM and SVG DOM may have different support levels,
-  // so we need to check on context instead of a document root element.
-  if (context.contains) return context.contains(node);
-  if (context.compareDocumentPosition) return context === node || !!(context.compareDocumentPosition(node) & 16);
-}
-// EXTERNAL MODULE: ./node_modules/react-dom/index.js
-var react_dom = __webpack_require__(961);
-;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useMounted.js
-
-
-/**
- * Track whether a component is current mounted. Generally less preferable than
- * properlly canceling effects so they don't run after a component is unmounted,
- * but helpful in cases where that isn't feasible, such as a `Promise` resolution.
- *
- * @returns a function that returns the current isMounted state of the component
- *
- * ```ts
- * const [data, setData] = useState(null)
- * const isMounted = useMounted()
- *
- * useEffect(() => {
- *   fetchdata().then((newData) => {
- *      if (isMounted()) {
- *        setData(newData);
- *      }
- *   })
- * })
- * ```
- */
-function useMounted() {
-  const mounted = (0,react.useRef)(true);
-  const isMounted = (0,react.useRef)(() => mounted.current);
-  (0,react.useEffect)(() => {
-    mounted.current = true;
-    return () => {
-      mounted.current = false;
-    };
-  }, []);
-  return isMounted.current;
-}
-;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/usePrevious.js
-
-
-/**
- * Store the last of some value. Tracked via a `Ref` only updating it
- * after the component renders.
- *
- * Helpful if you need to compare a prop value to it's previous value during render.
- *
- * ```ts
- * function Component(props) {
- *   const lastProps = usePrevious(props)
- *
- *   if (lastProps.foo !== props.foo)
- *     resetValueFromProps(props.foo)
- * }
- * ```
- *
- * @param value the value to track
- */
-function usePrevious(value) {
-  const ref = (0,react.useRef)(null);
-  (0,react.useEffect)(() => {
-    ref.current = value;
-  });
-  return ref.current;
-}
-;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/DataKey.js
-const ATTRIBUTE_PREFIX = `data-rr-ui-`;
-const PROPERTY_PREFIX = (/* unused pure expression or super */ null && (`rrUi`));
-function dataAttr(property) {
-  return `${ATTRIBUTE_PREFIX}${property}`;
-}
-function dataProp(property) {
-  return `${PROPERTY_PREFIX}${property}`;
-}
-;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/getScrollbarWidth.js
-/**
- * Get the width of the vertical window scrollbar if it's visible
- */
-function getBodyScrollbarWidth(ownerDocument = document) {
-  const window = ownerDocument.defaultView;
-  return Math.abs(window.innerWidth - ownerDocument.documentElement.clientWidth);
-}
-;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/ModalManager.js
-
-
-
-const OPEN_DATA_ATTRIBUTE = dataAttr('modal-open');
-
-/**
- * Manages a stack of Modals as well as ensuring
- * body scrolling is is disabled and padding accounted for
- */
-class ModalManager {
-  constructor({
-    ownerDocument,
-    handleContainerOverflow = true,
-    isRTL = false
-  } = {}) {
-    this.handleContainerOverflow = handleContainerOverflow;
-    this.isRTL = isRTL;
-    this.modals = [];
-    this.ownerDocument = ownerDocument;
-  }
-  getScrollbarWidth() {
-    return getBodyScrollbarWidth(this.ownerDocument);
-  }
-  getElement() {
-    return (this.ownerDocument || document).body;
-  }
-  setModalAttributes(_modal) {
-    // For overriding
-  }
-  removeModalAttributes(_modal) {
-    // For overriding
-  }
-  setContainerStyle(containerState) {
-    const style = {
-      overflow: 'hidden'
-    };
-
-    // we are only interested in the actual `style` here
-    // because we will override it
-    const paddingProp = this.isRTL ? 'paddingLeft' : 'paddingRight';
-    const container = this.getElement();
-    containerState.style = {
-      overflow: container.style.overflow,
-      [paddingProp]: container.style[paddingProp]
-    };
-    if (containerState.scrollBarWidth) {
-      // use computed style, here to get the real padding
-      // to add our scrollbar width
-      style[paddingProp] = `${parseInt(css(container, paddingProp) || '0', 10) + containerState.scrollBarWidth}px`;
-    }
-    container.setAttribute(OPEN_DATA_ATTRIBUTE, '');
-    css(container, style);
-  }
-  reset() {
-    [...this.modals].forEach(m => this.remove(m));
-  }
-  removeContainerStyle(containerState) {
-    const container = this.getElement();
-    container.removeAttribute(OPEN_DATA_ATTRIBUTE);
-    Object.assign(container.style, containerState.style);
-  }
-  add(modal) {
-    let modalIdx = this.modals.indexOf(modal);
-    if (modalIdx !== -1) {
-      return modalIdx;
-    }
-    modalIdx = this.modals.length;
-    this.modals.push(modal);
-    this.setModalAttributes(modal);
-    if (modalIdx !== 0) {
-      return modalIdx;
-    }
-    this.state = {
-      scrollBarWidth: this.getScrollbarWidth(),
-      style: {}
-    };
-    if (this.handleContainerOverflow) {
-      this.setContainerStyle(this.state);
-    }
-    return modalIdx;
-  }
-  remove(modal) {
-    const modalIdx = this.modals.indexOf(modal);
-    if (modalIdx === -1) {
-      return;
-    }
-    this.modals.splice(modalIdx, 1);
-
-    // if that was the last modal in a container,
-    // clean up the container
-    if (!this.modals.length && this.handleContainerOverflow) {
-      this.removeContainerStyle(this.state);
-    }
-    this.removeModalAttributes(modal);
-  }
-  isTopModal(modal) {
-    return !!this.modals.length && this.modals[this.modals.length - 1] === modal;
-  }
-}
-/* harmony default export */ const esm_ModalManager = (ModalManager);
-;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/useWindow.js
-
-
-const Context = /*#__PURE__*/(0,react.createContext)(canUseDOM ? window : undefined);
-const WindowProvider = Context.Provider;
-
-/**
- * The document "window" placed in React context. Helpful for determining
- * SSR context, or when rendering into an iframe.
- *
- * @returns the current window
- */
-function useWindow() {
-  return (0,react.useContext)(Context);
-}
-;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/useWaitForDOMRef.js
-
-
-
-
-const resolveContainerRef = (ref, document) => {
-  if (!canUseDOM) return null;
-  if (ref == null) return (document || ownerDocument()).body;
-  if (typeof ref === 'function') ref = ref();
-  if (ref && 'current' in ref) ref = ref.current;
-  if (ref && ('nodeType' in ref || ref.getBoundingClientRect)) return ref;
-  return null;
-};
-function useWaitForDOMRef(ref, onResolved) {
-  const window = useWindow();
-  const [resolvedRef, setRef] = (0,react.useState)(() => resolveContainerRef(ref, window == null ? void 0 : window.document));
-  if (!resolvedRef) {
-    const earlyRef = resolveContainerRef(ref);
-    if (earlyRef) setRef(earlyRef);
-  }
-  (0,react.useEffect)(() => {
-    if (onResolved && resolvedRef) {
-      onResolved(resolvedRef);
-    }
-  }, [onResolved, resolvedRef]);
-  (0,react.useEffect)(() => {
-    const nextRef = resolveContainerRef(ref);
-    if (nextRef !== resolvedRef) {
-      setRef(nextRef);
-    }
-  }, [ref, resolvedRef]);
-  return resolvedRef;
-}
-;// CONCATENATED MODULE: ./node_modules/@restart/hooks/esm/useIsomorphicEffect.js
-
-const isReactNative = typeof __webpack_require__.g !== 'undefined' &&
-// @ts-ignore
-__webpack_require__.g.navigator &&
-// @ts-ignore
-__webpack_require__.g.navigator.product === 'ReactNative';
-const isDOM = typeof document !== 'undefined';
-
-/**
- * Is `useLayoutEffect` in a DOM or React Native environment, otherwise resolves to useEffect
- * Only useful to avoid the console warning.
- *
- * PREFER `useEffect` UNLESS YOU KNOW WHAT YOU ARE DOING.
- *
- * @category effects
- */
-/* harmony default export */ const useIsomorphicEffect = (isDOM || isReactNative ? react.useLayoutEffect : react.useEffect);
-;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/NoopTransition.js
-
-
-
-function NoopTransition({
-  children,
-  in: inProp,
-  onExited,
-  mountOnEnter,
-  unmountOnExit
-}) {
-  const ref = (0,react.useRef)(null);
-  const hasEnteredRef = (0,react.useRef)(inProp);
-  const handleExited = useEventCallback(onExited);
-  (0,react.useEffect)(() => {
-    if (inProp) hasEnteredRef.current = true;else {
-      handleExited(ref.current);
-    }
-  }, [inProp, handleExited]);
-  const combinedRef = esm_useMergedRefs(ref, children.ref);
-  const child = /*#__PURE__*/(0,react.cloneElement)(children, {
-    ref: combinedRef
-  });
-  if (inProp) return child;
-  if (unmountOnExit) {
-    return null;
-  }
-  if (!hasEnteredRef.current && mountOnEnter) {
-    return null;
-  }
-  return child;
-}
-/* harmony default export */ const esm_NoopTransition = (NoopTransition);
-;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/utils.js
-
-function isEscKey(e) {
-  return e.code === 'Escape' || e.keyCode === 27;
-}
-function getReactVersion() {
-  const parts = react.version.split('.');
-  return {
-    major: +parts[0],
-    minor: +parts[1],
-    patch: +parts[2]
-  };
-}
-;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/useRTGTransitionProps.js
-const _excluded = ["onEnter", "onEntering", "onEntered", "onExit", "onExiting", "onExited", "addEndListener", "children"];
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-
-
-/**
- * Normalizes RTG transition callbacks with nodeRef to better support
- * strict mode.
- *
- * @param props Transition props.
- * @returns Normalized transition props.
- */
-function useRTGTransitionProps(_ref) {
-  let {
-      onEnter,
-      onEntering,
-      onEntered,
-      onExit,
-      onExiting,
-      onExited,
-      addEndListener,
-      children
-    } = _ref,
-    props = _objectWithoutPropertiesLoose(_ref, _excluded);
-  const {
-    major
-  } = getReactVersion();
-  const childRef = major >= 19 ? children.props.ref : children.ref;
-  const nodeRef = (0,react.useRef)(null);
-  const mergedRef = esm_useMergedRefs(nodeRef, typeof children === 'function' ? null : childRef);
-  const normalize = callback => param => {
-    if (callback && nodeRef.current) {
-      callback(nodeRef.current, param);
-    }
-  };
-
-  /* eslint-disable react-hooks/exhaustive-deps */
-  const handleEnter = (0,react.useCallback)(normalize(onEnter), [onEnter]);
-  const handleEntering = (0,react.useCallback)(normalize(onEntering), [onEntering]);
-  const handleEntered = (0,react.useCallback)(normalize(onEntered), [onEntered]);
-  const handleExit = (0,react.useCallback)(normalize(onExit), [onExit]);
-  const handleExiting = (0,react.useCallback)(normalize(onExiting), [onExiting]);
-  const handleExited = (0,react.useCallback)(normalize(onExited), [onExited]);
-  const handleAddEndListener = (0,react.useCallback)(normalize(addEndListener), [addEndListener]);
-  /* eslint-enable react-hooks/exhaustive-deps */
-
-  return Object.assign({}, props, {
-    nodeRef
-  }, onEnter && {
-    onEnter: handleEnter
-  }, onEntering && {
-    onEntering: handleEntering
-  }, onEntered && {
-    onEntered: handleEntered
-  }, onExit && {
-    onExit: handleExit
-  }, onExiting && {
-    onExiting: handleExiting
-  }, onExited && {
-    onExited: handleExited
-  }, addEndListener && {
-    addEndListener: handleAddEndListener
-  }, {
-    children: typeof children === 'function' ? (status, innerProps) =>
-    // TODO: Types for RTG missing innerProps, so need to cast.
-    children(status, Object.assign({}, innerProps, {
-      ref: mergedRef
-    })) : /*#__PURE__*/(0,react.cloneElement)(children, {
-      ref: mergedRef
-    })
-  });
-}
-;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/RTGTransition.js
-const RTGTransition_excluded = ["component"];
-function RTGTransition_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-
-
-// Normalizes Transition callbacks when nodeRef is used.
-const RTGTransition = /*#__PURE__*/react.forwardRef((_ref, ref) => {
-  let {
-      component: Component
-    } = _ref,
-    props = RTGTransition_objectWithoutPropertiesLoose(_ref, RTGTransition_excluded);
-  const transitionProps = useRTGTransitionProps(props);
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, Object.assign({
-    ref: ref
-  }, transitionProps));
-});
-/* harmony default export */ const esm_RTGTransition = (RTGTransition);
-;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/ImperativeTransition.js
-
-
-
-
-
-
-
-function useTransition({
-  in: inProp,
-  onTransition
-}) {
-  const ref = (0,react.useRef)(null);
-  const isInitialRef = (0,react.useRef)(true);
-  const handleTransition = useEventCallback(onTransition);
-  useIsomorphicEffect(() => {
-    if (!ref.current) {
-      return undefined;
-    }
-    let stale = false;
-    handleTransition({
-      in: inProp,
-      element: ref.current,
-      initial: isInitialRef.current,
-      isStale: () => stale
+Assignment_Assignment.kind = AssignmentKind;
+Assignment_Assignment.nameProperty = 'name';
+Assignment_Assignment.bodyProperty = 'description';
+Assignment_Assignment.contentUrlTemplate = "/api/v1/courses/{course_id}/assignments/{content_id}";
+Assignment_Assignment.allContentUrlTemplate = "/api/v1/courses/{course_id}/assignments";
+
+;// CONCATENATED MODULE: ./src/canvas/content/assignments/index.ts
+var assignments_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
-    return () => {
-      stale = true;
-    };
-  }, [inProp, handleTransition]);
-  useIsomorphicEffect(() => {
-    isInitialRef.current = false;
-    // this is for strict mode
-    return () => {
-      isInitialRef.current = true;
-    };
-  }, []);
-  return ref;
-}
-/**
- * Adapts an imperative transition function to a subset of the RTG `<Transition>` component API.
- *
- * ImperativeTransition does not support mounting options or `appear` at the moment, meaning
- * that it always acts like: `mountOnEnter={true} unmountOnExit={true} appear={true}`
- */
-function ImperativeTransition({
-  children,
-  in: inProp,
-  onExited,
-  onEntered,
-  transition
-}) {
-  const [exited, setExited] = (0,react.useState)(!inProp);
+};
+var assignments_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
 
-  // TODO: I think this needs to be in an effect
-  if (inProp && exited) {
-    setExited(false);
-  }
-  const ref = useTransition({
-    in: !!inProp,
-    onTransition: options => {
-      const onFinish = () => {
-        if (options.isStale()) return;
-        if (options.in) {
-          onEntered == null ? void 0 : onEntered(options.element, options.initial);
-        } else {
-          setExited(true);
-          onExited == null ? void 0 : onExited(options.element);
+
+const assignmentDataGen = AssignmentKind.dataGenerator;
+const updateAssignmentData = AssignmentKind.put;
+const getAssignmentData = AssignmentKind.get;
+function updateAssignmentDueDates(offset, assignments, options) {
+    return assignments_awaiter(this, void 0, void 0, function* () {
+        var _a, assignments_1, assignments_1_1;
+        var _b, e_1, _c, _d;
+        const promises = [];
+        const returnAssignments = [];
+        let { courseId } = options !== null && options !== void 0 ? options : {};
+        if (!courseId && courseId !== 0) {
+            courseId = assignments[0].course_id;
         }
-      };
-      Promise.resolve(transition(options)).then(onFinish, error => {
-        if (!options.in) setExited(true);
-        throw error;
-      });
-    }
-  });
-  const combinedRef = esm_useMergedRefs(ref, children.ref);
-  return exited && !inProp ? null : /*#__PURE__*/(0,react.cloneElement)(children, {
-    ref: combinedRef
-  });
-}
-function renderTransition(component, runTransition, props) {
-  if (component) {
-    return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_RTGTransition, Object.assign({}, props, {
-      component: component
-    }));
-  }
-  if (runTransition) {
-    return /*#__PURE__*/(0,jsx_runtime.jsx)(ImperativeTransition, Object.assign({}, props, {
-      transition: runTransition
-    }));
-  }
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_NoopTransition, Object.assign({}, props));
-}
-;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/Modal.js
-const Modal_excluded = ["show", "role", "className", "style", "children", "backdrop", "keyboard", "onBackdropClick", "onEscapeKeyDown", "transition", "runTransition", "backdropTransition", "runBackdropTransition", "autoFocus", "enforceFocus", "restoreFocus", "restoreFocusOptions", "renderDialog", "renderBackdrop", "manager", "container", "onShow", "onHide", "onExit", "onExited", "onExiting", "onEnter", "onEntering", "onEntered"];
-function Modal_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-/* eslint-disable @typescript-eslint/no-use-before-define, react/prop-types */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-let manager;
-function getManager(window) {
-  if (!manager) manager = new esm_ModalManager({
-    ownerDocument: window == null ? void 0 : window.document
-  });
-  return manager;
-}
-function useModalManager(provided) {
-  const window = useWindow();
-  const modalManager = provided || getManager(window);
-  const modal = (0,react.useRef)({
-    dialog: null,
-    backdrop: null
-  });
-  return Object.assign(modal.current, {
-    add: () => modalManager.add(modal.current),
-    remove: () => modalManager.remove(modal.current),
-    isTopModal: () => modalManager.isTopModal(modal.current),
-    setDialogRef: (0,react.useCallback)(ref => {
-      modal.current.dialog = ref;
-    }, []),
-    setBackdropRef: (0,react.useCallback)(ref => {
-      modal.current.backdrop = ref;
-    }, [])
-  });
-}
-const Modal = /*#__PURE__*/(0,react.forwardRef)((_ref, ref) => {
-  let {
-      show = false,
-      role = 'dialog',
-      className,
-      style,
-      children,
-      backdrop = true,
-      keyboard = true,
-      onBackdropClick,
-      onEscapeKeyDown,
-      transition,
-      runTransition,
-      backdropTransition,
-      runBackdropTransition,
-      autoFocus = true,
-      enforceFocus = true,
-      restoreFocus = true,
-      restoreFocusOptions,
-      renderDialog,
-      renderBackdrop = props => /*#__PURE__*/(0,jsx_runtime.jsx)("div", Object.assign({}, props)),
-      manager: providedManager,
-      container: containerRef,
-      onShow,
-      onHide = () => {},
-      onExit,
-      onExited,
-      onExiting,
-      onEnter,
-      onEntering,
-      onEntered
-    } = _ref,
-    rest = Modal_objectWithoutPropertiesLoose(_ref, Modal_excluded);
-  const ownerWindow = useWindow();
-  const container = useWaitForDOMRef(containerRef);
-  const modal = useModalManager(providedManager);
-  const isMounted = useMounted();
-  const prevShow = usePrevious(show);
-  const [exited, setExited] = (0,react.useState)(!show);
-  const lastFocusRef = (0,react.useRef)(null);
-  (0,react.useImperativeHandle)(ref, () => modal, [modal]);
-  if (canUseDOM && !prevShow && show) {
-    lastFocusRef.current = activeElement(ownerWindow == null ? void 0 : ownerWindow.document);
-  }
-
-  // TODO: I think this needs to be in an effect
-  if (show && exited) {
-    setExited(false);
-  }
-  const handleShow = useEventCallback(() => {
-    modal.add();
-    removeKeydownListenerRef.current = esm_listen(document, 'keydown', handleDocumentKeyDown);
-    removeFocusListenerRef.current = esm_listen(document, 'focus',
-    // the timeout is necessary b/c this will run before the new modal is mounted
-    // and so steals focus from it
-    () => setTimeout(handleEnforceFocus), true);
-    if (onShow) {
-      onShow();
-    }
-
-    // autofocus after onShow to not trigger a focus event for previous
-    // modals before this one is shown.
-    if (autoFocus) {
-      var _modal$dialog$ownerDo, _modal$dialog;
-      const currentActiveElement = activeElement((_modal$dialog$ownerDo = (_modal$dialog = modal.dialog) == null ? void 0 : _modal$dialog.ownerDocument) != null ? _modal$dialog$ownerDo : ownerWindow == null ? void 0 : ownerWindow.document);
-      if (modal.dialog && currentActiveElement && !contains(modal.dialog, currentActiveElement)) {
-        lastFocusRef.current = currentActiveElement;
-        modal.dialog.focus();
-      }
-    }
-  });
-  const handleHide = useEventCallback(() => {
-    modal.remove();
-    removeKeydownListenerRef.current == null ? void 0 : removeKeydownListenerRef.current();
-    removeFocusListenerRef.current == null ? void 0 : removeFocusListenerRef.current();
-    if (restoreFocus) {
-      var _lastFocusRef$current;
-      // Support: <=IE11 doesn't support `focus()` on svg elements (RB: #917)
-      (_lastFocusRef$current = lastFocusRef.current) == null ? void 0 : _lastFocusRef$current.focus == null ? void 0 : _lastFocusRef$current.focus(restoreFocusOptions);
-      lastFocusRef.current = null;
-    }
-  });
-
-  // TODO: try and combine these effects: https://github.com/react-bootstrap/react-overlays/pull/794#discussion_r409954120
-
-  // Show logic when:
-  //  - show is `true` _and_ `container` has resolved
-  (0,react.useEffect)(() => {
-    if (!show || !container) return;
-    handleShow();
-  }, [show, container, /* should never change: */handleShow]);
-
-  // Hide cleanup logic when:
-  //  - `exited` switches to true
-  //  - component unmounts;
-  (0,react.useEffect)(() => {
-    if (!exited) return;
-    handleHide();
-  }, [exited, handleHide]);
-  useWillUnmount(() => {
-    handleHide();
-  });
-
-  // --------------------------------
-
-  const handleEnforceFocus = useEventCallback(() => {
-    if (!enforceFocus || !isMounted() || !modal.isTopModal()) {
-      return;
-    }
-    const currentActiveElement = activeElement(ownerWindow == null ? void 0 : ownerWindow.document);
-    if (modal.dialog && currentActiveElement && !contains(modal.dialog, currentActiveElement)) {
-      modal.dialog.focus();
-    }
-  });
-  const handleBackdropClick = useEventCallback(e => {
-    if (e.target !== e.currentTarget) {
-      return;
-    }
-    onBackdropClick == null ? void 0 : onBackdropClick(e);
-    if (backdrop === true) {
-      onHide();
-    }
-  });
-  const handleDocumentKeyDown = useEventCallback(e => {
-    if (keyboard && isEscKey(e) && modal.isTopModal()) {
-      onEscapeKeyDown == null ? void 0 : onEscapeKeyDown(e);
-      if (!e.defaultPrevented) {
-        onHide();
-      }
-    }
-  });
-  const removeFocusListenerRef = (0,react.useRef)();
-  const removeKeydownListenerRef = (0,react.useRef)();
-  const handleHidden = (...args) => {
-    setExited(true);
-    onExited == null ? void 0 : onExited(...args);
-  };
-  if (!container) {
-    return null;
-  }
-  const dialogProps = Object.assign({
-    role,
-    ref: modal.setDialogRef,
-    // apparently only works on the dialog role element
-    'aria-modal': role === 'dialog' ? true : undefined
-  }, rest, {
-    style,
-    className,
-    tabIndex: -1
-  });
-  let dialog = renderDialog ? renderDialog(dialogProps) : /*#__PURE__*/(0,jsx_runtime.jsx)("div", Object.assign({}, dialogProps, {
-    children: /*#__PURE__*/react.cloneElement(children, {
-      role: 'document'
-    })
-  }));
-  dialog = renderTransition(transition, runTransition, {
-    unmountOnExit: true,
-    mountOnEnter: true,
-    appear: true,
-    in: !!show,
-    onExit,
-    onExiting,
-    onExited: handleHidden,
-    onEnter,
-    onEntering,
-    onEntered,
-    children: dialog
-  });
-  let backdropElement = null;
-  if (backdrop) {
-    backdropElement = renderBackdrop({
-      ref: modal.setBackdropRef,
-      onClick: handleBackdropClick
-    });
-    backdropElement = renderTransition(backdropTransition, runBackdropTransition, {
-      in: !!show,
-      appear: true,
-      mountOnEnter: true,
-      unmountOnExit: true,
-      children: backdropElement
-    });
-  }
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(jsx_runtime.Fragment, {
-    children: /*#__PURE__*/react_dom.createPortal( /*#__PURE__*/(0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
-      children: [backdropElement, dialog]
-    }), container)
-  });
-});
-Modal.displayName = 'Modal';
-/* harmony default export */ const esm_Modal = (Object.assign(Modal, {
-  Manager: esm_ModalManager
-}));
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/hasClass.js
-/**
- * Checks if a given element has a CSS class.
- * 
- * @param element the element
- * @param className the CSS class name
- */
-function hasClass(element, className) {
-  if (element.classList) return !!className && element.classList.contains(className);
-  return (" " + (element.className.baseVal || element.className) + " ").indexOf(" " + className + " ") !== -1;
-}
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/addClass.js
-
-/**
- * Adds a CSS class to a given element.
- * 
- * @param element the element
- * @param className the CSS class name
- */
-
-function addClass(element, className) {
-  if (element.classList) element.classList.add(className);else if (!hasClass(element, className)) if (typeof element.className === 'string') element.className = element.className + " " + className;else element.setAttribute('class', (element.className && element.className.baseVal || '') + " " + className);
-}
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/querySelectorAll.js
-var toArray = Function.prototype.bind.call(Function.prototype.call, [].slice);
-/**
- * Runs `querySelectorAll` on a given element.
- * 
- * @param element the element
- * @param selector the selector
- */
-
-function qsa(element, selector) {
-  return toArray(element.querySelectorAll(selector));
-}
-;// CONCATENATED MODULE: ./node_modules/dom-helpers/esm/removeClass.js
-function replaceClassName(origClass, classToRemove) {
-  return origClass.replace(new RegExp("(^|\\s)" + classToRemove + "(?:\\s|$)", 'g'), '$1').replace(/\s+/g, ' ').replace(/^\s*|\s*$/g, '');
-}
-/**
- * Removes a CSS class from a given element.
- * 
- * @param element the element
- * @param className the CSS class name
- */
-
-
-function removeClass(element, className) {
-  if (element.classList) {
-    element.classList.remove(className);
-  } else if (typeof element.className === 'string') {
-    element.className = replaceClassName(element.className, className);
-  } else {
-    element.setAttribute('class', replaceClassName(element.className && element.className.baseVal || '', className));
-  }
-}
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/BootstrapModalManager.js
-
-
-
-
-
-const Selector = {
-  FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
-  STICKY_CONTENT: '.sticky-top',
-  NAVBAR_TOGGLER: '.navbar-toggler'
-};
-class BootstrapModalManager extends esm_ModalManager {
-  adjustAndStore(prop, element, adjust) {
-    const actual = element.style[prop];
-    // TODO: DOMStringMap and CSSStyleDeclaration aren't strictly compatible
-    // @ts-ignore
-    element.dataset[prop] = actual;
-    css(element, {
-      [prop]: `${parseFloat(css(element, prop)) + adjust}px`
-    });
-  }
-  restore(prop, element) {
-    const value = element.dataset[prop];
-    if (value !== undefined) {
-      delete element.dataset[prop];
-      css(element, {
-        [prop]: value
-      });
-    }
-  }
-  setContainerStyle(containerState) {
-    super.setContainerStyle(containerState);
-    const container = this.getElement();
-    addClass(container, 'modal-open');
-    if (!containerState.scrollBarWidth) return;
-    const paddingProp = this.isRTL ? 'paddingLeft' : 'paddingRight';
-    const marginProp = this.isRTL ? 'marginLeft' : 'marginRight';
-    qsa(container, Selector.FIXED_CONTENT).forEach(el => this.adjustAndStore(paddingProp, el, containerState.scrollBarWidth));
-    qsa(container, Selector.STICKY_CONTENT).forEach(el => this.adjustAndStore(marginProp, el, -containerState.scrollBarWidth));
-    qsa(container, Selector.NAVBAR_TOGGLER).forEach(el => this.adjustAndStore(marginProp, el, containerState.scrollBarWidth));
-  }
-  removeContainerStyle(containerState) {
-    super.removeContainerStyle(containerState);
-    const container = this.getElement();
-    removeClass(container, 'modal-open');
-    const paddingProp = this.isRTL ? 'paddingLeft' : 'paddingRight';
-    const marginProp = this.isRTL ? 'marginLeft' : 'marginRight';
-    qsa(container, Selector.FIXED_CONTENT).forEach(el => this.restore(paddingProp, el));
-    qsa(container, Selector.STICKY_CONTENT).forEach(el => this.restore(marginProp, el));
-    qsa(container, Selector.NAVBAR_TOGGLER).forEach(el => this.restore(marginProp, el));
-  }
-}
-let sharedManager;
-function getSharedManager(options) {
-  if (!sharedManager) sharedManager = new BootstrapModalManager(options);
-  return sharedManager;
-}
-/* harmony default export */ const esm_BootstrapModalManager = ((/* unused pure expression or super */ null && (BootstrapModalManager)));
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
-function objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(r, e) {
-  if (null == r) return {};
-  var t = {};
-  for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
-    if (e.indexOf(n) >= 0) continue;
-    t[n] = r[n];
-  }
-  return t;
-}
-
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js
-function _setPrototypeOf(t, e) {
-  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) {
-    return t.__proto__ = e, t;
-  }, _setPrototypeOf(t, e);
-}
-
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
-
-function _inheritsLoose(t, o) {
-  t.prototype = Object.create(o.prototype), t.prototype.constructor = t, _setPrototypeOf(t, o);
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-transition-group/esm/config.js
-/* harmony default export */ const config = ({
-  disabled: false
-});
-;// CONCATENATED MODULE: ./node_modules/react-transition-group/esm/TransitionGroupContext.js
-
-/* harmony default export */ const TransitionGroupContext = (react.createContext(null));
-;// CONCATENATED MODULE: ./node_modules/react-transition-group/esm/utils/reflow.js
-var forceReflow = function forceReflow(node) {
-  return node.scrollTop;
-};
-;// CONCATENATED MODULE: ./node_modules/react-transition-group/esm/Transition.js
-
-
-
-
-
-
-
-
-
-var UNMOUNTED = 'unmounted';
-var EXITED = 'exited';
-var ENTERING = 'entering';
-var ENTERED = 'entered';
-var EXITING = 'exiting';
-/**
- * The Transition component lets you describe a transition from one component
- * state to another _over time_ with a simple declarative API. Most commonly
- * it's used to animate the mounting and unmounting of a component, but can also
- * be used to describe in-place transition states as well.
- *
- * ---
- *
- * **Note**: `Transition` is a platform-agnostic base component. If you're using
- * transitions in CSS, you'll probably want to use
- * [`CSSTransition`](https://reactcommunity.org/react-transition-group/css-transition)
- * instead. It inherits all the features of `Transition`, but contains
- * additional features necessary to play nice with CSS transitions (hence the
- * name of the component).
- *
- * ---
- *
- * By default the `Transition` component does not alter the behavior of the
- * component it renders, it only tracks "enter" and "exit" states for the
- * components. It's up to you to give meaning and effect to those states. For
- * example we can add styles to a component when it enters or exits:
- *
- * ```jsx
- * import { Transition } from 'react-transition-group';
- *
- * const duration = 300;
- *
- * const defaultStyle = {
- *   transition: `opacity ${duration}ms ease-in-out`,
- *   opacity: 0,
- * }
- *
- * const transitionStyles = {
- *   entering: { opacity: 1 },
- *   entered:  { opacity: 1 },
- *   exiting:  { opacity: 0 },
- *   exited:  { opacity: 0 },
- * };
- *
- * const Fade = ({ in: inProp }) => (
- *   <Transition in={inProp} timeout={duration}>
- *     {state => (
- *       <div style={{
- *         ...defaultStyle,
- *         ...transitionStyles[state]
- *       }}>
- *         I'm a fade Transition!
- *       </div>
- *     )}
- *   </Transition>
- * );
- * ```
- *
- * There are 4 main states a Transition can be in:
- *  - `'entering'`
- *  - `'entered'`
- *  - `'exiting'`
- *  - `'exited'`
- *
- * Transition state is toggled via the `in` prop. When `true` the component
- * begins the "Enter" stage. During this stage, the component will shift from
- * its current transition state, to `'entering'` for the duration of the
- * transition and then to the `'entered'` stage once it's complete. Let's take
- * the following example (we'll use the
- * [useState](https://reactjs.org/docs/hooks-reference.html#usestate) hook):
- *
- * ```jsx
- * function App() {
- *   const [inProp, setInProp] = useState(false);
- *   return (
- *     <div>
- *       <Transition in={inProp} timeout={500}>
- *         {state => (
- *           // ...
- *         )}
- *       </Transition>
- *       <button onClick={() => setInProp(true)}>
- *         Click to Enter
- *       </button>
- *     </div>
- *   );
- * }
- * ```
- *
- * When the button is clicked the component will shift to the `'entering'` state
- * and stay there for 500ms (the value of `timeout`) before it finally switches
- * to `'entered'`.
- *
- * When `in` is `false` the same thing happens except the state moves from
- * `'exiting'` to `'exited'`.
- */
-
-var Transition = /*#__PURE__*/function (_React$Component) {
-  _inheritsLoose(Transition, _React$Component);
-
-  function Transition(props, context) {
-    var _this;
-
-    _this = _React$Component.call(this, props, context) || this;
-    var parentGroup = context; // In the context of a TransitionGroup all enters are really appears
-
-    var appear = parentGroup && !parentGroup.isMounting ? props.enter : props.appear;
-    var initialStatus;
-    _this.appearStatus = null;
-
-    if (props.in) {
-      if (appear) {
-        initialStatus = EXITED;
-        _this.appearStatus = ENTERING;
-      } else {
-        initialStatus = ENTERED;
-      }
-    } else {
-      if (props.unmountOnExit || props.mountOnEnter) {
-        initialStatus = UNMOUNTED;
-      } else {
-        initialStatus = EXITED;
-      }
-    }
-
-    _this.state = {
-      status: initialStatus
-    };
-    _this.nextCallback = null;
-    return _this;
-  }
-
-  Transition.getDerivedStateFromProps = function getDerivedStateFromProps(_ref, prevState) {
-    var nextIn = _ref.in;
-
-    if (nextIn && prevState.status === UNMOUNTED) {
-      return {
-        status: EXITED
-      };
-    }
-
-    return null;
-  } // getSnapshotBeforeUpdate(prevProps) {
-  //   let nextStatus = null
-  //   if (prevProps !== this.props) {
-  //     const { status } = this.state
-  //     if (this.props.in) {
-  //       if (status !== ENTERING && status !== ENTERED) {
-  //         nextStatus = ENTERING
-  //       }
-  //     } else {
-  //       if (status === ENTERING || status === ENTERED) {
-  //         nextStatus = EXITING
-  //       }
-  //     }
-  //   }
-  //   return { nextStatus }
-  // }
-  ;
-
-  var _proto = Transition.prototype;
-
-  _proto.componentDidMount = function componentDidMount() {
-    this.updateStatus(true, this.appearStatus);
-  };
-
-  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
-    var nextStatus = null;
-
-    if (prevProps !== this.props) {
-      var status = this.state.status;
-
-      if (this.props.in) {
-        if (status !== ENTERING && status !== ENTERED) {
-          nextStatus = ENTERING;
+        if (offset === 0 || offset) {
+            try {
+                for (_a = true, assignments_1 = assignments_asyncValues(assignments); assignments_1_1 = yield assignments_1.next(), _b = assignments_1_1.done, !_b; _a = true) {
+                    _d = assignments_1_1.value;
+                    _a = false;
+                    let data = _d;
+                    const assignment = new Assignment(data, courseId);
+                    returnAssignments.push(assignment);
+                    promises.push(assignment.dueAtTimeDelta(Number(offset)));
+                }
+            }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (!_a && !_b && (_c = assignments_1.return)) yield _c.call(assignments_1);
+                }
+                finally { if (e_1) throw e_1.error; }
+            }
         }
-      } else {
-        if (status === ENTERING || status === ENTERED) {
-          nextStatus = EXITING;
-        }
-      }
-    }
-
-    this.updateStatus(false, nextStatus);
-  };
-
-  _proto.componentWillUnmount = function componentWillUnmount() {
-    this.cancelNextCallback();
-  };
-
-  _proto.getTimeouts = function getTimeouts() {
-    var timeout = this.props.timeout;
-    var exit, enter, appear;
-    exit = enter = appear = timeout;
-
-    if (timeout != null && typeof timeout !== 'number') {
-      exit = timeout.exit;
-      enter = timeout.enter; // TODO: remove fallback for next major
-
-      appear = timeout.appear !== undefined ? timeout.appear : enter;
-    }
-
-    return {
-      exit: exit,
-      enter: enter,
-      appear: appear
-    };
-  };
-
-  _proto.updateStatus = function updateStatus(mounting, nextStatus) {
-    if (mounting === void 0) {
-      mounting = false;
-    }
-
-    if (nextStatus !== null) {
-      // nextStatus will always be ENTERING or EXITING.
-      this.cancelNextCallback();
-
-      if (nextStatus === ENTERING) {
-        if (this.props.unmountOnExit || this.props.mountOnEnter) {
-          var node = this.props.nodeRef ? this.props.nodeRef.current : react_dom.findDOMNode(this); // https://github.com/reactjs/react-transition-group/pull/749
-          // With unmountOnExit or mountOnEnter, the enter animation should happen at the transition between `exited` and `entering`.
-          // To make the animation happen,  we have to separate each rendering and avoid being processed as batched.
-
-          if (node) forceReflow(node);
-        }
-
-        this.performEnter(mounting);
-      } else {
-        this.performExit();
-      }
-    } else if (this.props.unmountOnExit && this.state.status === EXITED) {
-      this.setState({
-        status: UNMOUNTED
-      });
-    }
-  };
-
-  _proto.performEnter = function performEnter(mounting) {
-    var _this2 = this;
-
-    var enter = this.props.enter;
-    var appearing = this.context ? this.context.isMounting : mounting;
-
-    var _ref2 = this.props.nodeRef ? [appearing] : [react_dom.findDOMNode(this), appearing],
-        maybeNode = _ref2[0],
-        maybeAppearing = _ref2[1];
-
-    var timeouts = this.getTimeouts();
-    var enterTimeout = appearing ? timeouts.appear : timeouts.enter; // no enter animation skip right to ENTERED
-    // if we are mounting and running this it means appear _must_ be set
-
-    if (!mounting && !enter || config.disabled) {
-      this.safeSetState({
-        status: ENTERED
-      }, function () {
-        _this2.props.onEntered(maybeNode);
-      });
-      return;
-    }
-
-    this.props.onEnter(maybeNode, maybeAppearing);
-    this.safeSetState({
-      status: ENTERING
-    }, function () {
-      _this2.props.onEntering(maybeNode, maybeAppearing);
-
-      _this2.onTransitionEnd(enterTimeout, function () {
-        _this2.safeSetState({
-          status: ENTERED
-        }, function () {
-          _this2.props.onEntered(maybeNode, maybeAppearing);
-        });
-      });
+        return returnAssignments;
     });
-  };
-
-  _proto.performExit = function performExit() {
-    var _this3 = this;
-
-    var exit = this.props.exit;
-    var timeouts = this.getTimeouts();
-    var maybeNode = this.props.nodeRef ? undefined : react_dom.findDOMNode(this); // no exit animation skip right to EXITED
-
-    if (!exit || config.disabled) {
-      this.safeSetState({
-        status: EXITED
-      }, function () {
-        _this3.props.onExited(maybeNode);
-      });
-      return;
-    }
-
-    this.props.onExit(maybeNode);
-    this.safeSetState({
-      status: EXITING
-    }, function () {
-      _this3.props.onExiting(maybeNode);
-
-      _this3.onTransitionEnd(timeouts.exit, function () {
-        _this3.safeSetState({
-          status: EXITED
-        }, function () {
-          _this3.props.onExited(maybeNode);
-        });
-      });
-    });
-  };
-
-  _proto.cancelNextCallback = function cancelNextCallback() {
-    if (this.nextCallback !== null) {
-      this.nextCallback.cancel();
-      this.nextCallback = null;
-    }
-  };
-
-  _proto.safeSetState = function safeSetState(nextState, callback) {
-    // This shouldn't be necessary, but there are weird race conditions with
-    // setState callbacks and unmounting in testing, so always make sure that
-    // we can cancel any pending setState callbacks after we unmount.
-    callback = this.setNextCallback(callback);
-    this.setState(nextState, callback);
-  };
-
-  _proto.setNextCallback = function setNextCallback(callback) {
-    var _this4 = this;
-
-    var active = true;
-
-    this.nextCallback = function (event) {
-      if (active) {
-        active = false;
-        _this4.nextCallback = null;
-        callback(event);
-      }
-    };
-
-    this.nextCallback.cancel = function () {
-      active = false;
-    };
-
-    return this.nextCallback;
-  };
-
-  _proto.onTransitionEnd = function onTransitionEnd(timeout, handler) {
-    this.setNextCallback(handler);
-    var node = this.props.nodeRef ? this.props.nodeRef.current : react_dom.findDOMNode(this);
-    var doesNotHaveTimeoutOrListener = timeout == null && !this.props.addEndListener;
-
-    if (!node || doesNotHaveTimeoutOrListener) {
-      setTimeout(this.nextCallback, 0);
-      return;
-    }
-
-    if (this.props.addEndListener) {
-      var _ref3 = this.props.nodeRef ? [this.nextCallback] : [node, this.nextCallback],
-          maybeNode = _ref3[0],
-          maybeNextCallback = _ref3[1];
-
-      this.props.addEndListener(maybeNode, maybeNextCallback);
-    }
-
-    if (timeout != null) {
-      setTimeout(this.nextCallback, timeout);
-    }
-  };
-
-  _proto.render = function render() {
-    var status = this.state.status;
-
-    if (status === UNMOUNTED) {
-      return null;
-    }
-
-    var _this$props = this.props,
-        children = _this$props.children,
-        _in = _this$props.in,
-        _mountOnEnter = _this$props.mountOnEnter,
-        _unmountOnExit = _this$props.unmountOnExit,
-        _appear = _this$props.appear,
-        _enter = _this$props.enter,
-        _exit = _this$props.exit,
-        _timeout = _this$props.timeout,
-        _addEndListener = _this$props.addEndListener,
-        _onEnter = _this$props.onEnter,
-        _onEntering = _this$props.onEntering,
-        _onEntered = _this$props.onEntered,
-        _onExit = _this$props.onExit,
-        _onExiting = _this$props.onExiting,
-        _onExited = _this$props.onExited,
-        _nodeRef = _this$props.nodeRef,
-        childProps = objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(_this$props, ["children", "in", "mountOnEnter", "unmountOnExit", "appear", "enter", "exit", "timeout", "addEndListener", "onEnter", "onEntering", "onEntered", "onExit", "onExiting", "onExited", "nodeRef"]);
-
-    return (
-      /*#__PURE__*/
-      // allows for nested Transitions
-      react.createElement(TransitionGroupContext.Provider, {
-        value: null
-      }, typeof children === 'function' ? children(status, childProps) : react.cloneElement(react.Children.only(children), childProps))
-    );
-  };
-
-  return Transition;
-}(react.Component);
-
-Transition.contextType = TransitionGroupContext;
-Transition.propTypes =  false ? 0 : {}; // Name the function so it is clearer in the documentation
-
-function noop() {}
-
-Transition.defaultProps = {
-  in: false,
-  mountOnEnter: false,
-  unmountOnExit: false,
-  appear: false,
-  enter: true,
-  exit: true,
-  onEnter: noop,
-  onEntering: noop,
-  onEntered: noop,
-  onExit: noop,
-  onExiting: noop,
-  onExited: noop
-};
-Transition.UNMOUNTED = UNMOUNTED;
-Transition.EXITED = EXITED;
-Transition.ENTERING = ENTERING;
-Transition.ENTERED = ENTERED;
-Transition.EXITING = EXITING;
-/* harmony default export */ const esm_Transition = (Transition);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/transitionEndListener.js
-
-
-function transitionEndListener_parseDuration(node, property) {
-  const str = css(node, property) || '';
-  const mult = str.indexOf('ms') === -1 ? 1000 : 1;
-  return parseFloat(str) * mult;
-}
-function transitionEndListener(element, handler) {
-  const duration = transitionEndListener_parseDuration(element, 'transitionDuration');
-  const delay = transitionEndListener_parseDuration(element, 'transitionDelay');
-  const remove = transitionEnd(element, e => {
-    if (e.target === element) {
-      remove();
-      handler(e);
-    }
-  }, duration + delay);
-}
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/triggerBrowserReflow.js
-// reading a dimension prop will cause the browser to recalculate,
-// which will let our animations work
-function triggerBrowserReflow(node) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-  node.offsetHeight;
-}
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/safeFindDOMNode.js
-
-function safeFindDOMNode(componentOrElement) {
-  if (componentOrElement && 'setState' in componentOrElement) {
-    return react_dom.findDOMNode(componentOrElement);
-  }
-  return componentOrElement != null ? componentOrElement : null;
-}
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/TransitionWrapper.js
-"use client";
-
-
-
-
-
-
-// Normalizes Transition callbacks when nodeRef is used.
-const TransitionWrapper = /*#__PURE__*/react.forwardRef(({
-  onEnter,
-  onEntering,
-  onEntered,
-  onExit,
-  onExiting,
-  onExited,
-  addEndListener,
-  children,
-  childRef,
-  ...props
-}, ref) => {
-  const nodeRef = (0,react.useRef)(null);
-  const mergedRef = esm_useMergedRefs(nodeRef, childRef);
-  const attachRef = r => {
-    mergedRef(safeFindDOMNode(r));
-  };
-  const normalize = callback => param => {
-    if (callback && nodeRef.current) {
-      callback(nodeRef.current, param);
-    }
-  };
-
-  /* eslint-disable react-hooks/exhaustive-deps */
-  const handleEnter = (0,react.useCallback)(normalize(onEnter), [onEnter]);
-  const handleEntering = (0,react.useCallback)(normalize(onEntering), [onEntering]);
-  const handleEntered = (0,react.useCallback)(normalize(onEntered), [onEntered]);
-  const handleExit = (0,react.useCallback)(normalize(onExit), [onExit]);
-  const handleExiting = (0,react.useCallback)(normalize(onExiting), [onExiting]);
-  const handleExited = (0,react.useCallback)(normalize(onExited), [onExited]);
-  const handleAddEndListener = (0,react.useCallback)(normalize(addEndListener), [addEndListener]);
-  /* eslint-enable react-hooks/exhaustive-deps */
-
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_Transition, {
-    ref: ref,
-    ...props,
-    onEnter: handleEnter,
-    onEntered: handleEntered,
-    onEntering: handleEntering,
-    onExit: handleExit,
-    onExited: handleExited,
-    onExiting: handleExiting,
-    addEndListener: handleAddEndListener,
-    nodeRef: nodeRef,
-    children: typeof children === 'function' ? (status, innerProps) =>
-    // TODO: Types for RTG missing innerProps, so need to cast.
-    children(status, {
-      ...innerProps,
-      ref: attachRef
-    }) : /*#__PURE__*/react.cloneElement(children, {
-      ref: attachRef
-    })
-  });
-});
-/* harmony default export */ const esm_TransitionWrapper = (TransitionWrapper);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Fade.js
-
-
-
-
-
-
-
-
-const fadeStyles = {
-  [ENTERING]: 'show',
-  [ENTERED]: 'show'
-};
-const Fade = /*#__PURE__*/react.forwardRef(({
-  className,
-  children,
-  transitionClasses = {},
-  onEnter,
-  ...rest
-}, ref) => {
-  const props = {
-    in: false,
-    timeout: 300,
-    mountOnEnter: false,
-    unmountOnExit: false,
-    appear: false,
-    ...rest
-  };
-  const handleEnter = (0,react.useCallback)((node, isAppearing) => {
-    triggerBrowserReflow(node);
-    onEnter == null ? void 0 : onEnter(node, isAppearing);
-  }, [onEnter]);
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_TransitionWrapper, {
-    ref: ref,
-    addEndListener: transitionEndListener,
-    ...props,
-    onEnter: handleEnter,
-    childRef: children.ref,
-    children: (status, innerProps) => /*#__PURE__*/react.cloneElement(children, {
-      ...innerProps,
-      className: classnames_default()('fade', className, children.props.className, fadeStyles[status], transitionClasses[status])
-    })
-  });
-});
-Fade.displayName = 'Fade';
-/* harmony default export */ const esm_Fade = (Fade);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/ThemeProvider.js
-"use client";
-
-
-
-
-const DEFAULT_BREAKPOINTS = ['xxl', 'xl', 'lg', 'md', 'sm', 'xs'];
-const DEFAULT_MIN_BREAKPOINT = 'xs';
-const ThemeContext = /*#__PURE__*/react.createContext({
-  prefixes: {},
-  breakpoints: DEFAULT_BREAKPOINTS,
-  minBreakpoint: DEFAULT_MIN_BREAKPOINT
-});
-const {
-  Consumer,
-  Provider
-} = ThemeContext;
-function ThemeProvider({
-  prefixes = {},
-  breakpoints = DEFAULT_BREAKPOINTS,
-  minBreakpoint = DEFAULT_MIN_BREAKPOINT,
-  dir,
-  children
-}) {
-  const contextValue = useMemo(() => ({
-    prefixes: {
-      ...prefixes
-    },
-    breakpoints,
-    minBreakpoint,
-    dir
-  }), [prefixes, breakpoints, minBreakpoint, dir]);
-  return /*#__PURE__*/_jsx(Provider, {
-    value: contextValue,
-    children: children
-  });
-}
-function useBootstrapPrefix(prefix, defaultPrefix) {
-  const {
-    prefixes
-  } = (0,react.useContext)(ThemeContext);
-  return prefix || prefixes[defaultPrefix] || defaultPrefix;
-}
-function useBootstrapBreakpoints() {
-  const {
-    breakpoints
-  } = (0,react.useContext)(ThemeContext);
-  return breakpoints;
-}
-function useBootstrapMinBreakpoint() {
-  const {
-    minBreakpoint
-  } = (0,react.useContext)(ThemeContext);
-  return minBreakpoint;
-}
-function useIsRTL() {
-  const {
-    dir
-  } = (0,react.useContext)(ThemeContext);
-  return dir === 'rtl';
-}
-function createBootstrapComponent(Component, opts) {
-  if (typeof opts === 'string') opts = {
-    prefix: opts
-  };
-  const isClassy = Component.prototype && Component.prototype.isReactComponent;
-  // If it's a functional component make sure we don't break it with a ref
-  const {
-    prefix,
-    forwardRefAs = isClassy ? 'ref' : 'innerRef'
-  } = opts;
-  const Wrapped = /*#__PURE__*/React.forwardRef(({
-    ...props
-  }, ref) => {
-    props[forwardRefAs] = ref;
-    const bsPrefix = useBootstrapPrefix(props.bsPrefix, prefix);
-    return /*#__PURE__*/_jsx(Component, {
-      ...props,
-      bsPrefix: bsPrefix
-    });
-  });
-  Wrapped.displayName = `Bootstrap(${Component.displayName || Component.name})`;
-  return Wrapped;
-}
-
-/* harmony default export */ const esm_ThemeProvider = ((/* unused pure expression or super */ null && (ThemeProvider)));
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/ModalBody.js
-"use client";
-
-
-
-
-
-const ModalBody = /*#__PURE__*/react.forwardRef(({
-  className,
-  bsPrefix,
-  as: Component = 'div',
-  ...props
-}, ref) => {
-  bsPrefix = useBootstrapPrefix(bsPrefix, 'modal-body');
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
-    ref: ref,
-    className: classnames_default()(className, bsPrefix),
-    ...props
-  });
-});
-ModalBody.displayName = 'ModalBody';
-/* harmony default export */ const esm_ModalBody = (ModalBody);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/ModalContext.js
-"use client";
-
-
-const ModalContext = /*#__PURE__*/react.createContext({
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onHide() {}
-});
-/* harmony default export */ const esm_ModalContext = (ModalContext);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/ModalDialog.js
-"use client";
-
-
-
-
-
-const ModalDialog = /*#__PURE__*/react.forwardRef(({
-  bsPrefix,
-  className,
-  contentClassName,
-  centered,
-  size,
-  fullscreen,
-  children,
-  scrollable,
-  ...props
-}, ref) => {
-  bsPrefix = useBootstrapPrefix(bsPrefix, 'modal');
-  const dialogClass = `${bsPrefix}-dialog`;
-  const fullScreenClass = typeof fullscreen === 'string' ? `${bsPrefix}-fullscreen-${fullscreen}` : `${bsPrefix}-fullscreen`;
-  return /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
-    ...props,
-    ref: ref,
-    className: classnames_default()(dialogClass, className, size && `${bsPrefix}-${size}`, centered && `${dialogClass}-centered`, scrollable && `${dialogClass}-scrollable`, fullscreen && fullScreenClass),
-    children: /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
-      className: classnames_default()(`${bsPrefix}-content`, contentClassName),
-      children: children
-    })
-  });
-});
-ModalDialog.displayName = 'ModalDialog';
-/* harmony default export */ const esm_ModalDialog = (ModalDialog);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/ModalFooter.js
-"use client";
-
-
-
-
-
-const ModalFooter = /*#__PURE__*/react.forwardRef(({
-  className,
-  bsPrefix,
-  as: Component = 'div',
-  ...props
-}, ref) => {
-  bsPrefix = useBootstrapPrefix(bsPrefix, 'modal-footer');
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
-    ref: ref,
-    className: classnames_default()(className, bsPrefix),
-    ...props
-  });
-});
-ModalFooter.displayName = 'ModalFooter';
-/* harmony default export */ const esm_ModalFooter = (ModalFooter);
-// EXTERNAL MODULE: ./node_modules/prop-types/index.js
-var prop_types = __webpack_require__(5556);
-var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CloseButton.js
-
-
-
-
-const propTypes = {
-  /** An accessible label indicating the relevant information about the Close Button. */
-  'aria-label': (prop_types_default()).string,
-  /** A callback fired after the Close Button is clicked. */
-  onClick: (prop_types_default()).func,
-  /**
-   * Render different color variant for the button.
-   *
-   * Omitting this will render the default dark color.
-   */
-  variant: prop_types_default().oneOf(['white'])
-};
-const CloseButton = /*#__PURE__*/react.forwardRef(({
-  className,
-  variant,
-  'aria-label': ariaLabel = 'Close',
-  ...props
-}, ref) => /*#__PURE__*/(0,jsx_runtime.jsx)("button", {
-  ref: ref,
-  type: "button",
-  className: classnames_default()('btn-close', variant && `btn-close-${variant}`, className),
-  "aria-label": ariaLabel,
-  ...props
-}));
-CloseButton.displayName = 'CloseButton';
-CloseButton.propTypes = propTypes;
-/* harmony default export */ const esm_CloseButton = (CloseButton);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/AbstractModalHeader.js
-"use client";
-
-
-
-
-
-
-
-
-const AbstractModalHeader = /*#__PURE__*/react.forwardRef(({
-  closeLabel = 'Close',
-  closeVariant,
-  closeButton = false,
-  onHide,
-  children,
-  ...props
-}, ref) => {
-  const context = (0,react.useContext)(esm_ModalContext);
-  const handleClick = useEventCallback(() => {
-    context == null ? void 0 : context.onHide();
-    onHide == null ? void 0 : onHide();
-  });
-  return /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
-    ref: ref,
-    ...props,
-    children: [children, closeButton && /*#__PURE__*/(0,jsx_runtime.jsx)(esm_CloseButton, {
-      "aria-label": closeLabel,
-      variant: closeVariant,
-      onClick: handleClick
-    })]
-  });
-});
-/* harmony default export */ const esm_AbstractModalHeader = (AbstractModalHeader);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/ModalHeader.js
-"use client";
-
-
-
-
-
-
-const ModalHeader = /*#__PURE__*/react.forwardRef(({
-  bsPrefix,
-  className,
-  closeLabel = 'Close',
-  closeButton = false,
-  ...props
-}, ref) => {
-  bsPrefix = useBootstrapPrefix(bsPrefix, 'modal-header');
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_AbstractModalHeader, {
-    ref: ref,
-    ...props,
-    className: classnames_default()(className, bsPrefix),
-    closeLabel: closeLabel,
-    closeButton: closeButton
-  });
-});
-ModalHeader.displayName = 'ModalHeader';
-/* harmony default export */ const esm_ModalHeader = (ModalHeader);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/divWithClassName.js
-
-
-
-/* harmony default export */ const divWithClassName = (className => /*#__PURE__*/react.forwardRef((p, ref) => /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
-  ...p,
-  ref: ref,
-  className: classnames_default()(p.className, className)
-})));
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/ModalTitle.js
-"use client";
-
-
-
-
-
-
-const DivStyledAsH4 = divWithClassName('h4');
-const ModalTitle = /*#__PURE__*/react.forwardRef(({
-  className,
-  bsPrefix,
-  as: Component = DivStyledAsH4,
-  ...props
-}, ref) => {
-  bsPrefix = useBootstrapPrefix(bsPrefix, 'modal-title');
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
-    ref: ref,
-    className: classnames_default()(className, bsPrefix),
-    ...props
-  });
-});
-ModalTitle.displayName = 'ModalTitle';
-/* harmony default export */ const esm_ModalTitle = (ModalTitle);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Modal.js
-"use client";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* eslint-disable no-use-before-define, react/no-multi-comp */
-function DialogTransition(props) {
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_Fade, {
-    ...props,
-    timeout: null
-  });
-}
-function BackdropTransition(props) {
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_Fade, {
-    ...props,
-    timeout: null
-  });
-}
-
-/* eslint-enable no-use-before-define */
-const Modal_Modal = /*#__PURE__*/react.forwardRef(({
-  bsPrefix,
-  className,
-  style,
-  dialogClassName,
-  contentClassName,
-  children,
-  dialogAs: Dialog = esm_ModalDialog,
-  'data-bs-theme': dataBsTheme,
-  'aria-labelledby': ariaLabelledby,
-  'aria-describedby': ariaDescribedby,
-  'aria-label': ariaLabel,
-  /* BaseModal props */
-
-  show = false,
-  animation = true,
-  backdrop = true,
-  keyboard = true,
-  onEscapeKeyDown,
-  onShow,
-  onHide,
-  container,
-  autoFocus = true,
-  enforceFocus = true,
-  restoreFocus = true,
-  restoreFocusOptions,
-  onEntered,
-  onExit,
-  onExiting,
-  onEnter,
-  onEntering,
-  onExited,
-  backdropClassName,
-  manager: propsManager,
-  ...props
-}, ref) => {
-  const [modalStyle, setStyle] = (0,react.useState)({});
-  const [animateStaticModal, setAnimateStaticModal] = (0,react.useState)(false);
-  const waitingForMouseUpRef = (0,react.useRef)(false);
-  const ignoreBackdropClickRef = (0,react.useRef)(false);
-  const removeStaticModalAnimationRef = (0,react.useRef)(null);
-  const [modal, setModalRef] = useCallbackRef();
-  const mergedRef = esm_useMergedRefs(ref, setModalRef);
-  const handleHide = useEventCallback(onHide);
-  const isRTL = useIsRTL();
-  bsPrefix = useBootstrapPrefix(bsPrefix, 'modal');
-  const modalContext = (0,react.useMemo)(() => ({
-    onHide: handleHide
-  }), [handleHide]);
-  function getModalManager() {
-    if (propsManager) return propsManager;
-    return getSharedManager({
-      isRTL
-    });
-  }
-  function updateDialogStyle(node) {
-    if (!canUseDOM) return;
-    const containerIsOverflowing = getModalManager().getScrollbarWidth() > 0;
-    const modalIsOverflowing = node.scrollHeight > ownerDocument(node).documentElement.clientHeight;
-    setStyle({
-      paddingRight: containerIsOverflowing && !modalIsOverflowing ? scrollbarSize() : undefined,
-      paddingLeft: !containerIsOverflowing && modalIsOverflowing ? scrollbarSize() : undefined
-    });
-  }
-  const handleWindowResize = useEventCallback(() => {
-    if (modal) {
-      updateDialogStyle(modal.dialog);
-    }
-  });
-  useWillUnmount(() => {
-    esm_removeEventListener(window, 'resize', handleWindowResize);
-    removeStaticModalAnimationRef.current == null ? void 0 : removeStaticModalAnimationRef.current();
-  });
-
-  // We prevent the modal from closing during a drag by detecting where the
-  // click originates from. If it starts in the modal and then ends outside
-  // don't close.
-  const handleDialogMouseDown = () => {
-    waitingForMouseUpRef.current = true;
-  };
-  const handleMouseUp = e => {
-    if (waitingForMouseUpRef.current && modal && e.target === modal.dialog) {
-      ignoreBackdropClickRef.current = true;
-    }
-    waitingForMouseUpRef.current = false;
-  };
-  const handleStaticModalAnimation = () => {
-    setAnimateStaticModal(true);
-    removeStaticModalAnimationRef.current = transitionEnd(modal.dialog, () => {
-      setAnimateStaticModal(false);
-    });
-  };
-  const handleStaticBackdropClick = e => {
-    if (e.target !== e.currentTarget) {
-      return;
-    }
-    handleStaticModalAnimation();
-  };
-  const handleClick = e => {
-    if (backdrop === 'static') {
-      handleStaticBackdropClick(e);
-      return;
-    }
-    if (ignoreBackdropClickRef.current || e.target !== e.currentTarget) {
-      ignoreBackdropClickRef.current = false;
-      return;
-    }
-    onHide == null ? void 0 : onHide();
-  };
-  const handleEscapeKeyDown = e => {
-    if (keyboard) {
-      onEscapeKeyDown == null ? void 0 : onEscapeKeyDown(e);
-    } else {
-      // Call preventDefault to stop modal from closing in @restart/ui.
-      e.preventDefault();
-      if (backdrop === 'static') {
-        // Play static modal animation.
-        handleStaticModalAnimation();
-      }
-    }
-  };
-  const handleEnter = (node, isAppearing) => {
-    if (node) {
-      updateDialogStyle(node);
-    }
-    onEnter == null ? void 0 : onEnter(node, isAppearing);
-  };
-  const handleExit = node => {
-    removeStaticModalAnimationRef.current == null ? void 0 : removeStaticModalAnimationRef.current();
-    onExit == null ? void 0 : onExit(node);
-  };
-  const handleEntering = (node, isAppearing) => {
-    onEntering == null ? void 0 : onEntering(node, isAppearing);
-
-    // FIXME: This should work even when animation is disabled.
-    esm_addEventListener(window, 'resize', handleWindowResize);
-  };
-  const handleExited = node => {
-    if (node) node.style.display = ''; // RHL removes it sometimes
-    onExited == null ? void 0 : onExited(node);
-
-    // FIXME: This should work even when animation is disabled.
-    esm_removeEventListener(window, 'resize', handleWindowResize);
-  };
-  const renderBackdrop = (0,react.useCallback)(backdropProps => /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
-    ...backdropProps,
-    className: classnames_default()(`${bsPrefix}-backdrop`, backdropClassName, !animation && 'show')
-  }), [animation, backdropClassName, bsPrefix]);
-  const baseModalStyle = {
-    ...style,
-    ...modalStyle
-  };
-
-  // If `display` is not set to block, autoFocus inside the modal fails
-  // https://github.com/react-bootstrap/react-bootstrap/issues/5102
-  baseModalStyle.display = 'block';
-  const renderDialog = dialogProps => /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
-    role: "dialog",
-    ...dialogProps,
-    style: baseModalStyle,
-    className: classnames_default()(className, bsPrefix, animateStaticModal && `${bsPrefix}-static`, !animation && 'show'),
-    onClick: backdrop ? handleClick : undefined,
-    onMouseUp: handleMouseUp,
-    "data-bs-theme": dataBsTheme,
-    "aria-label": ariaLabel,
-    "aria-labelledby": ariaLabelledby,
-    "aria-describedby": ariaDescribedby,
-    children: /*#__PURE__*/(0,jsx_runtime.jsx)(Dialog, {
-      ...props,
-      onMouseDown: handleDialogMouseDown,
-      className: dialogClassName,
-      contentClassName: contentClassName,
-      children: children
-    })
-  });
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(esm_ModalContext.Provider, {
-    value: modalContext,
-    children: /*#__PURE__*/(0,jsx_runtime.jsx)(esm_Modal, {
-      show: show,
-      ref: mergedRef,
-      backdrop: backdrop,
-      container: container,
-      keyboard: true // Always set true - see handleEscapeKeyDown
-      ,
-      autoFocus: autoFocus,
-      enforceFocus: enforceFocus,
-      restoreFocus: restoreFocus,
-      restoreFocusOptions: restoreFocusOptions,
-      onEscapeKeyDown: handleEscapeKeyDown,
-      onShow: onShow,
-      onHide: onHide,
-      onEnter: handleEnter,
-      onEntering: handleEntering,
-      onEntered: onEntered,
-      onExit: handleExit,
-      onExiting: onExiting,
-      onExited: handleExited,
-      manager: getModalManager(),
-      transition: animation ? DialogTransition : undefined,
-      backdropTransition: animation ? BackdropTransition : undefined,
-      renderBackdrop: renderBackdrop,
-      renderDialog: renderDialog
-    })
-  });
-});
-Modal_Modal.displayName = 'Modal';
-/* harmony default export */ const react_bootstrap_esm_Modal = (Object.assign(Modal_Modal, {
-  Body: esm_ModalBody,
-  Header: esm_ModalHeader,
-  Title: esm_ModalTitle,
-  Footer: esm_ModalFooter,
-  Dialog: esm_ModalDialog,
-  TRANSITION_DURATION: 300,
-  BACKDROP_TRANSITION_DURATION: 150
-}));
-;// CONCATENATED MODULE: ./src/ui/speedGrader/controls/SpeedGraderModalDialog.tsx
-
-
-function SpeedGraderModalDialog(props) {
-    const { show, canClose, message, header } = props;
-    return ((0,jsx_runtime.jsx)(jsx_runtime.Fragment, { children: (0,jsx_runtime.jsxs)(react_bootstrap_esm_Modal, { show: show, children: [(0,jsx_runtime.jsx)(react_bootstrap_esm_Modal.Header, { closeButton: canClose, children: (0,jsx_runtime.jsx)(react_bootstrap_esm_Modal.Title, { children: header }) }), (0,jsx_runtime.jsx)(react_bootstrap_esm_Modal.Body, { children: message })] }) }));
-}
-
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Row.js
-"use client";
-
-
-
-
-
-const Row = /*#__PURE__*/react.forwardRef(({
-  bsPrefix,
-  className,
-  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-  as: Component = 'div',
-  ...props
-}, ref) => {
-  const decoratedBsPrefix = useBootstrapPrefix(bsPrefix, 'row');
-  const breakpoints = useBootstrapBreakpoints();
-  const minBreakpoint = useBootstrapMinBreakpoint();
-  const sizePrefix = `${decoratedBsPrefix}-cols`;
-  const classes = [];
-  breakpoints.forEach(brkPoint => {
-    const propValue = props[brkPoint];
-    delete props[brkPoint];
-    let cols;
-    if (propValue != null && typeof propValue === 'object') {
-      ({
-        cols
-      } = propValue);
-    } else {
-      cols = propValue;
-    }
-    const infix = brkPoint !== minBreakpoint ? `-${brkPoint}` : '';
-    if (cols != null) classes.push(`${sizePrefix}${infix}-${cols}`);
-  });
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
-    ref: ref,
-    ...props,
-    className: classnames_default()(className, decoratedBsPrefix, ...classes)
-  });
-});
-Row.displayName = 'Row';
-/* harmony default export */ const esm_Row = (Row);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Col.js
-"use client";
-
-
-
-
-
-function useCol({
-  as,
-  bsPrefix,
-  className,
-  ...props
-}) {
-  bsPrefix = useBootstrapPrefix(bsPrefix, 'col');
-  const breakpoints = useBootstrapBreakpoints();
-  const minBreakpoint = useBootstrapMinBreakpoint();
-  const spans = [];
-  const classes = [];
-  breakpoints.forEach(brkPoint => {
-    const propValue = props[brkPoint];
-    delete props[brkPoint];
-    let span;
-    let offset;
-    let order;
-    if (typeof propValue === 'object' && propValue != null) {
-      ({
-        span,
-        offset,
-        order
-      } = propValue);
-    } else {
-      span = propValue;
-    }
-    const infix = brkPoint !== minBreakpoint ? `-${brkPoint}` : '';
-    if (span) spans.push(span === true ? `${bsPrefix}${infix}` : `${bsPrefix}${infix}-${span}`);
-    if (order != null) classes.push(`order${infix}-${order}`);
-    if (offset != null) classes.push(`offset${infix}-${offset}`);
-  });
-  return [{
-    ...props,
-    className: classnames_default()(className, ...spans, ...classes)
-  }, {
-    as,
-    bsPrefix,
-    spans
-  }];
-}
-const Col = /*#__PURE__*/react.forwardRef(
-// Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-(props, ref) => {
-  const [{
-    className,
-    ...colProps
-  }, {
-    as: Component = 'div',
-    bsPrefix,
-    spans
-  }] = useCol(props);
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
-    ...colProps,
-    ref: ref,
-    className: classnames_default()(className, !spans.length && bsPrefix)
-  });
-});
-Col.displayName = 'Col';
-/* harmony default export */ const esm_Col = (Col);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardBody.js
-"use client";
-
-
-
-
-
-const CardBody = /*#__PURE__*/react.forwardRef(({
-  className,
-  bsPrefix,
-  as: Component = 'div',
-  ...props
-}, ref) => {
-  bsPrefix = useBootstrapPrefix(bsPrefix, 'card-body');
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
-    ref: ref,
-    className: classnames_default()(className, bsPrefix),
-    ...props
-  });
-});
-CardBody.displayName = 'CardBody';
-/* harmony default export */ const esm_CardBody = (CardBody);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardFooter.js
-"use client";
-
-
-
-
-
-const CardFooter = /*#__PURE__*/react.forwardRef(({
-  className,
-  bsPrefix,
-  as: Component = 'div',
-  ...props
-}, ref) => {
-  bsPrefix = useBootstrapPrefix(bsPrefix, 'card-footer');
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
-    ref: ref,
-    className: classnames_default()(className, bsPrefix),
-    ...props
-  });
-});
-CardFooter.displayName = 'CardFooter';
-/* harmony default export */ const esm_CardFooter = (CardFooter);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardHeaderContext.js
-"use client";
-
-
-const context = /*#__PURE__*/react.createContext(null);
-context.displayName = 'CardHeaderContext';
-/* harmony default export */ const CardHeaderContext = (context);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardHeader.js
-"use client";
-
-
-
-
-
-
-
-const CardHeader = /*#__PURE__*/react.forwardRef(({
-  bsPrefix,
-  className,
-  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-  as: Component = 'div',
-  ...props
-}, ref) => {
-  const prefix = useBootstrapPrefix(bsPrefix, 'card-header');
-  const contextValue = (0,react.useMemo)(() => ({
-    cardHeaderBsPrefix: prefix
-  }), [prefix]);
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(CardHeaderContext.Provider, {
-    value: contextValue,
-    children: /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
-      ref: ref,
-      ...props,
-      className: classnames_default()(className, prefix)
-    })
-  });
-});
-CardHeader.displayName = 'CardHeader';
-/* harmony default export */ const esm_CardHeader = (CardHeader);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardImg.js
-"use client";
-
-
-
-
-
-const CardImg = /*#__PURE__*/react.forwardRef(
-// Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-({
-  bsPrefix,
-  className,
-  variant,
-  as: Component = 'img',
-  ...props
-}, ref) => {
-  const prefix = useBootstrapPrefix(bsPrefix, 'card-img');
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
-    ref: ref,
-    className: classnames_default()(variant ? `${prefix}-${variant}` : prefix, className),
-    ...props
-  });
-});
-CardImg.displayName = 'CardImg';
-/* harmony default export */ const esm_CardImg = (CardImg);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardImgOverlay.js
-"use client";
-
-
-
-
-
-const CardImgOverlay = /*#__PURE__*/react.forwardRef(({
-  className,
-  bsPrefix,
-  as: Component = 'div',
-  ...props
-}, ref) => {
-  bsPrefix = useBootstrapPrefix(bsPrefix, 'card-img-overlay');
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
-    ref: ref,
-    className: classnames_default()(className, bsPrefix),
-    ...props
-  });
-});
-CardImgOverlay.displayName = 'CardImgOverlay';
-/* harmony default export */ const esm_CardImgOverlay = (CardImgOverlay);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardLink.js
-"use client";
-
-
-
-
-
-const CardLink = /*#__PURE__*/react.forwardRef(({
-  className,
-  bsPrefix,
-  as: Component = 'a',
-  ...props
-}, ref) => {
-  bsPrefix = useBootstrapPrefix(bsPrefix, 'card-link');
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
-    ref: ref,
-    className: classnames_default()(className, bsPrefix),
-    ...props
-  });
-});
-CardLink.displayName = 'CardLink';
-/* harmony default export */ const esm_CardLink = (CardLink);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardSubtitle.js
-"use client";
-
-
-
-
-
-
-const DivStyledAsH6 = divWithClassName('h6');
-const CardSubtitle = /*#__PURE__*/react.forwardRef(({
-  className,
-  bsPrefix,
-  as: Component = DivStyledAsH6,
-  ...props
-}, ref) => {
-  bsPrefix = useBootstrapPrefix(bsPrefix, 'card-subtitle');
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
-    ref: ref,
-    className: classnames_default()(className, bsPrefix),
-    ...props
-  });
-});
-CardSubtitle.displayName = 'CardSubtitle';
-/* harmony default export */ const esm_CardSubtitle = (CardSubtitle);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardText.js
-"use client";
-
-
-
-
-
-const CardText = /*#__PURE__*/react.forwardRef(({
-  className,
-  bsPrefix,
-  as: Component = 'p',
-  ...props
-}, ref) => {
-  bsPrefix = useBootstrapPrefix(bsPrefix, 'card-text');
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
-    ref: ref,
-    className: classnames_default()(className, bsPrefix),
-    ...props
-  });
-});
-CardText.displayName = 'CardText';
-/* harmony default export */ const esm_CardText = (CardText);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/CardTitle.js
-"use client";
-
-
-
-
-
-
-const DivStyledAsH5 = divWithClassName('h5');
-const CardTitle = /*#__PURE__*/react.forwardRef(({
-  className,
-  bsPrefix,
-  as: Component = DivStyledAsH5,
-  ...props
-}, ref) => {
-  bsPrefix = useBootstrapPrefix(bsPrefix, 'card-title');
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
-    ref: ref,
-    className: classnames_default()(className, bsPrefix),
-    ...props
-  });
-});
-CardTitle.displayName = 'CardTitle';
-/* harmony default export */ const esm_CardTitle = (CardTitle);
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Card.js
-"use client";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const Card = /*#__PURE__*/react.forwardRef(({
-  bsPrefix,
-  className,
-  bg,
-  text,
-  border,
-  body = false,
-  children,
-  // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-  as: Component = 'div',
-  ...props
-}, ref) => {
-  const prefix = useBootstrapPrefix(bsPrefix, 'card');
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
-    ref: ref,
-    ...props,
-    className: classnames_default()(className, prefix, bg && `bg-${bg}`, text && `text-${text}`, border && `border-${border}`),
-    children: body ? /*#__PURE__*/(0,jsx_runtime.jsx)(esm_CardBody, {
-      children: children
-    }) : children
-  });
-});
-Card.displayName = 'Card';
-/* harmony default export */ const esm_Card = (Object.assign(Card, {
-  Img: esm_CardImg,
-  Title: esm_CardTitle,
-  Subtitle: esm_CardSubtitle,
-  Body: esm_CardBody,
-  Link: esm_CardLink,
-  Text: esm_CardText,
-  Header: esm_CardHeader,
-  Footer: esm_CardFooter,
-  ImgOverlay: esm_CardImgOverlay
-}));
-;// CONCATENATED MODULE: ./node_modules/@restart/ui/esm/Button.js
-const Button_excluded = ["as", "disabled"];
-function Button_objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-
-function isTrivialHref(href) {
-  return !href || href.trim() === '#';
-}
-function useButtonProps({
-  tagName,
-  disabled,
-  href,
-  target,
-  rel,
-  role,
-  onClick,
-  tabIndex = 0,
-  type
-}) {
-  if (!tagName) {
-    if (href != null || target != null || rel != null) {
-      tagName = 'a';
-    } else {
-      tagName = 'button';
-    }
-  }
-  const meta = {
-    tagName
-  };
-  if (tagName === 'button') {
-    return [{
-      type: type || 'button',
-      disabled
-    }, meta];
-  }
-  const handleClick = event => {
-    if (disabled || tagName === 'a' && isTrivialHref(href)) {
-      event.preventDefault();
-    }
-    if (disabled) {
-      event.stopPropagation();
-      return;
-    }
-    onClick == null ? void 0 : onClick(event);
-  };
-  const handleKeyDown = event => {
-    if (event.key === ' ') {
-      event.preventDefault();
-      handleClick(event);
-    }
-  };
-  if (tagName === 'a') {
-    // Ensure there's a href so Enter can trigger anchor button.
-    href || (href = '#');
-    if (disabled) {
-      href = undefined;
-    }
-  }
-  return [{
-    role: role != null ? role : 'button',
-    // explicitly undefined so that it overrides the props disabled in a spread
-    // e.g. <Tag {...props} {...hookProps} />
-    disabled: undefined,
-    tabIndex: disabled ? undefined : tabIndex,
-    href,
-    target: tagName === 'a' ? target : undefined,
-    'aria-disabled': !disabled ? undefined : disabled,
-    rel: tagName === 'a' ? rel : undefined,
-    onClick: handleClick,
-    onKeyDown: handleKeyDown
-  }, meta];
-}
-const Button = /*#__PURE__*/react.forwardRef((_ref, ref) => {
-  let {
-      as: asProp,
-      disabled
-    } = _ref,
-    props = Button_objectWithoutPropertiesLoose(_ref, Button_excluded);
-  const [buttonProps, {
-    tagName: Component
-  }] = useButtonProps(Object.assign({
-    tagName: asProp,
-    disabled
-  }, props));
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, Object.assign({}, props, buttonProps, {
-    ref: ref
-  }));
-});
-Button.displayName = 'Button';
-/* harmony default export */ const esm_Button = ((/* unused pure expression or super */ null && (Button)));
-;// CONCATENATED MODULE: ./node_modules/react-bootstrap/esm/Button.js
-"use client";
-
-
-
-
-
-
-const Button_Button = /*#__PURE__*/react.forwardRef(({
-  as,
-  bsPrefix,
-  variant = 'primary',
-  size,
-  active = false,
-  disabled = false,
-  className,
-  ...props
-}, ref) => {
-  const prefix = useBootstrapPrefix(bsPrefix, 'btn');
-  const [buttonProps, {
-    tagName
-  }] = useButtonProps({
-    tagName: as,
-    disabled,
-    ...props
-  });
-  const Component = tagName;
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(Component, {
-    ...buttonProps,
-    ...props,
-    ref: ref,
-    disabled: disabled,
-    className: classnames_default()(className, prefix, active && 'active', variant && `${prefix}-${variant}`, size && `${prefix}-${size}`, props.href && disabled && 'disabled')
-  });
-});
-Button_Button.displayName = 'Button';
-/* harmony default export */ const react_bootstrap_esm_Button = (Button_Button);
-// EXTERNAL MODULE: ./node_modules/react-datepicker/dist/react-datepicker.min.js
-var react_datepicker_min = __webpack_require__(9386);
-var react_datepicker_min_default = /*#__PURE__*/__webpack_require__.n(react_datepicker_min);
-;// CONCATENATED MODULE: ./src/ui/speedGrader/consts.ts
-const MAX_SECTION_SLICE_SIZE = 5; //The number of sections to query data for at once.
-const FILE_HEADER = [
-    'Term', 'Instructor', 'Class', 'Section', 'Student Name', 'Student Id', 'Enrollment State',
-    'Week Number', 'Module', 'Assignment Type', 'Assignment Number', 'Assignment Id', 'Assignment Title',
-    'Submission Status', 'Rubric Id', 'Rubric Line', 'Line Name', 'Score', 'Max Score',
-].join(',') + '\n';
-
-;// CONCATENATED MODULE: ./src/ui/speedGrader/saveDataGenFunc.tsx
-
-function saveDataGenFunc() {
-    let a = document.createElement("a");
-    document.body.appendChild(a);
-    a.setAttribute('display', 'none');
-    return function (textArray, fileName, type = 'text') {
-        textArray = [...textArray];
-        textArray.unshift(FILE_HEADER);
-        let blob = new Blob(textArray, { type: type }), url = window.URL.createObjectURL(blob);
-        a.href = url;
-        a.download = fileName;
-        a.click();
-        window.URL.revokeObjectURL(url);
-    };
 }
 
 ;// CONCATENATED MODULE: ./src/ui/speedGrader/AssignmentsCollection.ts
@@ -46230,7 +46304,16 @@ function parseSubmissions(user, userSubmissions) {
     }
 }
 
-;// CONCATENATED MODULE: ./src/canvas/content/Page.ts
+;// CONCATENATED MODULE: ./src/canvas/content/assignments/pages/PageKind.ts
+
+
+
+const PageUrlFuncs = contentUrlFuncs('pages');
+const PageKind = Object.assign(Object.assign({}, PageUrlFuncs), { dataIsThisKind: (data) => {
+        return 'page_id' in data;
+    }, getName: page => page.title, getBody: page => page.body, getId: page => page.id, get: (id, courseId, config) => fetchJson_fetchJson(PageUrlFuncs.getApiUrl(courseId, id), config), dataGenerator: (courseId, config) => getPagedDataGenerator(PageUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(PageUrlFuncs.getApiUrl) });
+
+;// CONCATENATED MODULE: ./src/canvas/content/assignments/pages/Page.ts
 var Page_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -46242,10 +46325,6 @@ var Page_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arg
 };
 
 
-
-
-const PageUrlFuncs = contentUrlFuncs('pages');
-const PageKindInfo = Object.assign(Object.assign({}, PageUrlFuncs), { getName: page => page.title, getBody: page => page.body, getId: page => page.id, get: (id, courseId, config) => fetchJson_fetchJson(PageUrlFuncs.getApiUrl(courseId, id), config), dataGenerator: (courseId, config) => getPagedDataGenerator(PageUrlFuncs.getAllApiUrl(courseId), config) });
 class Page extends BaseContentItem {
     constructor(canvasData, courseId) {
         super(canvasData, courseId);
@@ -46268,7 +46347,7 @@ class Page extends BaseContentItem {
         });
     }
 }
-Page.kindInfo = PageKindInfo;
+Page.kindInfo = PageKind;
 Page.idProperty = 'page_id';
 Page.nameProperty = 'title';
 Page.bodyProperty = 'body';
@@ -46408,7 +46487,7 @@ function csvRowsForCourse(course_1) {
                     modules,
                     userSubmissions,
                     term,
-                    course: course,
+                    course,
                     instructors,
                     assignmentsCollection,
                 });
@@ -46525,6 +46604,7 @@ var blueprint_awaiter = (undefined && undefined.__awaiter) || function (thisArg,
 function isBlueprint({ blueprint }) {
     return !!blueprint;
 }
+//W
 function genBlueprintDataForCode(courseCode, accountIds, queryParams) {
     if (!courseCode) {
         console.warn("Course code not present");
@@ -46777,33 +46857,36 @@ class MalformedDateError extends Error {
 
 
 const DEFAULT_LOCALE = 'en-US';
-function getCurrentStartDate(modules) {
+function getModuleUnlockStartDate(modules) {
     if (modules.length == 0)
         throw new NoOverviewModuleFoundError();
     const overviewModule = modules[0];
     const unlockDateString = overviewModule.unlock_at;
+    if (!unlockDateString)
+        return null;
     const oldDate = new Date(unlockDateString);
     return date_oldDateToPlainDate(oldDate);
 }
 function sortAssignmentsByDueDate(assignments) {
     return assignments
         .toSorted((a, b) => {
-        if (a.dueAt && b.dueAt) {
-            return oldDateToPlainDate(b.dueAt).until(oldDateToPlainDate(a.dueAt)).days;
+        a = a instanceof Assignment ? a.rawData : a;
+        b = b instanceof Assignment ? b.rawData : b;
+        if (a.due_at && b.due_at) {
+            return oldDateToPlainDate(new Date(b.due_at)).until(oldDateToPlainDate(new Date(a.due_at))).days;
         }
-        if (a.dueAt)
+        if (a.due_at)
             return -1;
-        if (b.dueAt)
+        if (b.due_at)
             return 1;
         return 0;
     });
 }
 function getStartDateAssignments(assignments) {
-    const sorted = sortAssignmentsByDueDate(assignments).filter(a => a.dueAt);
+    const sorted = sortAssignmentsByDueDate(assignments).map(a => { var _a; return (_a = a.rawData) !== null && _a !== void 0 ? _a : a; }).filter(a => a.due_at);
     if (sorted.length == 0)
         throw new NoAssignmentsWithDueDatesError();
-    const firstAssignmentDue = sorted[0].dueAt;
-    assert(firstAssignmentDue, "It should be literally impossible for this to happen as we just filtered out all assignments where dueAt returns false");
+    const firstAssignmentDue = new Date(sorted[0].due_at);
     //Set to monday of that week.
     const plainDateDue = oldDateToPlainDate(firstAssignmentDue);
     const dayOfWeekOffset = 1 - plainDateDue.dayOfWeek;
@@ -46900,6 +46983,14 @@ var Account_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var Account_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
+
 
 
 /**
@@ -46921,20 +47012,36 @@ class Account extends BaseCanvasObject {
     }
     static getAccountById(accountId_1) {
         return Account_awaiter(this, arguments, void 0, function* (accountId, config = undefined) {
-            const data = yield this.getDataById(accountId, null, config);
+            const data = yield fetchJson_fetchJson(`/api/v1/accounts/${accountId}`, config);
             return new Account(data);
         });
     }
     static getRootAccount() {
         return Account_awaiter(this, arguments, void 0, function* (resetCache = false) {
-            let accounts = yield this.getAll();
+            var _a, e_1, _b, _c;
             if (!resetCache && this.hasOwnProperty('account') && this.account) {
                 return this.account;
             }
-            let root = accounts.find((a) => a.rootAccountId === null);
-            assert_default()(root);
-            this.account = root;
-            return root;
+            let accountGen = getPagedDataGenerator('/api/v1/accounts');
+            try {
+                for (var _d = true, accountGen_1 = Account_asyncValues(accountGen), accountGen_1_1; accountGen_1_1 = yield accountGen_1.next(), _a = accountGen_1_1.done, !_a; _d = true) {
+                    _c = accountGen_1_1.value;
+                    _d = false;
+                    let account = _c;
+                    if (account.root_account_id)
+                        continue; //if there is a root_account_id, this is not the root account
+                    const root = new Account(account);
+                    this.account = root;
+                    return root;
+                }
+            }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (!_d && !_a && (_b = accountGen_1.return)) yield _b.call(accountGen_1);
+                }
+                finally { if (e_1) throw e_1.error; }
+            }
         });
     }
     get rootAccountId() {
@@ -46944,6 +47051,12 @@ class Account extends BaseCanvasObject {
 Account.nameProperty = 'name'; // The field name of the primary name of the canvas object type
 Account.contentUrlTemplate = '/api/v1/accounts/{content_id}'; // A templated url to get a single item
 Account.allContentUrlTemplate = '/api/v1/accounts'; // A templated url to get all items
+class RootAccountNotFoundError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = 'RootAccountNotFoundError';
+    }
+}
 
 ;// CONCATENATED MODULE: ./src/canvas/profile.ts
 var profile_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -47199,6 +47312,8 @@ class Term extends BaseCanvasObject {
     static getTermById(termId_1) {
         return Term_awaiter(this, arguments, void 0, function* (termId, config = null) {
             let account = yield Account.getRootAccount();
+            if (!account)
+                throw new RootAccountNotFoundError();
             let url = `/api/v1/accounts/${account.id}/terms/${termId}`;
             let termData = yield fetchJson_fetchJson(url, config);
             if (termData)
@@ -47245,7 +47360,7 @@ class Term extends BaseCanvasObject {
 }
 Term.nameProperty = "name";
 
-;// CONCATENATED MODULE: ./src/canvas/content/Quiz.ts
+;// CONCATENATED MODULE: ./src/canvas/content/quizzes/Quiz.ts
 var Quiz_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -47258,15 +47373,6 @@ var Quiz_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arg
 
 
 
-
-
-const QuizUrlFuncs = contentUrlFuncs('quizzes');
-const QuizKindInfo = Object.assign(Object.assign({ getId: (data) => data.id, getName: (data) => data.title, getBody: (data) => data.description, get(courseId, contentId, config) {
-        return Quiz_awaiter(this, void 0, void 0, function* () {
-            const data = yield fetchJson_fetchJson(this.getApiUrl(courseId, contentId), config);
-            return data;
-        });
-    } }, QuizUrlFuncs), { dataGenerator: (courseId, config) => getPagedDataGenerator(QuizUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(QuizUrlFuncs.getApiUrl) });
 class Quiz extends BaseContentItem {
     setDueAt(date) {
         return Quiz_awaiter(this, void 0, void 0, function* () {
@@ -47289,7 +47395,30 @@ Quiz.bodyProperty = 'description';
 Quiz.contentUrlTemplate = "/api/v1/courses/{course_id}/quizzes/{content_id}";
 Quiz.allContentUrlTemplate = "/api/v1/courses/{course_id}/quizzes";
 
-;// CONCATENATED MODULE: ./src/canvas/content/Discussion.ts
+;// CONCATENATED MODULE: ./src/canvas/content/discussions/DiscussionKind.ts
+var DiscussionKind_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+const discussionUrlFuncs = contentUrlFuncs('discussion_topics');
+const DiscussionKind = Object.assign(Object.assign({}, discussionUrlFuncs), { dataIsThisKind(data) {
+        return data.hasOwnProperty('discussion_type');
+    }, getId: (data) => data.id, getName: (data) => data.title, getBody: (data) => data.message, get(courseId, contentId, config) {
+        return DiscussionKind_awaiter(this, void 0, void 0, function* () {
+            const data = yield fetchJson_fetchJson(this.getApiUrl(courseId, contentId), config);
+            return data;
+        });
+    }, dataGenerator: (courseId, config) => getPagedDataGenerator(discussionUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(discussionUrlFuncs.getApiUrl) });
+
+;// CONCATENATED MODULE: ./src/canvas/content/discussions/Discussion.ts
 var Discussion_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -47302,15 +47431,6 @@ var Discussion_awaiter = (undefined && undefined.__awaiter) || function (thisArg
 
 
 
-
-
-const DiscussionUrlFuncs = contentUrlFuncs('discussion_topics');
-const DiscussionKindInfo = Object.assign(Object.assign({}, DiscussionUrlFuncs), { getId: (data) => data.id, getName: (data) => data.title, getBody: (data) => data.message, get(courseId, contentId, config) {
-        return Discussion_awaiter(this, void 0, void 0, function* () {
-            const data = yield fetchJson_fetchJson(this.getApiUrl(courseId, contentId), config);
-            return data;
-        });
-    }, dataGenerator: (courseId, config) => getPagedDataGenerator(DiscussionUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(DiscussionUrlFuncs.getApiUrl) });
 class Discussion extends BaseContentItem {
     offsetPublishDelay(days, config) {
         return Discussion_awaiter(this, void 0, void 0, function* () {
@@ -47329,7 +47449,7 @@ class Discussion extends BaseContentItem {
         return this.canvasData;
     }
 }
-Discussion.kindInfo = DiscussionKindInfo;
+Discussion.kindInfo = DiscussionKind;
 Discussion.nameProperty = 'title';
 Discussion.bodyProperty = 'message';
 Discussion.contentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics/{content_id}";
@@ -47345,13 +47465,7 @@ var Course_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _a
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var Course_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
+
 
 
 
@@ -47498,7 +47612,7 @@ class Course_Course extends BaseCanvasObject {
     }
     getStartDateFromModules() {
         return Course_awaiter(this, void 0, void 0, function* () {
-            return getCurrentStartDate(yield this.getModules());
+            return getModuleUnlockStartDate(yield this.getModules());
         });
     }
     getInstructors() {
@@ -47643,7 +47757,7 @@ class Course_Course extends BaseCanvasObject {
             console.warn('deprecated, use assignmentDataGen instead');
             config = fetch_overrideConfig(config, { queryParams: { include: ['due_at'] } });
             const assignmentDatas = yield fetch_renderAsyncGen(assignmentDataGen(this.id, config));
-            return (assignmentDatas.map(data => new Assignment(data, this.id)));
+            return (assignmentDatas.map(data => new Assignment_Assignment(data, this.id)));
         });
     }
     getContent(config_1) {
@@ -47655,7 +47769,7 @@ class Course_Course extends BaseCanvasObject {
                 let pages = yield this.getPages(config);
                 this.cachedContent = [
                     ...discussions,
-                    ...assignments.map(a => new Assignment(a, this.id)),
+                    ...assignments.map(a => new Assignment_Assignment(a, this.id)),
                     ...quizzes,
                     ...pages
                 ];
@@ -47723,34 +47837,6 @@ class Course_Course extends BaseCanvasObject {
                     })
                 }
             });
-        });
-    }
-    updateDueDates(offset, config) {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            var _a, e_1, _b, _c;
-            const promises = [];
-            const returnAssignments = [];
-            const assignments = assignmentDataGen(this.id, config);
-            if (offset === 0 || offset) {
-                try {
-                    for (var _d = true, assignments_1 = Course_asyncValues(assignments), assignments_1_1; assignments_1_1 = yield assignments_1.next(), _a = assignments_1_1.done, !_a; _d = true) {
-                        _c = assignments_1_1.value;
-                        _d = false;
-                        let assignmentData = _c;
-                        const assignment = new Assignment(assignmentData, this.id);
-                        returnAssignments.push(assignment);
-                        promises.push(assignment.dueAtTimeDelta(Number(offset)));
-                    }
-                }
-                catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                finally {
-                    try {
-                        if (!_d && !_a && (_b = assignments_1.return)) yield _b.call(assignments_1);
-                    }
-                    finally { if (e_1) throw e_1.error; }
-                }
-            }
-            return returnAssignments;
         });
     }
     publish() {
@@ -47858,7 +47944,7 @@ class Course_Course extends BaseCanvasObject {
     }
 }
 Course_Course.nameProperty = 'name';
-Course_Course.contentClasses = [Assignment, Discussion, Quiz, Page];
+Course_Course.contentClasses = [Assignment_Assignment, Discussion, Quiz, Page];
 
 ;// CONCATENATED MODULE: ./src/canvas/course/index.ts
 var course_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -48167,8 +48253,8 @@ function ExportApp({ initialCourse, initialAssignment }) {
         const stringId = urlParams.get('assignment_id');
         const assignmentId = stringId ? parseInt(stringId) : undefined;
         if (assignmentId && !assignment) {
-            const data = yield AssignmentKindInfo.get(course.id, assignmentId);
-            const assignment = assignmentId ? yield AssignmentKindInfo.get(course === null || course === void 0 ? void 0 : course.id, assignmentId) : undefined;
+            const data = yield AssignmentKind.get(course.id, assignmentId);
+            const assignment = assignmentId ? yield AssignmentKind.get(course === null || course === void 0 ? void 0 : course.id, assignmentId) : undefined;
             setAssignment(assignment);
         }
     }), [course]);

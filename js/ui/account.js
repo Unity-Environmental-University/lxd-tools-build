@@ -5823,6 +5823,14 @@ var Account_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var Account_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
+
 
 
 /**
@@ -5844,20 +5852,36 @@ class Account extends BaseCanvasObject {
     }
     static getAccountById(accountId_1) {
         return Account_awaiter(this, arguments, void 0, function* (accountId, config = undefined) {
-            const data = yield this.getDataById(accountId, null, config);
+            const data = yield fetchJson_fetchJson(`/api/v1/accounts/${accountId}`, config);
             return new Account(data);
         });
     }
     static getRootAccount() {
         return Account_awaiter(this, arguments, void 0, function* (resetCache = false) {
-            let accounts = yield this.getAll();
+            var _a, e_1, _b, _c;
             if (!resetCache && this.hasOwnProperty('account') && this.account) {
                 return this.account;
             }
-            let root = accounts.find((a) => a.rootAccountId === null);
-            assert_default()(root);
-            this.account = root;
-            return root;
+            let accountGen = getPagedDataGenerator('/api/v1/accounts');
+            try {
+                for (var _d = true, accountGen_1 = Account_asyncValues(accountGen), accountGen_1_1; accountGen_1_1 = yield accountGen_1.next(), _a = accountGen_1_1.done, !_a; _d = true) {
+                    _c = accountGen_1_1.value;
+                    _d = false;
+                    let account = _c;
+                    if (account.root_account_id)
+                        continue; //if there is a root_account_id, this is not the root account
+                    const root = new Account(account);
+                    this.account = root;
+                    return root;
+                }
+            }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (!_d && !_a && (_b = accountGen_1.return)) yield _b.call(accountGen_1);
+                }
+                finally { if (e_1) throw e_1.error; }
+            }
         });
     }
     get rootAccountId() {
@@ -5867,6 +5891,12 @@ class Account extends BaseCanvasObject {
 Account.nameProperty = 'name'; // The field name of the primary name of the canvas object type
 Account.contentUrlTemplate = '/api/v1/accounts/{content_id}'; // A templated url to get a single item
 Account.allContentUrlTemplate = '/api/v1/accounts'; // A templated url to get all items
+class RootAccountNotFoundError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = 'RootAccountNotFoundError';
+    }
+}
 
 ;// CONCATENATED MODULE: ./src/canvas/Term.ts
 var Term_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -5896,6 +5926,8 @@ class Term extends BaseCanvasObject {
     static getTermById(termId_1) {
         return Term_awaiter(this, arguments, void 0, function* (termId, config = null) {
             let account = yield Account.getRootAccount();
+            if (!account)
+                throw new RootAccountNotFoundError();
             let url = `/api/v1/accounts/${account.id}/terms/${termId}`;
             let termData = yield fetchJson_fetchJson(url, config);
             if (termData)

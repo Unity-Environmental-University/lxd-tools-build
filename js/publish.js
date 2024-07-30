@@ -42630,123 +42630,6 @@ class MalformedDateError extends Error {
     }
 }
 
-;// CONCATENATED MODULE: ./src/canvas/course/changeStartDate.ts
-
-
-const DEFAULT_LOCALE = 'en-US';
-function getCurrentStartDate(modules) {
-    if (modules.length == 0)
-        throw new NoOverviewModuleFoundError();
-    const overviewModule = modules[0];
-    const unlockDateString = overviewModule.unlock_at;
-    const oldDate = new Date(unlockDateString);
-    return oldDateToPlainDate(oldDate);
-}
-function sortAssignmentsByDueDate(assignments) {
-    return assignments
-        .toSorted((a, b) => {
-        if (a.dueAt && b.dueAt) {
-            return oldDateToPlainDate(b.dueAt).until(oldDateToPlainDate(a.dueAt)).days;
-        }
-        if (a.dueAt)
-            return -1;
-        if (b.dueAt)
-            return 1;
-        return 0;
-    });
-}
-function getStartDateAssignments(assignments) {
-    const sorted = sortAssignmentsByDueDate(assignments).filter(a => a.dueAt);
-    if (sorted.length == 0)
-        throw new NoAssignmentsWithDueDatesError();
-    const firstAssignmentDue = sorted[0].dueAt;
-    assert_default()(firstAssignmentDue, "It should be literally impossible for this to happen as we just filtered out all assignments where dueAt returns false");
-    //Set to monday of that week.
-    const plainDateDue = oldDateToPlainDate(firstAssignmentDue);
-    const dayOfWeekOffset = 1 - plainDateDue.dayOfWeek;
-    return plainDateDue.add({ days: dayOfWeekOffset });
-}
-function getUpdatedStyleTermName(termStart, weekCount, locale = DEFAULT_LOCALE) {
-    const month = termStart.toLocaleString(locale, { month: '2-digit' });
-    const day = termStart.toLocaleString(locale, { day: '2-digit' });
-    const year = termStart.toLocaleString(locale, { year: '2-digit' });
-    return `DE${weekCount}W${month}.${day}.${year}`;
-}
-function getOldUgTermName(termStart, locale = DEFAULT_LOCALE) {
-    const year = termStart.toLocaleString(DEFAULT_LOCALE, { year: '2-digit' });
-    const month = termStart.toLocaleString(DEFAULT_LOCALE, { month: 'short' });
-    return `DE-${year}-${month}`;
-}
-function getNewTermName(oldTermName, newTermStart, locale = DEFAULT_LOCALE) {
-    const [termName, weekCount] = oldTermName.match(/DE(\d)W\d\d\.\d\d\.\d\d/) || [];
-    if (termName)
-        return getUpdatedStyleTermName(newTermStart, weekCount);
-    const termNameUg = oldTermName.match(/(DE(?:.HL|)-\d\d)-(\w+)\w{2}?/i);
-    if (termNameUg)
-        return getUpdatedStyleTermName(newTermStart, 5);
-    throw new MalformedSyllabusError(`Can't Recognize Term Name ${oldTermName}`);
-}
-function updatedDateSyllabusHtml(html, newStartDate, locale = DEFAULT_LOCALE) {
-    const syllabusBody = document.createElement('div');
-    syllabusBody.innerHTML = html;
-    const syllabusCalloutBox = syllabusBody.querySelector('div.cbt-callout-box');
-    if (!syllabusCalloutBox)
-        throw new MalformedSyllabusError("Can't find syllabus callout box");
-    const paras = Array.from(syllabusCalloutBox.querySelectorAll('p'));
-    const strongParas = paras.filter((para) => para.querySelector('strong'));
-    if (strongParas.length < 5)
-        throw new MalformedSyllabusError(`Missing syllabus headers\n${strongParas}`);
-    const [_courseNameEl, termNameEl, datesEl, _instructorNameEl, _instructorContactInfoEl, _creditsEl] = strongParas;
-    const changedText = [];
-    const oldTermName = termNameEl.textContent || '';
-    const oldDates = datesEl.textContent || '';
-    const dateRange = findDateRange(datesEl.innerHTML, locale);
-    if (!dateRange)
-        throw new MalformedSyllabusError("Date range not found in syllabus");
-    const courseDuration = dateRange.start.until(dateRange.end);
-    const newEndDate = newStartDate.add(courseDuration);
-    const newTermName = getNewTermName(oldTermName, newStartDate);
-    const dateRangeText = `${dateToSyllabusString(newStartDate)} - ${dateToSyllabusString(newEndDate)}`;
-    termNameEl.innerHTML = `<strong>${syllabusHeaderName(termNameEl)}:</strong><span> ${newTermName}</span>`;
-    datesEl.innerHTML = `<strong>${syllabusHeaderName(datesEl)}:</strong><span> ${dateRangeText}</span>`;
-    changedText.push(`${oldTermName} -> ${termNameEl.textContent}`);
-    changedText.push(`${oldDates} -> ${datesEl.textContent}`);
-    const output = {
-        html: syllabusBody.innerHTML.replaceAll(/<p>\s*(&nbsp;)?<\/p>/ig, ''),
-        changedText,
-    };
-    syllabusBody.remove();
-    return output;
-}
-function dateToSyllabusString(date) {
-    return `${date.toLocaleString(DEFAULT_LOCALE, { month: 'long', day: 'numeric' })}`;
-}
-function syllabusHeaderName(el) {
-    const header = el.querySelector('strong');
-    if (!header)
-        return null;
-    const html = header.innerHTML;
-    return html.replace(/:$/, '');
-}
-class NoOverviewModuleFoundError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "NoOverviewModuleFoundError";
-    }
-}
-class MalformedSyllabusError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "MalformedSyllabusError";
-    }
-}
-class NoAssignmentsWithDueDatesError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "NoAssignmentsWithDueDatesError";
-    }
-}
-
 ;// CONCATENATED MODULE: ./src/canvas/files.ts
 var files_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -43217,6 +43100,13 @@ function getCourseIdFromUrl(url) {
     return null;
 }
 
+;// CONCATENATED MODULE: ./src/consts.ts
+const OPEN_AI_API_KEY_KEY = "OPEN_AI_API_KEY";
+const PUBLISH_FORM_EMAIL_TEMPLATE_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics/Form-Email-Template.md';
+const DIST_REPO_URL = 'https://github.com/Unity-Environmental-University/lxd-tools-build';
+const DIST_REPO_MANIFEST = 'https://raw.githubusercontent.com/Unity-Environmental-University/lxd-tools-build/stable/manifest.json';
+const SAFE_MAX_BANNER_WIDTH = 1400;
+
 ;// CONCATENATED MODULE: ./src/canvas/content/BaseContentItem.ts
 var BaseContentItem_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -43236,10 +43126,11 @@ var BaseContentItem_awaiter = (undefined && undefined.__awaiter) || function (th
 
 
 
-const SAFE_MAX_BANNER_WIDTH = 1400;
+
 class BaseContentItem extends BaseCanvasObject {
     constructor(canvasData, courseId) {
         super(canvasData);
+        this.kind = undefined;
         this._courseId = courseId;
     }
     get htmlContentUrl() {
@@ -43424,8 +43315,8 @@ function putContentConfig(data, config) {
     }, true);
 }
 
-;// CONCATENATED MODULE: ./src/canvas/content/contentGenFuncs.ts
-var contentGenFuncs_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+;// CONCATENATED MODULE: ./src/canvas/content/ContentKind.ts
+var ContentKind_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -43462,15 +43353,38 @@ function courseContentUrlFunc(url) {
 }
 function putContentFunc(getApiUrl) {
     return function (courseId, contentId, content, config) {
-        return contentGenFuncs_awaiter(this, void 0, void 0, function* () {
+        return ContentKind_awaiter(this, void 0, void 0, function* () {
             const url = getApiUrl(courseId, contentId);
             return yield fetchJson_fetchJson(url, putContentConfig(content, config));
         });
     };
 }
 
-;// CONCATENATED MODULE: ./src/canvas/content/Page.ts
-var Page_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+;// CONCATENATED MODULE: ./src/canvas/content/assignments/AssignmentKind.ts
+var AssignmentKind_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+const AssignmentUrlFuncs = contentUrlFuncs('assignments');
+const AssignmentKind = Object.assign(Object.assign({ getId: (data) => data.id, dataIsThisKind: (data) => {
+        return 'submission_types' in data;
+    }, getName: (data) => data.name, getBody: (data) => data.description, get(courseId, contentId, config) {
+        return AssignmentKind_awaiter(this, void 0, void 0, function* () {
+            const data = yield fetchJson_fetchJson(this.getApiUrl(courseId, contentId), config);
+            return data;
+        });
+    } }, AssignmentUrlFuncs), { dataGenerator: (courseId, config) => getPagedDataGenerator(AssignmentUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(AssignmentUrlFuncs.getApiUrl) });
+
+;// CONCATENATED MODULE: ./src/canvas/content/assignments/Assignment.ts
+var Assignment_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -43483,8 +43397,201 @@ var Page_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arg
 
 
 
+class Assignment extends BaseContentItem {
+    constructor(assignmentData, courseId) {
+        super(assignmentData, courseId);
+    }
+    setDueAt(dueAt, config) {
+        return Assignment_awaiter(this, void 0, void 0, function* () {
+            const sourceDueAt = this.rawData.due_at ? mr.Instant.from(this.rawData.due_at) : null;
+            const targetDueAt = mr.Instant.from(dueAt.toISOString());
+            const payload = {
+                assignment: {
+                    due_at: dueAt.toISOString(),
+                }
+            };
+            if (this.rawData.peer_reviews && 'automatic_peer_reviews' in this.rawData) {
+                const peerReviewTime = this.rawData.peer_reviews_assign_at ? mr.Instant.from(this.rawData.peer_reviews_assign_at) : null;
+                assert_default()(sourceDueAt, "Trying to set peer review date without a due date for the assignment.");
+                if (peerReviewTime) {
+                    const peerReviewOffset = sourceDueAt.until(peerReviewTime);
+                    const newPeerReviewTime = targetDueAt.add(peerReviewOffset);
+                    payload.assignment.peer_reviews_assign_at =
+                        new Date(newPeerReviewTime.epochMilliseconds).toISOString();
+                }
+            }
+            let data = yield this.saveData(payload, config);
+            this.canvasData['due_at'] = dueAt.toISOString();
+            return data;
+        });
+    }
+    get rawData() {
+        return this.canvasData;
+    }
+    updateContent(text, name, config) {
+        return Assignment_awaiter(this, void 0, void 0, function* () {
+            const assignmentData = {};
+            if (text) {
+                assignmentData.description = text;
+                this.rawData.description = text;
+            }
+            if (name) {
+                assignmentData.name = name;
+                this.rawData.name = name;
+            }
+            return yield this.saveData({
+                assignment: assignmentData
+            }, config);
+        });
+    }
+}
+Assignment.kind = AssignmentKind;
+Assignment.nameProperty = 'name';
+Assignment.bodyProperty = 'description';
+Assignment.contentUrlTemplate = "/api/v1/courses/{course_id}/assignments/{content_id}";
+Assignment.allContentUrlTemplate = "/api/v1/courses/{course_id}/assignments";
+
+;// CONCATENATED MODULE: ./src/canvas/course/changeStartDate.ts
+
+
+const DEFAULT_LOCALE = 'en-US';
+function getModuleUnlockStartDate(modules) {
+    if (modules.length == 0)
+        throw new NoOverviewModuleFoundError();
+    const overviewModule = modules[0];
+    const unlockDateString = overviewModule.unlock_at;
+    if (!unlockDateString)
+        return null;
+    const oldDate = new Date(unlockDateString);
+    return oldDateToPlainDate(oldDate);
+}
+function sortAssignmentsByDueDate(assignments) {
+    return assignments
+        .toSorted((a, b) => {
+        a = a instanceof Assignment ? a.rawData : a;
+        b = b instanceof Assignment ? b.rawData : b;
+        if (a.due_at && b.due_at) {
+            return oldDateToPlainDate(new Date(b.due_at)).until(oldDateToPlainDate(new Date(a.due_at))).days;
+        }
+        if (a.due_at)
+            return -1;
+        if (b.due_at)
+            return 1;
+        return 0;
+    });
+}
+function getStartDateAssignments(assignments) {
+    const sorted = sortAssignmentsByDueDate(assignments).map(a => { var _a; return (_a = a.rawData) !== null && _a !== void 0 ? _a : a; }).filter(a => a.due_at);
+    if (sorted.length == 0)
+        throw new NoAssignmentsWithDueDatesError();
+    const firstAssignmentDue = new Date(sorted[0].due_at);
+    //Set to monday of that week.
+    const plainDateDue = oldDateToPlainDate(firstAssignmentDue);
+    const dayOfWeekOffset = 1 - plainDateDue.dayOfWeek;
+    return plainDateDue.add({ days: dayOfWeekOffset });
+}
+function getUpdatedStyleTermName(termStart, weekCount, locale = DEFAULT_LOCALE) {
+    const month = termStart.toLocaleString(locale, { month: '2-digit' });
+    const day = termStart.toLocaleString(locale, { day: '2-digit' });
+    const year = termStart.toLocaleString(locale, { year: '2-digit' });
+    return `DE${weekCount}W${month}.${day}.${year}`;
+}
+function getOldUgTermName(termStart, locale = DEFAULT_LOCALE) {
+    const year = termStart.toLocaleString(DEFAULT_LOCALE, { year: '2-digit' });
+    const month = termStart.toLocaleString(DEFAULT_LOCALE, { month: 'short' });
+    return `DE-${year}-${month}`;
+}
+function getNewTermName(oldTermName, newTermStart, locale = DEFAULT_LOCALE) {
+    const [termName, weekCount] = oldTermName.match(/DE(\d)W\d\d\.\d\d\.\d\d/) || [];
+    if (termName)
+        return getUpdatedStyleTermName(newTermStart, weekCount);
+    const termNameUg = oldTermName.match(/(DE(?:.HL|)-\d\d)-(\w+)\w{2}?/i);
+    if (termNameUg)
+        return getUpdatedStyleTermName(newTermStart, 5);
+    throw new MalformedSyllabusError(`Can't Recognize Term Name ${oldTermName}`);
+}
+function updatedDateSyllabusHtml(html, newStartDate, locale = DEFAULT_LOCALE) {
+    const syllabusBody = document.createElement('div');
+    syllabusBody.innerHTML = html;
+    const syllabusCalloutBox = syllabusBody.querySelector('div.cbt-callout-box');
+    if (!syllabusCalloutBox)
+        throw new MalformedSyllabusError("Can't find syllabus callout box");
+    const paras = Array.from(syllabusCalloutBox.querySelectorAll('p'));
+    const strongParas = paras.filter((para) => para.querySelector('strong'));
+    if (strongParas.length < 5)
+        throw new MalformedSyllabusError(`Missing syllabus headers\n${strongParas}`);
+    const [_courseNameEl, termNameEl, datesEl, _instructorNameEl, _instructorContactInfoEl, _creditsEl] = strongParas;
+    const changedText = [];
+    const oldTermName = termNameEl.textContent || '';
+    const oldDates = datesEl.textContent || '';
+    const dateRange = findDateRange(datesEl.innerHTML, locale);
+    if (!dateRange)
+        throw new MalformedSyllabusError("Date range not found in syllabus");
+    const courseDuration = dateRange.start.until(dateRange.end);
+    const newEndDate = newStartDate.add(courseDuration);
+    const newTermName = getNewTermName(oldTermName, newStartDate);
+    const dateRangeText = `${dateToSyllabusString(newStartDate)} - ${dateToSyllabusString(newEndDate)}`;
+    termNameEl.innerHTML = `<strong>${syllabusHeaderName(termNameEl)}:</strong><span> ${newTermName}</span>`;
+    datesEl.innerHTML = `<strong>${syllabusHeaderName(datesEl)}:</strong><span> ${dateRangeText}</span>`;
+    changedText.push(`${oldTermName} -> ${termNameEl.textContent}`);
+    changedText.push(`${oldDates} -> ${datesEl.textContent}`);
+    const output = {
+        html: syllabusBody.innerHTML.replaceAll(/<p>\s*(&nbsp;)?<\/p>/ig, ''),
+        changedText,
+    };
+    syllabusBody.remove();
+    return output;
+}
+function dateToSyllabusString(date) {
+    return `${date.toLocaleString(DEFAULT_LOCALE, { month: 'long', day: 'numeric' })}`;
+}
+function syllabusHeaderName(el) {
+    const header = el.querySelector('strong');
+    if (!header)
+        return null;
+    const html = header.innerHTML;
+    return html.replace(/:$/, '');
+}
+class NoOverviewModuleFoundError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "NoOverviewModuleFoundError";
+    }
+}
+class MalformedSyllabusError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "MalformedSyllabusError";
+    }
+}
+class NoAssignmentsWithDueDatesError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "NoAssignmentsWithDueDatesError";
+    }
+}
+
+;// CONCATENATED MODULE: ./src/canvas/content/assignments/pages/PageKind.ts
+
+
+
 const PageUrlFuncs = contentUrlFuncs('pages');
-const PageKindInfo = Object.assign(Object.assign({}, PageUrlFuncs), { getName: page => page.title, getBody: page => page.body, getId: page => page.id, get: (id, courseId, config) => fetchJson_fetchJson(PageUrlFuncs.getApiUrl(courseId, id), config), dataGenerator: (courseId, config) => getPagedDataGenerator(PageUrlFuncs.getAllApiUrl(courseId), config) });
+const PageKind = Object.assign(Object.assign({}, PageUrlFuncs), { dataIsThisKind: (data) => {
+        return 'page_id' in data;
+    }, getName: page => page.title, getBody: page => page.body, getId: page => page.id, get: (id, courseId, config) => fetchJson_fetchJson(PageUrlFuncs.getApiUrl(courseId, id), config), dataGenerator: (courseId, config) => getPagedDataGenerator(PageUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(PageUrlFuncs.getApiUrl) });
+
+;// CONCATENATED MODULE: ./src/canvas/content/assignments/pages/Page.ts
+var Page_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
 class Page extends BaseContentItem {
     constructor(canvasData, courseId) {
         super(canvasData, courseId);
@@ -43507,7 +43614,7 @@ class Page extends BaseContentItem {
         });
     }
 }
-Page.kindInfo = PageKindInfo;
+Page.kindInfo = PageKind;
 Page.idProperty = 'page_id';
 Page.nameProperty = 'title';
 Page.bodyProperty = 'body';
@@ -43588,8 +43695,63 @@ function getModulesByWeekNumber(modules) {
     });
 }
 
-;// CONCATENATED MODULE: ./src/canvas/content/Assignment.ts
-var Assignment_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+;// CONCATENATED MODULE: ./src/canvas/content/assignments/index.ts
+var assignments_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var assignments_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
+
+
+const assignmentDataGen = AssignmentKind.dataGenerator;
+const updateAssignmentData = AssignmentKind.put;
+const getAssignmentData = AssignmentKind.get;
+function updateAssignmentDueDates(offset, assignments, options) {
+    return assignments_awaiter(this, void 0, void 0, function* () {
+        var _a, assignments_1, assignments_1_1;
+        var _b, e_1, _c, _d;
+        const promises = [];
+        const returnAssignments = [];
+        let { courseId } = options !== null && options !== void 0 ? options : {};
+        if (!courseId && courseId !== 0) {
+            courseId = assignments[0].course_id;
+        }
+        if (offset === 0 || offset) {
+            try {
+                for (_a = true, assignments_1 = assignments_asyncValues(assignments); assignments_1_1 = yield assignments_1.next(), _b = assignments_1_1.done, !_b; _a = true) {
+                    _d = assignments_1_1.value;
+                    _a = false;
+                    let data = _d;
+                    const assignment = new Assignment(data, courseId);
+                    returnAssignments.push(assignment);
+                    promises.push(assignment.dueAtTimeDelta(Number(offset)));
+                }
+            }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (!_a && !_b && (_c = assignments_1.return)) yield _c.call(assignments_1);
+                }
+                finally { if (e_1) throw e_1.error; }
+            }
+        }
+        return returnAssignments;
+    });
+}
+
+;// CONCATENATED MODULE: ./src/canvas/content/discussions/DiscussionKind.ts
+var DiscussionKind_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -43601,74 +43763,17 @@ var Assignment_awaiter = (undefined && undefined.__awaiter) || function (thisArg
 
 
 
-
-
-
-const AssignmentUrlFuncs = contentUrlFuncs('assignments');
-const AssignmentKindInfo = Object.assign(Object.assign({ getId: (data) => data.id, getName: (data) => data.name, getBody: (data) => data.description, get(courseId, contentId, config) {
-        return Assignment_awaiter(this, void 0, void 0, function* () {
+const discussionUrlFuncs = contentUrlFuncs('discussion_topics');
+const DiscussionKind = Object.assign(Object.assign({}, discussionUrlFuncs), { dataIsThisKind(data) {
+        return data.hasOwnProperty('discussion_type');
+    }, getId: (data) => data.id, getName: (data) => data.title, getBody: (data) => data.message, get(courseId, contentId, config) {
+        return DiscussionKind_awaiter(this, void 0, void 0, function* () {
             const data = yield fetchJson_fetchJson(this.getApiUrl(courseId, contentId), config);
             return data;
         });
-    } }, AssignmentUrlFuncs), { dataGenerator: (courseId, config) => getPagedDataGenerator(AssignmentUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(AssignmentUrlFuncs.getApiUrl) });
-class Assignment extends BaseContentItem {
-    constructor(assignmentData, courseId) {
-        super(assignmentData, courseId);
-    }
-    setDueAt(dueAt, config) {
-        return Assignment_awaiter(this, void 0, void 0, function* () {
-            const sourceDueAt = this.rawData.due_at ? mr.Instant.from(this.rawData.due_at) : null;
-            const targetDueAt = mr.Instant.from(dueAt.toISOString());
-            const payload = {
-                assignment: {
-                    due_at: dueAt.toISOString(),
-                }
-            };
-            if (this.rawData.peer_reviews && 'automatic_peer_reviews' in this.rawData) {
-                const peerReviewTime = this.rawData.peer_reviews_assign_at ? mr.Instant.from(this.rawData.peer_reviews_assign_at) : null;
-                assert_default()(sourceDueAt, "Trying to set peer review date without a due date for the assignment.");
-                if (peerReviewTime) {
-                    const peerReviewOffset = sourceDueAt.until(peerReviewTime);
-                    const newPeerReviewTime = targetDueAt.add(peerReviewOffset);
-                    payload.assignment.peer_reviews_assign_at =
-                        new Date(newPeerReviewTime.epochMilliseconds).toISOString();
-                }
-            }
-            let data = yield this.saveData(payload, config);
-            this.canvasData['due_at'] = dueAt.toISOString();
-            return data;
-        });
-    }
-    get rawData() {
-        return this.canvasData;
-    }
-    updateContent(text, name, config) {
-        return Assignment_awaiter(this, void 0, void 0, function* () {
-            const assignmentData = {};
-            if (text) {
-                assignmentData.description = text;
-                this.rawData.description = text;
-            }
-            if (name) {
-                assignmentData.name = name;
-                this.rawData.name = name;
-            }
-            return yield this.saveData({
-                assignment: assignmentData
-            }, config);
-        });
-    }
-}
-Assignment.kind = AssignmentKindInfo;
-Assignment.nameProperty = 'name';
-Assignment.bodyProperty = 'description';
-Assignment.contentUrlTemplate = "/api/v1/courses/{course_id}/assignments/{content_id}";
-Assignment.allContentUrlTemplate = "/api/v1/courses/{course_id}/assignments";
-const assignmentDataGen = AssignmentKindInfo.dataGenerator;
-const updateAssignmentData = AssignmentKindInfo.put;
-const getAssignmentData = AssignmentKindInfo.get;
+    }, dataGenerator: (courseId, config) => getPagedDataGenerator(discussionUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(discussionUrlFuncs.getApiUrl) });
 
-;// CONCATENATED MODULE: ./src/canvas/content/Discussion.ts
+;// CONCATENATED MODULE: ./src/canvas/content/discussions/Discussion.ts
 var Discussion_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -43681,15 +43786,6 @@ var Discussion_awaiter = (undefined && undefined.__awaiter) || function (thisArg
 
 
 
-
-
-const DiscussionUrlFuncs = contentUrlFuncs('discussion_topics');
-const DiscussionKindInfo = Object.assign(Object.assign({}, DiscussionUrlFuncs), { getId: (data) => data.id, getName: (data) => data.title, getBody: (data) => data.message, get(courseId, contentId, config) {
-        return Discussion_awaiter(this, void 0, void 0, function* () {
-            const data = yield fetchJson_fetchJson(this.getApiUrl(courseId, contentId), config);
-            return data;
-        });
-    }, dataGenerator: (courseId, config) => getPagedDataGenerator(DiscussionUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(DiscussionUrlFuncs.getApiUrl) });
 class Discussion extends BaseContentItem {
     offsetPublishDelay(days, config) {
         return Discussion_awaiter(this, void 0, void 0, function* () {
@@ -43708,7 +43804,7 @@ class Discussion extends BaseContentItem {
         return this.canvasData;
     }
 }
-Discussion.kindInfo = DiscussionKindInfo;
+Discussion.kindInfo = DiscussionKind;
 Discussion.nameProperty = 'title';
 Discussion.bodyProperty = 'message';
 Discussion.contentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics/{content_id}";
@@ -43747,7 +43843,9 @@ function UpdateStartDate({ course, isDisabled, startLoading, endLoading, refresh
     const [startDate, setStartDate] = (0,react.useState)();
     const [workingStartDate, setWorkingStartDate] = (0,react.useState)();
     useEffectAsync(() => UpdateStartDate_awaiter(this, void 0, void 0, function* () {
-        const date = yield course.getStartDateFromModules();
+        let date = yield course.getStartDateFromModules();
+        if (!date)
+            date = getStartDateAssignments(yield renderAsyncGen(assignmentDataGen(course.id)));
         setStartDate(date);
         setWorkingStartDate(date);
     }), [course]);
@@ -43760,54 +43858,42 @@ function UpdateStartDate({ course, isDisabled, startLoading, endLoading, refresh
             const syllabusText = yield course.getSyllabus();
             let affectedItems = [];
             try {
-                if (syllabusText) {
-                    if (!startDate)
-                        throw new StartDateNotSetError();
-                    const syllabusChanges = yield updateSyllabus(syllabusText, workingStartDate);
-                    if (syllabusChanges)
-                        affectedItems.concat(syllabusChanges);
-                    const assignments = yield renderAsyncGen(assignmentDataGen(course.id));
-                    let startOfFirstWeek = getStartDateAssignments(yield course.getAssignments());
-                    console.log(startOfFirstWeek.toString());
-                    let contentDateOffset = startDate.until(workingStartDate).days;
-                    let startOfFirstWeekOffset = startOfFirstWeek.until(workingStartDate).days;
-                    console.log(startOfFirstWeekOffset);
-                    if (contentDateOffset != startOfFirstWeekOffset) {
-                        affectedItems.push((0,jsx_runtime.jsx)("div", { children: "Note: start date mismatch. Using first week from assignments to determine content dates." }));
-                        contentDateOffset = startOfFirstWeekOffset;
+                if (!startDate)
+                    throw new StartDateNotSetError();
+                const modules = yield renderAsyncGen(moduleGenerator(course.id));
+                yield changeModuleLockDate(course.id, modules[0], workingStartDate);
+                const affectedAssignments = yield updateAssignmentDates(course.id, startDate, workingStartDate);
+                affectedItems = [...affectedItems, ...affectedAssignments.map(ContentAffectedRow)];
+                const contentDateOffset = startDate.until(workingStartDate).days;
+                const announcementGenerator = getPagedDataGenerator(`/api/v1/courses/${course.id}/discussion_topics`, {
+                    queryParams: {
+                        only_announcements: true
                     }
-                    const affectedContent = yield course.updateDueDates(contentDateOffset);
-                    for (let contentItem of affectedContent) {
-                        affectedItems.push(getContentAffectedItemRow(contentItem));
+                });
+                try {
+                    for (var _d = true, announcementGenerator_1 = UpdateStartDate_asyncValues(announcementGenerator), announcementGenerator_1_1; announcementGenerator_1_1 = yield announcementGenerator_1.next(), _a = announcementGenerator_1_1.done, !_a; _d = true) {
+                        _c = announcementGenerator_1_1.value;
+                        _d = false;
+                        let value = _c;
+                        let discussion = new Discussion(value, course.id);
+                        console.log(contentDateOffset);
+                        yield discussion.offsetPublishDelay(contentDateOffset);
+                        affectedItems.push(ContentAffectedRow(discussion));
                     }
-                    const announcementGenerator = getPagedDataGenerator(`/api/v1/courses/${course.id}/discussion_topics`, {
-                        queryParams: {
-                            only_announcements: true
-                        }
-                    });
+                }
+                catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                finally {
                     try {
-                        for (var _d = true, announcementGenerator_1 = UpdateStartDate_asyncValues(announcementGenerator), announcementGenerator_1_1; announcementGenerator_1_1 = yield announcementGenerator_1.next(), _a = announcementGenerator_1_1.done, !_a; _d = true) {
-                            _c = announcementGenerator_1_1.value;
-                            _d = false;
-                            let value = _c;
-                            let discussion = new Discussion(value, course.id);
-                            console.log(contentDateOffset);
-                            yield discussion.offsetPublishDelay(contentDateOffset);
-                            affectedItems.push(getContentAffectedItemRow(discussion));
-                        }
+                        if (!_d && !_a && (_b = announcementGenerator_1.return)) yield _b.call(announcementGenerator_1);
                     }
-                    catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                    finally {
-                        try {
-                            if (!_d && !_a && (_b = announcementGenerator_1.return)) yield _b.call(announcementGenerator_1);
-                        }
-                        finally { if (e_1) throw e_1.error; }
-                    }
-                    setAffectedItems && setAffectedItems(affectedItems);
+                    finally { if (e_1) throw e_1.error; }
                 }
-                else {
-                    setUnaffectedItems && setUnaffectedItems([]);
-                }
+                if (!syllabusText)
+                    throw new MalformedSyllabusError();
+                const syllabusChanges = yield updateSyllabus(syllabusText, workingStartDate, course, startDate, modules);
+                if (syllabusChanges)
+                    affectedItems.concat(syllabusChanges);
+                setAffectedItems && setAffectedItems(affectedItems);
                 yield refreshCourse(true);
                 setStartDate(workingStartDate);
             }
@@ -43819,28 +43905,6 @@ function UpdateStartDate({ course, isDisabled, startLoading, endLoading, refresh
             }
             endLoading();
         });
-    }
-    function updateSyllabus(syllabusText, updateStartDate) {
-        return UpdateStartDate_awaiter(this, void 0, void 0, function* () {
-            const affectedItems = [];
-            const results = updatedDateSyllabusHtml(syllabusText, updateStartDate);
-            if (syllabusText !== results.html) {
-                yield course.changeSyllabus(results.html);
-                const modules = yield course.getModules();
-                yield changeModuleLockDate(course.id, modules[0], updateStartDate);
-                if (updateStartDate != startDate) {
-                    affectedItems.push((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("div", { className: 'col-sm-6', children: "Changed Lock Date" }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-6', children: (0,jsx_runtime.jsx)("a", { href: course.htmlContentUrl + '/modules', children: "Modules Page" }) })] }));
-                }
-                return affectedItems;
-            }
-        });
-    }
-    function getContentAffectedItemRow(item) {
-        var _a;
-        return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("div", { className: 'col-sm-6', children: (0,jsx_runtime.jsx)("a", { href: item.htmlContentUrl, target: "_blank", children: item.name }) }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-6', children: (_a = item.dueAt) === null || _a === void 0 ? void 0 : _a.toString() })] });
-    }
-    function getSyllabusAffectedItemsRows(results) {
-        return results.changedText.map((changedText) => (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsxs)("div", { className: 'col-sm-6', children: [(0,jsx_runtime.jsx)("strong", { children: "Change:" }), changedText] }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-6', children: (0,jsx_runtime.jsx)("a", { href: course.htmlContentUrl + '/assignments/syllabus', target: "_blank", children: "Syllabus" }) })] }));
     }
     function updateStartDateValue(inDate) {
         setWorkingStartDate(oldDateToPlainDate(inDate));
@@ -43863,6 +43927,40 @@ class StartDateNotSetError extends Error {
         super(...arguments);
         this.name = "StartDateNotSetError";
     }
+}
+function updateSyllabus(syllabusText, updateStartDate, course, startDate, modules) {
+    return UpdateStartDate_awaiter(this, void 0, void 0, function* () {
+        const affectedItems = [];
+        const results = updatedDateSyllabusHtml(syllabusText, updateStartDate);
+        if (syllabusText !== results.html) {
+            yield course.changeSyllabus(results.html);
+            if (updateStartDate != startDate) {
+                affectedItems.push((0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("div", { className: 'col-sm-6', children: "Changed Lock Date" }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-6', children: (0,jsx_runtime.jsx)("a", { href: course.htmlContentUrl + '/modules', children: "Modules Page" }) })] }));
+            }
+            return affectedItems;
+        }
+    });
+}
+function updateAssignmentDates(courseId, startDate, workingStartDate) {
+    return UpdateStartDate_awaiter(this, void 0, void 0, function* () {
+        const assignments = yield renderAsyncGen(assignmentDataGen(courseId));
+        const affectedItems = [];
+        let startOfFirstWeek = getStartDateAssignments(assignments);
+        let contentDateOffset = startDate.until(workingStartDate).days;
+        let startOfFirstWeekOffset = startOfFirstWeek.until(workingStartDate).days;
+        if (contentDateOffset != startOfFirstWeekOffset) {
+            affectedItems.push((0,jsx_runtime.jsx)("div", { children: "Note: start date mismatch. Offsetting content based on " }));
+            contentDateOffset = startDate.until(startOfFirstWeek).days;
+        }
+        return yield updateAssignmentDueDates(contentDateOffset, assignments, { courseId });
+    });
+}
+function SyllabusAffectedItemsRows(courseId, results) {
+    return results.changedText.map((changedText) => _jsxs(_Fragment, { children: [_jsxs("div", { className: 'col-sm-6', children: [_jsx("strong", { children: "Change:" }), changedText] }), _jsx("div", { className: 'col-sm-6', children: _jsx("a", { href: `/api/v1/courses/${courseId}/assignments/syllabus`, target: "_blank", children: "Syllabus" }) })] }));
+}
+function ContentAffectedRow(item) {
+    var _a;
+    return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("div", { className: 'col-sm-6', children: (0,jsx_runtime.jsx)("a", { href: item.htmlContentUrl, target: "_blank", children: item.name }) }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-6', children: (_a = item.dueAt) === null || _a === void 0 ? void 0 : _a.toString() })] });
 }
 
 // EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/publish/fixesAndUpdates/CourseValidTest.scss
@@ -45212,6 +45310,7 @@ var blueprint_awaiter = (undefined && undefined.__awaiter) || function (thisArg,
 function isBlueprint({ blueprint }) {
     return !!blueprint;
 }
+//W
 function genBlueprintDataForCode(courseCode, accountIds, queryParams) {
     if (!courseCode) {
         console.warn("Course code not present");
@@ -45354,6 +45453,14 @@ var Account_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var Account_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
+
 
 
 /**
@@ -45375,20 +45482,36 @@ class Account extends BaseCanvasObject {
     }
     static getAccountById(accountId_1) {
         return Account_awaiter(this, arguments, void 0, function* (accountId, config = undefined) {
-            const data = yield this.getDataById(accountId, null, config);
+            const data = yield fetchJson_fetchJson(`/api/v1/accounts/${accountId}`, config);
             return new Account(data);
         });
     }
     static getRootAccount() {
         return Account_awaiter(this, arguments, void 0, function* (resetCache = false) {
-            let accounts = yield this.getAll();
+            var _a, e_1, _b, _c;
             if (!resetCache && this.hasOwnProperty('account') && this.account) {
                 return this.account;
             }
-            let root = accounts.find((a) => a.rootAccountId === null);
-            assert_default()(root);
-            this.account = root;
-            return root;
+            let accountGen = getPagedDataGenerator('/api/v1/accounts');
+            try {
+                for (var _d = true, accountGen_1 = Account_asyncValues(accountGen), accountGen_1_1; accountGen_1_1 = yield accountGen_1.next(), _a = accountGen_1_1.done, !_a; _d = true) {
+                    _c = accountGen_1_1.value;
+                    _d = false;
+                    let account = _c;
+                    if (account.root_account_id)
+                        continue; //if there is a root_account_id, this is not the root account
+                    const root = new Account(account);
+                    this.account = root;
+                    return root;
+                }
+            }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (!_d && !_a && (_b = accountGen_1.return)) yield _b.call(accountGen_1);
+                }
+                finally { if (e_1) throw e_1.error; }
+            }
         });
     }
     get rootAccountId() {
@@ -45398,6 +45521,12 @@ class Account extends BaseCanvasObject {
 Account.nameProperty = 'name'; // The field name of the primary name of the canvas object type
 Account.contentUrlTemplate = '/api/v1/accounts/{content_id}'; // A templated url to get a single item
 Account.allContentUrlTemplate = '/api/v1/accounts'; // A templated url to get all items
+class RootAccountNotFoundError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = 'RootAccountNotFoundError';
+    }
+}
 
 ;// CONCATENATED MODULE: ./src/canvas/profile.ts
 var profile_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -45653,6 +45782,8 @@ class Term extends BaseCanvasObject {
     static getTermById(termId_1) {
         return Term_awaiter(this, arguments, void 0, function* (termId, config = null) {
             let account = yield Account.getRootAccount();
+            if (!account)
+                throw new RootAccountNotFoundError();
             let url = `/api/v1/accounts/${account.id}/terms/${termId}`;
             let termData = yield fetchJson_fetchJson(url, config);
             if (termData)
@@ -45699,7 +45830,7 @@ class Term extends BaseCanvasObject {
 }
 Term.nameProperty = "name";
 
-;// CONCATENATED MODULE: ./src/canvas/content/Quiz.ts
+;// CONCATENATED MODULE: ./src/canvas/content/quizzes/Quiz.ts
 var Quiz_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -45712,15 +45843,6 @@ var Quiz_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arg
 
 
 
-
-
-const QuizUrlFuncs = contentUrlFuncs('quizzes');
-const QuizKindInfo = Object.assign(Object.assign({ getId: (data) => data.id, getName: (data) => data.title, getBody: (data) => data.description, get(courseId, contentId, config) {
-        return Quiz_awaiter(this, void 0, void 0, function* () {
-            const data = yield fetchJson_fetchJson(this.getApiUrl(courseId, contentId), config);
-            return data;
-        });
-    } }, QuizUrlFuncs), { dataGenerator: (courseId, config) => getPagedDataGenerator(QuizUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(QuizUrlFuncs.getApiUrl) });
 class Quiz extends BaseContentItem {
     setDueAt(date) {
         return Quiz_awaiter(this, void 0, void 0, function* () {
@@ -45753,13 +45875,7 @@ var Course_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _a
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var Course_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
+
 
 
 
@@ -45906,7 +46022,7 @@ class Course extends BaseCanvasObject {
     }
     getStartDateFromModules() {
         return Course_awaiter(this, void 0, void 0, function* () {
-            return getCurrentStartDate(yield this.getModules());
+            return getModuleUnlockStartDate(yield this.getModules());
         });
     }
     getInstructors() {
@@ -46131,34 +46247,6 @@ class Course extends BaseCanvasObject {
                     })
                 }
             });
-        });
-    }
-    updateDueDates(offset, config) {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            var _a, e_1, _b, _c;
-            const promises = [];
-            const returnAssignments = [];
-            const assignments = assignmentDataGen(this.id, config);
-            if (offset === 0 || offset) {
-                try {
-                    for (var _d = true, assignments_1 = Course_asyncValues(assignments), assignments_1_1; assignments_1_1 = yield assignments_1.next(), _a = assignments_1_1.done, !_a; _d = true) {
-                        _c = assignments_1_1.value;
-                        _d = false;
-                        let assignmentData = _c;
-                        const assignment = new Assignment(assignmentData, this.id);
-                        returnAssignments.push(assignment);
-                        promises.push(assignment.dueAtTimeDelta(Number(offset)));
-                    }
-                }
-                catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                finally {
-                    try {
-                        if (!_d && !_a && (_b = assignments_1.return)) yield _b.call(assignments_1);
-                    }
-                    finally { if (e_1) throw e_1.error; }
-                }
-            }
-            return returnAssignments;
         });
     }
     publish() {
@@ -46830,7 +46918,10 @@ function SearchCourses({ setFoundCourses, onlySearchBlueprints, }) {
         if (isSearching)
             return;
         updateCourseSearchString();
-        const accountIds = [(yield Account.getRootAccount()).id];
+        const rootAccount = yield Account.getRootAccount();
+        if (typeof rootAccount === 'undefined')
+            throw new RootAccountNotFoundError();
+        const accountIds = [rootAccount.id];
         setIsSearching(true);
         let courses = [];
         for (let code of seekCourseCodes) {
@@ -47230,12 +47321,6 @@ function AssignmentGroups({ assignmentGroups }) {
                 return ((0,jsx_runtime.jsxs)("div", { className: 'row', children: [(0,jsx_runtime.jsx)("div", { className: 'col-xs-9', children: group.name }), (0,jsx_runtime.jsxs)("div", { className: 'col-xs-3', children: [group.group_weight, "%"] }), (0,jsx_runtime.jsx)("ul", { children: (_a = group.assignments) === null || _a === void 0 ? void 0 : _a.map((assignment) => ((0,jsx_runtime.jsx)("li", { children: assignment.name }))) })] }, group.id));
             })] });
 }
-
-;// CONCATENATED MODULE: ./src/consts.ts
-const OPEN_AI_API_KEY_KEY = "OPEN_AI_API_KEY";
-const PUBLISH_FORM_EMAIL_TEMPLATE_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics/Form-Email-Template.md';
-const DIST_REPO_URL = 'https://github.com/Unity-Environmental-University/lxd-tools-build';
-const DIST_REPO_MANIFEST = 'https://raw.githubusercontent.com/Unity-Environmental-University/lxd-tools-build/stable/manifest.json';
 
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
 function extends_extends() {
@@ -49379,7 +49464,7 @@ function bMinusASortFn(func) {
     return (a, b) => func(b) - func(a);
 }
 
-;// CONCATENATED MODULE: ./src/canvas/course/migration.ts
+;// CONCATENATED MODULE: ./src/canvas/course/migration/index.ts
 var migration_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -49508,7 +49593,7 @@ function copyToNewCourseGenerator(sourceCourse_1, newCode_1) {
     });
 }
 
-;// CONCATENATED MODULE: ./src/canvas/course/migrationCache.ts
+;// CONCATENATED MODULE: ./src/canvas/course/migration/migrationCache.ts
 function loadCachedMigrations() {
     var _a;
     if (!localStorage.getItem('migrations'))
@@ -49710,16 +49795,28 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet, }) {
         });
     }
     useEffectAsync(() => MakeBp_awaiter(this, void 0, void 0, function* () {
+        var _a, e_2, _b, _c;
         if (currentBp && currentBp.isBlueprint()) {
-            const sections = yield getSections(currentBp.id);
-            setSections(sections);
+            let sections = [];
+            const sectionGen = sectionDataGenerator(currentBp.id);
             try {
-                setTermName(yield getTermNameFromSections(sections));
+                for (var _d = true, sectionGen_1 = MakeBp_asyncValues(sectionGen), sectionGen_1_1; sectionGen_1_1 = yield sectionGen_1.next(), _a = sectionGen_1_1.done, !_a; _d = true) {
+                    _c = sectionGen_1_1.value;
+                    _d = false;
+                    let sectionData = _c;
+                    sections.push(sectionData);
+                    if (sectionData.term_name)
+                        setTermName(sectionData.term_name);
+                }
             }
-            catch (e) {
-                console.warn(e);
-                setTermName('');
+            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+            finally {
+                try {
+                    if (!_d && !_a && (_b = sectionGen_1.return)) yield _b.call(sectionGen_1);
+                }
+                finally { if (e_2) throw e_2.error; }
             }
+            setSections(sections);
         }
     }), [currentBp]);
     function onArchive(e) {
@@ -49800,6 +49897,9 @@ var PublishInterface_awaiter = (undefined && undefined.__awaiter) || function (t
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
+
+
 
 
 
@@ -49995,6 +50095,9 @@ function getFullCourses(_a) {
             for (let { section, instructors, frontPageProfile } of results) {
                 if (!sectionStartSet) {
                     let actualStart = yield section.getStartDateFromModules();
+                    if (!actualStart) {
+                        actualStart = getStartDateAssignments(yield renderAsyncGen(assignmentDataGen(section.id)));
+                    }
                     sectionStartSet = true;
                     setSectionStart(mr.PlainDateTime.from(actualStart));
                 }
@@ -50171,6 +50274,7 @@ var rubricSettings_asyncValues = (undefined && undefined.__asyncValues) || funct
 
 
 
+
 function getBadRubricAssociations(courseId) {
     return rubricSettings_awaiter(this, void 0, void 0, function* () {
         var _a, e_1, _b, _c;
@@ -50252,7 +50356,7 @@ const rubricsTiedToGradesTest = {
                 }
                 success = fixedAssociations.length === badAssociations.length;
                 return testResult(success, {
-                    links: fixedAssociations.map(a => AssignmentKindInfo.getHtmlUrl(course.id, a.association_id))
+                    links: fixedAssociations.map(a => AssignmentKind.getHtmlUrl(course.id, a.association_id))
                 });
             }
             catch (e) {
