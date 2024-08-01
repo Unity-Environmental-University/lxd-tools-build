@@ -8207,6 +8207,13 @@ function setGradingStandardForCourse(courseId, standardId, config) {
         return yield saveCourseData(courseId, { grading_standard_id: standardId });
     });
 }
+function getCourseName(data) {
+    var _a;
+    const [full, withoutCode] = (_a = /[^:]*:\s*(.*)/.exec(data.name)) !== null && _a !== void 0 ? _a : [];
+    if (withoutCode)
+        return withoutCode;
+    return data.name;
+}
 
 ;// CONCATENATED MODULE: ./src/canvas/course/code.ts
 
@@ -12924,15 +12931,15 @@ var AssignmentKind_awaiter = (undefined && undefined.__awaiter) || function (thi
 
 
 
-const AssignmentUrlFuncs = contentUrlFuncs('assignments');
+const assignmentUrlFuncs = contentUrlFuncs('assignments');
 const AssignmentKind = Object.assign(Object.assign({ getId: (data) => data.id, dataIsThisKind: (data) => {
         return 'submission_types' in data;
     }, getName: (data) => data.name, getBody: (data) => data.description, get(courseId, contentId, config) {
         return AssignmentKind_awaiter(this, void 0, void 0, function* () {
-            const data = yield fetchJson_fetchJson(this.getApiUrl(courseId, contentId), config);
+            const data = yield fetchJson_fetchJson(assignmentUrlFuncs.getApiUrl(courseId, contentId), config);
             return data;
         });
-    } }, AssignmentUrlFuncs), { dataGenerator: (courseId, config) => getPagedDataGenerator(AssignmentUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(AssignmentUrlFuncs.getApiUrl) });
+    } }, assignmentUrlFuncs), { dataGenerator: (courseId, config) => getPagedDataGenerator(assignmentUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(assignmentUrlFuncs.getApiUrl) });
 
 ;// CONCATENATED MODULE: ./src/canvas/content/assignments/Assignment.ts
 var Assignment_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -13097,11 +13104,10 @@ function dateToSyllabusString(date) {
     return `${date.toLocaleString(DEFAULT_LOCALE, { month: 'long', day: 'numeric' })}`;
 }
 function syllabusHeaderName(el) {
-    const header = el.querySelector('strong');
-    if (!header)
-        return null;
-    const html = header.innerHTML;
-    return html.replace(/:$/, '');
+    var _a;
+    let [_, head] = (_a = /([^:]*):/.exec(el.innerHTML)) !== null && _a !== void 0 ? _a : [];
+    head = head === null || head === void 0 ? void 0 : head.replaceAll(/<[^>]*>/g, '');
+    return head;
 }
 class NoOverviewModuleFoundError extends Error {
     constructor() {
@@ -13741,7 +13747,7 @@ const DiscussionKind = Object.assign(Object.assign({}, discussionUrlFuncs), { da
         return data.hasOwnProperty('discussion_type');
     }, getId: (data) => data.id, getName: (data) => data.title, getBody: (data) => data.message, get(courseId, contentId, config) {
         return DiscussionKind_awaiter(this, void 0, void 0, function* () {
-            const data = yield fetchJson_fetchJson(this.getApiUrl(courseId, contentId), config);
+            const data = yield fetchJson_fetchJson(discussionUrlFuncs.getApiUrl(courseId, contentId), config);
             return data;
         });
     }, dataGenerator: (courseId, config) => getPagedDataGenerator(discussionUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(discussionUrlFuncs.getApiUrl) });
@@ -14290,7 +14296,7 @@ var QuizKind_awaiter = (undefined && undefined.__awaiter) || function (thisArg, 
 const quizUrlFuncs = contentUrlFuncs('quizzes');
 const QuizKind = Object.assign(Object.assign({ getId: (data) => data.id, getName: (data) => data.title, dataIsThisKind: (data) => 'quiz_type' in data, getBody: (data) => data.description, get(courseId, contentId, config) {
         return QuizKind_awaiter(this, void 0, void 0, function* () {
-            const data = yield fetchJson_fetchJson(this.getApiUrl(courseId, contentId), config);
+            const data = yield fetchJson_fetchJson(quizUrlFuncs.getApiUrl(courseId, contentId), config);
             return data;
         });
     } }, quizUrlFuncs), { dataGenerator: (courseId, config) => getPagedDataGenerator(quizUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(quizUrlFuncs.getApiUrl) });

@@ -43373,15 +43373,15 @@ var AssignmentKind_awaiter = (undefined && undefined.__awaiter) || function (thi
 
 
 
-const AssignmentUrlFuncs = contentUrlFuncs('assignments');
+const assignmentUrlFuncs = contentUrlFuncs('assignments');
 const AssignmentKind = Object.assign(Object.assign({ getId: (data) => data.id, dataIsThisKind: (data) => {
         return 'submission_types' in data;
     }, getName: (data) => data.name, getBody: (data) => data.description, get(courseId, contentId, config) {
         return AssignmentKind_awaiter(this, void 0, void 0, function* () {
-            const data = yield fetchJson_fetchJson(this.getApiUrl(courseId, contentId), config);
+            const data = yield fetchJson_fetchJson(assignmentUrlFuncs.getApiUrl(courseId, contentId), config);
             return data;
         });
-    } }, AssignmentUrlFuncs), { dataGenerator: (courseId, config) => getPagedDataGenerator(AssignmentUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(AssignmentUrlFuncs.getApiUrl) });
+    } }, assignmentUrlFuncs), { dataGenerator: (courseId, config) => getPagedDataGenerator(assignmentUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(assignmentUrlFuncs.getApiUrl) });
 
 ;// CONCATENATED MODULE: ./src/canvas/content/assignments/Assignment.ts
 var Assignment_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -43546,11 +43546,10 @@ function dateToSyllabusString(date) {
     return `${date.toLocaleString(DEFAULT_LOCALE, { month: 'long', day: 'numeric' })}`;
 }
 function syllabusHeaderName(el) {
-    const header = el.querySelector('strong');
-    if (!header)
-        return null;
-    const html = header.innerHTML;
-    return html.replace(/:$/, '');
+    var _a;
+    let [_, head] = (_a = /([^:]*):/.exec(el.innerHTML)) !== null && _a !== void 0 ? _a : [];
+    head = head === null || head === void 0 ? void 0 : head.replaceAll(/<[^>]*>/g, '');
+    return head;
 }
 class NoOverviewModuleFoundError extends Error {
     constructor() {
@@ -43768,7 +43767,7 @@ const DiscussionKind = Object.assign(Object.assign({}, discussionUrlFuncs), { da
         return data.hasOwnProperty('discussion_type');
     }, getId: (data) => data.id, getName: (data) => data.title, getBody: (data) => data.message, get(courseId, contentId, config) {
         return DiscussionKind_awaiter(this, void 0, void 0, function* () {
-            const data = yield fetchJson_fetchJson(this.getApiUrl(courseId, contentId), config);
+            const data = yield fetchJson_fetchJson(discussionUrlFuncs.getApiUrl(courseId, contentId), config);
             return data;
         });
     }, dataGenerator: (courseId, config) => getPagedDataGenerator(discussionUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(discussionUrlFuncs.getApiUrl) });
@@ -44107,6 +44106,17 @@ function badContentRunFunc(badTest, contentFunc) {
         if (!success)
             result.links = badContent.map(content => content.htmlContentUrl);
         return result;
+    });
+}
+function badSyllabusRunFunc(badTest) {
+    return (course) => validations_awaiter(this, void 0, void 0, function* () {
+        const syllabus = yield course.getSyllabus();
+        const match = syllabus.match(badTest);
+        const success = match === null;
+        return testResult(success, {
+            failureMessage: matchHighlights(syllabus, badTest),
+            links: [`/courses/${course.id}/assignments/syllabus`]
+        });
     });
 }
 function badSyllabusFixFunc(validateRegEx, replace) {
@@ -46453,6 +46463,13 @@ function setGradingStandardForCourse(courseId, standardId, config) {
         return yield saveCourseData(courseId, { grading_standard_id: standardId });
     });
 }
+function getCourseName(data) {
+    var _a;
+    const [full, withoutCode] = (_a = /[^:]*:\s*(.*)/.exec(data.name)) !== null && _a !== void 0 ? _a : [];
+    if (withoutCode)
+        return withoutCode;
+    return data.name;
+}
 
 ;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/courseContent.ts
 var courseContent_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -46536,10 +46553,10 @@ function getOverview(course, config) {
 }
 const codeAndCodeOfCodeTest = Object.assign({ name: "Code and Code of Code", beforeAndAfters: [
         ['<p>Honor Code and Code of Code of Conduct</p>', '<p>Honor Code and Code of Conduct</p>']
-    ], getContent: getOverview, description: 'First bullet of course overview should read ... Unity DE Honor Code and Code of Conduct ..., not ' }, badContentReplaceFuncs(/Code and Code of Code of Conduct/ig, 'Code and Code of Conduct', getOverview));
+    ], description: 'First bullet of course overview should read ... Unity DE Honor Code and Code of Conduct ..., not ' }, badContentReplaceFuncs(/Code and Code of Code of Conduct/ig, 'Code and Code of Conduct'));
 function badContentReplaceFuncs(badTest, replace, getContentFunc) {
     return {
-        run: badContentRunFunc(badTest),
+        run: badContentRunFunc(badTest, getContentFunc),
         fix: badContentFixFunc(badTest, replace, getContentFunc)
     };
 }
@@ -46709,11 +46726,10 @@ var syllabusTests_awaiter = (undefined && undefined.__awaiter) || function (this
 };
 
 
-const justSyllabusContentFunc = () => [];
 //Syllabus Tests
 const finalNotInGradingPolicyParaTest = {
     name: "Remove Final",
-    beforeAndAfters: [['off the final grade', 'off the grade'], ['final exam', 'final exam']],
+    beforeAndAfters: [['off the final grade', 'off the grade']],
     description: 'Remove "final" from the grading policy paragraphs of syllabus',
     run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
         const syllabus = yield course.getSyllabus();
@@ -46754,6 +46770,24 @@ const courseCreditsInSyllabusTest = {
         const links = [`/courses/${course.id}/assignments/syllabus`];
         const failureMessage = "Can't find credits in syllabus";
         return testResult(creditList && creditList.length > 0, { failureMessage, links });
+    })
+};
+const badTest = /<p>\s*<strong>\s*Class Inclusive[\s:]*<\/strong>[\s:]*(.*)<\/p>/ig;
+const classInclusiveNoDateHeaderTest = {
+    name: "Class Inclusive -> Class Inclusive Dates",
+    beforeAndAfters: [
+        ['<p><strong>Class Inclusive:</strong> Aug 12 - Sept 12</p>', '<p><strong>Class Inclusive Dates:</strong> Aug 12 - Sept 12</p>'],
+        ['<p><strong>Class Inclusive:</strong> Aug 12 - Sept 12</p>', '<p><strong>Class Inclusive Dates:</strong> Aug 12 - Sept 12</p>'],
+        ['<p><strong>Class Inclusive</strong> : Aug 12 - Sept 12</p>', '<p><strong>Class Inclusive Dates:</strong> Aug 12 - Sept 12</p>'],
+        ['<p><strong>Class Inclusive: </strong> Aug 12 - Sept 12</p>', '<p><strong>Class Inclusive Dates:</strong> Aug 12 - Sept 12</p>'],
+        ['<p> <strong> Class Inclusive: </strong> Aug 12 - Sept 12</p>', '<p><strong>Class Inclusive Dates:</strong> Aug 12 - Sept 12</p>'],
+        ['<p><strong>Class Inclusive : </strong><span> Aug 12 - Sept 12</span></p>', '<p><strong>Class Inclusive Dates:</strong> Aug 12 - Sept 12</p>'],
+    ],
+    description: 'Syllabus lists date range for course as "Class Inclusive Dates:" NOT as "Class Inclusive:"',
+    run: badSyllabusRunFunc(badTest),
+    fix: badSyllabusFixFunc(badTest, (badText) => {
+        badText = badText.replaceAll(/<\/?span>/ig, '');
+        return badText.replaceAll(badTest, '<p><strong>Class Inclusive Dates:</strong> $1</p>');
     })
 };
 const aiPolicyInSyllabusTest = {
@@ -46855,12 +46889,13 @@ const secondDiscussionParaOff = {
     }
 };
 /* harmony default export */ const syllabusTests = ([
+    classInclusiveNoDateHeaderTest,
     courseCreditsInSyllabusTest,
     finalNotInGradingPolicyParaTest,
     communication24HoursTest,
     aiPolicyInSyllabusTest,
     bottomOfSyllabusLanguageTest,
-    gradeTableHeadersCorrectTest
+    gradeTableHeadersCorrectTest,
 ]);
 
 ;// CONCATENATED MODULE: ./src/admin/index.tsx
@@ -49847,7 +49882,7 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet, }) {
             }
             const accountId = devCourse.accountId;
             const bpCode = bpify(devCourse.parsedCourseCode);
-            let bpName = bpCode;
+            let bpName = `${bpCode}: ${getCourseName(devCourse.rawData)}`;
             if (devCourse.courseCode && devCourse.name.match(devCourse.courseCode)) {
                 bpName = devCourse.name.replace(devCourse.courseCode, bpCode);
             }
