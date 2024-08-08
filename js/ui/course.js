@@ -12661,6 +12661,8 @@ function getCourseIdFromUrl(url) {
 ;// CONCATENATED MODULE: ./src/consts.ts
 const OPEN_AI_API_KEY_KEY = "OPEN_AI_API_KEY";
 const PUBLISH_FORM_EMAIL_TEMPLATE_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics/Form-Email-Template.md';
+const DOCUMENTATION_TOC_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/lxd.tree';
+const DOCUMENTATION_TOPICS_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics';
 const DIST_REPO_URL = 'https://github.com/Unity-Environmental-University/lxd-tools-build';
 const DIST_REPO_MANIFEST = 'https://raw.githubusercontent.com/Unity-Environmental-University/lxd-tools-build/stable/manifest.json';
 const SAFE_MAX_BANNER_WIDTH = 1400;
@@ -15095,7 +15097,7 @@ function BpButton({ course, currentBp }) {
     }
     if (!currentBp && bps.length === 0)
         return (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { disabled: true, children: "No BPs Found" });
-    return (0,jsx_runtime.jsx)(jsx_runtime.Fragment, { children: (0,jsx_runtime.jsxs)(esm_Col, { children: [(0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { title: "Open the blueprint version of this course", onClick: openMainBp, disabled: (currentBp === null || currentBp === void 0 ? void 0 : currentBp.id) === course.id, children: "BP" }), !currentBp && bps.length == 1 || bps.length > 1 && (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: e => setOpen(true), title: "Show archived BPs", children: "BPs" }), (0,jsx_runtime.jsx)(widgets_Modal, { isOpen: open, requestClose: () => setOpen(false), children: bps.toSorted(bMinusASortFn((a) => a.id)).map(bp => (0,jsx_runtime.jsx)(esm_Row, { children: (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: e => openThisContentInTarget(course, bp.id), children: bp.course_code }, bp.id) })) })] })] }) });
+    return (0,jsx_runtime.jsx)(jsx_runtime.Fragment, { children: (0,jsx_runtime.jsxs)(esm_Col, { children: [(0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { title: "Open the blueprint version of this course", onClick: openMainBp, disabled: (currentBp === null || currentBp === void 0 ? void 0 : currentBp.id) === course.id, children: "BP" }), !currentBp && bps.length == 1 || bps.length > 1 && (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: e => setOpen(true), title: "Show archived BPs", children: "BPs" }), (0,jsx_runtime.jsx)(widgets_Modal, { isOpen: open, requestClose: () => setOpen(false), children: bps.toSorted(bMinusASortFn((a) => a.id)).map((bp, i) => (0,jsx_runtime.jsx)(esm_Row, { children: (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: e => openThisContentInTarget(course, bp.id), children: bp.course_code }) }, `${bp.id}-${i}`)) })] })] }) });
 }
 
 ;// CONCATENATED MODULE: ./src/canvas/content/getContentFuncs.ts

@@ -43103,6 +43103,8 @@ function getCourseIdFromUrl(url) {
 ;// CONCATENATED MODULE: ./src/consts.ts
 const OPEN_AI_API_KEY_KEY = "OPEN_AI_API_KEY";
 const PUBLISH_FORM_EMAIL_TEMPLATE_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics/Form-Email-Template.md';
+const DOCUMENTATION_TOC_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/lxd.tree';
+const DOCUMENTATION_TOPICS_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics';
 const DIST_REPO_URL = 'https://github.com/Unity-Environmental-University/lxd-tools-build';
 const DIST_REPO_MANIFEST = 'https://raw.githubusercontent.com/Unity-Environmental-University/lxd-tools-build/stable/manifest.json';
 const SAFE_MAX_BANNER_WIDTH = 1400;
@@ -49389,6 +49391,7 @@ var EmailLink_awaiter = (undefined && undefined.__awaiter) || function (thisArg,
 
 
 
+
 /**
  * Section start needed because the data based term start in Canvas is frustratingly wrong
  * @param user
@@ -49403,6 +49406,7 @@ function EmailLink({ user, emails, course, termData, sectionStart }) {
     const bcc = emails.join(',');
     const subject = encodeURIComponent(((_a = course.name) === null || _a === void 0 ? void 0 : _a.replace('BP_', '')) + ' Section(s) Ready Notification');
     const [emailTemplate, setEmailTemplate] = (0,react.useState)();
+    const [additionsTemplate, setAdditionsTemplate] = (0,react.useState)();
     const [errorMessages, setErrorMessages] = (0,react.useState)([]);
     useEffectAsync(() => EmailLink_awaiter(this, void 0, void 0, function* () {
         if (emailTemplate)
@@ -49415,12 +49419,24 @@ function EmailLink({ user, emails, course, termData, sectionStart }) {
         let template = yield emailResponse.text();
         setEmailTemplate(template);
     }), []);
+    useEffectAsync(() => EmailLink_awaiter(this, void 0, void 0, function* () {
+        if (course.baseCode) {
+            const additionsTemplate = yield getAdditionsTemplate(course.baseCode);
+            setAdditionsTemplate(additionsTemplate);
+        }
+    }), [course]);
     function copyToClipboard() {
         return EmailLink_awaiter(this, void 0, void 0, function* () {
             var _a, _b;
             if (!emailTemplate) {
                 setErrorMessages([`Can't find template email to fill at ` + PUBLISH_FORM_EMAIL_TEMPLATE_URL]);
                 return;
+            }
+            const additionsTemplates = [];
+            if (course.baseCode) {
+                const courseSpecificTemplate = yield getAdditionsTemplate(course.baseCode);
+                if (courseSpecificTemplate)
+                    additionsTemplates.push(courseSpecificTemplate);
             }
             const body = renderEmailTemplate(emailTemplate, {
                 userName: user.name,
@@ -49429,12 +49445,13 @@ function EmailLink({ user, emails, course, termData, sectionStart }) {
                 termName: termData ? termData.name : '[[TERM NAME]]',
                 courseStart: getCourseStart(),
                 publishDate: getPublishDate(),
-            });
+            }, additionsTemplates);
             yield navigator.clipboard.write([
                 new ClipboardItem({
                     'text/html': new Blob([body], { type: 'text/html' })
                 })
             ]);
+            console.log(body);
         });
     }
     function getCourseStart() {
@@ -49457,9 +49474,67 @@ function EmailLink({ user, emails, course, termData, sectionStart }) {
     }
     return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("a", { href: `mailto:${user.email}?subject=${subject}&bcc=${bcc}`, children: emails.join(', ') }), termData && (0,jsx_runtime.jsx)("button", { onClick: copyToClipboard, children: "Copy Form Email to Clipboard" }), errorMessages.map(msg => (0,jsx_runtime.jsx)(esm_Alert, { children: msg }))] });
 }
-function renderEmailTemplate(emailTemplate, props) {
+function renderEmailTemplate(emailTemplate, props, additions) {
     let renderedTemplate = emailTemplate.split('\n').slice(1).join('\n');
+    additions !== null && additions !== void 0 ? additions : (additions = []);
+    const additionsString = additions.join('\n');
+    renderedTemplate = renderedTemplate.replace('{additions}', additionsString);
     return Object.entries(props).reduce((accumulator, [key, value]) => accumulator.replaceAll(`{{${key}}}`, value), renderedTemplate);
+}
+let topicCache;
+function getSpecificTemplates() {
+    return EmailLink_awaiter(this, void 0, void 0, function* () {
+        var _a;
+        if (topicCache)
+            return topicCache;
+        const tocResponse = yield fetch(DOCUMENTATION_TOC_URL);
+        if (!tocResponse.ok) {
+            console.log(`Documentation not found at ${DOCUMENTATION_TOPICS_URL}`);
+            return [];
+        }
+        const text = yield tocResponse.text();
+        const tocXml = new DOMParser().parseFromString(text, 'text/xml');
+        const tocItems = [...tocXml.getElementsByTagName('toc-element')];
+        const tocTopics = tocItems.map(a => a.getAttribute('topic'));
+        console.log(tocTopics);
+        const formEmailTemplate = tocItems.find(a => a.getAttribute('topic') == ('Form-Email-Template.md'));
+        let children = (_a = formEmailTemplate === null || formEmailTemplate === void 0 ? void 0 : formEmailTemplate.getElementsByTagName('toc-element')) !== null && _a !== void 0 ? _a : [];
+        let topics = [];
+        for (let node of children) {
+            console.log(node.childNodes);
+            const topic = node.getAttribute('topic');
+            if (topic)
+                topics.push(topic);
+        }
+        topicCache = topics;
+        return topics;
+    });
+}
+function getAdditionsTemplate(courseCode) {
+    return EmailLink_awaiter(this, void 0, void 0, function* () {
+        const templates = yield getSpecificTemplates();
+        const baseCode = code_baseCourseCode(courseCode);
+        if (!templates)
+            return;
+        if (!baseCode)
+            return;
+        const topic = templates && baseCode && templates.find(topic => topic.toLocaleLowerCase().includes(baseCode.toLocaleLowerCase()));
+        const url = `${DOCUMENTATION_TOPICS_URL}/${topic}`;
+        if (!topic || !url)
+            return;
+        const response = yield fetch(url);
+        if (!response.ok)
+            throw new TemplateNotFoundError(courseCode);
+        const additionsTemplate = yield response.text();
+        return additionsTemplate.split('\n').slice(1).join('\n');
+    });
+}
+class TemplateNotFoundError extends Error {
+    constructor(code, message) {
+        super(message !== null && message !== void 0 ? message : code);
+        this.name = 'TemplateNotFoundError';
+        this.code = code;
+    }
 }
 
 ;// CONCATENATED MODULE: ./src/publish/publishInterface/CourseRow.tsx
