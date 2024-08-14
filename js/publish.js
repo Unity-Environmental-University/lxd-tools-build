@@ -43013,29 +43013,6 @@ BaseCanvasObject.nameProperty = 'name'; // The field name of the primary name of
 BaseCanvasObject.contentUrlTemplate = null; // A templated url to get a single item
 BaseCanvasObject.allContentUrlTemplate = null; // A templated url to get all items
 
-;// CONCATENATED MODULE: ./src/canvas/index.ts
-// noinspection GrazieInspection
-/* Very Initial refactor to JS using ChatGPT4
-NOTE: Almost all of this code has had to be rewritten since then.
-And starting to convert to ts
- */
-/* THis has since been almost entirely rewritten. It did not do a great job at first pass.
- It kept inventing code that should work but didn't */
-
-
-class NotImplementedException extends Error {
-}
-function canvas_apiWriteConfig(method, data, baseConfig) {
-    const body = formDataify(data);
-    return overrideConfig({
-        fetchInit: {
-            method,
-            body,
-        }
-    }, baseConfig);
-}
-
-
 // EXTERNAL MODULE: ./node_modules/webextension-polyfill/dist/browser-polyfill.js
 var browser_polyfill = __webpack_require__(6815);
 ;// CONCATENATED MODULE: ./src/canvas/image.ts
@@ -43108,6 +43085,14 @@ const DOCUMENTATION_TOPICS_URL = 'https://raw.githubusercontent.com/Unity-Enviro
 const DIST_REPO_URL = 'https://github.com/Unity-Environmental-University/lxd-tools-build';
 const DIST_REPO_MANIFEST = 'https://raw.githubusercontent.com/Unity-Environmental-University/lxd-tools-build/stable/manifest.json';
 const SAFE_MAX_BANNER_WIDTH = 1400;
+
+;// CONCATENATED MODULE: ./src/canvas/NotImplementedException.ts
+class NotImplementedException extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "NotImplementedException";
+    }
+}
 
 ;// CONCATENATED MODULE: ./src/canvas/content/BaseContentItem.ts
 var BaseContentItem_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -43994,6 +43979,20 @@ var CourseValidTest_update = injectStylesIntoStyleTag_default()(CourseValidTest/
 
 
        /* harmony default export */ const fixesAndUpdates_CourseValidTest = (CourseValidTest/* default */.A && CourseValidTest/* default */.A.locals ? CourseValidTest/* default */.A.locals : undefined);
+
+;// CONCATENATED MODULE: ./src/canvas/index.ts
+
+
+function canvas_apiWriteConfig(method, data, baseConfig) {
+    const body = formDataify(data);
+    return overrideConfig({
+        fetchInit: {
+            method,
+            body,
+        }
+    }, baseConfig);
+}
+
 
 ;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/index.ts
 var validations_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -49403,7 +49402,7 @@ var EmailLink_awaiter = (undefined && undefined.__awaiter) || function (thisArg,
  */
 function EmailLink({ user, emails, course, termData, sectionStart }) {
     var _a;
-    const bcc = emails.join(',');
+    const bcc = emails.join(';');
     const subject = encodeURIComponent(((_a = course.name) === null || _a === void 0 ? void 0 : _a.replace('BP_', '')) + ' Section(s) Ready Notification');
     const [emailTemplate, setEmailTemplate] = (0,react.useState)();
     const [additionsTemplate, setAdditionsTemplate] = (0,react.useState)();
@@ -49472,7 +49471,7 @@ function EmailLink({ user, emails, course, termData, sectionStart }) {
             day: 'numeric'
         });
     }
-    return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("a", { href: `mailto:${user.email}?subject=${subject}&bcc=${bcc}`, children: emails.join(', ') }), termData && (0,jsx_runtime.jsx)("button", { onClick: copyToClipboard, children: "Copy Form Email to Clipboard" }), errorMessages.map(msg => (0,jsx_runtime.jsx)(esm_Alert, { children: msg }))] });
+    return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("a", { href: `mailto:${user.email}?subject=${subject}&bcc=${bcc}`, children: emails.join(';') }), termData && (0,jsx_runtime.jsx)("button", { onClick: copyToClipboard, children: "Copy Form Email to Clipboard" }), errorMessages.map(msg => (0,jsx_runtime.jsx)(esm_Alert, { children: msg }))] });
 }
 function renderEmailTemplate(emailTemplate, props, additions) {
     let renderedTemplate = emailTemplate.split('\n').slice(1).join('\n');
