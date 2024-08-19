@@ -44431,7 +44431,7 @@ Col.displayName = 'Col';
 
 
 function CourseValidator({ course, tests, refreshCourse, showOnlyFailures = false }) {
-    return (0,jsx_runtime.jsxs)(esm_Col, { children: [showOnlyFailures || (0,jsx_runtime.jsx)("h2", { "data-testid": "header", children: "Course Settings and Content Tests" }), tests.map((test, i) => (0,jsx_runtime.jsx)(ValidationRow, { course: course, test: test, showOnlyFailures: showOnlyFailures, refreshCourse: refreshCourse }, `${course.id}${test.name}${i}`))] });
+    return (0,jsx_runtime.jsxs)(esm_Col, { children: ["Hey", showOnlyFailures || (0,jsx_runtime.jsx)("h2", { "data-testid": "header", children: "Course Settings and Content Tests" }), tests.map((test, i) => (0,jsx_runtime.jsx)(ValidationRow, { course: course, test: test, showOnlyFailures: showOnlyFailures, refreshCourse: refreshCourse }, `${course.id}${test.name}${i}`))] });
 }
 
 ;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/CourseUpdateInterface.tsx
@@ -45383,6 +45383,17 @@ function retireBlueprint(course, termName, config) {
         yield course.saveData({
             course: saveData
         }, config);
+    });
+}
+function beginBpSync(courseId_1, _a) {
+    return blueprint_awaiter(this, arguments, void 0, function* (courseId, { message, copy_settings, config }) {
+        const url = `/api/v1/courses/${courseId}/blueprint_templates/default/migrations`;
+        if (typeof copy_settings === 'undefined')
+            copy_settings = true;
+        const result = yield fetchJson_fetchJson(url, canvas_apiWriteConfig('POST', {
+            message,
+            copy_settings
+        }, config));
     });
 }
 function getBlueprintsFromCode(code, accountIds, config) {
@@ -46473,448 +46484,6 @@ function getCourseName(data) {
     return data.name;
 }
 
-;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/courseContent.ts
-var courseContent_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-function decodeHtml(html) {
-    let text = document.createElement("textarea");
-    text.innerHTML = html;
-    return text.value;
-}
-const weeklyObjectivesTest = {
-    name: "Learning Objectives -> Weekly Objectives",
-    description: 'Make sure weekly objectives are called "Weekly Objectives" and not "Learning Objectives" throughout',
-    run: (course, config) => courseContent_awaiter(void 0, void 0, void 0, function* () {
-        let overviews = yield course.getPages(Object.assign(Object.assign({}, config), { queryParams: Object.assign(Object.assign({}, config === null || config === void 0 ? void 0 : config.queryParams), { search_term: 'Overview', include: ['body'] }) }));
-        overviews = overviews.filter(overview => /week \d overview/ig.test(overview.name));
-        const badOverviews = overviews.filter(overview => {
-            const el = document.createElement('div');
-            el.innerHTML = overview.body;
-            const headerTexts = [...el.querySelectorAll('h2')].map(h2 => { var _a, _b; return decodeHtml((_b = (_a = h2.textContent) !== null && _a !== void 0 ? _a : h2.innerText) !== null && _b !== void 0 ? _b : ''); });
-            const weeklyObjectivesHeaders = headerTexts.filter(text => /Weekly\sObjectives/i.test(text));
-            return weeklyObjectivesHeaders.length === 0;
-        });
-        const success = badOverviews.length === 0;
-        const failureMessage = badOverviews.map(page => ({
-            bodyLines: [page.name],
-            links: [page.htmlContentUrl]
-        }));
-        const result = testResult(badOverviews.length === 0, { failureMessage });
-        if (!success)
-            result.links = badOverviews.map(page => page.htmlContentUrl);
-        return result;
-    })
-};
-const courseProjectOutlineTest = {
-    name: "Project outline -> Course Project Outline",
-    description: "On the Course Project Overview page, make sure the heading reads \"Course Project Outline\" and not \"Project outline\"",
-    run: (course, config) => courseContent_awaiter(void 0, void 0, void 0, function* () {
-        const pages = yield course.getPages(Object.assign(Object.assign({}, config), { queryParams: Object.assign(Object.assign({}, config === null || config === void 0 ? void 0 : config.queryParams), { search_term: 'Course Project', include: ['body'] }) }));
-        const projectOverviewPages = pages.filter(page => /Course Project Overview/.test(page.name));
-        if (projectOverviewPages.length != 1) {
-            const noOverviewMessage = "No 'Course Project Overview' page found for this course. This might be fine.";
-            const tooManyOverviewsMessage = 'Too many course overview pages';
-            const notFailureMessage = {
-                bodyLines: [projectOverviewPages.length === 0 ? noOverviewMessage : tooManyOverviewsMessage]
-            };
-            if (projectOverviewPages.length > 1)
-                notFailureMessage.links = projectOverviewPages.map(page => page.htmlContentUrl);
-            return testResult('unknown', { notFailureMessage });
-        }
-        const projectOverview = projectOverviewPages[0];
-        const pageHtml = projectOverview.body;
-        const el = document.createElement('div');
-        el.innerHTML = pageHtml;
-        const h2s = Array.from(el.querySelectorAll('h2'));
-        const projectHeadings = h2s.filter(h2 => h2.textContent === 'Project outline');
-        const failureMessage = ["Course project page has 'Project outline' as a header"];
-        const response = testResult(projectHeadings.length < 1, { failureMessage });
-        if (!response.success)
-            response.links = [projectOverview.htmlContentUrl];
-        return response;
-    })
-};
-function getOverview(course, config) {
-    return courseContent_awaiter(this, void 0, void 0, function* () {
-        const overview = yield course.getPages({
-            queryParams: {
-                search_string: 'course overview',
-                'include[]': 'body'
-            }
-        });
-        return overview;
-    });
-}
-const codeAndCodeOfCodeTest = Object.assign({ name: "Code and Code of Code", beforeAndAfters: [
-        ['<p>Honor Code and Code of Code of Conduct</p>', '<p>Honor Code and Code of Conduct</p>']
-    ], description: 'First bullet of course overview should read ... Unity DE Honor Code and Code of Conduct ..., not ' }, badContentReplaceFuncs(/Code and Code of Code of Conduct/ig, 'Code and Code of Conduct'));
-function badContentReplaceFuncs(badTest, replace, getContentFunc) {
-    return {
-        run: badContentRunFunc(badTest, getContentFunc),
-        fix: badContentFixFunc(badTest, replace, getContentFunc)
-    };
-}
-/* harmony default export */ const courseContent = ([
-    courseProjectOutlineTest,
-    weeklyObjectivesTest,
-    codeAndCodeOfCodeTest,
-]);
-
-;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/courseSettings.ts
-var courseSettings_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-/// Course Settings
-
-
-
-const extensionsToTest = ['Dropout Detective', "BigBlueButton"];
-const extensionsInstalledTest = {
-    name: "Extensions Installed",
-    description: 'Big Blue Button and Dropout Detective in nav bar',
-    run: (course, config) => courseSettings_awaiter(void 0, void 0, void 0, function* () {
-        const missing = new Set(extensionsToTest);
-        const tabs = yield course.getTabs(config);
-        for (let tab of tabs) {
-            if (missing.has(tab.label) && !tab.hidden)
-                missing.delete(tab.label);
-        }
-        return {
-            success: missing.size === 0,
-            messages: [{ bodyLines: [Array.from(missing).join(',') + ' missing from enabled navigation tabs.'] }]
-        };
-    })
-};
-const announcementsOnHomePageTest = {
-    name: "Show Announcements",
-    description: 'Confirm under "Settings" --> "more options" that the "Show announcements" box is checked',
-    run: (course) => courseSettings_awaiter(void 0, void 0, void 0, function* () {
-        const settings = yield course.getSettings();
-        const success = !!settings.show_announcements_on_home_page;
-        const failureMessage = "'show announcements on home page' not turned on";
-        return testResult(success, { failureMessage });
-    })
-};
-const latePolicyTest = {
-    name: "Late Policy Correct",
-    description: "Go to the gradebook and  click the cog in the upper right-hand corner, then check the box to automatically apply a 0 for missing submissions; or confirm that this setting has already been made.",
-    run: (course, config) => courseSettings_awaiter(void 0, void 0, void 0, function* () {
-        const latePolicy = yield course.getLatePolicy(config);
-        const failureMessage = "'Automatically apply grade for missing submission' not turned on";
-        return testResult(latePolicy === null || latePolicy === void 0 ? void 0 : latePolicy.missing_submission_deduction_enabled, { failureMessage });
-    })
-};
-const noEvaluationTest = {
-    name: "Remove Course Evaluation",
-    description: 'Course Eval page (in final module) entirely deleted from the course.',
-    run: (course, config) => courseSettings_awaiter(void 0, void 0, void 0, function* () {
-        config = Object.assign({}, config);
-        config.queryParams = Object.assign(Object.assign({}, config.queryParams), { search_term: 'Course Evaluation' });
-        const pages = yield (course.getPages(config));
-        const evalPages = pages.filter(page => /Course Evaluation/i.test(page.name));
-        const success = evalPages.length === 0;
-        const result = testResult(success, { failureMessage: "Course eval found" });
-        if (!success)
-            result.links = evalPages.map(page => page.htmlContentUrl);
-        return result;
-    })
-};
-function isGradByModules(course) {
-    return courseSettings_awaiter(this, void 0, void 0, function* () {
-        const modulesByWeekNumber = yield course.getModulesByWeekNumber();
-        return modulesByWeekNumber.hasOwnProperty(8);
-    });
-}
-function getStandards(gradingStandards) {
-    const [grad] = gradingStandards.filter(standard => standard && /DE Graduate Programs/.test(standard.title));
-    const [underGrad] = gradingStandards.filter(standard => standard && /REVISED DE Undergraduate Programs/.test(standard.title));
-    return {
-        grad, underGrad
-    };
-}
-const badGradingPolicyTest = {
-    name: "Correct grading policy selected",
-    description: "5 week courses have REVISED DE Undergraduate Programs grading scheme selected. 8 week courses have  DE Graduate Programs grading scheme selected",
-    run(course) {
-        return courseSettings_awaiter(this, void 0, void 0, function* () {
-            try {
-                const gradingStandards = yield course.getAvailableGradingStandards();
-                const currentGradingStandard = yield course.getCurrentGradingStandard();
-                if (!gradingStandards)
-                    return testResult(false, {
-                        failureMessage: `Grading standards not accessible from ${course.id}`
-                    });
-                const isGrad = yield isGradByModules(course);
-                const { grad: gradStandard, underGrad: underGradStandard } = getStandards(gradingStandards);
-                const expectedStandard = (yield isGradByModules(course)) ? gradStandard : underGradStandard;
-                if (!expectedStandard || !currentGradingStandard) {
-                    return testResult(false, {
-                        failureMessage: (isGrad ? "Graduate" : "Undergraduate") + " grading standard not found. You may not have " +
-                            "permissions to view grading standards on the root account.",
-                    });
-                }
-                const userData = {
-                    expectedStandard,
-                    gradingStandards,
-                    currentGradingStandard,
-                    gradStandard,
-                    underGradStandard,
-                };
-                let success = (currentGradingStandard === null || currentGradingStandard === void 0 ? void 0 : currentGradingStandard.title) == expectedStandard.title;
-                const failureMessage = [{
-                        bodyLines: [`Grading standard set to ${currentGradingStandard === null || currentGradingStandard === void 0 ? void 0 : currentGradingStandard.title} expected to be ${expectedStandard.title}`],
-                        links: [`/courses/${course.id}/settings`]
-                    }];
-                return testResult(success, {
-                    failureMessage,
-                    userData
-                });
-            }
-            catch (e) {
-                return errorMessageResult(e);
-            }
-        });
-    },
-    fix(course) {
-        return courseSettings_awaiter(this, void 0, void 0, function* () {
-            try {
-                const vResult = yield this.run(course);
-                if (vResult.success)
-                    return vResult;
-                const { expectedStandard } = vResult.userData;
-                if (!expectedStandard)
-                    return testResult(false, { failureMessage: "You likely dont have permission to access grading standards." });
-                const courseDataResults = yield setGradingStandardForCourse(course.id, expectedStandard.id);
-                assert_default()(courseDataResults.grading_standard_id.toString() === expectedStandard.id.toString());
-                return testResult(true, { userData: courseDataResults });
-            }
-            catch (e) {
-                return errorMessageResult(e);
-            }
-        });
-    }
-};
-/* harmony default export */ const courseSettings = ([
-    noEvaluationTest,
-    latePolicyTest,
-    announcementsOnHomePageTest,
-    extensionsInstalledTest,
-    badGradingPolicyTest
-]);
-
-;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/syllabusTests.ts
-var syllabusTests_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-//Syllabus Tests
-const finalNotInGradingPolicyParaTest = {
-    name: "Remove Final",
-    beforeAndAfters: [['off the final grade', 'off the grade']],
-    description: 'Remove "final" from the grading policy paragraphs of syllabus',
-    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
-        const syllabus = yield course.getSyllabus();
-        const match = /off the final grade/gi.test(syllabus);
-        return testResult(!match, {
-            failureMessage: ["'off the final grade' found in syllabus"],
-            links: [`/courses/${course.id}/assignments/syllabus`]
-        });
-    }),
-    fix: badSyllabusFixFunc(/off the final grade/gi, 'off the grade')
-};
-const communication24HoursTest = {
-    name: "Syllabus - Within 24 Hours",
-    description: "Revise the top sentence of the \"Communication\" section of the syllabus to read: \"The instructor will " +
-        "conduct all correspondence with students related to the class in Canvas, and you should " +
-        "expect to receive a response to emails within 24 hours.\"",
-    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
-        var _a;
-        const syllabus = yield course.getSyllabus();
-        const testString = 'The instructor will conduct all correspondence with students related to the class in Canvas, and you should expect to receive a response to emails within 24 hours'.toLowerCase();
-        const el = document.createElement('div');
-        el.innerHTML = syllabus;
-        const text = ((_a = el.textContent) === null || _a === void 0 ? void 0 : _a.toLowerCase()) || "";
-        const failureMessage = "Communication language section in syllabus does not look right.";
-        const links = [`/courses/${course.id}/assignments/syllabus`];
-        return testResult(text.includes(testString) && !text.match(/48 hours .* weekends/), { failureMessage, links });
-    })
-};
-const courseCreditsInSyllabusTest = {
-    name: "Syllabus Credits",
-    description: 'Credits displayed in summary box of syllabus',
-    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
-        const syllabus = yield course.getSyllabus();
-        const el = document.createElement('div');
-        el.innerHTML = syllabus;
-        let strongs = el.querySelectorAll('strong');
-        const creditList = Array.from(strongs).filter((strong) => /credits/i.test(strong.textContent || ""));
-        const links = [`/courses/${course.id}/assignments/syllabus`];
-        const failureMessage = "Can't find credits in syllabus";
-        return testResult(creditList && creditList.length > 0, { failureMessage, links });
-    })
-};
-const badTest = /<p>\s*<strong>\s*Class Inclusive[\s:]*<\/strong>[\s:]*(.*)<\/p>/ig;
-const classInclusiveNoDateHeaderTest = {
-    name: "Class Inclusive -> Class Inclusive Dates",
-    beforeAndAfters: [
-        ['<p><strong>Class Inclusive:</strong> Aug 12 - Sept 12</p>', '<p><strong>Class Inclusive Dates:</strong> Aug 12 - Sept 12</p>'],
-        ['<p><strong>Class Inclusive:</strong> Aug 12 - Sept 12</p>', '<p><strong>Class Inclusive Dates:</strong> Aug 12 - Sept 12</p>'],
-        ['<p><strong>Class Inclusive</strong> : Aug 12 - Sept 12</p>', '<p><strong>Class Inclusive Dates:</strong> Aug 12 - Sept 12</p>'],
-        ['<p><strong>Class Inclusive: </strong> Aug 12 - Sept 12</p>', '<p><strong>Class Inclusive Dates:</strong> Aug 12 - Sept 12</p>'],
-        ['<p> <strong> Class Inclusive: </strong> Aug 12 - Sept 12</p>', '<p><strong>Class Inclusive Dates:</strong> Aug 12 - Sept 12</p>'],
-        ['<p><strong>Class Inclusive : </strong><span> Aug 12 - Sept 12</span></p>', '<p><strong>Class Inclusive Dates:</strong> Aug 12 - Sept 12</p>'],
-    ],
-    description: 'Syllabus lists date range for course as "Class Inclusive Dates:" NOT as "Class Inclusive:"',
-    run: badSyllabusRunFunc(badTest),
-    fix: badSyllabusFixFunc(badTest, (badText) => {
-        badText = badText.replaceAll(/<\/?span>/ig, '');
-        return badText.replaceAll(badTest, '<p><strong>Class Inclusive Dates:</strong> $1</p>');
-    })
-};
-const aiPolicyInSyllabusTest = {
-    name: "AI Policy in Syllabus Test",
-    description: "The AI policy is present in the syllabus",
-    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
-        const text = yield course.getSyllabus();
-        const success = text.includes('Generative Artificial Intelligence');
-        const links = [`/courses/${course.id}/assignments/syllabus`];
-        const failureMessage = `Can't find AI boilerplate in syllabus`;
-        return testResult(success, { links, failureMessage });
-    })
-};
-const bottomOfSyllabusLanguageTest = {
-    name: "Bottom-of-Syllabus Test",
-    description: "Replace language at the bottom of the syllabus with: \"Learning materials for Weeks 2 forward are organized with the rest of the class in your weekly modules. The modules will become available after you've agreed to the Honor Code, Code of Conduct, and Tech for Success requirements on the Course Overview page, which unlocks on the first day of the term.\" (**Do not link to the Course Overview Page**)",
-    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
-        const text = getPlainTextFromHtml(yield course.getSyllabus());
-        const success = text.toLowerCase().includes(`The modules will become available after you've agreed to the Honor Code, Code of Conduct, and Tech for Success requirements on the Course Overview page, which unlocks on the first day of the term.`.toLowerCase());
-        const links = [`/courses/${course.id}/assignments/syllabus`];
-        const failureMessage = "Text at the bottom of the syllabus looks incorrect.";
-        return testResult(success, { links, failureMessage });
-    }),
-};
-const gradeTableHeadersCorrectTest = {
-    name: "Grade headers correct",
-    description: "Grade table headers on syllabus should read Letter Grade, Percent, and the third should be blank",
-    run(course, config) {
-        return syllabusTests_awaiter(this, void 0, void 0, function* () {
-            const el = document.createElement('div');
-            el.innerHTML = yield course.getSyllabus();
-            const ths = [...el.querySelectorAll('th')];
-            const letterGradeTh = ths.filter(th => /Letter Grade/i.test(th.innerHTML));
-            const percentTh = ths.filter(th => /Percent/i.test(th.innerHTML));
-            const success = letterGradeTh.length === 1 && percentTh.length === 1;
-            const links = [`/courses/${course.id}/assignments/syllabus`];
-            const failureMessage = 'Grade headers incorrect';
-            return testResult(success, { links, failureMessage });
-        });
-    }
-};
-function htmlDiv(text) {
-    const el = document.createElement('div');
-    el.innerHTML = text;
-    return el;
-}
-const iteratorFindOptionDefaults = {
-    maxIterations: 1000,
-};
-function findSecondParaOfDiscExpect(syllabusEl) {
-    const discussExpectEl = [...document.querySelectorAll('h3')]
-        .find(h3 => { var _a, _b; return ((_b = (_a = h3.innerText) !== null && _a !== void 0 ? _a : h3.textContent) !== null && _b !== void 0 ? _b : '').includes('Discussion Expectations'); });
-    if (!discussExpectEl)
-        return undefined;
-    return discussExpectEl.querySelectorAll('p')[1];
-}
-const correctSecondPara = 'To access a discussion\'s grading rubric, click on the "View Rubric" button in the discussion directions and/or the "Dot Dot Dot" (for screen readers, titled "Manage this Discussion") button in the upper right corner of the discussion, and then click "show rubric".';
-const secondDiscussionParaOff = {
-    name: "Second discussion expectation paragraph",
-    description: 'To access a discussion\'s grading rubric, click on the "View Rubric" button in the discussion directions and/or the "Dot Dot Dot" ' +
-        '(for screen readers, titled "Manage this Discussion") button in the upper right corner of the discussion, and then click "show rubric".',
-    run(course) {
-        return syllabusTests_awaiter(this, void 0, void 0, function* () {
-            var _a, _b;
-            const el = htmlDiv(yield course.getSyllabus());
-            const secondPara = findSecondParaOfDiscExpect(el);
-            const userData = { el, secondPara };
-            if (!secondPara)
-                return testResult('not run', {
-                    notFailureMessage: "Second paragraph of discussion expectations not found",
-                    userData,
-                });
-            const secondParaText = (_b = (_a = secondPara.textContent) !== null && _a !== void 0 ? _a : secondPara.innerText) !== null && _b !== void 0 ? _b : '';
-            const success = secondParaText.toLowerCase().replace(/\W*/, '')
-                === correctSecondPara.toLowerCase().replace(/\W*/, '');
-            return testResult(success, {
-                failureMessage: `Second paragraph does not match ${correctSecondPara}`,
-                userData
-            });
-        });
-    },
-    fix(course) {
-        return syllabusTests_awaiter(this, void 0, void 0, function* () {
-            let { success, userData } = yield this.run(course);
-            if (success)
-                return testResult('not run', { notFailureMessage: "No need to run fix" });
-            if (!(userData === null || userData === void 0 ? void 0 : userData.secondPara))
-                return testResult(false, { failureMessage: "There was a problem accessing the syllabus." });
-            const { el, secondPara } = userData;
-            secondPara.innerHTML = correctSecondPara;
-            try {
-                yield course.changeSyllabus(el.innerHTML);
-                return testResult(true);
-            }
-            catch (e) {
-                return errorMessageResult(e);
-            }
-        });
-    }
-};
-/* harmony default export */ const syllabusTests = ([
-    classInclusiveNoDateHeaderTest,
-    courseCreditsInSyllabusTest,
-    finalNotInGradingPolicyParaTest,
-    communication24HoursTest,
-    aiPolicyInSyllabusTest,
-    bottomOfSyllabusLanguageTest,
-    gradeTableHeadersCorrectTest,
-]);
-
-;// CONCATENATED MODULE: ./src/admin/index.tsx
-
-
-
-function bpify(code) {
-    let [, prefix] = code.match(/^([^_ ]*)[_ ]/) || [null, ''];
-    let [, body] = code.match(`${prefix || ''}[ _]?(.*)`) || [null, code];
-    return `BP_${body}`;
-}
-const tests = [
-    ...courseContent,
-    ...courseSettings,
-    ...syllabusTests,
-];
-
 ;// CONCATENATED MODULE: ./src/admin/SearchCourses.tsx
 var SearchCourses_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -46932,7 +46501,6 @@ var SearchCourses_asyncValues = (undefined && undefined.__asyncValues) || functi
     function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
-
 
 
 
@@ -46992,9 +46560,9 @@ function SearchCourses({ setFoundCourses, onlySearchBlueprints, includeLegacyBps
         const strings = courseSearchString.split(',').map(string => string.trimEnd());
         //Filter out dupes
         let courseCodes = strings.filter((value, index, array) => array.indexOf(value) === index);
-        if (onlySearchBlueprints && !includeLegacyBps) {
-            courseCodes = courseCodes.map(bpify);
-        }
+        // if (onlySearchBlueprints && !includeLegacyBps) {
+        //     courseCodes = courseCodes.map(bpify)
+        // }
         setSeekCourseCodes(courseCodes);
     }, [courseSearchString]);
     return (0,jsx_runtime.jsxs)(esm_Form, { onSubmit: search, children: [(0,jsx_runtime.jsx)("input", { type: 'text', value: courseSearchString, onChange: (e) => setCourseSearchString(e.target.value) }), (0,jsx_runtime.jsx)("button", { children: "Get Courses" })] });
@@ -47104,6 +46672,7 @@ var AdminApp_awaiter = (undefined && undefined.__awaiter) || function (thisArg, 
 
 
 
+
 function AdminApp({ course, allValidations }) {
     const [isOpen, setIsOpen] = (0,react.useState)(false);
     const [foundCourses, setFoundCourses] = (0,react.useState)([]);
@@ -47198,12 +46767,12 @@ function AdminApp({ course, allValidations }) {
         });
     }
     function ResultsDisplay() {
-        return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)(esm_Row, { children: coursesToRunOn.map(course => (0,jsx_runtime.jsx)(ResultsDisplayRow, { course: course, parentCourse: parentCourseLut[course.id], sections: sectionLut[course.id] }, course.id)) }), (0,jsx_runtime.jsx)(esm_Row, { children: validationResults
-                        .filter(a => a.success !== true)
-                        .map(result => {
-                        const course = coursesToRunOn.find(a => a.id === result.courseId);
-                        return course && (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsx)(esm_Col, { sm: 4, children: course === null || course === void 0 ? void 0 : course.courseCode }), (0,jsx_runtime.jsx)(esm_Col, { sm: 4, children: course.courseCode }), (0,jsx_runtime.jsx)(esm_Col, { sm: 4, children: (0,jsx_runtime.jsx)(CourseLink, { course: course, label: course.htmlContentUrl }) })] });
-                    }) })] });
+        return (0,jsx_runtime.jsx)(esm_Row, { children: (0,jsx_runtime.jsxs)(esm_Col, { children: [(0,jsx_runtime.jsx)(esm_Row, { children: coursesToRunOn.map(course => (0,jsx_runtime.jsx)(ResultsDisplayRow, { course: course, parentCourse: parentCourseLut[course.id], sections: sectionLut[course.id] }, course.id)) }), (0,jsx_runtime.jsx)(esm_Row, { children: validationResults
+                            .filter(a => a.success !== true)
+                            .map(result => {
+                            const course = coursesToRunOn.find(a => a.id === result.courseId);
+                            return course && (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsx)(esm_Col, { sm: 4, children: course === null || course === void 0 ? void 0 : course.courseCode }), (0,jsx_runtime.jsx)(esm_Col, { sm: 4, children: course.courseCode }), (0,jsx_runtime.jsx)(esm_Col, { sm: 4, children: (0,jsx_runtime.jsx)(CourseLink, { course: course, label: course.htmlContentUrl }) })] });
+                        }) })] }) });
     }
     function ResultsDisplayRow({ course, parentCourse, sections }) {
         return (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsx)(ValidationResultsForCourse, { slim: false, results: validationResultsLut[course.id], course: course }, course.id), includeDev && parentCourse && (0,jsx_runtime.jsx)(ValidationResultsForCourse, { slim: true, course: parentCourse, results: validationResultsLut[parentCourse.id] }, course.id), includeSections && (sections === null || sections === void 0 ? void 0 : sections.map(section => (0,jsx_runtime.jsx)(ValidationResultsForCourse, { slim: true, course: section, results: validationResultsLut[section.id] }, section.id)))] });
@@ -47214,11 +46783,18 @@ function AdminApp({ course, allValidations }) {
                     return (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsx)(esm_Col, { children: (_b = (_a = course.label) !== null && _a !== void 0 ? _a : course.parsedCourseCode) !== null && _b !== void 0 ? _b : course.name }), (0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)("button", { onClick: () => setCoursesToRunOn([...coursesToRunOn, course]), children: 'ADD' }) })] }, course.id);
                 })] });
     }
-    return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("button", { onClick: () => setIsOpen(true), children: "Admin" }), (0,jsx_runtime.jsx)(widgets_Modal, { isOpen: isOpen, requestClose: () => setIsOpen(false), children: (0,jsx_runtime.jsx)(esm_Container, { children: (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsxs)(esm_Col, { sm: 9, children: [(0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsxs)(esm_Col, { sm: 4, children: [(0,jsx_runtime.jsx)(esm_Form.Label, { children: "Only Search Blueprints" }), (0,jsx_runtime.jsx)(esm_Form.Check, { checked: onlySearchBlueprints, onChange: (e) => setOnlySearchBlueprints(e.target.checked) })] }), includeLegacyBps && (0,jsx_runtime.jsxs)(esm_Col, { sm: 2, children: [(0,jsx_runtime.jsx)(esm_Form.Label, { children: "Legacy BPs" }), (0,jsx_runtime.jsx)(esm_Form.Check, { checked: includeLegacyBps, onChange: (e) => setIncludeLegacyBps(e.target.checked) })] }), onlySearchBlueprints && (0,jsx_runtime.jsxs)(esm_Col, { sm: 3, children: [(0,jsx_runtime.jsx)(esm_Form.Label, { children: "Include Dev" }), (0,jsx_runtime.jsx)(esm_Form.Check, { checked: includeDev, onChange: (e) => setIncludeDev(e.target.checked) })] }), onlySearchBlueprints && (0,jsx_runtime.jsxs)(esm_Col, { sm: 3, children: [(0,jsx_runtime.jsx)(esm_Form.Label, { children: "Include Sections" }), (0,jsx_runtime.jsx)(esm_Form.Check, { checked: includeSections, onChange: (e) => setIncludeSections(e.target.checked) })] })] }), (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)(SearchCourses, { setFoundCourses: setFoundCourses, onlySearchBlueprints: onlySearchBlueprints, includeLegacyBps: includeLegacyBps, setIsSearching: () => null }) }), coursesToRunOn.length > 0 && (0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)(SelectValidations, { runValidations: runTests, allValidations: allValidations, validationsToRun: validationsToRun, setCoursesToRunOn: (courses) => optionize(courses), onChangeCustomValidation: () => null, setValidationsToRun: setValidationsToRun }) })] }), (0,jsx_runtime.jsx)(esm_Row, { children: (0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)(ResultsDisplay, {}) }) })] }), (0,jsx_runtime.jsx)(esm_Col, { sm: 3, children: (0,jsx_runtime.jsx)(FoundCoursesDisplay, {}) })] }) }) })] });
+    return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)("button", { onClick: () => setIsOpen(true), children: "Admin" }), (0,jsx_runtime.jsx)(widgets_Modal, { isOpen: isOpen, requestClose: () => setIsOpen(false), children: (0,jsx_runtime.jsx)(esm_Container, { children: (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsxs)(esm_Col, { sm: 9, children: [(0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsxs)(esm_Col, { sm: 4, children: [(0,jsx_runtime.jsx)(esm_Form.Label, { children: "Only Search Blueprints" }), (0,jsx_runtime.jsx)(esm_Form.Check, { checked: onlySearchBlueprints, onChange: (e) => setOnlySearchBlueprints(e.target.checked) })] }), onlySearchBlueprints && (0,jsx_runtime.jsxs)(esm_Col, { sm: 2, children: [(0,jsx_runtime.jsx)(esm_Form.Label, { children: "Legacy BPs" }), (0,jsx_runtime.jsx)(esm_Form.Check, { checked: includeLegacyBps, onChange: (e) => setIncludeLegacyBps(e.target.checked) })] }), onlySearchBlueprints && (0,jsx_runtime.jsxs)(esm_Col, { sm: 3, children: [(0,jsx_runtime.jsx)(esm_Form.Label, { children: "Include Dev" }), (0,jsx_runtime.jsx)(esm_Form.Check, { checked: includeDev, onChange: (e) => setIncludeDev(e.target.checked) })] }), onlySearchBlueprints && (0,jsx_runtime.jsxs)(esm_Col, { sm: 3, children: [(0,jsx_runtime.jsx)(esm_Form.Label, { children: "Include Sections" }), (0,jsx_runtime.jsx)(esm_Form.Check, { checked: includeSections, onChange: (e) => setIncludeSections(e.target.checked) })] })] }), (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)(SearchCourses, { setFoundCourses: setFoundCourses, onlySearchBlueprints: onlySearchBlueprints, includeLegacyBps: includeLegacyBps, setIsSearching: () => null }) }), coursesToRunOn.length > 0 && (0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)(SelectValidations, { runValidations: runTests, allValidations: allValidations, validationsToRun: validationsToRun, setCoursesToRunOn: (courses) => optionize(courses), onChangeCustomValidation: () => null, setValidationsToRun: setValidationsToRun }) })] }), (0,jsx_runtime.jsx)(esm_Row, { children: (0,jsx_runtime.jsxs)(esm_Col, { children: ["Reulsts", (0,jsx_runtime.jsx)(ResultsDisplay, {})] }) })] }), (0,jsx_runtime.jsx)(esm_Col, { sm: 3, children: (0,jsx_runtime.jsx)(FoundCoursesDisplay, {}) })] }) }) })] });
 }
 function ValidationResultsForCourse({ course, results, slim }) {
     var _a;
-    return (0,jsx_runtime.jsxs)(esm_Container, { children: [(0,jsx_runtime.jsx)(esm_Row, { children: (0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsx)("h3", { style: { fontSize: slim ? '0.5em' : '1em' }, children: (0,jsx_runtime.jsx)("a", { href: course.htmlContentUrl, target: '_blank', children: (_a = course.parsedCourseCode) !== null && _a !== void 0 ? _a : course.name }) }) }) }), results && results.map((result, i) => (0,jsx_runtime.jsx)(ValidationRow, { course: course, slim: slim, initialResult: result, test: result.test, potemkinVillage: true, refreshCourse: () => AdminApp_awaiter(this, void 0, void 0, function* () { return undefined; }) }, result.test.name + course.id + "_" + i))] });
+    function sync() {
+        return AdminApp_awaiter(this, void 0, void 0, function* () {
+            yield beginBpSync(course.id, {
+                message: `Syncing from fix ${results === null || results === void 0 ? void 0 : results.map(a => a.test.name).join(',')}`
+            });
+        });
+    }
+    return (0,jsx_runtime.jsxs)(jsx_runtime.Fragment, { children: [(0,jsx_runtime.jsx)(esm_Row, { children: (0,jsx_runtime.jsx)(esm_Col, { children: (0,jsx_runtime.jsxs)("h3", { style: { fontSize: slim ? '0.5em' : '1em' }, children: [(0,jsx_runtime.jsx)("a", { href: course.htmlContentUrl, target: '_blank', children: (_a = course.parsedCourseCode) !== null && _a !== void 0 ? _a : course.name }), course.isBlueprint() && (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: sync, children: "Sync" })] }) }) }), results && results.map((result, i) => (0,jsx_runtime.jsx)(ValidationRow, { course: course, slim: slim, initialResult: result, test: result.test, potemkinVillage: true, refreshCourse: () => AdminApp_awaiter(this, void 0, void 0, function* () { return undefined; }) }, result.test.name + course.id + "_" + i))] });
 }
 function CourseLink({ course, label }) {
     return (0,jsx_runtime.jsx)("a", { href: course.htmlContentUrl, target: "_blank", children: label !== null && label !== void 0 ? label : course.name });
@@ -49559,6 +49135,448 @@ function SectionRows({ onOpenAll, sections, instructorsByCourseId, frontPageProf
     return ((0,jsx_runtime.jsxs)("div", { className: 'course-table', children: [(0,jsx_runtime.jsxs)("div", { className: 'row', children: [(0,jsx_runtime.jsxs)("div", { className: 'col-sm-6', children: [(0,jsx_runtime.jsx)("div", { children: (0,jsx_runtime.jsx)("strong", { children: "Code" }) }), (0,jsx_runtime.jsx)("a", { href: '#', onClick: openAll, children: "Open All" })] }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-3', children: (0,jsx_runtime.jsx)("strong", { children: "Name on Front Page" }) }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-3', children: (0,jsx_runtime.jsx)("strong", { children: "Instructor(s)" }) })] }), sections && sections.toSorted((a, b) => a.name.localeCompare(b.name)).map((course) => ((0,jsx_runtime.jsx)(CourseRow, { instructors: instructorsByCourseId[course.id], frontPageProfile: frontPageProfilesByCourseId[course.id], facultyProfileMatches: potentialProfilesByCourseId[course.id], errors: errorsByCourseId[course.id], onSelectSection: (section) => setWorkingSection(section), course: course }, course.id)))] }));
 }
 
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/courseContent.ts
+var courseContent_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+function decodeHtml(html) {
+    let text = document.createElement("textarea");
+    text.innerHTML = html;
+    return text.value;
+}
+const weeklyObjectivesTest = {
+    name: "Learning Objectives -> Weekly Objectives",
+    description: 'Make sure weekly objectives are called "Weekly Objectives" and not "Learning Objectives" throughout',
+    run: (course, config) => courseContent_awaiter(void 0, void 0, void 0, function* () {
+        let overviews = yield course.getPages(Object.assign(Object.assign({}, config), { queryParams: Object.assign(Object.assign({}, config === null || config === void 0 ? void 0 : config.queryParams), { search_term: 'Overview', include: ['body'] }) }));
+        overviews = overviews.filter(overview => /week \d overview/ig.test(overview.name));
+        const badOverviews = overviews.filter(overview => {
+            const el = document.createElement('div');
+            el.innerHTML = overview.body;
+            const headerTexts = [...el.querySelectorAll('h2')].map(h2 => { var _a, _b; return decodeHtml((_b = (_a = h2.textContent) !== null && _a !== void 0 ? _a : h2.innerText) !== null && _b !== void 0 ? _b : ''); });
+            const weeklyObjectivesHeaders = headerTexts.filter(text => /Weekly\sObjectives/i.test(text));
+            return weeklyObjectivesHeaders.length === 0;
+        });
+        const success = badOverviews.length === 0;
+        const failureMessage = badOverviews.map(page => ({
+            bodyLines: [page.name],
+            links: [page.htmlContentUrl]
+        }));
+        const result = testResult(badOverviews.length === 0, { failureMessage });
+        if (!success)
+            result.links = badOverviews.map(page => page.htmlContentUrl);
+        return result;
+    })
+};
+const courseProjectOutlineTest = {
+    name: "Project outline -> Course Project Outline",
+    description: "On the Course Project Overview page, make sure the heading reads \"Course Project Outline\" and not \"Project outline\"",
+    run: (course, config) => courseContent_awaiter(void 0, void 0, void 0, function* () {
+        const pages = yield course.getPages(Object.assign(Object.assign({}, config), { queryParams: Object.assign(Object.assign({}, config === null || config === void 0 ? void 0 : config.queryParams), { search_term: 'Course Project', include: ['body'] }) }));
+        const projectOverviewPages = pages.filter(page => /Course Project Overview/.test(page.name));
+        if (projectOverviewPages.length != 1) {
+            const noOverviewMessage = "No 'Course Project Overview' page found for this course. This might be fine.";
+            const tooManyOverviewsMessage = 'Too many course overview pages';
+            const notFailureMessage = {
+                bodyLines: [projectOverviewPages.length === 0 ? noOverviewMessage : tooManyOverviewsMessage]
+            };
+            if (projectOverviewPages.length > 1)
+                notFailureMessage.links = projectOverviewPages.map(page => page.htmlContentUrl);
+            return testResult('unknown', { notFailureMessage });
+        }
+        const projectOverview = projectOverviewPages[0];
+        const pageHtml = projectOverview.body;
+        const el = document.createElement('div');
+        el.innerHTML = pageHtml;
+        const h2s = Array.from(el.querySelectorAll('h2'));
+        const projectHeadings = h2s.filter(h2 => h2.textContent === 'Project outline');
+        const failureMessage = ["Course project page has 'Project outline' as a header"];
+        const response = testResult(projectHeadings.length < 1, { failureMessage });
+        if (!response.success)
+            response.links = [projectOverview.htmlContentUrl];
+        return response;
+    })
+};
+function getOverview(course, config) {
+    return courseContent_awaiter(this, void 0, void 0, function* () {
+        const overview = yield course.getPages({
+            queryParams: {
+                search_string: 'course overview',
+                'include[]': 'body'
+            }
+        });
+        return overview;
+    });
+}
+const codeAndCodeOfCodeTest = Object.assign({ name: "Code and Code of Code", beforeAndAfters: [
+        ['<p>Honor Code and Code of Code of Conduct</p>', '<p>Honor Code and Code of Conduct</p>']
+    ], description: 'First bullet of course overview should read ... Unity DE Honor Code and Code of Conduct ..., not ' }, badContentReplaceFuncs(/Code and Code of Code of Conduct/ig, 'Code and Code of Conduct'));
+function badContentReplaceFuncs(badTest, replace, getContentFunc) {
+    return {
+        run: badContentRunFunc(badTest, getContentFunc),
+        fix: badContentFixFunc(badTest, replace, getContentFunc)
+    };
+}
+/* harmony default export */ const courseContent = ([
+    courseProjectOutlineTest,
+    weeklyObjectivesTest,
+    codeAndCodeOfCodeTest,
+]);
+
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/courseSettings.ts
+var courseSettings_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+/// Course Settings
+
+
+
+const extensionsToTest = ['Dropout Detective', "BigBlueButton"];
+const extensionsInstalledTest = {
+    name: "Extensions Installed",
+    description: 'Big Blue Button and Dropout Detective in nav bar',
+    run: (course, config) => courseSettings_awaiter(void 0, void 0, void 0, function* () {
+        const missing = new Set(extensionsToTest);
+        const tabs = yield course.getTabs(config);
+        for (let tab of tabs) {
+            if (missing.has(tab.label) && !tab.hidden)
+                missing.delete(tab.label);
+        }
+        return {
+            success: missing.size === 0,
+            messages: [{ bodyLines: [Array.from(missing).join(',') + ' missing from enabled navigation tabs.'] }]
+        };
+    })
+};
+const announcementsOnHomePageTest = {
+    name: "Show Announcements",
+    description: 'Confirm under "Settings" --> "more options" that the "Show announcements" box is checked',
+    run: (course) => courseSettings_awaiter(void 0, void 0, void 0, function* () {
+        const settings = yield course.getSettings();
+        const success = !!settings.show_announcements_on_home_page;
+        const failureMessage = "'show announcements on home page' not turned on";
+        return testResult(success, { failureMessage });
+    })
+};
+const latePolicyTest = {
+    name: "Late Policy Correct",
+    description: "Go to the gradebook and  click the cog in the upper right-hand corner, then check the box to automatically apply a 0 for missing submissions; or confirm that this setting has already been made.",
+    run: (course, config) => courseSettings_awaiter(void 0, void 0, void 0, function* () {
+        const latePolicy = yield course.getLatePolicy(config);
+        const failureMessage = "'Automatically apply grade for missing submission' not turned on";
+        return testResult(latePolicy === null || latePolicy === void 0 ? void 0 : latePolicy.missing_submission_deduction_enabled, { failureMessage });
+    })
+};
+const noEvaluationTest = {
+    name: "Remove Course Evaluation",
+    description: 'Course Eval page (in final module) entirely deleted from the course.',
+    run: (course, config) => courseSettings_awaiter(void 0, void 0, void 0, function* () {
+        config = Object.assign({}, config);
+        config.queryParams = Object.assign(Object.assign({}, config.queryParams), { search_term: 'Course Evaluation' });
+        const pages = yield (course.getPages(config));
+        const evalPages = pages.filter(page => /Course Evaluation/i.test(page.name));
+        const success = evalPages.length === 0;
+        const result = testResult(success, { failureMessage: "Course eval found" });
+        if (!success)
+            result.links = evalPages.map(page => page.htmlContentUrl);
+        return result;
+    })
+};
+function isGradByModules(course) {
+    return courseSettings_awaiter(this, void 0, void 0, function* () {
+        const modulesByWeekNumber = yield course.getModulesByWeekNumber();
+        return modulesByWeekNumber.hasOwnProperty(8);
+    });
+}
+function getStandards(gradingStandards) {
+    const [grad] = gradingStandards.filter(standard => standard && /DE Graduate Programs/.test(standard.title));
+    const [underGrad] = gradingStandards.filter(standard => standard && /REVISED DE Undergraduate Programs/.test(standard.title));
+    return {
+        grad, underGrad
+    };
+}
+const badGradingPolicyTest = {
+    name: "Correct grading policy selected",
+    description: "5 week courses have REVISED DE Undergraduate Programs grading scheme selected. 8 week courses have  DE Graduate Programs grading scheme selected",
+    run(course) {
+        return courseSettings_awaiter(this, void 0, void 0, function* () {
+            try {
+                const gradingStandards = yield course.getAvailableGradingStandards();
+                const currentGradingStandard = yield course.getCurrentGradingStandard();
+                if (!gradingStandards)
+                    return testResult(false, {
+                        failureMessage: `Grading standards not accessible from ${course.id}`
+                    });
+                const isGrad = yield isGradByModules(course);
+                const { grad: gradStandard, underGrad: underGradStandard } = getStandards(gradingStandards);
+                const expectedStandard = (yield isGradByModules(course)) ? gradStandard : underGradStandard;
+                if (!expectedStandard || !currentGradingStandard) {
+                    return testResult(false, {
+                        failureMessage: (isGrad ? "Graduate" : "Undergraduate") + " grading standard not found. You may not have " +
+                            "permissions to view grading standards on the root account.",
+                    });
+                }
+                const userData = {
+                    expectedStandard,
+                    gradingStandards,
+                    currentGradingStandard,
+                    gradStandard,
+                    underGradStandard,
+                };
+                let success = (currentGradingStandard === null || currentGradingStandard === void 0 ? void 0 : currentGradingStandard.title) == expectedStandard.title;
+                const failureMessage = [{
+                        bodyLines: [`Grading standard set to ${currentGradingStandard === null || currentGradingStandard === void 0 ? void 0 : currentGradingStandard.title} expected to be ${expectedStandard.title}`],
+                        links: [`/courses/${course.id}/settings`]
+                    }];
+                return testResult(success, {
+                    failureMessage,
+                    userData
+                });
+            }
+            catch (e) {
+                return errorMessageResult(e);
+            }
+        });
+    },
+    fix(course) {
+        return courseSettings_awaiter(this, void 0, void 0, function* () {
+            try {
+                const vResult = yield this.run(course);
+                if (vResult.success)
+                    return vResult;
+                const { expectedStandard } = vResult.userData;
+                if (!expectedStandard)
+                    return testResult(false, { failureMessage: "You likely dont have permission to access grading standards." });
+                const courseDataResults = yield setGradingStandardForCourse(course.id, expectedStandard.id);
+                assert_default()(courseDataResults.grading_standard_id.toString() === expectedStandard.id.toString());
+                return testResult(true, { userData: courseDataResults });
+            }
+            catch (e) {
+                return errorMessageResult(e);
+            }
+        });
+    }
+};
+/* harmony default export */ const courseSettings = ([
+    noEvaluationTest,
+    latePolicyTest,
+    announcementsOnHomePageTest,
+    extensionsInstalledTest,
+    badGradingPolicyTest
+]);
+
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/syllabusTests.ts
+var syllabusTests_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+//Syllabus Tests
+const finalNotInGradingPolicyParaTest = {
+    name: "Remove Final",
+    beforeAndAfters: [['off the final grade', 'off the grade']],
+    description: 'Remove "final" from the grading policy paragraphs of syllabus',
+    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
+        const syllabus = yield course.getSyllabus();
+        const match = /off the final grade/gi.test(syllabus);
+        return testResult(!match, {
+            failureMessage: ["'off the final grade' found in syllabus"],
+            links: [`/courses/${course.id}/assignments/syllabus`]
+        });
+    }),
+    fix: badSyllabusFixFunc(/off the final grade/gi, 'off the grade')
+};
+const communication24HoursTest = {
+    name: "Syllabus - Within 24 Hours",
+    description: "Revise the top sentence of the \"Communication\" section of the syllabus to read: \"The instructor will " +
+        "conduct all correspondence with students related to the class in Canvas, and you should " +
+        "expect to receive a response to emails within 24 hours.\"",
+    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
+        var _a;
+        const syllabus = yield course.getSyllabus();
+        const testString = 'The instructor will conduct all correspondence with students related to the class in Canvas, and you should expect to receive a response to emails within 24 hours'.toLowerCase();
+        const el = document.createElement('div');
+        el.innerHTML = syllabus;
+        const text = ((_a = el.textContent) === null || _a === void 0 ? void 0 : _a.toLowerCase()) || "";
+        const failureMessage = "Communication language section in syllabus does not look right.";
+        const links = [`/courses/${course.id}/assignments/syllabus`];
+        return testResult(text.includes(testString) && !text.match(/48 hours .* weekends/), { failureMessage, links });
+    })
+};
+const courseCreditsInSyllabusTest = {
+    name: "Syllabus Credits",
+    description: 'Credits displayed in summary box of syllabus',
+    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
+        const syllabus = yield course.getSyllabus();
+        const el = document.createElement('div');
+        el.innerHTML = syllabus;
+        let strongs = el.querySelectorAll('strong');
+        const creditList = Array.from(strongs).filter((strong) => /credits/i.test(strong.textContent || ""));
+        const links = [`/courses/${course.id}/assignments/syllabus`];
+        const failureMessage = "Can't find credits in syllabus";
+        return testResult(creditList && creditList.length > 0, { failureMessage, links });
+    })
+};
+const badTest = /<p>\s*<strong>\s*Class Inclusive[\s:]*<\/strong>[\s:]*(.*)<\/p>/ig;
+const classInclusiveNoDateHeaderTest = {
+    name: "Class Inclusive -> Class Inclusive Dates",
+    beforeAndAfters: [
+        ['<p><strong>Class Inclusive:</strong> Aug 12 - Sept 12</p>', '<p><strong>Class Inclusive Dates:</strong> Aug 12 - Sept 12</p>'],
+        ['<p><strong>Class Inclusive:</strong> Aug 12 - Sept 12</p>', '<p><strong>Class Inclusive Dates:</strong> Aug 12 - Sept 12</p>'],
+        ['<p><strong>Class Inclusive</strong> : Aug 12 - Sept 12</p>', '<p><strong>Class Inclusive Dates:</strong> Aug 12 - Sept 12</p>'],
+        ['<p><strong>Class Inclusive: </strong> Aug 12 - Sept 12</p>', '<p><strong>Class Inclusive Dates:</strong> Aug 12 - Sept 12</p>'],
+        ['<p> <strong> Class Inclusive: </strong> Aug 12 - Sept 12</p>', '<p><strong>Class Inclusive Dates:</strong> Aug 12 - Sept 12</p>'],
+        ['<p><strong>Class Inclusive : </strong><span> Aug 12 - Sept 12</span></p>', '<p><strong>Class Inclusive Dates:</strong> Aug 12 - Sept 12</p>'],
+    ],
+    description: 'Syllabus lists date range for course as "Class Inclusive Dates:" NOT as "Class Inclusive:"',
+    run: badSyllabusRunFunc(badTest),
+    fix: badSyllabusFixFunc(badTest, (badText) => {
+        badText = badText.replaceAll(/<\/?span>/ig, '');
+        return badText.replaceAll(badTest, '<p><strong>Class Inclusive Dates:</strong> $1</p>');
+    })
+};
+const aiPolicyInSyllabusTest = {
+    name: "AI Policy in Syllabus Test",
+    description: "The AI policy is present in the syllabus",
+    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
+        const text = yield course.getSyllabus();
+        const success = text.includes('Generative Artificial Intelligence');
+        const links = [`/courses/${course.id}/assignments/syllabus`];
+        const failureMessage = `Can't find AI boilerplate in syllabus`;
+        return testResult(success, { links, failureMessage });
+    })
+};
+const bottomOfSyllabusLanguageTest = {
+    name: "Bottom-of-Syllabus Test",
+    description: "Replace language at the bottom of the syllabus with: \"Learning materials for Weeks 2 forward are organized with the rest of the class in your weekly modules. The modules will become available after you've agreed to the Honor Code, Code of Conduct, and Tech for Success requirements on the Course Overview page, which unlocks on the first day of the term.\" (**Do not link to the Course Overview Page**)",
+    run: (course, config) => syllabusTests_awaiter(void 0, void 0, void 0, function* () {
+        const text = getPlainTextFromHtml(yield course.getSyllabus());
+        const success = text.toLowerCase().includes(`The modules will become available after you've agreed to the Honor Code, Code of Conduct, and Tech for Success requirements on the Course Overview page, which unlocks on the first day of the term.`.toLowerCase());
+        const links = [`/courses/${course.id}/assignments/syllabus`];
+        const failureMessage = "Text at the bottom of the syllabus looks incorrect.";
+        return testResult(success, { links, failureMessage });
+    }),
+};
+const gradeTableHeadersCorrectTest = {
+    name: "Grade headers correct",
+    description: "Grade table headers on syllabus should read Letter Grade, Percent, and the third should be blank",
+    run(course, config) {
+        return syllabusTests_awaiter(this, void 0, void 0, function* () {
+            const el = document.createElement('div');
+            el.innerHTML = yield course.getSyllabus();
+            const ths = [...el.querySelectorAll('th')];
+            const letterGradeTh = ths.filter(th => /Letter Grade/i.test(th.innerHTML));
+            const percentTh = ths.filter(th => /Percent/i.test(th.innerHTML));
+            const success = letterGradeTh.length === 1 && percentTh.length === 1;
+            const links = [`/courses/${course.id}/assignments/syllabus`];
+            const failureMessage = 'Grade headers incorrect';
+            return testResult(success, { links, failureMessage });
+        });
+    }
+};
+function htmlDiv(text) {
+    const el = document.createElement('div');
+    el.innerHTML = text;
+    return el;
+}
+const iteratorFindOptionDefaults = {
+    maxIterations: 1000,
+};
+function findSecondParaOfDiscExpect(syllabusEl) {
+    const discussExpectEl = [...document.querySelectorAll('h3')]
+        .find(h3 => { var _a, _b; return ((_b = (_a = h3.innerText) !== null && _a !== void 0 ? _a : h3.textContent) !== null && _b !== void 0 ? _b : '').includes('Discussion Expectations'); });
+    if (!discussExpectEl)
+        return undefined;
+    return discussExpectEl.querySelectorAll('p')[1];
+}
+const correctSecondPara = 'To access a discussion\'s grading rubric, click on the "View Rubric" button in the discussion directions and/or the "Dot Dot Dot" (for screen readers, titled "Manage this Discussion") button in the upper right corner of the discussion, and then click "show rubric".';
+const secondDiscussionParaOff = {
+    name: "Second discussion expectation paragraph",
+    description: 'To access a discussion\'s grading rubric, click on the "View Rubric" button in the discussion directions and/or the "Dot Dot Dot" ' +
+        '(for screen readers, titled "Manage this Discussion") button in the upper right corner of the discussion, and then click "show rubric".',
+    run(course) {
+        return syllabusTests_awaiter(this, void 0, void 0, function* () {
+            var _a, _b;
+            const el = htmlDiv(yield course.getSyllabus());
+            const secondPara = findSecondParaOfDiscExpect(el);
+            const userData = { el, secondPara };
+            if (!secondPara)
+                return testResult('not run', {
+                    notFailureMessage: "Second paragraph of discussion expectations not found",
+                    userData,
+                });
+            const secondParaText = (_b = (_a = secondPara.textContent) !== null && _a !== void 0 ? _a : secondPara.innerText) !== null && _b !== void 0 ? _b : '';
+            const success = secondParaText.toLowerCase().replace(/\W*/, '')
+                === correctSecondPara.toLowerCase().replace(/\W*/, '');
+            return testResult(success, {
+                failureMessage: `Second paragraph does not match ${correctSecondPara}`,
+                userData
+            });
+        });
+    },
+    fix(course) {
+        return syllabusTests_awaiter(this, void 0, void 0, function* () {
+            let { success, userData } = yield this.run(course);
+            if (success)
+                return testResult('not run', { notFailureMessage: "No need to run fix" });
+            if (!(userData === null || userData === void 0 ? void 0 : userData.secondPara))
+                return testResult(false, { failureMessage: "There was a problem accessing the syllabus." });
+            const { el, secondPara } = userData;
+            secondPara.innerHTML = correctSecondPara;
+            try {
+                yield course.changeSyllabus(el.innerHTML);
+                return testResult(true);
+            }
+            catch (e) {
+                return errorMessageResult(e);
+            }
+        });
+    }
+};
+/* harmony default export */ const syllabusTests = ([
+    classInclusiveNoDateHeaderTest,
+    courseCreditsInSyllabusTest,
+    finalNotInGradingPolicyParaTest,
+    communication24HoursTest,
+    aiPolicyInSyllabusTest,
+    bottomOfSyllabusLanguageTest,
+    gradeTableHeadersCorrectTest,
+]);
+
+;// CONCATENATED MODULE: ./src/admin/index.tsx
+
+
+
+function bpify(code) {
+    let [, prefix] = code.match(/^([^_ ]*)[_ ]/) || [null, ''];
+    let [, body] = code.match(`${prefix || ''}[ _]?(.*)`) || [null, code];
+    return `BP_${body}`;
+}
+const tests = [
+    ...courseContent,
+    ...courseSettings,
+    ...syllabusTests,
+];
+
 ;// CONCATENATED MODULE: ./src/index.ts
 function sleep(milliseconds) {
     return new Promise((resolve, reject) => {
@@ -49614,7 +49632,7 @@ var migration_asyncGenerator = (undefined && undefined.__asyncGenerator) || func
 
 
 
-function getMigrationsForCourse(courseId, config) {
+function migrationsForCourseGen(courseId, config) {
     const url = `/api/v1/courses/${courseId}/content_migrations`;
     return getPagedDataGenerator(url, config);
 }
@@ -49857,6 +49875,8 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet, }) {
     const [allMigrations, allMigrationDispatcher] = (0,react.useReducer)((listDispatcher), []);
     const [activeMigrations, activeMigrationDispatcher] = (0,react.useReducer)((listDispatcher), []);
     const [isLocking, setIsLocking] = (0,react.useState)(false);
+    const [isArchiveDisabled, setIsArchiveDisabled] = (0,react.useState)(true);
+    const [isNewBpDisabled, setIsNewBpDisabled] = (0,react.useState)(true);
     (0,react.useEffect)(...callOnChangeFunc(currentBp, onBpSet));
     (0,react.useEffect)(...callOnChangeFunc(termName, onTermNameSet));
     (0,react.useEffect)(...callOnChangeFunc(sections, onSectionsSet));
@@ -49881,6 +49901,17 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet, }) {
     useEffectAsync(() => MakeBp_awaiter(this, void 0, void 0, function* () {
         yield updateMigrations();
     }), [currentBp]);
+    (0,react.useEffect)(() => {
+        const isDisabled = isLoading || !currentBp || !termName || termName.length === 0 || activeMigrations.length > 0;
+        setIsArchiveDisabled(isDisabled);
+    }, [isLoading, currentBp, termName, activeMigrations]);
+    (0,react.useEffect)(() => {
+        const isDisabled = isLoading ||
+            !!currentBp ||
+            !devCourse.parsedCourseCode ||
+            devCourse.parsedCourseCode.length == 0;
+        setIsNewBpDisabled(isDisabled);
+    }, [isLoading, currentBp, devCourse]);
     function updateMigrations() {
         return MakeBp_awaiter(this, void 0, void 0, function* () {
             var _a, e_1, _b, _c;
@@ -49889,7 +49920,7 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet, }) {
             allMigrationDispatcher({
                 clear: true,
             });
-            const migrationsForCourse = getMigrationsForCourse(currentBp.id);
+            const migrationsForCourse = migrationsForCourseGen(currentBp.id);
             try {
                 for (var _d = true, migrationsForCourse_1 = MakeBp_asyncValues(migrationsForCourse), migrationsForCourse_1_1; migrationsForCourse_1_1 = yield migrationsForCourse_1.next(), _a = migrationsForCourse_1_1.done, !_a; _d = true) {
                     _c = migrationsForCourse_1_1.value;
@@ -49963,10 +49994,15 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet, }) {
             if (termName.length === 0)
                 return false;
             const termDate = term_dateFromTermName(termName);
-            if (termDate && termDate.until(mr.Now.plainDateISO()).days > 10) {
-                const confirmFinish = confirm(`Term ${termName} appears to still be in the future. Are you SURE you want to archive?`);
-                if (!confirmFinish)
-                    return;
+            console.log("term", termName, JSON.stringify(termDate));
+            if (termDate) {
+                const daysLeft = termDate.until(mr.Now.plainDateISO()).days;
+                console.log(daysLeft);
+                if (daysLeft <= 5) {
+                    const confirmFinish = confirm(`Term ${termName} appears to still be in the future. Are you SURE you want to archive?`);
+                    if (!confirmFinish)
+                        return;
+                }
             }
             setIsLoading(true);
             yield retireBlueprint(currentBp, termName);
@@ -50018,13 +50054,7 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet, }) {
             location.reload();
         });
     }
-    function isArchiveDisabled() {
-        return isLoading || !currentBp || !termName || termName.length === 0 || activeMigrations.length > 0;
-    }
-    return (0,jsx_runtime.jsxs)("div", { children: [!isDev && (0,jsx_runtime.jsx)(esm_Row, { children: (0,jsx_runtime.jsx)(esm_Col, { className: 'alert alert-warning', children: "This is not a DEV course" }) }), currentBp && (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsx)(esm_Col, { sm: 3, children: (0,jsx_runtime.jsxs)(react_bootstrap_esm_Button, { id: 'archiveButton', onClick: onArchive, disabled: isArchiveDisabled(), children: ["Archive ", currentBp.parsedCourseCode] }) }), (0,jsx_runtime.jsx)(esm_Col, { sm: 2, children: (0,jsx_runtime.jsx)("label", { children: "Term Name" }) }), (0,jsx_runtime.jsx)(esm_Col, { sm: 3, children: (0,jsx_runtime.jsx)(esm_FormControl, { required: true, "aria-required": true, id: 'archiveTermName', typeof: 'text', value: termName, disabled: (sections === null || sections === void 0 ? void 0 : sections.length) > 0, onChange: e => setTermName(e.target.value), placeholder: TERM_NAME_PLACEHOLDER }) }), (0,jsx_runtime.jsx)(esm_Col, { children: !termName && (0,jsx_runtime.jsx)(esm_Alert, { children: "Term name not found in BP sections." }) })] }), (0,jsx_runtime.jsx)("hr", {}), (0,jsx_runtime.jsx)(jsx_runtime.Fragment, { children: (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsx)(esm_Col, { sm: 3, children: (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { id: 'newBpButton', onClick: onCloneIntoBp, "aria-label": 'New BP', disabled: isLoading ||
-                                    !!currentBp ||
-                                    !devCourse.parsedCourseCode ||
-                                    devCourse.parsedCourseCode.length == 0, children: "Create New BP" }) }), (0,jsx_runtime.jsx)(esm_Col, { sm: 6, children: currentBp && activeMigrations.map(migration => (0,jsx_runtime.jsx)(MigrationBar, { migration: migration, onFinishMigration: finishMigration, course: currentBp }, migration.id)) })] }) })] });
+    return (0,jsx_runtime.jsxs)("div", { children: [!isDev && (0,jsx_runtime.jsx)(esm_Row, { children: (0,jsx_runtime.jsx)(esm_Col, { className: 'alert alert-warning', children: "This is not a DEV course" }) }), currentBp && (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsx)(esm_Col, { sm: 3, children: (0,jsx_runtime.jsxs)(react_bootstrap_esm_Button, { id: 'archiveButton', onClick: onArchive, disabled: isArchiveDisabled, children: ["Archive ", currentBp.parsedCourseCode] }) }), (0,jsx_runtime.jsx)(esm_Col, { sm: 2, children: (0,jsx_runtime.jsx)("label", { children: "Term Name" }) }), (0,jsx_runtime.jsx)(esm_Col, { sm: 3, children: (0,jsx_runtime.jsx)(esm_FormControl, { required: true, "aria-required": true, id: 'archiveTermName', typeof: 'text', value: termName, disabled: (sections === null || sections === void 0 ? void 0 : sections.length) > 0, onChange: e => setTermName(e.target.value), placeholder: TERM_NAME_PLACEHOLDER }) }), (0,jsx_runtime.jsx)(esm_Col, { children: !termName && (0,jsx_runtime.jsx)(esm_Alert, { children: "Term name not found in BP sections." }) })] }), (0,jsx_runtime.jsx)("hr", {}), (0,jsx_runtime.jsx)(jsx_runtime.Fragment, { children: (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsx)(esm_Col, { sm: 3, children: (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { id: 'newBpButton', onClick: onCloneIntoBp, "aria-label": 'New BP', disabled: isNewBpDisabled, children: "Create New BP" }) }), (0,jsx_runtime.jsx)(esm_Col, { sm: 6, children: currentBp && activeMigrations.map(migration => (0,jsx_runtime.jsx)(MigrationBar, { migration: migration, onFinishMigration: finishMigration, course: currentBp }, migration.id)) })] }) })] });
 }
 
 ;// CONCATENATED MODULE: ./src/publish/publishInterface/PublishInterface.tsx

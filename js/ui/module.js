@@ -13207,6 +13207,17 @@ function retireBlueprint(course, termName, config) {
         }, config);
     });
 }
+function beginBpSync(courseId_1, _a) {
+    return blueprint_awaiter(this, arguments, void 0, function* (courseId, { message, copy_settings, config }) {
+        const url = `/api/v1/courses/${courseId}/blueprint_templates/default/migrations`;
+        if (typeof copy_settings === 'undefined')
+            copy_settings = true;
+        const result = yield fetchJson(url, apiWriteConfig('POST', {
+            message,
+            copy_settings
+        }, config));
+    });
+}
 function getBlueprintsFromCode(code, accountIds, config) {
     return blueprint_awaiter(this, void 0, void 0, function* () {
         const [_, baseCode] = code.match(/_(\w{4}\d{3})$/) || [];
