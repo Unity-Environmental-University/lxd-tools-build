@@ -48087,7 +48087,6 @@ function DateRangeExportDialog({ course, show, handleShow, handleHide, onExporti
     return ((0,jsx_runtime.jsxs)(react_bootstrap_esm_Modal, { show: show, onHide: handleHide, onShow: handleShow, children: [(0,jsx_runtime.jsx)(react_bootstrap_esm_Modal.Title, { children: "Export Range of Sections" }), (0,jsx_runtime.jsx)(react_bootstrap_esm_Modal.Body, { children: (0,jsx_runtime.jsxs)(esm_Row, { children: [(0,jsx_runtime.jsx)(esm_Col, { className: colWidth, children: (0,jsx_runtime.jsxs)(esm_Card, { children: [(0,jsx_runtime.jsx)(esm_Card.Title, { id: 'startDate', children: "Start Date" }), (0,jsx_runtime.jsx)(esm_Card.Body, { children: (0,jsx_runtime.jsx)((react_datepicker_min_default()), { ariaLabelledBy: 'startDate', selected: exportStart, onChange: (date) => setExportStart(date) }) })] }) }), (0,jsx_runtime.jsx)(esm_Col, { className: colWidth, children: (0,jsx_runtime.jsxs)(esm_Card, { children: [(0,jsx_runtime.jsx)(esm_Card.Title, { id: 'endDate', children: "End Date" }), (0,jsx_runtime.jsx)(esm_Card.Body, { children: (0,jsx_runtime.jsx)((react_datepicker_min_default()), { ariaLabelledBy: 'endDate', selected: exportEnd, onChange: (date) => setExportEnd(date) }) })] }) })] }) }), (0,jsx_runtime.jsx)(react_bootstrap_esm_Modal.Footer, { children: (0,jsx_runtime.jsx)(react_bootstrap_esm_Button, { onClick: (e) => DateRangeExportDialog_awaiter(this, void 0, void 0, function* () {
                         var _a, _b;
                         e.stopPropagation();
-                        console.log("Exporting courses...");
                         onExporting();
                         handleHide();
                         const by_subaccounts = course.termId ? [course.termId] : [];
@@ -48107,7 +48106,6 @@ function DateRangeExportDialog({ course, show, handleShow, handleHide, onExporti
                             return new Date(b.start_at).getTime() - new Date(b.start_at).getTime();
                         });
                         const allSectionRows = sections ? yield getRowsForSections(sections) : [];
-                        console.log("Writing Final Output Document...");
                         saveDataGenFunc()(allSectionRows, `${course.baseCode}-${exportStart === null || exportStart === void 0 ? void 0 : exportStart.toUTCString()}-${exportEnd === null || exportEnd === void 0 ? void 0 : exportEnd.toUTCString()}.csv`);
                         onFinishedExporting();
                         return allSectionRows;

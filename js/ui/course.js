@@ -15083,10 +15083,8 @@ function BpButton({ course, currentBp }) {
                 _c = bpGen_1_1.value;
                 _d = false;
                 let bp = _c;
-                console.log(i);
                 loadBps.push(bp);
                 dispatchBps({ set: loadBps });
-                console.log(bp, bps);
                 i++;
             }
         }

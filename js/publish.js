@@ -43993,7 +43993,7 @@ function canvas_apiWriteConfig(method, data, baseConfig) {
 }
 
 
-;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/index.ts
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/validations.ts
 var validations_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -44431,7 +44431,7 @@ Col.displayName = 'Col';
 
 
 function CourseValidator({ course, tests, refreshCourse, showOnlyFailures = false }) {
-    return (0,jsx_runtime.jsxs)(esm_Col, { children: ["Hey", showOnlyFailures || (0,jsx_runtime.jsx)("h2", { "data-testid": "header", children: "Course Settings and Content Tests" }), tests.map((test, i) => (0,jsx_runtime.jsx)(ValidationRow, { course: course, test: test, showOnlyFailures: showOnlyFailures, refreshCourse: refreshCourse }, `${course.id}${test.name}${i}`))] });
+    return (0,jsx_runtime.jsxs)(esm_Col, { children: [showOnlyFailures || (0,jsx_runtime.jsx)("h2", { "data-testid": "header", children: "Course Settings and Content Tests" }), tests.map((test, i) => (0,jsx_runtime.jsx)(ValidationRow, { course: course, test: test, showOnlyFailures: showOnlyFailures, refreshCourse: refreshCourse }, `${course.id}${test.name}${i}`))] });
 }
 
 ;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/CourseUpdateInterface.tsx
@@ -49135,6 +49135,15 @@ function SectionRows({ onOpenAll, sections, instructorsByCourseId, frontPageProf
     return ((0,jsx_runtime.jsxs)("div", { className: 'course-table', children: [(0,jsx_runtime.jsxs)("div", { className: 'row', children: [(0,jsx_runtime.jsxs)("div", { className: 'col-sm-6', children: [(0,jsx_runtime.jsx)("div", { children: (0,jsx_runtime.jsx)("strong", { children: "Code" }) }), (0,jsx_runtime.jsx)("a", { href: '#', onClick: openAll, children: "Open All" })] }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-3', children: (0,jsx_runtime.jsx)("strong", { children: "Name on Front Page" }) }), (0,jsx_runtime.jsx)("div", { className: 'col-sm-3', children: (0,jsx_runtime.jsx)("strong", { children: "Instructor(s)" }) })] }), sections && sections.toSorted((a, b) => a.name.localeCompare(b.name)).map((course) => ((0,jsx_runtime.jsx)(CourseRow, { instructors: instructorsByCourseId[course.id], frontPageProfile: frontPageProfilesByCourseId[course.id], facultyProfileMatches: potentialProfilesByCourseId[course.id], errors: errorsByCourseId[course.id], onSelectSection: (section) => setWorkingSection(section), course: course }, course.id)))] }));
 }
 
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/badContentReplaceFuncs.ts
+
+function badContentReplaceFuncs(badTest, replace, getContentFunc) {
+    return {
+        run: badContentRunFunc(badTest, getContentFunc),
+        fix: badContentFixFunc(badTest, replace, getContentFunc)
+    };
+}
+
 ;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/courseContent.ts
 var courseContent_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -49145,6 +49154,10 @@ var courseContent_awaiter = (undefined && undefined.__awaiter) || function (this
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
+
+
+
 
 function decodeHtml(html) {
     let text = document.createElement("textarea");
@@ -49218,16 +49231,23 @@ function getOverview(course, config) {
 const codeAndCodeOfCodeTest = Object.assign({ name: "Code and Code of Code", beforeAndAfters: [
         ['<p>Honor Code and Code of Code of Conduct</p>', '<p>Honor Code and Code of Conduct</p>']
     ], description: 'First bullet of course overview should read ... Unity DE Honor Code and Code of Conduct ..., not ' }, badContentReplaceFuncs(/Code and Code of Code of Conduct/ig, 'Code and Code of Conduct'));
-function badContentReplaceFuncs(badTest, replace, getContentFunc) {
-    return {
-        run: badContentRunFunc(badTest, getContentFunc),
-        fix: badContentFixFunc(badTest, replace, getContentFunc)
-    };
-}
+const overviewDiscMornToNightTest = Object.assign({ name: "overview discussion 3AM night -> morning", description: "Overview Discussion times say 3AM Thursday/Monday morning, not 'night'", beforeAndAfters: [
+        ['3AM ET Thursday night 3AM ET Monday night', '3AM ET Thursday morning 3AM ET Monday morning'],
+        ['3AM ET thursday night 3AM ET weds night', '3AM ET Thursday morning 3AM ET weds night'],
+    ], getContent(course) {
+        return courseContent_awaiter(this, void 0, void 0, function* () {
+            const pageGen = PageKind.dataGenerator(course.id, { queryParams: {
+                    search_term: 'course overview'
+                } });
+            const pageDatas = yield renderAsyncGen(pageGen);
+            return pageDatas.map(a => new Page(a, course.id));
+        });
+    } }, badContentReplaceFuncs(/3AM ET (Thursday|Monday) night/ig, "3AM ET $1 morning"));
 /* harmony default export */ const courseContent = ([
     courseProjectOutlineTest,
     weeklyObjectivesTest,
     codeAndCodeOfCodeTest,
+    overviewDiscMornToNightTest,
 ]);
 
 ;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/courseSettings.ts
@@ -49994,10 +50014,8 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet, }) {
             if (termName.length === 0)
                 return false;
             const termDate = term_dateFromTermName(termName);
-            console.log("term", termName, JSON.stringify(termDate));
             if (termDate) {
                 const daysLeft = termDate.until(mr.Now.plainDateISO()).days;
-                console.log(daysLeft);
                 if (daysLeft <= 5) {
                     const confirmFinish = confirm(`Term ${termName} appears to still be in the future. Are you SURE you want to archive?`);
                     if (!confirmFinish)
