@@ -1,11 +1,14 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 4148:
+/***/ "./node_modules/assert/build/assert.js":
+/*!*********************************************!*\
+  !*** ./node_modules/assert/build/assert.js ***!
+  \*********************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-/* provided dependency */ var process = __webpack_require__(5606);
+/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
 // Currently in sync with Node.js lib/assert.js
 // https://github.com/nodejs/node/commit/2a51ae424a513ec9a6aa3466baa0cc1d55dd4f3b
 
@@ -37,22 +40,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-var _require = __webpack_require__(9597),
+var _require = __webpack_require__(/*! ./internal/errors */ "./node_modules/assert/build/internal/errors.js"),
   _require$codes = _require.codes,
   ERR_AMBIGUOUS_ARGUMENT = _require$codes.ERR_AMBIGUOUS_ARGUMENT,
   ERR_INVALID_ARG_TYPE = _require$codes.ERR_INVALID_ARG_TYPE,
   ERR_INVALID_ARG_VALUE = _require$codes.ERR_INVALID_ARG_VALUE,
   ERR_INVALID_RETURN_VALUE = _require$codes.ERR_INVALID_RETURN_VALUE,
   ERR_MISSING_ARGS = _require$codes.ERR_MISSING_ARGS;
-var AssertionError = __webpack_require__(3918);
-var _require2 = __webpack_require__(537),
+var AssertionError = __webpack_require__(/*! ./internal/assert/assertion_error */ "./node_modules/assert/build/internal/assert/assertion_error.js");
+var _require2 = __webpack_require__(/*! util/ */ "./node_modules/util/util.js"),
   inspect = _require2.inspect;
-var _require$types = (__webpack_require__(537).types),
+var _require$types = (__webpack_require__(/*! util/ */ "./node_modules/util/util.js").types),
   isPromise = _require$types.isPromise,
   isRegExp = _require$types.isRegExp;
-var objectAssign = __webpack_require__(1514)();
-var objectIs = __webpack_require__(9394)();
-var RegExpPrototypeTest = __webpack_require__(8075)('RegExp.prototype.test');
+var objectAssign = __webpack_require__(/*! object.assign/polyfill */ "./node_modules/object.assign/polyfill.js")();
+var objectIs = __webpack_require__(/*! object-is/polyfill */ "./node_modules/object-is/polyfill.js")();
+var RegExpPrototypeTest = __webpack_require__(/*! call-bind/callBound */ "./node_modules/call-bind/callBound.js")('RegExp.prototype.test');
 var errorCache = new Map();
 var isDeepEqual;
 var isDeepStrictEqual;
@@ -60,7 +63,7 @@ var parseExpressionAt;
 var findNodeAround;
 var decoder;
 function lazyLoadComparison() {
-  var comparison = __webpack_require__(2299);
+  var comparison = __webpack_require__(/*! ./internal/util/comparisons */ "./node_modules/assert/build/internal/util/comparisons.js");
   isDeepEqual = comparison.isDeepEqual;
   isDeepStrictEqual = comparison.isDeepStrictEqual;
 }
@@ -69,7 +72,7 @@ function lazyLoadComparison() {
 // indentation intact.
 // eslint-disable-next-line no-control-regex
 var escapeSequencesRegExp = /[\x00-\x08\x0b\x0c\x0e-\x1f]/g;
-var meta = (/* unused pure expression or super */ null && (["\\u0000", "\\u0001", "\\u0002", "\\u0003", "\\u0004", "\\u0005", "\\u0006", "\\u0007", '\\b', '', '', "\\u000b", '\\f', '', "\\u000e", "\\u000f", "\\u0010", "\\u0011", "\\u0012", "\\u0013", "\\u0014", "\\u0015", "\\u0016", "\\u0017", "\\u0018", "\\u0019", "\\u001a", "\\u001b", "\\u001c", "\\u001d", "\\u001e", "\\u001f"]));
+var meta = ["\\u0000", "\\u0001", "\\u0002", "\\u0003", "\\u0004", "\\u0005", "\\u0006", "\\u0007", '\\b', '', '', "\\u000b", '\\f', '', "\\u000e", "\\u000f", "\\u0010", "\\u0011", "\\u0012", "\\u0013", "\\u0014", "\\u0015", "\\u0016", "\\u0017", "\\u0018", "\\u0019", "\\u001a", "\\u001b", "\\u001c", "\\u001d", "\\u001e", "\\u001f"];
 var escapeFn = function escapeFn(str) {
   return meta[str.charCodeAt(0)];
 };
@@ -599,11 +602,14 @@ assert.strict.strict = assert.strict;
 
 /***/ }),
 
-/***/ 3918:
+/***/ "./node_modules/assert/build/internal/assert/assertion_error.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/assert/build/internal/assert/assertion_error.js ***!
+  \**********************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-/* provided dependency */ var process = __webpack_require__(5606);
+/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
 // Currently in sync with Node.js lib/internal/assert/assertion_error.js
 // https://github.com/nodejs/node/commit/0817840f775032169ddd70c85ac059f18ffcc81c
 
@@ -628,9 +634,9 @@ function _isNativeFunction(fn) { return Function.toString.call(fn).indexOf("[nat
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-var _require = __webpack_require__(537),
+var _require = __webpack_require__(/*! util/ */ "./node_modules/util/util.js"),
   inspect = _require.inspect;
-var _require2 = __webpack_require__(9597),
+var _require2 = __webpack_require__(/*! ../errors */ "./node_modules/assert/build/internal/errors.js"),
   ERR_INVALID_ARG_TYPE = _require2.codes.ERR_INVALID_ARG_TYPE;
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith
@@ -1052,7 +1058,10 @@ module.exports = AssertionError;
 
 /***/ }),
 
-/***/ 9597:
+/***/ "./node_modules/assert/build/internal/errors.js":
+/*!******************************************************!*\
+  !*** ./node_modules/assert/build/internal/errors.js ***!
+  \******************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -1159,7 +1168,7 @@ function includes(str, search, start) {
 }
 createErrorType('ERR_AMBIGUOUS_ARGUMENT', 'The "%s" argument is ambiguous. %s', TypeError);
 createErrorType('ERR_INVALID_ARG_TYPE', function (name, expected, actual) {
-  if (assert === undefined) assert = __webpack_require__(4148);
+  if (assert === undefined) assert = __webpack_require__(/*! ../assert */ "./node_modules/assert/build/assert.js");
   assert(typeof name === 'string', "'name' must be a string");
 
   // determiner: 'must be' or 'must not be'
@@ -1185,7 +1194,7 @@ createErrorType('ERR_INVALID_ARG_TYPE', function (name, expected, actual) {
 }, TypeError);
 createErrorType('ERR_INVALID_ARG_VALUE', function (name, value) {
   var reason = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'is invalid';
-  if (util === undefined) util = __webpack_require__(537);
+  if (util === undefined) util = __webpack_require__(/*! util/ */ "./node_modules/util/util.js");
   var inspected = util.inspect(value);
   if (inspected.length > 128) {
     inspected = "".concat(inspected.slice(0, 128), "...");
@@ -1205,7 +1214,7 @@ createErrorType('ERR_MISSING_ARGS', function () {
   for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
   }
-  if (assert === undefined) assert = __webpack_require__(4148);
+  if (assert === undefined) assert = __webpack_require__(/*! ../assert */ "./node_modules/assert/build/assert.js");
   assert(args.length > 0, 'At least one arg needs to be specified');
   var msg = 'The ';
   var len = args.length;
@@ -1230,7 +1239,10 @@ module.exports.codes = codes;
 
 /***/ }),
 
-/***/ 2299:
+/***/ "./node_modules/assert/build/internal/util/comparisons.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/assert/build/internal/util/comparisons.js ***!
+  \****************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -1261,18 +1273,18 @@ var arrayFromMap = function arrayFromMap(map) {
   });
   return array;
 };
-var objectIs = Object.is ? Object.is : __webpack_require__(7653);
+var objectIs = Object.is ? Object.is : __webpack_require__(/*! object-is */ "./node_modules/object-is/index.js");
 var objectGetOwnPropertySymbols = Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols : function () {
   return [];
 };
-var numberIsNaN = Number.isNaN ? Number.isNaN : __webpack_require__(4133);
+var numberIsNaN = Number.isNaN ? Number.isNaN : __webpack_require__(/*! is-nan */ "./node_modules/is-nan/index.js");
 function uncurryThis(f) {
   return f.call.bind(f);
 }
 var hasOwnProperty = uncurryThis(Object.prototype.hasOwnProperty);
 var propertyIsEnumerable = uncurryThis(Object.prototype.propertyIsEnumerable);
 var objectToString = uncurryThis(Object.prototype.toString);
-var _require$types = (__webpack_require__(537).types),
+var _require$types = (__webpack_require__(/*! util/ */ "./node_modules/util/util.js").types),
   isAnyArrayBuffer = _require$types.isAnyArrayBuffer,
   isArrayBufferView = _require$types.isArrayBufferView,
   isDate = _require$types.isDate,
@@ -1812,15 +1824,18 @@ module.exports = {
 
 /***/ }),
 
-/***/ 8075:
+/***/ "./node_modules/call-bind/callBound.js":
+/*!*********************************************!*\
+  !*** ./node_modules/call-bind/callBound.js ***!
+  \*********************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var GetIntrinsic = __webpack_require__(453);
+var GetIntrinsic = __webpack_require__(/*! get-intrinsic */ "./node_modules/get-intrinsic/index.js");
 
-var callBind = __webpack_require__(487);
+var callBind = __webpack_require__(/*! ./ */ "./node_modules/call-bind/index.js");
 
 var $indexOf = callBind(GetIntrinsic('String.prototype.indexOf'));
 
@@ -1835,22 +1850,25 @@ module.exports = function callBoundIntrinsic(name, allowMissing) {
 
 /***/ }),
 
-/***/ 487:
+/***/ "./node_modules/call-bind/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/call-bind/index.js ***!
+  \*****************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var bind = __webpack_require__(6743);
-var GetIntrinsic = __webpack_require__(453);
-var setFunctionLength = __webpack_require__(6897);
+var bind = __webpack_require__(/*! function-bind */ "./node_modules/function-bind/index.js");
+var GetIntrinsic = __webpack_require__(/*! get-intrinsic */ "./node_modules/get-intrinsic/index.js");
+var setFunctionLength = __webpack_require__(/*! set-function-length */ "./node_modules/set-function-length/index.js");
 
-var $TypeError = __webpack_require__(9675);
+var $TypeError = __webpack_require__(/*! es-errors/type */ "./node_modules/es-errors/type.js");
 var $apply = GetIntrinsic('%Function.prototype.apply%');
 var $call = GetIntrinsic('%Function.prototype.call%');
 var $reflectApply = GetIntrinsic('%Reflect.apply%', true) || bind.call($call, $apply);
 
-var $defineProperty = __webpack_require__(655);
+var $defineProperty = __webpack_require__(/*! es-define-property */ "./node_modules/es-define-property/index.js");
 var $max = GetIntrinsic('%Math.max%');
 
 module.exports = function callBind(originalFunction) {
@@ -1878,18 +1896,21 @@ if ($defineProperty) {
 
 /***/ }),
 
-/***/ 41:
+/***/ "./node_modules/define-data-property/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/define-data-property/index.js ***!
+  \****************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var $defineProperty = __webpack_require__(655);
+var $defineProperty = __webpack_require__(/*! es-define-property */ "./node_modules/es-define-property/index.js");
 
-var $SyntaxError = __webpack_require__(8068);
-var $TypeError = __webpack_require__(9675);
+var $SyntaxError = __webpack_require__(/*! es-errors/syntax */ "./node_modules/es-errors/syntax.js");
+var $TypeError = __webpack_require__(/*! es-errors/type */ "./node_modules/es-errors/type.js");
 
-var gopd = __webpack_require__(5795);
+var gopd = __webpack_require__(/*! gopd */ "./node_modules/gopd/index.js");
 
 /** @type {import('.')} */
 module.exports = function defineDataProperty(
@@ -1942,24 +1963,27 @@ module.exports = function defineDataProperty(
 
 /***/ }),
 
-/***/ 8452:
+/***/ "./node_modules/define-properties/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/define-properties/index.js ***!
+  \*************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var keys = __webpack_require__(1189);
+var keys = __webpack_require__(/*! object-keys */ "./node_modules/object-keys/index.js");
 var hasSymbols = typeof Symbol === 'function' && typeof Symbol('foo') === 'symbol';
 
 var toStr = Object.prototype.toString;
 var concat = Array.prototype.concat;
-var defineDataProperty = __webpack_require__(41);
+var defineDataProperty = __webpack_require__(/*! define-data-property */ "./node_modules/define-data-property/index.js");
 
 var isFunction = function (fn) {
 	return typeof fn === 'function' && toStr.call(fn) === '[object Function]';
 };
 
-var supportsDescriptors = __webpack_require__(592)();
+var supportsDescriptors = __webpack_require__(/*! has-property-descriptors */ "./node_modules/has-property-descriptors/index.js")();
 
 var defineProperty = function (object, name, value, predicate) {
 	if (name in object) {
@@ -1997,13 +2021,16 @@ module.exports = defineProperties;
 
 /***/ }),
 
-/***/ 655:
+/***/ "./node_modules/es-define-property/index.js":
+/*!**************************************************!*\
+  !*** ./node_modules/es-define-property/index.js ***!
+  \**************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var GetIntrinsic = __webpack_require__(453);
+var GetIntrinsic = __webpack_require__(/*! get-intrinsic */ "./node_modules/get-intrinsic/index.js");
 
 /** @type {import('.')} */
 var $defineProperty = GetIntrinsic('%Object.defineProperty%', true) || false;
@@ -2021,7 +2048,10 @@ module.exports = $defineProperty;
 
 /***/ }),
 
-/***/ 1237:
+/***/ "./node_modules/es-errors/eval.js":
+/*!****************************************!*\
+  !*** ./node_modules/es-errors/eval.js ***!
+  \****************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2033,7 +2063,10 @@ module.exports = EvalError;
 
 /***/ }),
 
-/***/ 9383:
+/***/ "./node_modules/es-errors/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/es-errors/index.js ***!
+  \*****************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2045,7 +2078,10 @@ module.exports = Error;
 
 /***/ }),
 
-/***/ 9290:
+/***/ "./node_modules/es-errors/range.js":
+/*!*****************************************!*\
+  !*** ./node_modules/es-errors/range.js ***!
+  \*****************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2057,7 +2093,10 @@ module.exports = RangeError;
 
 /***/ }),
 
-/***/ 9538:
+/***/ "./node_modules/es-errors/ref.js":
+/*!***************************************!*\
+  !*** ./node_modules/es-errors/ref.js ***!
+  \***************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2069,7 +2108,10 @@ module.exports = ReferenceError;
 
 /***/ }),
 
-/***/ 8068:
+/***/ "./node_modules/es-errors/syntax.js":
+/*!******************************************!*\
+  !*** ./node_modules/es-errors/syntax.js ***!
+  \******************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2081,7 +2123,10 @@ module.exports = SyntaxError;
 
 /***/ }),
 
-/***/ 9675:
+/***/ "./node_modules/es-errors/type.js":
+/*!****************************************!*\
+  !*** ./node_modules/es-errors/type.js ***!
+  \****************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2093,7 +2138,10 @@ module.exports = TypeError;
 
 /***/ }),
 
-/***/ 5345:
+/***/ "./node_modules/es-errors/uri.js":
+/*!***************************************!*\
+  !*** ./node_modules/es-errors/uri.js ***!
+  \***************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2105,13 +2153,16 @@ module.exports = URIError;
 
 /***/ }),
 
-/***/ 2682:
+/***/ "./node_modules/for-each/index.js":
+/*!****************************************!*\
+  !*** ./node_modules/for-each/index.js ***!
+  \****************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var isCallable = __webpack_require__(9600);
+var isCallable = __webpack_require__(/*! is-callable */ "./node_modules/is-callable/index.js");
 
 var toStr = Object.prototype.toString;
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -2175,7 +2226,10 @@ module.exports = forEach;
 
 /***/ }),
 
-/***/ 9353:
+/***/ "./node_modules/function-bind/implementation.js":
+/*!******************************************************!*\
+  !*** ./node_modules/function-bind/implementation.js ***!
+  \******************************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2267,20 +2321,26 @@ module.exports = function bind(that) {
 
 /***/ }),
 
-/***/ 6743:
+/***/ "./node_modules/function-bind/index.js":
+/*!*********************************************!*\
+  !*** ./node_modules/function-bind/index.js ***!
+  \*********************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var implementation = __webpack_require__(9353);
+var implementation = __webpack_require__(/*! ./implementation */ "./node_modules/function-bind/implementation.js");
 
 module.exports = Function.prototype.bind || implementation;
 
 
 /***/ }),
 
-/***/ 453:
+/***/ "./node_modules/get-intrinsic/index.js":
+/*!*********************************************!*\
+  !*** ./node_modules/get-intrinsic/index.js ***!
+  \*********************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -2288,13 +2348,13 @@ module.exports = Function.prototype.bind || implementation;
 
 var undefined;
 
-var $Error = __webpack_require__(9383);
-var $EvalError = __webpack_require__(1237);
-var $RangeError = __webpack_require__(9290);
-var $ReferenceError = __webpack_require__(9538);
-var $SyntaxError = __webpack_require__(8068);
-var $TypeError = __webpack_require__(9675);
-var $URIError = __webpack_require__(5345);
+var $Error = __webpack_require__(/*! es-errors */ "./node_modules/es-errors/index.js");
+var $EvalError = __webpack_require__(/*! es-errors/eval */ "./node_modules/es-errors/eval.js");
+var $RangeError = __webpack_require__(/*! es-errors/range */ "./node_modules/es-errors/range.js");
+var $ReferenceError = __webpack_require__(/*! es-errors/ref */ "./node_modules/es-errors/ref.js");
+var $SyntaxError = __webpack_require__(/*! es-errors/syntax */ "./node_modules/es-errors/syntax.js");
+var $TypeError = __webpack_require__(/*! es-errors/type */ "./node_modules/es-errors/type.js");
+var $URIError = __webpack_require__(/*! es-errors/uri */ "./node_modules/es-errors/uri.js");
 
 var $Function = Function;
 
@@ -2334,8 +2394,8 @@ var ThrowTypeError = $gOPD
 	}())
 	: throwTypeError;
 
-var hasSymbols = __webpack_require__(4039)();
-var hasProto = __webpack_require__(24)();
+var hasSymbols = __webpack_require__(/*! has-symbols */ "./node_modules/has-symbols/index.js")();
+var hasProto = __webpack_require__(/*! has-proto */ "./node_modules/has-proto/index.js")();
 
 var getProto = Object.getPrototypeOf || (
 	hasProto
@@ -2507,8 +2567,8 @@ var LEGACY_ALIASES = {
 	'%WeakSetPrototype%': ['WeakSet', 'prototype']
 };
 
-var bind = __webpack_require__(6743);
-var hasOwn = __webpack_require__(9957);
+var bind = __webpack_require__(/*! function-bind */ "./node_modules/function-bind/index.js");
+var hasOwn = __webpack_require__(/*! hasown */ "./node_modules/hasown/index.js");
 var $concat = bind.call(Function.call, Array.prototype.concat);
 var $spliceApply = bind.call(Function.apply, Array.prototype.splice);
 var $replace = bind.call(Function.call, String.prototype.replace);
@@ -2647,13 +2707,16 @@ module.exports = function GetIntrinsic(name, allowMissing) {
 
 /***/ }),
 
-/***/ 5795:
+/***/ "./node_modules/gopd/index.js":
+/*!************************************!*\
+  !*** ./node_modules/gopd/index.js ***!
+  \************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var GetIntrinsic = __webpack_require__(453);
+var GetIntrinsic = __webpack_require__(/*! get-intrinsic */ "./node_modules/get-intrinsic/index.js");
 
 var $gOPD = GetIntrinsic('%Object.getOwnPropertyDescriptor%', true);
 
@@ -2671,13 +2734,16 @@ module.exports = $gOPD;
 
 /***/ }),
 
-/***/ 592:
+/***/ "./node_modules/has-property-descriptors/index.js":
+/*!********************************************************!*\
+  !*** ./node_modules/has-property-descriptors/index.js ***!
+  \********************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var $defineProperty = __webpack_require__(655);
+var $defineProperty = __webpack_require__(/*! es-define-property */ "./node_modules/es-define-property/index.js");
 
 var hasPropertyDescriptors = function hasPropertyDescriptors() {
 	return !!$defineProperty;
@@ -2701,7 +2767,10 @@ module.exports = hasPropertyDescriptors;
 
 /***/ }),
 
-/***/ 24:
+/***/ "./node_modules/has-proto/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/has-proto/index.js ***!
+  \*****************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2724,14 +2793,17 @@ module.exports = function hasProto() {
 
 /***/ }),
 
-/***/ 4039:
+/***/ "./node_modules/has-symbols/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/has-symbols/index.js ***!
+  \*******************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
 var origSymbol = typeof Symbol !== 'undefined' && Symbol;
-var hasSymbolSham = __webpack_require__(1333);
+var hasSymbolSham = __webpack_require__(/*! ./shams */ "./node_modules/has-symbols/shams.js");
 
 module.exports = function hasNativeSymbols() {
 	if (typeof origSymbol !== 'function') { return false; }
@@ -2745,7 +2817,10 @@ module.exports = function hasNativeSymbols() {
 
 /***/ }),
 
-/***/ 1333:
+/***/ "./node_modules/has-symbols/shams.js":
+/*!*******************************************!*\
+  !*** ./node_modules/has-symbols/shams.js ***!
+  \*******************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2795,13 +2870,16 @@ module.exports = function hasSymbols() {
 
 /***/ }),
 
-/***/ 9092:
+/***/ "./node_modules/has-tostringtag/shams.js":
+/*!***********************************************!*\
+  !*** ./node_modules/has-tostringtag/shams.js ***!
+  \***********************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var hasSymbols = __webpack_require__(1333);
+var hasSymbols = __webpack_require__(/*! has-symbols/shams */ "./node_modules/has-symbols/shams.js");
 
 /** @type {import('.')} */
 module.exports = function hasToStringTagShams() {
@@ -2811,7 +2889,10 @@ module.exports = function hasToStringTagShams() {
 
 /***/ }),
 
-/***/ 9957:
+/***/ "./node_modules/hasown/index.js":
+/*!**************************************!*\
+  !*** ./node_modules/hasown/index.js ***!
+  \**************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -2819,7 +2900,7 @@ module.exports = function hasToStringTagShams() {
 
 var call = Function.prototype.call;
 var $hasOwn = Object.prototype.hasOwnProperty;
-var bind = __webpack_require__(6743);
+var bind = __webpack_require__(/*! function-bind */ "./node_modules/function-bind/index.js");
 
 /** @type {import('.')} */
 module.exports = bind.call(call, $hasOwn);
@@ -2827,7 +2908,10 @@ module.exports = bind.call(call, $hasOwn);
 
 /***/ }),
 
-/***/ 6698:
+/***/ "./node_modules/inherits/inherits_browser.js":
+/*!***************************************************!*\
+  !*** ./node_modules/inherits/inherits_browser.js ***!
+  \***************************************************/
 /***/ ((module) => {
 
 if (typeof Object.create === 'function') {
@@ -2861,14 +2945,17 @@ if (typeof Object.create === 'function') {
 
 /***/ }),
 
-/***/ 7244:
+/***/ "./node_modules/is-arguments/index.js":
+/*!********************************************!*\
+  !*** ./node_modules/is-arguments/index.js ***!
+  \********************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var hasToStringTag = __webpack_require__(9092)();
-var callBound = __webpack_require__(8075);
+var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "./node_modules/has-tostringtag/shams.js")();
+var callBound = __webpack_require__(/*! call-bind/callBound */ "./node_modules/call-bind/callBound.js");
 
 var $toString = callBound('Object.prototype.toString');
 
@@ -2902,7 +2989,10 @@ module.exports = supportsStandardArguments ? isStandardArguments : isLegacyArgum
 
 /***/ }),
 
-/***/ 9600:
+/***/ "./node_modules/is-callable/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/is-callable/index.js ***!
+  \*******************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -3011,7 +3101,10 @@ module.exports = reflectApply
 
 /***/ }),
 
-/***/ 8184:
+/***/ "./node_modules/is-generator-function/index.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/is-generator-function/index.js ***!
+  \*****************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -3020,7 +3113,7 @@ module.exports = reflectApply
 var toStr = Object.prototype.toString;
 var fnToStr = Function.prototype.toString;
 var isFnRegex = /^\s*(?:function)?\*/;
-var hasToStringTag = __webpack_require__(9092)();
+var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "./node_modules/has-tostringtag/shams.js")();
 var getProto = Object.getPrototypeOf;
 var getGeneratorFunc = function () { // eslint-disable-line consistent-return
 	if (!hasToStringTag) {
@@ -3057,7 +3150,10 @@ module.exports = function isGeneratorFunction(fn) {
 
 /***/ }),
 
-/***/ 3003:
+/***/ "./node_modules/is-nan/implementation.js":
+/*!***********************************************!*\
+  !*** ./node_modules/is-nan/implementation.js ***!
+  \***********************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -3072,18 +3168,21 @@ module.exports = function isNaN(value) {
 
 /***/ }),
 
-/***/ 4133:
+/***/ "./node_modules/is-nan/index.js":
+/*!**************************************!*\
+  !*** ./node_modules/is-nan/index.js ***!
+  \**************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var callBind = __webpack_require__(487);
-var define = __webpack_require__(8452);
+var callBind = __webpack_require__(/*! call-bind */ "./node_modules/call-bind/index.js");
+var define = __webpack_require__(/*! define-properties */ "./node_modules/define-properties/index.js");
 
-var implementation = __webpack_require__(3003);
-var getPolyfill = __webpack_require__(6642);
-var shim = __webpack_require__(2464);
+var implementation = __webpack_require__(/*! ./implementation */ "./node_modules/is-nan/implementation.js");
+var getPolyfill = __webpack_require__(/*! ./polyfill */ "./node_modules/is-nan/polyfill.js");
+var shim = __webpack_require__(/*! ./shim */ "./node_modules/is-nan/shim.js");
 
 var polyfill = callBind(getPolyfill(), Number);
 
@@ -3100,13 +3199,16 @@ module.exports = polyfill;
 
 /***/ }),
 
-/***/ 6642:
+/***/ "./node_modules/is-nan/polyfill.js":
+/*!*****************************************!*\
+  !*** ./node_modules/is-nan/polyfill.js ***!
+  \*****************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var implementation = __webpack_require__(3003);
+var implementation = __webpack_require__(/*! ./implementation */ "./node_modules/is-nan/implementation.js");
 
 module.exports = function getPolyfill() {
 	if (Number.isNaN && Number.isNaN(NaN) && !Number.isNaN('a')) {
@@ -3118,14 +3220,17 @@ module.exports = function getPolyfill() {
 
 /***/ }),
 
-/***/ 2464:
+/***/ "./node_modules/is-nan/shim.js":
+/*!*************************************!*\
+  !*** ./node_modules/is-nan/shim.js ***!
+  \*************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var define = __webpack_require__(8452);
-var getPolyfill = __webpack_require__(6642);
+var define = __webpack_require__(/*! define-properties */ "./node_modules/define-properties/index.js");
+var getPolyfill = __webpack_require__(/*! ./polyfill */ "./node_modules/is-nan/polyfill.js");
 
 /* http://www.ecma-international.org/ecma-262/6.0/#sec-number.isnan */
 
@@ -3142,13 +3247,16 @@ module.exports = function shimNumberIsNaN() {
 
 /***/ }),
 
-/***/ 5680:
+/***/ "./node_modules/is-typed-array/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/is-typed-array/index.js ***!
+  \**********************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var whichTypedArray = __webpack_require__(5767);
+var whichTypedArray = __webpack_require__(/*! which-typed-array */ "./node_modules/which-typed-array/index.js");
 
 /** @type {import('.')} */
 module.exports = function isTypedArray(value) {
@@ -3158,7 +3266,10 @@ module.exports = function isTypedArray(value) {
 
 /***/ }),
 
-/***/ 9211:
+/***/ "./node_modules/object-is/implementation.js":
+/*!**************************************************!*\
+  !*** ./node_modules/object-is/implementation.js ***!
+  \**************************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -3185,18 +3296,21 @@ module.exports = function is(a, b) {
 
 /***/ }),
 
-/***/ 7653:
+/***/ "./node_modules/object-is/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/object-is/index.js ***!
+  \*****************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var define = __webpack_require__(8452);
-var callBind = __webpack_require__(487);
+var define = __webpack_require__(/*! define-properties */ "./node_modules/define-properties/index.js");
+var callBind = __webpack_require__(/*! call-bind */ "./node_modules/call-bind/index.js");
 
-var implementation = __webpack_require__(9211);
-var getPolyfill = __webpack_require__(9394);
-var shim = __webpack_require__(6576);
+var implementation = __webpack_require__(/*! ./implementation */ "./node_modules/object-is/implementation.js");
+var getPolyfill = __webpack_require__(/*! ./polyfill */ "./node_modules/object-is/polyfill.js");
+var shim = __webpack_require__(/*! ./shim */ "./node_modules/object-is/shim.js");
 
 var polyfill = callBind(getPolyfill(), Object);
 
@@ -3211,13 +3325,16 @@ module.exports = polyfill;
 
 /***/ }),
 
-/***/ 9394:
+/***/ "./node_modules/object-is/polyfill.js":
+/*!********************************************!*\
+  !*** ./node_modules/object-is/polyfill.js ***!
+  \********************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var implementation = __webpack_require__(9211);
+var implementation = __webpack_require__(/*! ./implementation */ "./node_modules/object-is/implementation.js");
 
 module.exports = function getPolyfill() {
 	return typeof Object.is === 'function' ? Object.is : implementation;
@@ -3226,14 +3343,17 @@ module.exports = function getPolyfill() {
 
 /***/ }),
 
-/***/ 6576:
+/***/ "./node_modules/object-is/shim.js":
+/*!****************************************!*\
+  !*** ./node_modules/object-is/shim.js ***!
+  \****************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var getPolyfill = __webpack_require__(9394);
-var define = __webpack_require__(8452);
+var getPolyfill = __webpack_require__(/*! ./polyfill */ "./node_modules/object-is/polyfill.js");
+var define = __webpack_require__(/*! define-properties */ "./node_modules/define-properties/index.js");
 
 module.exports = function shimObjectIs() {
 	var polyfill = getPolyfill();
@@ -3248,7 +3368,10 @@ module.exports = function shimObjectIs() {
 
 /***/ }),
 
-/***/ 8875:
+/***/ "./node_modules/object-keys/implementation.js":
+/*!****************************************************!*\
+  !*** ./node_modules/object-keys/implementation.js ***!
+  \****************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -3259,7 +3382,7 @@ if (!Object.keys) {
 	// modified from https://github.com/es-shims/es5-shim
 	var has = Object.prototype.hasOwnProperty;
 	var toStr = Object.prototype.toString;
-	var isArgs = __webpack_require__(1093); // eslint-disable-line global-require
+	var isArgs = __webpack_require__(/*! ./isArguments */ "./node_modules/object-keys/isArguments.js"); // eslint-disable-line global-require
 	var isEnumerable = Object.prototype.propertyIsEnumerable;
 	var hasDontEnumBug = !isEnumerable.call({ toString: null }, 'toString');
 	var hasProtoEnumBug = isEnumerable.call(function () {}, 'prototype');
@@ -3378,17 +3501,20 @@ module.exports = keysShim;
 
 /***/ }),
 
-/***/ 1189:
+/***/ "./node_modules/object-keys/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/object-keys/index.js ***!
+  \*******************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
 var slice = Array.prototype.slice;
-var isArgs = __webpack_require__(1093);
+var isArgs = __webpack_require__(/*! ./isArguments */ "./node_modules/object-keys/isArguments.js");
 
 var origKeys = Object.keys;
-var keysShim = origKeys ? function keys(o) { return origKeys(o); } : __webpack_require__(8875);
+var keysShim = origKeys ? function keys(o) { return origKeys(o); } : __webpack_require__(/*! ./implementation */ "./node_modules/object-keys/implementation.js");
 
 var originalKeys = Object.keys;
 
@@ -3418,7 +3544,10 @@ module.exports = keysShim;
 
 /***/ }),
 
-/***/ 1093:
+/***/ "./node_modules/object-keys/isArguments.js":
+/*!*************************************************!*\
+  !*** ./node_modules/object-keys/isArguments.js ***!
+  \*************************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -3443,16 +3572,19 @@ module.exports = function isArguments(value) {
 
 /***/ }),
 
-/***/ 8403:
+/***/ "./node_modules/object.assign/implementation.js":
+/*!******************************************************!*\
+  !*** ./node_modules/object.assign/implementation.js ***!
+  \******************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
 // modified from https://github.com/es-shims/es6-shim
-var objectKeys = __webpack_require__(1189);
-var hasSymbols = __webpack_require__(1333)();
-var callBound = __webpack_require__(8075);
+var objectKeys = __webpack_require__(/*! object-keys */ "./node_modules/object-keys/index.js");
+var hasSymbols = __webpack_require__(/*! has-symbols/shams */ "./node_modules/has-symbols/shams.js")();
+var callBound = __webpack_require__(/*! call-bind/callBound */ "./node_modules/call-bind/callBound.js");
 var toObject = Object;
 var $push = callBound('Array.prototype.push');
 var $propIsEnumerable = callBound('Object.prototype.propertyIsEnumerable');
@@ -3497,13 +3629,16 @@ module.exports = function assign(target, source1) {
 
 /***/ }),
 
-/***/ 1514:
+/***/ "./node_modules/object.assign/polyfill.js":
+/*!************************************************!*\
+  !*** ./node_modules/object.assign/polyfill.js ***!
+  \************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var implementation = __webpack_require__(8403);
+var implementation = __webpack_require__(/*! ./implementation */ "./node_modules/object.assign/implementation.js");
 
 var lacksProperEnumerationOrder = function () {
 	if (!Object.assign) {
@@ -3560,7 +3695,10 @@ module.exports = function getPolyfill() {
 
 /***/ }),
 
-/***/ 6578:
+/***/ "./node_modules/possible-typed-array-names/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/possible-typed-array-names/index.js ***!
+  \**********************************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -3584,7 +3722,10 @@ module.exports = [
 
 /***/ }),
 
-/***/ 5606:
+/***/ "./node_modules/process/browser.js":
+/*!*****************************************!*\
+  !*** ./node_modules/process/browser.js ***!
+  \*****************************************/
 /***/ ((module) => {
 
 // shim for using process in browser
@@ -3775,18 +3916,21 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ 6897:
+/***/ "./node_modules/set-function-length/index.js":
+/*!***************************************************!*\
+  !*** ./node_modules/set-function-length/index.js ***!
+  \***************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var GetIntrinsic = __webpack_require__(453);
-var define = __webpack_require__(41);
-var hasDescriptors = __webpack_require__(592)();
-var gOPD = __webpack_require__(5795);
+var GetIntrinsic = __webpack_require__(/*! get-intrinsic */ "./node_modules/get-intrinsic/index.js");
+var define = __webpack_require__(/*! define-data-property */ "./node_modules/define-data-property/index.js");
+var hasDescriptors = __webpack_require__(/*! has-property-descriptors */ "./node_modules/has-property-descriptors/index.js")();
+var gOPD = __webpack_require__(/*! gopd */ "./node_modules/gopd/index.js");
 
-var $TypeError = __webpack_require__(9675);
+var $TypeError = __webpack_require__(/*! es-errors/type */ "./node_modules/es-errors/type.js");
 var $floor = GetIntrinsic('%Math.floor%');
 
 /** @type {import('.')} */
@@ -3825,7 +3969,3500 @@ module.exports = function setFunctionLength(fn, length) {
 
 /***/ }),
 
-/***/ 1135:
+/***/ "./src/canvas/Account.ts":
+/*!*******************************!*\
+  !*** ./src/canvas/Account.ts ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Account: () => (/* binding */ Account),
+/* harmony export */   RootAccountNotFoundError: () => (/* binding */ RootAccountNotFoundError)
+/* harmony export */ });
+/* harmony import */ var _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/baseCanvasObject */ "./src/canvas/baseCanvasObject.ts");
+/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
+
+
+
+/**
+ *  A base class for objects that interact with the Canvas API
+ */
+class Account extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
+    static getFromUrl() {
+        return __awaiter(this, arguments, void 0, function* (url = null) {
+            if (url === null) {
+                url = document.documentURI;
+            }
+            let match = /accounts\/(\d+)/.exec(url);
+            if (match) {
+                console.log(match);
+                return yield this.getAccountById(parseInt(match[1]));
+            }
+            return null;
+        });
+    }
+    static getAccountById(accountId_1) {
+        return __awaiter(this, arguments, void 0, function* (accountId, config = undefined) {
+            const data = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__.fetchJson)(`/api/v1/accounts/${accountId}`, config);
+            return new Account(data);
+        });
+    }
+    static getRootAccount() {
+        return __awaiter(this, arguments, void 0, function* (resetCache = false) {
+            var _a, e_1, _b, _c;
+            if (!resetCache && this.hasOwnProperty('account') && this.account) {
+                return this.account;
+            }
+            let accountGen = (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)('/api/v1/accounts');
+            try {
+                for (var _d = true, accountGen_1 = __asyncValues(accountGen), accountGen_1_1; accountGen_1_1 = yield accountGen_1.next(), _a = accountGen_1_1.done, !_a; _d = true) {
+                    _c = accountGen_1_1.value;
+                    _d = false;
+                    let account = _c;
+                    if (account.root_account_id)
+                        continue; //if there is a root_account_id, this is not the root account
+                    const root = new Account(account);
+                    this.account = root;
+                    return root;
+                }
+            }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (!_d && !_a && (_b = accountGen_1.return)) yield _b.call(accountGen_1);
+                }
+                finally { if (e_1) throw e_1.error; }
+            }
+        });
+    }
+    get rootAccountId() {
+        return this.canvasData['root_account_id'];
+    }
+}
+Account.nameProperty = 'name'; // The field name of the primary name of the canvas object type
+Account.contentUrlTemplate = '/api/v1/accounts/{content_id}'; // A templated url to get a single item
+Account.allContentUrlTemplate = '/api/v1/accounts'; // A templated url to get all items
+class RootAccountNotFoundError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = 'RootAccountNotFoundError';
+    }
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/NotImplementedException.ts":
+/*!***********************************************!*\
+  !*** ./src/canvas/NotImplementedException.ts ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   NotImplementedException: () => (/* binding */ NotImplementedException)
+/* harmony export */ });
+class NotImplementedException extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "NotImplementedException";
+    }
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/baseCanvasObject.ts":
+/*!****************************************!*\
+  !*** ./src/canvas/baseCanvasObject.ts ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   BaseCanvasObject: () => (/* binding */ BaseCanvasObject)
+/* harmony export */ });
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/fetch/utils */ "./src/canvas/fetch/utils.ts");
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+class BaseCanvasObject {
+    get accountId() {
+        return this._accountId;
+    }
+    constructor(data) {
+        this._accountId = null;
+        this.canvasData = data || {}; // A dict holding the decoded json representation of the object in Canvas
+    }
+    getClass() {
+        return this.constructor;
+    }
+    getItem(item) {
+        return this.canvasData[item];
+    }
+    get myClass() {
+        return this.constructor;
+    }
+    get nameKey() {
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(this.myClass.nameProperty);
+        return this.myClass.nameProperty;
+    }
+    get rawData() {
+        return Object.assign({}, this.canvasData);
+    }
+    get contentUrlPath() {
+        const constructor = this.constructor;
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.accountId === 'number');
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof constructor.contentUrlTemplate === 'string');
+        return '/api/v1/' + constructor.contentUrlTemplate
+            .replace('{content_id}', this.id.toString())
+            .replace('{account_id}', this.accountId.toString());
+    }
+    get htmlContentUrl() {
+        return `${this.contentUrlPath}`;
+    }
+    get data() {
+        return this.canvasData;
+    }
+    static getDataById(contentId_1) {
+        return __awaiter(this, arguments, void 0, function* (contentId, courseId = null, config = null) {
+            let url = this.getUrlPathFromIds(contentId, courseId);
+            const response = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
+            assert__WEBPACK_IMPORTED_MODULE_0___default()(!Array.isArray(response));
+            return response;
+        });
+    }
+    static getUrlPathFromIds(contentId, courseId) {
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.contentUrlTemplate === 'string');
+        let url = this.contentUrlTemplate
+            .replace('{content_id}', contentId.toString());
+        if (courseId)
+            url = url.replace('{course_id}', courseId.toString());
+        return url;
+    }
+    /**
+     * @param courseId - The course ID to get elements within, if applicable
+     * @param accountId - The account ID to get elements within, if applicable
+     */
+    static getAllUrl(courseId = null, accountId = null) {
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.allContentUrlTemplate === 'string');
+        let replaced = this.allContentUrlTemplate;
+        if (courseId)
+            replaced = replaced.replace('{course_id}', courseId.toString());
+        if (accountId)
+            replaced = replaced.replace('{account_id}', accountId.toString());
+        return replaced;
+    }
+    static getAll() {
+        return __awaiter(this, arguments, void 0, function* (config = null) {
+            let url = this.getAllUrl();
+            return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.renderAsyncGen)((0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.getPagedDataGenerator)(this.getAllUrl(), config));
+        });
+    }
+    get id() {
+        const id = this.canvasData[this.constructor.idProperty];
+        return parseInt(id);
+    }
+    get name() {
+        let nameProperty = this.getClass().nameProperty;
+        if (!nameProperty)
+            return 'NAME PROPERTY NOT SET';
+        return this.getItem(nameProperty);
+    }
+    saveData(data, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            assert__WEBPACK_IMPORTED_MODULE_0___default()(this.contentUrlPath);
+            config = (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_3__.overrideConfig)({
+                fetchInit: {
+                    method: 'PUT',
+                    body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.formDataify)(data)
+                }
+            }, config);
+            let results = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(this.contentUrlPath, config);
+            if (Array.isArray(results))
+                results = results[0];
+            this.canvasData = Object.assign(Object.assign({}, this.canvasData), results);
+            return this.canvasData;
+        });
+    }
+}
+BaseCanvasObject.idProperty = 'id'; // The field name of the id of the canvas object type
+BaseCanvasObject.nameProperty = 'name'; // The field name of the primary name of the canvas object type
+BaseCanvasObject.contentUrlTemplate = null; // A templated url to get a single item
+BaseCanvasObject.allContentUrlTemplate = null; // A templated url to get all items
+
+
+/***/ }),
+
+/***/ "./src/canvas/canvasUtils.ts":
+/*!***********************************!*\
+  !*** ./src/canvas/canvasUtils.ts ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   batchGen: () => (/* binding */ batchGen),
+/* harmony export */   batchify: () => (/* binding */ batchify),
+/* harmony export */   callAll: () => (/* binding */ callAll),
+/* harmony export */   courseNameSort: () => (/* binding */ courseNameSort),
+/* harmony export */   deFormDataify: () => (/* binding */ deFormDataify),
+/* harmony export */   deepObjectCopy: () => (/* binding */ deepObjectCopy),
+/* harmony export */   deepObjectMerge: () => (/* binding */ deepObjectMerge),
+/* harmony export */   filterUniqueFunc: () => (/* binding */ filterUniqueFunc),
+/* harmony export */   formDataify: () => (/* binding */ formDataify),
+/* harmony export */   generatorMap: () => (/* binding */ generatorMap),
+/* harmony export */   getItemTypeAndId: () => (/* binding */ getItemTypeAndId),
+/* harmony export */   getPlainTextFromHtml: () => (/* binding */ getPlainTextFromHtml),
+/* harmony export */   numbers: () => (/* binding */ numbers),
+/* harmony export */   parentElement: () => (/* binding */ parentElement),
+/* harmony export */   queryStringify: () => (/* binding */ queryStringify),
+/* harmony export */   range: () => (/* binding */ range),
+/* harmony export */   renderAsyncGen: () => (/* binding */ renderAsyncGen),
+/* harmony export */   searchParamsFromObject: () => (/* binding */ searchParamsFromObject)
+/* harmony export */ });
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __await = (undefined && undefined.__await) || function (v) { return this instanceof __await ? (this.v = v, this) : new __await(v); }
+var __asyncGenerator = (undefined && undefined.__asyncGenerator) || function (thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function awaitReturn(f) { return function (v) { return Promise.resolve(v).then(f, reject); }; }
+    function verb(n, f) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; if (f) i[n] = f(i[n]); } }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+};
+var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
+
+
+function isWithParamsFunc(func) {
+    return typeof func === 'function' && func.length > 0;
+}
+function isWithoutParamsFunc(func) {
+    return typeof func === 'function' && func.length === 0;
+}
+function callAll(funcs, params) {
+    const output = [];
+    for (let func of funcs) {
+        if ((typeof func === 'object')) {
+            output.push(func.func(func.params));
+            continue;
+        }
+        if (isWithoutParamsFunc(func)) {
+            output.push(func());
+            continue;
+        }
+        if (isWithParamsFunc(func) && typeof params !== 'undefined') {
+            output.push(func(params));
+        }
+    }
+    return output;
+}
+
+/**
+ * Traverses up the DOM and finds a parent with a matching Tag
+ * @param el
+ * @param tagName
+ */
+function parentElement(el, tagName) {
+    if (!el)
+        return null;
+    while (el && el.parentElement) {
+        el = el.parentElement;
+        if (el.tagName && el.tagName.toLowerCase() == tagName) {
+            return el;
+        }
+    }
+    return null;
+}
+const type_lut = {
+    Assignment: 'assignment',
+    Discussion: 'discussion_topic',
+    Quiz: 'quiz',
+    ExternalTool: 'external_tool',
+    File: 'attachment',
+    Page: 'wiki_page',
+    ExternalUrl: null, //Not passable to restrict
+    Subheader: null, //Not passable to restrict
+};
+function formDataify(data) {
+    let formData = new FormData();
+    for (let key in data) {
+        addToFormData(formData, key, data[key]);
+    }
+    if (document) {
+        const el = document.querySelector("input[name='authenticity_token']");
+        const authenticityToken = el ? el.value : null;
+        const cookies = getCookies();
+        let csrfToken = cookies['_csrf_token'];
+        if (authenticityToken)
+            formData.append('authenticity_token', authenticityToken);
+        else if (csrfToken) {
+            csrfToken = csrfToken.replaceAll(/%([0-9A-F]{2})/g, (substring, hex) => {
+                const hexCode = hex;
+                return String.fromCharCode(parseInt(hexCode, 16));
+            });
+            console.log(csrfToken);
+            formData.append('authenticity_token', csrfToken);
+        }
+    }
+    return formData;
+}
+function deepObjectCopy(toCopy, complexObjectsTracker = []) {
+    return deepObjectMerge(toCopy, {}, true, complexObjectsTracker);
+}
+function deepObjectMerge(a, b, overrideWithA = false, complexObjectsTracker = []) {
+    for (let value of [a, b]) {
+        if (typeof value == "object" &&
+            complexObjectsTracker.includes(value))
+            throw new Error(`Infinite Loop: Element ${value} contains itself`);
+    }
+    //if the types don't match
+    if (a && b && (typeof a !== typeof b ||
+        Array.isArray(a) != Array.isArray(b))) {
+        if (a === b)
+            return a;
+        if (overrideWithA)
+            return a;
+        throw new Error(`Type clash on merge ${typeof a} ${a}, ${typeof b} ${b}`);
+    }
+    //If either or both are arrays, merge if able to
+    if (Array.isArray(a)) {
+        if (!b)
+            return deepObjectCopy(a, complexObjectsTracker);
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(Array.isArray(b), "We should not get here if b is not an array");
+        let mergedArray = [...a, ...b];
+        const outputArray = mergedArray.map(value => {
+            if (!value)
+                return value;
+            if (typeof value === 'object' && Object.getPrototypeOf(value) === Object.prototype) {
+                //Make a deep of any object literal
+                if (!value)
+                    return value;
+                value = deepObjectCopy(value, [...complexObjectsTracker, a, b]);
+            }
+            return value;
+        });
+        return outputArray;
+    }
+    if (Array.isArray(b))
+        return deepObjectCopy(b, complexObjectsTracker); //we already know a is not an array at this point, return a deep copy of b
+    if ((a && typeof a === 'object') || (b && typeof b === 'object')) {
+        if (a instanceof File && b instanceof File) {
+            if (!overrideWithA)
+                assert__WEBPACK_IMPORTED_MODULE_0___default()(a.size == b.size && a.name == b.name, `File value clash ${a.name} ${b.name}`);
+            return a;
+        }
+        if (a && Object.getPrototypeOf(a) != Object.prototype
+            || b && Object.getPrototypeOf(b) != Object.prototype) {
+            if (!overrideWithA)
+                assert__WEBPACK_IMPORTED_MODULE_0___default()(!a || !b || a === b, `Non-mergeable object clash ${a} ${b}`);
+            if (a)
+                return a;
+            if (b)
+                return b;
+        }
+        if (a && !b)
+            return deepObjectCopy(a, complexObjectsTracker);
+        if (b && !a)
+            return deepObjectCopy(b, complexObjectsTracker);
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(a && typeof a === 'object' && Object.getPrototypeOf(a) === Object.prototype, "a should always be defined here.");
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(b && typeof b === 'object' && Object.getPrototypeOf(b) === Object.prototype, "b should always be defined here.");
+        const allKeys = [...Object.keys(a), ...Object.keys(b)].filter(filterUniqueFunc);
+        const aRecord = a;
+        const bRecord = b;
+        const entries = allKeys.map((key) => [
+            key,
+            deepObjectMerge(aRecord[key], bRecord[key], overrideWithA, [...complexObjectsTracker, a, b])
+        ]);
+        return Object.fromEntries(entries);
+    }
+    if (a && b) {
+        if (overrideWithA || a === b)
+            return a;
+        throw new Error(`Values unmergeable, ${a}>:${typeof a}, ${b} ${typeof b}`);
+    }
+    if (a)
+        return a;
+    if (b)
+        return b;
+    if (a === null)
+        return a;
+    if (b === null)
+        return b;
+    assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof a === 'undefined');
+    return a;
+}
+function deFormDataify(formData) {
+    return [...formData.entries()].reduce((aggregator, [key, value]) => {
+        const isArray = key.includes('[]');
+        const keys = key.split('[').map(key => key.replaceAll(/[\[\]]/g, ''));
+        if (isArray)
+            keys.pop(); //remove the last, empty, key if it's an array
+        let currentValue = isArray ? [value] : value;
+        while (keys.length > 0) {
+            let newValue;
+            newValue = {
+                [keys.pop()]: currentValue
+            };
+            currentValue = newValue;
+        }
+        return deepObjectMerge(aggregator, currentValue) || Object.assign({}, aggregator);
+    }, {});
+}
+function getCookies() {
+    const cookieString = document.cookie;
+    const cookies = cookieString.split('; ');
+    const out = {};
+    for (let cookie of cookies) {
+        const [key, value] = cookie.split('=');
+        out[key] = value;
+    }
+    return out;
+}
+/**
+ * Adds arrays and objects in the form formData posts expects
+ * @param formData
+ * @param key
+ * @param value
+ */
+function addToFormData(formData, key, value) {
+    if (Array.isArray(value)) {
+        for (let item of value) {
+            addToFormData(formData, `${key}[]`, item);
+        }
+    }
+    else if (typeof value === 'object') {
+        for (let itemKey in value) {
+            const itemValue = value[itemKey];
+            addToFormData(formData, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
+        }
+    }
+    else {
+        formData.append(key, value);
+    }
+}
+function queryStringify(data) {
+    let searchParams = new URLSearchParams();
+    for (let key in data) {
+        addToQuery(searchParams, key, data[key]);
+    }
+    return searchParams;
+}
+function addToQuery(searchParams, key, value) {
+    if (Array.isArray(value)) {
+        for (let item of value) {
+            addToQuery(searchParams, `${key}[]`, item);
+        }
+    }
+    else if (typeof value === 'object') {
+        for (let itemKey in value) {
+            const itemValue = value[itemKey];
+            addToQuery(searchParams, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
+        }
+    }
+    else {
+        searchParams.append(key, value);
+    }
+}
+/**
+ * Takes in a module item and returns an object specifying its type and content id
+ * @param item
+ */
+function getItemTypeAndId(item) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let id;
+        let type;
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(type_lut.hasOwnProperty(item.type), "Unexpected type " + item.type);
+        type = type_lut[item.type];
+        if (type === "wiki_page") {
+            assert__WEBPACK_IMPORTED_MODULE_0___default()(item.url); //wiki_page items always have a url param
+            const pageData = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(item.url);
+            id = pageData.page_id;
+        }
+        else {
+            id = item.content_id;
+        }
+        return { type, id };
+    });
+}
+/**
+ * @param queryParams
+ * @returns {URLSearchParams} The correctly formatted parameters
+ */
+function searchParamsFromObject(queryParams) {
+    return queryStringify(queryParams);
+}
+/**
+ * sort courses (or course Data) alphabetically by name
+ * @param a item to compare.
+ * @param b item to compare.
+ */
+function courseNameSort(a, b) {
+    if (a.name < b.name)
+        return -1;
+    if (b.name < a.name)
+        return 1;
+    return 0;
+}
+function* range(start, end, step = 1) {
+    if (typeof end === 'undefined') {
+        let i = start;
+        while (true) {
+            yield i;
+            i += step;
+        }
+    }
+    for (let i = start; i <= end; i++) {
+        yield i;
+    }
+}
+function* numbers(start, step = 1) {
+    let i = 0;
+    while (true) {
+        yield i;
+        i += step;
+    }
+}
+function getPlainTextFromHtml(html) {
+    const el = document.createElement('div');
+    el.innerHTML = html;
+    return el.innerText || el.textContent || "";
+}
+function batchify(toBatch, batchSize) {
+    const out = [];
+    for (let i = 0; i < toBatch.length; i += batchSize) {
+        out.push(toBatch.slice(i, i + batchSize));
+    }
+    return out;
+}
+function filterUniqueFunc(item, index, array) {
+    return array.indexOf(item) === index;
+}
+function batchGen(generator, batchSize) {
+    return __asyncGenerator(this, arguments, function* batchGen_1() {
+        if (batchSize <= 0)
+            throw new Error("Batch size cannot be 0 or lower");
+        while (true) {
+            const out = [];
+            for (let i = 0; i < batchSize; i++) {
+                const next = yield __await(generator.next());
+                if (next.done) {
+                    if (out.length > 0)
+                        yield yield __await(out);
+                    return yield __await(void 0);
+                }
+                out.push(next.value);
+            }
+            yield yield __await(out);
+        }
+    });
+}
+function renderAsyncGen(generator) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var _a, generator_1, generator_1_1;
+        var _b, e_1, _c, _d;
+        const out = [];
+        try {
+            for (_a = true, generator_1 = __asyncValues(generator); generator_1_1 = yield generator_1.next(), _b = generator_1_1.done, !_b; _a = true) {
+                _d = generator_1_1.value;
+                _a = false;
+                let item = _d;
+                out.push(item);
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (!_a && !_b && (_c = generator_1.return)) yield _c.call(generator_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        return out;
+    });
+}
+function generatorMap(generator, nextMapFunc) {
+    return __asyncGenerator(this, arguments, function* generatorMap_1() {
+        var _a, e_2, _b, _c;
+        let i = 0;
+        try {
+            for (var _d = true, generator_2 = __asyncValues(generator), generator_2_1; generator_2_1 = yield __await(generator_2.next()), _a = generator_2_1.done, !_a; _d = true) {
+                _c = generator_2_1.value;
+                _d = false;
+                let value = _c;
+                yield yield __await(nextMapFunc(value, i, generator));
+                i++;
+            }
+        }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (!_d && !_a && (_b = generator_2.return)) yield __await(_b.call(generator_2));
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
+    });
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/content/BaseContentItem.ts":
+/*!***********************************************!*\
+  !*** ./src/canvas/content/BaseContentItem.ts ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   BaseContentItem: () => (/* binding */ BaseContentItem),
+/* harmony export */   getBannerImage: () => (/* binding */ getBannerImage),
+/* harmony export */   putContentConfig: () => (/* binding */ putContentConfig)
+/* harmony export */ });
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
+/* harmony import */ var _canvas_files__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/files */ "./src/canvas/files.ts");
+/* harmony import */ var _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/baseCanvasObject */ "./src/canvas/baseCanvasObject.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _canvas_image__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/canvas/image */ "./src/canvas/image.ts");
+/* harmony import */ var _canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/canvas/course/getCourseIdFromUrl */ "./src/canvas/course/getCourseIdFromUrl.ts");
+/* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/consts */ "./src/consts.ts");
+/* harmony import */ var _canvas_NotImplementedException__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/canvas/NotImplementedException */ "./src/canvas/NotImplementedException.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+
+
+
+
+
+class BaseContentItem extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_2__.BaseCanvasObject {
+    constructor(canvasData, courseId) {
+        super(canvasData);
+        this.kind = undefined;
+        this._courseId = courseId;
+    }
+    get htmlContentUrl() {
+        return `${this.contentUrlPath}`.replace('/api/v1/', '/');
+    }
+    static get contentUrlPart() {
+        assert__WEBPACK_IMPORTED_MODULE_3___default()(this.allContentUrlTemplate, "Not a content url template");
+        const urlTermMatch = /\/([\w_]+)$/.exec(this.allContentUrlTemplate);
+        if (!urlTermMatch)
+            return null;
+        return urlTermMatch[1];
+    }
+    static getAllInCourse(courseId_1) {
+        return __awaiter(this, arguments, void 0, function* (courseId, config = null) {
+            let url = this.getAllUrl(courseId);
+            let data = yield (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_5__.getPagedData)(url, config);
+            return data.map(item => new this(item, courseId));
+        });
+    }
+    static clearAddedContentTags(text) {
+        let out = text.replace(/<\/?link[^>]*>/g, '');
+        out = out.replace(/<\/?script[^>]*>/g, '');
+        return out;
+    }
+    static getFromUrl() {
+        return __awaiter(this, arguments, void 0, function* (url = null, courseId = null) {
+            if (url === null) {
+                url = document.documentURI;
+            }
+            url = url.replace(/\.com/, '.com/api/v1');
+            let data = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url);
+            if (!courseId) {
+                courseId = (0,_canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_7__["default"])(url);
+                if (!courseId)
+                    return null;
+            }
+            //If this is a collection of data, we can't process it as a Canvas Object
+            if (Array.isArray(data))
+                return null;
+            assert__WEBPACK_IMPORTED_MODULE_3___default()(!Array.isArray(data));
+            if (data) {
+                return new this(data, courseId);
+            }
+            return null;
+        });
+    }
+    static getById(contentId, courseId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return new this(yield this.getDataById(contentId, courseId), courseId);
+        });
+    }
+    get bodyKey() {
+        return this.myClass.bodyProperty;
+    }
+    get body() {
+        if (!this.bodyKey)
+            return null;
+        return this.myClass.clearAddedContentTags(this.canvasData[this.bodyKey]);
+    }
+    get dueAt() {
+        if (!this.canvasData.hasOwnProperty('due_at')) {
+            return null;
+        }
+        if (!this.canvasData.due_at)
+            return null;
+        return new Date(this.canvasData.due_at);
+    }
+    setDueAt(date) {
+        return __awaiter(this, void 0, void 0, function* () {
+            throw new _canvas_NotImplementedException__WEBPACK_IMPORTED_MODULE_9__.NotImplementedException();
+        });
+    }
+    dueAtTimeDelta(timeDelta) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!this.dueAt)
+                return null;
+            let result = new Date(this.dueAt);
+            result.setDate(result.getDate() + timeDelta);
+            return yield this.setDueAt(result);
+        });
+    }
+    get contentUrlPath() {
+        let url = this.constructor.contentUrlTemplate;
+        assert__WEBPACK_IMPORTED_MODULE_3___default()(url);
+        url = url.replace('{course_id}', this.courseId.toString());
+        url = url.replace('{content_id}', this.id.toString());
+        return url;
+    }
+    get courseId() {
+        return this._courseId;
+    }
+    updateContent(text, name, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const data = {};
+            const constructor = this.constructor;
+            assert__WEBPACK_IMPORTED_MODULE_3___default()(constructor.bodyProperty);
+            assert__WEBPACK_IMPORTED_MODULE_3___default()(constructor.nameProperty);
+            const nameProp = constructor.nameProperty;
+            const bodyProp = constructor.bodyProperty;
+            if (text && bodyProp) {
+                this.canvasData[bodyProp] = text;
+                data[bodyProp] = text;
+            }
+            if (name && nameProp) {
+                this.canvasData[nameProp] = name;
+                data[nameProp] = name;
+            }
+            return this.saveData(data, config);
+        });
+    }
+    getMeInAnotherCourse(targetCourseId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let ContentClass = this.constructor;
+            let targets = yield ContentClass.getAllInCourse(targetCourseId, { queryParams: { search_term: this.name } });
+            return targets.find((target) => target.name == this.name);
+        });
+    }
+    getAllLinks() {
+        const el = this.bodyAsElement;
+        const anchors = el.querySelectorAll('a');
+        const urls = [];
+        for (let link of anchors)
+            urls.push(link.href);
+        return urls;
+    }
+    get bodyAsElement() {
+        assert__WEBPACK_IMPORTED_MODULE_3___default()(this.body, "This content item has no body property");
+        let el = document.createElement('div');
+        el.innerHTML = this.body;
+        return el;
+    }
+    resizeBanner() {
+        return __awaiter(this, arguments, void 0, function* (maxWidth = _consts__WEBPACK_IMPORTED_MODULE_8__.SAFE_MAX_BANNER_WIDTH) {
+            const bannerImg = getBannerImage(this);
+            if (!bannerImg)
+                throw new Error("No banner");
+            let fileData = yield getFileDataFromUrl(bannerImg.src, this.courseId);
+            if (!fileData)
+                throw new Error("File not found");
+            if (bannerImg.naturalWidth < maxWidth)
+                return; //Dont resize image unless we're shrinking it
+            let resizedImageBlob = yield (0,_canvas_image__WEBPACK_IMPORTED_MODULE_6__.getResizedBlob)(bannerImg.src, maxWidth);
+            let fileName = fileData.filename;
+            let fileUploadUrl = `/api/v1/courses/${this.courseId}/files`;
+            assert__WEBPACK_IMPORTED_MODULE_3___default()(resizedImageBlob);
+            let file = new File([resizedImageBlob], fileName);
+            return yield (0,_canvas_files__WEBPACK_IMPORTED_MODULE_1__.uploadFile)(file, fileData.folder_id, fileUploadUrl);
+        });
+    }
+}
+BaseContentItem.nameProperty = 'name';
+function getFileDataFromUrl(url, courseId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const match = /.*\/files\/(\d+)/.exec(url);
+        if (!match)
+            return null;
+        if (match) {
+            const fileId = parseInt(match[1]);
+            return yield getFileData(fileId, courseId);
+        }
+    });
+}
+function getBannerImage(overviewPage) {
+    const pageBody = document.createElement('html');
+    if (!overviewPage.body)
+        throw new Error(`Content item ${overviewPage.name} has no html body`);
+    pageBody.innerHTML = overviewPage.body;
+    return pageBody.querySelector('.cbt-banner-image img');
+}
+function getFileData(fileId, courseId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const url = `/api/v1/courses/${courseId}/files/${fileId}`;
+        return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url);
+    });
+}
+function putContentConfig(data, config) {
+    return (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_4__.deepObjectMerge)(config, {
+        fetchInit: {
+            method: 'PUT',
+            body: (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_4__.formDataify)(data)
+        }
+    }, true);
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/content/ContentKind.ts":
+/*!*******************************************!*\
+  !*** ./src/canvas/content/ContentKind.ts ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   contentUrlFuncs: () => (/* binding */ contentUrlFuncs),
+/* harmony export */   putContentFunc: () => (/* binding */ putContentFunc)
+/* harmony export */ });
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
+/* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+function contentUrlFuncs(contentUrlPart) {
+    const urlRegex = new RegExp(`courses\/(\\d+)\/${contentUrlPart}/(\\d+)`, 'i');
+    const getApiUrl = courseContentUrlFunc(`/api/v1/courses/{courseId}/${contentUrlPart}/{contentId}`);
+    const getAllApiUrl = (courseId) => `/api/v1/courses/${courseId}/${contentUrlPart}`;
+    const getHtmlUrl = courseContentUrlFunc(`/courses/{courseId}/${contentUrlPart}/{contentId}`);
+    function getCourseAndContentIdFromUrl(url) {
+        var _a;
+        const [full, courseId, contentId] = (_a = url.match(urlRegex)) !== null && _a !== void 0 ? _a : [undefined, undefined, undefined];
+        return [courseId, contentId].map(a => a ? parseInt(a) : undefined);
+    }
+    const isValidUrl = (url) => typeof url === 'string' && typeof getCourseAndContentIdFromUrl(url)[0] !== 'undefined';
+    return {
+        getApiUrl,
+        getAllApiUrl,
+        getHtmlUrl,
+        getCourseAndContentIdFromUrl,
+        isValidUrl,
+    };
+}
+function courseContentUrlFunc(url) {
+    return (courseId, contentId) => url
+        .replaceAll('{courseId}', courseId.toString())
+        .replaceAll('{contentId}', contentId.toString());
+}
+function putContentFunc(getApiUrl) {
+    return function (courseId, contentId, content, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const url = getApiUrl(courseId, contentId);
+            return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url, (0,_canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__.putContentConfig)(content, config));
+        });
+    };
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/content/assignments/Assignment.ts":
+/*!******************************************************!*\
+  !*** ./src/canvas/content/assignments/Assignment.ts ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Assignment: () => (/* binding */ Assignment)
+/* harmony export */ });
+/* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
+/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/assignments/AssignmentKind */ "./src/canvas/content/assignments/AssignmentKind.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+class Assignment extends _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
+    constructor(assignmentData, courseId) {
+        super(assignmentData, courseId);
+    }
+    setDueAt(dueAt, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const sourceDueAt = this.rawData.due_at ? temporal_polyfill__WEBPACK_IMPORTED_MODULE_3__.Temporal.Instant.from(this.rawData.due_at) : null;
+            const targetDueAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_3__.Temporal.Instant.from(dueAt.toISOString());
+            const payload = {
+                assignment: {
+                    due_at: dueAt.toISOString(),
+                }
+            };
+            if (this.rawData.peer_reviews && 'automatic_peer_reviews' in this.rawData) {
+                const peerReviewTime = this.rawData.peer_reviews_assign_at ? temporal_polyfill__WEBPACK_IMPORTED_MODULE_3__.Temporal.Instant.from(this.rawData.peer_reviews_assign_at) : null;
+                assert__WEBPACK_IMPORTED_MODULE_1___default()(sourceDueAt, "Trying to set peer review date without a due date for the assignment.");
+                if (peerReviewTime) {
+                    const peerReviewOffset = sourceDueAt.until(peerReviewTime);
+                    const newPeerReviewTime = targetDueAt.add(peerReviewOffset);
+                    payload.assignment.peer_reviews_assign_at =
+                        new Date(newPeerReviewTime.epochMilliseconds).toISOString();
+                }
+            }
+            let data = yield this.saveData(payload, config);
+            this.canvasData['due_at'] = dueAt.toISOString();
+            return data;
+        });
+    }
+    get rawData() {
+        return this.canvasData;
+    }
+    updateContent(text, name, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const assignmentData = {};
+            if (text) {
+                assignmentData.description = text;
+                this.rawData.description = text;
+            }
+            if (name) {
+                assignmentData.name = name;
+                this.rawData.name = name;
+            }
+            return yield this.saveData({
+                assignment: assignmentData
+            }, config);
+        });
+    }
+}
+Assignment.kind = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_2__.AssignmentKind;
+Assignment.nameProperty = 'name';
+Assignment.bodyProperty = 'description';
+Assignment.contentUrlTemplate = "/api/v1/courses/{course_id}/assignments/{content_id}";
+Assignment.allContentUrlTemplate = "/api/v1/courses/{course_id}/assignments";
+
+
+/***/ }),
+
+/***/ "./src/canvas/content/assignments/AssignmentKind.ts":
+/*!**********************************************************!*\
+  !*** ./src/canvas/content/assignments/AssignmentKind.ts ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   AssignmentKind: () => (/* binding */ AssignmentKind),
+/* harmony export */   assignmentUrlFuncs: () => (/* binding */ assignmentUrlFuncs)
+/* harmony export */ });
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
+/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/ContentKind */ "./src/canvas/content/ContentKind.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+const assignmentUrlFuncs = (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('assignments');
+const AssignmentKind = Object.assign(Object.assign({ getId: (data) => data.id, dataIsThisKind: (data) => {
+        return 'submission_types' in data;
+    }, getName: (data) => data.name, getBody: (data) => data.description, get(courseId, contentId, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const data = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(assignmentUrlFuncs.getApiUrl(courseId, contentId), config);
+            return data;
+        });
+    } }, assignmentUrlFuncs), { dataGenerator: (courseId, config) => (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(assignmentUrlFuncs.getAllApiUrl(courseId), config), put: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(assignmentUrlFuncs.getApiUrl) });
+
+
+/***/ }),
+
+/***/ "./src/canvas/content/assignments/index.ts":
+/*!*************************************************!*\
+  !*** ./src/canvas/content/assignments/index.ts ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   assignmentDataGen: () => (/* binding */ assignmentDataGen),
+/* harmony export */   getAssignmentData: () => (/* binding */ getAssignmentData),
+/* harmony export */   updateAssignmentData: () => (/* binding */ updateAssignmentData),
+/* harmony export */   updateAssignmentDueDates: () => (/* binding */ updateAssignmentDueDates)
+/* harmony export */ });
+/* harmony import */ var _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/content/assignments/AssignmentKind */ "./src/canvas/content/assignments/AssignmentKind.ts");
+/* harmony import */ var _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/content/assignments/Assignment */ "./src/canvas/content/assignments/Assignment.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
+
+
+const assignmentDataGen = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__.AssignmentKind.dataGenerator;
+const updateAssignmentData = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__.AssignmentKind.put;
+const getAssignmentData = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__.AssignmentKind.get;
+function updateAssignmentDueDates(offset, assignments, options) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var _a, assignments_1, assignments_1_1;
+        var _b, e_1, _c, _d;
+        const promises = [];
+        const returnAssignments = [];
+        let { courseId } = options !== null && options !== void 0 ? options : {};
+        if (!courseId && courseId !== 0) {
+            courseId = assignments[0].course_id;
+        }
+        if (offset === 0 || offset) {
+            try {
+                for (_a = true, assignments_1 = __asyncValues(assignments); assignments_1_1 = yield assignments_1.next(), _b = assignments_1_1.done, !_b; _a = true) {
+                    _d = assignments_1_1.value;
+                    _a = false;
+                    let data = _d;
+                    const assignment = new _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__.Assignment(data, courseId);
+                    returnAssignments.push(assignment);
+                    promises.push(assignment.dueAtTimeDelta(Number(offset)));
+                }
+            }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (!_a && !_b && (_c = assignments_1.return)) yield _c.call(assignments_1);
+                }
+                finally { if (e_1) throw e_1.error; }
+            }
+        }
+        return returnAssignments;
+    });
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/content/assignments/pages/Page.ts":
+/*!******************************************************!*\
+  !*** ./src/canvas/content/assignments/pages/Page.ts ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Page: () => (/* binding */ Page)
+/* harmony export */ });
+/* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
+/* harmony import */ var _canvas_content_assignments_pages_PageKind__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/content/assignments/pages/PageKind */ "./src/canvas/content/assignments/pages/PageKind.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+class Page extends _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
+    constructor(canvasData, courseId) {
+        super(canvasData, courseId);
+    }
+    get body() {
+        return this.canvasData[this.bodyKey];
+    }
+    updateContent(text, name, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let data = {};
+            if (text) {
+                this.canvasData[this.bodyKey] = text;
+                data['wiki_page[body]'] = text;
+            }
+            if (name) {
+                this.canvasData[this.nameKey] = name;
+                data[this.nameKey] = name;
+            }
+            return this.saveData(data, config);
+        });
+    }
+}
+Page.kindInfo = _canvas_content_assignments_pages_PageKind__WEBPACK_IMPORTED_MODULE_1__.PageKind;
+Page.idProperty = 'page_id';
+Page.nameProperty = 'title';
+Page.bodyProperty = 'body';
+Page.contentUrlTemplate = "/api/v1/courses/{course_id}/pages/{content_id}";
+Page.allContentUrlTemplate = "/api/v1/courses/{course_id}/pages";
+
+
+/***/ }),
+
+/***/ "./src/canvas/content/assignments/pages/PageKind.ts":
+/*!**********************************************************!*\
+  !*** ./src/canvas/content/assignments/pages/PageKind.ts ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PageKind: () => (/* binding */ PageKind),
+/* harmony export */   PageUrlFuncs: () => (/* binding */ PageUrlFuncs)
+/* harmony export */ });
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
+/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/ContentKind */ "./src/canvas/content/ContentKind.ts");
+
+
+
+const PageUrlFuncs = (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('pages');
+const PageKind = Object.assign(Object.assign({}, PageUrlFuncs), { dataIsThisKind: (data) => {
+        return 'page_id' in data;
+    }, getName: page => page.title, getBody: page => page.body, getId: page => page.id, get: (id, courseId, config) => (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(PageUrlFuncs.getApiUrl(courseId, id), config), dataGenerator: (courseId, config) => (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(PageUrlFuncs.getAllApiUrl(courseId), config), put: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(PageUrlFuncs.getApiUrl) });
+
+
+/***/ }),
+
+/***/ "./src/canvas/content/discussions/Discussion.ts":
+/*!******************************************************!*\
+  !*** ./src/canvas/content/discussions/Discussion.ts ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Discussion: () => (/* binding */ Discussion)
+/* harmony export */ });
+/* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
+/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
+/* harmony import */ var _canvas_content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/content/discussions/DiscussionKind */ "./src/canvas/content/discussions/DiscussionKind.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+class Discussion extends _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
+    offsetPublishDelay(days, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const data = this.rawData;
+            if (!this.rawData.delayed_post_at)
+                return;
+            let delayedPostAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.Instant.from(this.rawData.delayed_post_at).toZonedDateTimeISO('UTC');
+            delayedPostAt = delayedPostAt.add({ days });
+            const payload = {
+                delayed_post_at: new Date(delayedPostAt.epochMilliseconds).toISOString()
+            };
+            yield this.saveData(payload, config);
+        });
+    }
+    get rawData() {
+        return this.canvasData;
+    }
+}
+Discussion.kindInfo = _canvas_content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_1__.DiscussionKind;
+Discussion.nameProperty = 'title';
+Discussion.bodyProperty = 'message';
+Discussion.contentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics/{content_id}";
+Discussion.allContentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics";
+
+
+/***/ }),
+
+/***/ "./src/canvas/content/discussions/DiscussionKind.ts":
+/*!**********************************************************!*\
+  !*** ./src/canvas/content/discussions/DiscussionKind.ts ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DiscussionKind: () => (/* binding */ DiscussionKind),
+/* harmony export */   discussionUrlFuncs: () => (/* binding */ discussionUrlFuncs)
+/* harmony export */ });
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
+/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/ContentKind */ "./src/canvas/content/ContentKind.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+const discussionUrlFuncs = (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('discussion_topics');
+const DiscussionKind = Object.assign(Object.assign({}, discussionUrlFuncs), { dataIsThisKind(data) {
+        return data.hasOwnProperty('discussion_type');
+    }, getId: (data) => data.id, getName: (data) => data.title, getBody: (data) => data.message, get(courseId, contentId, config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(discussionUrlFuncs.getApiUrl(courseId, contentId), config);
+        });
+    }, dataGenerator: (courseId, config) => (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(discussionUrlFuncs.getAllApiUrl(courseId), config), put: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(discussionUrlFuncs.getApiUrl) });
+
+
+/***/ }),
+
+/***/ "./src/canvas/content/quizzes/Quiz.ts":
+/*!********************************************!*\
+  !*** ./src/canvas/content/quizzes/Quiz.ts ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Quiz: () => (/* binding */ Quiz)
+/* harmony export */ });
+/* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
+/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+class Quiz extends _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
+    setDueAt(date) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const url = `/api/v1/courses/${this.courseId}/quizzes/${this.id}`;
+            return (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url, {
+                fetchInit: {
+                    method: 'PUT',
+                    body: (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({
+                        quiz: {
+                            due_at: date
+                        }
+                    })
+                }
+            });
+        });
+    }
+}
+Quiz.nameProperty = 'title';
+Quiz.bodyProperty = 'description';
+Quiz.contentUrlTemplate = "/api/v1/courses/{course_id}/quizzes/{content_id}";
+Quiz.allContentUrlTemplate = "/api/v1/courses/{course_id}/quizzes";
+
+
+/***/ }),
+
+/***/ "./src/canvas/course/Course.ts":
+/*!*************************************!*\
+  !*** ./src/canvas/course/Course.ts ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   COURSE_CODE_REGEX: () => (/* binding */ COURSE_CODE_REGEX),
+/* harmony export */   Course: () => (/* binding */ Course)
+/* harmony export */ });
+/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../baseCanvasObject */ "./src/canvas/baseCanvasObject.ts");
+/* harmony import */ var _blueprint__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./blueprint */ "./src/canvas/course/blueprint.ts");
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../index */ "./src/canvas/index.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _changeStartDate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./changeStartDate */ "./src/canvas/course/changeStartDate.ts");
+/* harmony import */ var _modules__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules */ "./src/canvas/course/modules.ts");
+/* harmony import */ var _image__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../image */ "./src/canvas/image.ts");
+/* harmony import */ var _files__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../files */ "./src/canvas/files.ts");
+/* harmony import */ var _profile__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../profile */ "./src/canvas/profile.ts");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./index */ "./src/canvas/course/index.ts");
+/* harmony import */ var _canvas_content_assignments__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/canvas/content/assignments */ "./src/canvas/content/assignments/index.ts");
+/* harmony import */ var _canvas_course_code__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/canvas/course/code */ "./src/canvas/course/code.ts");
+/* harmony import */ var _canvas_term_Term__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/canvas/term/Term */ "./src/canvas/term/Term.ts");
+/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/canvas/fetch/utils */ "./src/canvas/fetch/utils.ts");
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
+/* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
+/* harmony import */ var _canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/canvas/course/getCourseIdFromUrl */ "./src/canvas/course/getCourseIdFromUrl.ts");
+/* harmony import */ var _canvas_content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/canvas/content/quizzes/Quiz */ "./src/canvas/content/quizzes/Quiz.ts");
+/* harmony import */ var _canvas_content_assignments_pages_Page__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/canvas/content/assignments/pages/Page */ "./src/canvas/content/assignments/pages/Page.ts");
+/* harmony import */ var _canvas_content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/canvas/content/discussions/Discussion */ "./src/canvas/content/discussions/Discussion.ts");
+/* harmony import */ var _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/canvas/content/assignments/Assignment */ "./src/canvas/content/assignments/Assignment.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const HOMETILE_WIDTH = 500;
+const COURSE_CODE_REGEX = /^(.+[^_])?_?(\w{4}\d{3})/i;
+class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
+    constructor(data) {
+        super(data);
+        this._modules = undefined;
+        this.modulesByWeekNumber = undefined;
+        this.cachedContent = [];
+        this.isBlueprint = (() => (0,_blueprint__WEBPACK_IMPORTED_MODULE_1__.isBlueprint)(data));
+        this.getAssociatedCourses = (0,_blueprint__WEBPACK_IMPORTED_MODULE_1__.cachedGetAssociatedCoursesFunc)(this);
+    }
+    static getFromUrl() {
+        return __awaiter(this, arguments, void 0, function* (url = null) {
+            if (url === null) {
+                url = document.documentURI;
+            }
+            let match = /courses\/(\d+)/.exec(url);
+            if (match) {
+                const id = (0,_canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_18__["default"])(url);
+                if (!id)
+                    return null;
+                return (0,_index__WEBPACK_IMPORTED_MODULE_10__.getCourseById)(id);
+            }
+            return null;
+        });
+    }
+    static getCourseById(courseId_1) {
+        return __awaiter(this, arguments, void 0, function* (courseId, config = undefined) {
+            const data = yield (0,_index__WEBPACK_IMPORTED_MODULE_10__.getCourseData)(courseId, config);
+            return new Course(data);
+        });
+    }
+    static publishAll(courses, accountId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (courses.length == 0)
+                return false;
+            const courseIds = courses.map((course) => {
+                if (course instanceof Course) {
+                    return course.id;
+                }
+                return course;
+            });
+            const url = `/api/v1/accounts/${accountId}/courses`;
+            const data = {
+                'event': 'offer',
+                'course_ids': courseIds,
+            };
+            return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__.fetchJson)(url, {
+                fetchInit: {
+                    method: 'PUT',
+                    body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)(data),
+                }
+            });
+        });
+    }
+    get contentUrlPath() {
+        return `/api/v1/courses/${this.id}`;
+    }
+    get courseUrl() {
+        return this.htmlContentUrl;
+    }
+    get htmlContentUrl() {
+        return `/courses/${this.id}`;
+    }
+    get parsedCourseCode() {
+        return (0,_canvas_course_code__WEBPACK_IMPORTED_MODULE_12__.parseCourseCode)(this.canvasData.course_code);
+    }
+    get courseCode() {
+        return this.canvasData.course_code;
+    }
+    get baseCode() {
+        return (0,_canvas_course_code__WEBPACK_IMPORTED_MODULE_12__.baseCourseCode)(this.canvasData.course_code);
+    }
+    get termId() {
+        const id = this.canvasData.enrollment_term_id;
+        if (typeof id === 'number')
+            return id;
+        else
+            return id[0];
+    }
+    getTerm() {
+        return __awaiter(this, void 0, void 0, function* () {
+            assert__WEBPACK_IMPORTED_MODULE_4___default()(typeof this.termId === 'number');
+            if (this.termId)
+                return _canvas_term_Term__WEBPACK_IMPORTED_MODULE_13__.Term.getTermById(this.termId);
+            else
+                return null;
+        });
+    }
+    get fileUploadUrl() {
+        return `/api/v1/courses/${this.id}/files`;
+    }
+    get codePrefix() {
+        let match = COURSE_CODE_REGEX.exec(this.rawData.course_code);
+        return match ? match[1] : '';
+    }
+    get workflowState() {
+        return this.canvasData.workflow_state;
+    }
+    get isDev() {
+        return !!this.name.match(/^DEV/);
+    }
+    get rootAccountId() {
+        return this.canvasData.root_account_id;
+    }
+    get accountId() {
+        return this.canvasData.account_id;
+    }
+    getModules(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (this._modules) {
+                return this._modules;
+            }
+            const modules = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_modules__WEBPACK_IMPORTED_MODULE_6__.moduleGenerator)(this.id, {
+                queryParams: {
+                    include: ['items', 'content_details']
+                }
+            }));
+            this._modules = modules;
+            return modules;
+        });
+    }
+    getStartDateFromModules() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (0,_changeStartDate__WEBPACK_IMPORTED_MODULE_5__.getModuleUnlockStartDate)(yield this.getModules());
+        });
+    }
+    getInstructors() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__.fetchJson)(`/api/v1/courses/${this.id}/users?enrollment_type=teacher`);
+        });
+    }
+    getLatePolicy(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const latePolicyResult = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__.fetchJson)(`/api/v1/courses/${this.id}/late_policy`, config);
+            if ('late_policy' in latePolicyResult)
+                return latePolicyResult.late_policy;
+            return undefined;
+        });
+    }
+    getAvailableGradingStandards(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let out = [];
+            console.log(this.name);
+            const { id, account_id, root_account_id } = this.canvasData;
+            try {
+                if (id) {
+                    const courseGradingStandards = yield (0,_index__WEBPACK_IMPORTED_MODULE_10__.getGradingStandards)(id, "course", config);
+                    out = [...out, ...courseGradingStandards];
+                }
+                if (account_id) {
+                    const accountGradingStandards = yield (0,_index__WEBPACK_IMPORTED_MODULE_10__.getGradingStandards)(account_id, 'account', config);
+                    out = [...out, ...accountGradingStandards];
+                }
+                if (root_account_id) {
+                    const rootAccountGradingStandards = yield (0,_index__WEBPACK_IMPORTED_MODULE_10__.getGradingStandards)(root_account_id, 'account', config);
+                    out = [...out, ...rootAccountGradingStandards];
+                }
+            }
+            catch (e) {
+                console.warn(e);
+            }
+            return out.filter(_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.filterUniqueFunc);
+        });
+    }
+    getCurrentGradingStandard(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { grading_standard_id, account_id, root_account_id } = this.canvasData;
+            const urls = [];
+            if (grading_standard_id) {
+                urls.push(`/api/v1/courses/${this.id}/grading_standards/${grading_standard_id}`);
+                if (root_account_id)
+                    urls.push(`/api/v1/accounts/${root_account_id}/grading_standards/${grading_standard_id}`);
+                if (account_id)
+                    urls.push(`/api/v1/accounts/${account_id}/grading_standards/${grading_standard_id}`);
+            }
+            const standards = (yield this.getAvailableGradingStandards(config)).filter(standard => standard.id === grading_standard_id);
+            if (standards.length == 0)
+                return null;
+            return standards[0];
+        });
+    }
+    getModulesByWeekNumber(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (this.modulesByWeekNumber)
+                return this.modulesByWeekNumber;
+            let modules = yield this.getModules(config);
+            this.modulesByWeekNumber = yield (0,_modules__WEBPACK_IMPORTED_MODULE_6__.getModulesByWeekNumber)(modules);
+            return (this.modulesByWeekNumber);
+        });
+    }
+    /**
+     * Returns a list of links to items in a given module
+     *
+     * @param moduleOrWeekNumber
+     * @param target An object specifying an item or items to look for
+     * type - specifies the type,
+     * search - a string to search for in titles. optional.
+     * index - return the indexth one of these in the week (minus the intro in week 1, which should be index 0)
+     * if none is specified, return all matches
+     */
+    getModuleItemLinks(moduleOrWeekNumber, target) {
+        return __awaiter(this, void 0, void 0, function* () {
+            assert__WEBPACK_IMPORTED_MODULE_4___default()(target.hasOwnProperty('type'));
+            let targetType = target.type;
+            let contentSearchString = target.hasOwnProperty('search') ? target.search : null;
+            let targetIndex = isNaN(target.index) ? null : target.index;
+            let targetModuleWeekNumber;
+            let targetModule;
+            if (typeof moduleOrWeekNumber === 'number') {
+                let modules = yield this.getModulesByWeekNumber();
+                assert__WEBPACK_IMPORTED_MODULE_4___default()(modules.hasOwnProperty(moduleOrWeekNumber));
+                targetModuleWeekNumber = moduleOrWeekNumber;
+                targetModule = modules[targetModuleWeekNumber];
+            }
+            else {
+                targetModule = moduleOrWeekNumber;
+                targetModuleWeekNumber = (0,_modules__WEBPACK_IMPORTED_MODULE_6__.getModuleWeekNumber)(targetModule);
+            }
+            const urls = [];
+            if (targetModule && typeof targetType !== 'undefined') {
+                //If it's a page, just search for the parameter string
+                if (targetType === 'Page' && contentSearchString) {
+                    let pages = yield this.getPages({
+                        queryParams: { search_term: contentSearchString }
+                    });
+                    pages.forEach((page) => urls.push(page.htmlContentUrl));
+                    //If it's anything else, get only those items in the module and set url to the targetIndexth one.
+                }
+                else if (targetType) {
+                    //bump index for week 1 to account for intro discussion / checking for rubric would require pulling too much data
+                    //and too much performance overhead
+                    if (targetIndex && targetType === 'Discussion' && targetModuleWeekNumber === 1)
+                        targetIndex++;
+                    const matchingTypeItems = targetModule.items.filter((item) => item.type === targetType);
+                    if (targetIndex && matchingTypeItems.length >= targetIndex) {
+                        //We refer to and number the assignments indexed at 1, but the array is indexed at 0
+                        const targetItem = matchingTypeItems[targetIndex - 1];
+                        urls.push(targetItem.html_url);
+                    }
+                    else if (!targetIndex) {
+                        for (let item of matchingTypeItems)
+                            urls.push(item.html_url);
+                    }
+                }
+            }
+            return urls;
+        });
+    }
+    getSyllabus() {
+        return __awaiter(this, arguments, void 0, function* (config = { queryParams: {} }) {
+            if (this.canvasData.syllabus_body)
+                return this.canvasData.syllabus_body;
+            const data = yield (0,_index__WEBPACK_IMPORTED_MODULE_10__.getCourseData)(this.id, (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_15__.fetchGetConfig)({ include: ['syllabus_body'] }, config));
+            assert__WEBPACK_IMPORTED_MODULE_4___default()(data.syllabus_body);
+            this.canvasData.syllabus_body = data.syllabus_body;
+            return this.canvasData.syllabus_body;
+        });
+    }
+    // /**
+    //  * gets all assignments in a course
+    //  * @returns {Promise<Assignment[]>}
+    //  * @param config
+    //  */
+    getAssignments(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.warn('deprecated, use assignmentDataGen instead');
+            config = (0,_index__WEBPACK_IMPORTED_MODULE_3__.overrideConfig)(config, { queryParams: { include: ['due_at'] } });
+            const assignmentDatas = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_canvas_content_assignments__WEBPACK_IMPORTED_MODULE_11__.assignmentDataGen)(this.id, config));
+            return (assignmentDatas.map(data => new _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_22__.Assignment(data, this.id)));
+        });
+    }
+    getContent(config_1) {
+        return __awaiter(this, arguments, void 0, function* (config, refresh = false) {
+            if (refresh || this.cachedContent.length == 0) {
+                let discussions = yield this.getDiscussions(config);
+                let assignments = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_canvas_content_assignments__WEBPACK_IMPORTED_MODULE_11__.assignmentDataGen)(this.id, config));
+                let quizzes = yield this.getQuizzes(config);
+                let pages = yield this.getPages(config);
+                this.cachedContent = [
+                    ...discussions,
+                    ...assignments.map(a => new _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_22__.Assignment(a, this.id)),
+                    ...quizzes,
+                    ...pages
+                ];
+            }
+            return this.cachedContent;
+        });
+    }
+    getDiscussions(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield _canvas_content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_21__.Discussion.getAllInCourse(this.id, config);
+        });
+    }
+    getAssignmentGroups(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_14__.getPagedData)(`/api/v1/courses/${this.id}/assignment_groups`, config);
+        });
+    }
+    getQuizzes(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield _canvas_content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_19__.Quiz.getAllInCourse(this.id, config);
+        });
+    }
+    getSubsections() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const url = `/api/v1/courses/${this.id}/sections`;
+            return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__.fetchJson)(url);
+        });
+    }
+    getTabs(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__.fetchJson)(`/api/v1/courses/${this.id}/tabs`, config);
+        });
+    }
+    getFrontPage() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const data = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__.fetchJson)(`${this.contentUrlPath}/front_page`);
+                return new _canvas_content_assignments_pages_Page__WEBPACK_IMPORTED_MODULE_20__.Page(data, this.id);
+            }
+            catch (error) {
+                return null;
+            }
+        });
+    }
+    getTab(label) {
+        return this.canvasData.tabs.find((tab) => tab.label === label) || null;
+    }
+    reload() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = this.id;
+            const reloaded = yield Course.getCourseById(id);
+            this.canvasData = reloaded.rawData;
+        });
+    }
+    changeSyllabus(newHtml) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.canvasData['syllabus_body'] = newHtml;
+            return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__.fetchJson)(`/api/v1/courses/${this.id}`, {
+                fetchInit: {
+                    method: 'PUT',
+                    body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({
+                        course: {
+                            syllabus_body: newHtml
+                        }
+                    })
+                }
+            });
+        });
+    }
+    publish() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const url = `/api/v1/courses/${this.id}`;
+            const courseData = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__.fetchJson)(url, {
+                fetchInit: {
+                    method: 'PUT',
+                    body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({ 'offer': true })
+                }
+            });
+            console.log(courseData);
+            this.canvasData = courseData;
+        });
+    }
+    get devCode() {
+        return 'DEV_' + this.baseCode;
+    }
+    getParentCourse() {
+        return __awaiter(this, arguments, void 0, function* (return_dev_search = false) {
+            let migrations = yield (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_14__.getPagedData)(`/api/v1/courses/${this.id}/content_migrations`);
+            const parentCode = this.devCode;
+            if (migrations.length < 1) {
+                console.log('no migrations found');
+                if (return_dev_search) {
+                    return (0,_index__WEBPACK_IMPORTED_MODULE_10__.getSingleCourse)(parentCode, this.getAccountIds());
+                }
+                else
+                    return;
+            }
+            migrations.sort((a, b) => b.id - a.id);
+            try {
+                for (let migration of migrations) {
+                    let course = yield Course.getCourseById(migration['settings']['source_course_id']);
+                    if (course && course.codePrefix.includes("DEV"))
+                        return course;
+                }
+            }
+            catch (e) {
+                return yield (0,_index__WEBPACK_IMPORTED_MODULE_10__.getSingleCourse)(parentCode, this.getAccountIds());
+            }
+            return yield (0,_index__WEBPACK_IMPORTED_MODULE_10__.getSingleCourse)(parentCode, this.getAccountIds());
+        });
+    }
+    getAccountIds() {
+        return [this.accountId, this.rootAccountId].filter(a => typeof a !== 'undefined' && a !== null);
+    }
+    regenerateHomeTiles() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const modules = yield this.getModules();
+            let urls = yield Promise.all(modules.map((module) => __awaiter(this, void 0, void 0, function* () {
+                try {
+                    let dataUrl = yield this.generateHomeTile(module);
+                }
+                catch (e) {
+                    console.log(e);
+                }
+            })));
+            console.log('done');
+        });
+    }
+    generateHomeTile(module) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const overviewPage = yield (0,_modules__WEBPACK_IMPORTED_MODULE_6__.getModuleOverview)(module, this.id);
+            if (!overviewPage)
+                throw new Error("Module does not have an overview");
+            const bannerImg = (0,_canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_17__.getBannerImage)(overviewPage);
+            if (!bannerImg)
+                throw new Error("No banner image on page");
+            let resizedImageBlob = yield (0,_image__WEBPACK_IMPORTED_MODULE_7__.getResizedBlob)(bannerImg.src, HOMETILE_WIDTH);
+            let fileName = `hometile${module.position}.png`;
+            assert__WEBPACK_IMPORTED_MODULE_4___default()(resizedImageBlob);
+            let file = new File([resizedImageBlob], fileName);
+            return yield (0,_files__WEBPACK_IMPORTED_MODULE_8__.uploadFile)(file, 'Images/hometile', this.fileUploadUrl);
+        });
+    }
+    getPages(config = null) {
+        return _canvas_content_assignments_pages_Page__WEBPACK_IMPORTED_MODULE_20__.Page.getAllInCourse(this.id, config);
+    }
+    getFrontPageProfile() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const frontPage = yield this.getFrontPage();
+            assert__WEBPACK_IMPORTED_MODULE_4___default()(frontPage && frontPage.body, "Course front page not found");
+            try {
+                const frontPageProfile = (0,_profile__WEBPACK_IMPORTED_MODULE_9__.getCurioPageFrontPageProfile)(frontPage === null || frontPage === void 0 ? void 0 : frontPage.body);
+                frontPageProfile.sourcePage = frontPage;
+                return frontPageProfile;
+            }
+            catch (e) {
+                return {
+                    bio: 'NOT FOUND',
+                    sourcePage: frontPage,
+                };
+            }
+        });
+    }
+    getPotentialInstructorProfiles() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const instructors = yield this.getInstructors();
+            let profiles = [];
+            if (!instructors)
+                return profiles;
+            for (let instructor of instructors) {
+                profiles = profiles.concat(yield (0,_profile__WEBPACK_IMPORTED_MODULE_9__.getPotentialFacultyProfiles)(instructor));
+            }
+            return profiles;
+        });
+    }
+    getSettings(config) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__.fetchJson)(`/api/v1/courses/${this.id}/settings`, config);
+        });
+    }
+}
+Course.nameProperty = 'name';
+Course.contentClasses = [_canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_22__.Assignment, _canvas_content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_21__.Discussion, _canvas_content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_19__.Quiz, _canvas_content_assignments_pages_Page__WEBPACK_IMPORTED_MODULE_20__.Page];
+
+
+/***/ }),
+
+/***/ "./src/canvas/course/blueprint.ts":
+/*!****************************************!*\
+  !*** ./src/canvas/course/blueprint.ts ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   NotABlueprintError: () => (/* binding */ NotABlueprintError),
+/* harmony export */   beginBpSync: () => (/* binding */ beginBpSync),
+/* harmony export */   cachedGetAssociatedCoursesFunc: () => (/* binding */ cachedGetAssociatedCoursesFunc),
+/* harmony export */   genBlueprintDataForCode: () => (/* binding */ genBlueprintDataForCode),
+/* harmony export */   getBlueprintsFromCode: () => (/* binding */ getBlueprintsFromCode),
+/* harmony export */   getSections: () => (/* binding */ getSections),
+/* harmony export */   getTermNameFromSections: () => (/* binding */ getTermNameFromSections),
+/* harmony export */   isBlueprint: () => (/* binding */ isBlueprint),
+/* harmony export */   lockBlueprint: () => (/* binding */ lockBlueprint),
+/* harmony export */   retireBlueprint: () => (/* binding */ retireBlueprint),
+/* harmony export */   sectionDataGenerator: () => (/* binding */ sectionDataGenerator),
+/* harmony export */   setAsBlueprint: () => (/* binding */ setAsBlueprint),
+/* harmony export */   unSetAsBlueprint: () => (/* binding */ unSetAsBlueprint)
+/* harmony export */ });
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "./src/canvas/course/index.ts");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../index */ "./src/canvas/index.ts");
+/* harmony import */ var _Course__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Course */ "./src/canvas/course/Course.ts");
+/* harmony import */ var _canvas_course_code__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/canvas/course/code */ "./src/canvas/course/code.ts");
+/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/canvas/fetch/utils */ "./src/canvas/fetch/utils.ts");
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+
+
+
+function isBlueprint({ blueprint }) {
+    return !!blueprint;
+}
+//W
+function genBlueprintDataForCode(courseCode, accountIds, queryParams) {
+    if (!courseCode) {
+        console.warn("Course code not present");
+        return null;
+    }
+    const baseCode = (0,_canvas_course_code__WEBPACK_IMPORTED_MODULE_4__.baseCourseCode)(courseCode);
+    if (!baseCode) {
+        console.warn(`Code ${courseCode} invalid`);
+        return null;
+    }
+    const courseGen = (0,_index__WEBPACK_IMPORTED_MODULE_1__.getCourseDataGenerator)(baseCode, accountIds, undefined, (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_6__.fetchGetConfig)({
+        blueprint: true,
+        include: ['concluded'],
+    }, { queryParams }));
+    return courseGen;
+}
+function getSections(courseId, config) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return (yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.renderAsyncGen)(sectionDataGenerator(courseId, config))).map(section => new _Course__WEBPACK_IMPORTED_MODULE_3__.Course(section));
+    });
+}
+function sectionDataGenerator(courseId, config) {
+    const url = `/api/v1/courses/${courseId}/blueprint_templates/default/associated_courses`;
+    return (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_5__.getPagedDataGenerator)(url);
+}
+function cachedGetAssociatedCoursesFunc(course) {
+    let cache = null;
+    return (...args_1) => __awaiter(this, [...args_1], void 0, function* (redownload = false) {
+        if (!redownload && cache)
+            return cache;
+        cache = yield getSections(course.id);
+        return cache;
+    });
+}
+function getTermNameFromSections(sections) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const [section] = sections;
+        if (!section)
+            throw new Error("Cannot determine term name by sections; there are no sections.");
+        const sectionTerm = yield section.getTerm();
+        if (!sectionTerm)
+            throw new Error("Section does not have associated term: " + section.name);
+        return sectionTerm.name;
+    });
+}
+function retireBlueprint(course, termName, config) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var _a;
+        if (!course.parsedCourseCode)
+            throw new _canvas_course_code__WEBPACK_IMPORTED_MODULE_4__.MalformedCourseCodeError(course.courseCode);
+        const isCurrentBlueprint = (_a = course.parsedCourseCode) === null || _a === void 0 ? void 0 : _a.match('BP_');
+        if (!isCurrentBlueprint)
+            throw new NotABlueprintError("This blueprint is not named BP_; are you trying to retire a retired blueprint?");
+        const newCode = `BP-${termName}_${course.baseCode}`;
+        const saveData = {};
+        saveData[_Course__WEBPACK_IMPORTED_MODULE_3__.Course.nameProperty] = course.name.replace(course.parsedCourseCode, newCode);
+        saveData['course_code'] = newCode;
+        yield course.saveData({
+            course: saveData
+        }, config);
+    });
+}
+function beginBpSync(courseId_1, _a) {
+    return __awaiter(this, arguments, void 0, function* (courseId, { message, copy_settings, config }) {
+        const url = `/api/v1/courses/${courseId}/blueprint_templates/default/migrations`;
+        if (typeof copy_settings === 'undefined')
+            copy_settings = true;
+        const result = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_7__.fetchJson)(url, (0,_index__WEBPACK_IMPORTED_MODULE_2__.apiWriteConfig)('POST', {
+            message,
+            copy_settings
+        }, config));
+    });
+}
+function getBlueprintsFromCode(code, accountIds, config) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const [_, baseCode] = code.match(/_(\w{4}\d{3})$/) || [];
+        if (!baseCode)
+            return null;
+        const bps = (0,_index__WEBPACK_IMPORTED_MODULE_1__.getCourseGenerator)(`BP_${baseCode}`, accountIds, undefined, config);
+        return (yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.renderAsyncGen)(bps)).toSorted((a, b) => b.name.length - a.name.length);
+    });
+}
+function lockBlueprint(courseId, modules) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let items = [];
+        items = items.concat(...modules.map(a => [].concat(...a.items)));
+        const promises = items.map((item) => __awaiter(this, void 0, void 0, function* () {
+            const url = `/api/v1/courses/${courseId}/blueprint_templates/default/restrict_item`;
+            let { type, id } = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.getItemTypeAndId)(item);
+            if (typeof id === 'undefined')
+                return;
+            let body = {
+                "content_type": type,
+                "content_id": id,
+                "restricted": true,
+                "_method": 'PUT'
+            };
+            yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_7__.fetchJson)(url, {
+                fetchInit: {
+                    method: 'PUT',
+                    body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(body)
+                }
+            });
+        }));
+        yield Promise.all(promises);
+    });
+}
+function setAsBlueprint(courseId, config) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const url = `/api/v1/courses/${courseId}`;
+        const payload = {
+            course: {
+                blueprint: true,
+                use_blueprint_restrictions_by_object_type: 0,
+                blueprint_restrictions: {
+                    content: 1,
+                    points: 1,
+                    due_dates: 1,
+                    availability_dates: 1,
+                }
+            }
+        };
+        return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_7__.fetchJson)(url, (0,_index__WEBPACK_IMPORTED_MODULE_2__.apiWriteConfig)('PUT', payload, config));
+    });
+}
+function unSetAsBlueprint(courseId, config) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const url = `/api/v1/courses/${courseId}`;
+        const payload = {
+            course: {
+                blueprint: false
+            }
+        };
+        return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_7__.fetchJson)(url, (0,_index__WEBPACK_IMPORTED_MODULE_2__.apiWriteConfig)("PUT", payload, config));
+    });
+}
+class NotABlueprintError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "NotABlueprintError";
+    }
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/course/changeStartDate.ts":
+/*!**********************************************!*\
+  !*** ./src/canvas/course/changeStartDate.ts ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   MalformedSyllabusError: () => (/* binding */ MalformedSyllabusError),
+/* harmony export */   NoAssignmentsWithDueDatesError: () => (/* binding */ NoAssignmentsWithDueDatesError),
+/* harmony export */   NoOverviewModuleFoundError: () => (/* binding */ NoOverviewModuleFoundError),
+/* harmony export */   getModuleUnlockStartDate: () => (/* binding */ getModuleUnlockStartDate),
+/* harmony export */   getNewTermName: () => (/* binding */ getNewTermName),
+/* harmony export */   getOldUgTermName: () => (/* binding */ getOldUgTermName),
+/* harmony export */   getStartDateAssignments: () => (/* binding */ getStartDateAssignments),
+/* harmony export */   getUpdatedStyleTermName: () => (/* binding */ getUpdatedStyleTermName),
+/* harmony export */   sortAssignmentsByDueDate: () => (/* binding */ sortAssignmentsByDueDate),
+/* harmony export */   syllabusHeaderName: () => (/* binding */ syllabusHeaderName),
+/* harmony export */   updatedDateSyllabusHtml: () => (/* binding */ updatedDateSyllabusHtml)
+/* harmony export */ });
+/* harmony import */ var _date__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../date */ "./src/date.ts");
+/* harmony import */ var _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/content/assignments/Assignment */ "./src/canvas/content/assignments/Assignment.ts");
+
+
+const DEFAULT_LOCALE = 'en-US';
+function getModuleUnlockStartDate(modules) {
+    if (modules.length == 0)
+        throw new NoOverviewModuleFoundError();
+    const overviewModule = modules[0];
+    const unlockDateString = overviewModule.unlock_at;
+    if (!unlockDateString)
+        return null;
+    const oldDate = new Date(unlockDateString);
+    return (0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(oldDate);
+}
+function sortAssignmentsByDueDate(assignments) {
+    return assignments
+        .toSorted((a, b) => {
+        a = a instanceof _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__.Assignment ? a.rawData : a;
+        b = b instanceof _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__.Assignment ? b.rawData : b;
+        if (a.due_at && b.due_at) {
+            return (0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(new Date(b.due_at)).until((0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(new Date(a.due_at))).days;
+        }
+        if (a.due_at)
+            return -1;
+        if (b.due_at)
+            return 1;
+        return 0;
+    });
+}
+function getStartDateAssignments(assignments) {
+    const sorted = sortAssignmentsByDueDate(assignments).map(a => { var _a; return (_a = a.rawData) !== null && _a !== void 0 ? _a : a; }).filter(a => a.due_at);
+    if (sorted.length == 0)
+        throw new NoAssignmentsWithDueDatesError();
+    const firstAssignmentDue = new Date(sorted[0].due_at);
+    //Set to monday of that week.
+    const plainDateDue = (0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(firstAssignmentDue);
+    const dayOfWeekOffset = 1 - plainDateDue.dayOfWeek;
+    return plainDateDue.add({ days: dayOfWeekOffset });
+}
+function getUpdatedStyleTermName(termStart, weekCount, locale = DEFAULT_LOCALE) {
+    const month = termStart.toLocaleString(locale, { month: '2-digit' });
+    const day = termStart.toLocaleString(locale, { day: '2-digit' });
+    const year = termStart.toLocaleString(locale, { year: '2-digit' });
+    return `DE${weekCount}W${month}.${day}.${year}`;
+}
+function getOldUgTermName(termStart, locale = DEFAULT_LOCALE) {
+    const year = termStart.toLocaleString(DEFAULT_LOCALE, { year: '2-digit' });
+    const month = termStart.toLocaleString(DEFAULT_LOCALE, { month: 'short' });
+    return `DE-${year}-${month}`;
+}
+function getNewTermName(oldTermName, newTermStart, locale = DEFAULT_LOCALE) {
+    const [termName, weekCount] = oldTermName.match(/DE(\d)W\d\d\.\d\d\.\d\d/) || [];
+    if (termName)
+        return getUpdatedStyleTermName(newTermStart, weekCount);
+    const termNameUg = oldTermName.match(/(DE(?:.HL|)-\d\d)-(\w+)\w{2}?/i);
+    if (termNameUg)
+        return getUpdatedStyleTermName(newTermStart, 5);
+    throw new MalformedSyllabusError(`Can't Recognize Term Name ${oldTermName}`);
+}
+function updatedDateSyllabusHtml(html, newStartDate, locale = DEFAULT_LOCALE) {
+    const syllabusBody = document.createElement('div');
+    syllabusBody.innerHTML = html;
+    const syllabusCalloutBox = syllabusBody.querySelector('div.cbt-callout-box');
+    if (!syllabusCalloutBox)
+        throw new MalformedSyllabusError("Can't find syllabus callout box");
+    const paras = Array.from(syllabusCalloutBox.querySelectorAll('p'));
+    const strongParas = paras.filter((para) => para.querySelector('strong'));
+    if (strongParas.length < 5)
+        throw new MalformedSyllabusError(`Missing syllabus headers\n${strongParas}`);
+    const [_courseNameEl, termNameEl, datesEl, _instructorNameEl, _instructorContactInfoEl, _creditsEl] = strongParas;
+    const changedText = [];
+    const oldTermName = termNameEl.textContent || '';
+    const oldDates = datesEl.textContent || '';
+    const dateRange = (0,_date__WEBPACK_IMPORTED_MODULE_0__.findDateRange)(datesEl.innerHTML, locale);
+    if (!dateRange)
+        throw new MalformedSyllabusError("Date range not found in syllabus");
+    const courseDuration = dateRange.start.until(dateRange.end);
+    const newEndDate = newStartDate.add(courseDuration);
+    const newTermName = getNewTermName(oldTermName, newStartDate);
+    const dateRangeText = `${dateToSyllabusString(newStartDate)} - ${dateToSyllabusString(newEndDate)}`;
+    termNameEl.innerHTML = `<strong>${syllabusHeaderName(termNameEl)}:</strong><span> ${newTermName}</span>`;
+    datesEl.innerHTML = `<strong>${syllabusHeaderName(datesEl)}:</strong><span> ${dateRangeText}</span>`;
+    changedText.push(`${oldTermName} -> ${termNameEl.textContent}`);
+    changedText.push(`${oldDates} -> ${datesEl.textContent}`);
+    const output = {
+        html: syllabusBody.innerHTML.replaceAll(/<p>\s*(&nbsp;)?<\/p>/ig, ''),
+        changedText,
+    };
+    syllabusBody.remove();
+    return output;
+}
+function dateToSyllabusString(date) {
+    return `${date.toLocaleString(DEFAULT_LOCALE, { month: 'long', day: 'numeric' })}`;
+}
+function syllabusHeaderName(el) {
+    var _a;
+    let [_, head] = (_a = /([^:]*):/.exec(el.innerHTML)) !== null && _a !== void 0 ? _a : [];
+    head = head === null || head === void 0 ? void 0 : head.replaceAll(/<[^>]*>/g, '');
+    return head;
+}
+class NoOverviewModuleFoundError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "NoOverviewModuleFoundError";
+    }
+}
+class MalformedSyllabusError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "MalformedSyllabusError";
+    }
+}
+class NoAssignmentsWithDueDatesError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "NoAssignmentsWithDueDatesError";
+    }
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/course/code.ts":
+/*!***********************************!*\
+  !*** ./src/canvas/course/code.ts ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   MalformedCourseCodeError: () => (/* binding */ MalformedCourseCodeError),
+/* harmony export */   baseCourseCode: () => (/* binding */ baseCourseCode),
+/* harmony export */   parseCourseCode: () => (/* binding */ parseCourseCode),
+/* harmony export */   stringIsCourseCode: () => (/* binding */ stringIsCourseCode)
+/* harmony export */ });
+/* harmony import */ var _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/course/Course */ "./src/canvas/course/Course.ts");
+
+function parseCourseCode(code) {
+    let match = _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
+    if (!match)
+        return null;
+    let prefix = match[1] || "";
+    let courseCode = match[2] || "";
+    if (prefix.length > 0) {
+        return `${prefix}_${courseCode}`;
+    }
+    return courseCode;
+}
+function baseCourseCode(code) {
+    let match = _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
+    if (!match)
+        return null;
+    return match[2];
+}
+function stringIsCourseCode(code) {
+    return _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
+}
+class MalformedCourseCodeError extends Error {
+    constructor(courseCode, message, options) {
+        if (!message)
+            message = `${courseCode} is not a valid course code`;
+        super(message, options);
+        this.name = "MalformedCourseCodeError";
+        this.courseCode = courseCode;
+    }
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/course/getCourseIdFromUrl.ts":
+/*!*************************************************!*\
+  !*** ./src/canvas/course/getCourseIdFromUrl.ts ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ getCourseIdFromUrl)
+/* harmony export */ });
+function getCourseIdFromUrl(url) {
+    let match = /courses\/(\d+)/.exec(url);
+    if (match) {
+        return parseInt(match[1]);
+    }
+    return null;
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/course/index.ts":
+/*!************************************!*\
+  !*** ./src/canvas/course/index.ts ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CourseNotFoundException: () => (/* binding */ CourseNotFoundException),
+/* harmony export */   createNewCourse: () => (/* binding */ createNewCourse),
+/* harmony export */   getCourseById: () => (/* binding */ getCourseById),
+/* harmony export */   getCourseData: () => (/* binding */ getCourseData),
+/* harmony export */   getCourseDataGenerator: () => (/* binding */ getCourseDataGenerator),
+/* harmony export */   getCourseGenerator: () => (/* binding */ getCourseGenerator),
+/* harmony export */   getCourseName: () => (/* binding */ getCourseName),
+/* harmony export */   getGradingStandards: () => (/* binding */ getGradingStandards),
+/* harmony export */   getSingleCourse: () => (/* binding */ getSingleCourse),
+/* harmony export */   saveCourseData: () => (/* binding */ saveCourseData),
+/* harmony export */   setGradingStandardForCourse: () => (/* binding */ setGradingStandardForCourse)
+/* harmony export */ });
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../index */ "./src/canvas/index.ts");
+/* harmony import */ var _Course__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Course */ "./src/canvas/course/Course.ts");
+/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+function getGradingStandards(contextId, contextType, config) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const url = `/api/v1/${contextType}s/${contextId}/grading_standards`;
+        return yield (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedData)(url, config);
+    });
+}
+function getCourseData(id, config) {
+    const url = `/api/v1/courses/${id}`;
+    return (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
+}
+function getCourseDataGenerator(queryString, accountIds, term, config) {
+    if (!Array.isArray(accountIds))
+        accountIds = [accountIds];
+    const defaultConfig = queryString ? {
+        queryParams: {
+            search_term: queryString,
+        }
+    } : {};
+    if (term && defaultConfig.queryParams)
+        defaultConfig.queryParams.enrollment_term_id = term.id;
+    config = (0,_index__WEBPACK_IMPORTED_MODULE_1__.overrideConfig)(defaultConfig, config);
+    const generators = accountIds.map(accountId => {
+        let url = `/api/v1/accounts/${accountId}/courses`;
+        return (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedDataGenerator)(url, config);
+    });
+    return (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.mergePagedDataGenerators)(generators);
+}
+function getCourseGenerator(queryString, accountIds, term, config) {
+    return (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.generatorMap)(getCourseDataGenerator(queryString, accountIds, term, config), courseData => new _Course__WEBPACK_IMPORTED_MODULE_2__.Course(courseData));
+}
+function getSingleCourse(queryString, accountIds, term, config) {
+    return __awaiter(this, void 0, void 0, function* () {
+        for (let accountId of accountIds) {
+            const courseDatas = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(`/api/v1/accounts/${accountId}/courses`, (0,_index__WEBPACK_IMPORTED_MODULE_1__.overrideConfig)({ queryParams: { search_term: queryString } }, config));
+            if (courseDatas.length > 0)
+                return new _Course__WEBPACK_IMPORTED_MODULE_2__.Course(courseDatas[0]);
+        }
+        return undefined;
+    });
+}
+function getCourseById(id, config) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return new _Course__WEBPACK_IMPORTED_MODULE_2__.Course(yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(`/api/v1/courses/${id}`, config));
+    });
+}
+function createNewCourse(courseCode, accountId, name, config) {
+    return __awaiter(this, void 0, void 0, function* () {
+        name !== null && name !== void 0 ? name : (name = courseCode);
+        const createUrl = `/api/v1/accounts/${accountId}/courses/`;
+        let createConfig = {
+            fetchInit: {
+                method: 'POST',
+                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)({
+                    course: {
+                        name,
+                        course_code: courseCode
+                    }
+                })
+            }
+        };
+        return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(createUrl, (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(createConfig, config, true));
+    });
+}
+class CourseNotFoundException extends Error {
+}
+function saveCourseData(courseId, data, config) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const url = `/api/v1/courses/${courseId}`;
+        return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, (0,_index__WEBPACK_IMPORTED_MODULE_1__.overrideConfig)(config, {
+            fetchInit: {
+                method: 'PUT',
+                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)({ course: data })
+            }
+        }));
+    });
+}
+function setGradingStandardForCourse(courseId, standardId, config) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return yield saveCourseData(courseId, { grading_standard_id: standardId });
+    });
+}
+function getCourseName(data) {
+    var _a;
+    const [full, withoutCode] = (_a = /[^:]*:\s*(.*)/.exec(data.name)) !== null && _a !== void 0 ? _a : [];
+    if (withoutCode)
+        return withoutCode;
+    return data.name;
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/course/modules.ts":
+/*!**************************************!*\
+  !*** ./src/canvas/course/modules.ts ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   changeModuleLockDate: () => (/* binding */ changeModuleLockDate),
+/* harmony export */   getModuleOverview: () => (/* binding */ getModuleOverview),
+/* harmony export */   getModuleWeekNumber: () => (/* binding */ getModuleWeekNumber),
+/* harmony export */   getModulesByWeekNumber: () => (/* binding */ getModulesByWeekNumber),
+/* harmony export */   moduleGenerator: () => (/* binding */ moduleGenerator)
+/* harmony export */ });
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
+/* harmony import */ var _canvas_content_assignments_pages_Page__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/assignments/pages/Page */ "./src/canvas/content/assignments/pages/Page.ts");
+/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+function moduleGenerator(courseId, config) {
+    return (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedDataGenerator)(`/api/v1/courses/${courseId}/modules`, config);
+}
+function changeModuleLockDate(courseId, module, targetDate) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const payload = {
+            module: {
+                unlock_at: targetDate.toString()
+            }
+        };
+        const url = `/api/v1/courses/${courseId}/modules/${module.id}`;
+        const result = (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url, {
+            fetchInit: {
+                method: 'PUT',
+                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(payload)
+            }
+        });
+    });
+}
+function getModuleOverview(module, courseId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let overview = module.items.find(item => item.type === "Page" &&
+            item.title.toLowerCase().includes('overview'));
+        if (!(overview === null || overview === void 0 ? void 0 : overview.url))
+            return; //skip this if it's not an overview
+        const url = overview.url.replace(/.*\/api\/v1/, '/api/v1');
+        const pageData = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url);
+        return new _canvas_content_assignments_pages_Page__WEBPACK_IMPORTED_MODULE_2__.Page(pageData, courseId);
+    });
+}
+function getModuleWeekNumber(module) {
+    const regex = /(week|module) (\d+)/i;
+    let match = module.name.match(regex);
+    let weekNumber = !match ? null : Number(match[1]);
+    if (!weekNumber) {
+        for (let moduleItem of module.items) {
+            if (!moduleItem.hasOwnProperty('title')) {
+                continue;
+            }
+            let match = moduleItem.title.match(regex);
+            if (match) {
+                weekNumber = match[2];
+            }
+        }
+    }
+    return weekNumber;
+}
+function getModulesByWeekNumber(modules) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let modulesByWeekNumber = {};
+        for (let module of modules) {
+            let weekNumber = getModuleWeekNumber(module);
+            if (weekNumber) {
+                modulesByWeekNumber[weekNumber] = module;
+            }
+        }
+        return modulesByWeekNumber;
+    });
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/fetch/fetchJson.ts":
+/*!***************************************!*\
+  !*** ./src/canvas/fetch/fetchJson.ts ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   fetchJson: () => (/* binding */ fetchJson)
+/* harmony export */ });
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+function fetchJson(url_1) {
+    return __awaiter(this, arguments, void 0, function* (url, config = null) {
+        const match = url.search(/^(\/|\w+:\/\/)/);
+        if (match < 0)
+            throw new Error("url does not start with / or http");
+        if (config === null || config === void 0 ? void 0 : config.queryParams) {
+            url += '?' + new URLSearchParams(config.queryParams);
+        }
+        config !== null && config !== void 0 ? config : (config = {});
+        const response = yield fetch(url, config.fetchInit);
+        return yield response.json();
+    });
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/fetch/getPagedDataGenerator.ts":
+/*!***************************************************!*\
+  !*** ./src/canvas/fetch/getPagedDataGenerator.ts ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getPagedData: () => (/* binding */ getPagedData),
+/* harmony export */   getPagedDataGenerator: () => (/* binding */ getPagedDataGenerator),
+/* harmony export */   mergePagedDataGenerators: () => (/* binding */ mergePagedDataGenerators)
+/* harmony export */ });
+/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
+var __await = (undefined && undefined.__await) || function (v) { return this instanceof __await ? (this.v = v, this) : new __await(v); }
+var __asyncGenerator = (undefined && undefined.__asyncGenerator) || function (thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function awaitReturn(f) { return function (v) { return Promise.resolve(v).then(f, reject); }; }
+    function verb(n, f) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; if (f) i[n] = f(i[n]); } }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+};
+
+/**
+ * @param url The entire path of the url
+ * @param config a configuration object of type ICanvasCallConfig
+ * @returns {Promise<Record<string, any>[]>}
+ */
+function getPagedData(url_1) {
+    return __awaiter(this, arguments, void 0, function* (url, config = null) {
+        var _a, e_1, _b, _c;
+        const generator = getPagedDataGenerator(url, config);
+        const out = [];
+        try {
+            for (var _d = true, generator_1 = __asyncValues(generator), generator_1_1; generator_1_1 = yield generator_1.next(), _a = generator_1_1.done, !_a; _d = true) {
+                _c = generator_1_1.value;
+                _d = false;
+                let value = _c;
+                out.push(value);
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (!_d && !_a && (_b = generator_1.return)) yield _b.call(generator_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        return out;
+    });
+}
+/**
+ * returns a single pagedDataGenerator that returns generator results from each, looping through results for each
+ * @param generators
+ */
+function mergePagedDataGenerators(generators) {
+    return __asyncGenerator(this, arguments, function* mergePagedDataGenerators_1() {
+        var _a, e_2, _b, _c;
+        for (let generator of generators) {
+            try {
+                for (var _d = true, generator_2 = (e_2 = void 0, __asyncValues(generator)), generator_2_1; generator_2_1 = yield __await(generator_2.next()), _a = generator_2_1.done, !_a; _d = true) {
+                    _c = generator_2_1.value;
+                    _d = false;
+                    let result = _c;
+                    yield yield __await(result);
+                }
+            }
+            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+            finally {
+                try {
+                    if (!_d && !_a && (_b = generator_2.return)) yield __await(_b.call(generator_2));
+                }
+                finally { if (e_2) throw e_2.error; }
+            }
+        }
+    });
+}
+function handleResponseData(data, url) {
+    if (data !== null && typeof data === 'object' && !Array.isArray(data)) {
+        let values = Array.from(Object.values(data));
+        if (values) {
+            data = values.find((a) => Array.isArray(a));
+        }
+    }
+    if (!Array.isArray(data)) {
+        console.warn(`no data for ${url}`);
+        return [];
+    }
+    return data;
+}
+function getPagedDataGenerator(url_1) {
+    return __asyncGenerator(this, arguments, function* getPagedDataGenerator_1(url, config = null) {
+        if (config === null || config === void 0 ? void 0 : config.queryParams) {
+            url += '?' + (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.searchParamsFromObject)(config.queryParams);
+        }
+        if (url.includes('undefined')) {
+            console.warn(url);
+        }
+        /* Returns a list of data from a GET request, going through multiple pages of data requests as necessary */
+        let response = yield __await(fetch(url, config === null || config === void 0 ? void 0 : config.fetchInit));
+        let data = handleResponseData(yield __await(response.json()), url);
+        if (data.length === 0)
+            return yield __await(data);
+        for (let value of data)
+            yield yield __await(value);
+        let next_page_link = "!";
+        while (next_page_link.length !== 0 &&
+            response &&
+            response.ok) {
+            const nextLink = getNextLink(response);
+            if (!nextLink)
+                break;
+            next_page_link = nextLink.split(";")[0].split("<")[1].split(">")[0];
+            response = yield __await(fetch(next_page_link, config === null || config === void 0 ? void 0 : config.fetchInit));
+            let responseData = handleResponseData(yield __await(response.json()), url);
+            data = [data, ...responseData];
+            for (let value of responseData) {
+                yield yield __await(value);
+            }
+        }
+    });
+}
+function getNextLink(response) {
+    const link = response.headers.get("Link");
+    if (!link)
+        return null;
+    const paginationLinks = link.split(",");
+    return paginationLinks.find((link) => link.includes('next'));
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/fetch/utils.ts":
+/*!***********************************!*\
+  !*** ./src/canvas/fetch/utils.ts ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   fetchGetConfig: () => (/* binding */ fetchGetConfig),
+/* harmony export */   overrideConfig: () => (/* binding */ overrideConfig)
+/* harmony export */ });
+/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
+
+function overrideConfig(source, override) {
+    var _a;
+    return (_a = (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(source, override)) !== null && _a !== void 0 ? _a : {};
+}
+function fetchGetConfig(options, baseConfig) {
+    return overrideConfig(baseConfig, {
+        queryParams: options,
+    });
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/files.ts":
+/*!*****************************!*\
+  !*** ./src/canvas/files.ts ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   uploadFile: () => (/* binding */ uploadFile)
+/* harmony export */ });
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+function uploadFile(file, folder, url) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const initialParams = {
+            name: file.name,
+            no_redirect: true,
+            on_duplicate: 'overwrite'
+        };
+        if (typeof folder === 'number')
+            initialParams.parent_folder_id = folder;
+        else
+            initialParams.parent_folder_path = folder;
+        let response = yield fetch(url, {
+            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(initialParams),
+            method: 'POST'
+        });
+        const data = yield response.json();
+        const uploadParams = data.upload_params;
+        const uploadFormData = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(uploadParams);
+        uploadFormData.append('file', file);
+        response = yield fetch(data.upload_url, {
+            method: 'POST',
+            body: uploadFormData,
+        });
+        assert__WEBPACK_IMPORTED_MODULE_1___default()(response.ok);
+    });
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/image.ts":
+/*!*****************************!*\
+  !*** ./src/canvas/image.ts ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   backgroundDownloadImage: () => (/* binding */ backgroundDownloadImage),
+/* harmony export */   contentDownloadImage: () => (/* binding */ contentDownloadImage),
+/* harmony export */   getResizedBlob: () => (/* binding */ getResizedBlob)
+/* harmony export */ });
+/* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! webextension-polyfill */ "./node_modules/webextension-polyfill/dist/browser-polyfill.js");
+/* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+function getResizedBlob(src_1, width_1) {
+    return __awaiter(this, arguments, void 0, function* (src, width, height = undefined) {
+        let imageSrc = yield contentDownloadImage(src);
+        let canvas = document.createElement('canvas');
+        let image = new Image();
+        image.src = imageSrc;
+        let ctx = canvas.getContext('2d');
+        return new Promise((resolve) => {
+            image.onload = () => {
+                height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
+                assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
+                console.log(image.src);
+                canvas.width = width;
+                canvas.height = height;
+                ctx.drawImage(image, 0, 0, width, height);
+                canvas.toBlob(resolve);
+            };
+        });
+    });
+}
+function contentDownloadImage(src) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const base64 = yield webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.sendMessage({ downloadImage: src });
+        return base64;
+    });
+}
+function backgroundDownloadImage(src) {
+    //if(!height) height = src.height / src.width * width;
+    const imageUrl = src;
+    return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
+        const imageFileResponse = yield fetch(imageUrl);
+        let reader = new FileReader();
+        reader.onload = event => {
+            console.log(reader.result);
+            resolve(reader.result);
+        };
+        const blob = yield imageFileResponse.blob();
+        reader.readAsDataURL(blob);
+    }));
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/index.ts":
+/*!*****************************!*\
+  !*** ./src/canvas/index.ts ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   apiWriteConfig: () => (/* binding */ apiWriteConfig),
+/* harmony export */   generatorMap: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_0__.generatorMap),
+/* harmony export */   overrideConfig: () => (/* reexport safe */ _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_1__.overrideConfig),
+/* harmony export */   renderAsyncGen: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_0__.renderAsyncGen)
+/* harmony export */ });
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/utils */ "./src/canvas/fetch/utils.ts");
+
+
+function apiWriteConfig(method, data, baseConfig) {
+    const body = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(data);
+    return (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_1__.overrideConfig)({
+        fetchInit: {
+            method,
+            body,
+        }
+    }, baseConfig);
+}
+
+
+
+
+
+/***/ }),
+
+/***/ "./src/canvas/profile.ts":
+/*!*******************************!*\
+  !*** ./src/canvas/profile.ts ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   frontPageBio: () => (/* binding */ frontPageBio),
+/* harmony export */   getCurioPageFrontPageProfile: () => (/* binding */ getCurioPageFrontPageProfile),
+/* harmony export */   getFacultyPages: () => (/* binding */ getFacultyPages),
+/* harmony export */   getPotentialFacultyProfiles: () => (/* binding */ getPotentialFacultyProfiles),
+/* harmony export */   getProfileFromPage: () => (/* binding */ getProfileFromPage),
+/* harmony export */   renderProfileIntoCurioFrontPage: () => (/* binding */ renderProfileIntoCurioFrontPage),
+/* harmony export */   winnow: () => (/* binding */ winnow)
+/* harmony export */ });
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var _canvas_Account__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/Account */ "./src/canvas/Account.ts");
+/* harmony import */ var _canvas_course__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/course */ "./src/canvas/course/index.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+let facultyCourseCached;
+function getFacultyCourse() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const facultyCourse = facultyCourseCached !== null && facultyCourseCached !== void 0 ? facultyCourseCached : yield (0,_canvas_course__WEBPACK_IMPORTED_MODULE_3__.getSingleCourse)('Faculty Bios', (yield _canvas_Account__WEBPACK_IMPORTED_MODULE_2__.Account.getAll()).map(a => a.id));
+        facultyCourseCached = facultyCourse;
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(facultyCourse);
+        return facultyCourse;
+    });
+}
+function getFacultyPages(searchTerm) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const facultyCourse = yield getFacultyCourse();
+        return yield facultyCourse.getPages({
+            queryParams: {
+                include: ['body'],
+                search_term: searchTerm
+            }
+        });
+    });
+}
+function getPotentialFacultyProfiles(user) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var _a;
+        let pages = [];
+        const [lastName, firstName] = user.name.split(' ');
+        for (let query of [
+            user.name,
+            lastName,
+            firstName,
+        ]) {
+            console.log(query);
+            pages = yield getFacultyPages(query);
+            if (pages.length > 0)
+                break;
+        }
+        let profiles = pages.map((page) => getProfileFromPage(page, user), true);
+        if (profiles.length > 0) {
+            for (let profile of profiles) {
+                (_a = profile.displayName) !== null && _a !== void 0 ? _a : (profile.displayName = user.name);
+            }
+        }
+        return profiles;
+    });
+}
+function getProfileFromPage(page, user) {
+    const profile = getProfileFromPageHtml(page.body, user);
+    profile.sourcePage = page;
+    return profile;
+}
+function getProfileFromPageHtml(html, user) {
+    const el = document.createElement('div');
+    el.innerHTML = html;
+    const displayName = getDisplayName(el);
+    const body = getProfileBody(el);
+    const image = getImageLink(el);
+    return {
+        user,
+        bio: body,
+        displayName,
+        image,
+        imageLink: image === null || image === void 0 ? void 0 : image.src,
+    };
+}
+function getProfileBody(el) {
+    const h4s = el.querySelectorAll('h4');
+    const instructorHeaders = Array.from(h4s).filter((el) => {
+        return el.innerHTML.search(/instructor/i);
+    });
+    let potentials = [];
+    for (let header of instructorHeaders) {
+        const potentialParent = header.parentElement;
+        if (potentialParent) {
+            header.remove();
+            potentials.push(potentialParent.innerHTML);
+        }
+    }
+    potentials = winnow(potentials, [
+        (potential) => potential.length > 0,
+    ]);
+    /* just guess if we can't find anything */
+    if (potentials.length > 0) {
+        return potentials[0];
+    }
+    return null;
+}
+function getDisplayName(el) {
+    let titles = Array.from(el.querySelectorAll('strong em'));
+    if (titles.length === 0) {
+        let enclosedImages = Array.from(el.querySelectorAll('p img'));
+        titles = enclosedImages.map((el) => { var _a; return (_a = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.parentElement)(el, 'p')) === null || _a === void 0 ? void 0 : _a.nextElementSibling; })
+            .filter((el) => el instanceof Element);
+    }
+    if (titles.length === 0) {
+        let headings = Array.from(el.querySelectorAll('p strong'));
+        let instructorHeaders = headings.filter(el => el.innerHTML.search(/Instructor/));
+        titles = instructorHeaders.map((el) => el.previousElementSibling)
+            .filter((el) => el instanceof Element);
+    }
+    titles = titles.filter((title) => title.textContent && title.textContent.length > 0);
+    if (titles.length > 0)
+        return titles[0].textContent;
+    return null;
+}
+/**
+ * Finds all the image links in the content and returns the biggest.
+ * @param el
+ */
+function getImageLink(el) {
+    let imgs = el.querySelectorAll('img');
+    if (imgs.length === 0)
+        return null;
+    return Array.from(imgs)[1];
+}
+/**
+ * Takes in a list of parameters and a set of filter functions. Runs filter functions until there are one or fewer elements,
+ * or it runs out of filter functions. Returns post-filtered list.
+ * @param originalList The list of items to run
+ * @param winnowFuncs A list of filter functions, run in order
+ * @param returnLastNonEmpty If true, will return the last non-empty array found if elements are winnowed to 0
+ */
+function winnow(originalList, winnowFuncs, returnLastNonEmpty = false) {
+    let copyList = [...originalList];
+    if (copyList.length === 1)
+        return copyList; //already at 1 element
+    let lastSet = [...copyList];
+    for (let winnowFunc of winnowFuncs) {
+        lastSet = [...copyList];
+        copyList = copyList.filter(winnowFunc);
+        if (copyList.length === 1)
+            break;
+    }
+    if (copyList.length === 0 && returnLastNonEmpty)
+        return lastSet;
+    return copyList;
+}
+function getCurioPageFrontPageProfile(html, user) {
+    const el = document.createElement('div');
+    el.innerHTML = html;
+    try {
+        const header = getCurioHeader(el);
+        const match = header.innerHTML.match(/Meet your instructor, ?(.*)!/i);
+        const displayName = match ? match[1] : null;
+        const bio = getCurioBio(el);
+        const image = getCurioProfileImage(el);
+        return {
+            user,
+            displayName,
+            image,
+            imageLink: image ? image.src : null,
+            bio: bio === null || bio === void 0 ? void 0 : bio.innerHTML
+        };
+    }
+    catch (e) {
+        return {
+            user,
+            displayName: "CANNOT LOCATE PROFILE",
+            bio: e.toString(),
+        };
+    }
+}
+function frontPageBio(profile) {
+    return profile.bio + `<p>${profile.displayName} should be contacted during the term using Canvas Inbox,
+ but can be reached after and before the term via their email address: ${profile.user.email}</p>`;
+}
+function renderProfileIntoCurioFrontPage(html, profile) {
+    const el = document.createElement('div');
+    el.innerHTML = html;
+    if (profile.displayName) {
+        const header = getCurioHeader(el);
+        header.innerHTML = `Meet your instructor, ${profile.displayName}!`;
+    }
+    if (profile.bio) {
+        const bio = getCurioBio(el);
+        if (bio) {
+            const classes = bio.classList;
+            if (!classes.contains('cbt-instructor-bio'))
+                classes.add('cbt-instructor-bio');
+            bio.innerHTML = frontPageBio(profile);
+        }
+    }
+    if (profile.image) {
+        const image = getCurioProfileImage(el);
+        if (image) {
+            image.src = profile.image.src;
+            image.alt = profile.image.alt;
+        }
+    }
+    else if (profile.imageLink) {
+        const image = getCurioProfileImage(el);
+        if (image) {
+            image.src = profile.imageLink;
+        }
+    }
+    return el.innerHTML;
+}
+function getCurioHeader(el) {
+    let h2s = Array.from(el.querySelectorAll('h2'));
+    h2s = h2s.filter((h2) => h2.innerHTML.match(/Meet your instructor/i));
+    if (h2s.length <= 0)
+        throw new Error(`Can't find bio section of front page.\n${h2s.map(a => a.innerHTML)}\n${el.innerHTML}`);
+    return h2s[0];
+}
+function getCurioProfileDiv(el) {
+    const header = getCurioHeader(el);
+    const sectionEl = header.nextElementSibling;
+    assert__WEBPACK_IMPORTED_MODULE_0___default()(sectionEl, "Body element of bio not found on page.");
+    return sectionEl;
+}
+function getCurioBio(el) {
+    const profileDiv = getCurioProfileDiv(el);
+    let bio = profileDiv.querySelector('.cbt-instructor-bio');
+    if (bio && bio.innerHTML)
+        return bio;
+    let div = getCurioProfileDiv(el);
+    const p = div.querySelector('p');
+    return p === null || p === void 0 ? void 0 : p.parentElement;
+}
+function getCurioProfileImage(el) {
+    return getCurioProfileDiv(el).querySelector('img');
+}
+
+
+
+/***/ }),
+
+/***/ "./src/canvas/term/Term.ts":
+/*!*********************************!*\
+  !*** ./src/canvas/term/Term.ts ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Term: () => (/* binding */ Term)
+/* harmony export */ });
+/* harmony import */ var _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/baseCanvasObject */ "./src/canvas/baseCanvasObject.ts");
+/* harmony import */ var _canvas_Account__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/Account */ "./src/canvas/Account.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+class Term extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
+    static getTerm(code_1) {
+        return __awaiter(this, arguments, void 0, function* (code, workflowState = 'all', config = undefined) {
+            const terms = yield this.searchTerms(code, workflowState, config);
+            if (!Array.isArray(terms) || terms.length <= 0) {
+                return null;
+            }
+            return terms[0];
+        });
+    }
+    static getTermById(termId_1) {
+        return __awaiter(this, arguments, void 0, function* (termId, config = null) {
+            let account = yield _canvas_Account__WEBPACK_IMPORTED_MODULE_1__.Account.getRootAccount();
+            if (!account)
+                throw new _canvas_Account__WEBPACK_IMPORTED_MODULE_1__.RootAccountNotFoundError();
+            let url = `/api/v1/accounts/${account.id}/terms/${termId}`;
+            let termData = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
+            if (termData)
+                return new Term(termData);
+            return null;
+        });
+    }
+    static getAllActiveTerms() {
+        return __awaiter(this, arguments, void 0, function* (config = null) {
+            return yield this.searchTerms(null, 'active', config);
+        });
+    }
+    static searchTerms() {
+        return __awaiter(this, arguments, void 0, function* (code = null, workflowState = 'all', config = null) {
+            config = config || {};
+            config.queryParams = config.queryParams || {};
+            let queryParams = config.queryParams;
+            if (workflowState)
+                queryParams['workflow_state'] = workflowState;
+            if (code)
+                queryParams['term_name'] = code;
+            let rootAccount = yield _canvas_Account__WEBPACK_IMPORTED_MODULE_1__.Account.getRootAccount();
+            assert__WEBPACK_IMPORTED_MODULE_2___default()(rootAccount);
+            let url = `/api/v1/accounts/${rootAccount.id}/terms`;
+            const data = yield (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedData)(url, config);
+            let terms = [];
+            for (let datum of data) {
+                if (datum.hasOwnProperty('enrollment_terms')) {
+                    for (let termData of datum['enrollment_terms']) {
+                        terms.push(termData);
+                    }
+                }
+                else {
+                    terms.push(datum);
+                }
+            }
+            console.log(terms);
+            if (!terms || terms.length === 0) {
+                return null;
+            }
+            return terms.map(term => new Term(term));
+        });
+    }
+}
+Term.nameProperty = "name";
+
+
+/***/ }),
+
+/***/ "./src/consts.ts":
+/*!***********************!*\
+  !*** ./src/consts.ts ***!
+  \***********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DIST_REPO_MANIFEST: () => (/* binding */ DIST_REPO_MANIFEST),
+/* harmony export */   DIST_REPO_URL: () => (/* binding */ DIST_REPO_URL),
+/* harmony export */   DOCUMENTATION_TOC_URL: () => (/* binding */ DOCUMENTATION_TOC_URL),
+/* harmony export */   DOCUMENTATION_TOPICS_URL: () => (/* binding */ DOCUMENTATION_TOPICS_URL),
+/* harmony export */   OPEN_AI_API_KEY_KEY: () => (/* binding */ OPEN_AI_API_KEY_KEY),
+/* harmony export */   PUBLISH_FORM_EMAIL_TEMPLATE_URL: () => (/* binding */ PUBLISH_FORM_EMAIL_TEMPLATE_URL),
+/* harmony export */   SAFE_MAX_BANNER_WIDTH: () => (/* binding */ SAFE_MAX_BANNER_WIDTH)
+/* harmony export */ });
+const OPEN_AI_API_KEY_KEY = "OPEN_AI_API_KEY";
+const PUBLISH_FORM_EMAIL_TEMPLATE_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics/Form-Email-Template.md';
+const DOCUMENTATION_TOC_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/lxd.tree';
+const DOCUMENTATION_TOPICS_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics';
+const DIST_REPO_URL = 'https://github.com/Unity-Environmental-University/lxd-tools-build';
+const DIST_REPO_MANIFEST = 'https://raw.githubusercontent.com/Unity-Environmental-University/lxd-tools-build/stable/manifest.json';
+const SAFE_MAX_BANNER_WIDTH = 1400;
+
+
+/***/ }),
+
+/***/ "./src/date.ts":
+/*!*********************!*\
+  !*** ./src/date.ts ***!
+  \*********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   MalformedDateError: () => (/* binding */ MalformedDateError),
+/* harmony export */   StringNotAMonthDateError: () => (/* binding */ StringNotAMonthDateError),
+/* harmony export */   findDateRange: () => (/* binding */ findDateRange),
+/* harmony export */   oldDateToPlainDate: () => (/* binding */ oldDateToPlainDate)
+/* harmony export */ });
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
+
+
+
+function getMonthNames(style = "long", locale = 'en-US') {
+    return Array.from((0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.range)(1, 12)).map((monthInt) => {
+        return temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from({
+            day: 1,
+            month: monthInt,
+            year: temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.Now.plainDateISO().year
+        }).toLocaleString(locale, {
+            month: style
+        });
+    });
+}
+/**
+ * takes a string of formatted [monthname] [date] and give a plain date
+ * @param value the string to evaluate
+ * @param locale the locale to use to generate month names, e.g. en-US
+ * @param year the year to give the date object. If not provided defaults to current year.
+ */
+function plainDateFromMonthDayString(value, locale, year) {
+    year !== null && year !== void 0 ? year : (year = temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.Now.plainDateISO().year);
+    const match = value.match(getDateRegexString(locale));
+    if (!match)
+        throw new MalformedDateError(value);
+    const fullDate = match[1];
+    return temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from({
+        month: getMonthNumberLut(locale)[match[2]],
+        day: parseInt(match[3]),
+        year
+    });
+}
+const monthNumberLutCache = {};
+/**
+ * returns a string with 3 capturing groups -- 1 - month date, 2 month, 3 date. cuts off rd/th...
+ * @param locale
+ */
+function getMonthNumberLut(locale) {
+    if (monthNumberLutCache[locale])
+        return monthNumberLutCache[locale];
+    const monthNames = getMonthNames('long', locale);
+    const shortMonthNames = getMonthNames('short', locale);
+    const monthNumberLut = {};
+    assert__WEBPACK_IMPORTED_MODULE_0___default()(monthNames.length === shortMonthNames.length);
+    for (let i = 0; i < monthNames.length; i++) {
+        monthNumberLut[monthNames[i]] = i + 1;
+        monthNumberLut[shortMonthNames[i]] = i + 1;
+    }
+    monthNumberLutCache[locale] = monthNumberLut;
+    return monthNumberLut;
+}
+const dateRegexStringCache = {};
+//TODO: Make the capture groups in this optional
+function getDateRegexString(locale = 'en-US') {
+    if (dateRegexStringCache[locale])
+        return dateRegexStringCache[locale];
+    const monthNames = getMonthNames('long', locale);
+    const shortMonthNames = getMonthNames('short', locale);
+    const monthRegexDatePart = `(?:${[...monthNames, ...shortMonthNames].join('|')})`;
+    const output = `((${monthRegexDatePart}) (\\d+))(?:\\w{2}|)`;
+    dateRegexStringCache[locale] = output;
+    return output;
+}
+/**
+ * Looks for a date range in text and, if found, returns an object with start and end params as Temporal PlainDates
+ * @param textToSearch
+ * @param locale
+ */
+function findDateRange(textToSearch, locale = 'en-US') {
+    const dateRegExString = getDateRegexString(locale);
+    const searchRegex = new RegExp(`(${dateRegExString}).*(${dateRegExString})`, 'i');
+    const dateRegex = new RegExp(dateRegExString, 'i');
+    const matchRange = textToSearch.match(searchRegex);
+    if (!matchRange)
+        return null; //No date range found in syllabus
+    let start, end;
+    for (let separator of ['-', 'to']) {
+        [start, end] = matchRange[0].split(separator);
+        if (start && end)
+            break;
+    }
+    if (!start || !end)
+        throw new MalformedDateError('Cannot find date range in syllabus');
+    const startMatch = start.match(dateRegex);
+    const endMatch = end.match(dateRegex);
+    if (!startMatch)
+        throw new MalformedDateError(`Missing Start Date ${start}`);
+    if (!endMatch)
+        throw new MalformedDateError(`Missing End Date ${end}`);
+    return {
+        start: plainDateFromMonthDayString(startMatch[0], locale),
+        end: plainDateFromMonthDayString(endMatch[0], locale)
+    };
+}
+function oldDateToPlainDate(date) {
+    const data = {
+        day: date.getDate(),
+        month: date.getMonth() + 1,
+        year: date.getFullYear(),
+    };
+    return temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from(data);
+}
+class StringNotAMonthDateError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "StringNotAMonthDateError";
+    }
+}
+class MalformedDateError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "MalformedDateError";
+    }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/util/support/isBufferBrowser.js":
+/*!******************************************************!*\
+  !*** ./node_modules/util/support/isBufferBrowser.js ***!
+  \******************************************************/
 /***/ ((module) => {
 
 module.exports = function isBuffer(arg) {
@@ -3837,7 +7474,10 @@ module.exports = function isBuffer(arg) {
 
 /***/ }),
 
-/***/ 9032:
+/***/ "./node_modules/util/support/types.js":
+/*!********************************************!*\
+  !*** ./node_modules/util/support/types.js ***!
+  \********************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -3846,10 +7486,10 @@ module.exports = function isBuffer(arg) {
 
 
 
-var isArgumentsObject = __webpack_require__(7244);
-var isGeneratorFunction = __webpack_require__(8184);
-var whichTypedArray = __webpack_require__(5767);
-var isTypedArray = __webpack_require__(5680);
+var isArgumentsObject = __webpack_require__(/*! is-arguments */ "./node_modules/is-arguments/index.js");
+var isGeneratorFunction = __webpack_require__(/*! is-generator-function */ "./node_modules/is-generator-function/index.js");
+var whichTypedArray = __webpack_require__(/*! which-typed-array */ "./node_modules/which-typed-array/index.js");
+var isTypedArray = __webpack_require__(/*! is-typed-array */ "./node_modules/is-typed-array/index.js");
 
 function uncurryThis(f) {
   return f.call.bind(f);
@@ -4179,10 +7819,13 @@ exports.isAnyArrayBuffer = isAnyArrayBuffer;
 
 /***/ }),
 
-/***/ 537:
+/***/ "./node_modules/util/util.js":
+/*!***********************************!*\
+  !*** ./node_modules/util/util.js ***!
+  \***********************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-/* provided dependency */ var process = __webpack_require__(5606);
+/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -4649,7 +8292,7 @@ function reduceToSingleString(output, base, braces) {
 
 // NOTE: These type checking functions intentionally don't use `instanceof`
 // because it is fragile and can be easily faked with `Object.create()`.
-exports.types = __webpack_require__(9032);
+exports.types = __webpack_require__(/*! ./support/types */ "./node_modules/util/support/types.js");
 
 function isArray(ar) {
   return Array.isArray(ar);
@@ -4730,7 +8373,7 @@ function isPrimitive(arg) {
 }
 exports.isPrimitive = isPrimitive;
 
-exports.isBuffer = __webpack_require__(1135);
+exports.isBuffer = __webpack_require__(/*! ./support/isBuffer */ "./node_modules/util/support/isBufferBrowser.js");
 
 function objectToString(o) {
   return Object.prototype.toString.call(o);
@@ -4774,7 +8417,7 @@ exports.log = function() {
  *     prototype.
  * @param {function} superCtor Constructor function to inherit prototype from.
  */
-exports.inherits = __webpack_require__(6698);
+exports.inherits = __webpack_require__(/*! inherits */ "./node_modules/inherits/inherits_browser.js");
 
 exports._extend = function(origin, add) {
   // Don't do anything if add isn't an object
@@ -4902,7 +8545,10 @@ exports.callbackify = callbackify;
 
 /***/ }),
 
-/***/ 6815:
+/***/ "./node_modules/webextension-polyfill/dist/browser-polyfill.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/webextension-polyfill/dist/browser-polyfill.js ***!
+  \*********************************************************************/
 /***/ (function(module, exports) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
@@ -6173,21 +9819,24 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 5767:
+/***/ "./node_modules/which-typed-array/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/which-typed-array/index.js ***!
+  \*************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var forEach = __webpack_require__(2682);
-var availableTypedArrays = __webpack_require__(9209);
-var callBind = __webpack_require__(487);
-var callBound = __webpack_require__(8075);
-var gOPD = __webpack_require__(5795);
+var forEach = __webpack_require__(/*! for-each */ "./node_modules/for-each/index.js");
+var availableTypedArrays = __webpack_require__(/*! available-typed-arrays */ "./node_modules/available-typed-arrays/index.js");
+var callBind = __webpack_require__(/*! call-bind */ "./node_modules/call-bind/index.js");
+var callBound = __webpack_require__(/*! call-bind/callBound */ "./node_modules/call-bind/callBound.js");
+var gOPD = __webpack_require__(/*! gopd */ "./node_modules/gopd/index.js");
 
 /** @type {(O: object) => string} */
 var $toString = callBound('Object.prototype.toString');
-var hasToStringTag = __webpack_require__(9092)();
+var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "./node_modules/has-tostringtag/shams.js")();
 
 var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
 var typedArrays = availableTypedArrays();
@@ -6297,13 +9946,16 @@ module.exports = function whichTypedArray(value) {
 
 /***/ }),
 
-/***/ 9209:
+/***/ "./node_modules/available-typed-arrays/index.js":
+/*!******************************************************!*\
+  !*** ./node_modules/available-typed-arrays/index.js ***!
+  \******************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
 
-var possibleNames = __webpack_require__(6578);
+var possibleNames = __webpack_require__(/*! possible-typed-array-names */ "./node_modules/possible-typed-array-names/index.js");
 
 var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
 
@@ -6320,1089 +9972,1021 @@ module.exports = function availableTypedArrays() {
 };
 
 
-/***/ })
+/***/ }),
 
-/******/ 	});
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/global */
-/******/ 	(() => {
-/******/ 		__webpack_require__.g = (function() {
-/******/ 			if (typeof globalThis === 'object') return globalThis;
-/******/ 			try {
-/******/ 				return this || new Function('return this')();
-/******/ 			} catch (e) {
-/******/ 				if (typeof window === 'object') return window;
-/******/ 			}
-/******/ 		})();
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
-(() => {
+/***/ "./node_modules/temporal-polyfill/chunks/classApi.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/temporal-polyfill/chunks/classApi.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
 "use strict";
-
-// EXTERNAL MODULE: ./node_modules/webextension-polyfill/dist/browser-polyfill.js
-var browser_polyfill = __webpack_require__(6815);
-// EXTERNAL MODULE: ./node_modules/assert/build/assert.js
-var build_assert = __webpack_require__(4148);
-var assert_default = /*#__PURE__*/__webpack_require__.n(build_assert);
-;// CONCATENATED MODULE: ./src/canvas/fetch/fetchJson.ts
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-function fetchJson_fetchJson(url_1) {
-    return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        const match = url.search(/^(\/|\w+:\/\/)/);
-        if (match < 0)
-            throw new Error("url does not start with / or http");
-        if (config === null || config === void 0 ? void 0 : config.queryParams) {
-            url += '?' + new URLSearchParams(config.queryParams);
-        }
-        config !== null && config !== void 0 ? config : (config = {});
-        const response = yield fetch(url, config.fetchInit);
-        return yield response.json();
-    });
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DateTimeFormat: () => (/* binding */ Sr),
+/* harmony export */   IntlExtended: () => (/* binding */ Tr),
+/* harmony export */   Temporal: () => (/* binding */ mr),
+/* harmony export */   toTemporalInstant: () => (/* binding */ toTemporalInstant)
+/* harmony export */ });
+/* harmony import */ var _internal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./internal.js */ "./node_modules/temporal-polyfill/chunks/internal.js");
+function createSlotClass(e, t, n, o, r) {
+  function Class(...e) {
+    if (!(this instanceof Class)) {
+      throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidCallingContext);
+    }
+    oo(this, t(...e));
+  }
+  function bindMethod(e, t) {
+    return Object.defineProperties((function(...t) {
+      return e.call(this, getSpecificSlots(this), ...t);
+    }), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNameDescriptors)(t));
+  }
+  function getSpecificSlots(t) {
+    const n = no(t);
+    if (!n || n.branding !== e) {
+      throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidCallingContext);
+    }
+    return n;
+  }
+  return Object.defineProperties(Class.prototype, {
+    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createGetterDescriptors)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapProps)(bindMethod, n)),
+    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapProps)(bindMethod, o)),
+    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createStringTagDescriptors)("Temporal." + e)
+  }), Object.defineProperties(Class, {
+    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)(r),
+    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNameDescriptors)(e)
+  }), [ Class, e => {
+    const t = Object.create(Class.prototype);
+    return oo(t, e), t;
+  }, getSpecificSlots ];
 }
 
-;// CONCATENATED MODULE: ./src/canvas/canvasUtils.ts
-var canvasUtils_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-function isWithParamsFunc(func) {
-    return typeof func === 'function' && func.length > 0;
-}
-function isWithoutParamsFunc(func) {
-    return typeof func === 'function' && func.length === 0;
-}
-function callAll(funcs, params) {
-    const output = [];
-    for (let func of funcs) {
-        if ((typeof func === 'object')) {
-            output.push(func.func(func.params));
-            continue;
-        }
-        if (isWithoutParamsFunc(func)) {
-            output.push(func());
-            continue;
-        }
-        if (isWithParamsFunc(func) && typeof params !== 'undefined') {
-            output.push(func(params));
-        }
+function createProtocolValidator(e) {
+  return e = e.concat("id").sort(), t => {
+    if (!(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.hasAllPropsByName)(t, e)) {
+      throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidProtocol);
     }
-    return output;
+    return t;
+  };
 }
 
-/**
- * Traverses up the DOM and finds a parent with a matching Tag
- * @param el
- * @param tagName
- */
-function parentElement(el, tagName) {
-    if (!el)
-        return null;
-    while (el && el.parentElement) {
-        el = el.parentElement;
-        if (el.tagName && el.tagName.toLowerCase() == tagName) {
-            return el;
-        }
-    }
-    return null;
-}
-const type_lut = {
-    Assignment: 'assignment',
-    Discussion: 'discussion_topic',
-    Quiz: 'quiz',
-    ExternalTool: 'external_tool',
-    File: 'attachment',
-    Page: 'wiki_page',
-    ExternalUrl: null, //Not passable to restrict
-    Subheader: null, //Not passable to restrict
-};
-function canvasUtils_formDataify(data) {
-    let formData = new FormData();
-    for (let key in data) {
-        addToFormData(formData, key, data[key]);
-    }
-    if (document) {
-        const el = document.querySelector("input[name='authenticity_token']");
-        const authenticityToken = el ? el.value : null;
-        const cookies = getCookies();
-        let csrfToken = cookies['_csrf_token'];
-        if (authenticityToken)
-            formData.append('authenticity_token', authenticityToken);
-        else if (csrfToken) {
-            csrfToken = csrfToken.replaceAll(/%([0-9A-F]{2})/g, (substring, hex) => {
-                const hexCode = hex;
-                return String.fromCharCode(parseInt(hexCode, 16));
-            });
-            console.log(csrfToken);
-            formData.append('authenticity_token', csrfToken);
-        }
-    }
-    return formData;
-}
-function deepObjectCopy(toCopy, complexObjectsTracker = []) {
-    return canvasUtils_deepObjectMerge(toCopy, {}, true, complexObjectsTracker);
-}
-function canvasUtils_deepObjectMerge(a, b, overrideWithA = false, complexObjectsTracker = []) {
-    for (let value of [a, b]) {
-        if (typeof value == "object" &&
-            complexObjectsTracker.includes(value))
-            throw new Error(`Infinite Loop: Element ${value} contains itself`);
-    }
-    //if the types don't match
-    if (a && b && (typeof a !== typeof b ||
-        Array.isArray(a) != Array.isArray(b))) {
-        if (a === b)
-            return a;
-        if (overrideWithA)
-            return a;
-        throw new Error(`Type clash on merge ${typeof a} ${a}, ${typeof b} ${b}`);
-    }
-    //If either or both are arrays, merge if able to
-    if (Array.isArray(a)) {
-        if (!b)
-            return deepObjectCopy(a, complexObjectsTracker);
-        assert_default()(Array.isArray(b), "We should not get here if b is not an array");
-        let mergedArray = [...a, ...b];
-        const outputArray = mergedArray.map(value => {
-            if (!value)
-                return value;
-            if (typeof value === 'object' && Object.getPrototypeOf(value) === Object.prototype) {
-                //Make a deep of any object literal
-                if (!value)
-                    return value;
-                value = deepObjectCopy(value, [...complexObjectsTracker, a, b]);
-            }
-            return value;
-        });
-        return outputArray;
-    }
-    if (Array.isArray(b))
-        return deepObjectCopy(b, complexObjectsTracker); //we already know a is not an array at this point, return a deep copy of b
-    if ((a && typeof a === 'object') || (b && typeof b === 'object')) {
-        if (a instanceof File && b instanceof File) {
-            if (!overrideWithA)
-                assert_default()(a.size == b.size && a.name == b.name, `File value clash ${a.name} ${b.name}`);
-            return a;
-        }
-        if (a && Object.getPrototypeOf(a) != Object.prototype
-            || b && Object.getPrototypeOf(b) != Object.prototype) {
-            if (!overrideWithA)
-                assert_default()(!a || !b || a === b, `Non-mergeable object clash ${a} ${b}`);
-            if (a)
-                return a;
-            if (b)
-                return b;
-        }
-        if (a && !b)
-            return deepObjectCopy(a, complexObjectsTracker);
-        if (b && !a)
-            return deepObjectCopy(b, complexObjectsTracker);
-        assert_default()(a && typeof a === 'object' && Object.getPrototypeOf(a) === Object.prototype, "a should always be defined here.");
-        assert_default()(b && typeof b === 'object' && Object.getPrototypeOf(b) === Object.prototype, "b should always be defined here.");
-        const allKeys = [...Object.keys(a), ...Object.keys(b)].filter(filterUniqueFunc);
-        const aRecord = a;
-        const bRecord = b;
-        const entries = allKeys.map((key) => [
-            key,
-            canvasUtils_deepObjectMerge(aRecord[key], bRecord[key], overrideWithA, [...complexObjectsTracker, a, b])
-        ]);
-        return Object.fromEntries(entries);
-    }
-    if (a && b) {
-        if (overrideWithA || a === b)
-            return a;
-        throw new Error(`Values unmergeable, ${a}>:${typeof a}, ${b} ${typeof b}`);
-    }
-    if (a)
-        return a;
-    if (b)
-        return b;
-    if (a === null)
-        return a;
-    if (b === null)
-        return b;
-    assert_default()(typeof a === 'undefined');
-    return a;
-}
-function deFormDataify(formData) {
-    return [...formData.entries()].reduce((aggregator, [key, value]) => {
-        const isArray = key.includes('[]');
-        const keys = key.split('[').map(key => key.replaceAll(/[\[\]]/g, ''));
-        if (isArray)
-            keys.pop(); //remove the last, empty, key if it's an array
-        let currentValue = isArray ? [value] : value;
-        while (keys.length > 0) {
-            let newValue;
-            newValue = {
-                [keys.pop()]: currentValue
-            };
-            currentValue = newValue;
-        }
-        return canvasUtils_deepObjectMerge(aggregator, currentValue) || Object.assign({}, aggregator);
-    }, {});
-}
-function getCookies() {
-    const cookieString = document.cookie;
-    const cookies = cookieString.split('; ');
-    const out = {};
-    for (let cookie of cookies) {
-        const [key, value] = cookie.split('=');
-        out[key] = value;
-    }
-    return out;
-}
-/**
- * Adds arrays and objects in the form formData posts expects
- * @param formData
- * @param key
- * @param value
- */
-function addToFormData(formData, key, value) {
-    if (Array.isArray(value)) {
-        for (let item of value) {
-            addToFormData(formData, `${key}[]`, item);
-        }
-    }
-    else if (typeof value === 'object') {
-        for (let itemKey in value) {
-            const itemValue = value[itemKey];
-            addToFormData(formData, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
-        }
-    }
-    else {
-        formData.append(key, value);
-    }
-}
-function queryStringify(data) {
-    let searchParams = new URLSearchParams();
-    for (let key in data) {
-        addToQuery(searchParams, key, data[key]);
-    }
-    return searchParams;
-}
-function addToQuery(searchParams, key, value) {
-    if (Array.isArray(value)) {
-        for (let item of value) {
-            addToQuery(searchParams, `${key}[]`, item);
-        }
-    }
-    else if (typeof value === 'object') {
-        for (let itemKey in value) {
-            const itemValue = value[itemKey];
-            addToQuery(searchParams, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
-        }
-    }
-    else {
-        searchParams.append(key, value);
-    }
-}
-/**
- * Takes in a module item and returns an object specifying its type and content id
- * @param item
- */
-function canvasUtils_getItemTypeAndId(item) {
-    return canvasUtils_awaiter(this, void 0, void 0, function* () {
-        let id;
-        let type;
-        assert(type_lut.hasOwnProperty(item.type), "Unexpected type " + item.type);
-        type = type_lut[item.type];
-        if (type === "wiki_page") {
-            assert(item.url); //wiki_page items always have a url param
-            const pageData = yield fetchJson(item.url);
-            id = pageData.page_id;
-        }
-        else {
-            id = item.content_id;
-        }
-        return { type, id };
-    });
-}
-/**
- * @param queryParams
- * @returns {URLSearchParams} The correctly formatted parameters
- */
-function searchParamsFromObject(queryParams) {
-    return queryStringify(queryParams);
-}
-/**
- * sort courses (or course Data) alphabetically by name
- * @param a item to compare.
- * @param b item to compare.
- */
-function courseNameSort(a, b) {
-    if (a.name < b.name)
-        return -1;
-    if (b.name < a.name)
-        return 1;
-    return 0;
-}
-function* canvasUtils_range(start, end, step = 1) {
-    if (typeof end === 'undefined') {
-        let i = start;
-        while (true) {
-            yield i;
-            i += step;
-        }
-    }
-    for (let i = start; i <= end; i++) {
-        yield i;
-    }
-}
-function* numbers(start, step = 1) {
-    let i = 0;
-    while (true) {
-        yield i;
-        i += step;
-    }
-}
-function getPlainTextFromHtml(html) {
-    const el = document.createElement('div');
-    el.innerHTML = html;
-    return el.innerText || el.textContent || "";
-}
-function batchify(toBatch, batchSize) {
-    const out = [];
-    for (let i = 0; i < toBatch.length; i += batchSize) {
-        out.push(toBatch.slice(i, i + batchSize));
-    }
-    return out;
-}
-function filterUniqueFunc(item, index, array) {
-    return array.indexOf(item) === index;
+function rejectInvalidBag(e) {
+  if (no(e) || void 0 !== e.calendar || void 0 !== e.timeZone) {
+    throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidBag);
+  }
+  return e;
 }
 
-;// CONCATENATED MODULE: ./src/canvas/fetch/getPagedDataGenerator.ts
-var getPagedDataGenerator_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
-var __await = (undefined && undefined.__await) || function (v) { return this instanceof __await ? (this.v = v, this) : new __await(v); }
-var __asyncGenerator = (undefined && undefined.__asyncGenerator) || function (thisArg, _arguments, generator) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var g = generator.apply(thisArg, _arguments || []), i, q = [];
-    return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function () { return this; }, i;
-    function awaitReturn(f) { return function (v) { return Promise.resolve(v).then(f, reject); }; }
-    function verb(n, f) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; if (f) i[n] = f(i[n]); } }
-    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-    function fulfill(value) { resume("next", value); }
-    function reject(value) { resume("throw", value); }
-    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-};
-
-/**
- * @param url The entire path of the url
- * @param config a configuration object of type ICanvasCallConfig
- * @returns {Promise<Record<string, any>[]>}
- */
-function getPagedData(url_1) {
-    return getPagedDataGenerator_awaiter(this, arguments, void 0, function* (url, config = null) {
-        var _a, e_1, _b, _c;
-        const generator = getPagedDataGenerator_getPagedDataGenerator(url, config);
-        const out = [];
-        try {
-            for (var _d = true, generator_1 = __asyncValues(generator), generator_1_1; generator_1_1 = yield generator_1.next(), _a = generator_1_1.done, !_a; _d = true) {
-                _c = generator_1_1.value;
-                _d = false;
-                let value = _c;
-                out.push(value);
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (!_d && !_a && (_b = generator_1.return)) yield _b.call(generator_1);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-        return out;
-    });
-}
-/**
- * returns a single pagedDataGenerator that returns generator results from each, looping through results for each
- * @param generators
- */
-function getPagedDataGenerator_mergePagedDataGenerators(generators) {
-    return __asyncGenerator(this, arguments, function* mergePagedDataGenerators_1() {
-        var _a, e_2, _b, _c;
-        for (let generator of generators) {
-            try {
-                for (var _d = true, generator_2 = (e_2 = void 0, __asyncValues(generator)), generator_2_1; generator_2_1 = yield __await(generator_2.next()), _a = generator_2_1.done, !_a; _d = true) {
-                    _c = generator_2_1.value;
-                    _d = false;
-                    let result = _c;
-                    yield yield __await(result);
-                }
-            }
-            catch (e_2_1) { e_2 = { error: e_2_1 }; }
-            finally {
-                try {
-                    if (!_d && !_a && (_b = generator_2.return)) yield __await(_b.call(generator_2));
-                }
-                finally { if (e_2) throw e_2.error; }
-            }
-        }
-    });
-}
-function handleResponseData(data, url) {
-    if (data !== null && typeof data === 'object' && !Array.isArray(data)) {
-        let values = Array.from(Object.values(data));
-        if (values) {
-            data = values.find((a) => Array.isArray(a));
-        }
-    }
-    if (!Array.isArray(data)) {
-        console.warn(`no data for ${url}`);
-        return [];
-    }
-    return data;
-}
-function getPagedDataGenerator_getPagedDataGenerator(url_1) {
-    return __asyncGenerator(this, arguments, function* getPagedDataGenerator_1(url, config = null) {
-        if (config === null || config === void 0 ? void 0 : config.queryParams) {
-            url += '?' + searchParamsFromObject(config.queryParams);
-        }
-        if (url.includes('undefined')) {
-            console.warn(url);
-        }
-        /* Returns a list of data from a GET request, going through multiple pages of data requests as necessary */
-        let response = yield __await(fetch(url, config === null || config === void 0 ? void 0 : config.fetchInit));
-        let data = handleResponseData(yield __await(response.json()), url);
-        if (data.length === 0)
-            return yield __await(data);
-        for (let value of data)
-            yield yield __await(value);
-        let next_page_link = "!";
-        while (next_page_link.length !== 0 &&
-            response &&
-            response.ok) {
-            const nextLink = getNextLink(response);
-            if (!nextLink)
-                break;
-            next_page_link = nextLink.split(";")[0].split("<")[1].split(">")[0];
-            response = yield __await(fetch(next_page_link, config === null || config === void 0 ? void 0 : config.fetchInit));
-            let responseData = handleResponseData(yield __await(response.json()), url);
-            data = [data, ...responseData];
-            for (let value of responseData) {
-                yield yield __await(value);
-            }
-        }
-    });
-}
-function getNextLink(response) {
-    const link = response.headers.get("Link");
-    if (!link)
-        return null;
-    const paginationLinks = link.split(",");
-    return paginationLinks.find((link) => link.includes('next'));
+function createCalendarFieldMethods(e, t) {
+  const n = {};
+  for (const o in e) {
+    n[o] = ({o: e}, n) => {
+      const r = no(n) || {}, {branding: a} = r, i = a === _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding || t.includes(a) ? r : toPlainDateSlots(n);
+      return e[o](i);
+    };
+  }
+  return n;
 }
 
-;// CONCATENATED MODULE: ./src/canvas/fetch/index.ts
-var fetch_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var fetch_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
-var fetch_await = (undefined && undefined.__await) || function (v) { return this instanceof fetch_await ? (this.v = v, this) : new fetch_await(v); }
-var fetch_asyncGenerator = (undefined && undefined.__asyncGenerator) || function (thisArg, _arguments, generator) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var g = generator.apply(thisArg, _arguments || []), i, q = [];
-    return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function () { return this; }, i;
-    function awaitReturn(f) { return function (v) { return Promise.resolve(v).then(f, reject); }; }
-    function verb(n, f) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; if (f) i[n] = f(i[n]); } }
-    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-    function step(r) { r.value instanceof fetch_await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-    function fulfill(value) { resume("next", value); }
-    function reject(value) { resume("throw", value); }
-    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-};
-
-function fetch_overrideConfig(source, override) {
-    var _a;
-    return (_a = canvasUtils_deepObjectMerge(source, override)) !== null && _a !== void 0 ? _a : {};
-}
-function fetch_renderAsyncGen(generator) {
-    return fetch_awaiter(this, void 0, void 0, function* () {
-        var _a, generator_1, generator_1_1;
-        var _b, e_1, _c, _d;
-        const out = [];
-        try {
-            for (_a = true, generator_1 = fetch_asyncValues(generator); generator_1_1 = yield generator_1.next(), _b = generator_1_1.done, !_b; _a = true) {
-                _d = generator_1_1.value;
-                _a = false;
-                let item = _d;
-                out.push(item);
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (!_a && !_b && (_c = generator_1.return)) yield _c.call(generator_1);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-        return out;
-    });
-}
-function fetch_fetchGetConfig(options, baseConfig) {
-    return fetch_overrideConfig(baseConfig, {
-        queryParams: options,
-    });
-}
-function fetch_generatorMap(generator, nextMapFunc) {
-    return fetch_asyncGenerator(this, arguments, function* generatorMap_1() {
-        var _a, e_2, _b, _c;
-        let i = 0;
-        try {
-            for (var _d = true, generator_2 = fetch_asyncValues(generator), generator_2_1; generator_2_1 = yield fetch_await(generator_2.next()), _a = generator_2_1.done, !_a; _d = true) {
-                _c = generator_2_1.value;
-                _d = false;
-                let value = _c;
-                yield yield fetch_await(nextMapFunc(value, i, generator));
-                i++;
-            }
-        }
-        catch (e_2_1) { e_2 = { error: e_2_1 }; }
-        finally {
-            try {
-                if (!_d && !_a && (_b = generator_2.return)) yield fetch_await(_b.call(generator_2));
-            }
-            finally { if (e_2) throw e_2.error; }
-        }
-    });
+function createCalendarGetters(e) {
+  const t = {};
+  for (const n in e) {
+    t[n] = e => {
+      const {calendar: t} = e;
+      return (o = t, "string" == typeof o ? (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps)(o) : (r = o, Object.assign(Object.create(co), {
+        i: r
+      })))[n](e);
+      var o, r;
+    };
+  }
+  return t;
 }
 
-;// CONCATENATED MODULE: ./src/canvas/baseCanvasObject.ts
-var baseCanvasObject_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-
-
-class BaseCanvasObject {
-    get accountId() {
-        return this._accountId;
-    }
-    constructor(data) {
-        this._accountId = null;
-        this.canvasData = data || {}; // A dict holding the decoded json representation of the object in Canvas
-    }
-    getClass() {
-        return this.constructor;
-    }
-    getItem(item) {
-        return this.canvasData[item];
-    }
-    get myClass() {
-        return this.constructor;
-    }
-    get nameKey() {
-        assert_default()(this.myClass.nameProperty);
-        return this.myClass.nameProperty;
-    }
-    get rawData() {
-        return Object.assign({}, this.canvasData);
-    }
-    get contentUrlPath() {
-        const constructor = this.constructor;
-        assert_default()(typeof this.accountId === 'number');
-        assert_default()(typeof constructor.contentUrlTemplate === 'string');
-        return '/api/v1/' + constructor.contentUrlTemplate
-            .replace('{content_id}', this.id.toString())
-            .replace('{account_id}', this.accountId.toString());
-    }
-    get htmlContentUrl() {
-        return `${this.contentUrlPath}`;
-    }
-    get data() {
-        return this.canvasData;
-    }
-    static getDataById(contentId_1) {
-        return baseCanvasObject_awaiter(this, arguments, void 0, function* (contentId, courseId = null, config = null) {
-            let url = this.getUrlPathFromIds(contentId, courseId);
-            const response = yield fetchJson_fetchJson(url, config);
-            assert_default()(!Array.isArray(response));
-            return response;
-        });
-    }
-    static getUrlPathFromIds(contentId, courseId) {
-        assert_default()(typeof this.contentUrlTemplate === 'string');
-        let url = this.contentUrlTemplate
-            .replace('{content_id}', contentId.toString());
-        if (courseId)
-            url = url.replace('{course_id}', courseId.toString());
-        return url;
-    }
-    /**
-     * @param courseId - The course ID to get elements within, if applicable
-     * @param accountId - The account ID to get elements within, if applicable
-     */
-    static getAllUrl(courseId = null, accountId = null) {
-        assert_default()(typeof this.allContentUrlTemplate === 'string');
-        let replaced = this.allContentUrlTemplate;
-        if (courseId)
-            replaced = replaced.replace('{course_id}', courseId.toString());
-        if (accountId)
-            replaced = replaced.replace('{account_id}', accountId.toString());
-        return replaced;
-    }
-    static getAll() {
-        return baseCanvasObject_awaiter(this, arguments, void 0, function* (config = null) {
-            let url = this.getAllUrl();
-            return yield fetch_renderAsyncGen(getPagedDataGenerator_getPagedDataGenerator(this.getAllUrl(), config));
-        });
-    }
-    get id() {
-        const id = this.canvasData[this.constructor.idProperty];
-        return parseInt(id);
-    }
-    get name() {
-        let nameProperty = this.getClass().nameProperty;
-        if (!nameProperty)
-            return 'NAME PROPERTY NOT SET';
-        return this.getItem(nameProperty);
-    }
-    saveData(data, config) {
-        return baseCanvasObject_awaiter(this, void 0, void 0, function* () {
-            assert_default()(this.contentUrlPath);
-            config = fetch_overrideConfig({
-                fetchInit: {
-                    method: 'PUT',
-                    body: canvasUtils_formDataify(data)
-                }
-            }, config);
-            let results = yield fetchJson_fetchJson(this.contentUrlPath, config);
-            if (Array.isArray(results))
-                results = results[0];
-            this.canvasData = Object.assign(Object.assign({}, this.canvasData), results);
-            return this.canvasData;
-        });
-    }
-}
-BaseCanvasObject.idProperty = 'id'; // The field name of the id of the canvas object type
-BaseCanvasObject.nameProperty = 'name'; // The field name of the primary name of the canvas object type
-BaseCanvasObject.contentUrlTemplate = null; // A templated url to get a single item
-BaseCanvasObject.allContentUrlTemplate = null; // A templated url to get all items
-
-;// CONCATENATED MODULE: ./src/canvas/index.ts
-
-
-function canvas_apiWriteConfig(method, data, baseConfig) {
-    const body = formDataify(data);
-    return overrideConfig({
-        fetchInit: {
-            method,
-            body,
-        }
-    }, baseConfig);
+function neverValueOf() {
+  throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.forbiddenValueOf);
 }
 
+function createCalendarFromSlots({calendar: e}) {
+  return "string" == typeof e ? new lr(e) : e;
+}
 
-;// CONCATENATED MODULE: ./src/canvas/course/index.ts
-var course_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
+function toPlainMonthDaySlots(e, t) {
+  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
+    const n = no(e);
+    if (n && n.branding === _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainMonthDayBranding) {
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
+    }
+    const o = extractCalendarSlotFromBag(e);
+    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainMonthDayBag)(Qo(o || _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId), !o, e, t);
+  }
+  const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainMonthDay)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps, e);
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
+}
 
+function getOffsetNanosecondsForAdapter(e, t, n) {
+  return o = t.call(e, Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)(n))), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.validateTimeZoneOffset)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireInteger)(o));
+  var o;
+}
 
+function createAdapterOps(e, t = ho) {
+  const n = Object.keys(t).sort(), o = {};
+  for (const r of n) {
+    o[r] = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(t[r], e, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireFunction)(e[r]));
+  }
+  return o;
+}
 
+function createTimeZoneOps(e, t) {
+  return "string" == typeof e ? (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.queryNativeTimeZone)(e) : createAdapterOps(e, t);
+}
 
+function createTimeZoneOffsetOps(e) {
+  return createTimeZoneOps(e, Do);
+}
 
+function toInstantSlots(e) {
+  if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
+    const t = no(e);
+    if (t) {
+      switch (t.branding) {
+       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.InstantBranding:
+        return t;
 
-function getGradingStandards(contextId, contextType, config) {
-    return course_awaiter(this, void 0, void 0, function* () {
-        const url = `/api/v1/${contextType}s/${contextId}/grading_standards`;
-        return yield getPagedData(url, config);
-    });
+       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
+        return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)(t.epochNanoseconds);
+      }
+    }
+  }
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseInstant)(e);
 }
-function getCourseData(id, config) {
-    const url = `/api/v1/courses/${id}`;
-    return fetchJson_fetchJson(url, config);
+
+function toTemporalInstant() {
+  return Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.numberToBigNano)(this.valueOf(), _internal_js__WEBPACK_IMPORTED_MODULE_0__.nanoInMilli)));
 }
-function course_getCourseDataGenerator(queryString, accountIds, term, config) {
-    if (!Array.isArray(accountIds))
-        accountIds = [accountIds];
-    const defaultConfig = queryString ? {
-        queryParams: {
-            search_term: queryString,
-        }
-    } : {};
-    if (term && defaultConfig.queryParams)
-        defaultConfig.queryParams.enrollment_term_id = term.id;
-    config = overrideConfig(defaultConfig, config);
-    const generators = accountIds.map(accountId => {
-        let url = `/api/v1/accounts/${accountId}/courses`;
-        return getPagedDataGenerator(url, config);
-    });
-    return mergePagedDataGenerators(generators);
+
+function getImplTransition(e, t, n) {
+  const o = t.l(toInstantSlots(n).epochNanoseconds, e);
+  return o ? Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)(o)) : null;
 }
-function course_getCourseGenerator(queryString, accountIds, term, config) {
-    return generatorMap(course_getCourseDataGenerator(queryString, accountIds, term, config), courseData => new Course(courseData));
+
+function refineTimeZoneSlot(e) {
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e) ? (no(e) || {}).timeZone || Fo(e) : (e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.resolveTimeZoneId)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseTimeZoneId)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireString)(e))))(e);
 }
-function getSingleCourse(queryString, accountIds, term, config) {
-    return course_awaiter(this, void 0, void 0, function* () {
-        for (let accountId of accountIds) {
-            const courseDatas = yield fetchJson_fetchJson(`/api/v1/accounts/${accountId}/courses`, fetch_overrideConfig({ queryParams: { search_term: queryString } }, config));
-            if (courseDatas.length > 0)
-                return new Course_Course(courseDatas[0]);
-        }
-        return undefined;
-    });
+
+function toPlainTimeSlots(e, t) {
+  if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
+    const n = no(e) || {};
+    switch (n.branding) {
+     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainTimeBranding:
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
+
+     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding:
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainTimeSlots)(n);
+
+     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainTime)(createTimeZoneOffsetOps, n);
+    }
+    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainTimeBag)(e, t);
+  }
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainTime)(e);
 }
-function getCourseById(id, config) {
-    return course_awaiter(this, void 0, void 0, function* () {
-        return new Course_Course(yield fetchJson_fetchJson(`/api/v1/courses/${id}`, config));
-    });
+
+function optionalToPlainTimeFields(e) {
+  return void 0 === e ? void 0 : toPlainTimeSlots(e);
 }
-function createNewCourse(courseCode, accountId, name, config) {
-    return course_awaiter(this, void 0, void 0, function* () {
-        name !== null && name !== void 0 ? name : (name = courseCode);
-        const createUrl = `/api/v1/accounts/${accountId}/courses/`;
-        let createConfig = {
-            fetchInit: {
-                method: 'POST',
-                body: formDataify({
-                    course: {
-                        name,
-                        course_code: courseCode
-                    }
-                })
-            }
-        };
-        return yield fetchJson(createUrl, deepObjectMerge(createConfig, config, true));
-    });
+
+function toPlainYearMonthSlots(e, t) {
+  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
+    const n = no(e);
+    return n && n.branding === _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainYearMonthBranding ? ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n) : (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainYearMonthBag)(Ho(getCalendarSlotFromBag(e)), e, t);
+  }
+  const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainYearMonth)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps, e);
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
 }
-class CourseNotFoundException extends (/* unused pure expression or super */ null && (Error)) {
+
+function toPlainDateTimeSlots(e, t) {
+  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
+    const n = no(e) || {};
+    switch (n.branding) {
+     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding:
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
+
+     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding:
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)({
+        ...n,
+        ..._internal_js__WEBPACK_IMPORTED_MODULE_0__.isoTimeFieldDefaults
+      });
+
+     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainDateTime)(createTimeZoneOffsetOps, n);
+    }
+    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainDateTimeBag)(Ko(getCalendarSlotFromBag(e)), e, t);
+  }
+  const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainDateTime)(e);
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
 }
-function saveCourseData(courseId, data, config) {
-    return course_awaiter(this, void 0, void 0, function* () {
-        const url = `/api/v1/courses/${courseId}`;
-        return yield fetchJson(url, overrideConfig(config, {
-            fetchInit: {
-                method: 'PUT',
-                body: formDataify({ course: data })
-            }
+
+function toPlainDateSlots(e, t) {
+  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
+    const n = no(e) || {};
+    switch (n.branding) {
+     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding:
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
+
+     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding:
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n);
+
+     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainDate)(createTimeZoneOffsetOps, n);
+    }
+    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainDateBag)(Ko(getCalendarSlotFromBag(e)), e, t);
+  }
+  const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainDate)(e);
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
+}
+
+function dayAdapter(e, t, n) {
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger)(t.call(e, Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n, e))));
+}
+
+function createCompoundOpsCreator(e) {
+  return t => "string" == typeof t ? (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps)(t) : ((e, t) => {
+    const n = Object.keys(t).sort(), o = {};
+    for (const r of n) {
+      o[r] = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(t[r], e, e[r]);
+    }
+    return o;
+  })(t, e);
+}
+
+function toDurationSlots(e) {
+  if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
+    const t = no(e);
+    return t && t.branding === _internal_js__WEBPACK_IMPORTED_MODULE_0__.DurationBranding ? t : (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineDurationBag)(e);
+  }
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseDuration)(e);
+}
+
+function refinePublicRelativeTo(e) {
+  if (void 0 !== e) {
+    if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
+      const t = no(e) || {};
+      switch (t.branding) {
+       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
+       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding:
+        return t;
+
+       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding:
+        return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(t);
+      }
+      const n = getCalendarSlotFromBag(e);
+      return {
+        ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineMaybeZonedDateTimeBag)(refineTimeZoneSlot, createTimeZoneOps, Ko(n), e),
+        calendar: n
+      };
+    }
+    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseRelativeToSlots)(e);
+  }
+}
+
+function getCalendarSlotFromBag(e) {
+  return extractCalendarSlotFromBag(e) || _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId;
+}
+
+function extractCalendarSlotFromBag(e) {
+  const {calendar: t} = e;
+  if (void 0 !== t) {
+    return refineCalendarSlot(t);
+  }
+}
+
+function refineCalendarSlot(e) {
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e) ? (no(e) || {}).calendar || cr(e) : (e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.resolveCalendarId)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseCalendarId)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireString)(e))))(e);
+}
+
+function toZonedDateTimeSlots(e, t) {
+  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
+    const n = no(e);
+    if (n && n.branding === _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding) {
+      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineZonedFieldOptions)(t), n;
+    }
+    const o = getCalendarSlotFromBag(e);
+    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineZonedDateTimeBag)(refineTimeZoneSlot, createTimeZoneOps, Ko(o), o, e, t);
+  }
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseZonedDateTime)(e, t);
+}
+
+function adaptDateMethods(e) {
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapProps)((e => t => e(slotsToIso(t))), e);
+}
+
+function slotsToIso(e) {
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedEpochSlotsToIso)(e, createTimeZoneOffsetOps);
+}
+
+function createDateTimeFormatClass() {
+  const e = _internal_js__WEBPACK_IMPORTED_MODULE_0__.RawDateTimeFormat.prototype, t = Object.getOwnPropertyDescriptors(e), n = Object.getOwnPropertyDescriptors(_internal_js__WEBPACK_IMPORTED_MODULE_0__.RawDateTimeFormat), DateTimeFormat = function(e, t = {}) {
+    if (!(this instanceof DateTimeFormat)) {
+      return new DateTimeFormat(e, t);
+    }
+    Or.set(this, ((e, t = {}) => {
+      const n = new _internal_js__WEBPACK_IMPORTED_MODULE_0__.RawDateTimeFormat(e, t), o = n.resolvedOptions(), r = o.locale, a = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.pluckProps)(Object.keys(t), o), i = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.memoize)(createFormatPrepperForBranding), prepFormat = (...e) => {
+        let t;
+        const o = e.map(((e, n) => {
+          const o = no(e), r = (o || {}).branding;
+          if (n && t && t !== r) {
+            throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.mismatchingFormatTypes);
+          }
+          return t = r, o;
         }));
+        return t ? i(t)(r, a, ...o) : [ n, ...e ];
+      };
+      return prepFormat.u = n, prepFormat;
+    })(e, t));
+  };
+  for (const e in t) {
+    const n = t[e], o = e.startsWith("format") && createFormatMethod(e);
+    "function" == typeof n.value ? n.value = "constructor" === e ? DateTimeFormat : o || createProxiedMethod(e) : o && (n.get = function() {
+      return o.bind(this);
     });
-}
-function setGradingStandardForCourse(courseId, standardId, config) {
-    return course_awaiter(this, void 0, void 0, function* () {
-        return yield saveCourseData(courseId, { grading_standard_id: standardId });
-    });
-}
-function getCourseName(data) {
-    var _a;
-    const [full, withoutCode] = (_a = /[^:]*:\s*(.*)/.exec(data.name)) !== null && _a !== void 0 ? _a : [];
-    if (withoutCode)
-        return withoutCode;
-    return data.name;
+  }
+  return n.prototype.value = Object.create(e, t), Object.defineProperties(DateTimeFormat, n), 
+  DateTimeFormat;
 }
 
-;// CONCATENATED MODULE: ./src/canvas/course/code.ts
+function createFormatMethod(e) {
+  return function(...t) {
+    const n = Or.get(this), [o, ...r] = n(...t);
+    return o[e](...r);
+  };
+}
 
-function parseCourseCode(code) {
-    let match = COURSE_CODE_REGEX.exec(code);
-    if (!match)
-        return null;
-    let prefix = match[1] || "";
-    let courseCode = match[2] || "";
-    if (prefix.length > 0) {
-        return `${prefix}_${courseCode}`;
+function createProxiedMethod(e) {
+  return function(...t) {
+    return Or.get(this).u[e](...t);
+  };
+}
+
+function createFormatPrepperForBranding(t) {
+  const n = xn[t];
+  if (!n) {
+    throw new TypeError((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidFormatType)(t));
+  }
+  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(n, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.memoize)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatForPrep));
+}
+
+
+
+const xn = {
+  Instant: _internal_js__WEBPACK_IMPORTED_MODULE_0__.instantConfig,
+  PlainDateTime: _internal_js__WEBPACK_IMPORTED_MODULE_0__.dateTimeConfig,
+  PlainDate: _internal_js__WEBPACK_IMPORTED_MODULE_0__.dateConfig,
+  PlainTime: _internal_js__WEBPACK_IMPORTED_MODULE_0__.timeConfig,
+  PlainYearMonth: _internal_js__WEBPACK_IMPORTED_MODULE_0__.yearMonthConfig,
+  PlainMonthDay: _internal_js__WEBPACK_IMPORTED_MODULE_0__.monthDayConfig
+}, Rn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.instantConfig), Wn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedConfig), Gn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.dateTimeConfig), Un = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.dateConfig), zn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.timeConfig), Hn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.yearMonthConfig), Kn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.monthDayConfig), Qn = {
+  era: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireStringOrUndefined,
+  eraYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireIntegerOrUndefined,
+  year: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireInteger,
+  month: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
+  daysInMonth: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
+  daysInYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
+  inLeapYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireBoolean,
+  monthsInYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger
+}, Xn = {
+  monthCode: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireString
+}, $n = {
+  day: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger
+}, _n = {
+  dayOfWeek: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
+  dayOfYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
+  weekOfYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveIntegerOrUndefined,
+  yearOfWeek: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireIntegerOrUndefined,
+  daysInWeek: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger
+}, eo = /*@__PURE__*/ Object.assign({}, Qn, Xn, $n, _n), to = /*@__PURE__*/ new WeakMap, no = /*@__PURE__*/ to.get.bind(to), oo = /*@__PURE__*/ to.set.bind(to), ro = {
+  ...createCalendarFieldMethods(Qn, [ _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainYearMonthBranding ]),
+  ...createCalendarFieldMethods(_n, []),
+  ...createCalendarFieldMethods(Xn, [ _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainYearMonthBranding, _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainMonthDayBranding ]),
+  ...createCalendarFieldMethods($n, [ _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainMonthDayBranding ])
+}, ao = /*@__PURE__*/ createCalendarGetters(eo), io = /*@__PURE__*/ createCalendarGetters({
+  ...Qn,
+  ...Xn
+}), so = /*@__PURE__*/ createCalendarGetters({
+  ...Xn,
+  ...$n
+}), lo = {
+  calendarId: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getId)(e.calendar)
+}, co = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapProps)(((e, t) => function(n) {
+  const {i: o} = this;
+  return e(o[t](Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n, o))));
+}), eo), uo = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapPropNames)((e => t => t[e]), _internal_js__WEBPACK_IMPORTED_MODULE_0__.durationFieldNamesAsc.concat("sign")), fo = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapPropNames)(((e, t) => e => e[_internal_js__WEBPACK_IMPORTED_MODULE_0__.isoTimeFieldNamesAsc[t]]), _internal_js__WEBPACK_IMPORTED_MODULE_0__.timeFieldNamesAsc), mo = {
+  epochSeconds: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getEpochSec,
+  epochMilliseconds: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getEpochMilli,
+  epochMicroseconds: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getEpochMicro,
+  epochNanoseconds: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getEpochNano
+}, So = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.excludePropsByName, new Set([ "branding" ])), [Oo, To, po] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainMonthDayBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainMonthDaySlots, refineCalendarSlot), {
+  ...lo,
+  ...so
+}, {
+  getISOFields: So,
+  getCalendar: createCalendarFromSlots,
+  with(e, t, n) {
+    return To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainMonthDayWithFields)(_o, e, this, rejectInvalidBag(t), n));
+  },
+  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainMonthDaysEqual)(e, toPlainMonthDaySlots(t)),
+  toPlainDate(e, t) {
+    return Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainMonthDayToPlainDate)($o, e, this, t));
+  },
+  toLocaleString(e, t, n) {
+    const [o, r] = Kn(t, n, e);
+    return o.format(r);
+  },
+  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainMonthDayIso,
+  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainMonthDayIso)(e),
+  valueOf: neverValueOf
+}, {
+  from: (e, t) => To(toPlainMonthDaySlots(e, t))
+}), ho = {
+  getOffsetNanosecondsFor: getOffsetNanosecondsForAdapter,
+  getPossibleInstantsFor(e, t, n) {
+    const o = [ ...t.call(e, No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)(n, _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId))) ].map((e => go(e).epochNanoseconds)), r = o.length;
+    return r > 1 && (o.sort(_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareBigNanos), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.validateTimeZoneGap)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bigNanoToNumber)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffBigNanos)(o[0], o[r - 1])))), o;
+  }
+}, Do = {
+  getOffsetNanosecondsFor: getOffsetNanosecondsForAdapter
+}, [Po, Co, go] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.InstantBranding, _internal_js__WEBPACK_IMPORTED_MODULE_0__.constructInstantSlots, mo, {
+  add: (e, t) => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.moveInstant)(0, e, toDurationSlots(t))),
+  subtract: (e, t) => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.moveInstant)(1, e, toDurationSlots(t))),
+  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffInstants)(0, e, toInstantSlots(t), n)),
+  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffInstants)(1, e, toInstantSlots(t), n)),
+  round: (e, t) => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundInstant)(e, t)),
+  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.instantsEqual)(e, toInstantSlots(t)),
+  toZonedDateTime(e, t) {
+    const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireObjectLike)(t);
+    return dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.instantToZonedDateTime)(e, refineTimeZoneSlot(n.timeZone), refineCalendarSlot(n.calendar)));
+  },
+  toZonedDateTimeISO: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.instantToZonedDateTime)(e, refineTimeZoneSlot(t))),
+  toLocaleString(e, t, n) {
+    const [o, r] = Rn(t, n, e);
+    return o.format(r);
+  },
+  toString: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatInstantIso)(refineTimeZoneSlot, createTimeZoneOffsetOps, e, t),
+  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatInstantIso)(refineTimeZoneSlot, createTimeZoneOffsetOps, e),
+  valueOf: neverValueOf
+}, {
+  from: e => Co(toInstantSlots(e)),
+  fromEpochSeconds: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochSecToInstant)(e)),
+  fromEpochMilliseconds: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochMilliToInstant)(e)),
+  fromEpochMicroseconds: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochMicroToInstant)(e)),
+  fromEpochNanoseconds: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochNanoToInstant)(e)),
+  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareInstants)(toInstantSlots(e), toInstantSlots(t))
+}), [Zo, bo] = createSlotClass("TimeZone", (e => {
+  const t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineTimeZoneId)(e);
+  return {
+    branding: "TimeZone",
+    id: t,
+    o: (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.queryNativeTimeZone)(t)
+  };
+}), {
+  id: e => e.id
+}, {
+  getPossibleInstantsFor: ({o: e}, t) => e.getPossibleInstantsFor(toPlainDateTimeSlots(t)).map((e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)(e)))),
+  getOffsetNanosecondsFor: ({o: e}, t) => e.getOffsetNanosecondsFor(toInstantSlots(t).epochNanoseconds),
+  getOffsetStringFor(e, t) {
+    const n = toInstantSlots(t).epochNanoseconds, o = createAdapterOps(this, Do).getOffsetNanosecondsFor(n);
+    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatOffsetNano)(o);
+  },
+  getPlainDateTimeFor(e, t, n = _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId) {
+    const o = toInstantSlots(t).epochNanoseconds, r = createAdapterOps(this, Do).getOffsetNanosecondsFor(o);
+    return No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochNanoToIso)(o, r), refineCalendarSlot(n)));
+  },
+  getInstantFor(e, t, n) {
+    const o = toPlainDateTimeSlots(t), r = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineEpochDisambigOptions)(n), a = createAdapterOps(this);
+    return Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getSingleInstantFor)(a, o, r)));
+  },
+  getNextTransition: ({o: e}, t) => getImplTransition(1, e, t),
+  getPreviousTransition: ({o: e}, t) => getImplTransition(-1, e, t),
+  equals(e, t) {
+    return !!(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isTimeZoneSlotsEqual)(this, refineTimeZoneSlot(t));
+  },
+  toString: e => e.id,
+  toJSON: e => e.id
+}, {
+  from(e) {
+    const t = refineTimeZoneSlot(e);
+    return "string" == typeof t ? new Zo(t) : t;
+  }
+}), Fo = /*@__PURE__*/ createProtocolValidator(Object.keys(ho)), [Io, vo] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainTimeBranding, _internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainTimeSlots, fo, {
+  getISOFields: So,
+  with(e, t, n) {
+    return vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainTimeWithFields)(this, rejectInvalidBag(t), n));
+  },
+  add: (e, t) => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainTime)(0, e, toDurationSlots(t))),
+  subtract: (e, t) => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainTime)(1, e, toDurationSlots(t))),
+  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainTimes)(0, e, toPlainTimeSlots(t), n)),
+  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainTimes)(1, e, toPlainTimeSlots(t), n)),
+  round: (e, t) => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundPlainTime)(e, t)),
+  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainTimesEqual)(e, toPlainTimeSlots(t)),
+  toZonedDateTime: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainTimeToZonedDateTime)(refineTimeZoneSlot, toPlainDateSlots, createTimeZoneOps, e, t)),
+  toPlainDateTime: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainTimeToPlainDateTime)(e, toPlainDateSlots(t))),
+  toLocaleString(e, t, n) {
+    const [o, r] = zn(t, n, e);
+    return o.format(r);
+  },
+  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainTimeIso,
+  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainTimeIso)(e),
+  valueOf: neverValueOf
+}, {
+  from: (e, t) => vo(toPlainTimeSlots(e, t)),
+  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareIsoTimeFields)(toPlainTimeSlots(e), toPlainTimeSlots(t))
+}), [wo, jo, Mo] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainYearMonthBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainYearMonthSlots, refineCalendarSlot), {
+  ...lo,
+  ...io
+}, {
+  getISOFields: So,
+  getCalendar: createCalendarFromSlots,
+  with(e, t, n) {
+    return jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainYearMonthWithFields)(Xo, e, this, rejectInvalidBag(t), n));
+  },
+  add: (e, t, n) => jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainYearMonth)(nr, 0, e, toDurationSlots(t), n)),
+  subtract: (e, t, n) => jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainYearMonth)(nr, 1, e, toDurationSlots(t), n)),
+  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainYearMonth)(or, 0, e, toPlainYearMonthSlots(t), n)),
+  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainYearMonth)(or, 1, e, toPlainYearMonthSlots(t), n)),
+  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainYearMonthsEqual)(e, toPlainYearMonthSlots(t)),
+  toPlainDate(e, t) {
+    return Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainYearMonthToPlainDate)($o, e, this, t));
+  },
+  toLocaleString(e, t, n) {
+    const [o, r] = Hn(t, n, e);
+    return o.format(r);
+  },
+  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainYearMonthIso,
+  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainYearMonthIso)(e),
+  valueOf: neverValueOf
+}, {
+  from: (e, t) => jo(toPlainYearMonthSlots(e, t)),
+  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareIsoDateFields)(toPlainYearMonthSlots(e), toPlainYearMonthSlots(t))
+}), [yo, No] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainDateTimeSlots, refineCalendarSlot), {
+  ...lo,
+  ...ao,
+  ...fo
+}, {
+  getISOFields: So,
+  getCalendar: createCalendarFromSlots,
+  with(e, t, n) {
+    return No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeWithFields)($o, e, this, rejectInvalidBag(t), n));
+  },
+  withCalendar: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.slotsWithCalendar)(e, refineCalendarSlot(t))),
+  withPlainDate: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeWithPlainDate)(e, toPlainDateSlots(t))),
+  withPlainTime: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeWithPlainTime)(e, optionalToPlainTimeFields(t))),
+  add: (e, t, n) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainDateTime)(er, 0, e, toDurationSlots(t), n)),
+  subtract: (e, t, n) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainDateTime)(er, 1, e, toDurationSlots(t), n)),
+  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainDateTimes)(tr, 0, e, toPlainDateTimeSlots(t), n)),
+  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainDateTimes)(tr, 1, e, toPlainDateTimeSlots(t), n)),
+  round: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundPlainDateTime)(e, t)),
+  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimesEqual)(e, toPlainDateTimeSlots(t)),
+  toZonedDateTime: (e, t, n) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeToZonedDateTime)(createTimeZoneOps, e, refineTimeZoneSlot(t), n)),
+  toPlainDate: e => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(e)),
+  toPlainTime: e => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainTimeSlots)(e)),
+  toPlainYearMonth(e) {
+    return jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeToPlainYearMonth)(Ho, e, this));
+  },
+  toPlainMonthDay(e) {
+    return To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeToPlainMonthDay)(Qo, e, this));
+  },
+  toLocaleString(e, t, n) {
+    const [o, r] = Gn(t, n, e);
+    return o.format(r);
+  },
+  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainDateTimeIso,
+  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainDateTimeIso)(e),
+  valueOf: neverValueOf
+}, {
+  from: (e, t) => No(toPlainDateTimeSlots(e, t)),
+  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareIsoDateTimeFields)(toPlainDateTimeSlots(e), toPlainDateTimeSlots(t))
+}), [Bo, Yo, Ao] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainDateSlots, refineCalendarSlot), {
+  ...lo,
+  ...ao
+}, {
+  getISOFields: So,
+  getCalendar: createCalendarFromSlots,
+  with(e, t, n) {
+    return Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateWithFields)($o, e, this, rejectInvalidBag(t), n));
+  },
+  withCalendar: (e, t) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.slotsWithCalendar)(e, refineCalendarSlot(t))),
+  add: (e, t, n) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainDate)(er, 0, e, toDurationSlots(t), n)),
+  subtract: (e, t, n) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainDate)(er, 1, e, toDurationSlots(t), n)),
+  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainDates)(tr, 0, e, toPlainDateSlots(t), n)),
+  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainDates)(tr, 1, e, toPlainDateSlots(t), n)),
+  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDatesEqual)(e, toPlainDateSlots(t)),
+  toZonedDateTime(e, t) {
+    const n = !(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(t) || t instanceof Zo ? {
+      timeZone: t
+    } : t;
+    return dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateToZonedDateTime)(refineTimeZoneSlot, toPlainTimeSlots, createTimeZoneOps, e, n));
+  },
+  toPlainDateTime: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateToPlainDateTime)(e, optionalToPlainTimeFields(t))),
+  toPlainYearMonth(e) {
+    return jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateToPlainYearMonth)(Ho, e, this));
+  },
+  toPlainMonthDay(e) {
+    return To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateToPlainMonthDay)(Qo, e, this));
+  },
+  toLocaleString(e, t, n) {
+    const [o, r] = Un(t, n, e);
+    return o.format(r);
+  },
+  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainDateIso,
+  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainDateIso)(e),
+  valueOf: neverValueOf
+}, {
+  from: (e, t) => Yo(toPlainDateSlots(e, t)),
+  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareIsoDateFields)(toPlainDateSlots(e), toPlainDateSlots(t))
+}), Eo = {
+  fields(e, t, n) {
+    return [ ...t.call(e, n) ];
+  }
+}, Vo = /*@__PURE__*/ Object.assign({
+  dateFromFields(e, t, n, o) {
+    return Ao(t.call(e, Object.assign(Object.create(null), n), o));
+  }
+}, Eo), Jo = /*@__PURE__*/ Object.assign({
+  yearMonthFromFields(e, t, n, o) {
+    return Mo(t.call(e, Object.assign(Object.create(null), n), o));
+  }
+}, Eo), Lo = /*@__PURE__*/ Object.assign({
+  monthDayFromFields(e, t, n, o) {
+    return po(t.call(e, Object.assign(Object.create(null), n), o));
+  }
+}, Eo), qo = {
+  mergeFields(e, t, n, o) {
+    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireObjectLike)(t.call(e, Object.assign(Object.create(null), n), Object.assign(Object.create(null), o)));
+  }
+}, ko = /*@__PURE__*/ Object.assign({}, Vo, qo), xo = /*@__PURE__*/ Object.assign({}, Jo, qo), Ro = /*@__PURE__*/ Object.assign({}, Lo, qo), Wo = {
+  dateAdd(e, t, n, o, r) {
+    return Ao(t.call(e, Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n, e)), ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createDurationSlots)(o)), r));
+  }
+}, Go = /*@__PURE__*/ Object.assign({}, Wo, {
+  dateUntil(e, t, n, o, r, a) {
+    return ir(t.call(e, Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n, e)), Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(o, e)), Object.assign(Object.create(null), a, {
+      largestUnit: _internal_js__WEBPACK_IMPORTED_MODULE_0__.unitNamesAsc[r]
+    })));
+  }
+}), Uo = /*@__PURE__*/ Object.assign({}, Wo, {
+  day: dayAdapter
+}), zo = /*@__PURE__*/ Object.assign({}, Go, {
+  day: dayAdapter
+}), Ho = /*@__PURE__*/ createCompoundOpsCreator(Jo), Ko = /*@__PURE__*/ createCompoundOpsCreator(Vo), Qo = /*@__PURE__*/ createCompoundOpsCreator(Lo), Xo = /*@__PURE__*/ createCompoundOpsCreator(xo), $o = /*@__PURE__*/ createCompoundOpsCreator(ko), _o = /*@__PURE__*/ createCompoundOpsCreator(Ro), er = /*@__PURE__*/ createCompoundOpsCreator(Wo), tr = /*@__PURE__*/ createCompoundOpsCreator(Go), nr = /*@__PURE__*/ createCompoundOpsCreator(Uo), or = /*@__PURE__*/ createCompoundOpsCreator(zo), [rr, ar, ir] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.DurationBranding, _internal_js__WEBPACK_IMPORTED_MODULE_0__.constructDurationSlots, {
+  ...uo,
+  blank: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getDurationBlank
+}, {
+  with: (e, t) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.durationWithFields)(e, t)),
+  negated: e => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.negateDuration)(e)),
+  abs: e => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.absDuration)(e)),
+  add: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.addDurations)(refinePublicRelativeTo, tr, createTimeZoneOps, 0, e, toDurationSlots(t), n)),
+  subtract: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.addDurations)(refinePublicRelativeTo, tr, createTimeZoneOps, 1, e, toDurationSlots(t), n)),
+  round: (e, t) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundDuration)(refinePublicRelativeTo, tr, createTimeZoneOps, e, t)),
+  total: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.totalDuration)(refinePublicRelativeTo, tr, createTimeZoneOps, e, t),
+  toLocaleString(e, t, n) {
+    return Intl.DurationFormat ? new Intl.DurationFormat(t, n).format(this) : (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatDurationIso)(e);
+  },
+  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatDurationIso,
+  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatDurationIso)(e),
+  valueOf: neverValueOf
+}, {
+  from: e => ar(toDurationSlots(e)),
+  compare: (e, t, n) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareDurations)(refinePublicRelativeTo, er, createTimeZoneOps, toDurationSlots(e), toDurationSlots(t), n)
+}), sr = {
+  toString: e => e.id,
+  toJSON: e => e.id,
+  ...ro,
+  dateAdd: ({id: e, o: t}, n, o, r) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(t.dateAdd(toPlainDateSlots(n), toDurationSlots(o), r), e)),
+  dateUntil: ({o: e}, t, n, o) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createDurationSlots)(e.dateUntil(toPlainDateSlots(t), toPlainDateSlots(n), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineDateDiffOptions)(o)))),
+  dateFromFields: ({id: e, o: t}, n, o) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainDateBag)(t, n, o, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getRequiredDateFields)(e))),
+  yearMonthFromFields: ({id: e, o: t}, n, o) => jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainYearMonthBag)(t, n, o, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getRequiredYearMonthFields)(e))),
+  monthDayFromFields: ({id: e, o: t}, n, o) => To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainMonthDayBag)(t, 0, n, o, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getRequiredMonthDayFields)(e))),
+  fields({o: e}, t) {
+    const n = new Set(_internal_js__WEBPACK_IMPORTED_MODULE_0__.dateFieldNamesAlpha), o = [];
+    for (const e of t) {
+      if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireString)(e), !n.has(e)) {
+        throw new RangeError((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.forbiddenField)(e));
+      }
+      n.delete(e), o.push(e);
     }
-    return courseCode;
-}
-function code_baseCourseCode(code) {
-    let match = COURSE_CODE_REGEX.exec(code);
-    if (!match)
-        return null;
-    return match[2];
-}
-function stringIsCourseCode(code) {
-    return COURSE_CODE_REGEX.exec(code);
-}
-class code_MalformedCourseCodeError extends Error {
-    constructor(courseCode, message, options) {
-        if (!message)
-            message = `${courseCode} is not a valid course code`;
-        super(message, options);
-        this.name = "MalformedCourseCodeError";
-        this.courseCode = courseCode;
-    }
-}
+    return e.fields(o);
+  },
+  mergeFields: ({o: e}, t, n) => e.mergeFields((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.excludeUndefinedProps)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireNonNullish)(t)), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.excludeUndefinedProps)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireNonNullish)(n)))
+}, [lr] = createSlotClass("Calendar", (e => {
+  const t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineCalendarId)(e);
+  return {
+    branding: "Calendar",
+    id: t,
+    o: (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps)(t)
+  };
+}), {
+  id: e => e.id
+}, sr, {
+  from(e) {
+    const t = refineCalendarSlot(e);
+    return "string" == typeof t ? new lr(t) : t;
+  }
+}), cr = /*@__PURE__*/ createProtocolValidator(Object.keys(sr).slice(4)), [ur, dr] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructZonedDateTimeSlots, refineCalendarSlot, refineTimeZoneSlot), {
+  ...mo,
+  ...lo,
+  ...adaptDateMethods(ao),
+  ...adaptDateMethods(fo),
+  offset: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatOffsetNano)(slotsToIso(e).offsetNanoseconds),
+  offsetNanoseconds: e => slotsToIso(e).offsetNanoseconds,
+  timeZoneId: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getId)(e.timeZone),
+  hoursInDay: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.computeZonedHoursInDay)(createTimeZoneOps, e)
+}, {
+  getISOFields: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.buildZonedIsoFields)(createTimeZoneOffsetOps, e),
+  getCalendar: createCalendarFromSlots,
+  getTimeZone: ({timeZone: e}) => "string" == typeof e ? new Zo(e) : e,
+  with(e, t, n) {
+    return dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeWithFields)($o, createTimeZoneOps, e, this, rejectInvalidBag(t), n));
+  },
+  withCalendar: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.slotsWithCalendar)(e, refineCalendarSlot(t))),
+  withTimeZone: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.slotsWithTimeZone)(e, refineTimeZoneSlot(t))),
+  withPlainDate: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeWithPlainDate)(createTimeZoneOps, e, toPlainDateSlots(t))),
+  withPlainTime: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeWithPlainTime)(createTimeZoneOps, e, optionalToPlainTimeFields(t))),
+  add: (e, t, n) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.moveZonedDateTime)(er, createTimeZoneOps, 0, e, toDurationSlots(t), n)),
+  subtract: (e, t, n) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.moveZonedDateTime)(er, createTimeZoneOps, 1, e, toDurationSlots(t), n)),
+  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createDurationSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffZonedDateTimes)(tr, createTimeZoneOps, 0, e, toZonedDateTimeSlots(t), n))),
+  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createDurationSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffZonedDateTimes)(tr, createTimeZoneOps, 1, e, toZonedDateTimeSlots(t), n))),
+  round: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundZonedDateTime)(createTimeZoneOps, e, t)),
+  startOfDay: e => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.computeZonedStartOfDay)(createTimeZoneOps, e)),
+  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimesEqual)(e, toZonedDateTimeSlots(t)),
+  toInstant: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToInstant)(e)),
+  toPlainDateTime: e => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainDateTime)(createTimeZoneOffsetOps, e)),
+  toPlainDate: e => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainDate)(createTimeZoneOffsetOps, e)),
+  toPlainTime: e => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainTime)(createTimeZoneOffsetOps, e)),
+  toPlainYearMonth(e) {
+    return jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainYearMonth)(Ho, e, this));
+  },
+  toPlainMonthDay(e) {
+    return To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainMonthDay)(Qo, e, this));
+  },
+  toLocaleString(e, t, n = {}) {
+    const [o, r] = Wn(t, n, e);
+    return o.format(r);
+  },
+  toString: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatZonedDateTimeIso)(createTimeZoneOffsetOps, e, t),
+  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatZonedDateTimeIso)(createTimeZoneOffsetOps, e),
+  valueOf: neverValueOf
+}, {
+  from: (e, t) => dr(toZonedDateTimeSlots(e, t)),
+  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareZonedDateTimes)(toZonedDateTimeSlots(e), toZonedDateTimeSlots(t))
+}), fr = /*@__PURE__*/ Object.defineProperties({}, {
+  ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createStringTagDescriptors)("Temporal.Now"),
+  ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)({
+    timeZoneId: () => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)(),
+    instant: () => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentEpochNano)())),
+    zonedDateTime: (e, t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createZonedDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentEpochNano)(), refineTimeZoneSlot(t), refineCalendarSlot(e))),
+    zonedDateTimeISO: (e = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createZonedDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentEpochNano)(), refineTimeZoneSlot(e), _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId)),
+    plainDateTime: (e, t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(t))), refineCalendarSlot(e))),
+    plainDateTimeISO: (e = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(e))), _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId)),
+    plainDate: (e, t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(t))), refineCalendarSlot(e))),
+    plainDateISO: (e = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(e))), _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId)),
+    plainTimeISO: (e = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(e)))))
+  })
+}), mr = /*@__PURE__*/ Object.defineProperties({}, {
+  ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createStringTagDescriptors)("Temporal"),
+  ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)({
+    PlainYearMonth: wo,
+    PlainMonthDay: Oo,
+    PlainDate: Bo,
+    PlainTime: Io,
+    PlainDateTime: yo,
+    ZonedDateTime: ur,
+    Instant: Po,
+    Calendar: lr,
+    TimeZone: Zo,
+    Duration: rr,
+    Now: fr
+  })
+}), Sr = /*@__PURE__*/ createDateTimeFormatClass(), Or = /*@__PURE__*/ new WeakMap, Tr = /*@__PURE__*/ Object.defineProperties(Object.create(Intl), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)({
+  DateTimeFormat: Sr
+}));
 
-;// CONCATENATED MODULE: ./src/canvas/course/blueprint.ts
-var blueprint_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
+/***/ }),
 
+/***/ "./node_modules/temporal-polyfill/chunks/internal.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/temporal-polyfill/chunks/internal.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-
-
-
-function isBlueprint({ blueprint }) {
-    return !!blueprint;
-}
-//W
-function genBlueprintDataForCode(courseCode, accountIds, queryParams) {
-    if (!courseCode) {
-        console.warn("Course code not present");
-        return null;
-    }
-    const baseCode = baseCourseCode(courseCode);
-    if (!baseCode) {
-        console.warn(`Code ${courseCode} invalid`);
-        return null;
-    }
-    const courseGen = getCourseDataGenerator(baseCode, accountIds, undefined, fetchGetConfig({
-        blueprint: true,
-        include: ['concluded'],
-    }, { queryParams }));
-    return courseGen;
-}
-function getSections(courseId, config) {
-    return blueprint_awaiter(this, void 0, void 0, function* () {
-        return (yield fetch_renderAsyncGen(sectionDataGenerator(courseId, config))).map(section => new Course_Course(section));
-    });
-}
-function sectionDataGenerator(courseId, config) {
-    const url = `/api/v1/courses/${courseId}/blueprint_templates/default/associated_courses`;
-    return getPagedDataGenerator_getPagedDataGenerator(url, fetch_fetchGetConfig({ per_page: 50 }, config));
-}
-function cachedGetAssociatedCoursesFunc(course) {
-    let cache = null;
-    return (...args_1) => blueprint_awaiter(this, [...args_1], void 0, function* (redownload = false) {
-        if (!redownload && cache)
-            return cache;
-        cache = yield getSections(course.id);
-        return cache;
-    });
-}
-function getTermNameFromSections(sections) {
-    return blueprint_awaiter(this, void 0, void 0, function* () {
-        const [section] = sections;
-        if (!section)
-            throw new Error("Cannot determine term name by sections; there are no sections.");
-        const sectionTerm = yield section.getTerm();
-        if (!sectionTerm)
-            throw new Error("Section does not have associated term: " + section.name);
-        return sectionTerm.name;
-    });
-}
-function retireBlueprint(course, termName, config) {
-    return blueprint_awaiter(this, void 0, void 0, function* () {
-        var _a;
-        if (!course.parsedCourseCode)
-            throw new MalformedCourseCodeError(course.courseCode);
-        const isCurrentBlueprint = (_a = course.parsedCourseCode) === null || _a === void 0 ? void 0 : _a.match('BP_');
-        if (!isCurrentBlueprint)
-            throw new NotABlueprintError("This blueprint is not named BP_; are you trying to retire a retired blueprint?");
-        const newCode = `BP-${termName}_${course.baseCode}`;
-        const saveData = {};
-        saveData[Course.nameProperty] = course.name.replace(course.parsedCourseCode, newCode);
-        saveData['course_code'] = newCode;
-        yield course.saveData({
-            course: saveData
-        }, config);
-    });
-}
-function beginBpSync(courseId_1, _a) {
-    return blueprint_awaiter(this, arguments, void 0, function* (courseId, { message, copy_settings, config }) {
-        const url = `/api/v1/courses/${courseId}/blueprint_templates/default/migrations`;
-        if (typeof copy_settings === 'undefined')
-            copy_settings = true;
-        const result = yield fetchJson(url, apiWriteConfig('POST', {
-            message,
-            copy_settings
-        }, config));
-    });
-}
-function getBlueprintsFromCode(code, accountIds, config) {
-    return blueprint_awaiter(this, void 0, void 0, function* () {
-        const [_, baseCode] = code.match(/_(\w{4}\d{3})$/) || [];
-        if (!baseCode)
-            return null;
-        const bps = getCourseGenerator(`BP_${baseCode}`, accountIds, undefined, config);
-        return (yield renderAsyncGen(bps)).toSorted((a, b) => b.name.length - a.name.length);
-    });
-}
-function lockBlueprint(courseId, modules) {
-    return blueprint_awaiter(this, void 0, void 0, function* () {
-        let items = [];
-        items = items.concat(...modules.map(a => [].concat(...a.items)));
-        const promises = items.map((item) => blueprint_awaiter(this, void 0, void 0, function* () {
-            const url = `/api/v1/courses/${courseId}/blueprint_templates/default/restrict_item`;
-            let { type, id } = yield getItemTypeAndId(item);
-            if (typeof id === 'undefined')
-                return;
-            let body = {
-                "content_type": type,
-                "content_id": id,
-                "restricted": true,
-                "_method": 'PUT'
-            };
-            yield fetchJson(url, {
-                fetchInit: {
-                    method: 'PUT',
-                    body: formDataify(body)
-                }
-            });
-        }));
-        yield Promise.all(promises);
-    });
-}
-function setAsBlueprint(courseId, config) {
-    return blueprint_awaiter(this, void 0, void 0, function* () {
-        const url = `/api/v1/courses/${courseId}`;
-        const payload = {
-            course: {
-                blueprint: true,
-                use_blueprint_restrictions_by_object_type: 0,
-                blueprint_restrictions: {
-                    content: 1,
-                    points: 1,
-                    due_dates: 1,
-                    availability_dates: 1,
-                }
-            }
-        };
-        return yield fetchJson(url, apiWriteConfig('PUT', payload, config));
-    });
-}
-function unSetAsBlueprint(courseId, config) {
-    return blueprint_awaiter(this, void 0, void 0, function* () {
-        const url = `/api/v1/courses/${courseId}`;
-        const payload = {
-            course: {
-                blueprint: false
-            }
-        };
-        return yield fetchJson(url, apiWriteConfig("PUT", payload, config));
-    });
-}
-class NotABlueprintError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "NotABlueprintError";
-    }
-}
-
-;// CONCATENATED MODULE: ./node_modules/temporal-polyfill/chunks/internal.js
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DurationBranding: () => (/* binding */ qt),
+/* harmony export */   InstantBranding: () => (/* binding */ Oe),
+/* harmony export */   PlainDateBranding: () => (/* binding */ J),
+/* harmony export */   PlainDateTimeBranding: () => (/* binding */ We),
+/* harmony export */   PlainMonthDayBranding: () => (/* binding */ q),
+/* harmony export */   PlainTimeBranding: () => (/* binding */ xe),
+/* harmony export */   PlainYearMonthBranding: () => (/* binding */ L),
+/* harmony export */   RawDateTimeFormat: () => (/* binding */ En),
+/* harmony export */   ZonedDateTimeBranding: () => (/* binding */ Te),
+/* harmony export */   absDuration: () => (/* binding */ Rt),
+/* harmony export */   addDurations: () => (/* binding */ Wt),
+/* harmony export */   bigNanoToNumber: () => (/* binding */ oe),
+/* harmony export */   bindArgs: () => (/* binding */ E),
+/* harmony export */   buildZonedIsoFields: () => (/* binding */ mn),
+/* harmony export */   compareBigNanos: () => (/* binding */ te),
+/* harmony export */   compareDurations: () => (/* binding */ $t),
+/* harmony export */   compareInstants: () => (/* binding */ Ze),
+/* harmony export */   compareIsoDateFields: () => (/* binding */ rt),
+/* harmony export */   compareIsoDateTimeFields: () => (/* binding */ gt),
+/* harmony export */   compareIsoTimeFields: () => (/* binding */ He),
+/* harmony export */   compareZonedDateTimes: () => (/* binding */ yn),
+/* harmony export */   computeZonedHoursInDay: () => (/* binding */ dn),
+/* harmony export */   computeZonedStartOfDay: () => (/* binding */ Cn),
+/* harmony export */   constructDurationSlots: () => (/* binding */ Lt),
+/* harmony export */   constructInstantSlots: () => (/* binding */ Se),
+/* harmony export */   constructPlainDateSlots: () => (/* binding */ Nt),
+/* harmony export */   constructPlainDateTimeSlots: () => (/* binding */ pt),
+/* harmony export */   constructPlainMonthDaySlots: () => (/* binding */ G),
+/* harmony export */   constructPlainTimeSlots: () => (/* binding */ ke),
+/* harmony export */   constructPlainYearMonthSlots: () => (/* binding */ tt),
+/* harmony export */   constructZonedDateTimeSlots: () => (/* binding */ vn),
+/* harmony export */   copyOptions: () => (/* binding */ U),
+/* harmony export */   createDurationSlots: () => (/* binding */ Vt),
+/* harmony export */   createFormatForPrep: () => (/* binding */ qn),
+/* harmony export */   createFormatPrepper: () => (/* binding */ e),
+/* harmony export */   createGetterDescriptors: () => (/* binding */ O),
+/* harmony export */   createInstantSlots: () => (/* binding */ _),
+/* harmony export */   createNameDescriptors: () => (/* binding */ D),
+/* harmony export */   createNativeStandardOps: () => (/* binding */ Y),
+/* harmony export */   createPlainDateSlots: () => (/* binding */ v),
+/* harmony export */   createPlainDateTimeSlots: () => (/* binding */ ee),
+/* harmony export */   createPlainTimeSlots: () => (/* binding */ Ge),
+/* harmony export */   createPropDescriptors: () => (/* binding */ p),
+/* harmony export */   createStringTagDescriptors: () => (/* binding */ h),
+/* harmony export */   createZonedDateTimeSlots: () => (/* binding */ Yn),
+/* harmony export */   dateConfig: () => (/* binding */ o),
+/* harmony export */   dateFieldNamesAlpha: () => (/* binding */ en),
+/* harmony export */   dateTimeConfig: () => (/* binding */ n),
+/* harmony export */   diffBigNanos: () => (/* binding */ re),
+/* harmony export */   diffInstants: () => (/* binding */ le),
+/* harmony export */   diffPlainDateTimes: () => (/* binding */ ut),
+/* harmony export */   diffPlainDates: () => (/* binding */ Ft),
+/* harmony export */   diffPlainTimes: () => (/* binding */ Ae),
+/* harmony export */   diffPlainYearMonth: () => (/* binding */ Xe),
+/* harmony export */   diffZonedDateTimes: () => (/* binding */ Dn),
+/* harmony export */   durationFieldNamesAsc: () => (/* binding */ F),
+/* harmony export */   durationWithFields: () => (/* binding */ kt),
+/* harmony export */   epochMicroToInstant: () => (/* binding */ Ce),
+/* harmony export */   epochMilliToInstant: () => (/* binding */ Pe),
+/* harmony export */   epochNanoToInstant: () => (/* binding */ ge),
+/* harmony export */   epochNanoToIso: () => (/* binding */ Ie),
+/* harmony export */   epochSecToInstant: () => (/* binding */ De),
+/* harmony export */   excludePropsByName: () => (/* binding */ V),
+/* harmony export */   excludeUndefinedProps: () => (/* binding */ nn),
+/* harmony export */   forbiddenField: () => (/* binding */ tn),
+/* harmony export */   forbiddenValueOf: () => (/* binding */ A),
+/* harmony export */   formatDurationIso: () => (/* binding */ zt),
+/* harmony export */   formatInstantIso: () => (/* binding */ me),
+/* harmony export */   formatOffsetNano: () => (/* binding */ Fe),
+/* harmony export */   formatPlainDateIso: () => (/* binding */ yt),
+/* harmony export */   formatPlainDateTimeIso: () => (/* binding */ Tt),
+/* harmony export */   formatPlainMonthDayIso: () => (/* binding */ W),
+/* harmony export */   formatPlainTimeIso: () => (/* binding */ qe),
+/* harmony export */   formatPlainYearMonthIso: () => (/* binding */ et),
+/* harmony export */   formatZonedDateTimeIso: () => (/* binding */ In),
+/* harmony export */   getCurrentEpochNano: () => (/* binding */ Bn),
+/* harmony export */   getCurrentIsoDateTime: () => (/* binding */ An),
+/* harmony export */   getCurrentTimeZoneId: () => (/* binding */ Nn),
+/* harmony export */   getDurationBlank: () => (/* binding */ Jt),
+/* harmony export */   getEpochMicro: () => (/* binding */ N),
+/* harmony export */   getEpochMilli: () => (/* binding */ y),
+/* harmony export */   getEpochNano: () => (/* binding */ B),
+/* harmony export */   getEpochSec: () => (/* binding */ M),
+/* harmony export */   getId: () => (/* binding */ I),
+/* harmony export */   getRequiredDateFields: () => (/* binding */ ln),
+/* harmony export */   getRequiredMonthDayFields: () => (/* binding */ cn),
+/* harmony export */   getRequiredYearMonthFields: () => (/* binding */ un),
+/* harmony export */   getSingleInstantFor: () => (/* binding */ we),
+/* harmony export */   hasAllPropsByName: () => (/* binding */ C),
+/* harmony export */   instantConfig: () => (/* binding */ t),
+/* harmony export */   instantToZonedDateTime: () => (/* binding */ fe),
+/* harmony export */   instantsEqual: () => (/* binding */ ue),
+/* harmony export */   invalidBag: () => (/* binding */ Z),
+/* harmony export */   invalidCallingContext: () => (/* binding */ P),
+/* harmony export */   invalidFormatType: () => (/* binding */ Ln),
+/* harmony export */   invalidProtocol: () => (/* binding */ g),
+/* harmony export */   isObjectLike: () => (/* binding */ z),
+/* harmony export */   isTimeZoneSlotsEqual: () => (/* binding */ je),
+/* harmony export */   isoCalendarId: () => (/* binding */ X),
+/* harmony export */   isoTimeFieldDefaults: () => (/* binding */ Dt),
+/* harmony export */   isoTimeFieldNamesAsc: () => (/* binding */ j),
+/* harmony export */   mapPropNames: () => (/* binding */ b),
+/* harmony export */   mapProps: () => (/* binding */ T),
+/* harmony export */   memoize: () => (/* binding */ Jn),
+/* harmony export */   mismatchingFormatTypes: () => (/* binding */ kn),
+/* harmony export */   monthDayConfig: () => (/* binding */ i),
+/* harmony export */   moveInstant: () => (/* binding */ se),
+/* harmony export */   movePlainDate: () => (/* binding */ bt),
+/* harmony export */   movePlainDateTime: () => (/* binding */ ct),
+/* harmony export */   movePlainTime: () => (/* binding */ Ye),
+/* harmony export */   movePlainYearMonth: () => (/* binding */ Qe),
+/* harmony export */   moveZonedDateTime: () => (/* binding */ hn),
+/* harmony export */   nanoInMilli: () => (/* binding */ be),
+/* harmony export */   negateDuration: () => (/* binding */ xt),
+/* harmony export */   numberToBigNano: () => (/* binding */ he),
+/* harmony export */   parseCalendarId: () => (/* binding */ sn),
+/* harmony export */   parseDuration: () => (/* binding */ Kt),
+/* harmony export */   parseInstant: () => (/* binding */ pe),
+/* harmony export */   parsePlainDate: () => (/* binding */ At),
+/* harmony export */   parsePlainDateTime: () => (/* binding */ Ct),
+/* harmony export */   parsePlainMonthDay: () => (/* binding */ Q),
+/* harmony export */   parsePlainTime: () => (/* binding */ ze),
+/* harmony export */   parsePlainYearMonth: () => (/* binding */ ot),
+/* harmony export */   parseRelativeToSlots: () => (/* binding */ Xt),
+/* harmony export */   parseTimeZoneId: () => (/* binding */ Ne),
+/* harmony export */   parseZonedDateTime: () => (/* binding */ Mn),
+/* harmony export */   plainDateTimeToPlainMonthDay: () => (/* binding */ Ot),
+/* harmony export */   plainDateTimeToPlainYearMonth: () => (/* binding */ St),
+/* harmony export */   plainDateTimeToZonedDateTime: () => (/* binding */ mt),
+/* harmony export */   plainDateTimeWithFields: () => (/* binding */ at),
+/* harmony export */   plainDateTimeWithPlainDate: () => (/* binding */ st),
+/* harmony export */   plainDateTimeWithPlainTime: () => (/* binding */ lt),
+/* harmony export */   plainDateTimesEqual: () => (/* binding */ ft),
+/* harmony export */   plainDateToPlainDateTime: () => (/* binding */ wt),
+/* harmony export */   plainDateToPlainMonthDay: () => (/* binding */ Mt),
+/* harmony export */   plainDateToPlainYearMonth: () => (/* binding */ jt),
+/* harmony export */   plainDateToZonedDateTime: () => (/* binding */ vt),
+/* harmony export */   plainDateWithFields: () => (/* binding */ Zt),
+/* harmony export */   plainDatesEqual: () => (/* binding */ It),
+/* harmony export */   plainMonthDayToPlainDate: () => (/* binding */ R),
+/* harmony export */   plainMonthDayWithFields: () => (/* binding */ k),
+/* harmony export */   plainMonthDaysEqual: () => (/* binding */ x),
+/* harmony export */   plainTimeToPlainDateTime: () => (/* binding */ Le),
+/* harmony export */   plainTimeToZonedDateTime: () => (/* binding */ Je),
+/* harmony export */   plainTimeWithFields: () => (/* binding */ Be),
+/* harmony export */   plainTimesEqual: () => (/* binding */ Ve),
+/* harmony export */   plainYearMonthToPlainDate: () => (/* binding */ _e),
+/* harmony export */   plainYearMonthWithFields: () => (/* binding */ Ke),
+/* harmony export */   plainYearMonthsEqual: () => (/* binding */ $e),
+/* harmony export */   pluckProps: () => (/* binding */ Vn),
+/* harmony export */   queryNativeTimeZone: () => (/* binding */ ie),
+/* harmony export */   refineCalendarId: () => (/* binding */ rn),
+/* harmony export */   refineDateDiffOptions: () => (/* binding */ _t),
+/* harmony export */   refineDurationBag: () => (/* binding */ Ht),
+/* harmony export */   refineEpochDisambigOptions: () => (/* binding */ ve),
+/* harmony export */   refineMaybeZonedDateTimeBag: () => (/* binding */ Qt),
+/* harmony export */   refineOverflowOptions: () => (/* binding */ H),
+/* harmony export */   refinePlainDateBag: () => (/* binding */ Yt),
+/* harmony export */   refinePlainDateTimeBag: () => (/* binding */ Pt),
+/* harmony export */   refinePlainMonthDayBag: () => (/* binding */ K),
+/* harmony export */   refinePlainTimeBag: () => (/* binding */ Ue),
+/* harmony export */   refinePlainYearMonthBag: () => (/* binding */ nt),
+/* harmony export */   refineTimeZoneId: () => (/* binding */ Me),
+/* harmony export */   refineZonedDateTimeBag: () => (/* binding */ jn),
+/* harmony export */   refineZonedFieldOptions: () => (/* binding */ wn),
+/* harmony export */   requireBoolean: () => (/* binding */ f),
+/* harmony export */   requireFunction: () => (/* binding */ $),
+/* harmony export */   requireInteger: () => (/* binding */ u),
+/* harmony export */   requireIntegerOrUndefined: () => (/* binding */ c),
+/* harmony export */   requireNonNullish: () => (/* binding */ on),
+/* harmony export */   requireObjectLike: () => (/* binding */ de),
+/* harmony export */   requirePositiveInteger: () => (/* binding */ d),
+/* harmony export */   requirePositiveIntegerOrUndefined: () => (/* binding */ S),
+/* harmony export */   requireString: () => (/* binding */ m),
+/* harmony export */   requireStringOrUndefined: () => (/* binding */ l),
+/* harmony export */   resolveCalendarId: () => (/* binding */ an),
+/* harmony export */   resolveTimeZoneId: () => (/* binding */ ye),
+/* harmony export */   roundDuration: () => (/* binding */ Gt),
+/* harmony export */   roundInstant: () => (/* binding */ ce),
+/* harmony export */   roundPlainDateTime: () => (/* binding */ dt),
+/* harmony export */   roundPlainTime: () => (/* binding */ Ee),
+/* harmony export */   roundZonedDateTime: () => (/* binding */ Pn),
+/* harmony export */   slotsWithCalendar: () => (/* binding */ it),
+/* harmony export */   slotsWithTimeZone: () => (/* binding */ On),
+/* harmony export */   timeConfig: () => (/* binding */ r),
+/* harmony export */   timeFieldNamesAsc: () => (/* binding */ w),
+/* harmony export */   totalDuration: () => (/* binding */ Ut),
+/* harmony export */   unitNamesAsc: () => (/* binding */ Et),
+/* harmony export */   validateTimeZoneGap: () => (/* binding */ ne),
+/* harmony export */   validateTimeZoneOffset: () => (/* binding */ ae),
+/* harmony export */   yearMonthConfig: () => (/* binding */ a),
+/* harmony export */   zonedConfig: () => (/* binding */ s),
+/* harmony export */   zonedDateTimeToInstant: () => (/* binding */ Zn),
+/* harmony export */   zonedDateTimeToPlainDate: () => (/* binding */ Bt),
+/* harmony export */   zonedDateTimeToPlainDateTime: () => (/* binding */ ht),
+/* harmony export */   zonedDateTimeToPlainMonthDay: () => (/* binding */ Fn),
+/* harmony export */   zonedDateTimeToPlainTime: () => (/* binding */ Re),
+/* harmony export */   zonedDateTimeToPlainYearMonth: () => (/* binding */ bn),
+/* harmony export */   zonedDateTimeWithFields: () => (/* binding */ Sn),
+/* harmony export */   zonedDateTimeWithPlainDate: () => (/* binding */ Tn),
+/* harmony export */   zonedDateTimeWithPlainTime: () => (/* binding */ pn),
+/* harmony export */   zonedDateTimesEqual: () => (/* binding */ gn),
+/* harmony export */   zonedEpochSlotsToIso: () => (/* binding */ fn)
+/* harmony export */ });
 function clampProp(e, n, t, o, r) {
   return clampEntity(n, getDefinedProp(e, n), t, o, r);
 }
@@ -7704,7 +11288,7 @@ function requireNumberIsPositive(e, n = "number") {
   return e;
 }
 
-function internal_toString(e) {
+function toString(e) {
   if ("symbol" == typeof e) {
     throw new TypeError(pr);
   }
@@ -7778,7 +11362,7 @@ function bigIntToBigNano(e, n = 1) {
   return [ Number(e / t), Number(e % t) * n ];
 }
 
-function internal_he(e, n = 1) {
+function he(e, n = 1) {
   const t = Qr / n, [o, r] = divModTrunc(e, t);
   return [ o, r * n ];
 }
@@ -7860,7 +11444,7 @@ function isoToEpochNano(e) {
   const n = isoToEpochMilli(e);
   if (void 0 !== n) {
     const [t, o] = divModTrunc(n, Gr);
-    return [ t, o * internal_be + (e.isoMicrosecond || 0) * Vr + (e.isoNanosecond || 0) ];
+    return [ t, o * be + (e.isoMicrosecond || 0) * Vr + (e.isoNanosecond || 0) ];
   }
 }
 
@@ -7892,7 +11476,7 @@ function isoToLegacyDate(e, n = 1, t = 1, o = 0, r = 0, i = 0, a = 0) {
 function Ie(e, n) {
   let [t, o] = moveBigNano(e, n);
   o < 0 && (o += Qr, t -= 1);
-  const [r, i] = divModFloor(o, internal_be), [a, s] = divModFloor(i, Vr);
+  const [r, i] = divModFloor(o, be), [a, s] = divModFloor(i, Vr);
   return epochMilliToIso(t * Gr + r, a, s);
 }
 
@@ -8046,7 +11630,7 @@ function refineSubsecDigits(e) {
   let n = e[Ji];
   if (void 0 !== n) {
     if ("number" != typeof n) {
-      if ("auto" === internal_toString(n)) {
+      if ("auto" === toString(n)) {
         return;
       }
       throw new RangeError(invalidEntity(Ji, n));
@@ -8086,7 +11670,7 @@ function refineUnitOption(e, n, t = 9, o = 0, r) {
   if (void 0 === i) {
     return r ? o : void 0;
   }
-  if (i = internal_toString(i), "auto" === i) {
+  if (i = toString(i), "auto" === i) {
     return r ? o : null;
   }
   let a = $r[i];
@@ -8101,7 +11685,7 @@ function refineChoiceOption(e, n, t, o = 0) {
   if (void 0 === r) {
     return o;
   }
-  const i = internal_toString(r), a = n[i];
+  const i = toString(r), a = n[i];
   if (void 0 === a) {
     throw new RangeError(invalidChoice(e, i, n));
   }
@@ -8114,7 +11698,7 @@ function checkLargestSmallestUnit(e, n) {
   }
 }
 
-function internal_(e) {
+function _(e) {
   return {
     branding: Oe,
     epochNanoseconds: e
@@ -8182,7 +11766,7 @@ function M(e) {
 }
 
 function y(e) {
-  return divModBigNano(e.epochNanoseconds, internal_be)[0];
+  return divModBigNano(e.epochNanoseconds, be)[0];
 }
 
 function N(e) {
@@ -8246,7 +11830,7 @@ function computeEpochNanoFrac(e, n, t) {
 
 function ce(e, n) {
   const [t, o, r] = refineRoundingOptions(n, 5, 1);
-  return internal_(roundBigNano(e.epochNanoseconds, t, o, r, 1));
+  return _(roundBigNano(e.epochNanoseconds, t, o, r, 1));
 }
 
 function Pn(e, n, t) {
@@ -8522,7 +12106,7 @@ function formatIsoMonthDayFields(e) {
 
 function formatIsoTimeFields(e, n) {
   const t = [ xr(e.isoHour), xr(e.isoMinute) ];
-  return -1 !== n && t.push(xr(e.isoSecond) + ((e, n, t, o) => formatSubsecNano(e * internal_be + n * Vr + t, o))(e.isoMillisecond, e.isoMicrosecond, e.isoNanosecond, n)), 
+  return -1 !== n && t.push(xr(e.isoSecond) + ((e, n, t, o) => formatSubsecNano(e * be + n * Vr + t, o))(e.isoMillisecond, e.isoMicrosecond, e.isoNanosecond, n)), 
   t.join(":");
 }
 
@@ -8640,7 +12224,7 @@ function ne(e) {
 }
 
 function se(e, n, t) {
-  return internal_(checkEpochNanoInBounds(addBigNanos(n.epochNanoseconds, (e => {
+  return _(checkEpochNanoInBounds(addBigNanos(n.epochNanoseconds, (e => {
     if (durationHasDateParts(e)) {
       throw new RangeError(qr);
     }
@@ -8919,7 +12503,7 @@ function pe(e) {
     }
     t = parseOffsetNano(n.offset);
   }
-  return n.timeZone && parseOffsetNanoMaybe(n.timeZone, 1), internal_(isoToEpochNanoWithOffset(checkIsoDateTimeFields(n), t));
+  return n.timeZone && parseOffsetNanoMaybe(n.timeZone, 1), _(isoToEpochNanoWithOffset(checkIsoDateTimeFields(n), t));
 }
 
 function Xt(e) {
@@ -9887,7 +13471,7 @@ function spliceFields(e, n, t, o) {
 }
 
 function Se(e) {
-  return internal_(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(e))));
+  return _(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(e))));
 }
 
 function vn(e, n, t, o, r = X) {
@@ -9937,7 +13521,7 @@ function fe(e, n, t = X) {
 }
 
 function Zn(e) {
-  return internal_(e.epochNanoseconds);
+  return _(e.epochNanoseconds);
 }
 
 function ht(e, n) {
@@ -10027,19 +13611,19 @@ function Le(e, n) {
 }
 
 function De(e) {
-  return internal_(checkEpochNanoInBounds(internal_he(e, _r)));
+  return _(checkEpochNanoInBounds(he(e, _r)));
 }
 
 function Pe(e) {
-  return internal_(checkEpochNanoInBounds(internal_he(e, internal_be)));
+  return _(checkEpochNanoInBounds(he(e, be)));
 }
 
 function Ce(e) {
-  return internal_(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(e), Vr)));
+  return _(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(e), Vr)));
 }
 
 function ge(e) {
-  return internal_(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(e))));
+  return _(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(e))));
 }
 
 function pn(e, n, t = Dt) {
@@ -10152,7 +13736,7 @@ function An(e) {
 }
 
 function Bn() {
-  return internal_he(Date.now(), internal_be);
+  return he(Date.now(), be);
 }
 
 function Nn() {
@@ -10170,7 +13754,7 @@ const expectedInteger = (e, n) => `Non-integer ${e}: ${n}`, expectedPositive = (
   week: 7,
   month: 8,
   year: 9
-}, Et = /*@__PURE__*/ Object.keys($r), Gr = 864e5, Hr = 1e3, Vr = 1e3, internal_be = 1e6, _r = 1e9, Jr = 6e10, Kr = 36e11, Qr = 864e11, Xr = [ 1, Vr, internal_be, _r, Jr, Kr, Qr ], w = /*@__PURE__*/ Et.slice(0, 6), ei = /*@__PURE__*/ sortStrings(w), ni = [ "offset" ], ti = [ "timeZone" ], oi = /*@__PURE__*/ w.concat(ni), ri = /*@__PURE__*/ oi.concat(ti), ii = [ "era", "eraYear" ], ai = /*@__PURE__*/ ii.concat([ "year" ]), si = [ "year" ], ci = [ "monthCode" ], ui = /*@__PURE__*/ [ "month" ].concat(ci), li = [ "day" ], fi = /*@__PURE__*/ ui.concat(si), di = /*@__PURE__*/ ci.concat(si), en = /*@__PURE__*/ li.concat(fi), mi = /*@__PURE__*/ li.concat(ui), pi = /*@__PURE__*/ li.concat(ci), hi = /*@__PURE__*/ jr(w, 0), X = "iso8601", gi = "gregory", Ti = "japanese", Di = {
+}, Et = /*@__PURE__*/ Object.keys($r), Gr = 864e5, Hr = 1e3, Vr = 1e3, be = 1e6, _r = 1e9, Jr = 6e10, Kr = 36e11, Qr = 864e11, Xr = [ 1, Vr, be, _r, Jr, Kr, Qr ], w = /*@__PURE__*/ Et.slice(0, 6), ei = /*@__PURE__*/ sortStrings(w), ni = [ "offset" ], ti = [ "timeZone" ], oi = /*@__PURE__*/ w.concat(ni), ri = /*@__PURE__*/ oi.concat(ti), ii = [ "era", "eraYear" ], ai = /*@__PURE__*/ ii.concat([ "year" ]), si = [ "year" ], ci = [ "monthCode" ], ui = /*@__PURE__*/ [ "month" ].concat(ci), li = [ "day" ], fi = /*@__PURE__*/ ui.concat(si), di = /*@__PURE__*/ ci.concat(si), en = /*@__PURE__*/ li.concat(fi), mi = /*@__PURE__*/ li.concat(ui), pi = /*@__PURE__*/ li.concat(ci), hi = /*@__PURE__*/ jr(w, 0), X = "iso8601", gi = "gregory", Ti = "japanese", Di = {
   [gi]: {
     bce: -1,
     ce: 0
@@ -10323,14 +13907,14 @@ class IntlTimeZone {
     return this.$.V(epochNanoToSec(e)) * _r;
   }
   getPossibleInstantsFor(e) {
-    const [n, t] = [ isoArgsToEpochSec((o = e).isoYear, o.isoMonth, o.isoDay, o.isoHour, o.isoMinute, o.isoSecond), o.isoMillisecond * internal_be + o.isoMicrosecond * Vr + o.isoNanosecond ];
+    const [n, t] = [ isoArgsToEpochSec((o = e).isoYear, o.isoMonth, o.isoDay, o.isoHour, o.isoMinute, o.isoSecond), o.isoMillisecond * be + o.isoMicrosecond * Vr + o.isoNanosecond ];
     var o;
-    return this.$.G(n).map((e => checkEpochNanoInBounds(moveBigNano(internal_he(e, _r), t))));
+    return this.$.G(n).map((e => checkEpochNanoInBounds(moveBigNano(he(e, _r), t))));
   }
   l(e, n) {
     const [t, o] = epochNanoToSecMod(e), r = this.$.l(t + (n > 0 || o ? 1 : 0), n);
     if (void 0 !== r) {
-      return internal_he(r, _r);
+      return he(r, _r);
     }
   }
 }
@@ -10651,1031 +14235,108 @@ const Pa = "([+−-])", va = "(?:[.,](\\d{1,9}))?", Ea = `(?:(?:${Pa}(\\d{6}))|(
     throw new RangeError(Fr);
   }
   return t;
-} ], n = [ /*@__PURE__*/ createOptionsTransformer(hs, rs, Xa), isoToEpochMilli ], o = [ /*@__PURE__*/ createOptionsTransformer(ms, ts, Ts), isoToEpochMilli ], r = [ /*@__PURE__*/ createOptionsTransformer(ps, os, Ds), e => isoTimeFieldsToNano(e) / internal_be ], a = [ /*@__PURE__*/ createOptionsTransformer(fs, ns, Is), isoToEpochMilli, 1 ], i = [ /*@__PURE__*/ createOptionsTransformer(ds, es, Ms), isoToEpochMilli, 1 ];
+} ], n = [ /*@__PURE__*/ createOptionsTransformer(hs, rs, Xa), isoToEpochMilli ], o = [ /*@__PURE__*/ createOptionsTransformer(ms, ts, Ts), isoToEpochMilli ], r = [ /*@__PURE__*/ createOptionsTransformer(ps, os, Ds), e => isoTimeFieldsToNano(e) / be ], a = [ /*@__PURE__*/ createOptionsTransformer(fs, ns, Is), isoToEpochMilli, 1 ], i = [ /*@__PURE__*/ createOptionsTransformer(ds, es, Ms), isoToEpochMilli, 1 ];
 
 let ys;
 
 
 
-;// CONCATENATED MODULE: ./node_modules/temporal-polyfill/chunks/classApi.js
-function createSlotClass(e, t, n, o, r) {
-  function Class(...e) {
-    if (!(this instanceof Class)) {
-      throw new TypeError(P);
-    }
-    oo(this, t(...e));
-  }
-  function bindMethod(e, t) {
-    return Object.defineProperties((function(...t) {
-      return e.call(this, getSpecificSlots(this), ...t);
-    }), D(t));
-  }
-  function getSpecificSlots(t) {
-    const n = no(t);
-    if (!n || n.branding !== e) {
-      throw new TypeError(P);
-    }
-    return n;
-  }
-  return Object.defineProperties(Class.prototype, {
-    ...O(T(bindMethod, n)),
-    ...p(T(bindMethod, o)),
-    ...h("Temporal." + e)
-  }), Object.defineProperties(Class, {
-    ...p(r),
-    ...D(e)
-  }), [ Class, e => {
-    const t = Object.create(Class.prototype);
-    return oo(t, e), t;
-  }, getSpecificSlots ];
-}
 
-function createProtocolValidator(e) {
-  return e = e.concat("id").sort(), t => {
-    if (!C(t, e)) {
-      throw new TypeError(g);
-    }
-    return t;
-  };
-}
+/***/ })
 
-function rejectInvalidBag(e) {
-  if (no(e) || void 0 !== e.calendar || void 0 !== e.timeZone) {
-    throw new TypeError(Z);
-  }
-  return e;
-}
-
-function createCalendarFieldMethods(e, t) {
-  const n = {};
-  for (const o in e) {
-    n[o] = ({o: e}, n) => {
-      const r = no(n) || {}, {branding: a} = r, i = a === J || t.includes(a) ? r : toPlainDateSlots(n);
-      return e[o](i);
-    };
-  }
-  return n;
-}
-
-function createCalendarGetters(e) {
-  const t = {};
-  for (const n in e) {
-    t[n] = e => {
-      const {calendar: t} = e;
-      return (o = t, "string" == typeof o ? Y(o) : (r = o, Object.assign(Object.create(co), {
-        i: r
-      })))[n](e);
-      var o, r;
-    };
-  }
-  return t;
-}
-
-function neverValueOf() {
-  throw new TypeError(A);
-}
-
-function createCalendarFromSlots({calendar: e}) {
-  return "string" == typeof e ? new lr(e) : e;
-}
-
-function toPlainMonthDaySlots(e, t) {
-  if (t = U(t), z(e)) {
-    const n = no(e);
-    if (n && n.branding === q) {
-      return H(t), n;
-    }
-    const o = extractCalendarSlotFromBag(e);
-    return K(Qo(o || X), !o, e, t);
-  }
-  const n = Q(Y, e);
-  return H(t), n;
-}
-
-function getOffsetNanosecondsForAdapter(e, t, n) {
-  return o = t.call(e, Co(internal_(n))), ae(u(o));
-  var o;
-}
-
-function createAdapterOps(e, t = ho) {
-  const n = Object.keys(t).sort(), o = {};
-  for (const r of n) {
-    o[r] = E(t[r], e, $(e[r]));
-  }
-  return o;
-}
-
-function createTimeZoneOps(e, t) {
-  return "string" == typeof e ? ie(e) : createAdapterOps(e, t);
-}
-
-function createTimeZoneOffsetOps(e) {
-  return createTimeZoneOps(e, Do);
-}
-
-function toInstantSlots(e) {
-  if (z(e)) {
-    const t = no(e);
-    if (t) {
-      switch (t.branding) {
-       case Oe:
-        return t;
-
-       case Te:
-        return internal_(t.epochNanoseconds);
-      }
-    }
-  }
-  return pe(e);
-}
-
-function toTemporalInstant() {
-  return Co(_(he(this.valueOf(), be)));
-}
-
-function getImplTransition(e, t, n) {
-  const o = t.l(toInstantSlots(n).epochNanoseconds, e);
-  return o ? Co(internal_(o)) : null;
-}
-
-function refineTimeZoneSlot(e) {
-  return z(e) ? (no(e) || {}).timeZone || Fo(e) : (e => ye(Ne(m(e))))(e);
-}
-
-function toPlainTimeSlots(e, t) {
-  if (z(e)) {
-    const n = no(e) || {};
-    switch (n.branding) {
-     case xe:
-      return H(t), n;
-
-     case We:
-      return H(t), Ge(n);
-
-     case Te:
-      return H(t), Re(createTimeZoneOffsetOps, n);
-    }
-    return Ue(e, t);
-  }
-  return H(t), ze(e);
-}
-
-function optionalToPlainTimeFields(e) {
-  return void 0 === e ? void 0 : toPlainTimeSlots(e);
-}
-
-function toPlainYearMonthSlots(e, t) {
-  if (t = U(t), z(e)) {
-    const n = no(e);
-    return n && n.branding === L ? (H(t), n) : nt(Ho(getCalendarSlotFromBag(e)), e, t);
-  }
-  const n = ot(Y, e);
-  return H(t), n;
-}
-
-function toPlainDateTimeSlots(e, t) {
-  if (t = U(t), z(e)) {
-    const n = no(e) || {};
-    switch (n.branding) {
-     case We:
-      return H(t), n;
-
-     case J:
-      return H(t), ee({
-        ...n,
-        ...Dt
-      });
-
-     case Te:
-      return H(t), ht(createTimeZoneOffsetOps, n);
-    }
-    return Pt(Ko(getCalendarSlotFromBag(e)), e, t);
-  }
-  const n = Ct(e);
-  return H(t), n;
-}
-
-function toPlainDateSlots(e, t) {
-  if (t = U(t), z(e)) {
-    const n = no(e) || {};
-    switch (n.branding) {
-     case J:
-      return H(t), n;
-
-     case We:
-      return H(t), v(n);
-
-     case Te:
-      return H(t), Bt(createTimeZoneOffsetOps, n);
-    }
-    return Yt(Ko(getCalendarSlotFromBag(e)), e, t);
-  }
-  const n = At(e);
-  return H(t), n;
-}
-
-function dayAdapter(e, t, n) {
-  return d(t.call(e, Yo(v(n, e))));
-}
-
-function createCompoundOpsCreator(e) {
-  return t => "string" == typeof t ? Y(t) : ((e, t) => {
-    const n = Object.keys(t).sort(), o = {};
-    for (const r of n) {
-      o[r] = E(t[r], e, e[r]);
-    }
-    return o;
-  })(t, e);
-}
-
-function toDurationSlots(e) {
-  if (z(e)) {
-    const t = no(e);
-    return t && t.branding === qt ? t : Ht(e);
-  }
-  return Kt(e);
-}
-
-function refinePublicRelativeTo(e) {
-  if (void 0 !== e) {
-    if (z(e)) {
-      const t = no(e) || {};
-      switch (t.branding) {
-       case Te:
-       case J:
-        return t;
-
-       case We:
-        return v(t);
-      }
-      const n = getCalendarSlotFromBag(e);
-      return {
-        ...Qt(refineTimeZoneSlot, createTimeZoneOps, Ko(n), e),
-        calendar: n
-      };
-    }
-    return Xt(e);
-  }
-}
-
-function getCalendarSlotFromBag(e) {
-  return extractCalendarSlotFromBag(e) || X;
-}
-
-function extractCalendarSlotFromBag(e) {
-  const {calendar: t} = e;
-  if (void 0 !== t) {
-    return refineCalendarSlot(t);
-  }
-}
-
-function refineCalendarSlot(e) {
-  return z(e) ? (no(e) || {}).calendar || cr(e) : (e => an(sn(m(e))))(e);
-}
-
-function toZonedDateTimeSlots(e, t) {
-  if (t = U(t), z(e)) {
-    const n = no(e);
-    if (n && n.branding === Te) {
-      return wn(t), n;
-    }
-    const o = getCalendarSlotFromBag(e);
-    return jn(refineTimeZoneSlot, createTimeZoneOps, Ko(o), o, e, t);
-  }
-  return Mn(e, t);
-}
-
-function adaptDateMethods(e) {
-  return T((e => t => e(slotsToIso(t))), e);
-}
-
-function slotsToIso(e) {
-  return fn(e, createTimeZoneOffsetOps);
-}
-
-function createDateTimeFormatClass() {
-  const e = En.prototype, t = Object.getOwnPropertyDescriptors(e), n = Object.getOwnPropertyDescriptors(En), DateTimeFormat = function(e, t = {}) {
-    if (!(this instanceof DateTimeFormat)) {
-      return new DateTimeFormat(e, t);
-    }
-    Or.set(this, ((e, t = {}) => {
-      const n = new En(e, t), o = n.resolvedOptions(), r = o.locale, a = Vn(Object.keys(t), o), i = Jn(createFormatPrepperForBranding), prepFormat = (...e) => {
-        let t;
-        const o = e.map(((e, n) => {
-          const o = no(e), r = (o || {}).branding;
-          if (n && t && t !== r) {
-            throw new TypeError(kn);
-          }
-          return t = r, o;
-        }));
-        return t ? i(t)(r, a, ...o) : [ n, ...e ];
-      };
-      return prepFormat.u = n, prepFormat;
-    })(e, t));
-  };
-  for (const e in t) {
-    const n = t[e], o = e.startsWith("format") && createFormatMethod(e);
-    "function" == typeof n.value ? n.value = "constructor" === e ? DateTimeFormat : o || createProxiedMethod(e) : o && (n.get = function() {
-      return o.bind(this);
-    });
-  }
-  return n.prototype.value = Object.create(e, t), Object.defineProperties(DateTimeFormat, n), 
-  DateTimeFormat;
-}
-
-function createFormatMethod(e) {
-  return function(...t) {
-    const n = Or.get(this), [o, ...r] = n(...t);
-    return o[e](...r);
-  };
-}
-
-function createProxiedMethod(e) {
-  return function(...t) {
-    return Or.get(this).u[e](...t);
-  };
-}
-
-function createFormatPrepperForBranding(t) {
-  const n = xn[t];
-  if (!n) {
-    throw new TypeError(Ln(t));
-  }
-  return e(n, Jn(qn));
-}
-
-
-
-const xn = {
-  Instant: t,
-  PlainDateTime: n,
-  PlainDate: o,
-  PlainTime: r,
-  PlainYearMonth: a,
-  PlainMonthDay: i
-}, Rn = /*@__PURE__*/ e(t), Wn = /*@__PURE__*/ e(s), Gn = /*@__PURE__*/ e(n), Un = /*@__PURE__*/ e(o), zn = /*@__PURE__*/ e(r), Hn = /*@__PURE__*/ e(a), Kn = /*@__PURE__*/ e(i), Qn = {
-  era: l,
-  eraYear: c,
-  year: u,
-  month: d,
-  daysInMonth: d,
-  daysInYear: d,
-  inLeapYear: f,
-  monthsInYear: d
-}, Xn = {
-  monthCode: m
-}, $n = {
-  day: d
-}, _n = {
-  dayOfWeek: d,
-  dayOfYear: d,
-  weekOfYear: S,
-  yearOfWeek: c,
-  daysInWeek: d
-}, eo = /*@__PURE__*/ Object.assign({}, Qn, Xn, $n, _n), to = /*@__PURE__*/ new WeakMap, no = /*@__PURE__*/ to.get.bind(to), oo = /*@__PURE__*/ to.set.bind(to), ro = {
-  ...createCalendarFieldMethods(Qn, [ L ]),
-  ...createCalendarFieldMethods(_n, []),
-  ...createCalendarFieldMethods(Xn, [ L, q ]),
-  ...createCalendarFieldMethods($n, [ q ])
-}, ao = /*@__PURE__*/ createCalendarGetters(eo), io = /*@__PURE__*/ createCalendarGetters({
-  ...Qn,
-  ...Xn
-}), so = /*@__PURE__*/ createCalendarGetters({
-  ...Xn,
-  ...$n
-}), lo = {
-  calendarId: e => I(e.calendar)
-}, co = /*@__PURE__*/ T(((e, t) => function(n) {
-  const {i: o} = this;
-  return e(o[t](Yo(v(n, o))));
-}), eo), uo = /*@__PURE__*/ b((e => t => t[e]), F.concat("sign")), fo = /*@__PURE__*/ b(((e, t) => e => e[j[t]]), w), mo = {
-  epochSeconds: M,
-  epochMilliseconds: y,
-  epochMicroseconds: N,
-  epochNanoseconds: B
-}, So = /*@__PURE__*/ E(V, new Set([ "branding" ])), [Oo, To, po] = createSlotClass(q, E(G, refineCalendarSlot), {
-  ...lo,
-  ...so
-}, {
-  getISOFields: So,
-  getCalendar: createCalendarFromSlots,
-  with(e, t, n) {
-    return To(k(_o, e, this, rejectInvalidBag(t), n));
-  },
-  equals: (e, t) => x(e, toPlainMonthDaySlots(t)),
-  toPlainDate(e, t) {
-    return Yo(R($o, e, this, t));
-  },
-  toLocaleString(e, t, n) {
-    const [o, r] = Kn(t, n, e);
-    return o.format(r);
-  },
-  toString: W,
-  toJSON: e => W(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => To(toPlainMonthDaySlots(e, t))
-}), ho = {
-  getOffsetNanosecondsFor: getOffsetNanosecondsForAdapter,
-  getPossibleInstantsFor(e, t, n) {
-    const o = [ ...t.call(e, No(ee(n, X))) ].map((e => go(e).epochNanoseconds)), r = o.length;
-    return r > 1 && (o.sort(te), ne(oe(re(o[0], o[r - 1])))), o;
-  }
-}, Do = {
-  getOffsetNanosecondsFor: getOffsetNanosecondsForAdapter
-}, [Po, Co, go] = createSlotClass(Oe, Se, mo, {
-  add: (e, t) => Co(se(0, e, toDurationSlots(t))),
-  subtract: (e, t) => Co(se(1, e, toDurationSlots(t))),
-  until: (e, t, n) => ar(le(0, e, toInstantSlots(t), n)),
-  since: (e, t, n) => ar(le(1, e, toInstantSlots(t), n)),
-  round: (e, t) => Co(ce(e, t)),
-  equals: (e, t) => ue(e, toInstantSlots(t)),
-  toZonedDateTime(e, t) {
-    const n = de(t);
-    return dr(fe(e, refineTimeZoneSlot(n.timeZone), refineCalendarSlot(n.calendar)));
-  },
-  toZonedDateTimeISO: (e, t) => dr(fe(e, refineTimeZoneSlot(t))),
-  toLocaleString(e, t, n) {
-    const [o, r] = Rn(t, n, e);
-    return o.format(r);
-  },
-  toString: (e, t) => me(refineTimeZoneSlot, createTimeZoneOffsetOps, e, t),
-  toJSON: e => me(refineTimeZoneSlot, createTimeZoneOffsetOps, e),
-  valueOf: neverValueOf
-}, {
-  from: e => Co(toInstantSlots(e)),
-  fromEpochSeconds: e => Co(De(e)),
-  fromEpochMilliseconds: e => Co(Pe(e)),
-  fromEpochMicroseconds: e => Co(Ce(e)),
-  fromEpochNanoseconds: e => Co(ge(e)),
-  compare: (e, t) => Ze(toInstantSlots(e), toInstantSlots(t))
-}), [Zo, bo] = createSlotClass("TimeZone", (e => {
-  const t = Me(e);
-  return {
-    branding: "TimeZone",
-    id: t,
-    o: ie(t)
-  };
-}), {
-  id: e => e.id
-}, {
-  getPossibleInstantsFor: ({o: e}, t) => e.getPossibleInstantsFor(toPlainDateTimeSlots(t)).map((e => Co(internal_(e)))),
-  getOffsetNanosecondsFor: ({o: e}, t) => e.getOffsetNanosecondsFor(toInstantSlots(t).epochNanoseconds),
-  getOffsetStringFor(e, t) {
-    const n = toInstantSlots(t).epochNanoseconds, o = createAdapterOps(this, Do).getOffsetNanosecondsFor(n);
-    return Fe(o);
-  },
-  getPlainDateTimeFor(e, t, n = X) {
-    const o = toInstantSlots(t).epochNanoseconds, r = createAdapterOps(this, Do).getOffsetNanosecondsFor(o);
-    return No(ee(Ie(o, r), refineCalendarSlot(n)));
-  },
-  getInstantFor(e, t, n) {
-    const o = toPlainDateTimeSlots(t), r = ve(n), a = createAdapterOps(this);
-    return Co(internal_(we(a, o, r)));
-  },
-  getNextTransition: ({o: e}, t) => getImplTransition(1, e, t),
-  getPreviousTransition: ({o: e}, t) => getImplTransition(-1, e, t),
-  equals(e, t) {
-    return !!je(this, refineTimeZoneSlot(t));
-  },
-  toString: e => e.id,
-  toJSON: e => e.id
-}, {
-  from(e) {
-    const t = refineTimeZoneSlot(e);
-    return "string" == typeof t ? new Zo(t) : t;
-  }
-}), Fo = /*@__PURE__*/ createProtocolValidator(Object.keys(ho)), [Io, vo] = createSlotClass(xe, ke, fo, {
-  getISOFields: So,
-  with(e, t, n) {
-    return vo(Be(this, rejectInvalidBag(t), n));
-  },
-  add: (e, t) => vo(Ye(0, e, toDurationSlots(t))),
-  subtract: (e, t) => vo(Ye(1, e, toDurationSlots(t))),
-  until: (e, t, n) => ar(Ae(0, e, toPlainTimeSlots(t), n)),
-  since: (e, t, n) => ar(Ae(1, e, toPlainTimeSlots(t), n)),
-  round: (e, t) => vo(Ee(e, t)),
-  equals: (e, t) => Ve(e, toPlainTimeSlots(t)),
-  toZonedDateTime: (e, t) => dr(Je(refineTimeZoneSlot, toPlainDateSlots, createTimeZoneOps, e, t)),
-  toPlainDateTime: (e, t) => No(Le(e, toPlainDateSlots(t))),
-  toLocaleString(e, t, n) {
-    const [o, r] = zn(t, n, e);
-    return o.format(r);
-  },
-  toString: qe,
-  toJSON: e => qe(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => vo(toPlainTimeSlots(e, t)),
-  compare: (e, t) => He(toPlainTimeSlots(e), toPlainTimeSlots(t))
-}), [wo, jo, Mo] = createSlotClass(L, E(tt, refineCalendarSlot), {
-  ...lo,
-  ...io
-}, {
-  getISOFields: So,
-  getCalendar: createCalendarFromSlots,
-  with(e, t, n) {
-    return jo(Ke(Xo, e, this, rejectInvalidBag(t), n));
-  },
-  add: (e, t, n) => jo(Qe(nr, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => jo(Qe(nr, 1, e, toDurationSlots(t), n)),
-  until: (e, t, n) => ar(Xe(or, 0, e, toPlainYearMonthSlots(t), n)),
-  since: (e, t, n) => ar(Xe(or, 1, e, toPlainYearMonthSlots(t), n)),
-  equals: (e, t) => $e(e, toPlainYearMonthSlots(t)),
-  toPlainDate(e, t) {
-    return Yo(_e($o, e, this, t));
-  },
-  toLocaleString(e, t, n) {
-    const [o, r] = Hn(t, n, e);
-    return o.format(r);
-  },
-  toString: et,
-  toJSON: e => et(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => jo(toPlainYearMonthSlots(e, t)),
-  compare: (e, t) => rt(toPlainYearMonthSlots(e), toPlainYearMonthSlots(t))
-}), [yo, No] = createSlotClass(We, E(pt, refineCalendarSlot), {
-  ...lo,
-  ...ao,
-  ...fo
-}, {
-  getISOFields: So,
-  getCalendar: createCalendarFromSlots,
-  with(e, t, n) {
-    return No(at($o, e, this, rejectInvalidBag(t), n));
-  },
-  withCalendar: (e, t) => No(it(e, refineCalendarSlot(t))),
-  withPlainDate: (e, t) => No(st(e, toPlainDateSlots(t))),
-  withPlainTime: (e, t) => No(lt(e, optionalToPlainTimeFields(t))),
-  add: (e, t, n) => No(ct(er, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => No(ct(er, 1, e, toDurationSlots(t), n)),
-  until: (e, t, n) => ar(ut(tr, 0, e, toPlainDateTimeSlots(t), n)),
-  since: (e, t, n) => ar(ut(tr, 1, e, toPlainDateTimeSlots(t), n)),
-  round: (e, t) => No(dt(e, t)),
-  equals: (e, t) => ft(e, toPlainDateTimeSlots(t)),
-  toZonedDateTime: (e, t, n) => dr(mt(createTimeZoneOps, e, refineTimeZoneSlot(t), n)),
-  toPlainDate: e => Yo(v(e)),
-  toPlainTime: e => vo(Ge(e)),
-  toPlainYearMonth(e) {
-    return jo(St(Ho, e, this));
-  },
-  toPlainMonthDay(e) {
-    return To(Ot(Qo, e, this));
-  },
-  toLocaleString(e, t, n) {
-    const [o, r] = Gn(t, n, e);
-    return o.format(r);
-  },
-  toString: Tt,
-  toJSON: e => Tt(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => No(toPlainDateTimeSlots(e, t)),
-  compare: (e, t) => gt(toPlainDateTimeSlots(e), toPlainDateTimeSlots(t))
-}), [Bo, Yo, Ao] = createSlotClass(J, E(Nt, refineCalendarSlot), {
-  ...lo,
-  ...ao
-}, {
-  getISOFields: So,
-  getCalendar: createCalendarFromSlots,
-  with(e, t, n) {
-    return Yo(Zt($o, e, this, rejectInvalidBag(t), n));
-  },
-  withCalendar: (e, t) => Yo(it(e, refineCalendarSlot(t))),
-  add: (e, t, n) => Yo(bt(er, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => Yo(bt(er, 1, e, toDurationSlots(t), n)),
-  until: (e, t, n) => ar(Ft(tr, 0, e, toPlainDateSlots(t), n)),
-  since: (e, t, n) => ar(Ft(tr, 1, e, toPlainDateSlots(t), n)),
-  equals: (e, t) => It(e, toPlainDateSlots(t)),
-  toZonedDateTime(e, t) {
-    const n = !z(t) || t instanceof Zo ? {
-      timeZone: t
-    } : t;
-    return dr(vt(refineTimeZoneSlot, toPlainTimeSlots, createTimeZoneOps, e, n));
-  },
-  toPlainDateTime: (e, t) => No(wt(e, optionalToPlainTimeFields(t))),
-  toPlainYearMonth(e) {
-    return jo(jt(Ho, e, this));
-  },
-  toPlainMonthDay(e) {
-    return To(Mt(Qo, e, this));
-  },
-  toLocaleString(e, t, n) {
-    const [o, r] = Un(t, n, e);
-    return o.format(r);
-  },
-  toString: yt,
-  toJSON: e => yt(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => Yo(toPlainDateSlots(e, t)),
-  compare: (e, t) => rt(toPlainDateSlots(e), toPlainDateSlots(t))
-}), Eo = {
-  fields(e, t, n) {
-    return [ ...t.call(e, n) ];
-  }
-}, Vo = /*@__PURE__*/ Object.assign({
-  dateFromFields(e, t, n, o) {
-    return Ao(t.call(e, Object.assign(Object.create(null), n), o));
-  }
-}, Eo), Jo = /*@__PURE__*/ Object.assign({
-  yearMonthFromFields(e, t, n, o) {
-    return Mo(t.call(e, Object.assign(Object.create(null), n), o));
-  }
-}, Eo), Lo = /*@__PURE__*/ Object.assign({
-  monthDayFromFields(e, t, n, o) {
-    return po(t.call(e, Object.assign(Object.create(null), n), o));
-  }
-}, Eo), qo = {
-  mergeFields(e, t, n, o) {
-    return de(t.call(e, Object.assign(Object.create(null), n), Object.assign(Object.create(null), o)));
-  }
-}, ko = /*@__PURE__*/ Object.assign({}, Vo, qo), xo = /*@__PURE__*/ Object.assign({}, Jo, qo), Ro = /*@__PURE__*/ Object.assign({}, Lo, qo), Wo = {
-  dateAdd(e, t, n, o, r) {
-    return Ao(t.call(e, Yo(v(n, e)), ar(Vt(o)), r));
-  }
-}, Go = /*@__PURE__*/ Object.assign({}, Wo, {
-  dateUntil(e, t, n, o, r, a) {
-    return ir(t.call(e, Yo(v(n, e)), Yo(v(o, e)), Object.assign(Object.create(null), a, {
-      largestUnit: Et[r]
-    })));
-  }
-}), Uo = /*@__PURE__*/ Object.assign({}, Wo, {
-  day: dayAdapter
-}), zo = /*@__PURE__*/ Object.assign({}, Go, {
-  day: dayAdapter
-}), Ho = /*@__PURE__*/ createCompoundOpsCreator(Jo), Ko = /*@__PURE__*/ createCompoundOpsCreator(Vo), Qo = /*@__PURE__*/ createCompoundOpsCreator(Lo), Xo = /*@__PURE__*/ createCompoundOpsCreator(xo), $o = /*@__PURE__*/ createCompoundOpsCreator(ko), _o = /*@__PURE__*/ createCompoundOpsCreator(Ro), er = /*@__PURE__*/ createCompoundOpsCreator(Wo), tr = /*@__PURE__*/ createCompoundOpsCreator(Go), nr = /*@__PURE__*/ createCompoundOpsCreator(Uo), or = /*@__PURE__*/ createCompoundOpsCreator(zo), [rr, ar, ir] = createSlotClass(qt, Lt, {
-  ...uo,
-  blank: Jt
-}, {
-  with: (e, t) => ar(kt(e, t)),
-  negated: e => ar(xt(e)),
-  abs: e => ar(Rt(e)),
-  add: (e, t, n) => ar(Wt(refinePublicRelativeTo, tr, createTimeZoneOps, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => ar(Wt(refinePublicRelativeTo, tr, createTimeZoneOps, 1, e, toDurationSlots(t), n)),
-  round: (e, t) => ar(Gt(refinePublicRelativeTo, tr, createTimeZoneOps, e, t)),
-  total: (e, t) => Ut(refinePublicRelativeTo, tr, createTimeZoneOps, e, t),
-  toLocaleString(e, t, n) {
-    return Intl.DurationFormat ? new Intl.DurationFormat(t, n).format(this) : zt(e);
-  },
-  toString: zt,
-  toJSON: e => zt(e),
-  valueOf: neverValueOf
-}, {
-  from: e => ar(toDurationSlots(e)),
-  compare: (e, t, n) => $t(refinePublicRelativeTo, er, createTimeZoneOps, toDurationSlots(e), toDurationSlots(t), n)
-}), sr = {
-  toString: e => e.id,
-  toJSON: e => e.id,
-  ...ro,
-  dateAdd: ({id: e, o: t}, n, o, r) => Yo(v(t.dateAdd(toPlainDateSlots(n), toDurationSlots(o), r), e)),
-  dateUntil: ({o: e}, t, n, o) => ar(Vt(e.dateUntil(toPlainDateSlots(t), toPlainDateSlots(n), _t(o)))),
-  dateFromFields: ({id: e, o: t}, n, o) => Yo(Yt(t, n, o, ln(e))),
-  yearMonthFromFields: ({id: e, o: t}, n, o) => jo(nt(t, n, o, un(e))),
-  monthDayFromFields: ({id: e, o: t}, n, o) => To(K(t, 0, n, o, cn(e))),
-  fields({o: e}, t) {
-    const n = new Set(en), o = [];
-    for (const e of t) {
-      if (m(e), !n.has(e)) {
-        throw new RangeError(tn(e));
-      }
-      n.delete(e), o.push(e);
-    }
-    return e.fields(o);
-  },
-  mergeFields: ({o: e}, t, n) => e.mergeFields(nn(on(t)), nn(on(n)))
-}, [lr] = createSlotClass("Calendar", (e => {
-  const t = rn(e);
-  return {
-    branding: "Calendar",
-    id: t,
-    o: Y(t)
-  };
-}), {
-  id: e => e.id
-}, sr, {
-  from(e) {
-    const t = refineCalendarSlot(e);
-    return "string" == typeof t ? new lr(t) : t;
-  }
-}), cr = /*@__PURE__*/ createProtocolValidator(Object.keys(sr).slice(4)), [ur, dr] = createSlotClass(Te, E(vn, refineCalendarSlot, refineTimeZoneSlot), {
-  ...mo,
-  ...lo,
-  ...adaptDateMethods(ao),
-  ...adaptDateMethods(fo),
-  offset: e => Fe(slotsToIso(e).offsetNanoseconds),
-  offsetNanoseconds: e => slotsToIso(e).offsetNanoseconds,
-  timeZoneId: e => I(e.timeZone),
-  hoursInDay: e => dn(createTimeZoneOps, e)
-}, {
-  getISOFields: e => mn(createTimeZoneOffsetOps, e),
-  getCalendar: createCalendarFromSlots,
-  getTimeZone: ({timeZone: e}) => "string" == typeof e ? new Zo(e) : e,
-  with(e, t, n) {
-    return dr(Sn($o, createTimeZoneOps, e, this, rejectInvalidBag(t), n));
-  },
-  withCalendar: (e, t) => dr(it(e, refineCalendarSlot(t))),
-  withTimeZone: (e, t) => dr(On(e, refineTimeZoneSlot(t))),
-  withPlainDate: (e, t) => dr(Tn(createTimeZoneOps, e, toPlainDateSlots(t))),
-  withPlainTime: (e, t) => dr(pn(createTimeZoneOps, e, optionalToPlainTimeFields(t))),
-  add: (e, t, n) => dr(hn(er, createTimeZoneOps, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => dr(hn(er, createTimeZoneOps, 1, e, toDurationSlots(t), n)),
-  until: (e, t, n) => ar(Vt(Dn(tr, createTimeZoneOps, 0, e, toZonedDateTimeSlots(t), n))),
-  since: (e, t, n) => ar(Vt(Dn(tr, createTimeZoneOps, 1, e, toZonedDateTimeSlots(t), n))),
-  round: (e, t) => dr(Pn(createTimeZoneOps, e, t)),
-  startOfDay: e => dr(Cn(createTimeZoneOps, e)),
-  equals: (e, t) => gn(e, toZonedDateTimeSlots(t)),
-  toInstant: e => Co(Zn(e)),
-  toPlainDateTime: e => No(ht(createTimeZoneOffsetOps, e)),
-  toPlainDate: e => Yo(Bt(createTimeZoneOffsetOps, e)),
-  toPlainTime: e => vo(Re(createTimeZoneOffsetOps, e)),
-  toPlainYearMonth(e) {
-    return jo(bn(Ho, e, this));
-  },
-  toPlainMonthDay(e) {
-    return To(Fn(Qo, e, this));
-  },
-  toLocaleString(e, t, n = {}) {
-    const [o, r] = Wn(t, n, e);
-    return o.format(r);
-  },
-  toString: (e, t) => In(createTimeZoneOffsetOps, e, t),
-  toJSON: e => In(createTimeZoneOffsetOps, e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => dr(toZonedDateTimeSlots(e, t)),
-  compare: (e, t) => yn(toZonedDateTimeSlots(e), toZonedDateTimeSlots(t))
-}), fr = /*@__PURE__*/ Object.defineProperties({}, {
-  ...h("Temporal.Now"),
-  ...p({
-    timeZoneId: () => Nn(),
-    instant: () => Co(internal_(Bn())),
-    zonedDateTime: (e, t = Nn()) => dr(Yn(Bn(), refineTimeZoneSlot(t), refineCalendarSlot(e))),
-    zonedDateTimeISO: (e = Nn()) => dr(Yn(Bn(), refineTimeZoneSlot(e), X)),
-    plainDateTime: (e, t = Nn()) => No(ee(An(createTimeZoneOffsetOps(refineTimeZoneSlot(t))), refineCalendarSlot(e))),
-    plainDateTimeISO: (e = Nn()) => No(ee(An(createTimeZoneOffsetOps(refineTimeZoneSlot(e))), X)),
-    plainDate: (e, t = Nn()) => Yo(v(An(createTimeZoneOffsetOps(refineTimeZoneSlot(t))), refineCalendarSlot(e))),
-    plainDateISO: (e = Nn()) => Yo(v(An(createTimeZoneOffsetOps(refineTimeZoneSlot(e))), X)),
-    plainTimeISO: (e = Nn()) => vo(Ge(An(createTimeZoneOffsetOps(refineTimeZoneSlot(e)))))
-  })
-}), mr = /*@__PURE__*/ Object.defineProperties({}, {
-  ...h("Temporal"),
-  ...p({
-    PlainYearMonth: wo,
-    PlainMonthDay: Oo,
-    PlainDate: Bo,
-    PlainTime: Io,
-    PlainDateTime: yo,
-    ZonedDateTime: ur,
-    Instant: Po,
-    Calendar: lr,
-    TimeZone: Zo,
-    Duration: rr,
-    Now: fr
-  })
-}), Sr = /*@__PURE__*/ createDateTimeFormatClass(), Or = /*@__PURE__*/ new WeakMap, Tr = /*@__PURE__*/ Object.defineProperties(Object.create(Intl), p({
-  DateTimeFormat: Sr
-}));
-
-
-
-;// CONCATENATED MODULE: ./src/date.ts
-
-
-
-function getMonthNames(style = "long", locale = 'en-US') {
-    return Array.from(range(1, 12)).map((monthInt) => {
-        return Temporal.PlainDate.from({
-            day: 1,
-            month: monthInt,
-            year: Temporal.Now.plainDateISO().year
-        }).toLocaleString(locale, {
-            month: style
-        });
-    });
-}
-/**
- * takes a string of formatted [monthname] [date] and give a plain date
- * @param value the string to evaluate
- * @param locale the locale to use to generate month names, e.g. en-US
- * @param year the year to give the date object. If not provided defaults to current year.
- */
-function plainDateFromMonthDayString(value, locale, year) {
-    year !== null && year !== void 0 ? year : (year = Temporal.Now.plainDateISO().year);
-    const match = value.match(getDateRegexString(locale));
-    if (!match)
-        throw new MalformedDateError(value);
-    const fullDate = match[1];
-    return Temporal.PlainDate.from({
-        month: getMonthNumberLut(locale)[match[2]],
-        day: parseInt(match[3]),
-        year
-    });
-}
-const monthNumberLutCache = {};
-/**
- * returns a string with 3 capturing groups -- 1 - month date, 2 month, 3 date. cuts off rd/th...
- * @param locale
- */
-function getMonthNumberLut(locale) {
-    if (monthNumberLutCache[locale])
-        return monthNumberLutCache[locale];
-    const monthNames = getMonthNames('long', locale);
-    const shortMonthNames = getMonthNames('short', locale);
-    const monthNumberLut = {};
-    assert(monthNames.length === shortMonthNames.length);
-    for (let i = 0; i < monthNames.length; i++) {
-        monthNumberLut[monthNames[i]] = i + 1;
-        monthNumberLut[shortMonthNames[i]] = i + 1;
-    }
-    monthNumberLutCache[locale] = monthNumberLut;
-    return monthNumberLut;
-}
-const dateRegexStringCache = {};
-//TODO: Make the capture groups in this optional
-function getDateRegexString(locale = 'en-US') {
-    if (dateRegexStringCache[locale])
-        return dateRegexStringCache[locale];
-    const monthNames = getMonthNames('long', locale);
-    const shortMonthNames = getMonthNames('short', locale);
-    const monthRegexDatePart = `(?:${[...monthNames, ...shortMonthNames].join('|')})`;
-    const output = `((${monthRegexDatePart}) (\\d+))(?:\\w{2}|)`;
-    dateRegexStringCache[locale] = output;
-    return output;
-}
-/**
- * Looks for a date range in text and, if found, returns an object with start and end params as Temporal PlainDates
- * @param textToSearch
- * @param locale
- */
-function date_findDateRange(textToSearch, locale = 'en-US') {
-    const dateRegExString = getDateRegexString(locale);
-    const searchRegex = new RegExp(`(${dateRegExString}).*(${dateRegExString})`, 'i');
-    const dateRegex = new RegExp(dateRegExString, 'i');
-    const matchRange = textToSearch.match(searchRegex);
-    if (!matchRange)
-        return null; //No date range found in syllabus
-    let start, end;
-    for (let separator of ['-', 'to']) {
-        [start, end] = matchRange[0].split(separator);
-        if (start && end)
-            break;
-    }
-    if (!start || !end)
-        throw new MalformedDateError('Cannot find date range in syllabus');
-    const startMatch = start.match(dateRegex);
-    const endMatch = end.match(dateRegex);
-    if (!startMatch)
-        throw new MalformedDateError(`Missing Start Date ${start}`);
-    if (!endMatch)
-        throw new MalformedDateError(`Missing End Date ${end}`);
-    return {
-        start: plainDateFromMonthDayString(startMatch[0], locale),
-        end: plainDateFromMonthDayString(endMatch[0], locale)
-    };
-}
-function date_oldDateToPlainDate(date) {
-    const data = {
-        day: date.getDate(),
-        month: date.getMonth() + 1,
-        year: date.getFullYear(),
-    };
-    return mr.PlainDate.from(data);
-}
-class StringNotAMonthDateError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "StringNotAMonthDateError";
-    }
-}
-class MalformedDateError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "MalformedDateError";
-    }
-}
-
-;// CONCATENATED MODULE: ./src/canvas/files.ts
-var files_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-function uploadFile(file, folder, url) {
-    return files_awaiter(this, void 0, void 0, function* () {
-        const initialParams = {
-            name: file.name,
-            no_redirect: true,
-            on_duplicate: 'overwrite'
-        };
-        if (typeof folder === 'number')
-            initialParams.parent_folder_id = folder;
-        else
-            initialParams.parent_folder_path = folder;
-        let response = yield fetch(url, {
-            body: canvasUtils_formDataify(initialParams),
-            method: 'POST'
-        });
-        const data = yield response.json();
-        const uploadParams = data.upload_params;
-        const uploadFormData = canvasUtils_formDataify(uploadParams);
-        uploadFormData.append('file', file);
-        response = yield fetch(data.upload_url, {
-            method: 'POST',
-            body: uploadFormData,
-        });
-        assert_default()(response.ok);
-    });
-}
-
-;// CONCATENATED MODULE: ./src/canvas/image.ts
-var image_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-function getResizedBlob(src_1, width_1) {
-    return image_awaiter(this, arguments, void 0, function* (src, width, height = undefined) {
-        let imageSrc = yield contentDownloadImage(src);
-        let canvas = document.createElement('canvas');
-        let image = new Image();
-        image.src = imageSrc;
-        let ctx = canvas.getContext('2d');
-        return new Promise((resolve) => {
-            image.onload = () => {
-                height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
-                assert_default()(ctx);
-                console.log(image.src);
-                canvas.width = width;
-                canvas.height = height;
-                ctx.drawImage(image, 0, 0, width, height);
-                canvas.toBlob(resolve);
-            };
-        });
-    });
-}
-function contentDownloadImage(src) {
-    return image_awaiter(this, void 0, void 0, function* () {
-        const base64 = yield browser_polyfill.runtime.sendMessage({ downloadImage: src });
-        return base64;
-    });
-}
-function backgroundDownloadImage(src) {
-    //if(!height) height = src.height / src.width * width;
-    const imageUrl = src;
-    return new Promise((resolve) => image_awaiter(this, void 0, void 0, function* () {
-        const imageFileResponse = yield fetch(imageUrl);
-        let reader = new FileReader();
-        reader.onload = event => {
-            console.log(reader.result);
-            resolve(reader.result);
-        };
-        const blob = yield imageFileResponse.blob();
-        reader.readAsDataURL(blob);
-    }));
-}
-
-;// CONCATENATED MODULE: ./src/canvas/course/getCourseIdFromUrl.ts
-function getCourseIdFromUrl(url) {
-    let match = /courses\/(\d+)/.exec(url);
-    if (match) {
-        return parseInt(match[1]);
-    }
-    return null;
-}
-
-;// CONCATENATED MODULE: ./src/consts.ts
-const OPEN_AI_API_KEY_KEY = "OPEN_AI_API_KEY";
-const PUBLISH_FORM_EMAIL_TEMPLATE_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics/Form-Email-Template.md';
-const DOCUMENTATION_TOC_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/lxd.tree';
-const DOCUMENTATION_TOPICS_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics';
-const DIST_REPO_URL = 'https://github.com/Unity-Environmental-University/lxd-tools-build';
-const DIST_REPO_MANIFEST = 'https://raw.githubusercontent.com/Unity-Environmental-University/lxd-tools-build/stable/manifest.json';
-const SAFE_MAX_BANNER_WIDTH = 1400;
-
-;// CONCATENATED MODULE: ./src/canvas/NotImplementedException.ts
-class NotImplementedException extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "NotImplementedException";
-    }
-}
-
-;// CONCATENATED MODULE: ./src/canvas/content/BaseContentItem.ts
-var BaseContentItem_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+/*!******************************!*\
+  !*** ./src/content/index.ts ***!
+  \******************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! webextension-polyfill */ "./node_modules/webextension-polyfill/dist/browser-polyfill.js");
+/* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../canvas/course/Course */ "./src/canvas/course/Course.ts");
+/* harmony import */ var _canvas_course_code__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/course/code */ "./src/canvas/course/code.ts");
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -11687,1627 +14348,13 @@ var BaseContentItem_awaiter = (undefined && undefined.__awaiter) || function (th
 
 
 
-
-
-
-
-
-
-
-class BaseContentItem extends BaseCanvasObject {
-    constructor(canvasData, courseId) {
-        super(canvasData);
-        this.kind = undefined;
-        this._courseId = courseId;
-    }
-    get htmlContentUrl() {
-        return `${this.contentUrlPath}`.replace('/api/v1/', '/');
-    }
-    static get contentUrlPart() {
-        assert_default()(this.allContentUrlTemplate, "Not a content url template");
-        const urlTermMatch = /\/([\w_]+)$/.exec(this.allContentUrlTemplate);
-        if (!urlTermMatch)
-            return null;
-        return urlTermMatch[1];
-    }
-    static getAllInCourse(courseId_1) {
-        return BaseContentItem_awaiter(this, arguments, void 0, function* (courseId, config = null) {
-            let url = this.getAllUrl(courseId);
-            let data = yield getPagedData(url, config);
-            return data.map(item => new this(item, courseId));
-        });
-    }
-    static clearAddedContentTags(text) {
-        let out = text.replace(/<\/?link[^>]*>/g, '');
-        out = out.replace(/<\/?script[^>]*>/g, '');
-        return out;
-    }
-    static getFromUrl() {
-        return BaseContentItem_awaiter(this, arguments, void 0, function* (url = null, courseId = null) {
-            if (url === null) {
-                url = document.documentURI;
-            }
-            url = url.replace(/\.com/, '.com/api/v1');
-            let data = yield fetchJson_fetchJson(url);
-            if (!courseId) {
-                courseId = getCourseIdFromUrl(url);
-                if (!courseId)
-                    return null;
-            }
-            //If this is a collection of data, we can't process it as a Canvas Object
-            if (Array.isArray(data))
-                return null;
-            assert_default()(!Array.isArray(data));
-            if (data) {
-                return new this(data, courseId);
-            }
-            return null;
-        });
-    }
-    static getById(contentId, courseId) {
-        return BaseContentItem_awaiter(this, void 0, void 0, function* () {
-            return new this(yield this.getDataById(contentId, courseId), courseId);
-        });
-    }
-    get bodyKey() {
-        return this.myClass.bodyProperty;
-    }
-    get body() {
-        if (!this.bodyKey)
-            return null;
-        return this.myClass.clearAddedContentTags(this.canvasData[this.bodyKey]);
-    }
-    get dueAt() {
-        if (!this.canvasData.hasOwnProperty('due_at')) {
-            return null;
-        }
-        if (!this.canvasData.due_at)
-            return null;
-        return new Date(this.canvasData.due_at);
-    }
-    setDueAt(date) {
-        return BaseContentItem_awaiter(this, void 0, void 0, function* () {
-            throw new NotImplementedException();
-        });
-    }
-    dueAtTimeDelta(timeDelta) {
-        return BaseContentItem_awaiter(this, void 0, void 0, function* () {
-            if (!this.dueAt)
-                return null;
-            let result = new Date(this.dueAt);
-            result.setDate(result.getDate() + timeDelta);
-            return yield this.setDueAt(result);
-        });
-    }
-    get contentUrlPath() {
-        let url = this.constructor.contentUrlTemplate;
-        assert_default()(url);
-        url = url.replace('{course_id}', this.courseId.toString());
-        url = url.replace('{content_id}', this.id.toString());
-        return url;
-    }
-    get courseId() {
-        return this._courseId;
-    }
-    updateContent(text, name, config) {
-        return BaseContentItem_awaiter(this, void 0, void 0, function* () {
-            const data = {};
-            const constructor = this.constructor;
-            assert_default()(constructor.bodyProperty);
-            assert_default()(constructor.nameProperty);
-            const nameProp = constructor.nameProperty;
-            const bodyProp = constructor.bodyProperty;
-            if (text && bodyProp) {
-                this.canvasData[bodyProp] = text;
-                data[bodyProp] = text;
-            }
-            if (name && nameProp) {
-                this.canvasData[nameProp] = name;
-                data[nameProp] = name;
-            }
-            return this.saveData(data, config);
-        });
-    }
-    getMeInAnotherCourse(targetCourseId) {
-        return BaseContentItem_awaiter(this, void 0, void 0, function* () {
-            let ContentClass = this.constructor;
-            let targets = yield ContentClass.getAllInCourse(targetCourseId, { queryParams: { search_term: this.name } });
-            return targets.find((target) => target.name == this.name);
-        });
-    }
-    getAllLinks() {
-        const el = this.bodyAsElement;
-        const anchors = el.querySelectorAll('a');
-        const urls = [];
-        for (let link of anchors)
-            urls.push(link.href);
-        return urls;
-    }
-    get bodyAsElement() {
-        assert_default()(this.body, "This content item has no body property");
-        let el = document.createElement('div');
-        el.innerHTML = this.body;
-        return el;
-    }
-    resizeBanner() {
-        return BaseContentItem_awaiter(this, arguments, void 0, function* (maxWidth = SAFE_MAX_BANNER_WIDTH) {
-            const bannerImg = getBannerImage(this);
-            if (!bannerImg)
-                throw new Error("No banner");
-            let fileData = yield getFileDataFromUrl(bannerImg.src, this.courseId);
-            if (!fileData)
-                throw new Error("File not found");
-            if (bannerImg.naturalWidth < maxWidth)
-                return; //Dont resize image unless we're shrinking it
-            let resizedImageBlob = yield getResizedBlob(bannerImg.src, maxWidth);
-            let fileName = fileData.filename;
-            let fileUploadUrl = `/api/v1/courses/${this.courseId}/files`;
-            assert_default()(resizedImageBlob);
-            let file = new File([resizedImageBlob], fileName);
-            return yield uploadFile(file, fileData.folder_id, fileUploadUrl);
-        });
-    }
-}
-BaseContentItem.nameProperty = 'name';
-function getFileDataFromUrl(url, courseId) {
-    return BaseContentItem_awaiter(this, void 0, void 0, function* () {
-        const match = /.*\/files\/(\d+)/.exec(url);
-        if (!match)
-            return null;
-        if (match) {
-            const fileId = parseInt(match[1]);
-            return yield getFileData(fileId, courseId);
-        }
-    });
-}
-function getBannerImage(overviewPage) {
-    const pageBody = document.createElement('html');
-    if (!overviewPage.body)
-        throw new Error(`Content item ${overviewPage.name} has no html body`);
-    pageBody.innerHTML = overviewPage.body;
-    return pageBody.querySelector('.cbt-banner-image img');
-}
-function getFileData(fileId, courseId) {
-    return BaseContentItem_awaiter(this, void 0, void 0, function* () {
-        const url = `/api/v1/courses/${courseId}/files/${fileId}`;
-        return yield fetchJson_fetchJson(url);
-    });
-}
-function putContentConfig(data, config) {
-    return canvasUtils_deepObjectMerge(config, {
-        fetchInit: {
-            method: 'PUT',
-            body: canvasUtils_formDataify(data)
-        }
-    }, true);
-}
-
-;// CONCATENATED MODULE: ./src/canvas/content/ContentKind.ts
-var ContentKind_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-function contentUrlFuncs(contentUrlPart) {
-    const urlRegex = new RegExp(`courses\/(\\d+)\/${contentUrlPart}/(\\d+)`, 'i');
-    const getApiUrl = courseContentUrlFunc(`/api/v1/courses/{courseId}/${contentUrlPart}/{contentId}`);
-    const getAllApiUrl = (courseId) => `/api/v1/courses/${courseId}/${contentUrlPart}`;
-    const getHtmlUrl = courseContentUrlFunc(`/courses/{courseId}/${contentUrlPart}/{contentId}`);
-    function getCourseAndContentIdFromUrl(url) {
-        var _a;
-        const [full, courseId, contentId] = (_a = url.match(urlRegex)) !== null && _a !== void 0 ? _a : [undefined, undefined, undefined];
-        return [courseId, contentId].map(a => a ? parseInt(a) : undefined);
-    }
-    const isValidUrl = (url) => typeof url === 'string' && typeof getCourseAndContentIdFromUrl(url)[0] !== 'undefined';
-    return {
-        getApiUrl,
-        getAllApiUrl,
-        getHtmlUrl,
-        getCourseAndContentIdFromUrl,
-        isValidUrl,
-    };
-}
-function courseContentUrlFunc(url) {
-    return (courseId, contentId) => url
-        .replaceAll('{courseId}', courseId.toString())
-        .replaceAll('{contentId}', contentId.toString());
-}
-function putContentFunc(getApiUrl) {
-    return function (courseId, contentId, content, config) {
-        return ContentKind_awaiter(this, void 0, void 0, function* () {
-            const url = getApiUrl(courseId, contentId);
-            return yield fetchJson_fetchJson(url, putContentConfig(content, config));
-        });
-    };
-}
-
-;// CONCATENATED MODULE: ./src/canvas/content/assignments/AssignmentKind.ts
-var AssignmentKind_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-const assignmentUrlFuncs = contentUrlFuncs('assignments');
-const AssignmentKind = Object.assign(Object.assign({ getId: (data) => data.id, dataIsThisKind: (data) => {
-        return 'submission_types' in data;
-    }, getName: (data) => data.name, getBody: (data) => data.description, get(courseId, contentId, config) {
-        return AssignmentKind_awaiter(this, void 0, void 0, function* () {
-            const data = yield fetchJson_fetchJson(assignmentUrlFuncs.getApiUrl(courseId, contentId), config);
-            return data;
-        });
-    } }, assignmentUrlFuncs), { dataGenerator: (courseId, config) => getPagedDataGenerator_getPagedDataGenerator(assignmentUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(assignmentUrlFuncs.getApiUrl) });
-
-;// CONCATENATED MODULE: ./src/canvas/content/assignments/Assignment.ts
-var Assignment_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-
-class Assignment_Assignment extends BaseContentItem {
-    constructor(assignmentData, courseId) {
-        super(assignmentData, courseId);
-    }
-    setDueAt(dueAt, config) {
-        return Assignment_awaiter(this, void 0, void 0, function* () {
-            const sourceDueAt = this.rawData.due_at ? mr.Instant.from(this.rawData.due_at) : null;
-            const targetDueAt = mr.Instant.from(dueAt.toISOString());
-            const payload = {
-                assignment: {
-                    due_at: dueAt.toISOString(),
-                }
-            };
-            if (this.rawData.peer_reviews && 'automatic_peer_reviews' in this.rawData) {
-                const peerReviewTime = this.rawData.peer_reviews_assign_at ? mr.Instant.from(this.rawData.peer_reviews_assign_at) : null;
-                assert_default()(sourceDueAt, "Trying to set peer review date without a due date for the assignment.");
-                if (peerReviewTime) {
-                    const peerReviewOffset = sourceDueAt.until(peerReviewTime);
-                    const newPeerReviewTime = targetDueAt.add(peerReviewOffset);
-                    payload.assignment.peer_reviews_assign_at =
-                        new Date(newPeerReviewTime.epochMilliseconds).toISOString();
-                }
-            }
-            let data = yield this.saveData(payload, config);
-            this.canvasData['due_at'] = dueAt.toISOString();
-            return data;
-        });
-    }
-    get rawData() {
-        return this.canvasData;
-    }
-    updateContent(text, name, config) {
-        return Assignment_awaiter(this, void 0, void 0, function* () {
-            const assignmentData = {};
-            if (text) {
-                assignmentData.description = text;
-                this.rawData.description = text;
-            }
-            if (name) {
-                assignmentData.name = name;
-                this.rawData.name = name;
-            }
-            return yield this.saveData({
-                assignment: assignmentData
-            }, config);
-        });
-    }
-}
-Assignment_Assignment.kind = AssignmentKind;
-Assignment_Assignment.nameProperty = 'name';
-Assignment_Assignment.bodyProperty = 'description';
-Assignment_Assignment.contentUrlTemplate = "/api/v1/courses/{course_id}/assignments/{content_id}";
-Assignment_Assignment.allContentUrlTemplate = "/api/v1/courses/{course_id}/assignments";
-
-;// CONCATENATED MODULE: ./src/canvas/course/changeStartDate.ts
-
-
-const DEFAULT_LOCALE = 'en-US';
-function getModuleUnlockStartDate(modules) {
-    if (modules.length == 0)
-        throw new NoOverviewModuleFoundError();
-    const overviewModule = modules[0];
-    const unlockDateString = overviewModule.unlock_at;
-    if (!unlockDateString)
-        return null;
-    const oldDate = new Date(unlockDateString);
-    return date_oldDateToPlainDate(oldDate);
-}
-function sortAssignmentsByDueDate(assignments) {
-    return assignments
-        .toSorted((a, b) => {
-        a = a instanceof Assignment ? a.rawData : a;
-        b = b instanceof Assignment ? b.rawData : b;
-        if (a.due_at && b.due_at) {
-            return oldDateToPlainDate(new Date(b.due_at)).until(oldDateToPlainDate(new Date(a.due_at))).days;
-        }
-        if (a.due_at)
-            return -1;
-        if (b.due_at)
-            return 1;
-        return 0;
-    });
-}
-function getStartDateAssignments(assignments) {
-    const sorted = sortAssignmentsByDueDate(assignments).map(a => { var _a; return (_a = a.rawData) !== null && _a !== void 0 ? _a : a; }).filter(a => a.due_at);
-    if (sorted.length == 0)
-        throw new NoAssignmentsWithDueDatesError();
-    const firstAssignmentDue = new Date(sorted[0].due_at);
-    //Set to monday of that week.
-    const plainDateDue = oldDateToPlainDate(firstAssignmentDue);
-    const dayOfWeekOffset = 1 - plainDateDue.dayOfWeek;
-    return plainDateDue.add({ days: dayOfWeekOffset });
-}
-function getUpdatedStyleTermName(termStart, weekCount, locale = DEFAULT_LOCALE) {
-    const month = termStart.toLocaleString(locale, { month: '2-digit' });
-    const day = termStart.toLocaleString(locale, { day: '2-digit' });
-    const year = termStart.toLocaleString(locale, { year: '2-digit' });
-    return `DE${weekCount}W${month}.${day}.${year}`;
-}
-function getOldUgTermName(termStart, locale = DEFAULT_LOCALE) {
-    const year = termStart.toLocaleString(DEFAULT_LOCALE, { year: '2-digit' });
-    const month = termStart.toLocaleString(DEFAULT_LOCALE, { month: 'short' });
-    return `DE-${year}-${month}`;
-}
-function getNewTermName(oldTermName, newTermStart, locale = DEFAULT_LOCALE) {
-    const [termName, weekCount] = oldTermName.match(/DE(\d)W\d\d\.\d\d\.\d\d/) || [];
-    if (termName)
-        return getUpdatedStyleTermName(newTermStart, weekCount);
-    const termNameUg = oldTermName.match(/(DE(?:.HL|)-\d\d)-(\w+)\w{2}?/i);
-    if (termNameUg)
-        return getUpdatedStyleTermName(newTermStart, 5);
-    throw new MalformedSyllabusError(`Can't Recognize Term Name ${oldTermName}`);
-}
-function updatedDateSyllabusHtml(html, newStartDate, locale = DEFAULT_LOCALE) {
-    const syllabusBody = document.createElement('div');
-    syllabusBody.innerHTML = html;
-    const syllabusCalloutBox = syllabusBody.querySelector('div.cbt-callout-box');
-    if (!syllabusCalloutBox)
-        throw new MalformedSyllabusError("Can't find syllabus callout box");
-    const paras = Array.from(syllabusCalloutBox.querySelectorAll('p'));
-    const strongParas = paras.filter((para) => para.querySelector('strong'));
-    if (strongParas.length < 5)
-        throw new MalformedSyllabusError(`Missing syllabus headers\n${strongParas}`);
-    const [_courseNameEl, termNameEl, datesEl, _instructorNameEl, _instructorContactInfoEl, _creditsEl] = strongParas;
-    const changedText = [];
-    const oldTermName = termNameEl.textContent || '';
-    const oldDates = datesEl.textContent || '';
-    const dateRange = findDateRange(datesEl.innerHTML, locale);
-    if (!dateRange)
-        throw new MalformedSyllabusError("Date range not found in syllabus");
-    const courseDuration = dateRange.start.until(dateRange.end);
-    const newEndDate = newStartDate.add(courseDuration);
-    const newTermName = getNewTermName(oldTermName, newStartDate);
-    const dateRangeText = `${dateToSyllabusString(newStartDate)} - ${dateToSyllabusString(newEndDate)}`;
-    termNameEl.innerHTML = `<strong>${syllabusHeaderName(termNameEl)}:</strong><span> ${newTermName}</span>`;
-    datesEl.innerHTML = `<strong>${syllabusHeaderName(datesEl)}:</strong><span> ${dateRangeText}</span>`;
-    changedText.push(`${oldTermName} -> ${termNameEl.textContent}`);
-    changedText.push(`${oldDates} -> ${datesEl.textContent}`);
-    const output = {
-        html: syllabusBody.innerHTML.replaceAll(/<p>\s*(&nbsp;)?<\/p>/ig, ''),
-        changedText,
-    };
-    syllabusBody.remove();
-    return output;
-}
-function dateToSyllabusString(date) {
-    return `${date.toLocaleString(DEFAULT_LOCALE, { month: 'long', day: 'numeric' })}`;
-}
-function syllabusHeaderName(el) {
-    var _a;
-    let [_, head] = (_a = /([^:]*):/.exec(el.innerHTML)) !== null && _a !== void 0 ? _a : [];
-    head = head === null || head === void 0 ? void 0 : head.replaceAll(/<[^>]*>/g, '');
-    return head;
-}
-class NoOverviewModuleFoundError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "NoOverviewModuleFoundError";
-    }
-}
-class MalformedSyllabusError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "MalformedSyllabusError";
-    }
-}
-class NoAssignmentsWithDueDatesError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "NoAssignmentsWithDueDatesError";
-    }
-}
-
-;// CONCATENATED MODULE: ./src/canvas/content/assignments/pages/PageKind.ts
-
-
-
-const PageUrlFuncs = contentUrlFuncs('pages');
-const PageKind = Object.assign(Object.assign({}, PageUrlFuncs), { dataIsThisKind: (data) => {
-        return 'page_id' in data;
-    }, getName: page => page.title, getBody: page => page.body, getId: page => page.id, get: (id, courseId, config) => fetchJson_fetchJson(PageUrlFuncs.getApiUrl(courseId, id), config), dataGenerator: (courseId, config) => getPagedDataGenerator_getPagedDataGenerator(PageUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(PageUrlFuncs.getApiUrl) });
-
-;// CONCATENATED MODULE: ./src/canvas/content/assignments/pages/Page.ts
-var Page_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-class Page extends BaseContentItem {
-    constructor(canvasData, courseId) {
-        super(canvasData, courseId);
-    }
-    get body() {
-        return this.canvasData[this.bodyKey];
-    }
-    updateContent(text, name, config) {
-        return Page_awaiter(this, void 0, void 0, function* () {
-            let data = {};
-            if (text) {
-                this.canvasData[this.bodyKey] = text;
-                data['wiki_page[body]'] = text;
-            }
-            if (name) {
-                this.canvasData[this.nameKey] = name;
-                data[this.nameKey] = name;
-            }
-            return this.saveData(data, config);
-        });
-    }
-}
-Page.kindInfo = PageKind;
-Page.idProperty = 'page_id';
-Page.nameProperty = 'title';
-Page.bodyProperty = 'body';
-Page.contentUrlTemplate = "/api/v1/courses/{course_id}/pages/{content_id}";
-Page.allContentUrlTemplate = "/api/v1/courses/{course_id}/pages";
-
-;// CONCATENATED MODULE: ./src/canvas/course/modules.ts
-var modules_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-
-function moduleGenerator(courseId, config) {
-    return getPagedDataGenerator_getPagedDataGenerator(`/api/v1/courses/${courseId}/modules`, config);
-}
-function changeModuleLockDate(courseId, module, targetDate) {
-    return modules_awaiter(this, void 0, void 0, function* () {
-        const payload = {
-            module: {
-                unlock_at: targetDate.toString()
-            }
-        };
-        const url = `/api/v1/courses/${courseId}/modules/${module.id}`;
-        const result = fetchJson(url, {
-            fetchInit: {
-                method: 'PUT',
-                body: formDataify(payload)
-            }
-        });
-    });
-}
-function getModuleOverview(module, courseId) {
-    return modules_awaiter(this, void 0, void 0, function* () {
-        let overview = module.items.find(item => item.type === "Page" &&
-            item.title.toLowerCase().includes('overview'));
-        if (!(overview === null || overview === void 0 ? void 0 : overview.url))
-            return; //skip this if it's not an overview
-        const url = overview.url.replace(/.*\/api\/v1/, '/api/v1');
-        const pageData = yield fetchJson_fetchJson(url);
-        return new Page(pageData, courseId);
-    });
-}
-function getModuleWeekNumber(module) {
-    const regex = /(week|module) (\d+)/i;
-    let match = module.name.match(regex);
-    let weekNumber = !match ? null : Number(match[1]);
-    if (!weekNumber) {
-        for (let moduleItem of module.items) {
-            if (!moduleItem.hasOwnProperty('title')) {
-                continue;
-            }
-            let match = moduleItem.title.match(regex);
-            if (match) {
-                weekNumber = match[2];
-            }
-        }
-    }
-    return weekNumber;
-}
-function getModulesByWeekNumber(modules) {
-    return modules_awaiter(this, void 0, void 0, function* () {
-        let modulesByWeekNumber = {};
-        for (let module of modules) {
-            let weekNumber = getModuleWeekNumber(module);
-            if (weekNumber) {
-                modulesByWeekNumber[weekNumber] = module;
-            }
-        }
-        return modulesByWeekNumber;
-    });
-}
-
-;// CONCATENATED MODULE: ./src/canvas/Account.ts
-var Account_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var Account_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
-
-
-
-/**
- *  A base class for objects that interact with the Canvas API
- */
-class Account extends BaseCanvasObject {
-    static getFromUrl() {
-        return Account_awaiter(this, arguments, void 0, function* (url = null) {
-            if (url === null) {
-                url = document.documentURI;
-            }
-            let match = /accounts\/(\d+)/.exec(url);
-            if (match) {
-                console.log(match);
-                return yield this.getAccountById(parseInt(match[1]));
-            }
-            return null;
-        });
-    }
-    static getAccountById(accountId_1) {
-        return Account_awaiter(this, arguments, void 0, function* (accountId, config = undefined) {
-            const data = yield fetchJson_fetchJson(`/api/v1/accounts/${accountId}`, config);
-            return new Account(data);
-        });
-    }
-    static getRootAccount() {
-        return Account_awaiter(this, arguments, void 0, function* (resetCache = false) {
-            var _a, e_1, _b, _c;
-            if (!resetCache && this.hasOwnProperty('account') && this.account) {
-                return this.account;
-            }
-            let accountGen = getPagedDataGenerator_getPagedDataGenerator('/api/v1/accounts');
-            try {
-                for (var _d = true, accountGen_1 = Account_asyncValues(accountGen), accountGen_1_1; accountGen_1_1 = yield accountGen_1.next(), _a = accountGen_1_1.done, !_a; _d = true) {
-                    _c = accountGen_1_1.value;
-                    _d = false;
-                    let account = _c;
-                    if (account.root_account_id)
-                        continue; //if there is a root_account_id, this is not the root account
-                    const root = new Account(account);
-                    this.account = root;
-                    return root;
-                }
-            }
-            catch (e_1_1) { e_1 = { error: e_1_1 }; }
-            finally {
-                try {
-                    if (!_d && !_a && (_b = accountGen_1.return)) yield _b.call(accountGen_1);
-                }
-                finally { if (e_1) throw e_1.error; }
-            }
-        });
-    }
-    get rootAccountId() {
-        return this.canvasData['root_account_id'];
-    }
-}
-Account.nameProperty = 'name'; // The field name of the primary name of the canvas object type
-Account.contentUrlTemplate = '/api/v1/accounts/{content_id}'; // A templated url to get a single item
-Account.allContentUrlTemplate = '/api/v1/accounts'; // A templated url to get all items
-class RootAccountNotFoundError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = 'RootAccountNotFoundError';
-    }
-}
-
-;// CONCATENATED MODULE: ./src/canvas/profile.ts
-var profile_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-
-let facultyCourseCached;
-function getFacultyCourse() {
-    return profile_awaiter(this, void 0, void 0, function* () {
-        const facultyCourse = facultyCourseCached !== null && facultyCourseCached !== void 0 ? facultyCourseCached : yield getSingleCourse('Faculty Bios', (yield Account.getAll()).map(a => a.id));
-        facultyCourseCached = facultyCourse;
-        assert_default()(facultyCourse);
-        return facultyCourse;
-    });
-}
-function getFacultyPages(searchTerm) {
-    return profile_awaiter(this, void 0, void 0, function* () {
-        const facultyCourse = yield getFacultyCourse();
-        return yield facultyCourse.getPages({
-            queryParams: {
-                include: ['body'],
-                search_term: searchTerm
-            }
-        });
-    });
-}
-function getPotentialFacultyProfiles(user) {
-    return profile_awaiter(this, void 0, void 0, function* () {
-        var _a;
-        let pages = [];
-        const [lastName, firstName] = user.name.split(' ');
-        for (let query of [
-            user.name,
-            lastName,
-            firstName,
-        ]) {
-            console.log(query);
-            pages = yield getFacultyPages(query);
-            if (pages.length > 0)
-                break;
-        }
-        let profiles = pages.map((page) => getProfileFromPage(page, user), true);
-        if (profiles.length > 0) {
-            for (let profile of profiles) {
-                (_a = profile.displayName) !== null && _a !== void 0 ? _a : (profile.displayName = user.name);
-            }
-        }
-        return profiles;
-    });
-}
-function getProfileFromPage(page, user) {
-    const profile = getProfileFromPageHtml(page.body, user);
-    profile.sourcePage = page;
-    return profile;
-}
-function getProfileFromPageHtml(html, user) {
-    const el = document.createElement('div');
-    el.innerHTML = html;
-    const displayName = getDisplayName(el);
-    const body = getProfileBody(el);
-    const image = getImageLink(el);
-    return {
-        user,
-        bio: body,
-        displayName,
-        image,
-        imageLink: image === null || image === void 0 ? void 0 : image.src,
-    };
-}
-function getProfileBody(el) {
-    const h4s = el.querySelectorAll('h4');
-    const instructorHeaders = Array.from(h4s).filter((el) => {
-        return el.innerHTML.search(/instructor/i);
-    });
-    let potentials = [];
-    for (let header of instructorHeaders) {
-        const potentialParent = header.parentElement;
-        if (potentialParent) {
-            header.remove();
-            potentials.push(potentialParent.innerHTML);
-        }
-    }
-    potentials = winnow(potentials, [
-        (potential) => potential.length > 0,
-    ]);
-    /* just guess if we can't find anything */
-    if (potentials.length > 0) {
-        return potentials[0];
-    }
-    return null;
-}
-function getDisplayName(el) {
-    let titles = Array.from(el.querySelectorAll('strong em'));
-    if (titles.length === 0) {
-        let enclosedImages = Array.from(el.querySelectorAll('p img'));
-        titles = enclosedImages.map((el) => { var _a; return (_a = parentElement(el, 'p')) === null || _a === void 0 ? void 0 : _a.nextElementSibling; })
-            .filter((el) => el instanceof Element);
-    }
-    if (titles.length === 0) {
-        let headings = Array.from(el.querySelectorAll('p strong'));
-        let instructorHeaders = headings.filter(el => el.innerHTML.search(/Instructor/));
-        titles = instructorHeaders.map((el) => el.previousElementSibling)
-            .filter((el) => el instanceof Element);
-    }
-    titles = titles.filter((title) => title.textContent && title.textContent.length > 0);
-    if (titles.length > 0)
-        return titles[0].textContent;
-    return null;
-}
-/**
- * Finds all the image links in the content and returns the biggest.
- * @param el
- */
-function getImageLink(el) {
-    let imgs = el.querySelectorAll('img');
-    if (imgs.length === 0)
-        return null;
-    return Array.from(imgs)[1];
-}
-/**
- * Takes in a list of parameters and a set of filter functions. Runs filter functions until there are one or fewer elements,
- * or it runs out of filter functions. Returns post-filtered list.
- * @param originalList The list of items to run
- * @param winnowFuncs A list of filter functions, run in order
- * @param returnLastNonEmpty If true, will return the last non-empty array found if elements are winnowed to 0
- */
-function winnow(originalList, winnowFuncs, returnLastNonEmpty = false) {
-    let copyList = [...originalList];
-    if (copyList.length === 1)
-        return copyList; //already at 1 element
-    let lastSet = [...copyList];
-    for (let winnowFunc of winnowFuncs) {
-        lastSet = [...copyList];
-        copyList = copyList.filter(winnowFunc);
-        if (copyList.length === 1)
-            break;
-    }
-    if (copyList.length === 0 && returnLastNonEmpty)
-        return lastSet;
-    return copyList;
-}
-function getCurioPageFrontPageProfile(html, user) {
-    const el = document.createElement('div');
-    el.innerHTML = html;
-    const header = getCurioHeader(el);
-    const match = header.innerHTML.match(/Meet your instructor, ?(.*)!/i);
-    const displayName = match ? match[1] : null;
-    const bio = getCurioBio(el);
-    const image = getCurioProfileImage(el);
-    return {
-        user,
-        displayName,
-        image,
-        imageLink: image ? image.src : null,
-        bio: bio === null || bio === void 0 ? void 0 : bio.innerHTML
-    };
-}
-function frontPageBio(profile) {
-    return profile.bio + `<p>${profile.displayName} should be contacted during the term using Canvas Inbox,
- but can be reached after and before the term via their email address: ${profile.user.email}</p>`;
-}
-function renderProfileIntoCurioFrontPage(html, profile) {
-    const el = document.createElement('div');
-    el.innerHTML = html;
-    if (profile.displayName) {
-        const header = getCurioHeader(el);
-        header.innerHTML = `Meet your instructor, ${profile.displayName}!`;
-    }
-    if (profile.bio) {
-        const bio = getCurioBio(el);
-        if (bio) {
-            const classes = bio.classList;
-            if (!classes.contains('cbt-instructor-bio'))
-                classes.add('cbt-instructor-bio');
-            bio.innerHTML = frontPageBio(profile);
-        }
-    }
-    if (profile.image) {
-        const image = getCurioProfileImage(el);
-        if (image) {
-            image.src = profile.image.src;
-            image.alt = profile.image.alt;
-        }
-    }
-    else if (profile.imageLink) {
-        const image = getCurioProfileImage(el);
-        if (image) {
-            image.src = profile.imageLink;
-        }
-    }
-    return el.innerHTML;
-}
-function getCurioHeader(el) {
-    let h2s = Array.from(el.querySelectorAll('h2'));
-    h2s = h2s.filter((h2) => h2.innerHTML.match(/Meet your instructor/i));
-    assert_default()(h2s.length === 1, "Can't find bio section of front page.");
-    return h2s[0];
-}
-function getCurioProfileDiv(el) {
-    const header = getCurioHeader(el);
-    const sectionEl = header.nextElementSibling;
-    assert_default()(sectionEl, "Body element of bio not found on page.");
-    return sectionEl;
-}
-function getCurioBio(el) {
-    const profileDiv = getCurioProfileDiv(el);
-    let bio = profileDiv.querySelector('.cbt-instructor-bio');
-    if (bio && bio.innerHTML)
-        return bio;
-    let div = getCurioProfileDiv(el);
-    const p = div.querySelector('p');
-    return p === null || p === void 0 ? void 0 : p.parentElement;
-}
-function getCurioProfileImage(el) {
-    return getCurioProfileDiv(el).querySelector('img');
-}
-
-
-;// CONCATENATED MODULE: ./src/canvas/content/assignments/index.ts
-var assignments_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var assignments_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
-
-
-const assignmentDataGen = AssignmentKind.dataGenerator;
-const updateAssignmentData = AssignmentKind.put;
-const getAssignmentData = AssignmentKind.get;
-function updateAssignmentDueDates(offset, assignments, options) {
-    return assignments_awaiter(this, void 0, void 0, function* () {
-        var _a, assignments_1, assignments_1_1;
-        var _b, e_1, _c, _d;
-        const promises = [];
-        const returnAssignments = [];
-        let { courseId } = options !== null && options !== void 0 ? options : {};
-        if (!courseId && courseId !== 0) {
-            courseId = assignments[0].course_id;
-        }
-        if (offset === 0 || offset) {
-            try {
-                for (_a = true, assignments_1 = assignments_asyncValues(assignments); assignments_1_1 = yield assignments_1.next(), _b = assignments_1_1.done, !_b; _a = true) {
-                    _d = assignments_1_1.value;
-                    _a = false;
-                    let data = _d;
-                    const assignment = new Assignment(data, courseId);
-                    returnAssignments.push(assignment);
-                    promises.push(assignment.dueAtTimeDelta(Number(offset)));
-                }
-            }
-            catch (e_1_1) { e_1 = { error: e_1_1 }; }
-            finally {
-                try {
-                    if (!_a && !_b && (_c = assignments_1.return)) yield _c.call(assignments_1);
-                }
-                finally { if (e_1) throw e_1.error; }
-            }
-        }
-        return returnAssignments;
-    });
-}
-
-;// CONCATENATED MODULE: ./src/canvas/term/Term.ts
-var Term_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-
-
-class Term extends BaseCanvasObject {
-    static getTerm(code_1) {
-        return Term_awaiter(this, arguments, void 0, function* (code, workflowState = 'all', config = undefined) {
-            const terms = yield this.searchTerms(code, workflowState, config);
-            if (!Array.isArray(terms) || terms.length <= 0) {
-                return null;
-            }
-            return terms[0];
-        });
-    }
-    static getTermById(termId_1) {
-        return Term_awaiter(this, arguments, void 0, function* (termId, config = null) {
-            let account = yield Account.getRootAccount();
-            if (!account)
-                throw new RootAccountNotFoundError();
-            let url = `/api/v1/accounts/${account.id}/terms/${termId}`;
-            let termData = yield fetchJson_fetchJson(url, config);
-            if (termData)
-                return new Term(termData);
-            return null;
-        });
-    }
-    static getAllActiveTerms() {
-        return Term_awaiter(this, arguments, void 0, function* (config = null) {
-            return yield this.searchTerms(null, 'active', config);
-        });
-    }
-    static searchTerms() {
-        return Term_awaiter(this, arguments, void 0, function* (code = null, workflowState = 'all', config = null) {
-            config = config || {};
-            config.queryParams = config.queryParams || {};
-            let queryParams = config.queryParams;
-            if (workflowState)
-                queryParams['workflow_state'] = workflowState;
-            if (code)
-                queryParams['term_name'] = code;
-            let rootAccount = yield Account.getRootAccount();
-            assert_default()(rootAccount);
-            let url = `/api/v1/accounts/${rootAccount.id}/terms`;
-            const data = yield getPagedData(url, config);
-            let terms = [];
-            for (let datum of data) {
-                if (datum.hasOwnProperty('enrollment_terms')) {
-                    for (let termData of datum['enrollment_terms']) {
-                        terms.push(termData);
-                    }
-                }
-                else {
-                    terms.push(datum);
-                }
-            }
-            console.log(terms);
-            if (!terms || terms.length === 0) {
-                return null;
-            }
-            return terms.map(term => new Term(term));
-        });
-    }
-}
-Term.nameProperty = "name";
-
-;// CONCATENATED MODULE: ./src/canvas/content/quizzes/Quiz.ts
-var Quiz_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-class Quiz extends BaseContentItem {
-    setDueAt(date) {
-        return Quiz_awaiter(this, void 0, void 0, function* () {
-            const url = `/api/v1/courses/${this.courseId}/quizzes/${this.id}`;
-            return fetchJson_fetchJson(url, {
-                fetchInit: {
-                    method: 'PUT',
-                    body: canvasUtils_formDataify({
-                        quiz: {
-                            due_at: date
-                        }
-                    })
-                }
-            });
-        });
-    }
-}
-Quiz.nameProperty = 'title';
-Quiz.bodyProperty = 'description';
-Quiz.contentUrlTemplate = "/api/v1/courses/{course_id}/quizzes/{content_id}";
-Quiz.allContentUrlTemplate = "/api/v1/courses/{course_id}/quizzes";
-
-;// CONCATENATED MODULE: ./src/canvas/content/discussions/DiscussionKind.ts
-var DiscussionKind_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-const discussionUrlFuncs = contentUrlFuncs('discussion_topics');
-const DiscussionKind = Object.assign(Object.assign({}, discussionUrlFuncs), { dataIsThisKind(data) {
-        return data.hasOwnProperty('discussion_type');
-    }, getId: (data) => data.id, getName: (data) => data.title, getBody: (data) => data.message, get(courseId, contentId, config) {
-        return DiscussionKind_awaiter(this, void 0, void 0, function* () {
-            return yield fetchJson_fetchJson(discussionUrlFuncs.getApiUrl(courseId, contentId), config);
-        });
-    }, dataGenerator: (courseId, config) => getPagedDataGenerator_getPagedDataGenerator(discussionUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(discussionUrlFuncs.getApiUrl) });
-
-;// CONCATENATED MODULE: ./src/canvas/content/discussions/Discussion.ts
-var Discussion_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-class Discussion extends BaseContentItem {
-    offsetPublishDelay(days, config) {
-        return Discussion_awaiter(this, void 0, void 0, function* () {
-            const data = this.rawData;
-            if (!this.rawData.delayed_post_at)
-                return;
-            let delayedPostAt = mr.Instant.from(this.rawData.delayed_post_at).toZonedDateTimeISO('UTC');
-            delayedPostAt = delayedPostAt.add({ days });
-            const payload = {
-                delayed_post_at: new Date(delayedPostAt.epochMilliseconds).toISOString()
-            };
-            yield this.saveData(payload, config);
-        });
-    }
-    get rawData() {
-        return this.canvasData;
-    }
-}
-Discussion.kindInfo = DiscussionKind;
-Discussion.nameProperty = 'title';
-Discussion.bodyProperty = 'message';
-Discussion.contentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics/{content_id}";
-Discussion.allContentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics";
-
-;// CONCATENATED MODULE: ./src/canvas/course/Course.ts
-var Course_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const HOMETILE_WIDTH = 500;
-const COURSE_CODE_REGEX = /^(.+[^_])?_?(\w{4}\d{3})/i;
-class Course_Course extends BaseCanvasObject {
-    constructor(data) {
-        super(data);
-        this._modules = undefined;
-        this.modulesByWeekNumber = undefined;
-        this.cachedContent = [];
-        this.isBlueprint = (() => isBlueprint(data));
-        this.getAssociatedCourses = cachedGetAssociatedCoursesFunc(this);
-    }
-    static getFromUrl() {
-        return Course_awaiter(this, arguments, void 0, function* (url = null) {
-            if (url === null) {
-                url = document.documentURI;
-            }
-            let match = /courses\/(\d+)/.exec(url);
-            if (match) {
-                const id = getCourseIdFromUrl(url);
-                if (!id)
-                    return null;
-                return getCourseById(id);
-            }
-            return null;
-        });
-    }
-    static getCourseById(courseId_1) {
-        return Course_awaiter(this, arguments, void 0, function* (courseId, config = undefined) {
-            const data = yield getCourseData(courseId, config);
-            return new Course_Course(data);
-        });
-    }
-    static publishAll(courses, accountId) {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            if (courses.length == 0)
-                return false;
-            const courseIds = courses.map((course) => {
-                if (course instanceof Course_Course) {
-                    return course.id;
-                }
-                return course;
-            });
-            const url = `/api/v1/accounts/${accountId}/courses`;
-            const data = {
-                'event': 'offer',
-                'course_ids': courseIds,
-            };
-            return yield fetchJson_fetchJson(url, {
-                fetchInit: {
-                    method: 'PUT',
-                    body: canvasUtils_formDataify(data),
-                }
-            });
-        });
-    }
-    get contentUrlPath() {
-        return `/api/v1/courses/${this.id}`;
-    }
-    get courseUrl() {
-        return this.htmlContentUrl;
-    }
-    get htmlContentUrl() {
-        return `/courses/${this.id}`;
-    }
-    get parsedCourseCode() {
-        return parseCourseCode(this.canvasData.course_code);
-    }
-    get courseCode() {
-        return this.canvasData.course_code;
-    }
-    get baseCode() {
-        return code_baseCourseCode(this.canvasData.course_code);
-    }
-    get termId() {
-        const id = this.canvasData.enrollment_term_id;
-        if (typeof id === 'number')
-            return id;
-        else
-            return id[0];
-    }
-    getTerm() {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            assert_default()(typeof this.termId === 'number');
-            if (this.termId)
-                return Term.getTermById(this.termId);
-            else
-                return null;
-        });
-    }
-    get fileUploadUrl() {
-        return `/api/v1/courses/${this.id}/files`;
-    }
-    get codePrefix() {
-        let match = COURSE_CODE_REGEX.exec(this.rawData.course_code);
-        return match ? match[1] : '';
-    }
-    get workflowState() {
-        return this.canvasData.workflow_state;
-    }
-    get isDev() {
-        return !!this.name.match(/^DEV/);
-    }
-    get rootAccountId() {
-        return this.canvasData.root_account_id;
-    }
-    get accountId() {
-        return this.canvasData.account_id;
-    }
-    getModules(config) {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            if (this._modules) {
-                return this._modules;
-            }
-            const modules = yield fetch_renderAsyncGen(moduleGenerator(this.id, {
-                queryParams: {
-                    include: ['items', 'content_details']
-                }
-            }));
-            this._modules = modules;
-            return modules;
-        });
-    }
-    getStartDateFromModules() {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            return getModuleUnlockStartDate(yield this.getModules());
-        });
-    }
-    getInstructors() {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            return yield fetchJson_fetchJson(`/api/v1/courses/${this.id}/users?enrollment_type=teacher`);
-        });
-    }
-    getLatePolicy(config) {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            const latePolicyResult = yield fetchJson_fetchJson(`/api/v1/courses/${this.id}/late_policy`, config);
-            if ('late_policy' in latePolicyResult)
-                return latePolicyResult.late_policy;
-            return undefined;
-        });
-    }
-    getAvailableGradingStandards(config) {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            let out = [];
-            console.log(this.name);
-            const { id, account_id, root_account_id } = this.canvasData;
-            try {
-                if (id) {
-                    const courseGradingStandards = yield getGradingStandards(id, "course", config);
-                    out = [...out, ...courseGradingStandards];
-                }
-                if (account_id) {
-                    const accountGradingStandards = yield getGradingStandards(account_id, 'account', config);
-                    out = [...out, ...accountGradingStandards];
-                }
-                if (root_account_id) {
-                    const rootAccountGradingStandards = yield getGradingStandards(root_account_id, 'account', config);
-                    out = [...out, ...rootAccountGradingStandards];
-                }
-            }
-            catch (e) {
-                console.warn(e);
-            }
-            return out.filter(filterUniqueFunc);
-        });
-    }
-    getCurrentGradingStandard(config) {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            const { grading_standard_id, account_id, root_account_id } = this.canvasData;
-            const urls = [];
-            if (grading_standard_id) {
-                urls.push(`/api/v1/courses/${this.id}/grading_standards/${grading_standard_id}`);
-                if (root_account_id)
-                    urls.push(`/api/v1/accounts/${root_account_id}/grading_standards/${grading_standard_id}`);
-                if (account_id)
-                    urls.push(`/api/v1/accounts/${account_id}/grading_standards/${grading_standard_id}`);
-            }
-            const standards = (yield this.getAvailableGradingStandards(config)).filter(standard => standard.id === grading_standard_id);
-            if (standards.length == 0)
-                return null;
-            return standards[0];
-        });
-    }
-    getModulesByWeekNumber(config) {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            if (this.modulesByWeekNumber)
-                return this.modulesByWeekNumber;
-            let modules = yield this.getModules(config);
-            this.modulesByWeekNumber = yield getModulesByWeekNumber(modules);
-            return (this.modulesByWeekNumber);
-        });
-    }
-    /**
-     * Returns a list of links to items in a given module
-     *
-     * @param moduleOrWeekNumber
-     * @param target An object specifying an item or items to look for
-     * type - specifies the type,
-     * search - a string to search for in titles. optional.
-     * index - return the indexth one of these in the week (minus the intro in week 1, which should be index 0)
-     * if none is specified, return all matches
-     */
-    getModuleItemLinks(moduleOrWeekNumber, target) {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            assert_default()(target.hasOwnProperty('type'));
-            let targetType = target.type;
-            let contentSearchString = target.hasOwnProperty('search') ? target.search : null;
-            let targetIndex = isNaN(target.index) ? null : target.index;
-            let targetModuleWeekNumber;
-            let targetModule;
-            if (typeof moduleOrWeekNumber === 'number') {
-                let modules = yield this.getModulesByWeekNumber();
-                assert_default()(modules.hasOwnProperty(moduleOrWeekNumber));
-                targetModuleWeekNumber = moduleOrWeekNumber;
-                targetModule = modules[targetModuleWeekNumber];
-            }
-            else {
-                targetModule = moduleOrWeekNumber;
-                targetModuleWeekNumber = getModuleWeekNumber(targetModule);
-            }
-            const urls = [];
-            if (targetModule && typeof targetType !== 'undefined') {
-                //If it's a page, just search for the parameter string
-                if (targetType === 'Page' && contentSearchString) {
-                    let pages = yield this.getPages({
-                        queryParams: { search_term: contentSearchString }
-                    });
-                    pages.forEach((page) => urls.push(page.htmlContentUrl));
-                    //If it's anything else, get only those items in the module and set url to the targetIndexth one.
-                }
-                else if (targetType) {
-                    //bump index for week 1 to account for intro discussion / checking for rubric would require pulling too much data
-                    //and too much performance overhead
-                    if (targetIndex && targetType === 'Discussion' && targetModuleWeekNumber === 1)
-                        targetIndex++;
-                    const matchingTypeItems = targetModule.items.filter((item) => item.type === targetType);
-                    if (targetIndex && matchingTypeItems.length >= targetIndex) {
-                        //We refer to and number the assignments indexed at 1, but the array is indexed at 0
-                        const targetItem = matchingTypeItems[targetIndex - 1];
-                        urls.push(targetItem.html_url);
-                    }
-                    else if (!targetIndex) {
-                        for (let item of matchingTypeItems)
-                            urls.push(item.html_url);
-                    }
-                }
-            }
-            return urls;
-        });
-    }
-    getSyllabus() {
-        return Course_awaiter(this, arguments, void 0, function* (config = { queryParams: {} }) {
-            if (this.canvasData.syllabus_body)
-                return this.canvasData.syllabus_body;
-            const data = yield getCourseData(this.id, fetch_fetchGetConfig({ include: ['syllabus_body'] }, config));
-            assert_default()(data.syllabus_body);
-            this.canvasData.syllabus_body = data.syllabus_body;
-            return this.canvasData.syllabus_body;
-        });
-    }
-    // /**
-    //  * gets all assignments in a course
-    //  * @returns {Promise<Assignment[]>}
-    //  * @param config
-    //  */
-    getAssignments(config) {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            console.warn('deprecated, use assignmentDataGen instead');
-            config = fetch_overrideConfig(config, { queryParams: { include: ['due_at'] } });
-            const assignmentDatas = yield fetch_renderAsyncGen(assignmentDataGen(this.id, config));
-            return (assignmentDatas.map(data => new Assignment_Assignment(data, this.id)));
-        });
-    }
-    getContent(config_1) {
-        return Course_awaiter(this, arguments, void 0, function* (config, refresh = false) {
-            if (refresh || this.cachedContent.length == 0) {
-                let discussions = yield this.getDiscussions(config);
-                let assignments = yield fetch_renderAsyncGen(assignmentDataGen(this.id, config));
-                let quizzes = yield this.getQuizzes(config);
-                let pages = yield this.getPages(config);
-                this.cachedContent = [
-                    ...discussions,
-                    ...assignments.map(a => new Assignment_Assignment(a, this.id)),
-                    ...quizzes,
-                    ...pages
-                ];
-            }
-            return this.cachedContent;
-        });
-    }
-    getDiscussions(config) {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            return yield Discussion.getAllInCourse(this.id, config);
-        });
-    }
-    getAssignmentGroups(config) {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            return yield getPagedData(`/api/v1/courses/${this.id}/assignment_groups`, config);
-        });
-    }
-    getQuizzes(config) {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            return yield Quiz.getAllInCourse(this.id, config);
-        });
-    }
-    getSubsections() {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            const url = `/api/v1/courses/${this.id}/sections`;
-            return yield fetchJson_fetchJson(url);
-        });
-    }
-    getTabs(config) {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            return yield fetchJson_fetchJson(`/api/v1/courses/${this.id}/tabs`, config);
-        });
-    }
-    getFrontPage() {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            try {
-                const data = yield fetchJson_fetchJson(`${this.contentUrlPath}/front_page`);
-                return new Page(data, this.id);
-            }
-            catch (error) {
-                return null;
-            }
-        });
-    }
-    getTab(label) {
-        return this.canvasData.tabs.find((tab) => tab.label === label) || null;
-    }
-    reload() {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            const id = this.id;
-            const reloaded = yield Course_Course.getCourseById(id);
-            this.canvasData = reloaded.rawData;
-        });
-    }
-    changeSyllabus(newHtml) {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            this.canvasData['syllabus_body'] = newHtml;
-            return yield fetchJson_fetchJson(`/api/v1/courses/${this.id}`, {
-                fetchInit: {
-                    method: 'PUT',
-                    body: canvasUtils_formDataify({
-                        course: {
-                            syllabus_body: newHtml
-                        }
-                    })
-                }
-            });
-        });
-    }
-    publish() {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            const url = `/api/v1/courses/${this.id}`;
-            const courseData = yield fetchJson_fetchJson(url, {
-                fetchInit: {
-                    method: 'PUT',
-                    body: canvasUtils_formDataify({ 'offer': true })
-                }
-            });
-            console.log(courseData);
-            this.canvasData = courseData;
-        });
-    }
-    get devCode() {
-        return 'DEV_' + this.baseCode;
-    }
-    getParentCourse() {
-        return Course_awaiter(this, arguments, void 0, function* (return_dev_search = false) {
-            let migrations = yield getPagedData(`/api/v1/courses/${this.id}/content_migrations`);
-            const parentCode = this.devCode;
-            if (migrations.length < 1) {
-                console.log('no migrations found');
-                if (return_dev_search) {
-                    return getSingleCourse(parentCode, this.getAccountIds());
-                }
-                else
-                    return;
-            }
-            migrations.sort((a, b) => b.id - a.id);
-            try {
-                for (let migration of migrations) {
-                    let course = yield Course_Course.getCourseById(migration['settings']['source_course_id']);
-                    if (course && course.codePrefix.includes("DEV"))
-                        return course;
-                }
-            }
-            catch (e) {
-                return yield getSingleCourse(parentCode, this.getAccountIds());
-            }
-            return yield getSingleCourse(parentCode, this.getAccountIds());
-        });
-    }
-    getAccountIds() {
-        return [this.accountId, this.rootAccountId].filter(a => typeof a !== 'undefined' && a !== null);
-    }
-    regenerateHomeTiles() {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            const modules = yield this.getModules();
-            let urls = yield Promise.all(modules.map((module) => Course_awaiter(this, void 0, void 0, function* () {
-                try {
-                    let dataUrl = yield this.generateHomeTile(module);
-                }
-                catch (e) {
-                    console.log(e);
-                }
-            })));
-            console.log('done');
-        });
-    }
-    generateHomeTile(module) {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            const overviewPage = yield getModuleOverview(module, this.id);
-            if (!overviewPage)
-                throw new Error("Module does not have an overview");
-            const bannerImg = getBannerImage(overviewPage);
-            if (!bannerImg)
-                throw new Error("No banner image on page");
-            let resizedImageBlob = yield getResizedBlob(bannerImg.src, HOMETILE_WIDTH);
-            let fileName = `hometile${module.position}.png`;
-            assert_default()(resizedImageBlob);
-            let file = new File([resizedImageBlob], fileName);
-            return yield uploadFile(file, 'Images/hometile', this.fileUploadUrl);
-        });
-    }
-    getPages(config = null) {
-        return Page.getAllInCourse(this.id, config);
-    }
-    getFrontPageProfile() {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            const frontPage = yield this.getFrontPage();
-            assert_default()(frontPage && frontPage.body, "Course front page not found");
-            const frontPageProfile = getCurioPageFrontPageProfile(frontPage === null || frontPage === void 0 ? void 0 : frontPage.body);
-            frontPageProfile.sourcePage = frontPage;
-            return frontPageProfile;
-        });
-    }
-    getPotentialInstructorProfiles() {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            const instructors = yield this.getInstructors();
-            let profiles = [];
-            if (!instructors)
-                return profiles;
-            for (let instructor of instructors) {
-                profiles = profiles.concat(yield getPotentialFacultyProfiles(instructor));
-            }
-            return profiles;
-        });
-    }
-    getSettings(config) {
-        return Course_awaiter(this, void 0, void 0, function* () {
-            return yield fetchJson_fetchJson(`/api/v1/courses/${this.id}/settings`, config);
-        });
-    }
-}
-Course_Course.nameProperty = 'name';
-Course_Course.contentClasses = [Assignment_Assignment, Discussion, Quiz, Page];
-
-;// CONCATENATED MODULE: ./src/content/index.ts
-var content_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
-
-
-browser_polyfill.runtime.onMessage.addListener((message, sender, sendResponse) => content_awaiter(void 0, void 0, void 0, function* () {
+webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.onMessage.addListener((message, sender, sendResponse) => __awaiter(void 0, void 0, void 0, function* () {
     if (message.hasOwnProperty('queryString')) {
         yield openTargetCourse(message.queryString);
     }
 }));
 function openTargetCourse(queryString) {
-    return content_awaiter(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
         console.log(queryString);
         const params = queryString.split('|');
         const searchCode = params.length > 0 ? params[0] : null;
@@ -13319,8 +14366,8 @@ function openTargetCourse(queryString) {
             window.open(queryUrl, "_blank");
             return;
         }
-        const courses = stringIsCourseCode(searchCode) ? yield getJson(queryUrl) : null;
-        const course = courses ? getCourseToNavTo(searchCode, courses) : yield Course_Course.getFromUrl();
+        const courses = (0,_canvas_course_code__WEBPACK_IMPORTED_MODULE_2__.stringIsCourseCode)(searchCode) ? yield getJson(queryUrl) : null;
+        const course = courses ? getCourseToNavTo(searchCode, courses) : yield _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__.Course.getFromUrl();
         let targetType = null;
         let targetModuleWeekNumber = NaN;
         let targetIndex = NaN;
@@ -13382,7 +14429,7 @@ function getCourseToNavTo(searchCode, courses, maxMatches = null) {
         return null;
     }
     else if (courses.length === 1) {
-        return new Course_Course(courses[0]);
+        return new _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__.Course(courses[0]);
     }
     else {
         let exact_code_search = /[A-Za-z-_.]+_?[a-zA-Z]{3}\d{4}/;
@@ -13397,11 +14444,11 @@ function getCourseToNavTo(searchCode, courses, maxMatches = null) {
             }
         }
         courses.sort((a, b) => b.id - a.id);
-        return new Course_Course(courses[0]);
+        return new _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__.Course(courses[0]);
     }
 }
 function getJson(url) {
-    return content_awaiter(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
         console.log(url);
         const response = yield fetch(url);
         const data = yield response.json();
