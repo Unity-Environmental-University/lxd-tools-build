@@ -8097,22 +8097,6 @@ BaseCanvasObject.nameProperty = 'name'; // The field name of the primary name of
 BaseCanvasObject.contentUrlTemplate = null; // A templated url to get a single item
 BaseCanvasObject.allContentUrlTemplate = null; // A templated url to get all items
 
-;// CONCATENATED MODULE: ./src/canvas/index.ts
-
-
-function canvas_apiWriteConfig(method, data, baseConfig) {
-    const body = formDataify(data);
-    return overrideConfig({
-        fetchInit: {
-            method,
-            body,
-        }
-    }, baseConfig);
-}
-
-
-
-
 ;// CONCATENATED MODULE: ./src/canvas/course/index.ts
 var course_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -8248,6 +8232,20 @@ class code_MalformedCourseCodeError extends Error {
         this.courseCode = courseCode;
     }
 }
+
+;// CONCATENATED MODULE: ./src/fetch/apiWriteConfig.ts
+
+
+function apiWriteConfig_apiWriteConfig(method, data, baseConfig) {
+    const body = formDataify(data);
+    return overrideConfig({
+        fetchInit: {
+            method,
+            body,
+        }
+    }, baseConfig);
+}
+/* harmony default export */ const fetch_apiWriteConfig = ((/* unused pure expression or super */ null && (apiWriteConfig_apiWriteConfig)));
 
 ;// CONCATENATED MODULE: ./src/canvas/course/blueprint.ts
 var blueprint_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -12671,15 +12669,6 @@ function getCourseIdFromUrl(url) {
     return null;
 }
 
-;// CONCATENATED MODULE: ./src/consts.ts
-const OPEN_AI_API_KEY_KEY = "OPEN_AI_API_KEY";
-const PUBLISH_FORM_EMAIL_TEMPLATE_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics/Form-Email-Template.md';
-const DOCUMENTATION_TOC_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/lxd.tree';
-const DOCUMENTATION_TOPICS_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics';
-const DIST_REPO_URL = 'https://github.com/Unity-Environmental-University/lxd-tools-build';
-const DIST_REPO_MANIFEST = 'https://raw.githubusercontent.com/Unity-Environmental-University/lxd-tools-build/stable/manifest.json';
-const SAFE_MAX_BANNER_WIDTH = 1400;
-
 ;// CONCATENATED MODULE: ./src/canvas/NotImplementedException.ts
 class NotImplementedException extends Error {
     constructor() {
@@ -12687,6 +12676,16 @@ class NotImplementedException extends Error {
         this.name = "NotImplementedException";
     }
 }
+
+;// CONCATENATED MODULE: ./src/publish/consts.ts
+const PUBLISH_FORM_EMAIL_TEMPLATE_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics/Form-Email-Template.md';
+const DOCUMENTATION_TOC_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/lxd.tree';
+const DOCUMENTATION_TOPICS_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics';
+const DIST_REPO_URL = 'https://github.com/Unity-Environmental-University/lxd-tools-build';
+const DIST_REPO_MANIFEST = 'https://raw.githubusercontent.com/Unity-Environmental-University/lxd-tools-build/stable/manifest.json';
+const SAFE_MAX_BANNER_WIDTH = 1400;
+const DEV_TEMPLATE_COURSE_ID = 3850558;
+const REFERENCES_PAGE_URL_NAME = 'learning-materials-reference-page';
 
 ;// CONCATENATED MODULE: ./src/canvas/content/BaseContentItem.ts
 var BaseContentItem_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -12897,6 +12896,14 @@ function putContentConfig(data, config) {
         }
     }, true);
 }
+function postContentConfig(data, config) {
+    return canvasUtils_deepObjectMerge(config, {
+        fetchInit: {
+            method: 'POST',
+            body: canvasUtils_formDataify(data)
+        }
+    }, true);
+}
 
 ;// CONCATENATED MODULE: ./src/canvas/content/ContentKind.ts
 var ContentKind_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -12922,6 +12929,7 @@ function contentUrlFuncs(contentUrlPart) {
     }
     const isValidUrl = (url) => typeof url === 'string' && typeof getCourseAndContentIdFromUrl(url)[0] !== 'undefined';
     return {
+        contentUrlPart,
         getApiUrl,
         getAllApiUrl,
         getHtmlUrl,
@@ -12939,6 +12947,14 @@ function putContentFunc(getApiUrl) {
         return ContentKind_awaiter(this, void 0, void 0, function* () {
             const url = getApiUrl(courseId, contentId);
             return yield fetchJson_fetchJson(url, putContentConfig(content, config));
+        });
+    };
+}
+function postContentFunc(getApiUrl) {
+    return function (courseId, content, config) {
+        return ContentKind_awaiter(this, void 0, void 0, function* () {
+            const url = getApiUrl(courseId);
+            return yield fetchJson_fetchJson(url, postContentConfig(content, config));
         });
     };
 }
@@ -12965,6 +12981,7 @@ const AssignmentKind = Object.assign(Object.assign({ getId: (data) => data.id, d
             return data;
         });
     } }, assignmentUrlFuncs), { dataGenerator: (courseId, config) => getPagedDataGenerator(assignmentUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(assignmentUrlFuncs.getApiUrl) });
+/* harmony default export */ const assignments_AssignmentKind = (AssignmentKind);
 
 ;// CONCATENATED MODULE: ./src/canvas/content/assignments/Assignment.ts
 var Assignment_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -13028,7 +13045,7 @@ class Assignment_Assignment extends BaseContentItem {
         });
     }
 }
-Assignment_Assignment.kind = AssignmentKind;
+Assignment_Assignment.kind = assignments_AssignmentKind;
 Assignment_Assignment.nameProperty = 'name';
 Assignment_Assignment.bodyProperty = 'description';
 Assignment_Assignment.contentUrlTemplate = "/api/v1/courses/{course_id}/assignments/{content_id}";
@@ -13153,16 +13170,18 @@ class NoAssignmentsWithDueDatesError extends Error {
     }
 }
 
-;// CONCATENATED MODULE: ./src/canvas/content/assignments/pages/PageKind.ts
+;// CONCATENATED MODULE: ./src/canvas/content/pages/PageKind.ts
 
 
 
 const PageUrlFuncs = contentUrlFuncs('pages');
+const getStringApiUrl = courseContentUrlFunc(`/api/v1/courses/{courseId}/pages/{contentId}`);
 const PageKind = Object.assign(Object.assign({}, PageUrlFuncs), { dataIsThisKind: (data) => {
         return 'page_id' in data;
-    }, getName: page => page.title, getBody: page => page.body, getId: page => page.id, get: (id, courseId, config) => fetchJson_fetchJson(PageUrlFuncs.getApiUrl(courseId, id), config), dataGenerator: (courseId, config) => getPagedDataGenerator(PageUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(PageUrlFuncs.getApiUrl) });
+    }, getName: page => page.title, getBody: page => page.body, getId: page => page.id, get: (id, courseId, config) => fetchJson_fetchJson(PageUrlFuncs.getApiUrl(courseId, id), config), getByString: (courseId, contentId, config) => fetchJson_fetchJson(getStringApiUrl(courseId, contentId), config), dataGenerator: (courseId, config) => getPagedDataGenerator(PageUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(PageUrlFuncs.getApiUrl), post: postContentFunc(PageUrlFuncs.getAllApiUrl) });
+/* harmony default export */ const pages_PageKind = (PageKind);
 
-;// CONCATENATED MODULE: ./src/canvas/content/assignments/pages/Page.ts
+;// CONCATENATED MODULE: ./src/canvas/content/pages/Page.ts
 var Page_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -13196,7 +13215,7 @@ class Page extends BaseContentItem {
         });
     }
 }
-Page.kindInfo = PageKind;
+Page.kindInfo = pages_PageKind;
 Page.idProperty = 'page_id';
 Page.nameProperty = 'title';
 Page.bodyProperty = 'body';
@@ -13617,9 +13636,8 @@ var assignments_asyncValues = (undefined && undefined.__asyncValues) || function
 };
 
 
-const assignmentDataGen = AssignmentKind.dataGenerator;
-const updateAssignmentData = AssignmentKind.put;
-const getAssignmentData = AssignmentKind.get;
+const assignmentDataGen = assignments_AssignmentKind.dataGenerator;
+const updateAssignmentData = assignments_AssignmentKind.put;
 function updateAssignmentDueDates(offset, assignments, options) {
     return assignments_awaiter(this, void 0, void 0, function* () {
         var _a, assignments_1, assignments_1_1;
@@ -13785,6 +13803,7 @@ const DiscussionKind = Object.assign(Object.assign({}, discussionUrlFuncs), { da
             return yield fetchJson_fetchJson(discussionUrlFuncs.getApiUrl(courseId, contentId), config);
         });
     }, dataGenerator: (courseId, config) => getPagedDataGenerator(discussionUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(discussionUrlFuncs.getApiUrl) });
+/* harmony default export */ const discussions_DiscussionKind = (DiscussionKind);
 
 ;// CONCATENATED MODULE: ./src/canvas/content/discussions/Discussion.ts
 var Discussion_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -13817,7 +13836,7 @@ class Discussion extends BaseContentItem {
         return this.canvasData;
     }
 }
-Discussion.kindInfo = DiscussionKind;
+Discussion.kindInfo = discussions_DiscussionKind;
 Discussion.nameProperty = 'title';
 Discussion.bodyProperty = 'message';
 Discussion.contentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics/{content_id}";
@@ -13833,7 +13852,6 @@ var Course_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _a
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-
 
 
 
@@ -14342,6 +14360,7 @@ const QuizKind = Object.assign(Object.assign({ getId: (data) => data.id, getName
             return data;
         });
     } }, quizUrlFuncs), { dataGenerator: (courseId, config) => getPagedDataGenerator(quizUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(quizUrlFuncs.getApiUrl) });
+/* harmony default export */ const quizzes_QuizKind = (QuizKind);
 
 ;// CONCATENATED MODULE: ./src/canvas/content/determineContent.ts
 var determineContent_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -14362,10 +14381,10 @@ var determineContent_awaiter = (undefined && undefined.__awaiter) || function (t
 
 
 const CONTENT_KINDS = [
-    DiscussionKind,
-    AssignmentKind,
-    PageKind,
-    QuizKind,
+    discussions_DiscussionKind,
+    assignments_AssignmentKind,
+    pages_PageKind,
+    quizzes_QuizKind,
 ];
 function getContentClassFromUrl(url = null) {
     if (!url)
@@ -15070,6 +15089,7 @@ function aMinusBSortFn(func) {
 function bMinusASortFn(func) {
     return (a, b) => func(b) - func(a);
 }
+
 
 ;// CONCATENATED MODULE: ./src/ui/course/BpButton.tsx
 var BpButton_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {

@@ -43087,15 +43087,6 @@ function getCourseIdFromUrl(url) {
     return null;
 }
 
-;// CONCATENATED MODULE: ./src/consts.ts
-const OPEN_AI_API_KEY_KEY = "OPEN_AI_API_KEY";
-const PUBLISH_FORM_EMAIL_TEMPLATE_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics/Form-Email-Template.md';
-const DOCUMENTATION_TOC_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/lxd.tree';
-const DOCUMENTATION_TOPICS_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics';
-const DIST_REPO_URL = 'https://github.com/Unity-Environmental-University/lxd-tools-build';
-const DIST_REPO_MANIFEST = 'https://raw.githubusercontent.com/Unity-Environmental-University/lxd-tools-build/stable/manifest.json';
-const SAFE_MAX_BANNER_WIDTH = 1400;
-
 ;// CONCATENATED MODULE: ./src/canvas/NotImplementedException.ts
 class NotImplementedException extends Error {
     constructor() {
@@ -43103,6 +43094,16 @@ class NotImplementedException extends Error {
         this.name = "NotImplementedException";
     }
 }
+
+;// CONCATENATED MODULE: ./src/publish/consts.ts
+const PUBLISH_FORM_EMAIL_TEMPLATE_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics/Form-Email-Template.md';
+const DOCUMENTATION_TOC_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/lxd.tree';
+const DOCUMENTATION_TOPICS_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics';
+const DIST_REPO_URL = 'https://github.com/Unity-Environmental-University/lxd-tools-build';
+const DIST_REPO_MANIFEST = 'https://raw.githubusercontent.com/Unity-Environmental-University/lxd-tools-build/stable/manifest.json';
+const SAFE_MAX_BANNER_WIDTH = 1400;
+const consts_DEV_TEMPLATE_COURSE_ID = 3850558;
+const consts_REFERENCES_PAGE_URL_NAME = 'learning-materials-reference-page';
 
 ;// CONCATENATED MODULE: ./src/canvas/content/BaseContentItem.ts
 var BaseContentItem_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -43313,6 +43314,14 @@ function putContentConfig(data, config) {
         }
     }, true);
 }
+function postContentConfig(data, config) {
+    return deepObjectMerge(config, {
+        fetchInit: {
+            method: 'POST',
+            body: formDataify(data)
+        }
+    }, true);
+}
 
 ;// CONCATENATED MODULE: ./src/canvas/content/ContentKind.ts
 var ContentKind_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -43338,6 +43347,7 @@ function contentUrlFuncs(contentUrlPart) {
     }
     const isValidUrl = (url) => typeof url === 'string' && typeof getCourseAndContentIdFromUrl(url)[0] !== 'undefined';
     return {
+        contentUrlPart,
         getApiUrl,
         getAllApiUrl,
         getHtmlUrl,
@@ -43355,6 +43365,14 @@ function putContentFunc(getApiUrl) {
         return ContentKind_awaiter(this, void 0, void 0, function* () {
             const url = getApiUrl(courseId, contentId);
             return yield fetchJson_fetchJson(url, putContentConfig(content, config));
+        });
+    };
+}
+function postContentFunc(getApiUrl) {
+    return function (courseId, content, config) {
+        return ContentKind_awaiter(this, void 0, void 0, function* () {
+            const url = getApiUrl(courseId);
+            return yield fetchJson_fetchJson(url, postContentConfig(content, config));
         });
     };
 }
@@ -43381,6 +43399,7 @@ const AssignmentKind = Object.assign(Object.assign({ getId: (data) => data.id, d
             return data;
         });
     } }, assignmentUrlFuncs), { dataGenerator: (courseId, config) => getPagedDataGenerator(assignmentUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(assignmentUrlFuncs.getApiUrl) });
+/* harmony default export */ const assignments_AssignmentKind = (AssignmentKind);
 
 ;// CONCATENATED MODULE: ./src/canvas/content/assignments/Assignment.ts
 var Assignment_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -43444,7 +43463,7 @@ class Assignment extends BaseContentItem {
         });
     }
 }
-Assignment.kind = AssignmentKind;
+Assignment.kind = assignments_AssignmentKind;
 Assignment.nameProperty = 'name';
 Assignment.bodyProperty = 'description';
 Assignment.contentUrlTemplate = "/api/v1/courses/{course_id}/assignments/{content_id}";
@@ -43569,16 +43588,18 @@ class NoAssignmentsWithDueDatesError extends Error {
     }
 }
 
-;// CONCATENATED MODULE: ./src/canvas/content/assignments/pages/PageKind.ts
+;// CONCATENATED MODULE: ./src/canvas/content/pages/PageKind.ts
 
 
 
 const PageUrlFuncs = contentUrlFuncs('pages');
+const getStringApiUrl = courseContentUrlFunc(`/api/v1/courses/{courseId}/pages/{contentId}`);
 const PageKind = Object.assign(Object.assign({}, PageUrlFuncs), { dataIsThisKind: (data) => {
         return 'page_id' in data;
-    }, getName: page => page.title, getBody: page => page.body, getId: page => page.id, get: (id, courseId, config) => fetchJson_fetchJson(PageUrlFuncs.getApiUrl(courseId, id), config), dataGenerator: (courseId, config) => getPagedDataGenerator(PageUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(PageUrlFuncs.getApiUrl) });
+    }, getName: page => page.title, getBody: page => page.body, getId: page => page.id, get: (id, courseId, config) => fetchJson_fetchJson(PageUrlFuncs.getApiUrl(courseId, id), config), getByString: (courseId, contentId, config) => fetchJson_fetchJson(getStringApiUrl(courseId, contentId), config), dataGenerator: (courseId, config) => getPagedDataGenerator(PageUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(PageUrlFuncs.getApiUrl), post: postContentFunc(PageUrlFuncs.getAllApiUrl) });
+/* harmony default export */ const pages_PageKind = (PageKind);
 
-;// CONCATENATED MODULE: ./src/canvas/content/assignments/pages/Page.ts
+;// CONCATENATED MODULE: ./src/canvas/content/pages/Page.ts
 var Page_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -43612,7 +43633,7 @@ class Page extends BaseContentItem {
         });
     }
 }
-Page.kindInfo = PageKind;
+Page.kindInfo = pages_PageKind;
 Page.idProperty = 'page_id';
 Page.nameProperty = 'title';
 Page.bodyProperty = 'body';
@@ -43712,9 +43733,8 @@ var assignments_asyncValues = (undefined && undefined.__asyncValues) || function
 };
 
 
-const assignmentDataGen = AssignmentKind.dataGenerator;
-const updateAssignmentData = AssignmentKind.put;
-const getAssignmentData = AssignmentKind.get;
+const assignmentDataGen = assignments_AssignmentKind.dataGenerator;
+const updateAssignmentData = assignments_AssignmentKind.put;
 function updateAssignmentDueDates(offset, assignments, options) {
     return assignments_awaiter(this, void 0, void 0, function* () {
         var _a, assignments_1, assignments_1_1;
@@ -43769,6 +43789,7 @@ const DiscussionKind = Object.assign(Object.assign({}, discussionUrlFuncs), { da
             return yield fetchJson_fetchJson(discussionUrlFuncs.getApiUrl(courseId, contentId), config);
         });
     }, dataGenerator: (courseId, config) => getPagedDataGenerator(discussionUrlFuncs.getAllApiUrl(courseId), config), put: putContentFunc(discussionUrlFuncs.getApiUrl) });
+/* harmony default export */ const discussions_DiscussionKind = (DiscussionKind);
 
 ;// CONCATENATED MODULE: ./src/canvas/content/discussions/Discussion.ts
 var Discussion_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -43801,27 +43822,11 @@ class Discussion extends BaseContentItem {
         return this.canvasData;
     }
 }
-Discussion.kindInfo = DiscussionKind;
+Discussion.kindInfo = discussions_DiscussionKind;
 Discussion.nameProperty = 'title';
 Discussion.bodyProperty = 'message';
 Discussion.contentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics/{content_id}";
 Discussion.allContentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics";
-
-;// CONCATENATED MODULE: ./src/canvas/index.ts
-
-
-function canvas_apiWriteConfig(method, data, baseConfig) {
-    const body = formDataify(data);
-    return overrideConfig({
-        fetchInit: {
-            method,
-            body,
-        }
-    }, baseConfig);
-}
-
-
-
 
 ;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/UpdateStartDate.tsx
 var UpdateStartDate_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -44007,8 +44012,8 @@ var CourseValidTest_update = injectStylesIntoStyleTag_default()(CourseValidTest/
 
        /* harmony default export */ const fixesAndUpdates_CourseValidTest = (CourseValidTest/* default */.A && CourseValidTest/* default */.A.locals ? CourseValidTest/* default */.A.locals : undefined);
 
-;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/validations.ts
-var validations_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/utils.ts
+var utils_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -44055,7 +44060,7 @@ function testResult(success, options) {
         response.links = links;
     return response;
 }
-function validations_capitalize(str) {
+function utils_capitalize(str) {
     return str.replace(/\b[a-z]/g, (substring) => substring.toUpperCase());
 }
 function preserveCapsReplace(regex, replace) {
@@ -44063,8 +44068,8 @@ function preserveCapsReplace(regex, replace) {
         const replacedSubstring = substring.replace(regex, replace);
         if (substring.toUpperCase() === substring)
             return replacedSubstring.toUpperCase();
-        if (validations_capitalize(substring) === substring)
-            return validations_capitalize(replacedSubstring);
+        if (utils_capitalize(substring) === substring)
+            return utils_capitalize(replacedSubstring);
         return replacedSubstring;
     };
 }
@@ -44089,7 +44094,7 @@ function matchHighlights(content, search, maxHighlightLength = MAX_SEARCH_RETURN
     });
 }
 function badContentRunFunc(badTest, contentFunc) {
-    return (course, config) => validations_awaiter(this, void 0, void 0, function* () {
+    return (course, config) => utils_awaiter(this, void 0, void 0, function* () {
         const defaultConfig = { queryParams: { include: ['body'], per_page: 50 } };
         let content = yield (contentFunc ? contentFunc(course) :
             course.getContent(overrideConfig(config, defaultConfig)));
@@ -44124,7 +44129,7 @@ function badContentRunFunc(badTest, contentFunc) {
     });
 }
 function badSyllabusRunFunc(badTest) {
-    return (course) => validations_awaiter(this, void 0, void 0, function* () {
+    return (course) => utils_awaiter(this, void 0, void 0, function* () {
         const syllabus = yield course.getSyllabus();
         const match = syllabus.match(badTest);
         const success = match === null;
@@ -44136,7 +44141,7 @@ function badSyllabusRunFunc(badTest) {
 }
 function badSyllabusFixFunc(validateRegEx, replace) {
     const replaceText = replaceTextFunc(validateRegEx, replace);
-    return (course) => validations_awaiter(this, void 0, void 0, function* () {
+    return (course) => utils_awaiter(this, void 0, void 0, function* () {
         try {
             yield fixSyllabus(course, validateRegEx, replaceText);
             return testResult(true);
@@ -44147,7 +44152,7 @@ function badSyllabusFixFunc(validateRegEx, replace) {
     });
 }
 function badContentFixFunc(badContentRegex, replace, contentFunc) {
-    return (course) => validations_awaiter(this, void 0, void 0, function* () {
+    return (course) => utils_awaiter(this, void 0, void 0, function* () {
         let success = false;
         let messages = [];
         const testRegex = new RegExp(badContentRegex.source, badContentRegex.flags.replace('g', ''));
@@ -44207,7 +44212,7 @@ function replaceTextFunc(validateRegEx, replace) {
     };
 }
 function fixSyllabus(course, validateRegEx, replaceText) {
-    return validations_awaiter(this, void 0, void 0, function* () {
+    return utils_awaiter(this, void 0, void 0, function* () {
         const syllabus = yield course.getSyllabus();
         if (validateRegEx.test(syllabus)) {
             const newText = replaceText(syllabus);
@@ -45315,6 +45320,20 @@ class MalformedCourseCodeError extends Error {
     }
 }
 
+;// CONCATENATED MODULE: ./src/fetch/apiWriteConfig.ts
+
+
+function apiWriteConfig_apiWriteConfig(method, data, baseConfig) {
+    const body = formDataify(data);
+    return overrideConfig({
+        fetchInit: {
+            method,
+            body,
+        }
+    }, baseConfig);
+}
+/* harmony default export */ const fetch_apiWriteConfig = ((/* unused pure expression or super */ null && (apiWriteConfig_apiWriteConfig)));
+
 ;// CONCATENATED MODULE: ./src/canvas/course/blueprint.ts
 var blueprint_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -45404,7 +45423,7 @@ function beginBpSync(courseId_1, _a) {
         const url = `/api/v1/courses/${courseId}/blueprint_templates/default/migrations`;
         if (typeof copy_settings === 'undefined')
             copy_settings = true;
-        const result = yield fetchJson_fetchJson(url, canvas_apiWriteConfig('POST', {
+        const result = yield fetchJson_fetchJson(url, apiWriteConfig_apiWriteConfig('POST', {
             message,
             copy_settings
         }, config));
@@ -45459,7 +45478,7 @@ function setAsBlueprint(courseId, config) {
                 }
             }
         };
-        return yield fetchJson_fetchJson(url, canvas_apiWriteConfig('PUT', payload, config));
+        return yield fetchJson_fetchJson(url, apiWriteConfig_apiWriteConfig('PUT', payload, config));
     });
 }
 function unSetAsBlueprint(courseId, config) {
@@ -45922,7 +45941,6 @@ var Course_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _a
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-
 
 
 
@@ -49265,7 +49283,7 @@ const overviewDiscMornToNightTest = Object.assign({ name: "overview discussion 3
         ['3AM ET thursday night 3AM ET weds night', '3AM ET Thursday morning 3AM ET weds night'],
     ], getContent(course) {
         return courseContent_awaiter(this, void 0, void 0, function* () {
-            const pageGen = PageKind.dataGenerator(course.id, { queryParams: {
+            const pageGen = pages_PageKind.dataGenerator(course.id, { queryParams: {
                     search_term: 'course overview'
                 } });
             const pageDatas = yield renderAsyncGen(pageGen);
@@ -49645,6 +49663,7 @@ function aMinusBSortFn(func) {
 function bMinusASortFn(func) {
     return (a, b) => func(b) - func(a);
 }
+
 
 ;// CONCATENATED MODULE: ./src/canvas/course/migration/index.ts
 var migration_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -50139,7 +50158,6 @@ var PublishInterface_asyncValues = (undefined && undefined.__asyncValues) || fun
 
 
 
-
 function PublishInterface({ course, user }) {
     //-----
     // DATA
@@ -50533,7 +50551,6 @@ var rubricSettings_asyncValues = (undefined && undefined.__asyncValues) || funct
 
 
 
-
 function getBadRubricAssociations(courseId) {
     return rubricSettings_awaiter(this, void 0, void 0, function* () {
         var _a, e_1, _b, _c;
@@ -50570,7 +50587,7 @@ const rubricsTiedToGradesTest = {
             const badAssociations = yield getBadRubricAssociations(course.id);
             const failureMessage = yield Promise.all(callAll(badAssociations.map(([rubric, assoc]) => () => rubricSettings_awaiter(void 0, void 0, void 0, function* () {
                 const id = assoc.association_id;
-                const assignment = yield getAssignmentData(course.id, id, config);
+                const assignment = yield assignments_AssignmentKind.get(course.id, id, config);
                 return {
                     bodyLines: [rubric.title, assignment.name],
                     links: [assignment.html_url]
@@ -50615,7 +50632,7 @@ const rubricsTiedToGradesTest = {
                 }
                 success = fixedAssociations.length === badAssociations.length;
                 return testResult(success, {
-                    links: fixedAssociations.map(a => AssignmentKind.getHtmlUrl(course.id, a.association_id))
+                    links: fixedAssociations.map(a => assignments_AssignmentKind.getHtmlUrl(course.id, a.association_id))
                 });
             }
             catch (e) {
@@ -50667,7 +50684,7 @@ const discussionThreadingValidation = {
     run(course) {
         return discussionThreading_awaiter(this, void 0, void 0, function* () {
             var _a, e_1, _b, _c;
-            const discussionGen = DiscussionKind.dataGenerator(course.id);
+            const discussionGen = discussions_DiscussionKind.dataGenerator(course.id);
             const affectedDiscussions = [];
             try {
                 for (var _d = true, discussionGen_1 = discussionThreading_asyncValues(discussionGen), discussionGen_1_1; discussionGen_1_1 = yield discussionGen_1.next(), _a = discussionGen_1_1.done, !_a; _d = true) {
@@ -50691,7 +50708,7 @@ const discussionThreadingValidation = {
                 failureMessage: {
                     bodyLines: ["Non Threaded Discussions Found: ", ...affectedDiscussions.map(a => a.title)]
                 },
-                links: affectedDiscussions.map(a => DiscussionKind.getHtmlUrl(course.id, a.id))
+                links: affectedDiscussions.map(a => discussions_DiscussionKind.getHtmlUrl(course.id, a.id))
             });
         });
     },
@@ -50705,7 +50722,7 @@ const discussionThreadingValidation = {
             if (!discussionDatas)
                 return testResult(false, { failureMessage: "Fix " });
             const results = yield Promise.all(discussionDatas.map((data) => discussionThreading_awaiter(this, void 0, void 0, function* () {
-                return yield DiscussionKind.put(course.id, data.id, {
+                return yield discussions_DiscussionKind.put(course.id, data.id, {
                     discussion_type: 'threaded'
                 });
             })));
@@ -50724,6 +50741,214 @@ const discussionThreadingValidation = {
 };
 /* harmony default export */ const discussionThreading = ([discussionThreadingValidation]);
 
+;// CONCATENATED MODULE: ./src/canvas/course/references/getReferencesTemplate.ts
+var getReferencesTemplate_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+const url = (/* unused pure expression or super */ null && (`/api/v1/courses/${DEV_TEMPLATE_COURSE_ID}/pages/${REFERENCES_PAGE_URL_NAME}`));
+var ReferenceExportType;
+(function (ReferenceExportType) {
+    ReferenceExportType[ReferenceExportType["string"] = 0] = "string";
+    ReferenceExportType[ReferenceExportType["pageData"] = 1] = "pageData";
+    ReferenceExportType[ReferenceExportType["page"] = 2] = "page";
+})(ReferenceExportType || (ReferenceExportType = {}));
+function getReferenceTemplate(type) {
+    return getReferencesTemplate_awaiter(this, void 0, void 0, function* () {
+        const pageData = yield pages_PageKind.getByString(consts_DEV_TEMPLATE_COURSE_ID, consts_REFERENCES_PAGE_URL_NAME);
+        if (typeof type === 'undefined' || type === ReferenceExportType.string)
+            return 'body' in pageData ? pageData.body : pageData.message;
+        if ('message' in pageData)
+            return undefined;
+        if (type === ReferenceExportType.pageData)
+            return pageData;
+        if (type === ReferenceExportType.page)
+            return pageData ? new Page(pageData, consts_DEV_TEMPLATE_COURSE_ID) : undefined;
+    });
+}
+/* harmony default export */ const getReferencesTemplate = (getReferenceTemplate);
+
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/references/referencesPageExistsValidation.ts
+var referencesPageExistsValidation_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+const PAGE_NOT_FOUND = 'page not found';
+const referencePageExistsValidation = {
+    name: 'Learning Materials Reference Page Exists',
+    description: 'Does this course have a learning materials references page?',
+    run(course, config) {
+        return referencesPageExistsValidation_awaiter(this, void 0, void 0, function* () {
+            let lmPageData = yield pages_PageKind.getByString(course.id, consts_REFERENCES_PAGE_URL_NAME);
+            return testResult(!('message' in lmPageData), {
+                failureMessage: 'Learning Materials Page not found',
+                userData: lmPageData,
+            });
+        });
+    },
+    fix(course, result) {
+        return referencesPageExistsValidation_awaiter(this, void 0, void 0, function* () {
+            if (result && result.success)
+                return testResult('not run', { userData: result.userData });
+            const template = yield getReferencesTemplate(ReferenceExportType.pageData);
+            const postResult = yield pages_PageKind.post(course.id, {
+                wiki_page: {
+                    title: template === null || template === void 0 ? void 0 : template.title,
+                    body: template === null || template === void 0 ? void 0 : template.body,
+                    published: true,
+                }
+            });
+            assert_default()(postResult);
+            return yield this.run(course);
+        });
+    }
+};
+/* harmony default export */ const referencesPageExistsValidation = (referencePageExistsValidation);
+
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/references/index.ts
+
+const referencesValidations = [
+    referencesPageExistsValidation,
+];
+
+;// CONCATENATED MODULE: ./src/canvas/content/assignments/genAssignmentGroups.ts
+
+/* harmony default export */ function genAssignmentGroups(courseId, include = ['assignments']) {
+    return getPagedDataGenerator(`/api/v1/courses/${courseId}/assignment_groups`, {
+        queryParams: {
+            include,
+        }
+    });
+}
+
+;// CONCATENATED MODULE: ./src/canvas/content/assignments/deleteAssignmentGroup.ts
+var deleteAssignmentGroup_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+/* harmony default export */ function deleteAssignmentGroup(courseId, groupId, moveAssignmentsTo) {
+    return deleteAssignmentGroup_awaiter(this, void 0, void 0, function* () {
+        const data = moveAssignmentsTo ? { move_assignments_to: moveAssignmentsTo } : {};
+        const result = yield fetchJson_fetchJson(`/api/v1/courses/${courseId}/assignment_groups/${groupId}`, {
+            fetchInit: {
+                method: 'DELETE',
+                body: formDataify(data),
+            }
+        });
+    });
+}
+
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/assignments/emptyAssignmentCategories.ts
+var emptyAssignmentCategories_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var emptyAssignmentCategories_asyncValues = (undefined && undefined.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
+
+
+
+const emptyAssignmentCategories = {
+    name: "Empty assignment categories",
+    description: "There are assignment categories with no entries",
+    run(course) {
+        return emptyAssignmentCategories_awaiter(this, void 0, void 0, function* () {
+            var _a, e_1, _b, _c;
+            const groupGen = genAssignmentGroups(course.id);
+            const emptyGroups = [];
+            try {
+                for (var _d = true, groupGen_1 = emptyAssignmentCategories_asyncValues(groupGen), groupGen_1_1; groupGen_1_1 = yield groupGen_1.next(), _a = groupGen_1_1.done, !_a; _d = true) {
+                    _c = groupGen_1_1.value;
+                    _d = false;
+                    let assignmentGroup = _c;
+                    if (assignmentGroup.assignments.length === 0)
+                        emptyGroups.push(assignmentGroup);
+                }
+            }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (!_d && !_a && (_b = groupGen_1.return)) yield _b.call(groupGen_1);
+                }
+                finally { if (e_1) throw e_1.error; }
+            }
+            return testResult(emptyGroups.length === 0, {
+                failureMessage: `Groups ${emptyGroups.map(a => `'${a.name}'`).join(', ')} are empty.`,
+                userData: emptyGroups
+            });
+        });
+    },
+    fix(course, result) {
+        return emptyAssignmentCategories_awaiter(this, void 0, void 0, function* () {
+            if (!result)
+                result = yield this.run(course);
+            if (result.success)
+                return testResult('not run', { notFailureMessage: "No empty groups to fix" });
+            if (!result.userData)
+                return testResult(false, { failureMessage: "Unable to find bad groups. Failed to fix." });
+            const deletedIds = [];
+            try {
+                for (let assignmentGroup of result.userData) {
+                    yield deleteAssignmentGroup(course.id, assignmentGroup.id);
+                    deletedIds.push(assignmentGroup.id);
+                }
+                return yield this.run(course);
+            }
+            catch (e) {
+                let failureMessage = e instanceof Error ? e.message : "Failed due to unknown error.";
+                return testResult(false, {
+                    failureMessage,
+                    userData: [],
+                });
+            }
+        });
+    }
+};
+/* harmony default export */ const assignments_emptyAssignmentCategories = (emptyAssignmentCategories);
+
+;// CONCATENATED MODULE: ./src/publish/fixesAndUpdates/validations/assignments/index.tsx
+
+/* harmony default export */ const assignments = ({
+    allValidations: [
+        assignments_emptyAssignmentCategories,
+    ]
+});
+
 ;// CONCATENATED MODULE: ./src/publish/PublishApp.tsx
 var PublishApp_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -50734,6 +50959,8 @@ var PublishApp_awaiter = (undefined && undefined.__awaiter) || function (thisArg
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
+
 
 
 
@@ -50781,6 +51008,8 @@ function PublishApp() {
         rubricsTiedToGradesTest,
         validations_proxyServerLinkValidation,
         discussionThreadingValidation,
+        ...referencesValidations,
+        ...assignments.allValidations,
         //...biol103Overwrite,
     ];
     return (user && (0,jsx_runtime.jsxs)("div", { children: [(0,jsx_runtime.jsx)(CourseUpdateInterface, { course: course, parentCourse: parentCourse, allValidations: allValidations, refreshCourse: () => getCourse(true) }), (0,jsx_runtime.jsx)(PublishInterface, { course: course, user: user }), (0,jsx_runtime.jsx)(AdminApp, { course: course, allValidations: allValidations }), (0,jsx_runtime.jsx)(esm_Row, { children: (0,jsx_runtime.jsx)(UpdateNeeded, {}) })] }));
