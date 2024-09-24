@@ -79952,7 +79952,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 function CourseRow({ course, frontPageProfile, instructors, onSelectSection, errors }) {
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'row course-row', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-xs-6', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: `/courses/${course.id}`, className: `course-link ${course === null || course === void 0 ? void 0 : course.workflowState}`, target: "blank_", children: course.name }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-xs-2', children: frontPageProfile && frontPageProfile.displayName }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-xs-1', children: (onSelectSection && course) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => onSelectSection(course), children: "Details" })) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-xs-3', children: instructors === null || instructors === void 0 ? void 0 : instructors.map((instructor) => instructor.name).join(', ') })] }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'row course-row', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-xs-6', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: `/courses/${course.id}`, className: `course-link ${course === null || course === void 0 ? void 0 : course.workflowState}`, target: "blank_", children: course.name }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-xs-1', children: course.data.total_students }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-xs-2', children: frontPageProfile && frontPageProfile.displayName }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-xs-1', children: (onSelectSection && course) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => onSelectSection(course), children: "Details" })) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-xs-2', children: instructors === null || instructors === void 0 ? void 0 : instructors.map((instructor) => instructor.name).join(', ') })] }));
 }
 
 
@@ -80487,10 +80487,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _canvas_profile__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../canvas/profile */ "./src/canvas/profile.ts");
 /* harmony import */ var _ui_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../ui/utils */ "./src/ui/utils.tsx");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
 /* harmony import */ var _ui_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../ui/widgets/Modal/index */ "./src/ui/widgets/Modal/index.tsx");
 /* harmony import */ var _sectionDetails_SectionDetails__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./sectionDetails/SectionDetails */ "./src/publish/publishInterface/sectionDetails/SectionDetails.tsx");
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
+/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
 /* harmony import */ var _EmailLink__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./EmailLink */ "./src/publish/publishInterface/EmailLink.tsx");
 /* harmony import */ var _SectionRows__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./SectionRows */ "./src/publish/publishInterface/SectionRows.tsx");
 /* harmony import */ var _MakeBp__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./MakeBp */ "./src/publish/publishInterface/MakeBp.tsx");
@@ -80501,6 +80501,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/canvas/course/blueprint */ "./src/canvas/course/blueprint.ts");
 /* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/index */ "./src/index.ts");
+/* harmony import */ var _canvas_course__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @canvas/course */ "./src/canvas/course/index.ts");
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -80517,6 +80518,7 @@ var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
     function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
+
 
 
 
@@ -80593,7 +80595,9 @@ function PublishInterface({ course, user }) {
                 throw new Error('Course has no account Id');
             inform('Publishing');
             setLoading(true);
-            yield _canvas_course_Course__WEBPACK_IMPORTED_MODULE_9__.Course.publishAll(Object.values(sections), accountId);
+            const toPublish = Object.values(sections)
+                .filter(a => a.data.total_students && a.data.total_students > 0);
+            yield _canvas_course_Course__WEBPACK_IMPORTED_MODULE_9__.Course.publishAll(toPublish, accountId);
             //Waits half a second to allow changes to propagate on the server
             window.setTimeout(() => __awaiter(this, void 0, void 0, function* () {
                 let newAssocCourses = yield (course === null || course === void 0 ? void 0 : course.getAssociatedCourses());
@@ -80622,7 +80626,10 @@ function PublishInterface({ course, user }) {
                 throw new Error(`Problem loading section ${courseId}`);
             }
             dispatchSectionInfoCache({ set: [courseId, 'loading'] });
-            const section = yield _canvas_course_Course__WEBPACK_IMPORTED_MODULE_9__.Course.getCourseById(courseId);
+            const sectionData = yield (0,_canvas_course__WEBPACK_IMPORTED_MODULE_16__.getCourseData)(courseId, {
+                queryParams: { include: ['total_students'] }
+            });
+            const section = new _canvas_course_Course__WEBPACK_IMPORTED_MODULE_9__.Course(sectionData);
             const frontPageProfile = yield section.getFrontPageProfile();
             const instructors = yield section.getInstructors();
             const out = { section, instructors, frontPageProfile };
@@ -80717,7 +80724,7 @@ function PublishInterface({ course, user }) {
                                 actualStart = (0,_canvas_course_changeStartDate__WEBPACK_IMPORTED_MODULE_10__.getStartDateAssignments)(yield (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_14__.renderAsyncGen)((0,_canvas_content_assignments__WEBPACK_IMPORTED_MODULE_11__.assignmentDataGen)(section.id)));
                             }
                             sectionStartSet = true;
-                            setSectionStart(temporal_polyfill__WEBPACK_IMPORTED_MODULE_16__.Temporal.PlainDateTime.from(actualStart));
+                            setSectionStart(temporal_polyfill__WEBPACK_IMPORTED_MODULE_17__.Temporal.PlainDateTime.from(actualStart));
                         }
                         if (!tempTerm) {
                             tempTerm = yield section.getTerm();
@@ -80733,10 +80740,12 @@ function PublishInterface({ course, user }) {
                                 set: [section.id, instructors]
                             });
                         }
-                        const emails = instructors === null || instructors === void 0 ? void 0 : instructors.map(a => a.email);
-                        emails === null || emails === void 0 ? void 0 : emails.forEach(email => allEmails.add(email));
-                        if (emails)
-                            setEmails([...allEmails]);
+                        if (section.data.total_students && section.data.total_students > 0) {
+                            const emails = instructors === null || instructors === void 0 ? void 0 : instructors.map(a => a.email);
+                            emails === null || emails === void 0 ? void 0 : emails.forEach(email => allEmails.add(email));
+                            if (emails)
+                                setEmails([...allEmails]);
+                        }
                     })));
                     yield Promise.all(promises.map(a => a()));
                 }
@@ -80751,7 +80760,7 @@ function PublishInterface({ course, user }) {
         });
     }
     function RenderBpInterface({ course, user }) {
-        return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [!workingSection && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'row', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-xs-12', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { children: "Sections" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-xs-12 col-sm-12', children: "Publish sections associated with this blueprint" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'col-xs-2', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_17__["default"], { className: "btn", disabled: loading || !(course === null || course === void 0 ? void 0 : course.isBlueprint), onClick: applySectionProfiles, children: "Set Bios" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_17__["default"], { className: "btn", disabled: loading || !(course === null || course === void 0 ? void 0 : course.isBlueprint), onClick: publishCourses, children: "Publish" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-xs-12', children: user && course &&
+        return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [!workingSection && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'row', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-xs-12', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { children: "Sections" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-xs-12 col-sm-12', children: "Publish sections associated with this blueprint" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'col-xs-2', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__["default"], { className: "btn", disabled: loading || !(course === null || course === void 0 ? void 0 : course.isBlueprint), onClick: applySectionProfiles, children: "Set Bios" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__["default"], { className: "btn", disabled: loading || !(course === null || course === void 0 ? void 0 : course.isBlueprint), onClick: publishCourses, children: "Publish" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-xs-12', children: user && course &&
                                     (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_EmailLink__WEBPACK_IMPORTED_MODULE_6__.EmailLink, { user: user, emails: emails, course: course, sectionStart: sectionStart, termData: term === null || term === void 0 ? void 0 : term.rawData }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-xs-12', children: (0,_SectionRows__WEBPACK_IMPORTED_MODULE_7__.SectionRows)({
                                     sections: Object.values(sections),
                                     onOpenAll: openAll,
@@ -80782,7 +80791,7 @@ function OpenButton({ isDev, isBlueprint, setShow }) {
         label = "Manage Sections";
     if (isDev)
         label = "Manage DEV->BP";
-    return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_17__["default"], { disabled: disabled, className: disabled ? '' : 'ui-button', onClick: (e) => setShow(true), children: label });
+    return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_18__["default"], { disabled: disabled, className: disabled ? '' : 'ui-button', onClick: (e) => setShow(true), children: label });
 }
 
 
@@ -80808,7 +80817,7 @@ function SectionRows({ onOpenAll, sections, instructorsByCourseId, frontPageProf
         e.preventDefault();
         onOpenAll();
     }
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'course-table', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'row', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'col-sm-6', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { children: "Code" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: '#', onClick: openAll, children: "Open All" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-3', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { children: "Name on Front Page" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-3', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { children: "Instructor(s)" }) })] }), sections && sections.toSorted((a, b) => a.name.localeCompare(b.name)).map((course) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_CourseRow__WEBPACK_IMPORTED_MODULE_1__.CourseRow, { instructors: instructorsByCourseId[course.id], frontPageProfile: frontPageProfilesByCourseId[course.id], facultyProfileMatches: potentialProfilesByCourseId[course.id], errors: errorsByCourseId[course.id], onSelectSection: (section) => setWorkingSection(section), course: course }, course.id)))] }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'course-table', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'row', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'col-sm-6', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { children: "Code" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: '#', onClick: openAll, children: "Open All" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-1', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { children: "Student Count" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-3', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { children: "Name on Front Page" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-2', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { children: "Instructor(s)" }) })] }), sections && sections.toSorted((a, b) => a.name.localeCompare(b.name)).map((course) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_CourseRow__WEBPACK_IMPORTED_MODULE_1__.CourseRow, { instructors: instructorsByCourseId[course.id], frontPageProfile: frontPageProfilesByCourseId[course.id], facultyProfileMatches: potentialProfilesByCourseId[course.id], errors: errorsByCourseId[course.id], onSelectSection: (section) => setWorkingSection(section), course: course }, course.id)))] }));
 }
 
 
