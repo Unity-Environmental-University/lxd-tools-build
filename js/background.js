@@ -6363,7 +6363,7 @@ module.exports = function availableTypedArrays() {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";
 
@@ -6371,87 +6371,65 @@ var __webpack_exports__ = {};
 var browser_polyfill = __webpack_require__(6815);
 // EXTERNAL MODULE: ./node_modules/assert/build/assert.js
 var build_assert = __webpack_require__(4148);
-;// CONCATENATED MODULE: ./src/canvas/image.ts
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
+;// ./src/canvas/image.ts
 
 
-function getResizedBlob(src_1, width_1) {
-    return __awaiter(this, arguments, void 0, function* (src, width, height = undefined) {
-        let imageSrc = yield contentDownloadImage(src);
-        let canvas = document.createElement('canvas');
-        let image = new Image();
-        image.src = imageSrc;
-        let ctx = canvas.getContext('2d');
-        return new Promise((resolve) => {
-            image.onload = () => {
-                height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
-                assert(ctx);
-                console.log(image.src);
-                canvas.width = width;
-                canvas.height = height;
-                ctx.drawImage(image, 0, 0, width, height);
-                canvas.toBlob(resolve);
-            };
-        });
+async function getResizedBlob(src, width, height = undefined) {
+    const imageSrc = await contentDownloadImage(src);
+    const canvas = document.createElement('canvas');
+    const image = new Image();
+    image.src = imageSrc;
+    const ctx = canvas.getContext('2d');
+    return new Promise((resolve) => {
+        image.onload = () => {
+            height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
+            assert(ctx);
+            console.log(image.src);
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(image, 0, 0, width, height);
+            canvas.toBlob(resolve);
+        };
     });
 }
-function contentDownloadImage(src) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const base64 = yield runtime.sendMessage({ downloadImage: src });
-        return base64;
-    });
+async function contentDownloadImage(src) {
+    const base64 = await runtime.sendMessage({ downloadImage: src });
+    return base64;
 }
 function backgroundDownloadImage(src) {
     //if(!height) height = src.height / src.width * width;
     const imageUrl = src;
-    return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
-        const imageFileResponse = yield fetch(imageUrl);
-        let reader = new FileReader();
+    return new Promise(async (resolve) => {
+        const imageFileResponse = await fetch(imageUrl);
+        const reader = new FileReader();
         reader.onload = event => {
             console.log(reader.result);
             resolve(reader.result);
         };
-        const blob = yield imageFileResponse.blob();
+        const blob = await imageFileResponse.blob();
         reader.readAsDataURL(blob);
-    }));
+    });
 }
 
-;// CONCATENATED MODULE: ./src/background/index.ts
+;// ./src/background/index.ts
 // drawing from https://hackernoon.com/how-to-create-a-chrome-extension-with-react
-var background_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 const messageHandlers = {
-    searchForCourse: (queryString) => background_awaiter(void 0, void 0, void 0, function* () {
-        const activeTab = yield getActiveTab();
+    searchForCourse: async (queryString) => {
+        const activeTab = await getActiveTab();
         if (!(activeTab === null || activeTab === void 0 ? void 0 : activeTab.id)) {
             return;
         }
-        yield browser_polyfill.scripting.executeScript({
+        await browser_polyfill.scripting.executeScript({
             target: { tabId: activeTab.id },
             files: ['./js/content.js']
         });
-        yield browser_polyfill.tabs.sendMessage(activeTab.id, { 'queryString': queryString });
-    }),
+        await browser_polyfill.tabs.sendMessage(activeTab.id, { 'queryString': queryString });
+    },
 };
 browser_polyfill.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    for (let messageKey in messageHandlers) {
+    for (const messageKey in messageHandlers) {
         if (message.hasOwnProperty(messageKey)) {
             const handler = messageHandlers[messageKey];
             const params = message[messageKey];
@@ -6461,27 +6439,25 @@ browser_polyfill.runtime.onMessage.addListener((message, sender, sendResponse) =
 });
 browser_polyfill.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.downloadImage) {
-        (() => background_awaiter(void 0, void 0, void 0, function* () {
-            let resized = yield backgroundDownloadImage(message.downloadImage);
+        (async () => {
+            const resized = await backgroundDownloadImage(message.downloadImage);
             sendResponse(resized);
-        }))();
+        })();
         return true;
     }
 });
-browser_polyfill.action.onClicked.addListener((tab) => background_awaiter(void 0, void 0, void 0, function* () {
+browser_polyfill.action.onClicked.addListener(async (tab) => {
     const id = tab.id;
     if (!id) {
         return;
     }
-}));
-function getActiveTab() {
-    return background_awaiter(this, void 0, void 0, function* () {
-        const windowTabs = yield browser_polyfill.tabs.query({ lastFocusedWindow: true });
-        const activeTabs = yield browser_polyfill.tabs.query({ active: true });
-        const activeLastWindow = yield browser_polyfill.tabs.query({ active: true, lastFocusedWindow: true });
-        const [tab] = windowTabs.filter(tab => tab.active);
-        return tab;
-    });
+});
+async function getActiveTab() {
+    const windowTabs = await browser_polyfill.tabs.query({ lastFocusedWindow: true });
+    const activeTabs = await browser_polyfill.tabs.query({ active: true });
+    const activeLastWindow = await browser_polyfill.tabs.query({ active: true, lastFocusedWindow: true });
+    const [tab] = windowTabs.filter(tab => tab.active);
+    return tab;
 }
 
 })();
