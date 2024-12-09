@@ -43647,10 +43647,44 @@ const publish_testResultDefaults = {
     failureMessage: 'failure',
     notFailureMessage: 'success'
 };
+/**
+ * Processes the result of a test and returns a structured validation result.
+ *
+ * @param success - Indicates the success state of the test. It can be a boolean
+ *                  or one of the three string states: "unknown" or "not run".
+ *                  If undefined, it defaults to "unknown".
+ * @param options  - Optional settings that affect the output, including:
+ *                   - failureMessage: Message shown if the test fails.
+ *                   - notFailureMessage: Message shown if the test did not fail.
+ *                   - links: Optional links related to the test result.
+ *                   - userData: Additional user context to include in the result, especially
+ *                   used to pass data from a validation run into the fix run so we don't
+ *                   have to duplicate checks/ collection of bad links.
+ *
+ * @returns A ValidationResult object containing the success state, relevant messages,
+ *          and possibly user data and links.
+ *
+ * @example
+ * const result = testResult(true, {
+ *     failureMessage: "Test failed due to X.",
+ *     notFailureMessage: "Test passed successfully!",
+ *     links: { documentation: "http://example.com/test-docs" },
+ *     userData: { userId: 12345 }
+ * });
+ * console.log(result);
+ * // Output: {
+ * //   success: true,
+ * //   messages: "Test passed successfully!",
+ * //   userData: { userId: 12345 },
+ * //   links: { documentation: "http://example.com/test-docs" }
+ * // }
+ */
 function publish_testResult(success, options) {
     const displayMessage = success === 'unknown' ? success : !!success;
     const reportedSuccess = success === undefined ? 'unknown' : success;
-    let { failureMessage, notFailureMessage, links, userData } = { ...publish_testResultDefaults, ...options };
+    const localOptions = { ...publish_testResultDefaults, ...options };
+    let { failureMessage, notFailureMessage } = localOptions;
+    const { links, userData } = localOptions;
     failureMessage = publish_ensureMessageResults(failureMessage);
     notFailureMessage = publish_ensureMessageResults(notFailureMessage);
     const response = {
@@ -44909,7 +44943,7 @@ function publish_apiWriteConfig_apiWriteConfig(method, data, baseConfig) {
         }
     }, baseConfig);
 }
-/* harmony default export */ const publish_fetch_apiWriteConfig = ((/* unused pure expression or super */ null && (publish_apiWriteConfig_apiWriteConfig)));
+/* harmony default export */ const publish_fetch_apiWriteConfig = (publish_apiWriteConfig_apiWriteConfig);
 
 ;// ./src/canvas/course/blueprint.ts
 
@@ -45428,6 +45462,7 @@ publish_Quiz.allContentUrlTemplate = "/api/v1/courses/{course_id}/quizzes";
 
 
 
+
 const publish_HOMETILE_WIDTH = 500;
 const publish_Course_COURSE_CODE_REGEX = /^(.+[^_])?_?(\w{4}\d{3})/i;
 class publish_Course extends publish_BaseCanvasObject {
@@ -45829,6 +45864,10 @@ class publish_Course extends publish_BaseCanvasObject {
     }
     async getSettings(config) {
         return await publish_fetchJson_fetchJson(`/api/v1/courses/${this.id}/settings`, config);
+    }
+    async updateSettings(newSettings, config) {
+        const configToUse = publish_fetch_apiWriteConfig("PUT", newSettings, config);
+        return await publish_fetchJson_fetchJson(`/api/v1/courses/${this.id}/settings`, configToUse);
     }
 }
 publish_Course.nameProperty = 'name';
@@ -48789,7 +48828,6 @@ async function publish_footerOnFrontPageTest_getContent(courseId) {
 
 
 
-const publish_extensionsToTest = ['Dropout Detective', "BigBlueButton"];
 const publish_extensionsInstalledTest = {
     name: "Extensions Installed",
     description: 'Big Blue Button and Dropout Detective in nav bar',
@@ -48806,16 +48844,60 @@ const publish_extensionsInstalledTest = {
         };
     }
 };
-const publish_announcementsOnHomePageTest = {
-    name: "Show Announcements",
-    description: 'Confirm under "Settings" --> "more options" that the "Show announcements" box is checked',
-    run: async (course) => {
-        const settings = await course.getSettings();
-        const success = !!settings.show_announcements_on_home_page;
-        const failureMessage = "'show announcements on home page' not turned on";
-        return publish_testResult(success, { failureMessage });
-    }
-};
+const publish_extensionsToTest = ['Dropout Detective', "BigBlueButton"];
+/**
+ * Creates a validation and fix mechanism for a specific course setting.
+ *
+ * This function generates a structure that includes methods to check
+ * the current state of a course setting and to attempt to fix it if
+ * it does not match the expected value. It supports both retrieval
+ * of current settings and an update mechanism that adjusts the
+ * specified setting to the desired value.
+ *
+ * @template SettingNameType - The type of the setting name, which must
+ * be a key of the ICourseSettings interface.
+ * @param {SettingNameType} settingName - The name of the course setting
+ * to validate and potentially fix.
+ * @param {ICourseSettings[SettingNameType]} correctSettingValue - The
+ * expected value that the specified course setting should hold (e.g.,
+ * true or false for boolean settings).
+ *
+ * @returns {CourseFixValidation} An object containing:
+ * - name: A formatted string representing the test's name.
+ * - description: A detailed string describing what the test checks and fixes.
+ * - run: An asynchronous method that checks the current state of the setting.
+ * - fix: An asynchronous method that attempts to update the setting to the correct value.
+ */
+function publish_createSettingsValidation(settingName, correctSettingValue) {
+    const formattedSettingName = settingName.replaceAll('_', ' ');
+    return {
+        name: `Course Settings: "${formattedSettingName}"`,
+        description: `"${formattedSettingName}" should be ${correctSettingValue}`,
+        run: async (course) => {
+            const settings = await course.getSettings();
+            const success = settings[settingName] == correctSettingValue;
+            const failureMessage = `Setting "${settingName}" not set to ${correctSettingValue}`;
+            return publish_testResult(success, { failureMessage });
+        },
+        fix: async (course) => {
+            try {
+                const response = await course.updateSettings({ [settingName]: correctSettingValue });
+                return publish_testResult(response[settingName] == correctSettingValue, { failureMessage: `Failed to turn "${settingName}" on.` });
+            }
+            catch (e) {
+                if (e instanceof Error) {
+                    return publish_testResult(false, { failureMessage: e.toString() });
+                }
+                else {
+                    throw new Error("Threw a non-error: " + String(e));
+                }
+            }
+        }
+    };
+}
+const publish_announcementsOnHomePageTest = publish_createSettingsValidation('show_announcements_on_home_page', true);
+const publish_noStudentEditDiscussions = publish_createSettingsValidation('allow_student_discussion_editing', false);
+const publish_noStudentCreateDiscussions = publish_createSettingsValidation('allow_student_discussion_topics', false);
 const publish_latePolicyTest = {
     name: "Late Policy Correct",
     description: "Go to the gradebook and  click the cog in the upper right-hand corner, then check the box to automatically apply a 0 for missing submissions; or confirm that this setting has already been made.",
@@ -48914,7 +48996,9 @@ const publish_badGradingPolicyTest = {
     publish_latePolicyTest,
     publish_announcementsOnHomePageTest,
     publish_extensionsInstalledTest,
-    publish_badGradingPolicyTest
+    publish_badGradingPolicyTest,
+    publish_noStudentCreateDiscussions,
+    publish_noStudentEditDiscussions
 ]);
 
 ;// ./src/publish/fixesAndUpdates/validations/syllabusTests.ts
@@ -49026,9 +49110,6 @@ function publish_htmlDiv(text) {
     el.innerHTML = text;
     return el;
 }
-const publish_iteratorFindOptionDefaults = {
-    maxIterations: 1000,
-};
 function publish_findSecondParaOfDiscExpect(syllabusEl) {
     const discussExpectEl = [...document.querySelectorAll('h3')]
         .find(h3 => { var _a, _b; return ((_b = (_a = h3.innerText) !== null && _a !== void 0 ? _a : h3.textContent) !== null && _b !== void 0 ? _b : '').includes('Discussion Expectations'); });
@@ -49084,6 +49165,7 @@ const publish_secondDiscussionParaOff = {
     publish_aiPolicyInSyllabusTest,
     publish_bottomOfSyllabusLanguageTest,
     publish_gradeTableHeadersCorrectTest,
+    publish_secondDiscussionParaOff
 ]);
 
 ;// ./src/admin/index.tsx
@@ -49946,10 +50028,61 @@ const publish_emptyAssignmentCategories = {
 };
 /* harmony default export */ const publish_assignments_emptyAssignmentCategories = (publish_emptyAssignmentCategories);
 
+;// ./src/publish/fixesAndUpdates/validations/assignments/textSubmissionEnabled.ts
+
+
+
+const publish_textSubmissionEnabled = {
+    name: "Text submission enabled for all assignments",
+    description: "All non external-tool assignments allow for online text entry",
+    async run(course) {
+        try {
+            const assignmentGen = publish_assignments_AssignmentKind.dataGenerator(course.id);
+            const badAssignments = [];
+            for await (const assignment of assignmentGen) {
+                if (assignment.submission_types.includes('external_tool'))
+                    continue; //Skip external tools as these are a separate case.
+                if (!assignment.submission_types.includes('online_text_entry'))
+                    badAssignments.push(assignment);
+            }
+            return publish_testResult(badAssignments.length == 0, {
+                failureMessage: badAssignments.map(a => `${a.name} does not allow text entry submission.`),
+                links: badAssignments.map(l => l.html_url),
+                userData: badAssignments,
+            });
+        }
+        catch (e) {
+            return publish_testResult(false, { failureMessage: String(e) });
+        }
+    },
+    async fix(course, result) {
+        result !== null && result !== void 0 ? result : (result = await this.run(course));
+        const badAssignments = result.userData;
+        if (!badAssignments)
+            return publish_testResult(false, { failureMessage: "Failed to fetch bad assignments" });
+        // Sanity check to filter out external_tool assignments
+        const validAssignments = badAssignments.filter(ba => !ba.submission_types.includes('external_tool'));
+        if (validAssignments.length === 0) {
+            return publish_testResult(false, { failureMessage: "No valid assignments to update" });
+        }
+        const results = await Promise.all(validAssignments.map((ba) => publish_assignments_AssignmentKind.put(course.id, ba.id, {
+            assignment: {
+                submission_types: [...ba.submission_types, "online_text_entry"]
+            }
+        })));
+        const links = results.map(r => r.html_url);
+        const notFailureMessage = results.map(r => `${r.name} submission types updated to ${r.submission_types.join(', ')}`);
+        return publish_testResult(true, { links, notFailureMessage });
+    }
+};
+/* harmony default export */ const publish_assignments_textSubmissionEnabled = (publish_textSubmissionEnabled);
+
 ;// ./src/publish/fixesAndUpdates/validations/assignments/index.tsx
+
 
 /* harmony default export */ const publish_assignments = ([
     publish_assignments_emptyAssignmentCategories,
+    publish_assignments_textSubmissionEnabled,
 ]);
 
 ;// ./src/publish/fixesAndUpdates/validations/courseSpecific/capstoneProjectValidations.ts

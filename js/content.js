@@ -7130,15 +7130,15 @@ class code_MalformedCourseCodeError extends Error {
 
 
 function apiWriteConfig_apiWriteConfig(method, data, baseConfig) {
-    const body = formDataify(data);
-    return overrideConfig({
+    const body = canvasUtils_formDataify(data);
+    return utils_overrideConfig({
         fetchInit: {
             method,
             body,
         }
     }, baseConfig);
 }
-/* harmony default export */ const fetch_apiWriteConfig = ((/* unused pure expression or super */ null && (apiWriteConfig_apiWriteConfig)));
+/* harmony default export */ const fetch_apiWriteConfig = (apiWriteConfig_apiWriteConfig);
 
 ;// ./src/canvas/course/blueprint.ts
 
@@ -12512,6 +12512,7 @@ Discussion.allContentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topic
 
 
 
+
 const HOMETILE_WIDTH = 500;
 const COURSE_CODE_REGEX = /^(.+[^_])?_?(\w{4}\d{3})/i;
 class Course_Course extends BaseCanvasObject {
@@ -12913,6 +12914,10 @@ class Course_Course extends BaseCanvasObject {
     }
     async getSettings(config) {
         return await fetchJson_fetchJson(`/api/v1/courses/${this.id}/settings`, config);
+    }
+    async updateSettings(newSettings, config) {
+        const configToUse = fetch_apiWriteConfig("PUT", newSettings, config);
+        return await fetchJson_fetchJson(`/api/v1/courses/${this.id}/settings`, configToUse);
     }
 }
 Course_Course.nameProperty = 'name';

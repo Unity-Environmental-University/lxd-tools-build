@@ -46151,15 +46151,15 @@ class speedGrader_code_MalformedCourseCodeError extends Error {
 
 
 function speedGrader_apiWriteConfig_apiWriteConfig(method, data, baseConfig) {
-    const body = formDataify(data);
-    return overrideConfig({
+    const body = speedGrader_canvasUtils_formDataify(data);
+    return speedGrader_utils_overrideConfig({
         fetchInit: {
             method,
             body,
         }
     }, baseConfig);
 }
-/* harmony default export */ const speedGrader_fetch_apiWriteConfig = ((/* unused pure expression or super */ null && (speedGrader_apiWriteConfig_apiWriteConfig)));
+/* harmony default export */ const speedGrader_fetch_apiWriteConfig = (speedGrader_apiWriteConfig_apiWriteConfig);
 
 ;// ./src/canvas/course/blueprint.ts
 
@@ -46960,6 +46960,7 @@ speedGrader_Discussion.allContentUrlTemplate = "/api/v1/courses/{course_id}/disc
 
 
 
+
 const speedGrader_HOMETILE_WIDTH = 500;
 const speedGrader_Course_COURSE_CODE_REGEX = /^(.+[^_])?_?(\w{4}\d{3})/i;
 class speedGrader_Course_Course extends speedGrader_BaseCanvasObject {
@@ -47361,6 +47362,10 @@ class speedGrader_Course_Course extends speedGrader_BaseCanvasObject {
     }
     async getSettings(config) {
         return await speedGrader_fetchJson_fetchJson(`/api/v1/courses/${this.id}/settings`, config);
+    }
+    async updateSettings(newSettings, config) {
+        const configToUse = speedGrader_fetch_apiWriteConfig("PUT", newSettings, config);
+        return await speedGrader_fetchJson_fetchJson(`/api/v1/courses/${this.id}/settings`, configToUse);
     }
 }
 speedGrader_Course_Course.nameProperty = 'name';

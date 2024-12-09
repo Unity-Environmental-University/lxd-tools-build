@@ -12252,7 +12252,22 @@ Discussion.bodyProperty = 'message';
 Discussion.contentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics/{content_id}";
 Discussion.allContentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics";
 
+;// ./src/fetch/apiWriteConfig.ts
+
+
+function apiWriteConfig_apiWriteConfig(method, data, baseConfig) {
+    const body = canvasUtils_formDataify(data);
+    return utils_overrideConfig({
+        fetchInit: {
+            method,
+            body,
+        }
+    }, baseConfig);
+}
+/* harmony default export */ const fetch_apiWriteConfig = (apiWriteConfig_apiWriteConfig);
+
 ;// ./src/canvas/course/Course.ts
+
 
 
 
@@ -12677,6 +12692,10 @@ class Course_Course extends BaseCanvasObject {
     async getSettings(config) {
         return await fetchJson_fetchJson(`/api/v1/courses/${this.id}/settings`, config);
     }
+    async updateSettings(newSettings, config) {
+        const configToUse = fetch_apiWriteConfig("PUT", newSettings, config);
+        return await fetchJson_fetchJson(`/api/v1/courses/${this.id}/settings`, configToUse);
+    }
 }
 Course_Course.nameProperty = 'name';
 Course_Course.contentClasses = [Assignment_Assignment, Discussion, Quiz, Page];
@@ -12763,20 +12782,6 @@ function getCourseName(data) {
         return withoutCode;
     return data.name;
 }
-
-;// ./src/fetch/apiWriteConfig.ts
-
-
-function apiWriteConfig_apiWriteConfig(method, data, baseConfig) {
-    const body = formDataify(data);
-    return overrideConfig({
-        fetchInit: {
-            method,
-            body,
-        }
-    }, baseConfig);
-}
-/* harmony default export */ const fetch_apiWriteConfig = ((/* unused pure expression or super */ null && (apiWriteConfig_apiWriteConfig)));
 
 ;// ./src/canvas/course/blueprint.ts
 
