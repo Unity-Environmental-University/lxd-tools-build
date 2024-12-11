@@ -50028,10 +50028,23 @@ const publish_emptyAssignmentCategories = {
 };
 /* harmony default export */ const publish_assignments_emptyAssignmentCategories = (publish_emptyAssignmentCategories);
 
+;// ./src/publish/fixesAndUpdates/validations/validateTestFuncGen.ts
+function publish_validateTestFuncGen(...conditions) {
+    return (ba) => {
+        for (const condition of conditions) {
+            if (condition(ba))
+                return false;
+        }
+        return true;
+    };
+}
+
 ;// ./src/publish/fixesAndUpdates/validations/assignments/textSubmissionEnabled.ts
 
 
 
+
+const publish_shouldSkipAssignment = publish_validateTestFuncGen(ba => ba.submission_types.includes('external_tool'), ba => ba.submission_types.includes('discussion_topic'), ba => ba.submission_types.includes('online_text_entry'), ba => ba.submission_types.includes('online_quiz'));
 const publish_textSubmissionEnabled = {
     name: "Text submission enabled for all assignments",
     description: "All non external-tool assignments allow for online text entry",
@@ -50040,9 +50053,7 @@ const publish_textSubmissionEnabled = {
             const assignmentGen = publish_assignments_AssignmentKind.dataGenerator(course.id);
             const badAssignments = [];
             for await (const assignment of assignmentGen) {
-                if (assignment.submission_types.includes('external_tool'))
-                    continue; //Skip external tools as these are a separate case.
-                if (!assignment.submission_types.includes('online_text_entry'))
+                if (publish_shouldSkipAssignment(assignment))
                     badAssignments.push(assignment);
             }
             return publish_testResult(badAssignments.length == 0, {
@@ -50060,12 +50071,10 @@ const publish_textSubmissionEnabled = {
         const badAssignments = result.userData;
         if (!badAssignments)
             return publish_testResult(false, { failureMessage: "Failed to fetch bad assignments" });
-        // Sanity check to filter out external_tool assignments
-        const validAssignments = badAssignments.filter(ba => !ba.submission_types.includes('external_tool'));
-        if (validAssignments.length === 0) {
+        if (badAssignments.length === 0) {
             return publish_testResult(false, { failureMessage: "No valid assignments to update" });
         }
-        const results = await Promise.all(validAssignments.map((ba) => publish_assignments_AssignmentKind.put(course.id, ba.id, {
+        const results = await Promise.all(badAssignments.map((ba) => publish_assignments_AssignmentKind.put(course.id, ba.id, {
             assignment: {
                 submission_types: [...ba.submission_types, "online_text_entry"]
             }
