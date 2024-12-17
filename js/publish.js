@@ -50044,7 +50044,8 @@ function publish_validateTestFuncGen(...conditions) {
 
 
 
-const publish_shouldSkipAssignment = publish_validateTestFuncGen(ba => ba.submission_types.includes('external_tool'), ba => ba.submission_types.includes('discussion_topic'), ba => ba.submission_types.includes('online_text_entry'), ba => ba.submission_types.includes('online_quiz'));
+// Updated skip function to include checks for problematic combinations
+const publish_shouldSkipAssignment = publish_validateTestFuncGen((ba) => ba.submission_types.includes('external_tool'), (ba) => ba.submission_types.includes('discussion_topic') || ba.submission_types.includes('online_quiz'), (ba) => ba.submission_types.includes('online_text_entry'));
 const publish_textSubmissionEnabled = {
     name: "Text submission enabled for all assignments",
     description: "All non external-tool assignments allow for online text entry",
@@ -50056,7 +50057,7 @@ const publish_textSubmissionEnabled = {
                 if (publish_shouldSkipAssignment(assignment))
                     badAssignments.push(assignment);
             }
-            return publish_testResult(badAssignments.length == 0, {
+            return publish_testResult(badAssignments.length === 0, {
                 failureMessage: badAssignments.map(a => `${a.name} does not allow text entry submission.`),
                 links: badAssignments.map(l => l.html_url),
                 userData: badAssignments,
@@ -50074,13 +50075,21 @@ const publish_textSubmissionEnabled = {
         if (badAssignments.length === 0) {
             return publish_testResult(false, { failureMessage: "No valid assignments to update" });
         }
-        const results = await Promise.all(badAssignments.map((ba) => publish_assignments_AssignmentKind.put(course.id, ba.id, {
-            assignment: {
-                submission_types: [...ba.submission_types, "online_text_entry"]
+        // Only update those assignments that require the 'online_text_entry' submission type
+        const results = await Promise.all(badAssignments.map(async (ba) => {
+            // Here we're checking to add the online_text_entry submission type if it's missing
+            if (!ba.submission_types.includes("online_text_entry")) {
+                return publish_assignments_AssignmentKind.put(course.id, ba.id, {
+                    assignment: {
+                        submission_types: [...ba.submission_types, "online_text_entry"]
+                    }
+                });
             }
-        })));
-        const links = results.map(r => r.html_url);
-        const notFailureMessage = results.map(r => `${r.name} submission types updated to ${r.submission_types.join(', ')}`);
+            return null;
+        }));
+        const successfulResults = results.filter(r => r !== null);
+        const links = successfulResults.map(r => r.html_url);
+        const notFailureMessage = successfulResults.map(r => `${r.name} submission types updated to ${r.submission_types.join(', ')}`);
         return publish_testResult(true, { links, notFailureMessage });
     }
 };
