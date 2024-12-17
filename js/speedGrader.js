@@ -45594,8 +45594,30 @@ async function speedGrader_updateAssignmentDueDates(offset, assignments, options
     return returnAssignments;
 }
 
+;// ./src/canvas/content/discussions/DiscussionKind.ts
+
+
+
+const speedGrader_discussionUrlFuncs = speedGrader_contentUrlFuncs('discussion_topics');
+const speedGrader_DiscussionKind = {
+    ...speedGrader_discussionUrlFuncs,
+    dataIsThisKind(data) {
+        return data.hasOwnProperty('discussion_type');
+    },
+    getId: (data) => data.id,
+    getName: (data) => data.title,
+    getBody: (data) => data.message,
+    async get(courseId, contentId, config) {
+        return await speedGrader_fetchJson_fetchJson(speedGrader_discussionUrlFuncs.getApiUrl(courseId, contentId), config);
+    },
+    dataGenerator: (courseId, config) => speedGrader_getPagedDataGenerator(speedGrader_discussionUrlFuncs.getAllApiUrl(courseId), config),
+    put: speedGrader_putContentFunc(speedGrader_discussionUrlFuncs.getApiUrl),
+};
+/* harmony default export */ const speedGrader_discussions_DiscussionKind = (speedGrader_DiscussionKind);
+
 ;// ./src/ui/speedGrader/AssignmentsCollection.ts
 // noinspection GrazieInspection
+
 /**
  * A collection of assignments grabbed from the submissions that returns and finds them in various ways
  */
@@ -45605,7 +45627,8 @@ class speedGrader_AssignmentsCollection {
         for (const assignment of assignments) {
             this.assignmentsById[assignment.id] = assignment;
         }
-        this.discussions = assignments.filter(assignment => assignment.hasOwnProperty('discussion_topic'))
+        this.discussions = assignments
+            .filter(assignment => (assignment === null || assignment === void 0 ? void 0 : assignment.discussion_topic) && speedGrader_discussions_DiscussionKind.dataIsThisKind(assignment.discussion_topic))
             .map(function (assignment) {
             const discussion = assignment.discussion_topic;
             discussion.assignment = assignment;
@@ -46137,7 +46160,7 @@ function speedGrader_code_baseCourseCode(code) {
 function speedGrader_stringIsCourseCode(code) {
     return COURSE_CODE_REGEX.exec(code);
 }
-class speedGrader_code_MalformedCourseCodeError extends Error {
+class speedGrader_MalformedCourseCodeError extends Error {
     constructor(courseCode, message, options) {
         if (!message)
             message = `${courseCode} is not a valid course code`;
@@ -46169,7 +46192,6 @@ function speedGrader_apiWriteConfig_apiWriteConfig(method, data, baseConfig) {
 
 
 
-
 function speedGrader_isBlueprint({ blueprint }) {
     return !!blueprint;
 }
@@ -46184,57 +46206,20 @@ function speedGrader_genBlueprintDataForCode(courseCode, accountIds, queryParams
         console.warn(`Code ${courseCode} invalid`);
         return null;
     }
-    const courseGen = getCourseDataGenerator(baseCode, accountIds, undefined, fetchGetConfig({
+    return getCourseDataGenerator(baseCode, accountIds, undefined, fetchGetConfig({
         blueprint: true,
         include: ['concluded'],
     }, { queryParams }));
-    return courseGen;
-}
-async function speedGrader_getSections(courseId, config) {
-    return (await speedGrader_canvasUtils_renderAsyncGen(speedGrader_sectionDataGenerator(courseId, config))).map(section => new speedGrader_Course_Course(section));
 }
 function speedGrader_sectionDataGenerator(courseId, config) {
     const url = `/api/v1/courses/${courseId}/blueprint_templates/default/associated_courses`;
-    return speedGrader_getPagedDataGenerator(url);
-}
-function speedGrader_cachedGetAssociatedCoursesFunc(course) {
-    let cache = null;
-    return async (redownload = false) => {
-        if (!redownload && cache)
-            return cache;
-        cache = await speedGrader_getSections(course.id);
-        return cache;
-    };
-}
-async function speedGrader_getTermNameFromSections(sections) {
-    const [section] = sections;
-    if (!section)
-        throw new Error("Cannot determine term name by sections; there are no sections.");
-    const sectionTerm = await section.getTerm();
-    if (!sectionTerm)
-        throw new Error("Section does not have associated term: " + section.name);
-    return sectionTerm.name;
-}
-async function speedGrader_retireBlueprint(course, termName, config) {
-    var _a;
-    if (!course.parsedCourseCode)
-        throw new MalformedCourseCodeError(course.courseCode);
-    const isCurrentBlueprint = (_a = course.parsedCourseCode) === null || _a === void 0 ? void 0 : _a.match('BP_');
-    if (!isCurrentBlueprint)
-        throw new speedGrader_NotABlueprintError("This blueprint is not named BP_; are you trying to retire a retired blueprint?");
-    const newCode = `BP-${termName}_${course.baseCode}`;
-    const saveData = {};
-    saveData[Course.nameProperty] = course.name.replace(course.parsedCourseCode, newCode);
-    saveData['course_code'] = newCode;
-    await course.saveData({
-        course: saveData
-    }, config);
+    return speedGrader_getPagedDataGenerator(url, config);
 }
 async function speedGrader_beginBpSync(courseId, { message, copy_settings, config }) {
     const url = `/api/v1/courses/${courseId}/blueprint_templates/default/migrations`;
     if (typeof copy_settings === 'undefined')
         copy_settings = true;
-    const result = await fetchJson(url, apiWriteConfig('POST', {
+    return await fetchJson(url, apiWriteConfig('POST', {
         message,
         copy_settings
     }, config));
@@ -46293,12 +46278,6 @@ async function speedGrader_unSetAsBlueprint(courseId, config) {
         }
     };
     return await fetchJson(url, apiWriteConfig("PUT", payload, config));
-}
-class speedGrader_NotABlueprintError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "NotABlueprintError";
-    }
 }
 
 ;// ./src/date.ts
@@ -46890,27 +46869,6 @@ speedGrader_Quiz.bodyProperty = 'description';
 speedGrader_Quiz.contentUrlTemplate = "/api/v1/courses/{course_id}/quizzes/{content_id}";
 speedGrader_Quiz.allContentUrlTemplate = "/api/v1/courses/{course_id}/quizzes";
 
-;// ./src/canvas/content/discussions/DiscussionKind.ts
-
-
-
-const speedGrader_discussionUrlFuncs = speedGrader_contentUrlFuncs('discussion_topics');
-const speedGrader_DiscussionKind = {
-    ...speedGrader_discussionUrlFuncs,
-    dataIsThisKind(data) {
-        return data.hasOwnProperty('discussion_type');
-    },
-    getId: (data) => data.id,
-    getName: (data) => data.title,
-    getBody: (data) => data.message,
-    async get(courseId, contentId, config) {
-        return await speedGrader_fetchJson_fetchJson(speedGrader_discussionUrlFuncs.getApiUrl(courseId, contentId), config);
-    },
-    dataGenerator: (courseId, config) => speedGrader_getPagedDataGenerator(speedGrader_discussionUrlFuncs.getAllApiUrl(courseId), config),
-    put: speedGrader_putContentFunc(speedGrader_discussionUrlFuncs.getApiUrl),
-};
-/* harmony default export */ const speedGrader_discussions_DiscussionKind = (speedGrader_DiscussionKind);
-
 ;// ./src/canvas/content/discussions/Discussion.ts
 
 
@@ -46937,7 +46895,28 @@ speedGrader_Discussion.bodyProperty = 'message';
 speedGrader_Discussion.contentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics/{content_id}";
 speedGrader_Discussion.allContentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics";
 
+;// ./src/canvas/course/getSections.ts
+
+
+
+async function speedGrader_getSections(courseId, config) {
+    return (await speedGrader_canvasUtils_renderAsyncGen(speedGrader_sectionDataGenerator(courseId, config))).map(section => new speedGrader_Course_Course(section));
+}
+
+;// ./src/canvas/course/cachedGetAssociatedCoursesFunc.ts
+
+function speedGrader_cachedGetAssociatedCoursesFunc(course) {
+    let cache = null;
+    return async (redownload = false) => {
+        if (!redownload && cache)
+            return cache;
+        cache = await speedGrader_getSections(course.id);
+        return cache;
+    };
+}
+
 ;// ./src/canvas/course/Course.ts
+
 
 
 

@@ -44953,7 +44953,6 @@ function publish_apiWriteConfig_apiWriteConfig(method, data, baseConfig) {
 
 
 
-
 function publish_isBlueprint({ blueprint }) {
     return !!blueprint;
 }
@@ -44968,57 +44967,20 @@ function publish_genBlueprintDataForCode(courseCode, accountIds, queryParams) {
         console.warn(`Code ${courseCode} invalid`);
         return null;
     }
-    const courseGen = getCourseDataGenerator(baseCode, accountIds, undefined, fetchGetConfig({
+    return getCourseDataGenerator(baseCode, accountIds, undefined, fetchGetConfig({
         blueprint: true,
         include: ['concluded'],
     }, { queryParams }));
-    return courseGen;
-}
-async function publish_getSections(courseId, config) {
-    return (await publish_canvasUtils_renderAsyncGen(publish_sectionDataGenerator(courseId, config))).map(section => new publish_Course(section));
 }
 function publish_sectionDataGenerator(courseId, config) {
     const url = `/api/v1/courses/${courseId}/blueprint_templates/default/associated_courses`;
-    return publish_getPagedDataGenerator(url);
-}
-function publish_cachedGetAssociatedCoursesFunc(course) {
-    let cache = null;
-    return async (redownload = false) => {
-        if (!redownload && cache)
-            return cache;
-        cache = await publish_getSections(course.id);
-        return cache;
-    };
-}
-async function publish_getTermNameFromSections(sections) {
-    const [section] = sections;
-    if (!section)
-        throw new Error("Cannot determine term name by sections; there are no sections.");
-    const sectionTerm = await section.getTerm();
-    if (!sectionTerm)
-        throw new Error("Section does not have associated term: " + section.name);
-    return sectionTerm.name;
-}
-async function publish_retireBlueprint(course, termName, config) {
-    var _a;
-    if (!course.parsedCourseCode)
-        throw new publish_MalformedCourseCodeError(course.courseCode);
-    const isCurrentBlueprint = (_a = course.parsedCourseCode) === null || _a === void 0 ? void 0 : _a.match('BP_');
-    if (!isCurrentBlueprint)
-        throw new publish_NotABlueprintError("This blueprint is not named BP_; are you trying to retire a retired blueprint?");
-    const newCode = `BP-${termName}_${course.baseCode}`;
-    const saveData = {};
-    saveData[publish_Course.nameProperty] = course.name.replace(course.parsedCourseCode, newCode);
-    saveData['course_code'] = newCode;
-    await course.saveData({
-        course: saveData
-    }, config);
+    return publish_getPagedDataGenerator(url, config);
 }
 async function publish_beginBpSync(courseId, { message, copy_settings, config }) {
     const url = `/api/v1/courses/${courseId}/blueprint_templates/default/migrations`;
     if (typeof copy_settings === 'undefined')
         copy_settings = true;
-    const result = await publish_fetchJson_fetchJson(url, publish_apiWriteConfig_apiWriteConfig('POST', {
+    return await publish_fetchJson_fetchJson(url, publish_apiWriteConfig_apiWriteConfig('POST', {
         message,
         copy_settings
     }, config));
@@ -45077,12 +45039,6 @@ async function publish_unSetAsBlueprint(courseId, config) {
         }
     };
     return await fetchJson(url, apiWriteConfig("PUT", payload, config));
-}
-class publish_NotABlueprintError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "NotABlueprintError";
-    }
 }
 
 ;// ./src/canvas/Account.ts
@@ -45439,7 +45395,28 @@ publish_Quiz.bodyProperty = 'description';
 publish_Quiz.contentUrlTemplate = "/api/v1/courses/{course_id}/quizzes/{content_id}";
 publish_Quiz.allContentUrlTemplate = "/api/v1/courses/{course_id}/quizzes";
 
+;// ./src/canvas/course/getSections.ts
+
+
+
+async function publish_getSections(courseId, config) {
+    return (await publish_canvasUtils_renderAsyncGen(publish_sectionDataGenerator(courseId, config))).map(section => new publish_Course(section));
+}
+
+;// ./src/canvas/course/cachedGetAssociatedCoursesFunc.ts
+
+function publish_cachedGetAssociatedCoursesFunc(course) {
+    let cache = null;
+    return async (redownload = false) => {
+        if (!redownload && cache)
+            return cache;
+        cache = await publish_getSections(course.id);
+        return cache;
+    };
+}
+
 ;// ./src/canvas/course/Course.ts
+
 
 
 
@@ -49343,7 +49320,36 @@ function publish_dateFromTermName(termName) {
 }
 /* harmony default export */ const publish_term_dateFromTermName = (publish_dateFromTermName);
 
+;// ./src/canvas/course/notABlueprintError.ts
+class publish_NotABlueprintError extends Error {
+    constructor() {
+        super(...arguments);
+        this.name = "NotABlueprintError";
+    }
+}
+
+;// ./src/canvas/course/retireBlueprint.ts
+
+
+
+async function publish_retireBlueprint(course, termName, config) {
+    var _a;
+    if (!course.parsedCourseCode)
+        throw new publish_MalformedCourseCodeError(course.courseCode);
+    const isCurrentBlueprint = (_a = course.parsedCourseCode) === null || _a === void 0 ? void 0 : _a.match('BP_');
+    if (!isCurrentBlueprint)
+        throw new publish_NotABlueprintError("This blueprint is not named BP_; are you trying to retire a retired blueprint?");
+    const newCode = `BP-${termName}_${course.baseCode}`;
+    const saveData = {};
+    saveData[publish_Course.nameProperty] = course.name.replace(course.parsedCourseCode, newCode);
+    saveData['course_code'] = newCode;
+    await course.saveData({
+        course: saveData
+    }, config);
+}
+
 ;// ./src/publish/publishInterface/MakeBp.tsx
+
 
 
 
@@ -50095,12 +50101,72 @@ const publish_textSubmissionEnabled = {
 };
 /* harmony default export */ const publish_assignments_textSubmissionEnabled = (publish_textSubmissionEnabled);
 
+;// ./src/publish/fixesAndUpdates/validations/assignments/textSubEnabledBug.ts
+
+
+const publish_textSubEnabledBug = {
+    name: "Check Discussions and Quizzes",
+    description: "Ensure that discussions and quizzes are not adversely affected but the bug in 2.7.7 (added text_entry to discussions and quizzes).",
+    async run(course) {
+        try {
+            const assignmentGen = publish_assignments_AssignmentKind.dataGenerator(course.id);
+            const affectedAssignments = [];
+            for await (const assignment of assignmentGen) {
+                //If there's no text entry then there's no problem
+                if (!assignment.submission_types.includes('online_text_entry'))
+                    continue;
+                // Add logic to check if metadata is intact or needs fixing.
+                if (assignment.submission_types.includes('discussion_topic') ||
+                    assignment.submission_types.includes('online_quiz') ||
+                    assignment.submission_types.includes('external_tool')) {
+                    affectedAssignments.push(assignment);
+                }
+            }
+            return publish_testResult(affectedAssignments.length === 0, {
+                failureMessage: affectedAssignments.map(a => `${a.name} has metadata issues.`),
+                links: affectedAssignments.map(l => l.html_url),
+                userData: [...affectedAssignments],
+            });
+        }
+        catch (e) {
+            return publish_testResult(false, { failureMessage: String(e) });
+        }
+    },
+    // async fix(course, result) {
+    //     result ??= await this.run(course);
+    //     const affectedAssignments = result.userData;
+    //
+    //     if (!affectedAssignments) return testResult(false, { failureMessage: "Failed to fetch affected assignments" });
+    //
+    //     if (affectedAssignments.length === 0) {
+    //         return testResult(false, { failureMessage: "No issues found with discussions or quizzes" });
+    //     }
+    //
+    //     const firstWaveResults = await Promise.all(affectedAssignments.map((assignment) => {
+    //
+    //         assignment.submission_types
+    //         AssignmentKind.put(course.id, assignment.id, {
+    //
+    //         })
+    //     }));
+    //
+    //
+    //     const results = firstWaveResults;
+    //
+    //     const links = results.map(r => r.html_url);
+    //     return testResult(true, { links, notFailureMessage: results.map(r => `${r.name} metadata restored`) });
+    // }
+};
+/* harmony default export */ const publish_assignments_textSubEnabledBug = (publish_textSubEnabledBug);
+
 ;// ./src/publish/fixesAndUpdates/validations/assignments/index.tsx
+
 
 
 /* harmony default export */ const publish_assignments = ([
     publish_assignments_emptyAssignmentCategories,
     publish_assignments_textSubmissionEnabled,
+    publish_assignments_textSubEnabledBug,
 ]);
 
 ;// ./src/publish/fixesAndUpdates/validations/courseSpecific/capstoneProjectValidations.ts

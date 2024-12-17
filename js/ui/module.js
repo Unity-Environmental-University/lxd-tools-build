@@ -12112,7 +12112,7 @@ function code_baseCourseCode(code) {
 function stringIsCourseCode(code) {
     return COURSE_CODE_REGEX.exec(code);
 }
-class code_MalformedCourseCodeError extends Error {
+class MalformedCourseCodeError extends Error {
     constructor(courseCode, message, options) {
         if (!message)
             message = `${courseCode} is not a valid course code`;
@@ -12266,7 +12266,28 @@ function apiWriteConfig_apiWriteConfig(method, data, baseConfig) {
 }
 /* harmony default export */ const fetch_apiWriteConfig = (apiWriteConfig_apiWriteConfig);
 
+;// ./src/canvas/course/getSections.ts
+
+
+
+async function getSections(courseId, config) {
+    return (await canvasUtils_renderAsyncGen(sectionDataGenerator(courseId, config))).map(section => new Course_Course(section));
+}
+
+;// ./src/canvas/course/cachedGetAssociatedCoursesFunc.ts
+
+function cachedGetAssociatedCoursesFunc(course) {
+    let cache = null;
+    return async (redownload = false) => {
+        if (!redownload && cache)
+            return cache;
+        cache = await getSections(course.id);
+        return cache;
+    };
+}
+
 ;// ./src/canvas/course/Course.ts
+
 
 
 
@@ -12791,7 +12812,6 @@ function getCourseName(data) {
 
 
 
-
 function isBlueprint({ blueprint }) {
     return !!blueprint;
 }
@@ -12806,57 +12826,20 @@ function genBlueprintDataForCode(courseCode, accountIds, queryParams) {
         console.warn(`Code ${courseCode} invalid`);
         return null;
     }
-    const courseGen = getCourseDataGenerator(baseCode, accountIds, undefined, fetchGetConfig({
+    return getCourseDataGenerator(baseCode, accountIds, undefined, fetchGetConfig({
         blueprint: true,
         include: ['concluded'],
     }, { queryParams }));
-    return courseGen;
-}
-async function getSections(courseId, config) {
-    return (await canvasUtils_renderAsyncGen(sectionDataGenerator(courseId, config))).map(section => new Course_Course(section));
 }
 function sectionDataGenerator(courseId, config) {
     const url = `/api/v1/courses/${courseId}/blueprint_templates/default/associated_courses`;
-    return getPagedDataGenerator_getPagedDataGenerator(url);
-}
-function cachedGetAssociatedCoursesFunc(course) {
-    let cache = null;
-    return async (redownload = false) => {
-        if (!redownload && cache)
-            return cache;
-        cache = await getSections(course.id);
-        return cache;
-    };
-}
-async function getTermNameFromSections(sections) {
-    const [section] = sections;
-    if (!section)
-        throw new Error("Cannot determine term name by sections; there are no sections.");
-    const sectionTerm = await section.getTerm();
-    if (!sectionTerm)
-        throw new Error("Section does not have associated term: " + section.name);
-    return sectionTerm.name;
-}
-async function retireBlueprint(course, termName, config) {
-    var _a;
-    if (!course.parsedCourseCode)
-        throw new MalformedCourseCodeError(course.courseCode);
-    const isCurrentBlueprint = (_a = course.parsedCourseCode) === null || _a === void 0 ? void 0 : _a.match('BP_');
-    if (!isCurrentBlueprint)
-        throw new NotABlueprintError("This blueprint is not named BP_; are you trying to retire a retired blueprint?");
-    const newCode = `BP-${termName}_${course.baseCode}`;
-    const saveData = {};
-    saveData[Course.nameProperty] = course.name.replace(course.parsedCourseCode, newCode);
-    saveData['course_code'] = newCode;
-    await course.saveData({
-        course: saveData
-    }, config);
+    return getPagedDataGenerator_getPagedDataGenerator(url, config);
 }
 async function beginBpSync(courseId, { message, copy_settings, config }) {
     const url = `/api/v1/courses/${courseId}/blueprint_templates/default/migrations`;
     if (typeof copy_settings === 'undefined')
         copy_settings = true;
-    const result = await fetchJson(url, apiWriteConfig('POST', {
+    return await fetchJson(url, apiWriteConfig('POST', {
         message,
         copy_settings
     }, config));
@@ -12915,12 +12898,6 @@ async function unSetAsBlueprint(courseId, config) {
         }
     };
     return await fetchJson(url, apiWriteConfig("PUT", payload, config));
-}
-class NotABlueprintError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "NotABlueprintError";
-    }
 }
 
 ;// ./src/ui/module/index.ts
