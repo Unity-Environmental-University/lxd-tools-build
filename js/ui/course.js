@@ -13957,7 +13957,13 @@ function getContentKindFromUrl(url) {
     return CONTENT_KINDS.find(a => a.isValidUrl(url));
 }
 function getContentKindFromContent(contentData) {
-    return CONTENT_KINDS.find(a => a.dataIsThisKind(contentData));
+    const result = CONTENT_KINDS.find(a => a.dataIsThisKind(contentData));
+    function typeGuard(result) {
+        return true;
+    }
+    if (!typeGuard(result))
+        throw new Error("Faulty content type coercion");
+    return result;
 }
 const ContentKinds = {
     fromUrl: getContentKindFromUrl,
