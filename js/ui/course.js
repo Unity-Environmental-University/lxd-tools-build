@@ -18,7 +18,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 const _excluded = ["as", "disabled"];
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+function _objectWithoutPropertiesLoose(r, e) { if (null == r) return {}; var t = {}; for (var n in r) if ({}.hasOwnProperty.call(r, n)) { if (e.indexOf(n) >= 0) continue; t[n] = r[n]; } return t; }
 
 
 function isTrivialHref(href) {
@@ -116,7 +116,7 @@ Button.displayName = 'Button';
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
+/* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
 // Currently in sync with Node.js lib/assert.js
 // https://github.com/nodejs/node/commit/2a51ae424a513ec9a6aa3466baa0cc1d55dd4f3b
 
@@ -717,7 +717,7 @@ assert.strict.strict = assert.strict;
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
+/* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
 // Currently in sync with Node.js lib/internal/assert/assertion_error.js
 // https://github.com/nodejs/node/commit/0817840f775032169ddd70c85ac059f18ffcc81c
 
@@ -2004,9 +2004,9 @@ if ($defineProperty) {
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/ui/course/bigImages.scss":
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/ui/course/bigImages.scss":
 /*!*****************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/ui/course/bigImages.scss ***!
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/ui/course/bigImages.scss ***!
   \*****************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -2033,9 +2033,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.lxd-notice {
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/ui/widgets/Modal/modal.scss":
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/ui/widgets/Modal/modal.scss":
 /*!********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/ui/widgets/Modal/modal.scss ***!
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/ui/widgets/Modal/modal.scss ***!
   \********************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -39412,7 +39412,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/styleTagTransform.js */ "./node_modules/style-loader/dist/runtime/styleTagTransform.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_use_2_node_modules_sass_loader_dist_cjs_js_bigImages_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js!../../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!../../../node_modules/sass-loader/dist/cjs.js!./bigImages.scss */ "./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/ui/course/bigImages.scss");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_4_use_2_node_modules_sass_loader_dist_cjs_js_bigImages_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js!../../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!../../../node_modules/sass-loader/dist/cjs.js!./bigImages.scss */ "./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/ui/course/bigImages.scss");
 
       
       
@@ -39428,18 +39428,16 @@ var options = {};
 
 options.styleTagTransform = (_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
 options.setAttributes = (_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
-
-      options.insert = _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
-    
+options.insert = _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
 options.domAPI = (_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
 options.insertStyleElement = (_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_use_2_node_modules_sass_loader_dist_cjs_js_bigImages_scss__WEBPACK_IMPORTED_MODULE_6__["default"], options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_4_use_2_node_modules_sass_loader_dist_cjs_js_bigImages_scss__WEBPACK_IMPORTED_MODULE_6__["default"], options);
 
 
 
 
-       /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_use_2_node_modules_sass_loader_dist_cjs_js_bigImages_scss__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_use_2_node_modules_sass_loader_dist_cjs_js_bigImages_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_use_2_node_modules_sass_loader_dist_cjs_js_bigImages_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
+       /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_4_use_2_node_modules_sass_loader_dist_cjs_js_bigImages_scss__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_4_use_2_node_modules_sass_loader_dist_cjs_js_bigImages_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_4_use_2_node_modules_sass_loader_dist_cjs_js_bigImages_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
 
 
 /***/ }),
@@ -39467,7 +39465,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/styleTagTransform.js */ "./node_modules/style-loader/dist/runtime/styleTagTransform.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_use_2_node_modules_sass_loader_dist_cjs_js_modal_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js!../../../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!../../../../node_modules/sass-loader/dist/cjs.js!./modal.scss */ "./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/ui/widgets/Modal/modal.scss");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_4_use_2_node_modules_sass_loader_dist_cjs_js_modal_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js!../../../../node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!../../../../node_modules/sass-loader/dist/cjs.js!./modal.scss */ "./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js!./src/ui/widgets/Modal/modal.scss");
 
       
       
@@ -39483,18 +39481,16 @@ var options = {};
 
 options.styleTagTransform = (_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
 options.setAttributes = (_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
-
-      options.insert = _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
-    
+options.insert = _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
 options.domAPI = (_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
 options.insertStyleElement = (_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_use_2_node_modules_sass_loader_dist_cjs_js_modal_scss__WEBPACK_IMPORTED_MODULE_6__["default"], options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_4_use_2_node_modules_sass_loader_dist_cjs_js_modal_scss__WEBPACK_IMPORTED_MODULE_6__["default"], options);
 
 
 
 
-       /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_use_2_node_modules_sass_loader_dist_cjs_js_modal_scss__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_use_2_node_modules_sass_loader_dist_cjs_js_modal_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_1_use_2_node_modules_sass_loader_dist_cjs_js_modal_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
+       /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_4_use_2_node_modules_sass_loader_dist_cjs_js_modal_scss__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_4_use_2_node_modules_sass_loader_dist_cjs_js_modal_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_node_modules_postcss_loader_dist_cjs_js_ruleSet_1_rules_4_use_2_node_modules_sass_loader_dist_cjs_js_modal_scss__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
 
 
 /***/ }),
@@ -39787,22 +39783,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/baseCanvasObject */ "./src/canvas/baseCanvasObject.ts");
 /* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
 /* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
 
 
 
@@ -39810,52 +39790,33 @@ var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
  *  A base class for objects that interact with the Canvas API
  */
 class Account extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
-    static getFromUrl() {
-        return __awaiter(this, arguments, void 0, function* (url = null) {
-            if (url === null) {
-                url = document.documentURI;
-            }
-            let match = /accounts\/(\d+)/.exec(url);
-            if (match) {
-                console.log(match);
-                return yield this.getAccountById(parseInt(match[1]));
-            }
-            return null;
-        });
+    static async getFromUrl(url = null) {
+        if (url === null) {
+            url = document.documentURI;
+        }
+        const match = /accounts\/(\d+)/.exec(url);
+        if (match) {
+            console.log(match);
+            return await this.getAccountById(parseInt(match[1]));
+        }
+        return null;
     }
-    static getAccountById(accountId_1) {
-        return __awaiter(this, arguments, void 0, function* (accountId, config = undefined) {
-            const data = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__.fetchJson)(`/api/v1/accounts/${accountId}`, config);
-            return new Account(data);
-        });
+    static async getAccountById(accountId, config = undefined) {
+        const data = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__.fetchJson)(`/api/v1/accounts/${accountId}`, config);
+        return new Account(data);
     }
-    static getRootAccount() {
-        return __awaiter(this, arguments, void 0, function* (resetCache = false) {
-            var _a, e_1, _b, _c;
-            if (!resetCache && this.hasOwnProperty('account') && this.account) {
-                return this.account;
-            }
-            let accountGen = (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)('/api/v1/accounts');
-            try {
-                for (var _d = true, accountGen_1 = __asyncValues(accountGen), accountGen_1_1; accountGen_1_1 = yield accountGen_1.next(), _a = accountGen_1_1.done, !_a; _d = true) {
-                    _c = accountGen_1_1.value;
-                    _d = false;
-                    let account = _c;
-                    if (account.root_account_id)
-                        continue; //if there is a root_account_id, this is not the root account
-                    const root = new Account(account);
-                    this.account = root;
-                    return root;
-                }
-            }
-            catch (e_1_1) { e_1 = { error: e_1_1 }; }
-            finally {
-                try {
-                    if (!_d && !_a && (_b = accountGen_1.return)) yield _b.call(accountGen_1);
-                }
-                finally { if (e_1) throw e_1.error; }
-            }
-        });
+    static async getRootAccount(resetCache = false) {
+        if (!resetCache && this.hasOwnProperty('account') && this.account) {
+            return this.account;
+        }
+        const accountGen = (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)('/api/v1/accounts');
+        for await (const account of accountGen) {
+            if (account.root_account_id)
+                continue; //if there is a root_account_id, this is not the root account
+            const root = new Account(account);
+            this.account = root;
+            return root;
+        }
     }
     get rootAccountId() {
         return this.canvasData['root_account_id'];
@@ -39912,15 +39873,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
 /* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/fetch/utils */ "./src/canvas/fetch/utils.ts");
 /* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
@@ -39948,7 +39900,7 @@ class BaseCanvasObject {
         return this.myClass.nameProperty;
     }
     get rawData() {
-        return Object.assign({}, this.canvasData);
+        return { ...this.canvasData };
     }
     get contentUrlPath() {
         const constructor = this.constructor;
@@ -39964,13 +39916,11 @@ class BaseCanvasObject {
     get data() {
         return this.canvasData;
     }
-    static getDataById(contentId_1) {
-        return __awaiter(this, arguments, void 0, function* (contentId, courseId = null, config = null) {
-            let url = this.getUrlPathFromIds(contentId, courseId);
-            const response = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
-            assert__WEBPACK_IMPORTED_MODULE_0___default()(!Array.isArray(response));
-            return response;
-        });
+    static async getDataById(contentId, courseId = null, config = null) {
+        const url = this.getUrlPathFromIds(contentId, courseId);
+        const response = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(!Array.isArray(response));
+        return response;
     }
     static getUrlPathFromIds(contentId, courseId) {
         assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.contentUrlTemplate === 'string');
@@ -39993,37 +39943,33 @@ class BaseCanvasObject {
             replaced = replaced.replace('{account_id}', accountId.toString());
         return replaced;
     }
-    static getAll() {
-        return __awaiter(this, arguments, void 0, function* (config = null) {
-            let url = this.getAllUrl();
-            return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.renderAsyncGen)((0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.getPagedDataGenerator)(this.getAllUrl(), config));
-        });
+    static async getAll(config = null) {
+        const url = this.getAllUrl();
+        return await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.renderAsyncGen)((0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.getPagedDataGenerator)(this.getAllUrl(), config));
     }
     get id() {
         const id = this.canvasData[this.constructor.idProperty];
         return parseInt(id);
     }
     get name() {
-        let nameProperty = this.getClass().nameProperty;
+        const nameProperty = this.getClass().nameProperty;
         if (!nameProperty)
             return 'NAME PROPERTY NOT SET';
         return this.getItem(nameProperty);
     }
-    saveData(data, config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            assert__WEBPACK_IMPORTED_MODULE_0___default()(this.contentUrlPath);
-            config = (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_3__.overrideConfig)({
-                fetchInit: {
-                    method: 'PUT',
-                    body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.formDataify)(data)
-                }
-            }, config);
-            let results = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(this.contentUrlPath, config);
-            if (Array.isArray(results))
-                results = results[0];
-            this.canvasData = Object.assign(Object.assign({}, this.canvasData), results);
-            return this.canvasData;
-        });
+    async saveData(data, config) {
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(this.contentUrlPath);
+        config = (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_3__.overrideConfig)({
+            fetchInit: {
+                method: 'PUT',
+                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.formDataify)(data)
+            }
+        }, config);
+        let results = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(this.contentUrlPath, config);
+        if (Array.isArray(results))
+            results = results[0];
+        this.canvasData = { ...this.canvasData, ...results };
+        return this.canvasData;
     }
 }
 BaseCanvasObject.idProperty = 'id'; // The field name of the id of the canvas object type
@@ -40065,35 +40011,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __await = (undefined && undefined.__await) || function (v) { return this instanceof __await ? (this.v = v, this) : new __await(v); }
-var __asyncGenerator = (undefined && undefined.__asyncGenerator) || function (thisArg, _arguments, generator) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var g = generator.apply(thisArg, _arguments || []), i, q = [];
-    return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function () { return this; }, i;
-    function awaitReturn(f) { return function (v) { return Promise.resolve(v).then(f, reject); }; }
-    function verb(n, f) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; if (f) i[n] = f(i[n]); } }
-    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-    function fulfill(value) { resume("next", value); }
-    function reject(value) { resume("throw", value); }
-    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-};
-var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
 
 
 function isWithParamsFunc(func) {
@@ -40104,7 +40021,7 @@ function isWithoutParamsFunc(func) {
 }
 function callAll(funcs, params) {
     const output = [];
-    for (let func of funcs) {
+    for (const func of funcs) {
         if ((typeof func === 'object')) {
             output.push(func.func(func.params));
             continue;
@@ -40147,8 +40064,8 @@ const type_lut = {
     Subheader: null, //Not passable to restrict
 };
 function formDataify(data) {
-    let formData = new FormData();
-    for (let key in data) {
+    const formData = new FormData();
+    for (const key in data) {
         addToFormData(formData, key, data[key]);
     }
     if (document) {
@@ -40173,7 +40090,7 @@ function deepObjectCopy(toCopy, complexObjectsTracker = []) {
     return deepObjectMerge(toCopy, {}, true, complexObjectsTracker);
 }
 function deepObjectMerge(a, b, overrideWithA = false, complexObjectsTracker = []) {
-    for (let value of [a, b]) {
+    for (const value of [a, b]) {
         if (typeof value == "object" &&
             complexObjectsTracker.includes(value))
             throw new Error(`Infinite Loop: Element ${value} contains itself`);
@@ -40192,7 +40109,7 @@ function deepObjectMerge(a, b, overrideWithA = false, complexObjectsTracker = []
         if (!b)
             return deepObjectCopy(a, complexObjectsTracker);
         assert__WEBPACK_IMPORTED_MODULE_0___default()(Array.isArray(b), "We should not get here if b is not an array");
-        let mergedArray = [...a, ...b];
+        const mergedArray = [...a, ...b];
         const outputArray = mergedArray.map(value => {
             if (!value)
                 return value;
@@ -40207,7 +40124,7 @@ function deepObjectMerge(a, b, overrideWithA = false, complexObjectsTracker = []
         return outputArray;
     }
     if (Array.isArray(b))
-        return deepObjectCopy(b, complexObjectsTracker); //we already know a is not an array at this point, return a deep copy of b
+        return deepObjectCopy(b, complexObjectsTracker); //we already know A is not an array at this point, return a deep copy of b
     if ((a && typeof a === 'object') || (b && typeof b === 'object')) {
         if (a instanceof File && b instanceof File) {
             if (!overrideWithA)
@@ -40268,14 +40185,14 @@ function deFormDataify(formData) {
             };
             currentValue = newValue;
         }
-        return deepObjectMerge(aggregator, currentValue) || Object.assign({}, aggregator);
+        return deepObjectMerge(aggregator, currentValue) || { ...aggregator };
     }, {});
 }
 function getCookies() {
     const cookieString = document.cookie;
     const cookies = cookieString.split('; ');
     const out = {};
-    for (let cookie of cookies) {
+    for (const cookie of cookies) {
         const [key, value] = cookie.split('=');
         out[key] = value;
     }
@@ -40289,12 +40206,12 @@ function getCookies() {
  */
 function addToFormData(formData, key, value) {
     if (Array.isArray(value)) {
-        for (let item of value) {
+        for (const item of value) {
             addToFormData(formData, `${key}[]`, item);
         }
     }
     else if (typeof value === 'object') {
-        for (let itemKey in value) {
+        for (const itemKey in value) {
             const itemValue = value[itemKey];
             addToFormData(formData, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
         }
@@ -40304,20 +40221,20 @@ function addToFormData(formData, key, value) {
     }
 }
 function queryStringify(data) {
-    let searchParams = new URLSearchParams();
-    for (let key in data) {
+    const searchParams = new URLSearchParams();
+    for (const key in data) {
         addToQuery(searchParams, key, data[key]);
     }
     return searchParams;
 }
 function addToQuery(searchParams, key, value) {
     if (Array.isArray(value)) {
-        for (let item of value) {
+        for (const item of value) {
             addToQuery(searchParams, `${key}[]`, item);
         }
     }
     else if (typeof value === 'object') {
-        for (let itemKey in value) {
+        for (const itemKey in value) {
             const itemValue = value[itemKey];
             addToQuery(searchParams, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
         }
@@ -40330,22 +40247,20 @@ function addToQuery(searchParams, key, value) {
  * Takes in a module item and returns an object specifying its type and content id
  * @param item
  */
-function getItemTypeAndId(item) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let id;
-        let type;
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(type_lut.hasOwnProperty(item.type), "Unexpected type " + item.type);
-        type = type_lut[item.type];
-        if (type === "wiki_page") {
-            assert__WEBPACK_IMPORTED_MODULE_0___default()(item.url); //wiki_page items always have a url param
-            const pageData = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(item.url);
-            id = pageData.page_id;
-        }
-        else {
-            id = item.content_id;
-        }
-        return { type, id };
-    });
+async function getItemTypeAndId(item) {
+    let id;
+    let type;
+    assert__WEBPACK_IMPORTED_MODULE_0___default()(type_lut.hasOwnProperty(item.type), "Unexpected type " + item.type);
+    type = type_lut[item.type];
+    if (type === "wiki_page") {
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(item.url); //wiki_page items always have a url param
+        const pageData = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(item.url);
+        id = pageData.page_id;
+    }
+    else {
+        id = item.content_id;
+    }
+    return { type, id };
 }
 /**
  * @param queryParams
@@ -40400,69 +40315,36 @@ function batchify(toBatch, batchSize) {
 function filterUniqueFunc(item, index, array) {
     return array.indexOf(item) === index;
 }
-function batchGen(generator, batchSize) {
-    return __asyncGenerator(this, arguments, function* batchGen_1() {
-        if (batchSize <= 0)
-            throw new Error("Batch size cannot be 0 or lower");
-        while (true) {
-            const out = [];
-            for (let i = 0; i < batchSize; i++) {
-                const next = yield __await(generator.next());
-                if (next.done) {
-                    if (out.length > 0)
-                        yield yield __await(out);
-                    return yield __await(void 0);
-                }
-                out.push(next.value);
-            }
-            yield yield __await(out);
-        }
-    });
-}
-function renderAsyncGen(generator) {
-    return __awaiter(this, void 0, void 0, function* () {
-        var _a, generator_1, generator_1_1;
-        var _b, e_1, _c, _d;
+async function* batchGen(generator, batchSize) {
+    if (batchSize <= 0)
+        throw new Error("Batch size cannot be 0 or lower");
+    while (true) {
         const out = [];
-        try {
-            for (_a = true, generator_1 = __asyncValues(generator); generator_1_1 = yield generator_1.next(), _b = generator_1_1.done, !_b; _a = true) {
-                _d = generator_1_1.value;
-                _a = false;
-                let item = _d;
-                out.push(item);
+        for (let i = 0; i < batchSize; i++) {
+            const next = await generator.next();
+            if (next.done) {
+                if (out.length > 0)
+                    yield out;
+                return;
             }
+            out.push(next.value);
         }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (!_a && !_b && (_c = generator_1.return)) yield _c.call(generator_1);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-        return out;
-    });
+        yield out;
+    }
 }
-function generatorMap(generator, nextMapFunc) {
-    return __asyncGenerator(this, arguments, function* generatorMap_1() {
-        var _a, e_2, _b, _c;
-        let i = 0;
-        try {
-            for (var _d = true, generator_2 = __asyncValues(generator), generator_2_1; generator_2_1 = yield __await(generator_2.next()), _a = generator_2_1.done, !_a; _d = true) {
-                _c = generator_2_1.value;
-                _d = false;
-                let value = _c;
-                yield yield __await(nextMapFunc(value, i, generator));
-                i++;
-            }
-        }
-        catch (e_2_1) { e_2 = { error: e_2_1 }; }
-        finally {
-            try {
-                if (!_d && !_a && (_b = generator_2.return)) yield __await(_b.call(generator_2));
-            }
-            finally { if (e_2) throw e_2.error; }
-        }
-    });
+async function renderAsyncGen(generator) {
+    const out = [];
+    for await (const item of generator) {
+        out.push(item);
+    }
+    return out;
+}
+async function* generatorMap(generator, nextMapFunc) {
+    let i = 0;
+    for await (const value of generator) {
+        yield nextMapFunc(value, i, generator);
+        i++;
+    }
 }
 
 
@@ -40493,15 +40375,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/canvas/course/getCourseIdFromUrl */ "./src/canvas/course/getCourseIdFromUrl.ts");
 /* harmony import */ var _canvas_NotImplementedException__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/canvas/NotImplementedException */ "./src/canvas/NotImplementedException.ts");
 /* harmony import */ var _publish_consts__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/publish/consts */ "./src/publish/consts.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
@@ -40528,12 +40401,10 @@ class BaseContentItem extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_
             return null;
         return urlTermMatch[1];
     }
-    static getAllInCourse(courseId_1) {
-        return __awaiter(this, arguments, void 0, function* (courseId, config = null) {
-            let url = this.getAllUrl(courseId);
-            let data = yield (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_5__.getPagedData)(url, config);
-            return data.map(item => new this(item, courseId));
-        });
+    static async getAllInCourse(courseId, config = null) {
+        const url = this.getAllUrl(courseId);
+        const data = await (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_5__.getPagedData)(url, config);
+        return data.map(item => new this(item, courseId));
     }
     static clearAddedContentTags(text) {
         if (!text)
@@ -40542,32 +40413,28 @@ class BaseContentItem extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_
         out = out.replace(/<\/?script[^>]*>/g, '');
         return out;
     }
-    static getFromUrl() {
-        return __awaiter(this, arguments, void 0, function* (url = null, courseId = null) {
-            if (url === null) {
-                url = document.documentURI;
-            }
-            url = url.replace(/\.com/, '.com/api/v1');
-            let data = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url);
-            if (!courseId) {
-                courseId = (0,_canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_7__["default"])(url);
-                if (!courseId)
-                    return null;
-            }
-            //If this is a collection of data, we can't process it as a Canvas Object
-            if (Array.isArray(data))
+    static async getFromUrl(url = null, courseId = null) {
+        if (url === null) {
+            url = document.documentURI;
+        }
+        url = url.replace(/\.com/, '.com/api/v1');
+        const data = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url);
+        if (!courseId) {
+            courseId = (0,_canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_7__["default"])(url);
+            if (!courseId)
                 return null;
-            assert__WEBPACK_IMPORTED_MODULE_3___default()(!Array.isArray(data));
-            if (data) {
-                return new this(data, courseId);
-            }
+        }
+        //If this is a collection of data, we can't process it as a Canvas Object
+        if (Array.isArray(data))
             return null;
-        });
+        assert__WEBPACK_IMPORTED_MODULE_3___default()(!Array.isArray(data));
+        if (data) {
+            return new this(data, courseId);
+        }
+        return null;
     }
-    static getById(contentId, courseId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new this(yield this.getDataById(contentId, courseId), courseId);
-        });
+    static async getById(contentId, courseId) {
+        return new this(await this.getDataById(contentId, courseId), courseId);
     }
     get bodyKey() {
         return this.myClass.bodyProperty;
@@ -40585,19 +40452,15 @@ class BaseContentItem extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_
             return null;
         return new Date(this.canvasData.due_at);
     }
-    setDueAt(date) {
-        return __awaiter(this, void 0, void 0, function* () {
-            throw new _canvas_NotImplementedException__WEBPACK_IMPORTED_MODULE_8__.NotImplementedException();
-        });
+    async setDueAt(date) {
+        throw new _canvas_NotImplementedException__WEBPACK_IMPORTED_MODULE_8__.NotImplementedException();
     }
-    dueAtTimeDelta(timeDelta) {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (!this.dueAt)
-                return null;
-            let result = new Date(this.dueAt);
-            result.setDate(result.getDate() + timeDelta);
-            return yield this.setDueAt(result);
-        });
+    async dueAtTimeDelta(timeDelta) {
+        if (!this.dueAt)
+            return null;
+        const result = new Date(this.dueAt);
+        result.setDate(result.getDate() + timeDelta);
+        return await this.setDueAt(result);
     }
     get contentUrlPath() {
         let url = this.constructor.contentUrlTemplate;
@@ -40609,76 +40472,68 @@ class BaseContentItem extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_
     get courseId() {
         return this._courseId;
     }
-    updateContent(text, name, config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const data = {};
-            const constructor = this.constructor;
-            assert__WEBPACK_IMPORTED_MODULE_3___default()(constructor.bodyProperty);
-            assert__WEBPACK_IMPORTED_MODULE_3___default()(constructor.nameProperty);
-            const nameProp = constructor.nameProperty;
-            const bodyProp = constructor.bodyProperty;
-            if (text && bodyProp) {
-                this.canvasData[bodyProp] = text;
-                data[bodyProp] = text;
-            }
-            if (name && nameProp) {
-                this.canvasData[nameProp] = name;
-                data[nameProp] = name;
-            }
-            return this.saveData(data, config);
-        });
+    async updateContent(text, name, config) {
+        const data = {};
+        const constructor = this.constructor;
+        assert__WEBPACK_IMPORTED_MODULE_3___default()(constructor.bodyProperty);
+        assert__WEBPACK_IMPORTED_MODULE_3___default()(constructor.nameProperty);
+        const nameProp = constructor.nameProperty;
+        const bodyProp = constructor.bodyProperty;
+        if (text && bodyProp) {
+            this.canvasData[bodyProp] = text;
+            data[bodyProp] = text;
+        }
+        if (name && nameProp) {
+            this.canvasData[nameProp] = name;
+            data[nameProp] = name;
+        }
+        return this.saveData(data, config);
     }
-    getMeInAnotherCourse(targetCourseId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let ContentClass = this.constructor;
-            let targets = yield ContentClass.getAllInCourse(targetCourseId, { queryParams: { search_term: this.name } });
-            return targets.find((target) => target.name == this.name);
-        });
+    async getMeInAnotherCourse(targetCourseId) {
+        const ContentClass = this.constructor;
+        const targets = await ContentClass.getAllInCourse(targetCourseId, { queryParams: { search_term: this.name } });
+        return targets.find((target) => target.name == this.name);
     }
     getAllLinks() {
         const el = this.bodyAsElement;
         const anchors = el.querySelectorAll('a');
         const urls = [];
-        for (let link of anchors)
+        for (const link of anchors)
             urls.push(link.href);
         return urls;
     }
     get bodyAsElement() {
         assert__WEBPACK_IMPORTED_MODULE_3___default()(this.body, "This content item has no body property");
-        let el = document.createElement('div');
+        const el = document.createElement('div');
         el.innerHTML = this.body;
         return el;
     }
-    resizeBanner() {
-        return __awaiter(this, arguments, void 0, function* (maxWidth = _publish_consts__WEBPACK_IMPORTED_MODULE_9__.SAFE_MAX_BANNER_WIDTH) {
-            const bannerImg = getBannerImage(this);
-            if (!bannerImg)
-                throw new Error("No banner");
-            let fileData = yield getFileDataFromUrl(bannerImg.src, this.courseId);
-            if (!fileData)
-                throw new Error("File not found");
-            if (bannerImg.naturalWidth < maxWidth)
-                return; //Dont resize image unless we're shrinking it
-            let resizedImageBlob = yield (0,_canvas_image__WEBPACK_IMPORTED_MODULE_6__.getResizedBlob)(bannerImg.src, maxWidth);
-            let fileName = fileData.filename;
-            let fileUploadUrl = `/api/v1/courses/${this.courseId}/files`;
-            assert__WEBPACK_IMPORTED_MODULE_3___default()(resizedImageBlob);
-            let file = new File([resizedImageBlob], fileName);
-            return yield (0,_canvas_files__WEBPACK_IMPORTED_MODULE_1__.uploadFile)(file, fileData.folder_id, fileUploadUrl);
-        });
+    async resizeBanner(maxWidth = _publish_consts__WEBPACK_IMPORTED_MODULE_9__.SAFE_MAX_BANNER_WIDTH) {
+        const bannerImg = getBannerImage(this);
+        if (!bannerImg)
+            throw new Error("No banner");
+        const fileData = await getFileDataFromUrl(bannerImg.src, this.courseId);
+        if (!fileData)
+            throw new Error("File not found");
+        if (bannerImg.naturalWidth < maxWidth)
+            return; //Dont resize image unless we're shrinking it
+        const resizedImageBlob = await (0,_canvas_image__WEBPACK_IMPORTED_MODULE_6__.getResizedBlob)(bannerImg.src, maxWidth);
+        const fileName = fileData.filename;
+        const fileUploadUrl = `/api/v1/courses/${this.courseId}/files`;
+        assert__WEBPACK_IMPORTED_MODULE_3___default()(resizedImageBlob);
+        const file = new File([resizedImageBlob], fileName);
+        return await (0,_canvas_files__WEBPACK_IMPORTED_MODULE_1__.uploadFile)(file, fileData.folder_id, fileUploadUrl);
     }
 }
 BaseContentItem.nameProperty = 'name';
-function getFileDataFromUrl(url, courseId) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const match = /.*\/files\/(\d+)/.exec(url);
-        if (!match)
-            return null;
-        if (match) {
-            const fileId = parseInt(match[1]);
-            return yield getFileData(fileId, courseId);
-        }
-    });
+async function getFileDataFromUrl(url, courseId) {
+    const match = /.*\/files\/(\d+)/.exec(url);
+    if (!match)
+        return null;
+    if (match) {
+        const fileId = parseInt(match[1]);
+        return await getFileData(fileId, courseId);
+    }
 }
 function getBannerImage(overviewPage) {
     const pageBody = document.createElement('html');
@@ -40687,11 +40542,9 @@ function getBannerImage(overviewPage) {
     pageBody.innerHTML = overviewPage.body;
     return pageBody.querySelector('.cbt-banner-image img');
 }
-function getFileData(fileId, courseId) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const url = `/api/v1/courses/${courseId}/files/${fileId}`;
-        return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url);
-    });
+async function getFileData(fileId, courseId) {
+    const url = `/api/v1/courses/${courseId}/files/${fileId}`;
+    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url);
 }
 function putContentConfig(data, config) {
     return (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_4__.deepObjectMerge)(config, {
@@ -40729,15 +40582,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
 /* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 function contentUrlFuncs(contentUrlPart) {
@@ -40766,19 +40610,15 @@ function courseContentUrlFunc(url) {
         .replaceAll('{contentId}', contentId.toString());
 }
 function putContentFunc(getApiUrl) {
-    return function (courseId, contentId, content, config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const url = getApiUrl(courseId, contentId);
-            return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url, (0,_canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__.putContentConfig)(content, config));
-        });
+    return async function (courseId, contentId, content, config) {
+        const url = getApiUrl(courseId, contentId);
+        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url, (0,_canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__.putContentConfig)(content, config));
     };
 }
 function postContentFunc(getApiUrl) {
-    return function (courseId, content, config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const url = getApiUrl(courseId);
-            return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url, (0,_canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__.postContentConfig)(content, config));
-        });
+    return async function (courseId, content, config) {
+        const url = getApiUrl(courseId);
+        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url, (0,_canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__.postContentConfig)(content, config));
     };
 }
 
@@ -40801,15 +40641,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/assignments/AssignmentKind */ "./src/canvas/content/assignments/AssignmentKind.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
@@ -40818,51 +40649,47 @@ class Assignment extends _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODUL
     constructor(assignmentData, courseId) {
         super(assignmentData, courseId);
     }
-    setDueAt(dueAt, config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const sourceDueAt = this.rawData.due_at ? temporal_polyfill__WEBPACK_IMPORTED_MODULE_3__.Temporal.Instant.from(this.rawData.due_at) : null;
-            const targetDueAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_3__.Temporal.Instant.from(dueAt.toISOString());
-            const payload = {
-                assignment: {
-                    due_at: dueAt.toISOString(),
-                }
-            };
-            if (this.rawData.peer_reviews && 'automatic_peer_reviews' in this.rawData) {
-                const peerReviewTime = this.rawData.peer_reviews_assign_at ? temporal_polyfill__WEBPACK_IMPORTED_MODULE_3__.Temporal.Instant.from(this.rawData.peer_reviews_assign_at) : null;
-                assert__WEBPACK_IMPORTED_MODULE_1___default()(sourceDueAt, "Trying to set peer review date without a due date for the assignment.");
-                if (peerReviewTime) {
-                    const peerReviewOffset = sourceDueAt.until(peerReviewTime);
-                    const newPeerReviewTime = targetDueAt.add(peerReviewOffset);
-                    payload.assignment.peer_reviews_assign_at =
-                        new Date(newPeerReviewTime.epochMilliseconds).toISOString();
-                }
+    async setDueAt(dueAt, config) {
+        const sourceDueAt = this.rawData.due_at ? temporal_polyfill__WEBPACK_IMPORTED_MODULE_3__.Temporal.Instant.from(this.rawData.due_at) : null;
+        const targetDueAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_3__.Temporal.Instant.from(dueAt.toISOString());
+        const payload = {
+            assignment: {
+                due_at: dueAt.toISOString(),
             }
-            let data = yield this.saveData(payload, config);
-            this.canvasData['due_at'] = dueAt.toISOString();
-            return data;
-        });
+        };
+        if (this.rawData.peer_reviews && 'automatic_peer_reviews' in this.rawData) {
+            const peerReviewTime = this.rawData.peer_reviews_assign_at ? temporal_polyfill__WEBPACK_IMPORTED_MODULE_3__.Temporal.Instant.from(this.rawData.peer_reviews_assign_at) : null;
+            assert__WEBPACK_IMPORTED_MODULE_1___default()(sourceDueAt, "Trying to set peer review date without a due date for the assignment.");
+            if (peerReviewTime) {
+                const peerReviewOffset = sourceDueAt.until(peerReviewTime);
+                const newPeerReviewTime = targetDueAt.add(peerReviewOffset);
+                payload.assignment.peer_reviews_assign_at =
+                    new Date(newPeerReviewTime.epochMilliseconds).toISOString();
+            }
+        }
+        const data = await this.saveData(payload, config);
+        this.canvasData['due_at'] = dueAt.toISOString();
+        return data;
     }
     get rawData() {
         return this.canvasData;
     }
-    updateContent(text, name, config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const assignmentData = {};
-            if (text) {
-                assignmentData.description = text;
-                this.rawData.description = text;
-            }
-            if (name) {
-                assignmentData.name = name;
-                this.rawData.name = name;
-            }
-            return yield this.saveData({
-                assignment: assignmentData
-            }, config);
-        });
+    async updateContent(text, name, config) {
+        const assignmentData = {};
+        if (text) {
+            assignmentData.description = text;
+            this.rawData.description = text;
+        }
+        if (name) {
+            assignmentData.name = name;
+            this.rawData.name = name;
+        }
+        return await this.saveData({
+            assignment: assignmentData
+        }, config);
     }
 }
-Assignment.kind = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_2__.AssignmentKind;
+Assignment.kind = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_2__["default"];
 Assignment.nameProperty = 'name';
 Assignment.bodyProperty = 'description';
 Assignment.contentUrlTemplate = "/api/v1/courses/{course_id}/assignments/{content_id}";
@@ -40880,33 +40707,32 @@ Assignment.allContentUrlTemplate = "/api/v1/courses/{course_id}/assignments";
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   AssignmentKind: () => (/* binding */ AssignmentKind),
-/* harmony export */   assignmentUrlFuncs: () => (/* binding */ assignmentUrlFuncs)
+/* harmony export */   assignmentUrlFuncs: () => (/* binding */ assignmentUrlFuncs),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
 /* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
 /* harmony import */ var _canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/ContentKind */ "./src/canvas/content/ContentKind.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
 const assignmentUrlFuncs = (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('assignments');
-const AssignmentKind = Object.assign(Object.assign({ getId: (data) => data.id, dataIsThisKind: (data) => {
+const AssignmentKind = {
+    getId: (data) => data.id,
+    dataIsThisKind: (data) => {
         return 'submission_types' in data;
-    }, getName: (data) => data.name, getBody: (data) => data.description, get(courseId, contentId, config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const data = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(assignmentUrlFuncs.getApiUrl(courseId, contentId), config);
-            return data;
-        });
-    } }, assignmentUrlFuncs), { dataGenerator: (courseId, config) => (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(assignmentUrlFuncs.getAllApiUrl(courseId), config), put: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(assignmentUrlFuncs.getApiUrl) });
+    },
+    getName: (data) => data.name,
+    getBody: (data) => data.description,
+    async get(courseId, contentId, config) {
+        const data = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(assignmentUrlFuncs.getApiUrl(courseId, contentId), config);
+        return data;
+    },
+    ...assignmentUrlFuncs,
+    dataGenerator: (courseId, config) => (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(assignmentUrlFuncs.getAllApiUrl(courseId), config),
+    put: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(assignmentUrlFuncs.getApiUrl),
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AssignmentKind);
 
 
 /***/ }),
@@ -40921,64 +40747,30 @@ const AssignmentKind = Object.assign(Object.assign({ getId: (data) => data.id, d
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   assignmentDataGen: () => (/* binding */ assignmentDataGen),
-/* harmony export */   getAssignmentData: () => (/* binding */ getAssignmentData),
 /* harmony export */   updateAssignmentData: () => (/* binding */ updateAssignmentData),
 /* harmony export */   updateAssignmentDueDates: () => (/* binding */ updateAssignmentDueDates)
 /* harmony export */ });
 /* harmony import */ var _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/content/assignments/AssignmentKind */ "./src/canvas/content/assignments/AssignmentKind.ts");
 /* harmony import */ var _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/content/assignments/Assignment */ "./src/canvas/content/assignments/Assignment.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
 
 
-const assignmentDataGen = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__.AssignmentKind.dataGenerator;
-const updateAssignmentData = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__.AssignmentKind.put;
-const getAssignmentData = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__.AssignmentKind.get;
-function updateAssignmentDueDates(offset, assignments, options) {
-    return __awaiter(this, void 0, void 0, function* () {
-        var _a, assignments_1, assignments_1_1;
-        var _b, e_1, _c, _d;
-        const promises = [];
-        const returnAssignments = [];
-        let { courseId } = options !== null && options !== void 0 ? options : {};
-        if (!courseId && courseId !== 0) {
-            courseId = assignments[0].course_id;
+const assignmentDataGen = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__["default"].dataGenerator;
+const updateAssignmentData = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__["default"].put;
+async function updateAssignmentDueDates(offset, assignments, options) {
+    const promises = [];
+    const returnAssignments = [];
+    let { courseId } = options !== null && options !== void 0 ? options : {};
+    if (!courseId && courseId !== 0) {
+        courseId = assignments[0].course_id;
+    }
+    if (offset === 0 || offset) {
+        for await (const data of assignments) {
+            const assignment = new _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__.Assignment(data, courseId);
+            returnAssignments.push(assignment);
+            promises.push(assignment.dueAtTimeDelta(Number(offset)));
         }
-        if (offset === 0 || offset) {
-            try {
-                for (_a = true, assignments_1 = __asyncValues(assignments); assignments_1_1 = yield assignments_1.next(), _b = assignments_1_1.done, !_b; _a = true) {
-                    _d = assignments_1_1.value;
-                    _a = false;
-                    let data = _d;
-                    const assignment = new _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__.Assignment(data, courseId);
-                    returnAssignments.push(assignment);
-                    promises.push(assignment.dueAtTimeDelta(Number(offset)));
-                }
-            }
-            catch (e_1_1) { e_1 = { error: e_1_1 }; }
-            finally {
-                try {
-                    if (!_a && !_b && (_c = assignments_1.return)) yield _c.call(assignments_1);
-                }
-                finally { if (e_1) throw e_1.error; }
-            }
-        }
-        return returnAssignments;
-    });
+    }
+    return returnAssignments;
 }
 
 
@@ -41009,15 +40801,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _canvas_content_quizzes_QuizKind__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/canvas/content/quizzes/QuizKind */ "./src/canvas/content/quizzes/QuizKind.ts");
 /* harmony import */ var _canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/canvas/content/pages/PageKind */ "./src/canvas/content/pages/PageKind.ts");
 /* harmony import */ var _canvas_content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/canvas/content/discussions/DiscussionKind */ "./src/canvas/content/discussions/DiscussionKind.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
@@ -41027,33 +40810,37 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 
 
 const CONTENT_KINDS = [
-    _canvas_content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_7__.DiscussionKind,
-    _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_4__.AssignmentKind,
-    _canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_6__.PageKind,
-    _canvas_content_quizzes_QuizKind__WEBPACK_IMPORTED_MODULE_5__.QuizKind,
+    _canvas_content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_7__["default"],
+    _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_4__["default"],
+    _canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_6__["default"],
+    _canvas_content_quizzes_QuizKind__WEBPACK_IMPORTED_MODULE_5__["default"],
 ];
 function getContentClassFromUrl(url = null) {
     if (!url)
         url = document.documentURI;
-    for (let class_ of [_canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_3__.Assignment, _canvas_content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_0__.Quiz, _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_1__.Page, _canvas_content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_2__.Discussion]) {
+    for (const class_ of [_canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_3__.Assignment, _canvas_content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_0__.Quiz, _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_1__.Page, _canvas_content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_2__.Discussion]) {
         if (class_.contentUrlPart && url.includes(class_.contentUrlPart))
             return class_;
     }
     return null;
 }
-function getContentItemFromUrl() {
-    return __awaiter(this, arguments, void 0, function* (url = null) {
-        let ContentClass = getContentClassFromUrl(url);
-        if (!ContentClass)
-            return null;
-        return yield ContentClass.getFromUrl(url);
-    });
+async function getContentItemFromUrl(url = null) {
+    const ContentClass = getContentClassFromUrl(url);
+    if (!ContentClass)
+        return null;
+    return await ContentClass.getFromUrl(url);
 }
 function getContentKindFromUrl(url) {
     return CONTENT_KINDS.find(a => a.isValidUrl(url));
 }
 function getContentKindFromContent(contentData) {
-    return CONTENT_KINDS.find(a => a.dataIsThisKind(contentData));
+    const result = CONTENT_KINDS.find(a => a.dataIsThisKind(contentData));
+    function typeGuard(result) {
+        return true;
+    }
+    if (!typeGuard(result))
+        throw new Error("Faulty content type coercion");
+    return result;
 }
 const ContentKinds = {
     fromUrl: getContentKindFromUrl,
@@ -41063,16 +40850,14 @@ const ContentKinds = {
         return (kind === null || kind === void 0 ? void 0 : kind.getBody)(contentData);
     }
 };
-function getContentDataFromUrl(url, config) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const kind = getContentKindFromUrl(url);
-        if (!kind)
-            return;
-        const [courseId, id] = kind.getCourseAndContentIdFromUrl(url);
-        if (!courseId || !id)
-            return;
-        return yield kind.get(courseId, id, config);
-    });
+async function getContentDataFromUrl(url, config) {
+    const kind = getContentKindFromUrl(url);
+    if (!kind)
+        return;
+    const [courseId, id] = kind.getCourseAndContentIdFromUrl(url);
+    if (!courseId || !id)
+        return;
+    return await kind.get(courseId, id, config);
 }
 
 
@@ -41092,37 +40877,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
 /* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
 /* harmony import */ var _canvas_content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/content/discussions/DiscussionKind */ "./src/canvas/content/discussions/DiscussionKind.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
 class Discussion extends _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
-    offsetPublishDelay(days, config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const data = this.rawData;
-            if (!this.rawData.delayed_post_at)
-                return;
-            let delayedPostAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.Instant.from(this.rawData.delayed_post_at).toZonedDateTimeISO('UTC');
-            delayedPostAt = delayedPostAt.add({ days });
-            const payload = {
-                delayed_post_at: new Date(delayedPostAt.epochMilliseconds).toISOString()
-            };
-            yield this.saveData(payload, config);
-        });
+    async offsetPublishDelay(days, config) {
+        const data = this.rawData;
+        if (!this.rawData.delayed_post_at)
+            return;
+        let delayedPostAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.Instant.from(this.rawData.delayed_post_at).toZonedDateTimeISO('UTC');
+        delayedPostAt = delayedPostAt.add({ days });
+        const payload = {
+            delayed_post_at: new Date(delayedPostAt.epochMilliseconds).toISOString()
+        };
+        await this.saveData(payload, config);
     }
     get rawData() {
         return this.canvasData;
     }
 }
-Discussion.kindInfo = _canvas_content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_1__.DiscussionKind;
+Discussion.kindInfo = _canvas_content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_1__["default"];
 Discussion.nameProperty = 'title';
 Discussion.bodyProperty = 'message';
 Discussion.contentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics/{content_id}";
@@ -41140,32 +40914,31 @@ Discussion.allContentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topic
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DiscussionKind: () => (/* binding */ DiscussionKind),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   discussionUrlFuncs: () => (/* binding */ discussionUrlFuncs)
 /* harmony export */ });
 /* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
 /* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
 /* harmony import */ var _canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/ContentKind */ "./src/canvas/content/ContentKind.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
 const discussionUrlFuncs = (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('discussion_topics');
-const DiscussionKind = Object.assign(Object.assign({}, discussionUrlFuncs), { dataIsThisKind(data) {
+const DiscussionKind = {
+    ...discussionUrlFuncs,
+    dataIsThisKind(data) {
         return data.hasOwnProperty('discussion_type');
-    }, getId: (data) => data.id, getName: (data) => data.title, getBody: (data) => data.message, get(courseId, contentId, config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(discussionUrlFuncs.getApiUrl(courseId, contentId), config);
-        });
-    }, dataGenerator: (courseId, config) => (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(discussionUrlFuncs.getAllApiUrl(courseId), config), put: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(discussionUrlFuncs.getApiUrl) });
+    },
+    getId: (data) => data.id,
+    getName: (data) => data.title,
+    getBody: (data) => data.message,
+    async get(courseId, contentId, config) {
+        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(discussionUrlFuncs.getApiUrl(courseId, contentId), config);
+    },
+    dataGenerator: (courseId, config) => (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(discussionUrlFuncs.getAllApiUrl(courseId), config),
+    put: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(discussionUrlFuncs.getApiUrl),
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DiscussionKind);
 
 
 /***/ }),
@@ -41186,12 +40959,12 @@ function getAllLinks(body) {
     const el = bodyAsElement(body);
     const anchors = el.querySelectorAll('a');
     const urls = [];
-    for (let link of anchors)
+    for (const link of anchors)
         urls.push(link.href);
     return urls;
 }
 function bodyAsElement(body) {
-    let el = document.createElement('div');
+    const el = document.createElement('div');
     el.innerHTML = body;
     return el;
 }
@@ -41218,45 +40991,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ openThisContentInTarget)
 /* harmony export */ });
 /* harmony import */ var _canvas_content_determineContent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/content/determineContent */ "./src/canvas/content/determineContent.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 function getIdOrCourse(courseOrId) {
     if (typeof courseOrId === 'object')
         return courseOrId.id;
     return courseOrId;
 }
-function openThisContentInTarget(currentCourse, target) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (!window)
-            return;
-        const currentCourseId = getIdOrCourse(currentCourse);
-        const targetCourseIds = Array.isArray(target) ? target.map(getIdOrCourse) : [getIdOrCourse(target)];
-        let currentContentItem = yield (0,_canvas_content_determineContent__WEBPACK_IMPORTED_MODULE_0__.getContentItemFromUrl)(document.documentURI);
-        let targetInfos = targetCourseIds.map((targetCourseId) => {
-            return {
-                courseId: targetCourseId,
-                contentItemPromise: currentContentItem === null || currentContentItem === void 0 ? void 0 : currentContentItem.getMeInAnotherCourse(targetCourseId)
-            };
-        });
-        for (let { courseId, contentItemPromise } of targetInfos) {
-            let targetContentItem = yield contentItemPromise;
-            if (targetContentItem) {
-                window.open(targetContentItem.htmlContentUrl);
-            }
-            else {
-                let url = document.URL.replace(currentCourseId.toString(), courseId.toString());
-                window.open(url);
-            }
-        }
+async function openThisContentInTarget(currentCourse, target) {
+    if (!window)
+        return;
+    const currentCourseId = getIdOrCourse(currentCourse);
+    const targetCourseIds = Array.isArray(target) ? target.map(getIdOrCourse) : [getIdOrCourse(target)];
+    const currentContentItem = await (0,_canvas_content_determineContent__WEBPACK_IMPORTED_MODULE_0__.getContentItemFromUrl)(document.documentURI);
+    const targetInfos = targetCourseIds.map((targetCourseId) => {
+        return {
+            courseId: targetCourseId,
+            contentItemPromise: currentContentItem === null || currentContentItem === void 0 ? void 0 : currentContentItem.getMeInAnotherCourse(targetCourseId)
+        };
     });
+    for (const { courseId, contentItemPromise } of targetInfos) {
+        const targetContentItem = await contentItemPromise;
+        if (targetContentItem) {
+            window.open(targetContentItem.htmlContentUrl);
+        }
+        else {
+            const url = document.URL.replace(currentCourseId.toString(), courseId.toString());
+            window.open(url);
+        }
+    }
 }
 
 
@@ -41275,15 +41037,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
 /* harmony import */ var _canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/content/pages/PageKind */ "./src/canvas/content/pages/PageKind.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 class Page extends _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
@@ -41293,22 +41046,20 @@ class Page extends _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.
     get body() {
         return this.canvasData[this.bodyKey];
     }
-    updateContent(text, name, config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let data = {};
-            if (text) {
-                this.canvasData[this.bodyKey] = text;
-                data['wiki_page[body]'] = text;
-            }
-            if (name) {
-                this.canvasData[this.nameKey] = name;
-                data[this.nameKey] = name;
-            }
-            return this.saveData(data, config);
-        });
+    async updateContent(text, name, config) {
+        const data = {};
+        if (text) {
+            this.canvasData[this.bodyKey] = text;
+            data['wiki_page[body]'] = text;
+        }
+        if (name) {
+            this.canvasData[this.nameKey] = name;
+            data[this.nameKey] = name;
+        }
+        return this.saveData(data, config);
     }
 }
-Page.kindInfo = _canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_1__.PageKind;
+Page.kindInfo = _canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_1__["default"];
 Page.idProperty = 'page_id';
 Page.nameProperty = 'title';
 Page.bodyProperty = 'body';
@@ -41327,8 +41078,8 @@ Page.allContentUrlTemplate = "/api/v1/courses/{course_id}/pages";
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PageKind: () => (/* binding */ PageKind),
-/* harmony export */   PageUrlFuncs: () => (/* binding */ PageUrlFuncs)
+/* harmony export */   PageUrlFuncs: () => (/* binding */ PageUrlFuncs),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
 /* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
@@ -41338,9 +41089,21 @@ __webpack_require__.r(__webpack_exports__);
 
 const PageUrlFuncs = (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('pages');
 const getStringApiUrl = (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.courseContentUrlFunc)(`/api/v1/courses/{courseId}/pages/{contentId}`);
-const PageKind = Object.assign(Object.assign({}, PageUrlFuncs), { dataIsThisKind: (data) => {
+const PageKind = {
+    ...PageUrlFuncs,
+    dataIsThisKind: (data) => {
         return 'page_id' in data;
-    }, getName: page => page.title, getBody: page => page.body, getId: page => page.id, get: (id, courseId, config) => (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(PageUrlFuncs.getApiUrl(courseId, id), config), getByString: (courseId, contentId, config) => (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(getStringApiUrl(courseId, contentId), config), dataGenerator: (courseId, config) => (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(PageUrlFuncs.getAllApiUrl(courseId), config), put: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(PageUrlFuncs.getApiUrl), post: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.postContentFunc)(PageUrlFuncs.getAllApiUrl) });
+    },
+    getName: page => page.title,
+    getBody: page => page.body,
+    getId: page => page.id,
+    get: (id, courseId, config) => (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(PageUrlFuncs.getApiUrl(courseId, id), config),
+    getByString: (courseId, contentId, config) => (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(getStringApiUrl(courseId, contentId), config),
+    dataGenerator: (courseId, config = { queryParams: { include: ['body'] } }) => (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(PageUrlFuncs.getAllApiUrl(courseId), config),
+    put: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(PageUrlFuncs.getApiUrl),
+    post: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.postContentFunc)(PageUrlFuncs.getAllApiUrl),
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PageKind);
 
 
 /***/ }),
@@ -41359,32 +41122,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
 /* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
 /* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
 class Quiz extends _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
-    setDueAt(date) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const url = `/api/v1/courses/${this.courseId}/quizzes/${this.id}`;
-            return (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url, {
-                fetchInit: {
-                    method: 'PUT',
-                    body: (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({
-                        quiz: {
-                            due_at: date
-                        }
-                    })
-                }
-            });
+    async setDueAt(date) {
+        const url = `/api/v1/courses/${this.courseId}/quizzes/${this.id}`;
+        return (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url, {
+            fetchInit: {
+                method: 'PUT',
+                body: (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({
+                    quiz: {
+                        due_at: date
+                    }
+                })
+            }
         });
     }
 }
@@ -41405,31 +41157,30 @@ Quiz.allContentUrlTemplate = "/api/v1/courses/{course_id}/quizzes";
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   QuizKind: () => (/* binding */ QuizKind),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   quizUrlFuncs: () => (/* binding */ quizUrlFuncs)
 /* harmony export */ });
 /* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
 /* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
 /* harmony import */ var _canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/ContentKind */ "./src/canvas/content/ContentKind.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
 const quizUrlFuncs = (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('quizzes');
-const QuizKind = Object.assign(Object.assign({ getId: (data) => data.id, getName: (data) => data.title, dataIsThisKind: (data) => 'quiz_type' in data, getBody: (data) => data.description, get(courseId, contentId, config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const data = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(quizUrlFuncs.getApiUrl(courseId, contentId), config);
-            return data;
-        });
-    } }, quizUrlFuncs), { dataGenerator: (courseId, config) => (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(quizUrlFuncs.getAllApiUrl(courseId), config), put: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(quizUrlFuncs.getApiUrl) });
+const QuizKind = {
+    getId: (data) => data.id,
+    getName: (data) => data.title,
+    dataIsThisKind: (data) => 'quiz_type' in data,
+    getBody: (data) => data.description,
+    async get(courseId, contentId, config) {
+        const data = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(quizUrlFuncs.getApiUrl(courseId, contentId), config);
+        return data;
+    },
+    ...quizUrlFuncs,
+    dataGenerator: (courseId, config) => (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(quizUrlFuncs.getAllApiUrl(courseId), config),
+    put: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(quizUrlFuncs.getApiUrl),
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (QuizKind);
 
 
 /***/ }),
@@ -41449,36 +41200,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../baseCanvasObject */ "./src/canvas/baseCanvasObject.ts");
 /* harmony import */ var _blueprint__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./blueprint */ "./src/canvas/course/blueprint.ts");
 /* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../canvasUtils */ "./src/canvas/canvasUtils.ts");
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../index */ "./src/canvas/index.ts");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _changeStartDate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./changeStartDate */ "./src/canvas/course/changeStartDate.ts");
-/* harmony import */ var _modules__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules */ "./src/canvas/course/modules.ts");
-/* harmony import */ var _image__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../image */ "./src/canvas/image.ts");
-/* harmony import */ var _files__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../files */ "./src/canvas/files.ts");
-/* harmony import */ var _profile__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../profile */ "./src/canvas/profile.ts");
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./index */ "./src/canvas/course/index.ts");
-/* harmony import */ var _canvas_content_assignments__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/canvas/content/assignments */ "./src/canvas/content/assignments/index.ts");
-/* harmony import */ var _canvas_course_code__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/canvas/course/code */ "./src/canvas/course/code.ts");
-/* harmony import */ var _canvas_term_Term__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/canvas/term/Term */ "./src/canvas/term/Term.ts");
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/canvas/fetch/utils */ "./src/canvas/fetch/utils.ts");
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-/* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
-/* harmony import */ var _canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/canvas/course/getCourseIdFromUrl */ "./src/canvas/course/getCourseIdFromUrl.ts");
-/* harmony import */ var _canvas_content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/canvas/content/quizzes/Quiz */ "./src/canvas/content/quizzes/Quiz.ts");
-/* harmony import */ var _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/canvas/content/pages/Page */ "./src/canvas/content/pages/Page.ts");
-/* harmony import */ var _canvas_content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/canvas/content/discussions/Discussion */ "./src/canvas/content/discussions/Discussion.ts");
-/* harmony import */ var _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @/canvas/content/assignments/Assignment */ "./src/canvas/content/assignments/Assignment.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
+/* harmony import */ var _changeStartDate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./changeStartDate */ "./src/canvas/course/changeStartDate.ts");
+/* harmony import */ var _modules__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules */ "./src/canvas/course/modules.ts");
+/* harmony import */ var _image__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../image */ "./src/canvas/image.ts");
+/* harmony import */ var _files__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../files */ "./src/canvas/files.ts");
+/* harmony import */ var _profile__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../profile */ "./src/canvas/profile.ts");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./index */ "./src/canvas/course/index.ts");
+/* harmony import */ var _canvas_content_assignments__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/canvas/content/assignments */ "./src/canvas/content/assignments/index.ts");
+/* harmony import */ var _canvas_course_code__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/canvas/course/code */ "./src/canvas/course/code.ts");
+/* harmony import */ var _canvas_term_Term__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/canvas/term/Term */ "./src/canvas/term/Term.ts");
+/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/canvas/fetch/utils */ "./src/canvas/fetch/utils.ts");
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
+/* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
+/* harmony import */ var _canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/canvas/course/getCourseIdFromUrl */ "./src/canvas/course/getCourseIdFromUrl.ts");
+/* harmony import */ var _canvas_content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/canvas/content/quizzes/Quiz */ "./src/canvas/content/quizzes/Quiz.ts");
+/* harmony import */ var _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/canvas/content/pages/Page */ "./src/canvas/content/pages/Page.ts");
+/* harmony import */ var _canvas_content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/canvas/content/discussions/Discussion */ "./src/canvas/content/discussions/Discussion.ts");
+/* harmony import */ var _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/canvas/content/assignments/Assignment */ "./src/canvas/content/assignments/Assignment.ts");
+/* harmony import */ var _fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/fetch/apiWriteConfig */ "./src/fetch/apiWriteConfig.ts");
+/* harmony import */ var _canvas_course_cachedGetAssociatedCoursesFunc__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @canvas/course/cachedGetAssociatedCoursesFunc */ "./src/canvas/course/cachedGetAssociatedCoursesFunc.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_23__);
+
 
 
 
@@ -41511,50 +41255,44 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
         this.modulesByWeekNumber = undefined;
         this.cachedContent = [];
         this.isBlueprint = (() => (0,_blueprint__WEBPACK_IMPORTED_MODULE_1__.isBlueprint)(data));
-        this.getAssociatedCourses = (0,_blueprint__WEBPACK_IMPORTED_MODULE_1__.cachedGetAssociatedCoursesFunc)(this);
+        this.getAssociatedCourses = (0,_canvas_course_cachedGetAssociatedCoursesFunc__WEBPACK_IMPORTED_MODULE_22__.cachedGetAssociatedCoursesFunc)(this);
     }
-    static getFromUrl() {
-        return __awaiter(this, arguments, void 0, function* (url = null) {
-            if (url === null) {
-                url = document.documentURI;
+    static async getFromUrl(url = null) {
+        if (url === null) {
+            url = document.documentURI;
+        }
+        const match = /courses\/(\d+)/.exec(url);
+        if (match) {
+            const id = (0,_canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_16__["default"])(url);
+            if (!id)
+                return null;
+            return (0,_index__WEBPACK_IMPORTED_MODULE_8__.getCourseById)(id);
+        }
+        return null;
+    }
+    static async getCourseById(courseId, config = undefined) {
+        const data = await (0,_index__WEBPACK_IMPORTED_MODULE_8__.getCourseData)(courseId, config);
+        return new Course(data);
+    }
+    static async publishAll(courses, accountId) {
+        if (courses.length == 0)
+            return false;
+        const courseIds = courses.map((course) => {
+            if (course instanceof Course) {
+                return course.id;
             }
-            let match = /courses\/(\d+)/.exec(url);
-            if (match) {
-                const id = (0,_canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_18__["default"])(url);
-                if (!id)
-                    return null;
-                return (0,_index__WEBPACK_IMPORTED_MODULE_10__.getCourseById)(id);
+            return course;
+        });
+        const url = `/api/v1/accounts/${accountId}/courses`;
+        const data = {
+            'event': 'offer',
+            'course_ids': courseIds,
+        };
+        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(url, {
+            fetchInit: {
+                method: 'PUT',
+                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)(data),
             }
-            return null;
-        });
-    }
-    static getCourseById(courseId_1) {
-        return __awaiter(this, arguments, void 0, function* (courseId, config = undefined) {
-            const data = yield (0,_index__WEBPACK_IMPORTED_MODULE_10__.getCourseData)(courseId, config);
-            return new Course(data);
-        });
-    }
-    static publishAll(courses, accountId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (courses.length == 0)
-                return false;
-            const courseIds = courses.map((course) => {
-                if (course instanceof Course) {
-                    return course.id;
-                }
-                return course;
-            });
-            const url = `/api/v1/accounts/${accountId}/courses`;
-            const data = {
-                'event': 'offer',
-                'course_ids': courseIds,
-            };
-            return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__.fetchJson)(url, {
-                fetchInit: {
-                    method: 'PUT',
-                    body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)(data),
-                }
-            });
         });
     }
     get contentUrlPath() {
@@ -41567,13 +41305,13 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
         return `/courses/${this.id}`;
     }
     get parsedCourseCode() {
-        return (0,_canvas_course_code__WEBPACK_IMPORTED_MODULE_12__.parseCourseCode)(this.canvasData.course_code);
+        return (0,_canvas_course_code__WEBPACK_IMPORTED_MODULE_10__.parseCourseCode)(this.canvasData.course_code);
     }
     get courseCode() {
         return this.canvasData.course_code;
     }
     get baseCode() {
-        return (0,_canvas_course_code__WEBPACK_IMPORTED_MODULE_12__.baseCourseCode)(this.canvasData.course_code);
+        return (0,_canvas_course_code__WEBPACK_IMPORTED_MODULE_10__.baseCourseCode)(this.canvasData.course_code);
     }
     get termId() {
         const id = this.canvasData.enrollment_term_id;
@@ -41582,20 +41320,18 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
         else
             return id[0];
     }
-    getTerm() {
-        return __awaiter(this, void 0, void 0, function* () {
-            assert__WEBPACK_IMPORTED_MODULE_4___default()(typeof this.termId === 'number');
-            if (this.termId)
-                return _canvas_term_Term__WEBPACK_IMPORTED_MODULE_13__.Term.getTermById(this.termId);
-            else
-                return null;
-        });
+    async getTerm() {
+        assert__WEBPACK_IMPORTED_MODULE_23___default()(typeof this.termId === 'number');
+        if (this.termId)
+            return _canvas_term_Term__WEBPACK_IMPORTED_MODULE_11__.Term.getTermById(this.termId);
+        else
+            return null;
     }
     get fileUploadUrl() {
         return `/api/v1/courses/${this.id}/files`;
     }
     get codePrefix() {
-        let match = COURSE_CODE_REGEX.exec(this.rawData.course_code);
+        const match = COURSE_CODE_REGEX.exec(this.rawData.course_code);
         return match ? match[1] : '';
     }
     get workflowState() {
@@ -41610,88 +41346,74 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
     get accountId() {
         return this.canvasData.account_id;
     }
-    getModules(config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (this._modules) {
-                return this._modules;
+    async getModules(config) {
+        if (this._modules) {
+            return this._modules;
+        }
+        const modules = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_modules__WEBPACK_IMPORTED_MODULE_4__.moduleGenerator)(this.id, {
+            queryParams: {
+                include: ['items', 'content_details']
             }
-            const modules = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_modules__WEBPACK_IMPORTED_MODULE_6__.moduleGenerator)(this.id, {
-                queryParams: {
-                    include: ['items', 'content_details']
-                }
-            }));
-            this._modules = modules;
-            return modules;
-        });
+        }));
+        this._modules = modules;
+        return modules;
     }
-    getStartDateFromModules() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return (0,_changeStartDate__WEBPACK_IMPORTED_MODULE_5__.getModuleUnlockStartDate)(yield this.getModules());
-        });
+    async getStartDateFromModules() {
+        return (0,_changeStartDate__WEBPACK_IMPORTED_MODULE_3__.getModuleUnlockStartDate)(await this.getModules());
     }
-    getInstructors() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__.fetchJson)(`/api/v1/courses/${this.id}/users?enrollment_type=teacher`);
-        });
+    async getInstructors() {
+        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(`/api/v1/courses/${this.id}/users?enrollment_type=teacher`);
     }
-    getLatePolicy(config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const latePolicyResult = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__.fetchJson)(`/api/v1/courses/${this.id}/late_policy`, config);
-            if ('late_policy' in latePolicyResult)
-                return latePolicyResult.late_policy;
-            return undefined;
-        });
+    async getLatePolicy(config) {
+        const latePolicyResult = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(`/api/v1/courses/${this.id}/late_policy`, config);
+        if ('late_policy' in latePolicyResult)
+            return latePolicyResult.late_policy;
+        return undefined;
     }
-    getAvailableGradingStandards(config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let out = [];
-            console.log(this.name);
-            const { id, account_id, root_account_id } = this.canvasData;
-            try {
-                if (id) {
-                    const courseGradingStandards = yield (0,_index__WEBPACK_IMPORTED_MODULE_10__.getGradingStandards)(id, "course", config);
-                    out = [...out, ...courseGradingStandards];
-                }
-                if (account_id) {
-                    const accountGradingStandards = yield (0,_index__WEBPACK_IMPORTED_MODULE_10__.getGradingStandards)(account_id, 'account', config);
-                    out = [...out, ...accountGradingStandards];
-                }
-                if (root_account_id) {
-                    const rootAccountGradingStandards = yield (0,_index__WEBPACK_IMPORTED_MODULE_10__.getGradingStandards)(root_account_id, 'account', config);
-                    out = [...out, ...rootAccountGradingStandards];
-                }
+    async getAvailableGradingStandards(config) {
+        let out = [];
+        console.log(this.name);
+        const { id, account_id, root_account_id } = this.canvasData;
+        try {
+            if (id) {
+                const courseGradingStandards = await (0,_index__WEBPACK_IMPORTED_MODULE_8__.getGradingStandards)(id, "course", config);
+                out = [...out, ...courseGradingStandards];
             }
-            catch (e) {
-                console.warn(e);
+            if (account_id) {
+                const accountGradingStandards = await (0,_index__WEBPACK_IMPORTED_MODULE_8__.getGradingStandards)(account_id, 'account', config);
+                out = [...out, ...accountGradingStandards];
             }
-            return out.filter(_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.filterUniqueFunc);
-        });
-    }
-    getCurrentGradingStandard(config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { grading_standard_id, account_id, root_account_id } = this.canvasData;
-            const urls = [];
-            if (grading_standard_id) {
-                urls.push(`/api/v1/courses/${this.id}/grading_standards/${grading_standard_id}`);
-                if (root_account_id)
-                    urls.push(`/api/v1/accounts/${root_account_id}/grading_standards/${grading_standard_id}`);
-                if (account_id)
-                    urls.push(`/api/v1/accounts/${account_id}/grading_standards/${grading_standard_id}`);
+            if (root_account_id) {
+                const rootAccountGradingStandards = await (0,_index__WEBPACK_IMPORTED_MODULE_8__.getGradingStandards)(root_account_id, 'account', config);
+                out = [...out, ...rootAccountGradingStandards];
             }
-            const standards = (yield this.getAvailableGradingStandards(config)).filter(standard => standard.id === grading_standard_id);
-            if (standards.length == 0)
-                return null;
-            return standards[0];
-        });
+        }
+        catch (e) {
+            console.warn(e);
+        }
+        return out.filter(_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.filterUniqueFunc);
     }
-    getModulesByWeekNumber(config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (this.modulesByWeekNumber)
-                return this.modulesByWeekNumber;
-            let modules = yield this.getModules(config);
-            this.modulesByWeekNumber = yield (0,_modules__WEBPACK_IMPORTED_MODULE_6__.getModulesByWeekNumber)(modules);
-            return (this.modulesByWeekNumber);
-        });
+    async getCurrentGradingStandard(config) {
+        const { grading_standard_id, account_id, root_account_id } = this.canvasData;
+        const urls = [];
+        if (grading_standard_id) {
+            urls.push(`/api/v1/courses/${this.id}/grading_standards/${grading_standard_id}`);
+            if (root_account_id)
+                urls.push(`/api/v1/accounts/${root_account_id}/grading_standards/${grading_standard_id}`);
+            if (account_id)
+                urls.push(`/api/v1/accounts/${account_id}/grading_standards/${grading_standard_id}`);
+        }
+        const standards = (await this.getAvailableGradingStandards(config)).filter(standard => standard.id === grading_standard_id);
+        if (standards.length == 0)
+            return null;
+        return standards[0];
+    }
+    async getModulesByWeekNumber(config) {
+        if (this.modulesByWeekNumber)
+            return this.modulesByWeekNumber;
+        const modules = await this.getModules(config);
+        this.modulesByWeekNumber = await (0,_modules__WEBPACK_IMPORTED_MODULE_4__.getModulesByWeekNumber)(modules);
+        return (this.modulesByWeekNumber);
     }
     /**
      * Returns a list of links to items in a given module
@@ -41703,270 +41425,236 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
      * index - return the indexth one of these in the week (minus the intro in week 1, which should be index 0)
      * if none is specified, return all matches
      */
-    getModuleItemLinks(moduleOrWeekNumber, target) {
-        return __awaiter(this, void 0, void 0, function* () {
-            assert__WEBPACK_IMPORTED_MODULE_4___default()(target.hasOwnProperty('type'));
-            let targetType = target.type;
-            let contentSearchString = target.hasOwnProperty('search') ? target.search : null;
-            let targetIndex = isNaN(target.index) ? null : target.index;
-            let targetModuleWeekNumber;
-            let targetModule;
-            if (typeof moduleOrWeekNumber === 'number') {
-                let modules = yield this.getModulesByWeekNumber();
-                assert__WEBPACK_IMPORTED_MODULE_4___default()(modules.hasOwnProperty(moduleOrWeekNumber));
-                targetModuleWeekNumber = moduleOrWeekNumber;
-                targetModule = modules[targetModuleWeekNumber];
+    async getModuleItemLinks(moduleOrWeekNumber, target) {
+        assert__WEBPACK_IMPORTED_MODULE_23___default()(target.hasOwnProperty('type'));
+        const targetType = target.type;
+        const contentSearchString = target.hasOwnProperty('search') ? target.search : null;
+        let targetIndex = isNaN(target.index) ? null : target.index;
+        let targetModuleWeekNumber;
+        let targetModule;
+        if (typeof moduleOrWeekNumber === 'number') {
+            const modules = await this.getModulesByWeekNumber();
+            assert__WEBPACK_IMPORTED_MODULE_23___default()(modules.hasOwnProperty(moduleOrWeekNumber));
+            targetModuleWeekNumber = moduleOrWeekNumber;
+            targetModule = modules[targetModuleWeekNumber];
+        }
+        else {
+            targetModule = moduleOrWeekNumber;
+            targetModuleWeekNumber = (0,_modules__WEBPACK_IMPORTED_MODULE_4__.getModuleWeekNumber)(targetModule);
+        }
+        const urls = [];
+        if (targetModule && typeof targetType !== 'undefined') {
+            //If it's a page, just search for the parameter string
+            if (targetType === 'Page' && contentSearchString) {
+                const pages = await this.getPages({
+                    queryParams: { search_term: contentSearchString }
+                });
+                pages.forEach((page) => urls.push(page.htmlContentUrl));
+                //If it's anything else, get only those items in the module and set url to the targetIndexth one.
             }
-            else {
-                targetModule = moduleOrWeekNumber;
-                targetModuleWeekNumber = (0,_modules__WEBPACK_IMPORTED_MODULE_6__.getModuleWeekNumber)(targetModule);
-            }
-            const urls = [];
-            if (targetModule && typeof targetType !== 'undefined') {
-                //If it's a page, just search for the parameter string
-                if (targetType === 'Page' && contentSearchString) {
-                    let pages = yield this.getPages({
-                        queryParams: { search_term: contentSearchString }
-                    });
-                    pages.forEach((page) => urls.push(page.htmlContentUrl));
-                    //If it's anything else, get only those items in the module and set url to the targetIndexth one.
+            else if (targetType) {
+                //bump index for week 1 to account for intro discussion / checking for rubric would require pulling too much data
+                //and too much performance overhead
+                if (targetIndex && targetType === 'Discussion' && targetModuleWeekNumber === 1)
+                    targetIndex++;
+                const matchingTypeItems = targetModule.items.filter((item) => item.type === targetType);
+                if (targetIndex && matchingTypeItems.length >= targetIndex) {
+                    //We refer to and number the assignments indexed at 1, but the array is indexed at 0
+                    const targetItem = matchingTypeItems[targetIndex - 1];
+                    urls.push(targetItem.html_url);
                 }
-                else if (targetType) {
-                    //bump index for week 1 to account for intro discussion / checking for rubric would require pulling too much data
-                    //and too much performance overhead
-                    if (targetIndex && targetType === 'Discussion' && targetModuleWeekNumber === 1)
-                        targetIndex++;
-                    const matchingTypeItems = targetModule.items.filter((item) => item.type === targetType);
-                    if (targetIndex && matchingTypeItems.length >= targetIndex) {
-                        //We refer to and number the assignments indexed at 1, but the array is indexed at 0
-                        const targetItem = matchingTypeItems[targetIndex - 1];
-                        urls.push(targetItem.html_url);
-                    }
-                    else if (!targetIndex) {
-                        for (let item of matchingTypeItems)
-                            urls.push(item.html_url);
-                    }
+                else if (!targetIndex) {
+                    for (const item of matchingTypeItems)
+                        urls.push(item.html_url);
                 }
             }
-            return urls;
-        });
+        }
+        return urls;
     }
-    getSyllabus() {
-        return __awaiter(this, arguments, void 0, function* (config = { queryParams: {} }) {
-            if (this.canvasData.syllabus_body)
-                return this.canvasData.syllabus_body;
-            const data = yield (0,_index__WEBPACK_IMPORTED_MODULE_10__.getCourseData)(this.id, (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_15__.fetchGetConfig)({ include: ['syllabus_body'] }, config));
-            assert__WEBPACK_IMPORTED_MODULE_4___default()(data.syllabus_body);
-            this.canvasData.syllabus_body = data.syllabus_body;
+    async getSyllabus(config = { queryParams: {} }) {
+        if (this.canvasData.syllabus_body)
             return this.canvasData.syllabus_body;
-        });
+        const data = await (0,_index__WEBPACK_IMPORTED_MODULE_8__.getCourseData)(this.id, (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_13__.fetchGetConfig)({ include: ['syllabus_body'] }, config));
+        assert__WEBPACK_IMPORTED_MODULE_23___default()(data.syllabus_body);
+        this.canvasData.syllabus_body = data.syllabus_body;
+        return this.canvasData.syllabus_body;
     }
     // /**
     //  * gets all assignments in a course
     //  * @returns {Promise<Assignment[]>}
     //  * @param config
     //  */
-    getAssignments(config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            console.warn('deprecated, use assignmentDataGen instead');
-            config = (0,_index__WEBPACK_IMPORTED_MODULE_3__.overrideConfig)(config, { queryParams: { include: ['due_at'] } });
-            const assignmentDatas = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_canvas_content_assignments__WEBPACK_IMPORTED_MODULE_11__.assignmentDataGen)(this.id, config));
-            return (assignmentDatas.map(data => new _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_22__.Assignment(data, this.id)));
-        });
+    async getAssignments(config) {
+        console.warn('deprecated, use assignmentDataGen instead');
+        config = (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_13__.overrideConfig)(config, { queryParams: { include: ['due_at'] } });
+        const assignmentDatas = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_canvas_content_assignments__WEBPACK_IMPORTED_MODULE_9__.assignmentDataGen)(this.id, config));
+        return (assignmentDatas.map(data => new _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_20__.Assignment(data, this.id)));
     }
-    getContent(config_1) {
-        return __awaiter(this, arguments, void 0, function* (config, refresh = false) {
-            if (refresh || this.cachedContent.length == 0) {
-                let discussions = yield this.getDiscussions(config);
-                let assignments = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_canvas_content_assignments__WEBPACK_IMPORTED_MODULE_11__.assignmentDataGen)(this.id, config));
-                let quizzes = yield this.getQuizzes(config);
-                let pages = yield this.getPages(config);
-                this.cachedContent = [
-                    ...discussions,
-                    ...assignments.map(a => new _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_22__.Assignment(a, this.id)),
-                    ...quizzes,
-                    ...pages
-                ];
-            }
-            return this.cachedContent;
-        });
+    async getContent(config, refresh = false) {
+        if (refresh || this.cachedContent.length == 0) {
+            const discussions = await this.getDiscussions(config);
+            const assignments = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_canvas_content_assignments__WEBPACK_IMPORTED_MODULE_9__.assignmentDataGen)(this.id, config));
+            const quizzes = await this.getQuizzes(config);
+            const pages = await this.getPages(config);
+            this.cachedContent = [
+                ...discussions,
+                ...assignments.map(a => new _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_20__.Assignment(a, this.id)),
+                ...quizzes,
+                ...pages
+            ];
+        }
+        return this.cachedContent;
     }
-    getDiscussions(config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield _canvas_content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_21__.Discussion.getAllInCourse(this.id, config);
-        });
+    async getDiscussions(config) {
+        return await _canvas_content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_19__.Discussion.getAllInCourse(this.id, config);
     }
-    getAssignmentGroups(config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_14__.getPagedData)(`/api/v1/courses/${this.id}/assignment_groups`, config);
-        });
+    async getAssignmentGroups(config) {
+        return await (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_12__.getPagedData)(`/api/v1/courses/${this.id}/assignment_groups`, config);
     }
-    getQuizzes(config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield _canvas_content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_19__.Quiz.getAllInCourse(this.id, config);
-        });
+    async getQuizzes(config) {
+        return await _canvas_content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_17__.Quiz.getAllInCourse(this.id, config);
     }
-    getSubsections() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const url = `/api/v1/courses/${this.id}/sections`;
-            return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__.fetchJson)(url);
-        });
+    async getSubsections() {
+        const url = `/api/v1/courses/${this.id}/sections`;
+        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(url);
     }
-    getTabs(config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__.fetchJson)(`/api/v1/courses/${this.id}/tabs`, config);
-        });
+    async getTabs(config) {
+        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(`/api/v1/courses/${this.id}/tabs`, config);
     }
-    getFrontPage() {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const data = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__.fetchJson)(`${this.contentUrlPath}/front_page`);
-                return new _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_20__.Page(data, this.id);
-            }
-            catch (error) {
-                return null;
-            }
-        });
+    async getFrontPage() {
+        try {
+            const data = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(`${this.contentUrlPath}/front_page`);
+            return new _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_18__.Page(data, this.id);
+        }
+        catch (error) {
+            return null;
+        }
     }
     getTab(label) {
         return this.canvasData.tabs.find((tab) => tab.label === label) || null;
     }
-    reload() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const id = this.id;
-            const reloaded = yield Course.getCourseById(id);
-            this.canvasData = reloaded.rawData;
+    async reload() {
+        const id = this.id;
+        const reloaded = await Course.getCourseById(id);
+        this.canvasData = reloaded.rawData;
+    }
+    async changeSyllabus(newHtml) {
+        this.canvasData['syllabus_body'] = newHtml;
+        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(`/api/v1/courses/${this.id}`, {
+            fetchInit: {
+                method: 'PUT',
+                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({
+                    course: {
+                        syllabus_body: newHtml
+                    }
+                })
+            }
         });
     }
-    changeSyllabus(newHtml) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.canvasData['syllabus_body'] = newHtml;
-            return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__.fetchJson)(`/api/v1/courses/${this.id}`, {
-                fetchInit: {
-                    method: 'PUT',
-                    body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({
-                        course: {
-                            syllabus_body: newHtml
-                        }
-                    })
-                }
-            });
+    async publish() {
+        const url = `/api/v1/courses/${this.id}`;
+        const courseData = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(url, {
+            fetchInit: {
+                method: 'PUT',
+                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({ 'offer': true })
+            }
         });
-    }
-    publish() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const url = `/api/v1/courses/${this.id}`;
-            const courseData = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__.fetchJson)(url, {
-                fetchInit: {
-                    method: 'PUT',
-                    body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({ 'offer': true })
-                }
-            });
-            console.log(courseData);
-            this.canvasData = courseData;
-        });
+        console.log(courseData);
+        this.canvasData = courseData;
     }
     get devCode() {
         return 'DEV_' + this.baseCode;
     }
-    getParentCourse() {
-        return __awaiter(this, arguments, void 0, function* (return_dev_search = false) {
-            let migrations = yield (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_14__.getPagedData)(`/api/v1/courses/${this.id}/content_migrations`);
-            const parentCode = this.devCode;
-            if (migrations.length < 1) {
-                console.log('no migrations found');
-                if (return_dev_search) {
-                    return (0,_index__WEBPACK_IMPORTED_MODULE_10__.getSingleCourse)(parentCode, this.getAccountIds());
-                }
-                else
-                    return;
+    async getParentCourse(return_dev_search = false) {
+        const migrations = await (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_12__.getPagedData)(`/api/v1/courses/${this.id}/content_migrations`);
+        const parentCode = this.devCode;
+        if (migrations.length < 1) {
+            console.log('no migrations found');
+            if (return_dev_search) {
+                return (0,_index__WEBPACK_IMPORTED_MODULE_8__.getSingleCourse)(parentCode, this.getAccountIds());
             }
-            migrations.sort((a, b) => b.id - a.id);
-            try {
-                for (let migration of migrations) {
-                    let course = yield Course.getCourseById(migration['settings']['source_course_id']);
-                    if (course && course.codePrefix.includes("DEV"))
-                        return course;
-                }
+            else
+                return;
+        }
+        migrations.sort((a, b) => b.id - a.id);
+        try {
+            for (const migration of migrations) {
+                const course = await Course.getCourseById(migration['settings']['source_course_id']);
+                if (course && course.codePrefix.includes("DEV"))
+                    return course;
             }
-            catch (e) {
-                return yield (0,_index__WEBPACK_IMPORTED_MODULE_10__.getSingleCourse)(parentCode, this.getAccountIds());
-            }
-            return yield (0,_index__WEBPACK_IMPORTED_MODULE_10__.getSingleCourse)(parentCode, this.getAccountIds());
-        });
+        }
+        catch (e) {
+            return await (0,_index__WEBPACK_IMPORTED_MODULE_8__.getSingleCourse)(parentCode, this.getAccountIds());
+        }
+        return await (0,_index__WEBPACK_IMPORTED_MODULE_8__.getSingleCourse)(parentCode, this.getAccountIds());
     }
     getAccountIds() {
         return [this.accountId, this.rootAccountId].filter(a => typeof a !== 'undefined' && a !== null);
     }
-    regenerateHomeTiles() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const modules = yield this.getModules();
-            let urls = yield Promise.all(modules.map((module) => __awaiter(this, void 0, void 0, function* () {
-                try {
-                    let dataUrl = yield this.generateHomeTile(module);
-                }
-                catch (e) {
-                    console.log(e);
-                }
-            })));
-            console.log('done');
-        });
-    }
-    generateHomeTile(module) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const overviewPage = yield (0,_modules__WEBPACK_IMPORTED_MODULE_6__.getModuleOverview)(module, this.id);
-            if (!overviewPage)
-                throw new Error("Module does not have an overview");
-            const bannerImg = (0,_canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_17__.getBannerImage)(overviewPage);
-            if (!bannerImg)
-                throw new Error("No banner image on page");
-            let resizedImageBlob = yield (0,_image__WEBPACK_IMPORTED_MODULE_7__.getResizedBlob)(bannerImg.src, HOMETILE_WIDTH);
-            let fileName = `hometile${module.position}.png`;
-            assert__WEBPACK_IMPORTED_MODULE_4___default()(resizedImageBlob);
-            let file = new File([resizedImageBlob], fileName);
-            return yield (0,_files__WEBPACK_IMPORTED_MODULE_8__.uploadFile)(file, 'Images/hometile', this.fileUploadUrl);
-        });
-    }
-    getPages(config = null) {
-        return _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_20__.Page.getAllInCourse(this.id, config);
-    }
-    getFrontPageProfile() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const frontPage = yield this.getFrontPage();
-            assert__WEBPACK_IMPORTED_MODULE_4___default()(frontPage && frontPage.body, "Course front page not found");
+    async regenerateHomeTiles() {
+        const modules = await this.getModules();
+        const urls = await Promise.all(modules.map(async (module) => {
             try {
-                const frontPageProfile = (0,_profile__WEBPACK_IMPORTED_MODULE_9__.getCurioPageFrontPageProfile)(frontPage === null || frontPage === void 0 ? void 0 : frontPage.body);
-                frontPageProfile.sourcePage = frontPage;
-                return frontPageProfile;
+                const dataUrl = await this.generateHomeTile(module);
             }
             catch (e) {
-                return {
-                    bio: 'NOT FOUND',
-                    sourcePage: frontPage,
-                };
+                console.log(e);
             }
-        });
+        }));
+        console.log('done');
     }
-    getPotentialInstructorProfiles() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const instructors = yield this.getInstructors();
-            let profiles = [];
-            if (!instructors)
-                return profiles;
-            for (let instructor of instructors) {
-                profiles = profiles.concat(yield (0,_profile__WEBPACK_IMPORTED_MODULE_9__.getPotentialFacultyProfiles)(instructor));
-            }
+    async generateHomeTile(module) {
+        const overviewPage = await (0,_modules__WEBPACK_IMPORTED_MODULE_4__.getModuleOverview)(module, this.id);
+        if (!overviewPage)
+            throw new Error("Module does not have an overview");
+        const bannerImg = (0,_canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_15__.getBannerImage)(overviewPage);
+        if (!bannerImg)
+            throw new Error("No banner image on page");
+        const resizedImageBlob = await (0,_image__WEBPACK_IMPORTED_MODULE_5__.getResizedBlob)(bannerImg.src, HOMETILE_WIDTH);
+        const fileName = `hometile${module.position}.png`;
+        assert__WEBPACK_IMPORTED_MODULE_23___default()(resizedImageBlob);
+        const file = new File([resizedImageBlob], fileName);
+        return await (0,_files__WEBPACK_IMPORTED_MODULE_6__.uploadFile)(file, 'Images/hometile', this.fileUploadUrl);
+    }
+    getPages(config = null) {
+        return _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_18__.Page.getAllInCourse(this.id, config);
+    }
+    async getFrontPageProfile() {
+        const frontPage = await this.getFrontPage();
+        try {
+            assert__WEBPACK_IMPORTED_MODULE_23___default()(frontPage && frontPage.body, "Course front page not found");
+            const frontPageProfile = (0,_profile__WEBPACK_IMPORTED_MODULE_7__.getCurioPageFrontPageProfile)(frontPage === null || frontPage === void 0 ? void 0 : frontPage.body);
+            frontPageProfile.sourcePage = frontPage;
+            return frontPageProfile;
+        }
+        catch (e) {
+            return {
+                bio: 'NOT FOUND',
+                sourcePage: frontPage,
+            };
+        }
+    }
+    async getPotentialInstructorProfiles() {
+        const instructors = await this.getInstructors();
+        let profiles = [];
+        if (!instructors)
             return profiles;
-        });
+        for (const instructor of instructors) {
+            profiles = profiles.concat(await (0,_profile__WEBPACK_IMPORTED_MODULE_7__.getPotentialFacultyProfiles)(instructor));
+        }
+        return profiles;
     }
-    getSettings(config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_16__.fetchJson)(`/api/v1/courses/${this.id}/settings`, config);
-        });
+    async getSettings(config) {
+        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(`/api/v1/courses/${this.id}/settings`, config);
+    }
+    async updateSettings(newSettings, config) {
+        const configToUse = (0,_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_21__["default"])("PUT", newSettings, config);
+        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(`/api/v1/courses/${this.id}/settings`, configToUse);
     }
 }
 Course.nameProperty = 'name';
-Course.contentClasses = [_canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_22__.Assignment, _canvas_content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_21__.Discussion, _canvas_content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_19__.Quiz, _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_20__.Page];
+Course.contentClasses = [_canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_20__.Assignment, _canvas_content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_19__.Discussion, _canvas_content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_17__.Quiz, _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_18__.Page];
 
 
 /***/ }),
@@ -41980,38 +41668,22 @@ Course.contentClasses = [_canvas_content_assignments_Assignment__WEBPACK_IMPORTE
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   NotABlueprintError: () => (/* binding */ NotABlueprintError),
 /* harmony export */   beginBpSync: () => (/* binding */ beginBpSync),
-/* harmony export */   cachedGetAssociatedCoursesFunc: () => (/* binding */ cachedGetAssociatedCoursesFunc),
 /* harmony export */   genBlueprintDataForCode: () => (/* binding */ genBlueprintDataForCode),
 /* harmony export */   getBlueprintsFromCode: () => (/* binding */ getBlueprintsFromCode),
-/* harmony export */   getSections: () => (/* binding */ getSections),
-/* harmony export */   getTermNameFromSections: () => (/* binding */ getTermNameFromSections),
 /* harmony export */   isBlueprint: () => (/* binding */ isBlueprint),
 /* harmony export */   lockBlueprint: () => (/* binding */ lockBlueprint),
-/* harmony export */   retireBlueprint: () => (/* binding */ retireBlueprint),
 /* harmony export */   sectionDataGenerator: () => (/* binding */ sectionDataGenerator),
 /* harmony export */   setAsBlueprint: () => (/* binding */ setAsBlueprint),
 /* harmony export */   unSetAsBlueprint: () => (/* binding */ unSetAsBlueprint)
 /* harmony export */ });
 /* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../canvasUtils */ "./src/canvas/canvasUtils.ts");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "./src/canvas/course/index.ts");
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../index */ "./src/canvas/index.ts");
-/* harmony import */ var _Course__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Course */ "./src/canvas/course/Course.ts");
-/* harmony import */ var _canvas_course_code__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/canvas/course/code */ "./src/canvas/course/code.ts");
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/canvas/fetch/utils */ "./src/canvas/fetch/utils.ts");
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-
+/* harmony import */ var _canvas_course_code__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/course/code */ "./src/canvas/course/code.ts");
+/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/canvas/fetch/utils */ "./src/canvas/fetch/utils.ts");
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
+/* harmony import */ var _fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/fetch/apiWriteConfig */ "./src/fetch/apiWriteConfig.ts");
 
 
 
@@ -42028,142 +41700,109 @@ function genBlueprintDataForCode(courseCode, accountIds, queryParams) {
         console.warn("Course code not present");
         return null;
     }
-    const baseCode = (0,_canvas_course_code__WEBPACK_IMPORTED_MODULE_4__.baseCourseCode)(courseCode);
+    const baseCode = (0,_canvas_course_code__WEBPACK_IMPORTED_MODULE_2__.baseCourseCode)(courseCode);
     if (!baseCode) {
         console.warn(`Code ${courseCode} invalid`);
         return null;
     }
-    const courseGen = (0,_index__WEBPACK_IMPORTED_MODULE_1__.getCourseDataGenerator)(baseCode, accountIds, undefined, (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_6__.fetchGetConfig)({
+    return (0,_index__WEBPACK_IMPORTED_MODULE_1__.getCourseDataGenerator)(baseCode, accountIds, undefined, (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.fetchGetConfig)({
         blueprint: true,
         include: ['concluded'],
     }, { queryParams }));
-    return courseGen;
-}
-function getSections(courseId, config) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return (yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.renderAsyncGen)(sectionDataGenerator(courseId, config))).map(section => new _Course__WEBPACK_IMPORTED_MODULE_3__.Course(section));
-    });
 }
 function sectionDataGenerator(courseId, config) {
     const url = `/api/v1/courses/${courseId}/blueprint_templates/default/associated_courses`;
-    return (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_5__.getPagedDataGenerator)(url);
+    return (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedDataGenerator)(url, config);
 }
+async function beginBpSync(courseId, { message, copy_settings, config }) {
+    const url = `/api/v1/courses/${courseId}/blueprint_templates/default/migrations`;
+    if (typeof copy_settings === 'undefined')
+        copy_settings = true;
+    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, (0,_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__.apiWriteConfig)('POST', {
+        message,
+        copy_settings
+    }, config));
+}
+async function getBlueprintsFromCode(code, accountIds, config) {
+    const [_, baseCode] = code.match(/_(\w{4}\d{3})$/) || [];
+    if (!baseCode)
+        return null;
+    const bps = (0,_index__WEBPACK_IMPORTED_MODULE_1__.getCourseGenerator)(`BP_${baseCode}`, accountIds, undefined, config);
+    return (await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.renderAsyncGen)(bps)).toSorted((a, b) => b.name.length - a.name.length);
+}
+async function lockBlueprint(courseId, modules) {
+    let items = [];
+    items = items.concat(...modules.map(a => [].concat(...a.items)));
+    const promises = items.map(async (item) => {
+        const url = `/api/v1/courses/${courseId}/blueprint_templates/default/restrict_item`;
+        const { type, id } = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.getItemTypeAndId)(item);
+        if (typeof id === 'undefined')
+            return;
+        const body = {
+            "content_type": type,
+            "content_id": id,
+            "restricted": true,
+            "_method": 'PUT'
+        };
+        await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, {
+            fetchInit: {
+                method: 'PUT',
+                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(body)
+            }
+        });
+    });
+    await Promise.all(promises);
+}
+async function setAsBlueprint(courseId, config) {
+    const url = `/api/v1/courses/${courseId}`;
+    const payload = {
+        course: {
+            blueprint: true,
+            use_blueprint_restrictions_by_object_type: 0,
+            blueprint_restrictions: {
+                content: 1,
+                points: 1,
+                due_dates: 1,
+                availability_dates: 1,
+            }
+        }
+    };
+    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, (0,_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__.apiWriteConfig)('PUT', payload, config));
+}
+async function unSetAsBlueprint(courseId, config) {
+    const url = `/api/v1/courses/${courseId}`;
+    const payload = {
+        course: {
+            blueprint: false
+        }
+    };
+    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, (0,_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__.apiWriteConfig)("PUT", payload, config));
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/course/cachedGetAssociatedCoursesFunc.ts":
+/*!*************************************************************!*\
+  !*** ./src/canvas/course/cachedGetAssociatedCoursesFunc.ts ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   cachedGetAssociatedCoursesFunc: () => (/* binding */ cachedGetAssociatedCoursesFunc)
+/* harmony export */ });
+/* harmony import */ var _canvas_course_getSections__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @canvas/course/getSections */ "./src/canvas/course/getSections.ts");
+
 function cachedGetAssociatedCoursesFunc(course) {
     let cache = null;
-    return (...args_1) => __awaiter(this, [...args_1], void 0, function* (redownload = false) {
+    return async (redownload = false) => {
         if (!redownload && cache)
             return cache;
-        cache = yield getSections(course.id);
+        cache = await (0,_canvas_course_getSections__WEBPACK_IMPORTED_MODULE_0__.getSections)(course.id);
         return cache;
-    });
-}
-function getTermNameFromSections(sections) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const [section] = sections;
-        if (!section)
-            throw new Error("Cannot determine term name by sections; there are no sections.");
-        const sectionTerm = yield section.getTerm();
-        if (!sectionTerm)
-            throw new Error("Section does not have associated term: " + section.name);
-        return sectionTerm.name;
-    });
-}
-function retireBlueprint(course, termName, config) {
-    return __awaiter(this, void 0, void 0, function* () {
-        var _a;
-        if (!course.parsedCourseCode)
-            throw new _canvas_course_code__WEBPACK_IMPORTED_MODULE_4__.MalformedCourseCodeError(course.courseCode);
-        const isCurrentBlueprint = (_a = course.parsedCourseCode) === null || _a === void 0 ? void 0 : _a.match('BP_');
-        if (!isCurrentBlueprint)
-            throw new NotABlueprintError("This blueprint is not named BP_; are you trying to retire a retired blueprint?");
-        const newCode = `BP-${termName}_${course.baseCode}`;
-        const saveData = {};
-        saveData[_Course__WEBPACK_IMPORTED_MODULE_3__.Course.nameProperty] = course.name.replace(course.parsedCourseCode, newCode);
-        saveData['course_code'] = newCode;
-        yield course.saveData({
-            course: saveData
-        }, config);
-    });
-}
-function beginBpSync(courseId_1, _a) {
-    return __awaiter(this, arguments, void 0, function* (courseId, { message, copy_settings, config }) {
-        const url = `/api/v1/courses/${courseId}/blueprint_templates/default/migrations`;
-        if (typeof copy_settings === 'undefined')
-            copy_settings = true;
-        const result = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_7__.fetchJson)(url, (0,_index__WEBPACK_IMPORTED_MODULE_2__.apiWriteConfig)('POST', {
-            message,
-            copy_settings
-        }, config));
-    });
-}
-function getBlueprintsFromCode(code, accountIds, config) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const [_, baseCode] = code.match(/_(\w{4}\d{3})$/) || [];
-        if (!baseCode)
-            return null;
-        const bps = (0,_index__WEBPACK_IMPORTED_MODULE_1__.getCourseGenerator)(`BP_${baseCode}`, accountIds, undefined, config);
-        return (yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.renderAsyncGen)(bps)).toSorted((a, b) => b.name.length - a.name.length);
-    });
-}
-function lockBlueprint(courseId, modules) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let items = [];
-        items = items.concat(...modules.map(a => [].concat(...a.items)));
-        const promises = items.map((item) => __awaiter(this, void 0, void 0, function* () {
-            const url = `/api/v1/courses/${courseId}/blueprint_templates/default/restrict_item`;
-            let { type, id } = yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.getItemTypeAndId)(item);
-            if (typeof id === 'undefined')
-                return;
-            let body = {
-                "content_type": type,
-                "content_id": id,
-                "restricted": true,
-                "_method": 'PUT'
-            };
-            yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_7__.fetchJson)(url, {
-                fetchInit: {
-                    method: 'PUT',
-                    body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(body)
-                }
-            });
-        }));
-        yield Promise.all(promises);
-    });
-}
-function setAsBlueprint(courseId, config) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const url = `/api/v1/courses/${courseId}`;
-        const payload = {
-            course: {
-                blueprint: true,
-                use_blueprint_restrictions_by_object_type: 0,
-                blueprint_restrictions: {
-                    content: 1,
-                    points: 1,
-                    due_dates: 1,
-                    availability_dates: 1,
-                }
-            }
-        };
-        return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_7__.fetchJson)(url, (0,_index__WEBPACK_IMPORTED_MODULE_2__.apiWriteConfig)('PUT', payload, config));
-    });
-}
-function unSetAsBlueprint(courseId, config) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const url = `/api/v1/courses/${courseId}`;
-        const payload = {
-            course: {
-                blueprint: false
-            }
-        };
-        return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_7__.fetchJson)(url, (0,_index__WEBPACK_IMPORTED_MODULE_2__.apiWriteConfig)("PUT", payload, config));
-    });
-}
-class NotABlueprintError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "NotABlueprintError";
-    }
+    };
 }
 
 
@@ -42190,7 +41829,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   syllabusHeaderName: () => (/* binding */ syllabusHeaderName),
 /* harmony export */   updatedDateSyllabusHtml: () => (/* binding */ updatedDateSyllabusHtml)
 /* harmony export */ });
-/* harmony import */ var _date__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../date */ "./src/date.ts");
+/* harmony import */ var _date__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/date */ "./src/date.ts");
 /* harmony import */ var _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/content/assignments/Assignment */ "./src/canvas/content/assignments/Assignment.ts");
 
 
@@ -42330,18 +41969,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/course/Course */ "./src/canvas/course/Course.ts");
 
 function parseCourseCode(code) {
-    let match = _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
+    const match = _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
     if (!match)
         return null;
-    let prefix = match[1] || "";
-    let courseCode = match[2] || "";
+    const prefix = match[1] || "";
+    const courseCode = match[2] || "";
     if (prefix.length > 0) {
         return `${prefix}_${courseCode}`;
     }
     return courseCode;
 }
 function baseCourseCode(code) {
-    let match = _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
+    const match = _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
     if (!match)
         return null;
     return match[2];
@@ -42374,11 +42013,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ getCourseIdFromUrl)
 /* harmony export */ });
 function getCourseIdFromUrl(url) {
-    let match = /courses\/(\d+)/.exec(url);
+    const match = /courses\/(\d+)/.exec(url);
     if (match) {
         return parseInt(match[1]);
     }
     return null;
+}
+
+
+/***/ }),
+
+/***/ "./src/canvas/course/getSections.ts":
+/*!******************************************!*\
+  !*** ./src/canvas/course/getSections.ts ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getSections: () => (/* binding */ getSections)
+/* harmony export */ });
+/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @canvas/course/Course */ "./src/canvas/course/Course.ts");
+/* harmony import */ var _canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @canvas/course/blueprint */ "./src/canvas/course/blueprint.ts");
+
+
+
+async function getSections(courseId, config) {
+    return (await (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.renderAsyncGen)((0,_canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_2__.sectionDataGenerator)(courseId, config))).map(section => new _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__.Course(section));
 }
 
 
@@ -42406,33 +42069,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   setGradingStandardForCourse: () => (/* binding */ setGradingStandardForCourse)
 /* harmony export */ });
 /* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../canvasUtils */ "./src/canvas/canvasUtils.ts");
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../index */ "./src/canvas/index.ts");
-/* harmony import */ var _Course__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Course */ "./src/canvas/course/Course.ts");
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
+/* harmony import */ var _Course__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Course */ "./src/canvas/course/Course.ts");
+/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
+/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @canvas/fetch/utils */ "./src/canvas/fetch/utils.ts");
 
 
 
 
 
-function getGradingStandards(contextId, contextType, config) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const url = `/api/v1/${contextType}s/${contextId}/grading_standards`;
-        return yield (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedData)(url, config);
-    });
+async function getGradingStandards(contextId, contextType, config) {
+    const url = `/api/v1/${contextType}s/${contextId}/grading_standards`;
+    return await (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.getPagedData)(url, config);
 }
 function getCourseData(id, config) {
     const url = `/api/v1/courses/${id}`;
-    return (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
+    return (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(url, config);
 }
 function getCourseDataGenerator(queryString, accountIds, term, config) {
     if (!Array.isArray(accountIds))
@@ -42444,66 +42096,56 @@ function getCourseDataGenerator(queryString, accountIds, term, config) {
     } : {};
     if (term && defaultConfig.queryParams)
         defaultConfig.queryParams.enrollment_term_id = term.id;
-    config = (0,_index__WEBPACK_IMPORTED_MODULE_1__.overrideConfig)(defaultConfig, config);
+    config = (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.overrideConfig)(defaultConfig, config);
     const generators = accountIds.map(accountId => {
-        let url = `/api/v1/accounts/${accountId}/courses`;
-        return (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedDataGenerator)(url, config);
+        const url = `/api/v1/accounts/${accountId}/courses`;
+        return (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.getPagedDataGenerator)(url, config);
     });
-    return (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.mergePagedDataGenerators)(generators);
+    return (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.mergePagedDataGenerators)(generators);
 }
 function getCourseGenerator(queryString, accountIds, term, config) {
-    return (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.generatorMap)(getCourseDataGenerator(queryString, accountIds, term, config), courseData => new _Course__WEBPACK_IMPORTED_MODULE_2__.Course(courseData));
+    return (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.generatorMap)(getCourseDataGenerator(queryString, accountIds, term, config), courseData => new _Course__WEBPACK_IMPORTED_MODULE_1__.Course(courseData));
 }
-function getSingleCourse(queryString, accountIds, term, config) {
-    return __awaiter(this, void 0, void 0, function* () {
-        for (let accountId of accountIds) {
-            const courseDatas = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(`/api/v1/accounts/${accountId}/courses`, (0,_index__WEBPACK_IMPORTED_MODULE_1__.overrideConfig)({ queryParams: { search_term: queryString } }, config));
-            if (courseDatas.length > 0)
-                return new _Course__WEBPACK_IMPORTED_MODULE_2__.Course(courseDatas[0]);
+async function getSingleCourse(queryString, accountIds, term, config) {
+    for (const accountId of accountIds) {
+        const courseDatas = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(`/api/v1/accounts/${accountId}/courses`, (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.overrideConfig)({ queryParams: { search_term: queryString } }, config));
+        if (courseDatas.length > 0)
+            return new _Course__WEBPACK_IMPORTED_MODULE_1__.Course(courseDatas[0]);
+    }
+    return undefined;
+}
+async function getCourseById(id, config) {
+    return new _Course__WEBPACK_IMPORTED_MODULE_1__.Course(await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(`/api/v1/courses/${id}`, config));
+}
+async function createNewCourse(courseCode, accountId, name, config) {
+    name !== null && name !== void 0 ? name : (name = courseCode);
+    const createUrl = `/api/v1/accounts/${accountId}/courses/`;
+    const createConfig = {
+        fetchInit: {
+            method: 'POST',
+            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)({
+                course: {
+                    name,
+                    course_code: courseCode
+                }
+            })
         }
-        return undefined;
-    });
-}
-function getCourseById(id, config) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return new _Course__WEBPACK_IMPORTED_MODULE_2__.Course(yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(`/api/v1/courses/${id}`, config));
-    });
-}
-function createNewCourse(courseCode, accountId, name, config) {
-    return __awaiter(this, void 0, void 0, function* () {
-        name !== null && name !== void 0 ? name : (name = courseCode);
-        const createUrl = `/api/v1/accounts/${accountId}/courses/`;
-        let createConfig = {
-            fetchInit: {
-                method: 'POST',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)({
-                    course: {
-                        name,
-                        course_code: courseCode
-                    }
-                })
-            }
-        };
-        return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(createUrl, (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(createConfig, config, true));
-    });
+    };
+    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(createUrl, (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(createConfig, config, true));
 }
 class CourseNotFoundException extends Error {
 }
-function saveCourseData(courseId, data, config) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const url = `/api/v1/courses/${courseId}`;
-        return yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, (0,_index__WEBPACK_IMPORTED_MODULE_1__.overrideConfig)(config, {
-            fetchInit: {
-                method: 'PUT',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)({ course: data })
-            }
-        }));
-    });
+async function saveCourseData(courseId, data, config) {
+    const url = `/api/v1/courses/${courseId}`;
+    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(url, (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.overrideConfig)(config, {
+        fetchInit: {
+            method: 'PUT',
+            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)({ course: data })
+        }
+    }));
 }
-function setGradingStandardForCourse(courseId, standardId, config) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return yield saveCourseData(courseId, { grading_standard_id: standardId });
-    });
+async function setGradingStandardForCourse(courseId, standardId, config) {
+    return await saveCourseData(courseId, { grading_standard_id: standardId });
 }
 function getCourseName(data) {
     var _a;
@@ -42535,15 +42177,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
 /* harmony import */ var _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/pages/Page */ "./src/canvas/content/pages/Page.ts");
 /* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
@@ -42551,43 +42184,39 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 function moduleGenerator(courseId, config) {
     return (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedDataGenerator)(`/api/v1/courses/${courseId}/modules`, config);
 }
-function changeModuleLockDate(courseId, module, targetDate) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const payload = {
-            module: {
-                unlock_at: targetDate.toString()
-            }
-        };
-        const url = `/api/v1/courses/${courseId}/modules/${module.id}`;
-        const result = (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url, {
-            fetchInit: {
-                method: 'PUT',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(payload)
-            }
-        });
+async function changeModuleLockDate(courseId, module, targetDate) {
+    const payload = {
+        module: {
+            unlock_at: targetDate.toString()
+        }
+    };
+    const url = `/api/v1/courses/${courseId}/modules/${module.id}`;
+    const result = (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url, {
+        fetchInit: {
+            method: 'PUT',
+            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(payload)
+        }
     });
 }
-function getModuleOverview(module, courseId) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let overview = module.items.find(item => item.type === "Page" &&
-            item.title.toLowerCase().includes('overview'));
-        if (!(overview === null || overview === void 0 ? void 0 : overview.url))
-            return; //skip this if it's not an overview
-        const url = overview.url.replace(/.*\/api\/v1/, '/api/v1');
-        const pageData = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url);
-        return new _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_2__.Page(pageData, courseId);
-    });
+async function getModuleOverview(module, courseId) {
+    const overview = module.items.find(item => item.type === "Page" &&
+        item.title.toLowerCase().includes('overview'));
+    if (!(overview === null || overview === void 0 ? void 0 : overview.url))
+        return; //skip this if it's not an overview
+    const url = overview.url.replace(/.*\/api\/v1/, '/api/v1');
+    const pageData = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url);
+    return new _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_2__.Page(pageData, courseId);
 }
 function getModuleWeekNumber(module) {
     const regex = /(week|module) (\d+)/i;
-    let match = module.name.match(regex);
+    const match = module.name.match(regex);
     let weekNumber = !match ? null : Number(match[1]);
     if (!weekNumber) {
-        for (let moduleItem of module.items) {
+        for (const moduleItem of module.items) {
             if (!moduleItem.hasOwnProperty('title')) {
                 continue;
             }
-            let match = moduleItem.title.match(regex);
+            const match = moduleItem.title.match(regex);
             if (match) {
                 weekNumber = match[2];
             }
@@ -42595,17 +42224,15 @@ function getModuleWeekNumber(module) {
     }
     return weekNumber;
 }
-function getModulesByWeekNumber(modules) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let modulesByWeekNumber = {};
-        for (let module of modules) {
-            let weekNumber = getModuleWeekNumber(module);
-            if (weekNumber) {
-                modulesByWeekNumber[weekNumber] = module;
-            }
+async function getModulesByWeekNumber(modules) {
+    const modulesByWeekNumber = {};
+    for (const module of modules) {
+        const weekNumber = getModuleWeekNumber(module);
+        if (weekNumber) {
+            modulesByWeekNumber[weekNumber] = module;
         }
-        return modulesByWeekNumber;
-    });
+    }
+    return modulesByWeekNumber;
 }
 
 
@@ -42622,27 +42249,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   fetchJson: () => (/* binding */ fetchJson)
 /* harmony export */ });
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-function fetchJson(url_1) {
-    return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        const match = url.search(/^(\/|\w+:\/\/)/);
-        if (match < 0)
-            throw new Error("url does not start with / or http");
-        if (config === null || config === void 0 ? void 0 : config.queryParams) {
-            url += '?' + new URLSearchParams(config.queryParams);
-        }
-        config !== null && config !== void 0 ? config : (config = {});
-        const response = yield fetch(url, config.fetchInit);
-        return yield response.json();
-    });
+async function fetchJson(url, config = null) {
+    const match = url.search(/^(\/|\w+:\/\/)/);
+    if (match < 0)
+        throw new Error("url does not start with / or http");
+    if (config === null || config === void 0 ? void 0 : config.queryParams) {
+        url += '?' + new URLSearchParams(config.queryParams);
+    }
+    config !== null && config !== void 0 ? config : (config = {});
+    const response = await fetch(url, config.fetchInit);
+    return await response.json();
 }
 
 
@@ -42662,134 +42278,136 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   mergePagedDataGenerators: () => (/* binding */ mergePagedDataGenerators)
 /* harmony export */ });
 /* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
-var __await = (undefined && undefined.__await) || function (v) { return this instanceof __await ? (this.v = v, this) : new __await(v); }
-var __asyncGenerator = (undefined && undefined.__asyncGenerator) || function (thisArg, _arguments, generator) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var g = generator.apply(thisArg, _arguments || []), i, q = [];
-    return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function () { return this; }, i;
-    function awaitReturn(f) { return function (v) { return Promise.resolve(v).then(f, reject); }; }
-    function verb(n, f) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; if (f) i[n] = f(i[n]); } }
-    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-    function fulfill(value) { resume("next", value); }
-    function reject(value) { resume("throw", value); }
-    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-};
 
 /**
  * @param url The entire path of the url
  * @param config a configuration object of type ICanvasCallConfig
  * @returns {Promise<Record<string, any>[]>}
  */
-function getPagedData(url_1) {
-    return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        var _a, e_1, _b, _c;
-        const generator = getPagedDataGenerator(url, config);
-        const out = [];
-        try {
-            for (var _d = true, generator_1 = __asyncValues(generator), generator_1_1; generator_1_1 = yield generator_1.next(), _a = generator_1_1.done, !_a; _d = true) {
-                _c = generator_1_1.value;
-                _d = false;
-                let value = _c;
-                out.push(value);
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (!_d && !_a && (_b = generator_1.return)) yield _b.call(generator_1);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-        return out;
-    });
+async function getPagedData(url, config = null) {
+    const generator = getPagedDataGenerator(url, config);
+    const out = [];
+    for await (const value of generator) {
+        out.push(value);
+    }
+    return out;
 }
 /**
- * returns a single pagedDataGenerator that returns generator results from each, looping through results for each
- * @param generators
+ * Merges multiple asynchronous paginated data generators into a single generator.
+ *
+ * This function combines the results of multiple paginated data generators into a unified stream. Each generator
+ * is processed sequentially, and its results are yielded one by one as they become available. This allows for
+ * easy handling of multiple paginated API requests or data sources in parallel without needing to collect all
+ * results in memory at once.
+ *
+ * The function is particularly useful when dealing with multiple sources of paginated data (e.g., multiple API
+ * endpoints) that need to be processed as one continuous stream of results, without waiting for all pages from one
+ * source to finish before beginning to process the next.
+ *
+ * @template T - A type parameter that extends `CanvasData`, ensuring that the data being yielded is in a format consistent
+ *               with Canvas API data structures.
+ * @param {AsyncGenerator<T, T[], void>[]} generators - An array of asynchronous generators, each of which yields paginated
+ *               results of type `T`. These could represent different paginated data sources that are combined into a single stream.
+ *
+ * @yields {T} - The function yields items of type `T` as they are retrieved from each generator in sequence.
+ *
+ * @example
+ * // Example usage combining two paginated API responses into a single data stream
+ * const generator1 = fetchPagedDataFromSource1();
+ * const generator2 = fetchPagedDataFromSource2();
+ *
+ * for await (const data of mergePagedDataGenerators([generator1, generator2])) {
+ *     console.log(data); // Process each item from both generators as a single stream
+ * }
+ *
  */
-function mergePagedDataGenerators(generators) {
-    return __asyncGenerator(this, arguments, function* mergePagedDataGenerators_1() {
-        var _a, e_2, _b, _c;
-        for (let generator of generators) {
-            try {
-                for (var _d = true, generator_2 = (e_2 = void 0, __asyncValues(generator)), generator_2_1; generator_2_1 = yield __await(generator_2.next()), _a = generator_2_1.done, !_a; _d = true) {
-                    _c = generator_2_1.value;
-                    _d = false;
-                    let result = _c;
-                    yield yield __await(result);
-                }
-            }
-            catch (e_2_1) { e_2 = { error: e_2_1 }; }
-            finally {
-                try {
-                    if (!_d && !_a && (_b = generator_2.return)) yield __await(_b.call(generator_2));
-                }
-                finally { if (e_2) throw e_2.error; }
-            }
+async function* mergePagedDataGenerators(generators) {
+    for (const generator of generators) {
+        for await (const result of generator) {
+            yield result;
         }
-    });
+    }
 }
+/**
+ * Handles the response data from a Canvas API call, normalizing it into an array of `CanvasData` objects.
+ *
+ * This function accepts various formats of the data (single object, array of objects, or a keyed object containing arrays of objects),
+ * and ensures the result is always an array. If no valid array is found, it returns an empty array and logs a warning.
+ *
+ * @template T - A type that extends `CanvasData`.
+ * @param {T | T[] | { [key: string]: T[] }} data - The response data to process. This can be a single object, an array of objects,
+ *        or a keyed object where the values are arrays of objects.
+ * @param {string} url - The URL from which the data was retrieved, used for logging purposes if no valid data is found.
+ * @returns {T[]} An array of `CanvasData` objects, or an empty array if no valid array of data is present.
+ */
 function handleResponseData(data, url) {
-    if (data !== null && typeof data === 'object' && !Array.isArray(data)) {
-        let values = Array.from(Object.values(data));
+    if (typeof data === 'undefined' || data == null) {
+        console.warn(`no data found for ${url}`);
+        return [];
+    }
+    if (typeof data === 'object' && !Array.isArray(data)) {
+        const values = Array.from(Object.values(data));
         if (values) {
             data = values.find((a) => Array.isArray(a));
         }
     }
     if (!Array.isArray(data)) {
-        console.warn(`no data for ${url}`);
+        console.warn(`No valid data found for ${url}`);
         return [];
     }
     return data;
 }
-function getPagedDataGenerator(url_1) {
-    return __asyncGenerator(this, arguments, function* getPagedDataGenerator_1(url, config = null) {
-        if (config === null || config === void 0 ? void 0 : config.queryParams) {
-            url += '?' + (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.searchParamsFromObject)(config.queryParams);
+/**
+ * Async generator function that retrieves paged data from a Canvas API endpoint.
+ * It sends HTTP GET requests to the provided URL, processes the results, and iterates
+ * through all pages of data, yielding each individual item.
+ *
+ * The generator automatically handles pagination by examining the 'Link' header
+ * returned in each response and fetching the next page as long as a 'next' link is available.
+ *
+ * @template T - A generic type parameter extending CanvasData to represent the structure of the data.
+ * @param {string} url - The full URL for the API request. If the `queryParams` option is provided in the config, it appends the query parameters to the URL.
+ * @param {ICanvasCallConfig | null} [config=null] - Optional configuration object for the request, including query parameters and additional fetch options like headers.
+ * @yields {T} - Yields individual items of the retrieved data from each page, one at a time.
+ *
+ * @throws {Error} - If the request fails or the URL contains "undefined", a warning is logged to the console.
+ *
+ * @example
+ * ```
+ * const generator = getPagedDataGenerator<MyDataType>('https://canvas.example.com/api/data', config);
+ * for await (const item of generator) {
+ *     console.log(item);  // Handle each item individually
+ * }
+ * ```
+ */
+async function* getPagedDataGenerator(url, config = null) {
+    if (config === null || config === void 0 ? void 0 : config.queryParams) {
+        url += '?' + (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.searchParamsFromObject)(config.queryParams);
+    }
+    if (url.includes('undefined')) {
+        console.warn(url);
+    }
+    /* Returns a list of data from a GET request, going through multiple pages of data requests as necessary */
+    let response = await fetch(url, config === null || config === void 0 ? void 0 : config.fetchInit);
+    const data = handleResponseData(await response.json(), url);
+    if (data.length === 0)
+        return data;
+    for (const value of data)
+        yield value;
+    let next_page_link = "!";
+    while (next_page_link.length !== 0 &&
+        response &&
+        response.ok) {
+        const nextLink = getNextLink(response);
+        if (!nextLink)
+            break;
+        next_page_link = nextLink.split(";")[0].split("<")[1].split(">")[0];
+        response = await fetch(next_page_link, config === null || config === void 0 ? void 0 : config.fetchInit);
+        const responseData = handleResponseData(await response.json(), url);
+        for (const value of responseData) {
+            yield value;
         }
-        if (url.includes('undefined')) {
-            console.warn(url);
-        }
-        /* Returns a list of data from a GET request, going through multiple pages of data requests as necessary */
-        let response = yield __await(fetch(url, config === null || config === void 0 ? void 0 : config.fetchInit));
-        let data = handleResponseData(yield __await(response.json()), url);
-        if (data.length === 0)
-            return yield __await(data);
-        for (let value of data)
-            yield yield __await(value);
-        let next_page_link = "!";
-        while (next_page_link.length !== 0 &&
-            response &&
-            response.ok) {
-            const nextLink = getNextLink(response);
-            if (!nextLink)
-                break;
-            next_page_link = nextLink.split(";")[0].split("<")[1].split(">")[0];
-            response = yield __await(fetch(next_page_link, config === null || config === void 0 ? void 0 : config.fetchInit));
-            let responseData = handleResponseData(yield __await(response.json()), url);
-            data = [data, ...responseData];
-            for (let value of responseData) {
-                yield yield __await(value);
-            }
-        }
-    });
+    }
 }
 function getNextLink(response) {
     const link = response.headers.get("Link");
@@ -42843,42 +42461,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./canvasUtils */ "./src/canvas/canvasUtils.ts");
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
-function uploadFile(file, folder, url) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const initialParams = {
-            name: file.name,
-            no_redirect: true,
-            on_duplicate: 'overwrite'
-        };
-        if (typeof folder === 'number')
-            initialParams.parent_folder_id = folder;
-        else
-            initialParams.parent_folder_path = folder;
-        let response = yield fetch(url, {
-            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(initialParams),
-            method: 'POST'
-        });
-        const data = yield response.json();
-        const uploadParams = data.upload_params;
-        const uploadFormData = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(uploadParams);
-        uploadFormData.append('file', file);
-        response = yield fetch(data.upload_url, {
-            method: 'POST',
-            body: uploadFormData,
-        });
-        assert__WEBPACK_IMPORTED_MODULE_1___default()(response.ok);
+async function uploadFile(file, folder, url) {
+    const initialParams = {
+        name: file.name,
+        no_redirect: true,
+        on_duplicate: 'overwrite'
+    };
+    if (typeof folder === 'number')
+        initialParams.parent_folder_id = folder;
+    else
+        initialParams.parent_folder_path = folder;
+    let response = await fetch(url, {
+        body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(initialParams),
+        method: 'POST'
     });
+    const data = await response.json();
+    const uploadParams = data.upload_params;
+    const uploadFormData = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(uploadParams);
+    uploadFormData.append('file', file);
+    response = await fetch(data.upload_url, {
+        method: 'POST',
+        body: uploadFormData,
+    });
+    assert__WEBPACK_IMPORTED_MODULE_1___default()(response.ok);
 }
 
 
@@ -42901,97 +42508,44 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
-function getResizedBlob(src_1, width_1) {
-    return __awaiter(this, arguments, void 0, function* (src, width, height = undefined) {
-        let imageSrc = yield contentDownloadImage(src);
-        let canvas = document.createElement('canvas');
-        let image = new Image();
-        image.src = imageSrc;
-        let ctx = canvas.getContext('2d');
-        return new Promise((resolve) => {
-            image.onload = () => {
-                height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
-                assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
-                console.log(image.src);
-                canvas.width = width;
-                canvas.height = height;
-                ctx.drawImage(image, 0, 0, width, height);
-                canvas.toBlob(resolve);
-            };
-        });
+async function getResizedBlob(src, width, height = undefined) {
+    const imageSrc = await contentDownloadImage(src);
+    const canvas = document.createElement('canvas');
+    const image = new Image();
+    image.src = imageSrc;
+    const ctx = canvas.getContext('2d');
+    return new Promise((resolve) => {
+        image.onload = () => {
+            height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
+            assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
+            console.log(image.src);
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(image, 0, 0, width, height);
+            canvas.toBlob(resolve);
+        };
     });
 }
-function contentDownloadImage(src) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const base64 = yield webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.sendMessage({ downloadImage: src });
-        return base64;
-    });
+async function contentDownloadImage(src) {
+    const base64 = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.sendMessage({ downloadImage: src });
+    return base64;
 }
 function backgroundDownloadImage(src) {
     //if(!height) height = src.height / src.width * width;
     const imageUrl = src;
-    return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
-        const imageFileResponse = yield fetch(imageUrl);
-        let reader = new FileReader();
+    return new Promise(async (resolve) => {
+        const imageFileResponse = await fetch(imageUrl);
+        const reader = new FileReader();
         reader.onload = event => {
             console.log(reader.result);
             resolve(reader.result);
         };
-        const blob = yield imageFileResponse.blob();
+        const blob = await imageFileResponse.blob();
         reader.readAsDataURL(blob);
-    }));
+    });
 }
-
-
-/***/ }),
-
-/***/ "./src/canvas/index.ts":
-/*!*****************************!*\
-  !*** ./src/canvas/index.ts ***!
-  \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   apiGetConfig: () => (/* binding */ apiGetConfig),
-/* harmony export */   apiWriteConfig: () => (/* binding */ apiWriteConfig),
-/* harmony export */   generatorMap: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_0__.generatorMap),
-/* harmony export */   overrideConfig: () => (/* reexport safe */ _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_1__.overrideConfig),
-/* harmony export */   renderAsyncGen: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_0__.renderAsyncGen)
-/* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
-/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/utils */ "./src/canvas/fetch/utils.ts");
-
-
-function apiWriteConfig(method, data, baseConfig) {
-    const body = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(data);
-    return (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_1__.overrideConfig)({
-        fetchInit: {
-            method,
-            body,
-        }
-    }, baseConfig);
-}
-function apiGetConfig(queryParams, baseConfig) {
-    return (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_1__.overrideConfig)({
-        queryParams,
-    }, baseConfig);
-}
-
-
-
 
 
 /***/ }),
@@ -43018,62 +42572,47 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./canvasUtils */ "./src/canvas/canvasUtils.ts");
 /* harmony import */ var _canvas_Account__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/Account */ "./src/canvas/Account.ts");
 /* harmony import */ var _canvas_course__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/course */ "./src/canvas/course/index.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
 
 let facultyCourseCached;
-function getFacultyCourse() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const facultyCourse = facultyCourseCached !== null && facultyCourseCached !== void 0 ? facultyCourseCached : yield (0,_canvas_course__WEBPACK_IMPORTED_MODULE_3__.getSingleCourse)('Faculty Bios', (yield _canvas_Account__WEBPACK_IMPORTED_MODULE_2__.Account.getAll()).map(a => a.id));
-        facultyCourseCached = facultyCourse;
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(facultyCourse);
-        return facultyCourse;
+async function getFacultyCourse() {
+    const facultyCourse = facultyCourseCached !== null && facultyCourseCached !== void 0 ? facultyCourseCached : await (0,_canvas_course__WEBPACK_IMPORTED_MODULE_3__.getSingleCourse)('Faculty Bios', (await _canvas_Account__WEBPACK_IMPORTED_MODULE_2__.Account.getAll()).map(a => a.id));
+    facultyCourseCached = facultyCourse;
+    assert__WEBPACK_IMPORTED_MODULE_0___default()(facultyCourse);
+    return facultyCourse;
+}
+async function getFacultyPages(searchTerm) {
+    const facultyCourse = await getFacultyCourse();
+    return await facultyCourse.getPages({
+        queryParams: {
+            include: ['body'],
+            search_term: searchTerm
+        }
     });
 }
-function getFacultyPages(searchTerm) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const facultyCourse = yield getFacultyCourse();
-        return yield facultyCourse.getPages({
-            queryParams: {
-                include: ['body'],
-                search_term: searchTerm
-            }
-        });
-    });
-}
-function getPotentialFacultyProfiles(user) {
-    return __awaiter(this, void 0, void 0, function* () {
-        var _a;
-        let pages = [];
-        const [lastName, firstName] = user.name.split(' ');
-        for (let query of [
-            user.name,
-            lastName,
-            firstName,
-        ]) {
-            console.log(query);
-            pages = yield getFacultyPages(query);
-            if (pages.length > 0)
-                break;
+async function getPotentialFacultyProfiles(user) {
+    var _a;
+    let pages = [];
+    const [lastName, firstName] = user.name.split(' ');
+    for (const query of [
+        user.name,
+        lastName,
+        firstName,
+    ]) {
+        console.log(query);
+        pages = await getFacultyPages(query);
+        if (pages.length > 0)
+            break;
+    }
+    const profiles = pages.map((page) => getProfileFromPage(page, user), true);
+    if (profiles.length > 0) {
+        for (const profile of profiles) {
+            (_a = profile.displayName) !== null && _a !== void 0 ? _a : (profile.displayName = user.name);
         }
-        let profiles = pages.map((page) => getProfileFromPage(page, user), true);
-        if (profiles.length > 0) {
-            for (let profile of profiles) {
-                (_a = profile.displayName) !== null && _a !== void 0 ? _a : (profile.displayName = user.name);
-            }
-        }
-        return profiles;
-    });
+    }
+    return profiles;
 }
 function getProfileFromPage(page, user) {
     const profile = getProfileFromPageHtml(page.body, user);
@@ -43100,7 +42639,7 @@ function getProfileBody(el) {
         return el.innerHTML.search(/instructor/i);
     });
     let potentials = [];
-    for (let header of instructorHeaders) {
+    for (const header of instructorHeaders) {
         const potentialParent = header.parentElement;
         if (potentialParent) {
             header.remove();
@@ -43119,13 +42658,13 @@ function getProfileBody(el) {
 function getDisplayName(el) {
     let titles = Array.from(el.querySelectorAll('strong em'));
     if (titles.length === 0) {
-        let enclosedImages = Array.from(el.querySelectorAll('p img'));
+        const enclosedImages = Array.from(el.querySelectorAll('p img'));
         titles = enclosedImages.map((el) => { var _a; return (_a = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.parentElement)(el, 'p')) === null || _a === void 0 ? void 0 : _a.nextElementSibling; })
             .filter((el) => el instanceof Element);
     }
     if (titles.length === 0) {
-        let headings = Array.from(el.querySelectorAll('p strong'));
-        let instructorHeaders = headings.filter(el => el.innerHTML.search(/Instructor/));
+        const headings = Array.from(el.querySelectorAll('p strong'));
+        const instructorHeaders = headings.filter(el => el.innerHTML.search(/Instructor/));
         titles = instructorHeaders.map((el) => el.previousElementSibling)
             .filter((el) => el instanceof Element);
     }
@@ -43139,7 +42678,7 @@ function getDisplayName(el) {
  * @param el
  */
 function getImageLink(el) {
-    let imgs = el.querySelectorAll('img');
+    const imgs = el.querySelectorAll('img');
     if (imgs.length === 0)
         return null;
     return Array.from(imgs)[1];
@@ -43156,7 +42695,7 @@ function winnow(originalList, winnowFuncs, returnLastNonEmpty = false) {
     if (copyList.length === 1)
         return copyList; //already at 1 element
     let lastSet = [...copyList];
-    for (let winnowFunc of winnowFuncs) {
+    for (const winnowFunc of winnowFuncs) {
         lastSet = [...copyList];
         copyList = copyList.filter(winnowFunc);
         if (copyList.length === 1)
@@ -43241,10 +42780,10 @@ function getCurioProfileDiv(el) {
 }
 function getCurioBio(el) {
     const profileDiv = getCurioProfileDiv(el);
-    let bio = profileDiv.querySelector('.cbt-instructor-bio');
+    const bio = profileDiv.querySelector('.cbt-instructor-bio');
     if (bio && bio.innerHTML)
         return bio;
-    let div = getCurioProfileDiv(el);
+    const div = getCurioProfileDiv(el);
     const p = div.querySelector('p');
     return p === null || p === void 0 ? void 0 : p.parentElement;
 }
@@ -43273,77 +42812,60 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
 /* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
 
 
 class Term extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
-    static getTerm(code_1) {
-        return __awaiter(this, arguments, void 0, function* (code, workflowState = 'all', config = undefined) {
-            const terms = yield this.searchTerms(code, workflowState, config);
-            if (!Array.isArray(terms) || terms.length <= 0) {
-                return null;
-            }
-            return terms[0];
-        });
-    }
-    static getTermById(termId_1) {
-        return __awaiter(this, arguments, void 0, function* (termId, config = null) {
-            let account = yield _canvas_Account__WEBPACK_IMPORTED_MODULE_1__.Account.getRootAccount();
-            if (!account)
-                throw new _canvas_Account__WEBPACK_IMPORTED_MODULE_1__.RootAccountNotFoundError();
-            let url = `/api/v1/accounts/${account.id}/terms/${termId}`;
-            let termData = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
-            if (termData)
-                return new Term(termData);
+    static async getTerm(code, workflowState = 'all', config = undefined) {
+        const terms = await this.searchTerms(code, workflowState, config);
+        if (!Array.isArray(terms) || terms.length <= 0) {
             return null;
-        });
+        }
+        return terms[0];
     }
-    static getAllActiveTerms() {
-        return __awaiter(this, arguments, void 0, function* (config = null) {
-            return yield this.searchTerms(null, 'active', config);
-        });
+    static async getTermById(termId, config = null) {
+        const account = await _canvas_Account__WEBPACK_IMPORTED_MODULE_1__.Account.getRootAccount();
+        if (!account)
+            throw new _canvas_Account__WEBPACK_IMPORTED_MODULE_1__.RootAccountNotFoundError();
+        const url = `/api/v1/accounts/${account.id}/terms/${termId}`;
+        const termData = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
+        if (termData)
+            return new Term(termData);
+        return null;
     }
-    static searchTerms() {
-        return __awaiter(this, arguments, void 0, function* (code = null, workflowState = 'all', config = null) {
-            config = config || {};
-            config.queryParams = config.queryParams || {};
-            let queryParams = config.queryParams;
-            if (workflowState)
-                queryParams['workflow_state'] = workflowState;
-            if (code)
-                queryParams['term_name'] = code;
-            let rootAccount = yield _canvas_Account__WEBPACK_IMPORTED_MODULE_1__.Account.getRootAccount();
-            assert__WEBPACK_IMPORTED_MODULE_2___default()(rootAccount);
-            let url = `/api/v1/accounts/${rootAccount.id}/terms`;
-            const data = yield (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedData)(url, config);
-            let terms = [];
-            for (let datum of data) {
-                if (datum.hasOwnProperty('enrollment_terms')) {
-                    for (let termData of datum['enrollment_terms']) {
-                        terms.push(termData);
-                    }
-                }
-                else {
-                    terms.push(datum);
+    static async getAllActiveTerms(config = null) {
+        return await this.searchTerms(null, 'active', config);
+    }
+    static async searchTerms(code = null, workflowState = 'all', config = null) {
+        config = config || {};
+        config.queryParams = config.queryParams || {};
+        const queryParams = config.queryParams;
+        if (workflowState)
+            queryParams['workflow_state'] = workflowState;
+        if (code)
+            queryParams['term_name'] = code;
+        const rootAccount = await _canvas_Account__WEBPACK_IMPORTED_MODULE_1__.Account.getRootAccount();
+        assert__WEBPACK_IMPORTED_MODULE_2___default()(rootAccount);
+        const url = `/api/v1/accounts/${rootAccount.id}/terms`;
+        const data = await (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedData)(url, config);
+        const terms = [];
+        for (const datum of data) {
+            if (datum.hasOwnProperty('enrollment_terms')) {
+                for (const termData of datum['enrollment_terms']) {
+                    terms.push(termData);
                 }
             }
-            console.log(terms);
-            if (!terms || terms.length === 0) {
-                return null;
+            else {
+                terms.push(datum);
             }
-            return terms.map(term => new Term(term));
-        });
+        }
+        console.log(terms);
+        if (!terms || terms.length === 0) {
+            return null;
+        }
+        return terms.map(term => new Term(term));
     }
 }
 Term.nameProperty = "name";
@@ -43445,7 +42967,7 @@ function findDateRange(textToSearch, locale = 'en-US') {
     if (!matchRange)
         return null; //No date range found in syllabus
     let start, end;
-    for (let separator of ['-', 'to']) {
+    for (const separator of ['-', 'to']) {
         [start, end] = matchRange[0].split(separator);
         if (start && end)
             break;
@@ -43487,6 +43009,36 @@ class MalformedDateError extends Error {
 
 /***/ }),
 
+/***/ "./src/fetch/apiWriteConfig.ts":
+/*!*************************************!*\
+  !*** ./src/fetch/apiWriteConfig.ts ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   apiWriteConfig: () => (/* binding */ apiWriteConfig),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @canvas/fetch/utils */ "./src/canvas/fetch/utils.ts");
+
+
+function apiWriteConfig(method, data, baseConfig) {
+    const body = (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(data);
+    return (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_1__.overrideConfig)({
+        fetchInit: {
+            method,
+            body,
+        }
+    }, baseConfig);
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (apiWriteConfig);
+
+
+/***/ }),
+
 /***/ "./src/index.ts":
 /*!**********************!*\
   !*** ./src/index.ts ***!
@@ -43497,10 +43049,12 @@ class MalformedDateError extends Error {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   aMinusBSortFn: () => (/* binding */ aMinusBSortFn),
+/* harmony export */   apiWriteConfig: () => (/* reexport safe */ _fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_0__.apiWriteConfig),
 /* harmony export */   bMinusASortFn: () => (/* binding */ bMinusASortFn),
 /* harmony export */   isNotNullOrUndefined: () => (/* binding */ isNotNullOrUndefined),
 /* harmony export */   sleep: () => (/* binding */ sleep)
 /* harmony export */ });
+/* harmony import */ var _fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/fetch/apiWriteConfig */ "./src/fetch/apiWriteConfig.ts");
 function sleep(milliseconds) {
     return new Promise((resolve, reject) => {
         setTimeout(resolve, milliseconds);
@@ -43519,6 +43073,7 @@ function aMinusBSortFn(func) {
 function bMinusASortFn(func) {
     return (a, b) => func(b) - func(a);
 }
+
 
 
 /***/ }),
@@ -43578,22 +43133,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ui_widgets_Modal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/ui/widgets/Modal */ "./src/ui/widgets/Modal/index.tsx");
 /* harmony import */ var _ui_reducerDispatchers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/ui/reducerDispatchers */ "./src/ui/reducerDispatchers.ts");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/index */ "./src/index.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
 
 
 
@@ -43607,37 +43146,22 @@ var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
 function BpButton({ course, currentBp }) {
     const [bps, dispatchBps] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useReducer)((_ui_reducerDispatchers__WEBPACK_IMPORTED_MODULE_7__.listDispatcher), []);
     const [open, setOpen] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
-    (0,_ui_utils__WEBPACK_IMPORTED_MODULE_2__.useEffectAsync)(() => __awaiter(this, void 0, void 0, function* () {
-        var _a, e_1, _b, _c;
+    (0,_ui_utils__WEBPACK_IMPORTED_MODULE_2__.useEffectAsync)(async () => {
         dispatchBps({ clear: true });
         const bpGen = (0,_canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_3__.genBlueprintDataForCode)(course.courseCode, [course.accountId]);
         if (!bpGen)
             return;
         const loadBps = [];
         let i = 0;
-        try {
-            for (var _d = true, bpGen_1 = __asyncValues(bpGen), bpGen_1_1; bpGen_1_1 = yield bpGen_1.next(), _a = bpGen_1_1.done, !_a; _d = true) {
-                _c = bpGen_1_1.value;
-                _d = false;
-                let bp = _c;
-                loadBps.push(bp);
-                dispatchBps({ set: loadBps });
-                i++;
-            }
+        for await (const bp of bpGen) {
+            loadBps.push(bp);
+            dispatchBps({ set: loadBps });
+            i++;
         }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (!_d && !_a && (_b = bpGen_1.return)) yield _b.call(bpGen_1);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-    }), [course]);
-    function openMainBp(e) {
-        return __awaiter(this, void 0, void 0, function* () {
-            assert__WEBPACK_IMPORTED_MODULE_4___default()(currentBp, "Attempted to open main BP with no BP");
-            yield (0,_canvas_content_openThisContentInTarget__WEBPACK_IMPORTED_MODULE_5__["default"])(course.id, currentBp.id);
-        });
+    }, [course]);
+    async function openMainBp(e) {
+        assert__WEBPACK_IMPORTED_MODULE_4___default()(currentBp, "Attempted to open main BP with no BP");
+        await (0,_canvas_content_openThisContentInTarget__WEBPACK_IMPORTED_MODULE_5__["default"])(course.id, currentBp.id);
     }
     if (!currentBp && bps.length === 0)
         return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_9__["default"], { disabled: true, children: "No BPs Found" });
@@ -43664,15 +43188,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var _widgets_Modal_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../widgets/Modal/index */ "./src/ui/widgets/Modal/index.tsx");
 /* harmony import */ var _bigImages_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./bigImages.scss */ "./src/ui/course/bigImages.scss");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
@@ -43683,16 +43198,14 @@ function HighlightBigImages({ el, bannerImage, currentContentItem, resizeTo = 12
     const [running, setRunning] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [finished, setFinished] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [showButton, setShowButton] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(true);
-    function resizeBanner() {
-        return __awaiter(this, void 0, void 0, function* () {
-            setRunning(true);
-            setShowModal(true);
-            yield (currentContentItem === null || currentContentItem === void 0 ? void 0 : currentContentItem.resizeBanner(resizeTo));
-            yield fetch(bannerImage.src, { cache: 'reload', mode: 'no-cors' });
-            bannerImage.src = bannerImage.src + '?' + Date.now();
-            setRunning(false);
-            setFinished(true);
-        });
+    async function resizeBanner() {
+        setRunning(true);
+        setShowModal(true);
+        await (currentContentItem === null || currentContentItem === void 0 ? void 0 : currentContentItem.resizeBanner(resizeTo));
+        await fetch(bannerImage.src, { cache: 'reload', mode: 'no-cors' });
+        bannerImage.src = bannerImage.src + '?' + Date.now();
+        setRunning(false);
+        setFinished(true);
     }
     function notificationBoxStyle() {
         if (finished)
@@ -43727,15 +43240,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
@@ -43743,18 +43247,16 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 function HomeTileApp({ course, el }) {
     const [showModal, setShowModal] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false);
     const [running, setRunning] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false);
-    function regenerate() {
-        return __awaiter(this, void 0, void 0, function* () {
-            setRunning(true);
-            setShowModal(true);
-            yield course.regenerateHomeTiles();
-            const homeTiles = document.querySelectorAll(".cbt-module-card-img img");
-            yield Promise.all(Array.from(homeTiles).map(((tile) => __awaiter(this, void 0, void 0, function* () {
-                yield fetch(tile.src, { cache: 'reload', mode: 'no-cors' });
-                tile.src = tile.src + '?' + Date.now();
-            }))));
-            setRunning(false);
-        });
+    async function regenerate() {
+        setRunning(true);
+        setShowModal(true);
+        await course.regenerateHomeTiles();
+        const homeTiles = document.querySelectorAll(".cbt-module-card-img img");
+        await Promise.all(Array.from(homeTiles).map((async (tile) => {
+            await fetch(tile.src, { cache: 'reload', mode: 'no-cors' });
+            tile.src = tile.src + '?' + Date.now();
+        })));
+        setRunning(false);
     }
     return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_dom__WEBPACK_IMPORTED_MODULE_3__.createPortal)((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: regenerate, children: "Generate Home Tiles" }), el), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_1__["default"], { isOpen: showModal, canClose: !running, requestClose: () => setShowModal(false), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { children: running ? "Updating Home Tiles..." : "Finished Updating Home Tiles" }), !running && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => setShowModal(false), children: "Close" })] })] }));
 }
@@ -43787,15 +43289,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ui_course_HomeTileApp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/ui/course/HomeTileApp */ "./src/ui/course/HomeTileApp.tsx");
 /* harmony import */ var _ui_course_BpButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/ui/course/BpButton */ "./src/ui/course/BpButton.tsx");
 /* harmony import */ var _canvas_content_getContentFuncs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/canvas/content/getContentFuncs */ "./src/canvas/content/getContentFuncs.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
@@ -43809,69 +43302,61 @@ function addHomeTileButton(el, course) {
     rootDiv.render((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_course_HomeTileApp__WEBPACK_IMPORTED_MODULE_4__.HomeTileApp, { el: el, course: course }));
     document.body.append(root);
 }
-function addSectionsButton(header_1, bp_1) {
-    return __awaiter(this, arguments, void 0, function* (header, bp, currentCourse = null) {
-        const sourceCourse = currentCourse !== null && currentCourse !== void 0 ? currentCourse : bp;
-        let sectionBtn = document.createElement('btn');
-        sectionBtn.classList.add('btn');
-        sectionBtn.innerHTML = "Sections";
-        sectionBtn.title = "Open all sections associated with the current BP for this course.";
-        const sections = yield bp.getAssociatedCourses();
-        if (!sections)
-            return;
-        header.append(sectionBtn);
-        sectionBtn.addEventListener('click', () => __awaiter(this, void 0, void 0, function* () { return yield (0,_canvas_content_openThisContentInTarget__WEBPACK_IMPORTED_MODULE_3__["default"])(sourceCourse, sections); }));
-    });
+async function addSectionsButton(header, bp, currentCourse = null) {
+    const sourceCourse = currentCourse !== null && currentCourse !== void 0 ? currentCourse : bp;
+    const sectionBtn = document.createElement('btn');
+    sectionBtn.classList.add('btn');
+    sectionBtn.innerHTML = "Sections";
+    sectionBtn.title = "Open all sections associated with the current BP for this course.";
+    const sections = await bp.getAssociatedCourses();
+    if (!sections)
+        return;
+    header.append(sectionBtn);
+    sectionBtn.addEventListener('click', async () => await (0,_canvas_content_openThisContentInTarget__WEBPACK_IMPORTED_MODULE_3__["default"])(sourceCourse, sections));
 }
-function addDevButton(header, course) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const parentCourse = yield course.getParentCourse();
-        if (parentCourse) {
-            let parentBtn = document.createElement('btn');
-            parentBtn.classList.add('btn');
-            parentBtn.innerHTML = "DEV";
-            parentBtn.title = "Open the dev version of this course";
-            header === null || header === void 0 ? void 0 : header.append(parentBtn);
-            parentBtn.addEventListener('click', () => __awaiter(this, void 0, void 0, function* () { return yield (0,_canvas_content_openThisContentInTarget__WEBPACK_IMPORTED_MODULE_3__["default"])(course, parentCourse); }));
-        }
-    });
+async function addDevButton(header, course) {
+    const parentCourse = await course.getParentCourse();
+    if (parentCourse) {
+        const parentBtn = document.createElement('btn');
+        parentBtn.classList.add('btn');
+        parentBtn.innerHTML = "DEV";
+        parentBtn.title = "Open the dev version of this course";
+        header === null || header === void 0 ? void 0 : header.append(parentBtn);
+        parentBtn.addEventListener('click', async () => await (0,_canvas_content_openThisContentInTarget__WEBPACK_IMPORTED_MODULE_3__["default"])(course, parentCourse));
+    }
 }
-function addBpButton(header, currentCourse, currentBp) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const rootDiv = document.createElement('div');
-        header.append(rootDiv);
-        const bpButtonRoot = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(rootDiv);
-        bpButtonRoot.render((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_course_BpButton__WEBPACK_IMPORTED_MODULE_5__.BpButton, { course: currentCourse, currentBp: currentBp }));
-    });
+async function addBpButton(header, currentCourse, currentBp) {
+    const rootDiv = document.createElement('div');
+    header.append(rootDiv);
+    const bpButtonRoot = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(rootDiv);
+    bpButtonRoot.render((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_course_BpButton__WEBPACK_IMPORTED_MODULE_5__.BpButton, { course: currentCourse, currentBp: currentBp }));
 }
-function addOpenAllLinksButton(header, currentContentItem) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let btn = document.createElement('btn');
-        btn.classList.add('btn');
-        btn.innerHTML = "Links";
-        btn.title = "Open all links in the content of this page into their own tabs.";
-        header.append(btn);
-        if (!currentContentItem)
-            return;
-        btn.addEventListener('click', () => {
-            openContentFiles(currentContentItem);
-            openContentExternalLinks(currentContentItem);
-        });
-        return btn;
+async function addOpenAllLinksButton(header, currentContentItem) {
+    const btn = document.createElement('btn');
+    btn.classList.add('btn');
+    btn.innerHTML = "Links";
+    btn.title = "Open all links in the content of this page into their own tabs.";
+    header.append(btn);
+    if (!currentContentItem)
+        return;
+    btn.addEventListener('click', () => {
+        openContentFiles(currentContentItem);
+        openContentExternalLinks(currentContentItem);
     });
+    return btn;
 }
 function openContentFiles(contentItem) {
     if (!contentItem.body)
         return;
     const urls = new Set((0,_canvas_content_getContentFuncs__WEBPACK_IMPORTED_MODULE_6__.getFileLinks)(contentItem.body, contentItem.courseId));
-    for (let url of urls)
+    for (const url of urls)
         window.open(url, "_blank");
 }
 function openContentExternalLinks(contentItem) {
     if (!contentItem.body)
         return;
     const urls = new Set((0,_canvas_content_getContentFuncs__WEBPACK_IMPORTED_MODULE_6__.getExternalLinks)(contentItem.body, contentItem.courseId));
-    for (let url of urls)
+    for (const url of urls)
         window.open(url, "_blank");
 }
 function addHighlightBigImageResizer(currentContentItem) {
@@ -43910,50 +43395,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _canvas_content_determineContent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/content/determineContent */ "./src/canvas/content/determineContent.ts");
 /* harmony import */ var _ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/ui/course/addButtons */ "./src/ui/course/addButtons.tsx");
 /* harmony import */ var _canvas_course__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/course */ "./src/canvas/course/index.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
 
-function main() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const currentCourse = yield _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__.Course.getFromUrl(document.documentURI);
-        let CurrentContentClass = (0,_canvas_content_determineContent__WEBPACK_IMPORTED_MODULE_1__.getContentClassFromUrl)(document.documentURI);
-        let currentContentItem = yield (CurrentContentClass === null || CurrentContentClass === void 0 ? void 0 : CurrentContentClass.getFromUrl());
-        if (!CurrentContentClass && /courses\/\d+/.test(document.URL)) {
-            currentContentItem = yield (currentCourse === null || currentCourse === void 0 ? void 0 : currentCourse.getFrontPage());
-        }
-        if (!currentCourse)
-            return;
-        let header = document.querySelector('.right-of-crumbs');
-        if (!header)
-            return;
-        let bp;
-        yield (0,_ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__.addDevButton)(header, currentCourse);
-        bp = currentCourse.isBlueprint() ? currentCourse : yield (0,_canvas_course__WEBPACK_IMPORTED_MODULE_3__.getSingleCourse)('BP_' + currentCourse.baseCode, currentCourse.getAccountIds());
-        if (bp) {
-            yield (0,_ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__.addBpButton)(header, currentCourse, bp);
-            yield (0,_ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__.addSectionsButton)(header, bp, currentCourse);
-        }
-        if (currentContentItem) {
-            yield (0,_ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__.addOpenAllLinksButton)(header, currentContentItem);
-            (0,_ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__.addHighlightBigImageResizer)(currentContentItem);
-        }
-        const homeTileHost = document.querySelector('#Modules-anchor');
-        if (homeTileHost) {
-            const buttonHolder = document.createElement('div');
-            homeTileHost.append(buttonHolder);
-            (0,_ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__.addHomeTileButton)(buttonHolder, currentCourse);
-        }
-    });
+async function main() {
+    const currentCourse = await _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__.Course.getFromUrl(document.documentURI);
+    const CurrentContentClass = (0,_canvas_content_determineContent__WEBPACK_IMPORTED_MODULE_1__.getContentClassFromUrl)(document.documentURI);
+    let currentContentItem = await (CurrentContentClass === null || CurrentContentClass === void 0 ? void 0 : CurrentContentClass.getFromUrl());
+    if (!CurrentContentClass && /courses\/\d+/.test(document.URL)) {
+        currentContentItem = await (currentCourse === null || currentCourse === void 0 ? void 0 : currentCourse.getFrontPage());
+    }
+    if (!currentCourse)
+        return;
+    const header = document.querySelector('.right-of-crumbs');
+    if (!header)
+        return;
+    await (0,_ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__.addDevButton)(header, currentCourse);
+    const bp = currentCourse.isBlueprint() ? currentCourse : await (0,_canvas_course__WEBPACK_IMPORTED_MODULE_3__.getSingleCourse)('BP_' + currentCourse.baseCode, currentCourse.getAccountIds());
+    if (bp) {
+        await (0,_ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__.addBpButton)(header, currentCourse, bp);
+        await (0,_ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__.addSectionsButton)(header, bp, currentCourse);
+    }
+    if (currentContentItem) {
+        await (0,_ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__.addOpenAllLinksButton)(header, currentContentItem);
+        (0,_ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__.addHighlightBigImageResizer)(currentContentItem);
+    }
+    const homeTileHost = document.querySelector('#Modules-anchor');
+    if (homeTileHost) {
+        const buttonHolder = document.createElement('div');
+        homeTileHost.append(buttonHolder);
+        (0,_ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__.addHomeTileButton)(buttonHolder, currentCourse);
+    }
 }
 
 
@@ -43980,7 +43453,7 @@ __webpack_require__.r(__webpack_exports__);
  * @param action
  */
 function listLutDispatcher(state, action) {
-    let outputState = Object.assign({}, state);
+    let outputState = { ...state };
     //Handle clear first as there are more cases where one would want to
     // clear while setting a new state than there are cases where one
     // would want to add and then immediately remove the added items
@@ -43997,22 +43470,22 @@ function listLutDispatcher(state, action) {
 function handleCollectionLutAdd(state, additions) {
     if (!state)
         state = {};
-    let returnValue = Object.assign({}, state);
+    let returnValue = { ...state };
     function updateState(state, key, values) {
         const previousValue = state[key] || [];
-        return Object.assign(Object.assign({}, state), { [key]: [...previousValue, ...values].filter(_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.filterUniqueFunc) });
+        return { ...state, [key]: [...previousValue, ...values].filter(_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.filterUniqueFunc) };
     }
     if (Array.isArray(additions)) {
         const [key, values] = additions;
         return updateState(state, key, values);
     }
-    for (let key in additions) {
+    for (const key in additions) {
         returnValue = updateState(returnValue, key, additions[key]);
     }
     return returnValue;
 }
 function lutDispatcher(state, action) {
-    let output = Object.assign({}, state);
+    let output = { ...state };
     if (action.clear)
         output = {};
     output = handleLutSet(output, action.set);
@@ -44021,9 +43494,9 @@ function lutDispatcher(state, action) {
 function handleLutSet(state, set) {
     if (Array.isArray(set)) {
         const [key, value] = set;
-        return Object.assign(Object.assign({}, state), { [key]: value });
+        return { ...state, [key]: value };
     }
-    return Object.assign(Object.assign({}, state), set);
+    return { ...state, ...set };
 }
 function listDispatcher(state, action) {
     const { clear } = action;
@@ -44484,7 +43957,7 @@ exports.isAnyArrayBuffer = isAnyArrayBuffer;
   \***********************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
+/* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -51087,7 +50560,7 @@ let ys;
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";
 /*!*********************************!*\

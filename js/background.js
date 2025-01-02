@@ -8,7 +8,7 @@
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
+/* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
 // Currently in sync with Node.js lib/assert.js
 // https://github.com/nodejs/node/commit/2a51ae424a513ec9a6aa3466baa0cc1d55dd4f3b
 
@@ -609,7 +609,7 @@ assert.strict.strict = assert.strict;
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
+/* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
 // Currently in sync with Node.js lib/internal/assert/assertion_error.js
 // https://github.com/nodejs/node/commit/0817840f775032169ddd70c85ac059f18ffcc81c
 
@@ -3986,56 +3986,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
-function getResizedBlob(src_1, width_1) {
-    return __awaiter(this, arguments, void 0, function* (src, width, height = undefined) {
-        let imageSrc = yield contentDownloadImage(src);
-        let canvas = document.createElement('canvas');
-        let image = new Image();
-        image.src = imageSrc;
-        let ctx = canvas.getContext('2d');
-        return new Promise((resolve) => {
-            image.onload = () => {
-                height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
-                assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
-                console.log(image.src);
-                canvas.width = width;
-                canvas.height = height;
-                ctx.drawImage(image, 0, 0, width, height);
-                canvas.toBlob(resolve);
-            };
-        });
+async function getResizedBlob(src, width, height = undefined) {
+    const imageSrc = await contentDownloadImage(src);
+    const canvas = document.createElement('canvas');
+    const image = new Image();
+    image.src = imageSrc;
+    const ctx = canvas.getContext('2d');
+    return new Promise((resolve) => {
+        image.onload = () => {
+            height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
+            assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
+            console.log(image.src);
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(image, 0, 0, width, height);
+            canvas.toBlob(resolve);
+        };
     });
 }
-function contentDownloadImage(src) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const base64 = yield webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.sendMessage({ downloadImage: src });
-        return base64;
-    });
+async function contentDownloadImage(src) {
+    const base64 = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.sendMessage({ downloadImage: src });
+    return base64;
 }
 function backgroundDownloadImage(src) {
     //if(!height) height = src.height / src.width * width;
     const imageUrl = src;
-    return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {
-        const imageFileResponse = yield fetch(imageUrl);
-        let reader = new FileReader();
+    return new Promise(async (resolve) => {
+        const imageFileResponse = await fetch(imageUrl);
+        const reader = new FileReader();
         reader.onload = event => {
             console.log(reader.result);
             resolve(reader.result);
         };
-        const blob = yield imageFileResponse.blob();
+        const blob = await imageFileResponse.blob();
         reader.readAsDataURL(blob);
-    }));
+    });
 }
 
 
@@ -4407,7 +4394,7 @@ exports.isAnyArrayBuffer = isAnyArrayBuffer;
   \***********************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
+/* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -6637,7 +6624,7 @@ module.exports = function availableTypedArrays() {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";
 /*!*********************************!*\
@@ -6648,32 +6635,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _canvas_image__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../canvas/image */ "./src/canvas/image.ts");
 // drawing from https://hackernoon.com/how-to-create-a-chrome-extension-with-react
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 const messageHandlers = {
-    searchForCourse: (queryString) => __awaiter(void 0, void 0, void 0, function* () {
-        const activeTab = yield getActiveTab();
+    searchForCourse: async (queryString) => {
+        const activeTab = await getActiveTab();
         if (!(activeTab === null || activeTab === void 0 ? void 0 : activeTab.id)) {
             return;
         }
-        yield webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.scripting.executeScript({
+        await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.scripting.executeScript({
             target: { tabId: activeTab.id },
             files: ['./js/content.js']
         });
-        yield webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.sendMessage(activeTab.id, { 'queryString': queryString });
-    }),
+        await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.sendMessage(activeTab.id, { 'queryString': queryString });
+    },
 };
 webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    for (let messageKey in messageHandlers) {
+    for (const messageKey in messageHandlers) {
         if (message.hasOwnProperty(messageKey)) {
             const handler = messageHandlers[messageKey];
             const params = message[messageKey];
@@ -6683,27 +6661,25 @@ webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.onMessage.addListener
 });
 webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.downloadImage) {
-        (() => __awaiter(void 0, void 0, void 0, function* () {
-            let resized = yield (0,_canvas_image__WEBPACK_IMPORTED_MODULE_1__.backgroundDownloadImage)(message.downloadImage);
+        (async () => {
+            const resized = await (0,_canvas_image__WEBPACK_IMPORTED_MODULE_1__.backgroundDownloadImage)(message.downloadImage);
             sendResponse(resized);
-        }))();
+        })();
         return true;
     }
 });
-webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.action.onClicked.addListener((tab) => __awaiter(void 0, void 0, void 0, function* () {
+webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.action.onClicked.addListener(async (tab) => {
     const id = tab.id;
     if (!id) {
         return;
     }
-}));
-function getActiveTab() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const windowTabs = yield webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.query({ lastFocusedWindow: true });
-        const activeTabs = yield webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.query({ active: true });
-        const activeLastWindow = yield webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.query({ active: true, lastFocusedWindow: true });
-        const [tab] = windowTabs.filter(tab => tab.active);
-        return tab;
-    });
+});
+async function getActiveTab() {
+    const windowTabs = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.query({ lastFocusedWindow: true });
+    const activeTabs = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.query({ active: true });
+    const activeLastWindow = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.query({ active: true, lastFocusedWindow: true });
+    const [tab] = windowTabs.filter(tab => tab.active);
+    return tab;
 }
 
 })();

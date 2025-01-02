@@ -8,7 +8,7 @@
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
+/* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
 // Currently in sync with Node.js lib/assert.js
 // https://github.com/nodejs/node/commit/2a51ae424a513ec9a6aa3466baa0cc1d55dd4f3b
 
@@ -609,7 +609,7 @@ assert.strict.strict = assert.strict;
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
+/* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
 // Currently in sync with Node.js lib/internal/assert/assertion_error.js
 // https://github.com/nodejs/node/commit/0817840f775032169ddd70c85ac059f18ffcc81c
 
@@ -3984,22 +3984,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/baseCanvasObject */ "./src/canvas/baseCanvasObject.ts");
 /* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
 /* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
 
 
 
@@ -4007,52 +3991,33 @@ var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
  *  A base class for objects that interact with the Canvas API
  */
 class Account extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
-    static getFromUrl() {
-        return __awaiter(this, arguments, void 0, function* (url = null) {
-            if (url === null) {
-                url = document.documentURI;
-            }
-            let match = /accounts\/(\d+)/.exec(url);
-            if (match) {
-                console.log(match);
-                return yield this.getAccountById(parseInt(match[1]));
-            }
-            return null;
-        });
+    static async getFromUrl(url = null) {
+        if (url === null) {
+            url = document.documentURI;
+        }
+        const match = /accounts\/(\d+)/.exec(url);
+        if (match) {
+            console.log(match);
+            return await this.getAccountById(parseInt(match[1]));
+        }
+        return null;
     }
-    static getAccountById(accountId_1) {
-        return __awaiter(this, arguments, void 0, function* (accountId, config = undefined) {
-            const data = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__.fetchJson)(`/api/v1/accounts/${accountId}`, config);
-            return new Account(data);
-        });
+    static async getAccountById(accountId, config = undefined) {
+        const data = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__.fetchJson)(`/api/v1/accounts/${accountId}`, config);
+        return new Account(data);
     }
-    static getRootAccount() {
-        return __awaiter(this, arguments, void 0, function* (resetCache = false) {
-            var _a, e_1, _b, _c;
-            if (!resetCache && this.hasOwnProperty('account') && this.account) {
-                return this.account;
-            }
-            let accountGen = (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)('/api/v1/accounts');
-            try {
-                for (var _d = true, accountGen_1 = __asyncValues(accountGen), accountGen_1_1; accountGen_1_1 = yield accountGen_1.next(), _a = accountGen_1_1.done, !_a; _d = true) {
-                    _c = accountGen_1_1.value;
-                    _d = false;
-                    let account = _c;
-                    if (account.root_account_id)
-                        continue; //if there is a root_account_id, this is not the root account
-                    const root = new Account(account);
-                    this.account = root;
-                    return root;
-                }
-            }
-            catch (e_1_1) { e_1 = { error: e_1_1 }; }
-            finally {
-                try {
-                    if (!_d && !_a && (_b = accountGen_1.return)) yield _b.call(accountGen_1);
-                }
-                finally { if (e_1) throw e_1.error; }
-            }
-        });
+    static async getRootAccount(resetCache = false) {
+        if (!resetCache && this.hasOwnProperty('account') && this.account) {
+            return this.account;
+        }
+        const accountGen = (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)('/api/v1/accounts');
+        for await (const account of accountGen) {
+            if (account.root_account_id)
+                continue; //if there is a root_account_id, this is not the root account
+            const root = new Account(account);
+            this.account = root;
+            return root;
+        }
     }
     get rootAccountId() {
         return this.canvasData['root_account_id'];
@@ -4088,15 +4053,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
 /* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/fetch/utils */ "./src/canvas/fetch/utils.ts");
 /* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
@@ -4124,7 +4080,7 @@ class BaseCanvasObject {
         return this.myClass.nameProperty;
     }
     get rawData() {
-        return Object.assign({}, this.canvasData);
+        return { ...this.canvasData };
     }
     get contentUrlPath() {
         const constructor = this.constructor;
@@ -4140,13 +4096,11 @@ class BaseCanvasObject {
     get data() {
         return this.canvasData;
     }
-    static getDataById(contentId_1) {
-        return __awaiter(this, arguments, void 0, function* (contentId, courseId = null, config = null) {
-            let url = this.getUrlPathFromIds(contentId, courseId);
-            const response = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
-            assert__WEBPACK_IMPORTED_MODULE_0___default()(!Array.isArray(response));
-            return response;
-        });
+    static async getDataById(contentId, courseId = null, config = null) {
+        const url = this.getUrlPathFromIds(contentId, courseId);
+        const response = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(!Array.isArray(response));
+        return response;
     }
     static getUrlPathFromIds(contentId, courseId) {
         assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.contentUrlTemplate === 'string');
@@ -4169,37 +4123,33 @@ class BaseCanvasObject {
             replaced = replaced.replace('{account_id}', accountId.toString());
         return replaced;
     }
-    static getAll() {
-        return __awaiter(this, arguments, void 0, function* (config = null) {
-            let url = this.getAllUrl();
-            return yield (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.renderAsyncGen)((0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.getPagedDataGenerator)(this.getAllUrl(), config));
-        });
+    static async getAll(config = null) {
+        const url = this.getAllUrl();
+        return await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.renderAsyncGen)((0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.getPagedDataGenerator)(this.getAllUrl(), config));
     }
     get id() {
         const id = this.canvasData[this.constructor.idProperty];
         return parseInt(id);
     }
     get name() {
-        let nameProperty = this.getClass().nameProperty;
+        const nameProperty = this.getClass().nameProperty;
         if (!nameProperty)
             return 'NAME PROPERTY NOT SET';
         return this.getItem(nameProperty);
     }
-    saveData(data, config) {
-        return __awaiter(this, void 0, void 0, function* () {
-            assert__WEBPACK_IMPORTED_MODULE_0___default()(this.contentUrlPath);
-            config = (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_3__.overrideConfig)({
-                fetchInit: {
-                    method: 'PUT',
-                    body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.formDataify)(data)
-                }
-            }, config);
-            let results = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(this.contentUrlPath, config);
-            if (Array.isArray(results))
-                results = results[0];
-            this.canvasData = Object.assign(Object.assign({}, this.canvasData), results);
-            return this.canvasData;
-        });
+    async saveData(data, config) {
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(this.contentUrlPath);
+        config = (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_3__.overrideConfig)({
+            fetchInit: {
+                method: 'PUT',
+                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.formDataify)(data)
+            }
+        }, config);
+        let results = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(this.contentUrlPath, config);
+        if (Array.isArray(results))
+            results = results[0];
+        this.canvasData = { ...this.canvasData, ...results };
+        return this.canvasData;
     }
 }
 BaseCanvasObject.idProperty = 'id'; // The field name of the id of the canvas object type
@@ -4241,35 +4191,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __await = (undefined && undefined.__await) || function (v) { return this instanceof __await ? (this.v = v, this) : new __await(v); }
-var __asyncGenerator = (undefined && undefined.__asyncGenerator) || function (thisArg, _arguments, generator) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var g = generator.apply(thisArg, _arguments || []), i, q = [];
-    return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function () { return this; }, i;
-    function awaitReturn(f) { return function (v) { return Promise.resolve(v).then(f, reject); }; }
-    function verb(n, f) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; if (f) i[n] = f(i[n]); } }
-    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-    function fulfill(value) { resume("next", value); }
-    function reject(value) { resume("throw", value); }
-    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-};
-var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
 
 
 function isWithParamsFunc(func) {
@@ -4280,7 +4201,7 @@ function isWithoutParamsFunc(func) {
 }
 function callAll(funcs, params) {
     const output = [];
-    for (let func of funcs) {
+    for (const func of funcs) {
         if ((typeof func === 'object')) {
             output.push(func.func(func.params));
             continue;
@@ -4323,8 +4244,8 @@ const type_lut = {
     Subheader: null, //Not passable to restrict
 };
 function formDataify(data) {
-    let formData = new FormData();
-    for (let key in data) {
+    const formData = new FormData();
+    for (const key in data) {
         addToFormData(formData, key, data[key]);
     }
     if (document) {
@@ -4349,7 +4270,7 @@ function deepObjectCopy(toCopy, complexObjectsTracker = []) {
     return deepObjectMerge(toCopy, {}, true, complexObjectsTracker);
 }
 function deepObjectMerge(a, b, overrideWithA = false, complexObjectsTracker = []) {
-    for (let value of [a, b]) {
+    for (const value of [a, b]) {
         if (typeof value == "object" &&
             complexObjectsTracker.includes(value))
             throw new Error(`Infinite Loop: Element ${value} contains itself`);
@@ -4368,7 +4289,7 @@ function deepObjectMerge(a, b, overrideWithA = false, complexObjectsTracker = []
         if (!b)
             return deepObjectCopy(a, complexObjectsTracker);
         assert__WEBPACK_IMPORTED_MODULE_0___default()(Array.isArray(b), "We should not get here if b is not an array");
-        let mergedArray = [...a, ...b];
+        const mergedArray = [...a, ...b];
         const outputArray = mergedArray.map(value => {
             if (!value)
                 return value;
@@ -4383,7 +4304,7 @@ function deepObjectMerge(a, b, overrideWithA = false, complexObjectsTracker = []
         return outputArray;
     }
     if (Array.isArray(b))
-        return deepObjectCopy(b, complexObjectsTracker); //we already know a is not an array at this point, return a deep copy of b
+        return deepObjectCopy(b, complexObjectsTracker); //we already know A is not an array at this point, return a deep copy of b
     if ((a && typeof a === 'object') || (b && typeof b === 'object')) {
         if (a instanceof File && b instanceof File) {
             if (!overrideWithA)
@@ -4444,14 +4365,14 @@ function deFormDataify(formData) {
             };
             currentValue = newValue;
         }
-        return deepObjectMerge(aggregator, currentValue) || Object.assign({}, aggregator);
+        return deepObjectMerge(aggregator, currentValue) || { ...aggregator };
     }, {});
 }
 function getCookies() {
     const cookieString = document.cookie;
     const cookies = cookieString.split('; ');
     const out = {};
-    for (let cookie of cookies) {
+    for (const cookie of cookies) {
         const [key, value] = cookie.split('=');
         out[key] = value;
     }
@@ -4465,12 +4386,12 @@ function getCookies() {
  */
 function addToFormData(formData, key, value) {
     if (Array.isArray(value)) {
-        for (let item of value) {
+        for (const item of value) {
             addToFormData(formData, `${key}[]`, item);
         }
     }
     else if (typeof value === 'object') {
-        for (let itemKey in value) {
+        for (const itemKey in value) {
             const itemValue = value[itemKey];
             addToFormData(formData, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
         }
@@ -4480,20 +4401,20 @@ function addToFormData(formData, key, value) {
     }
 }
 function queryStringify(data) {
-    let searchParams = new URLSearchParams();
-    for (let key in data) {
+    const searchParams = new URLSearchParams();
+    for (const key in data) {
         addToQuery(searchParams, key, data[key]);
     }
     return searchParams;
 }
 function addToQuery(searchParams, key, value) {
     if (Array.isArray(value)) {
-        for (let item of value) {
+        for (const item of value) {
             addToQuery(searchParams, `${key}[]`, item);
         }
     }
     else if (typeof value === 'object') {
-        for (let itemKey in value) {
+        for (const itemKey in value) {
             const itemValue = value[itemKey];
             addToQuery(searchParams, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
         }
@@ -4506,22 +4427,20 @@ function addToQuery(searchParams, key, value) {
  * Takes in a module item and returns an object specifying its type and content id
  * @param item
  */
-function getItemTypeAndId(item) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let id;
-        let type;
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(type_lut.hasOwnProperty(item.type), "Unexpected type " + item.type);
-        type = type_lut[item.type];
-        if (type === "wiki_page") {
-            assert__WEBPACK_IMPORTED_MODULE_0___default()(item.url); //wiki_page items always have a url param
-            const pageData = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(item.url);
-            id = pageData.page_id;
-        }
-        else {
-            id = item.content_id;
-        }
-        return { type, id };
-    });
+async function getItemTypeAndId(item) {
+    let id;
+    let type;
+    assert__WEBPACK_IMPORTED_MODULE_0___default()(type_lut.hasOwnProperty(item.type), "Unexpected type " + item.type);
+    type = type_lut[item.type];
+    if (type === "wiki_page") {
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(item.url); //wiki_page items always have a url param
+        const pageData = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(item.url);
+        id = pageData.page_id;
+    }
+    else {
+        id = item.content_id;
+    }
+    return { type, id };
 }
 /**
  * @param queryParams
@@ -4576,69 +4495,36 @@ function batchify(toBatch, batchSize) {
 function filterUniqueFunc(item, index, array) {
     return array.indexOf(item) === index;
 }
-function batchGen(generator, batchSize) {
-    return __asyncGenerator(this, arguments, function* batchGen_1() {
-        if (batchSize <= 0)
-            throw new Error("Batch size cannot be 0 or lower");
-        while (true) {
-            const out = [];
-            for (let i = 0; i < batchSize; i++) {
-                const next = yield __await(generator.next());
-                if (next.done) {
-                    if (out.length > 0)
-                        yield yield __await(out);
-                    return yield __await(void 0);
-                }
-                out.push(next.value);
-            }
-            yield yield __await(out);
-        }
-    });
-}
-function renderAsyncGen(generator) {
-    return __awaiter(this, void 0, void 0, function* () {
-        var _a, generator_1, generator_1_1;
-        var _b, e_1, _c, _d;
+async function* batchGen(generator, batchSize) {
+    if (batchSize <= 0)
+        throw new Error("Batch size cannot be 0 or lower");
+    while (true) {
         const out = [];
-        try {
-            for (_a = true, generator_1 = __asyncValues(generator); generator_1_1 = yield generator_1.next(), _b = generator_1_1.done, !_b; _a = true) {
-                _d = generator_1_1.value;
-                _a = false;
-                let item = _d;
-                out.push(item);
+        for (let i = 0; i < batchSize; i++) {
+            const next = await generator.next();
+            if (next.done) {
+                if (out.length > 0)
+                    yield out;
+                return;
             }
+            out.push(next.value);
         }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (!_a && !_b && (_c = generator_1.return)) yield _c.call(generator_1);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-        return out;
-    });
+        yield out;
+    }
 }
-function generatorMap(generator, nextMapFunc) {
-    return __asyncGenerator(this, arguments, function* generatorMap_1() {
-        var _a, e_2, _b, _c;
-        let i = 0;
-        try {
-            for (var _d = true, generator_2 = __asyncValues(generator), generator_2_1; generator_2_1 = yield __await(generator_2.next()), _a = generator_2_1.done, !_a; _d = true) {
-                _c = generator_2_1.value;
-                _d = false;
-                let value = _c;
-                yield yield __await(nextMapFunc(value, i, generator));
-                i++;
-            }
-        }
-        catch (e_2_1) { e_2 = { error: e_2_1 }; }
-        finally {
-            try {
-                if (!_d && !_a && (_b = generator_2.return)) yield __await(_b.call(generator_2));
-            }
-            finally { if (e_2) throw e_2.error; }
-        }
-    });
+async function renderAsyncGen(generator) {
+    const out = [];
+    for await (const item of generator) {
+        out.push(item);
+    }
+    return out;
+}
+async function* generatorMap(generator, nextMapFunc) {
+    let i = 0;
+    for await (const value of generator) {
+        yield nextMapFunc(value, i, generator);
+        i++;
+    }
 }
 
 
@@ -4655,27 +4541,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   fetchJson: () => (/* binding */ fetchJson)
 /* harmony export */ });
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-function fetchJson(url_1) {
-    return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        const match = url.search(/^(\/|\w+:\/\/)/);
-        if (match < 0)
-            throw new Error("url does not start with / or http");
-        if (config === null || config === void 0 ? void 0 : config.queryParams) {
-            url += '?' + new URLSearchParams(config.queryParams);
-        }
-        config !== null && config !== void 0 ? config : (config = {});
-        const response = yield fetch(url, config.fetchInit);
-        return yield response.json();
-    });
+async function fetchJson(url, config = null) {
+    const match = url.search(/^(\/|\w+:\/\/)/);
+    if (match < 0)
+        throw new Error("url does not start with / or http");
+    if (config === null || config === void 0 ? void 0 : config.queryParams) {
+        url += '?' + new URLSearchParams(config.queryParams);
+    }
+    config !== null && config !== void 0 ? config : (config = {});
+    const response = await fetch(url, config.fetchInit);
+    return await response.json();
 }
 
 
@@ -4695,134 +4570,136 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   mergePagedDataGenerators: () => (/* binding */ mergePagedDataGenerators)
 /* harmony export */ });
 /* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __asyncValues = (undefined && undefined.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
-var __await = (undefined && undefined.__await) || function (v) { return this instanceof __await ? (this.v = v, this) : new __await(v); }
-var __asyncGenerator = (undefined && undefined.__asyncGenerator) || function (thisArg, _arguments, generator) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var g = generator.apply(thisArg, _arguments || []), i, q = [];
-    return i = {}, verb("next"), verb("throw"), verb("return", awaitReturn), i[Symbol.asyncIterator] = function () { return this; }, i;
-    function awaitReturn(f) { return function (v) { return Promise.resolve(v).then(f, reject); }; }
-    function verb(n, f) { if (g[n]) { i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; if (f) i[n] = f(i[n]); } }
-    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-    function fulfill(value) { resume("next", value); }
-    function reject(value) { resume("throw", value); }
-    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-};
 
 /**
  * @param url The entire path of the url
  * @param config a configuration object of type ICanvasCallConfig
  * @returns {Promise<Record<string, any>[]>}
  */
-function getPagedData(url_1) {
-    return __awaiter(this, arguments, void 0, function* (url, config = null) {
-        var _a, e_1, _b, _c;
-        const generator = getPagedDataGenerator(url, config);
-        const out = [];
-        try {
-            for (var _d = true, generator_1 = __asyncValues(generator), generator_1_1; generator_1_1 = yield generator_1.next(), _a = generator_1_1.done, !_a; _d = true) {
-                _c = generator_1_1.value;
-                _d = false;
-                let value = _c;
-                out.push(value);
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (!_d && !_a && (_b = generator_1.return)) yield _b.call(generator_1);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-        return out;
-    });
+async function getPagedData(url, config = null) {
+    const generator = getPagedDataGenerator(url, config);
+    const out = [];
+    for await (const value of generator) {
+        out.push(value);
+    }
+    return out;
 }
 /**
- * returns a single pagedDataGenerator that returns generator results from each, looping through results for each
- * @param generators
+ * Merges multiple asynchronous paginated data generators into a single generator.
+ *
+ * This function combines the results of multiple paginated data generators into a unified stream. Each generator
+ * is processed sequentially, and its results are yielded one by one as they become available. This allows for
+ * easy handling of multiple paginated API requests or data sources in parallel without needing to collect all
+ * results in memory at once.
+ *
+ * The function is particularly useful when dealing with multiple sources of paginated data (e.g., multiple API
+ * endpoints) that need to be processed as one continuous stream of results, without waiting for all pages from one
+ * source to finish before beginning to process the next.
+ *
+ * @template T - A type parameter that extends `CanvasData`, ensuring that the data being yielded is in a format consistent
+ *               with Canvas API data structures.
+ * @param {AsyncGenerator<T, T[], void>[]} generators - An array of asynchronous generators, each of which yields paginated
+ *               results of type `T`. These could represent different paginated data sources that are combined into a single stream.
+ *
+ * @yields {T} - The function yields items of type `T` as they are retrieved from each generator in sequence.
+ *
+ * @example
+ * // Example usage combining two paginated API responses into a single data stream
+ * const generator1 = fetchPagedDataFromSource1();
+ * const generator2 = fetchPagedDataFromSource2();
+ *
+ * for await (const data of mergePagedDataGenerators([generator1, generator2])) {
+ *     console.log(data); // Process each item from both generators as a single stream
+ * }
+ *
  */
-function mergePagedDataGenerators(generators) {
-    return __asyncGenerator(this, arguments, function* mergePagedDataGenerators_1() {
-        var _a, e_2, _b, _c;
-        for (let generator of generators) {
-            try {
-                for (var _d = true, generator_2 = (e_2 = void 0, __asyncValues(generator)), generator_2_1; generator_2_1 = yield __await(generator_2.next()), _a = generator_2_1.done, !_a; _d = true) {
-                    _c = generator_2_1.value;
-                    _d = false;
-                    let result = _c;
-                    yield yield __await(result);
-                }
-            }
-            catch (e_2_1) { e_2 = { error: e_2_1 }; }
-            finally {
-                try {
-                    if (!_d && !_a && (_b = generator_2.return)) yield __await(_b.call(generator_2));
-                }
-                finally { if (e_2) throw e_2.error; }
-            }
+async function* mergePagedDataGenerators(generators) {
+    for (const generator of generators) {
+        for await (const result of generator) {
+            yield result;
         }
-    });
+    }
 }
+/**
+ * Handles the response data from a Canvas API call, normalizing it into an array of `CanvasData` objects.
+ *
+ * This function accepts various formats of the data (single object, array of objects, or a keyed object containing arrays of objects),
+ * and ensures the result is always an array. If no valid array is found, it returns an empty array and logs a warning.
+ *
+ * @template T - A type that extends `CanvasData`.
+ * @param {T | T[] | { [key: string]: T[] }} data - The response data to process. This can be a single object, an array of objects,
+ *        or a keyed object where the values are arrays of objects.
+ * @param {string} url - The URL from which the data was retrieved, used for logging purposes if no valid data is found.
+ * @returns {T[]} An array of `CanvasData` objects, or an empty array if no valid array of data is present.
+ */
 function handleResponseData(data, url) {
-    if (data !== null && typeof data === 'object' && !Array.isArray(data)) {
-        let values = Array.from(Object.values(data));
+    if (typeof data === 'undefined' || data == null) {
+        console.warn(`no data found for ${url}`);
+        return [];
+    }
+    if (typeof data === 'object' && !Array.isArray(data)) {
+        const values = Array.from(Object.values(data));
         if (values) {
             data = values.find((a) => Array.isArray(a));
         }
     }
     if (!Array.isArray(data)) {
-        console.warn(`no data for ${url}`);
+        console.warn(`No valid data found for ${url}`);
         return [];
     }
     return data;
 }
-function getPagedDataGenerator(url_1) {
-    return __asyncGenerator(this, arguments, function* getPagedDataGenerator_1(url, config = null) {
-        if (config === null || config === void 0 ? void 0 : config.queryParams) {
-            url += '?' + (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.searchParamsFromObject)(config.queryParams);
+/**
+ * Async generator function that retrieves paged data from a Canvas API endpoint.
+ * It sends HTTP GET requests to the provided URL, processes the results, and iterates
+ * through all pages of data, yielding each individual item.
+ *
+ * The generator automatically handles pagination by examining the 'Link' header
+ * returned in each response and fetching the next page as long as a 'next' link is available.
+ *
+ * @template T - A generic type parameter extending CanvasData to represent the structure of the data.
+ * @param {string} url - The full URL for the API request. If the `queryParams` option is provided in the config, it appends the query parameters to the URL.
+ * @param {ICanvasCallConfig | null} [config=null] - Optional configuration object for the request, including query parameters and additional fetch options like headers.
+ * @yields {T} - Yields individual items of the retrieved data from each page, one at a time.
+ *
+ * @throws {Error} - If the request fails or the URL contains "undefined", a warning is logged to the console.
+ *
+ * @example
+ * ```
+ * const generator = getPagedDataGenerator<MyDataType>('https://canvas.example.com/api/data', config);
+ * for await (const item of generator) {
+ *     console.log(item);  // Handle each item individually
+ * }
+ * ```
+ */
+async function* getPagedDataGenerator(url, config = null) {
+    if (config === null || config === void 0 ? void 0 : config.queryParams) {
+        url += '?' + (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.searchParamsFromObject)(config.queryParams);
+    }
+    if (url.includes('undefined')) {
+        console.warn(url);
+    }
+    /* Returns a list of data from a GET request, going through multiple pages of data requests as necessary */
+    let response = await fetch(url, config === null || config === void 0 ? void 0 : config.fetchInit);
+    const data = handleResponseData(await response.json(), url);
+    if (data.length === 0)
+        return data;
+    for (const value of data)
+        yield value;
+    let next_page_link = "!";
+    while (next_page_link.length !== 0 &&
+        response &&
+        response.ok) {
+        const nextLink = getNextLink(response);
+        if (!nextLink)
+            break;
+        next_page_link = nextLink.split(";")[0].split("<")[1].split(">")[0];
+        response = await fetch(next_page_link, config === null || config === void 0 ? void 0 : config.fetchInit);
+        const responseData = handleResponseData(await response.json(), url);
+        for (const value of responseData) {
+            yield value;
         }
-        if (url.includes('undefined')) {
-            console.warn(url);
-        }
-        /* Returns a list of data from a GET request, going through multiple pages of data requests as necessary */
-        let response = yield __await(fetch(url, config === null || config === void 0 ? void 0 : config.fetchInit));
-        let data = handleResponseData(yield __await(response.json()), url);
-        if (data.length === 0)
-            return yield __await(data);
-        for (let value of data)
-            yield yield __await(value);
-        let next_page_link = "!";
-        while (next_page_link.length !== 0 &&
-            response &&
-            response.ok) {
-            const nextLink = getNextLink(response);
-            if (!nextLink)
-                break;
-            next_page_link = nextLink.split(";")[0].split("<")[1].split(">")[0];
-            response = yield __await(fetch(next_page_link, config === null || config === void 0 ? void 0 : config.fetchInit));
-            let responseData = handleResponseData(yield __await(response.json()), url);
-            data = [data, ...responseData];
-            for (let value of responseData) {
-                yield yield __await(value);
-            }
-        }
-    });
+    }
 }
 function getNextLink(response) {
     const link = response.headers.get("Link");
@@ -4879,77 +4756,60 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
 /* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
 
 
 class Term extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
-    static getTerm(code_1) {
-        return __awaiter(this, arguments, void 0, function* (code, workflowState = 'all', config = undefined) {
-            const terms = yield this.searchTerms(code, workflowState, config);
-            if (!Array.isArray(terms) || terms.length <= 0) {
-                return null;
-            }
-            return terms[0];
-        });
-    }
-    static getTermById(termId_1) {
-        return __awaiter(this, arguments, void 0, function* (termId, config = null) {
-            let account = yield _canvas_Account__WEBPACK_IMPORTED_MODULE_1__.Account.getRootAccount();
-            if (!account)
-                throw new _canvas_Account__WEBPACK_IMPORTED_MODULE_1__.RootAccountNotFoundError();
-            let url = `/api/v1/accounts/${account.id}/terms/${termId}`;
-            let termData = yield (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
-            if (termData)
-                return new Term(termData);
+    static async getTerm(code, workflowState = 'all', config = undefined) {
+        const terms = await this.searchTerms(code, workflowState, config);
+        if (!Array.isArray(terms) || terms.length <= 0) {
             return null;
-        });
+        }
+        return terms[0];
     }
-    static getAllActiveTerms() {
-        return __awaiter(this, arguments, void 0, function* (config = null) {
-            return yield this.searchTerms(null, 'active', config);
-        });
+    static async getTermById(termId, config = null) {
+        const account = await _canvas_Account__WEBPACK_IMPORTED_MODULE_1__.Account.getRootAccount();
+        if (!account)
+            throw new _canvas_Account__WEBPACK_IMPORTED_MODULE_1__.RootAccountNotFoundError();
+        const url = `/api/v1/accounts/${account.id}/terms/${termId}`;
+        const termData = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
+        if (termData)
+            return new Term(termData);
+        return null;
     }
-    static searchTerms() {
-        return __awaiter(this, arguments, void 0, function* (code = null, workflowState = 'all', config = null) {
-            config = config || {};
-            config.queryParams = config.queryParams || {};
-            let queryParams = config.queryParams;
-            if (workflowState)
-                queryParams['workflow_state'] = workflowState;
-            if (code)
-                queryParams['term_name'] = code;
-            let rootAccount = yield _canvas_Account__WEBPACK_IMPORTED_MODULE_1__.Account.getRootAccount();
-            assert__WEBPACK_IMPORTED_MODULE_2___default()(rootAccount);
-            let url = `/api/v1/accounts/${rootAccount.id}/terms`;
-            const data = yield (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedData)(url, config);
-            let terms = [];
-            for (let datum of data) {
-                if (datum.hasOwnProperty('enrollment_terms')) {
-                    for (let termData of datum['enrollment_terms']) {
-                        terms.push(termData);
-                    }
-                }
-                else {
-                    terms.push(datum);
+    static async getAllActiveTerms(config = null) {
+        return await this.searchTerms(null, 'active', config);
+    }
+    static async searchTerms(code = null, workflowState = 'all', config = null) {
+        config = config || {};
+        config.queryParams = config.queryParams || {};
+        const queryParams = config.queryParams;
+        if (workflowState)
+            queryParams['workflow_state'] = workflowState;
+        if (code)
+            queryParams['term_name'] = code;
+        const rootAccount = await _canvas_Account__WEBPACK_IMPORTED_MODULE_1__.Account.getRootAccount();
+        assert__WEBPACK_IMPORTED_MODULE_2___default()(rootAccount);
+        const url = `/api/v1/accounts/${rootAccount.id}/terms`;
+        const data = await (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedData)(url, config);
+        const terms = [];
+        for (const datum of data) {
+            if (datum.hasOwnProperty('enrollment_terms')) {
+                for (const termData of datum['enrollment_terms']) {
+                    terms.push(termData);
                 }
             }
-            console.log(terms);
-            if (!terms || terms.length === 0) {
-                return null;
+            else {
+                terms.push(datum);
             }
-            return terms.map(term => new Term(term));
-        });
+        }
+        console.log(terms);
+        if (!terms || terms.length === 0) {
+            return null;
+        }
+        return terms.map(term => new Term(term));
     }
 }
 Term.nameProperty = "name";
@@ -5323,7 +5183,7 @@ exports.isAnyArrayBuffer = isAnyArrayBuffer;
   \***********************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
+/* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -6279,7 +6139,7 @@ module.exports = function availableTypedArrays() {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";
 /*!*********************************!*\
@@ -6289,25 +6149,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _canvas_term_Term__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/term/Term */ "./src/canvas/term/Term.ts");
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
-(() => __awaiter(void 0, void 0, void 0, function* () {
+(async () => {
     //const account = await Account.getFromUrl()
-    const activeTerms = yield _canvas_term_Term__WEBPACK_IMPORTED_MODULE_1__.Term.getAllActiveTerms();
+    const activeTerms = await _canvas_term_Term__WEBPACK_IMPORTED_MODULE_1__.Term.getAllActiveTerms();
     assert__WEBPACK_IMPORTED_MODULE_0___default()(activeTerms);
-    let gradTerm = activeTerms.find((term) => term.name.search(/DE8W/));
-    let ugTerm = activeTerms.find((term) => term.name.search(/DE(\/?HL)?-\s{3}-\d+-\d+/));
-    let termEl = document.getElementById('termFilter');
-}))();
+    const gradTerm = activeTerms.find((term) => term.name.search(/DE8W/));
+    const ugTerm = activeTerms.find((term) => term.name.search(/DE(\/?HL)?-\s{3}-\d+-\d+/));
+    const termEl = document.getElementById('termFilter');
+})();
 
 })();
 

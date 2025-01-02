@@ -2,8 +2,7 @@
   "manifest_version": 3,
   "name": "LXD Browser Extension REACT version",
   "description": "Shortcuts including search by code.",
-  "version": "7",
-  "version_name" : "7 beta",
+  "version": "2.7.8.8",
   "action": {
     "default_popup": "popup.html",
     "default_title": "LXD Tools"
