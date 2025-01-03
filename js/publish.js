@@ -88086,19 +88086,19 @@ const addApaNoteToGradingPoliciesTest = {
     run: runApaNote,
     fix: fixApaNote,
 };
-const goodAiLanguage = 'In this course, you may be asked to use or encouraged to explore employing generative AI tools ' +
-    'to improve your understanding of course content. ' +
-    'Potentially permitted uses of generative AI are detailed in the above policy.';
-const runAiGenLang = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.inSyllabusSectionFunc)(/using generative artificial/i, /potentially permitted uses of generative ai/i);
-const fixAiGenLang = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.addSyllabusSectionFix)(runAiGenLang, (0,_testing_DomUtils__WEBPACK_IMPORTED_MODULE_2__.paraify)(goodAiLanguage), _utils__WEBPACK_IMPORTED_MODULE_1__.AddPosition.AtEnd);
+const badAiLanguage = 'n this course, you may be encouraged to explore';
+const badAiRegex = /n this course,? you may be encouraged to explore/ig;
+const goodAiLanguage = 'n this course, you may be asked to use or encouraged to explore';
 const addAiGenerativeLanguageTest = {
     name: "Add AI generative Language",
+    description: `Add the following language to the generative ai section: ${goodAiLanguage}`,
     beforeAndAfters: [
-        (0,_testing_DomUtils__WEBPACK_IMPORTED_MODULE_2__.beforeAndAfterSet)('Using Generative Artificial Intelligence', ['control'], ['control', goodAiLanguage])
+        [badAiLanguage, goodAiLanguage],
+        [`<p>${badAiLanguage}</p>`, `<p>${goodAiLanguage}</p>`],
+        [`<p>abcd${badAiLanguage}efg</p>`, `<p>abcd${goodAiLanguage}efg</p>`],
     ],
-    description: `Add the following ,language to the generative ai section: ${goodAiLanguage}`,
-    run: runAiGenLang,
-    fix: fixAiGenLang,
+    run: (0,_utils__WEBPACK_IMPORTED_MODULE_1__.badSyllabusRunFunc)(badAiRegex),
+    fix: (0,_utils__WEBPACK_IMPORTED_MODULE_1__.badSyllabusFixFunc)(badAiRegex, goodAiLanguage)
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ([
     addAiGenerativeLanguageTest,
@@ -88285,6 +88285,8 @@ function badContentRunFunc(badTest, contentFunc) {
     };
 }
 function badSyllabusRunFunc(badTest) {
+    if (!badTest.global)
+        badTest = new RegExp(badTest, 'g');
     return async (course) => {
         const syllabus = await course.getSyllabus();
         const match = syllabus.match(badTest);
@@ -89481,6 +89483,120 @@ function AssignmentGroups({ assignmentGroups }) {
 
 /***/ }),
 
+/***/ "./src/publish/publishInterface/videoUpdater/data/actions/beginMigration.ts":
+/*!**********************************************************************************!*\
+  !*** ./src/publish/publishInterface/videoUpdater/data/actions/beginMigration.ts ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   beginMigration: () => (/* binding */ beginMigration)
+/* harmony export */ });
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs");
+/* harmony import */ var _publish_publishInterface_videoUpdater_data_kalturaMigrationsSlice__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @publish/publishInterface/videoUpdater/data/kalturaMigrationsSlice */ "./src/publish/publishInterface/videoUpdater/data/kalturaMigrationsSlice.tsx");
+
+
+const beginMigration = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncThunk)('kaltura/collectMigrationDetails', async ({ courseId }, { dispatch, getState }) => {
+    const state = getState();
+    const existingMigrations = state.kaltura.migrations;
+    const existingMigration = existingMigrations[courseId.toString()];
+    if (!existingMigration) {
+        // Create a new migration entry if it doesn't exist
+        const newMigration = {
+            id: courseId.toString(),
+            courseId,
+            shortName: 'Migration for Course ' + courseId,
+            status: 'pending',
+            progress: 0,
+            startTime: new Date().toISOString(),
+            sourceUrl: '', // Populate as needed
+            contentId: courseId, // Use courseId as contentId for simplicity
+            contentType: 'Page', // Default; adjust based on context
+            videosToProcess: [], // Will populate during scanning
+            processedVideos: [], // Initially empty
+            additionalInfo: '',
+        };
+        dispatch((0,_publish_publishInterface_videoUpdater_data_kalturaMigrationsSlice__WEBPACK_IMPORTED_MODULE_0__.addMigration)(newMigration));
+    }
+    else {
+        // If migration exists, update its status and load links
+        dispatch((0,_publish_publishInterface_videoUpdater_data_kalturaMigrationsSlice__WEBPACK_IMPORTED_MODULE_0__.updateMigration)({ ...existingMigration, status: 'pending' }));
+    }
+    // Perform the scanning logic to find videos
+    const videosToProcess = await scanForLinks(courseId); // Scan for links
+    if (videosToProcess.length === 0) {
+        // If no videos found, update the status to 'not needed'
+        dispatch((0,_publish_publishInterface_videoUpdater_data_kalturaMigrationsSlice__WEBPACK_IMPORTED_MODULE_0__.updateMigration)({ ...existingMigration, status: 'not needed' }));
+    }
+    else {
+        // Process the found videos and update the migration state
+        dispatch((0,_publish_publishInterface_videoUpdater_data_kalturaMigrationsSlice__WEBPACK_IMPORTED_MODULE_0__.updateMigration)({ ...existingMigration, videosToProcess }));
+    }
+});
+// Function to scan for Canvas Studio links in a given course's page
+async function scanForLinks(courseId) {
+    const videosToProcess = [];
+    // Assuming `document.body` contains the HTML we need to scan
+    const iframes = document.querySelectorAll('iframe');
+    const anchors = document.querySelectorAll('a');
+    // Check iframes for Canvas Studio content
+    iframes.forEach(iframe => {
+        const src = iframe.src;
+        if (src.includes('canvasstudio')) { // Replace with actual identifier for Canvas Studio
+            const videoId = extractCanvasStudioId(src); // Implement this function to extract the video ID
+            const elementHtml = iframe.outerHTML; // Save the HTML of the iframe
+            videosToProcess.push({
+                id: generateUniqueId(), // Implement a unique ID generation function
+                canvasStudioId: videoId,
+                contentId: courseId, // Assuming this relates to the course
+                courseId,
+                contentType: 'Page', // Or 'Assignment', as applicable
+                elementHtml,
+                title: 'Video Title', // Replace with actual title extraction
+                description: 'Video Description', // Replace with actual description extraction
+                // Optional fields
+                transcript: undefined,
+                srt: undefined,
+            });
+        }
+    });
+    // Check anchor tags for Canvas Studio links
+    anchors.forEach(anchor => {
+        const href = anchor.href;
+        if (href.includes('canvasstudio')) {
+            const videoId = extractCanvasStudioId(href); // Implement this function to extract the video ID
+            videosToProcess.push({
+                id: generateUniqueId(),
+                canvasStudioId: videoId,
+                contentId: courseId,
+                courseId,
+                contentType: 'Assignment', // Assuming links are to assignments; adjust if needed
+                elementHtml: anchor.outerHTML,
+                title: anchor.innerText, // Use the link text as the title
+                description: 'Video Description', // You might want to add logic for actual descriptions
+                // Optional fields
+                transcript: undefined,
+                srt: undefined,
+            });
+        }
+    });
+    return videosToProcess;
+}
+// Dummy function to generate unique IDs; implement as needed
+function generateUniqueId() {
+    return 'video-' + Math.random().toString(36).substr(2, 9);
+}
+// Dummy function to extract Canvas Studio ID from the URL; implement as needed
+function extractCanvasStudioId(url) {
+    const matches = url.match(/canvasstudio\/(\w+)/);
+    return matches ? matches[1] : 'unknown';
+}
+
+
+/***/ }),
+
 /***/ "./src/publish/publishInterface/videoUpdater/data/kalturaMigrationsSlice.tsx":
 /*!***********************************************************************************!*\
   !*** ./src/publish/publishInterface/videoUpdater/data/kalturaMigrationsSlice.tsx ***!
@@ -89490,7 +89606,6 @@ function AssignmentGroups({ assignmentGroups }) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   abortMigration: () => (/* binding */ abortMigration),
 /* harmony export */   addMigration: () => (/* binding */ addMigration),
 /* harmony export */   kalturaMigrationsReducer: () => (/* binding */ kalturaMigrationsReducer),
 /* harmony export */   kalturaMigrationsSlice: () => (/* binding */ kalturaMigrationsSlice),
@@ -89498,14 +89613,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   migrationFailed: () => (/* binding */ migrationFailed),
 /* harmony export */   migrationSucceeded: () => (/* binding */ migrationSucceeded),
 /* harmony export */   resetKalturaState: () => (/* binding */ resetKalturaState),
-/* harmony export */   resetMigrationStatus: () => (/* binding */ resetMigrationStatus),
 /* harmony export */   saveMigrationsToLocalStorage: () => (/* binding */ saveMigrationsToLocalStorage),
 /* harmony export */   selectKalturaStatus: () => (/* binding */ selectKalturaStatus),
-/* harmony export */   setMigrationStatus: () => (/* binding */ setMigrationStatus),
 /* harmony export */   updateMigration: () => (/* binding */ updateMigration)
 /* harmony export */ });
-/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs");
-/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/reselect/dist/reselect.mjs");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/reselect/dist/reselect.mjs");
+/* harmony import */ var _publish_publishInterface_videoUpdater_data_actions_beginMigration__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @publish/publishInterface/videoUpdater/data/actions/beginMigration */ "./src/publish/publishInterface/videoUpdater/data/actions/beginMigration.ts");
+
 
 // Define the initial state for migrations
 const initialState = {
@@ -89515,9 +89630,14 @@ const initialState = {
     status: 'idle',
 };
 // Create a slice for Kaltura migrations
-const kalturaMigrationsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
+const kalturaMigrationsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createSlice)({
     name: 'kaltura',
     initialState,
+    extraReducers: (builder) => builder
+        .addCase(_publish_publishInterface_videoUpdater_data_actions_beginMigration__WEBPACK_IMPORTED_MODULE_0__.beginMigration.pending, (state, action) => {
+    })
+        .addCase(_publish_publishInterface_videoUpdater_data_actions_beginMigration__WEBPACK_IMPORTED_MODULE_0__.beginMigration.fulfilled, (state, action) => {
+    }),
     reducers: {
         migrationSucceeded(state, action) {
             state.migrations[action.payload.id] = action.payload; // Store by ID
@@ -89527,18 +89647,6 @@ const kalturaMigrationsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.
             if (migration) {
                 migration.status = 'failed';
                 migration.error = action.payload.error;
-            }
-        },
-        resetKalturaState(state) {
-            state.error = undefined;
-            state.migrations = {};
-            state.status = 'idle'; // Reset status as well
-        },
-        addMigration(state, action) {
-            const { id, status } = action.payload;
-            // Check if migration already exists or is not in an idle state
-            if (!state.migrations[id] && status === 'pending') {
-                state.migrations[id] = action.payload; // Store by ID
             }
         },
         updateMigration(state, action) {
@@ -89554,6 +89662,13 @@ const kalturaMigrationsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.
                 migration.error = undefined;
             }
         },
+        addMigration(state, action) {
+            const { id, status } = action.payload;
+            // Check if migration already exists or is not in an idle state
+            if (!state.migrations[id] && status === 'pending') {
+                state.migrations[id] = action.payload; // Store by ID
+            }
+        },
         loadMigrationsFromLocalStorage(state, action) {
             const courseId = action.payload;
             const savedMigrations = localStorage.getItem(`kalturaMigrations_${courseId}`);
@@ -89567,6 +89682,8 @@ const kalturaMigrationsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.
                 }
             }
         },
+        resetKalturaState(state, action) {
+        },
         saveMigrationsToLocalStorage(state, action) {
             const courseId = action.payload;
             const migrationsToSave = {
@@ -89576,18 +89693,11 @@ const kalturaMigrationsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.
             };
             localStorage.setItem(`kalturaMigrations_${courseId}`, JSON.stringify(migrationsToSave));
         },
-        abortMigration(state, action) {
-            const migration = state.migrations[action.payload];
-            if (migration) {
-                migration.status = 'aborted';
-                migration.error = 'Migration aborted by user.';
-            }
-        },
     },
 });
 // Base selector for accessing the courseAssignments slice
 const selectKalturaState = (state) => state.kaltura;
-const selectKalturaStatus = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createSelector)(selectKalturaState, (state) => {
+const selectKalturaStatus = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createSelector)(selectKalturaState, (state) => {
     return {
         status: state.status,
         error: state.error,
@@ -89595,7 +89705,11 @@ const selectKalturaStatus = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.cre
     };
 });
 // Export actions and reducer
-const { migrationSucceeded, migrationFailed, resetKalturaState, addMigration, updateMigration, setMigrationStatus, resetMigrationStatus, abortMigration, loadMigrationsFromLocalStorage, saveMigrationsToLocalStorage } = kalturaMigrationsSlice.actions;
+const { migrationSucceeded, migrationFailed, resetKalturaState, addMigration, updateMigration, 
+// setMigrationStatus,
+// resetMigrationStatus,
+// abortMigration,
+loadMigrationsFromLocalStorage, saveMigrationsToLocalStorage } = kalturaMigrationsSlice.actions;
 const kalturaMigrationsReducer = kalturaMigrationsSlice.reducer;
 
 
@@ -89656,7 +89770,6 @@ __webpack_require__.r(__webpack_exports__);
 // Step 2: Configure the store
 const store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.configureStore)({
     reducer: _publish_publishInterface_videoUpdater_data_rootReducer__WEBPACK_IMPORTED_MODULE_0__.rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware()
 });
 
 
