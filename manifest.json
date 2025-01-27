@@ -2,7 +2,6 @@
   "manifest_version": 3,
   "name": "LXD Browser Extension REACT version",
   "description": "Shortcuts including search by code.",
-  "version": "2.7.9.5",
   "action": {
     "default_popup": "popup.html",
     "default_title": "LXD Tools"
@@ -25,10 +24,15 @@
   "web_accessible_resources": [
     {
       "matches": [
-        "<all_urls>"
+        "*://*.instructure.com/*"
       ],
       "resources": [
-        "*.map"
+        "js/pageFixes.js.map",
+        "js/speedGrader.js.map",
+        "js/publish.js.map",
+        "js/ui/module.js.map",
+        "js/ui/course.js.map",
+        "js/ui/account.js.map"
       ]
     }
   ],
@@ -97,8 +101,8 @@
   "host_permissions": [
     "*://*.inscloudgate.com/*",
     "*://*.canvas-user-content.com/*",
-    "*://*.canvas-user-content.com/*",
     "*://*.instructure.com/*"
   ],
-  "optional_host_permissions": []
+  "optional_host_permissions": [],
+  "version": "2.7.9.7"
 }

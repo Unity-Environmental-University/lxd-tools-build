@@ -1,7 +1,4 @@
 /******/ (() => { // webpackBootstrap
-/*!**********************************!*\
-  !*** ./src/content/pageFixes.js ***!
-  \**********************************/
 (async() => {
   let link = document.querySelector('[aria-label="Pages. Disabled. Not visible to students"]');
   if (link) {
