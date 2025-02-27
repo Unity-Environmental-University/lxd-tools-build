@@ -44077,6 +44077,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _canvas_image__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @canvas/image */ "./src/canvas/image.ts");
 /* harmony import */ var _canvas_course_modules__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @canvas/course/modules */ "./src/canvas/course/modules.ts");
 /* harmony import */ var _canvas__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/canvas */ "./src/canvas/index.ts");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
+
 
 
 
@@ -44089,6 +44091,7 @@ function HomeTileApp({ course, el }) {
     const [running, setRunning] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false);
     const [modalText, setModalText] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("Home Tiles");
     const [moduleNumber, setModuleNumber] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(0);
+    const [useDefault, setUseDefault] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(true);
     async function regenerate() {
         setRunning(true);
         setShowModal(true);
@@ -44108,7 +44111,7 @@ function HomeTileApp({ course, el }) {
         setRunning(false);
         setShowModal(false);
     }
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_dom__WEBPACK_IMPORTED_MODULE_3__.createPortal)((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: regenerate, children: "Generate Home Tiles" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: downloadStoreTiles, children: "Salesforce Image Download" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "number", onChange: (e) => { var _a; return setModuleNumber((_a = parseInt(e.target.value)) !== null && _a !== void 0 ? _a : 0); }, value: moduleNumber })] }), el), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_1__["default"], { isOpen: showModal, canClose: !running, requestClose: () => setShowModal(false), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { children: running ? `Updating ${modalText}...` : `Finished Updating ${modalText}` }), !running && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => setShowModal(false), children: "Close" })] })] }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_dom__WEBPACK_IMPORTED_MODULE_3__.createPortal)((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: regenerate, children: "Generate Home Tiles" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: downloadStoreTiles, children: "Salesforce Image Download" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { children: "Use Course Image" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "checkbox", checked: useDefault, onChange: (e) => setUseDefault(e.target.checked) })] }), !useDefault && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { children: "Module Number (0 is course?)" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "number", onChange: (e) => { var _a; return setModuleNumber((_a = parseInt(e.target.value)) !== null && _a !== void 0 ? _a : 0); }, placeholder: "Module Number to User", value: moduleNumber })] })] }), el), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_1__["default"], { isOpen: showModal, canClose: !running, requestClose: () => setShowModal(false), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { children: running ? `Updating ${modalText}...` : `Finished Updating ${modalText}` }), !running && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => setShowModal(false), children: "Close" })] })] }));
 }
 async function generateBanners(course, moduleNumber = 0) {
     var _a;
