@@ -44088,6 +44088,7 @@ function HomeTileApp({ course, el }) {
     const [showModal, setShowModal] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false);
     const [running, setRunning] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false);
     const [modalText, setModalText] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("Home Tiles");
+    const [moduleNumber, setModuleNumber] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(0);
     async function regenerate() {
         setRunning(true);
         setShowModal(true);
@@ -44103,16 +44104,16 @@ function HomeTileApp({ course, el }) {
         setRunning(true);
         setShowModal(true);
         setModalText("Salesforce Storefront Images");
-        await generateBanners(course);
+        await generateBanners(course, moduleNumber);
         setRunning(false);
         setShowModal(false);
     }
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_dom__WEBPACK_IMPORTED_MODULE_3__.createPortal)((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: regenerate, children: "Generate Home Tiles" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: downloadStoreTiles, children: "Salesforce Image Download" })] }), el), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_1__["default"], { isOpen: showModal, canClose: !running, requestClose: () => setShowModal(false), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { children: running ? `Updating ${modalText}...` : `Finished Updating ${modalText}` }), !running && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => setShowModal(false), children: "Close" })] })] }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_dom__WEBPACK_IMPORTED_MODULE_3__.createPortal)((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: regenerate, children: "Generate Home Tiles" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: downloadStoreTiles, children: "Salesforce Image Download" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "number", onChange: (e) => { var _a; return setModuleNumber((_a = parseInt(e.target.value)) !== null && _a !== void 0 ? _a : 0); }, value: moduleNumber })] }), el), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_1__["default"], { isOpen: showModal, canClose: !running, requestClose: () => setShowModal(false), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { children: running ? `Updating ${modalText}...` : `Finished Updating ${modalText}` }), !running && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => setShowModal(false), children: "Close" })] })] }));
 }
-async function generateBanners(course) {
+async function generateBanners(course, moduleNumber = 0) {
     var _a;
     const code = (_a = course.baseCode) !== null && _a !== void 0 ? _a : "CODE_NOT_FOUND";
-    const module = (await course.getModules())[0];
+    const module = (await course.getModules())[moduleNumber];
     const overviewPage = await (0,_canvas_course_modules__WEBPACK_IMPORTED_MODULE_5__.getModuleOverview)(module, module.id);
     if (!overviewPage)
         throw new Error("Module does not have an overview");
