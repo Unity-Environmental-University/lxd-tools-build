@@ -41291,7 +41291,6 @@ __webpack_require__.r(__webpack_exports__);
 const assignmentDataGen = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__["default"].dataGenerator;
 const updateAssignmentData = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__["default"].put;
 async function updateAssignmentDueDates(offset, assignments, options) {
-    const promises = [];
     const returnAssignments = [];
     let { courseId } = options !== null && options !== void 0 ? options : {};
     if (!courseId && courseId !== 0) {
@@ -41300,8 +41299,10 @@ async function updateAssignmentDueDates(offset, assignments, options) {
     if (offset === 0 || offset) {
         for await (const data of assignments) {
             const assignment = new _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__.Assignment(data, courseId);
-            returnAssignments.push(assignment);
-            promises.push(assignment.dueAtTimeDelta(Number(offset)));
+            const returnData = await assignment.dueAtTimeDelta(Number(offset));
+            if (returnData) {
+                returnAssignments.push(returnData);
+            }
         }
     }
     return returnAssignments;
