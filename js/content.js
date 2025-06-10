@@ -6360,6 +6360,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getNewTermName: () => (/* binding */ getNewTermName),
 /* harmony export */   getOldUgTermName: () => (/* binding */ getOldUgTermName),
 /* harmony export */   getStartDateAssignments: () => (/* binding */ getStartDateAssignments),
+/* harmony export */   getStartDateFromSyllabus: () => (/* binding */ getStartDateFromSyllabus),
 /* harmony export */   getUpdatedStyleTermName: () => (/* binding */ getUpdatedStyleTermName),
 /* harmony export */   sortAssignmentsByDueDate: () => (/* binding */ sortAssignmentsByDueDate),
 /* harmony export */   syllabusHeaderName: () => (/* binding */ syllabusHeaderName),
@@ -6405,27 +6406,44 @@ function getStartDateAssignments(assignments) {
     const dayOfWeekOffset = 1 - plainDateDue.dayOfWeek;
     return plainDateDue.add({ days: dayOfWeekOffset });
 }
+function getStartDateFromSyllabus(syllabusHtml, locale = DEFAULT_LOCALE) {
+    const syllabusBody = document.createElement('div');
+    syllabusBody.innerHTML = syllabusHtml;
+    const syllabusCalloutBox = syllabusBody.querySelector('div.cbt-callout-box');
+    if (!syllabusCalloutBox)
+        throw new MalformedSyllabusError("Can't find syllabus callout box");
+    const paras = Array.from(syllabusCalloutBox.querySelectorAll('p'));
+    const strongParas = paras.filter((para) => para.querySelector('strong'));
+    if (strongParas.length < 5)
+        throw new MalformedSyllabusError(`Missing syllabus headers\n${strongParas}`);
+    const datesEl = strongParas[2];
+    const dateRange = (0,_date__WEBPACK_IMPORTED_MODULE_0__.findDateRange)(datesEl.innerHTML, locale);
+    if (!dateRange)
+        throw new MalformedSyllabusError("Date range not found in syllabus");
+    return dateRange.start;
+}
 function getUpdatedStyleTermName(termStart, weekCount, locale = DEFAULT_LOCALE) {
     const month = termStart.toLocaleString(locale, { month: '2-digit' });
     const day = termStart.toLocaleString(locale, { day: '2-digit' });
     const year = termStart.toLocaleString(locale, { year: '2-digit' });
     return `DE${weekCount}W${month}.${day}.${year}`;
 }
-function getOldUgTermName(termStart, locale = DEFAULT_LOCALE) {
+function getOldUgTermName(termStart) {
     const year = termStart.toLocaleString(DEFAULT_LOCALE, { year: '2-digit' });
     const month = termStart.toLocaleString(DEFAULT_LOCALE, { month: 'short' });
     return `DE-${year}-${month}`;
 }
-function getNewTermName(oldTermName, newTermStart, locale = DEFAULT_LOCALE) {
+function getNewTermName(oldTermName, newTermStart, isGrad = undefined) {
     const [termName, weekCount] = oldTermName.match(/DE(\d)W\d\d\.\d\d\.\d\d/) || [];
     if (termName)
         return getUpdatedStyleTermName(newTermStart, weekCount);
     const termNameUg = oldTermName.match(/(DE(?:.HL|)-\d\d)-(\w+)\w{2}?/i);
+    const newWeekCount = isGrad ? 8 : 5;
     if (termNameUg)
-        return getUpdatedStyleTermName(newTermStart, 5);
+        return getUpdatedStyleTermName(newTermStart, newWeekCount);
     throw new MalformedSyllabusError(`Can't Recognize Term Name ${oldTermName}`);
 }
-function updatedDateSyllabusHtml(html, newStartDate, locale = DEFAULT_LOCALE) {
+function updatedDateSyllabusHtml(html, newStartDate, isGrad = undefined, locale = DEFAULT_LOCALE) {
     const syllabusBody = document.createElement('div');
     syllabusBody.innerHTML = html;
     const syllabusCalloutBox = syllabusBody.querySelector('div.cbt-callout-box');
@@ -6444,7 +6462,7 @@ function updatedDateSyllabusHtml(html, newStartDate, locale = DEFAULT_LOCALE) {
         throw new MalformedSyllabusError("Date range not found in syllabus");
     const courseDuration = dateRange.start.until(dateRange.end);
     const newEndDate = newStartDate.add(courseDuration);
-    const newTermName = getNewTermName(oldTermName, newStartDate);
+    const newTermName = getNewTermName(oldTermName, newStartDate, isGrad);
     const dateRangeText = `${dateToSyllabusString(newStartDate)} - ${dateToSyllabusString(newEndDate)}`;
     termNameEl.innerHTML = `<strong>${syllabusHeaderName(termNameEl)}:</strong><span> ${newTermName}</span>`;
     datesEl.innerHTML = `<strong>${syllabusHeaderName(datesEl)}:</strong><span> ${dateRangeText}</span>`;
@@ -7543,7 +7561,7 @@ function findDateRange(textToSearch, locale = 'en-US') {
     const dateRegex = new RegExp(dateRegExString, 'i');
     const matchRange = textToSearch.match(searchRegex);
     if (!matchRange)
-        return null; //No date range found in syllabus
+        throw new MalformedDateError('Cannot find date range in syllabus'); //No date range found in syllabus
     let start, end;
     for (const separator of ['-', 'to']) {
         [start, end] = matchRange[0].split(separator);

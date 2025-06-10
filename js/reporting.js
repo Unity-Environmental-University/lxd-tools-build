@@ -60214,14 +60214,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs");
 /* harmony import */ var _reporting_data_coursesSlice__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/reporting/data/coursesSlice */ "./src/reporting/data/coursesSlice.ts");
 /* harmony import */ var _reporting_data_enrollmentsSlice__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/reporting/data/enrollmentsSlice */ "./src/reporting/data/enrollmentsSlice.ts");
-/* harmony import */ var _ueu_canvas__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../ueu_canvas */ "../../../ueu_canvas/dist/index.js");
-/* harmony import */ var _ueu_canvas__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_ueu_canvas__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var ueu_canvas__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ueu_canvas */ "../../../ueu_canvas/dist/index.js");
+/* harmony import */ var ueu_canvas__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(ueu_canvas__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
 
 const fetchEnrollmentsThunk = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.createAsyncThunk)("enrollments/fetchEnrollments", async (params, { dispatch }) => {
-    const gen = (0,_ueu_canvas__WEBPACK_IMPORTED_MODULE_2__.getEnrollmentGenerator)(params);
+    const gen = (0,ueu_canvas__WEBPACK_IMPORTED_MODULE_2__.getEnrollmentGenerator)(params);
     dispatch((0,_reporting_data_coursesSlice__WEBPACK_IMPORTED_MODULE_0__.setStatus)('loading'));
     for await (const enrollments of gen) {
         (0,_reporting_data_enrollmentsSlice__WEBPACK_IMPORTED_MODULE_1__.updateEnrollment)(enrollments);
@@ -60244,8 +60244,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _reporting_data_coursesSlice__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/reporting/data/coursesSlice */ "./src/reporting/data/coursesSlice.ts");
 /* harmony import */ var _reporting_data_instructorsSlice__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/reporting/data/instructorsSlice */ "./src/reporting/data/instructorsSlice.ts");
-/* harmony import */ var _ueu_canvas__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../ueu_canvas */ "../../../ueu_canvas/dist/index.js");
-/* harmony import */ var _ueu_canvas__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_ueu_canvas__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var ueu_canvas__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ueu_canvas */ "../../../ueu_canvas/dist/index.js");
+/* harmony import */ var ueu_canvas__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(ueu_canvas__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs");
 /* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
 
@@ -60258,7 +60258,7 @@ const fetchInstructorsThunk = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_4__.c
     const config = (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.deepObjectCopy)(params);
     config.queryParams = { ...(_a = config.queryParams) !== null && _a !== void 0 ? _a : {}, enrollment_type: "teacher" };
     // Generate data using provided generator function and parameters.
-    const gen = (0,_ueu_canvas__WEBPACK_IMPORTED_MODULE_2__.getUserGenerator)(params);
+    const gen = (0,ueu_canvas__WEBPACK_IMPORTED_MODULE_2__.getUserGenerator)(params);
     dispatch((0,_reporting_data_coursesSlice__WEBPACK_IMPORTED_MODULE_0__.setStatus)('loading'));
     for await (const instructor of gen) {
         console.log(JSON.stringify(instructor));
@@ -60282,8 +60282,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   fetchTermsThunk: () => (/* binding */ fetchTermsThunk)
 /* harmony export */ });
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs");
-/* harmony import */ var _ueu_canvas__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../../ueu_canvas */ "../../../ueu_canvas/dist/index.js");
-/* harmony import */ var _ueu_canvas__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_ueu_canvas__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var ueu_canvas__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ueu_canvas */ "../../../ueu_canvas/dist/index.js");
+/* harmony import */ var ueu_canvas__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ueu_canvas__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _reporting_data_termSlice__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/reporting/data/termSlice */ "./src/reporting/data/termSlice.ts");
 
 
@@ -60293,7 +60293,7 @@ const defaultQueryParams = {
 };
 const fetchTermsThunk = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_2__.createAsyncThunk)('terms/getTermsThunk', async ({ rootAccountId, max, queryParams }, { dispatch }) => {
     const params = { ...defaultQueryParams, ...queryParams };
-    const gen = (0,_ueu_canvas__WEBPACK_IMPORTED_MODULE_0__.getTermsGenerator)(rootAccountId, params);
+    const gen = (0,ueu_canvas__WEBPACK_IMPORTED_MODULE_0__.getTermsGenerator)(rootAccountId, params);
     dispatch((0,_reporting_data_termSlice__WEBPACK_IMPORTED_MODULE_1__.setStatus)('loading'));
     let i = 0;
     for await (const term of gen) {
