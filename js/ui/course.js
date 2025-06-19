@@ -41909,6 +41909,9 @@ __webpack_require__.r(__webpack_exports__);
 
 const HOMETILE_WIDTH = 500;
 const COURSE_CODE_REGEX = /^(.+[^_])?_?(\w{4}\d{3})/i;
+/**
+ * Model class for courses
+ */
 class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
     constructor(data) {
         super(data);
