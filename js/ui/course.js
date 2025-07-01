@@ -42232,26 +42232,27 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
     async getParentCourse(return_dev_search = false) {
         const migrations = await (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_12__.getPagedData)(`/api/v1/courses/${this.id}/content_migrations`);
         const parentCode = this.devCode;
-        if (migrations.length < 1) {
-            console.log('no migrations found');
-            if (return_dev_search) {
-                return (0,_index__WEBPACK_IMPORTED_MODULE_8__.getSingleCourse)(parentCode, this.getAccountIds());
-            }
-            else
-                return;
-        }
         migrations.sort((a, b) => b.id - a.id);
-        try {
-            for (const migration of migrations) {
-                const course = await Course.getCourseById(migration['settings']['source_course_id']);
-                if (course && course.codePrefix.includes("DEV"))
+        for (const migration of migrations) {
+            const course = await Course.getCourseById(migration['settings']['source_course_id']);
+            if (course && /^DEV/.test(course.codePrefix)) {
+                return_dev_search = true;
+                return course;
+            }
+        }
+        if (!return_dev_search) {
+            const courseGen = (0,_index__WEBPACK_IMPORTED_MODULE_8__.getCourseGenerator)(parentCode, this.getAccountIds(), undefined, {
+                queryParams: {
+                    search_term: parentCode
+                }
+            });
+            for await (const course of courseGen) {
+                if (course.courseCode && /^DEV/.test(course.courseCode))
                     return course;
             }
         }
-        catch (e) {
-            return await (0,_index__WEBPACK_IMPORTED_MODULE_8__.getSingleCourse)(parentCode, this.getAccountIds());
-        }
-        return await (0,_index__WEBPACK_IMPORTED_MODULE_8__.getSingleCourse)(parentCode, this.getAccountIds());
+        else
+            return;
     }
     getAccountIds() {
         return [this.accountId, this.rootAccountId].filter(a => typeof a !== 'undefined' && a !== null);
@@ -44219,14 +44220,16 @@ async function addSectionsButton(header, bp, currentCourse = null) {
     sectionBtn.addEventListener('click', async () => await (0,_canvas_content_openThisContentInTarget__WEBPACK_IMPORTED_MODULE_3__["default"])(sourceCourse, sections));
 }
 async function addDevButton(header, course) {
-    const parentCourse = await course.getParentCourse();
-    if (parentCourse) {
-        const parentBtn = document.createElement('btn');
-        parentBtn.classList.add('btn');
-        parentBtn.innerHTML = "DEV";
-        parentBtn.title = "Open the dev version of this course";
-        header === null || header === void 0 ? void 0 : header.append(parentBtn);
-        parentBtn.addEventListener('click', async () => await (0,_canvas_content_openThisContentInTarget__WEBPACK_IMPORTED_MODULE_3__["default"])(course, parentCourse));
+    if (course.courseCode && !course.courseCode.includes('DEV')) {
+        const parentCourse = await course.getParentCourse();
+        if (parentCourse) {
+            const parentBtn = document.createElement('btn');
+            parentBtn.classList.add('btn');
+            parentBtn.innerHTML = "DEV";
+            parentBtn.title = "Open the dev version of this course";
+            header === null || header === void 0 ? void 0 : header.append(parentBtn);
+            parentBtn.addEventListener('click', async () => await (0,_canvas_content_openThisContentInTarget__WEBPACK_IMPORTED_MODULE_3__["default"])(course, parentCourse));
+        }
     }
 }
 async function addBpButton(header, currentCourse, currentBp) {
