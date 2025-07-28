@@ -5666,8 +5666,21 @@ const PageKind = {
     getBody: page => page.body,
     getId: page => page.id,
     get: (id, courseId, config) => (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(PageUrlFuncs.getApiUrl(courseId, id), config),
-    getByString: (courseId, contentId, config) => (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(getStringApiUrl(courseId, contentId), config),
-    dataGenerator: (courseId, config = { queryParams: { include: ['body'] } }) => (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(PageUrlFuncs.getAllApiUrl(courseId), config),
+    getByString: async (courseId, contentId, config, options) => {
+        const { allowPartialMatch } = options !== null && options !== void 0 ? options : {};
+        // 1) try an exact match
+        const res = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(getStringApiUrl(courseId, contentId), config);
+        // 2) if not found, fall back to any URL that *starts* with contentId
+        if ("message" in res && allowPartialMatch) {
+            const pageGen = (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(PageUrlFuncs.getAllApiUrl(courseId), { queryParams: { include: ["body"] } });
+            for await (const page of pageGen) {
+                if (page.url.startsWith(contentId))
+                    return page;
+            }
+        }
+        return res;
+    },
+    dataGenerator: (courseId, config = { queryParams: { include: ["body"] } }) => (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(PageUrlFuncs.getAllApiUrl(courseId), config),
     put: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(PageUrlFuncs.getApiUrl),
     post: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.postContentFunc)(PageUrlFuncs.getAllApiUrl),
 };
@@ -29015,18 +29028,27 @@ __webpack_require__.r(__webpack_exports__);
 
 webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     if (message.hasOwnProperty('queryString')) {
-        await openTargetCourse(message.queryString);
+        try {
+            await openTargetCourse(message.queryString, message.subAccount);
+            sendResponse({ success: true });
+            return true;
+        }
+        catch (e) {
+            sendResponse({ success: false, error: e.message || 'Unknown error' });
+            return true;
+        }
+        return true;
     }
 });
-async function openTargetCourse(queryString) {
-    console.log(queryString);
+async function openTargetCourse(queryString, subAccount) {
+    console.log(queryString, subAccount);
     const params = queryString.split('|');
     const searchCode = params.length > 0 ? params[0] : null;
     if (!searchCode)
         return;
-    let queryUrl = `/api/v1/accounts/98244/courses?search_term=${searchCode}`;
+    let queryUrl = `/api/v1/accounts/${subAccount}/courses?search_term=${searchCode}`;
     if (!document.documentURI.includes(".instructure.com")) {
-        queryUrl = `https://unity.instructure.com/accounts/98244?search_term=${searchCode}`;
+        queryUrl = `https://unity.instructure.com/accounts/${subAccount}?search_term=${searchCode}`;
         window.open(queryUrl, "_blank");
         return;
     }
@@ -29059,7 +29081,7 @@ async function openTargetCourse(queryString) {
     }
     if (!searchCode && !course)
         return;
-    let url = `/accounts/98244?search_term=${searchCode}`;
+    let url = `/accounts/${subAccount}?search_term=${searchCode}`;
     let potentialUrls = [];
     if (course && (!courses || courses.length < 4)) {
         url = `/courses/${course.id}`;

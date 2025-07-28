@@ -5666,8 +5666,21 @@ const PageKind = {
     getBody: page => page.body,
     getId: page => page.id,
     get: (id, courseId, config) => (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(PageUrlFuncs.getApiUrl(courseId, id), config),
-    getByString: (courseId, contentId, config) => (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(getStringApiUrl(courseId, contentId), config),
-    dataGenerator: (courseId, config = { queryParams: { include: ['body'] } }) => (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(PageUrlFuncs.getAllApiUrl(courseId), config),
+    getByString: async (courseId, contentId, config, options) => {
+        const { allowPartialMatch } = options !== null && options !== void 0 ? options : {};
+        // 1) try an exact match
+        const res = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(getStringApiUrl(courseId, contentId), config);
+        // 2) if not found, fall back to any URL that *starts* with contentId
+        if ("message" in res && allowPartialMatch) {
+            const pageGen = (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(PageUrlFuncs.getAllApiUrl(courseId), { queryParams: { include: ["body"] } });
+            for await (const page of pageGen) {
+                if (page.url.startsWith(contentId))
+                    return page;
+            }
+        }
+        return res;
+    },
+    dataGenerator: (courseId, config = { queryParams: { include: ["body"] } }) => (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(PageUrlFuncs.getAllApiUrl(courseId), config),
     put: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(PageUrlFuncs.getApiUrl),
     post: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.postContentFunc)(PageUrlFuncs.getAllApiUrl),
 };

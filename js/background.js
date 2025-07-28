@@ -7181,26 +7181,48 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const messageHandlers = {
-    searchForCourse: async (queryString) => {
+    searchForCourse: async (params, _sender, sendResponse) => {
+        const { queryString, subAccount } = params;
         const activeTab = await getActiveTab();
         if (!(activeTab === null || activeTab === void 0 ? void 0 : activeTab.id)) {
-            return;
+            //if there isn't an activeTab id, send a response of false
+            sendResponse({ success: false, error: "Please open a new tab and try again." });
+            //This is supposed to keep the channel open?
+            return true;
         }
-        await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.scripting.executeScript({
-            target: { tabId: activeTab.id },
-            files: ['./js/content.js']
-        });
-        await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.sendMessage(activeTab.id, { 'queryString': queryString });
+        //a try block that executes the script, responds true it works, responds false if it doesn't
+        try {
+            await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.scripting.executeScript({
+                target: { tabId: activeTab.id },
+                files: ['./js/content.js'],
+            });
+            await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.sendMessage(activeTab.id, { queryString, subAccount });
+            sendResponse({ success: true });
+            return true;
+        }
+        catch (e) {
+            if (e.message === "Cannot access a chrome:// URL") {
+                sendResponse({ success: false, error: "Please open a new tab and try again." });
+            }
+            else {
+                sendResponse({ success: false, error: e.message || 'Unknown error' });
+                console.log(e.message);
+                return true;
+            }
+        }
+        return true;
     },
 };
 webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.onMessage.addListener((message, sender, sendResponse) => {
     for (const messageKey in messageHandlers) {
         if (message.hasOwnProperty(messageKey)) {
-            const handler = messageHandlers[messageKey];
-            const params = message[messageKey];
-            handler(params, sender, sendResponse);
+            // fire off the handler; it will call sendResponse(...) when it's done
+            messageHandlers[messageKey](message[messageKey], sender, sendResponse);
+            // return the *literal* true here so the channel stays open
+            return true;
         }
     }
+    // if no handler matched, we simply return void
 });
 webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.downloadImage) {

@@ -56942,9 +56942,11 @@ module.exports = styleTagTransform;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   OPEN_AI_API_KEY_KEY: () => (/* binding */ OPEN_AI_API_KEY_KEY)
+/* harmony export */   OPEN_AI_API_KEY_KEY: () => (/* binding */ OPEN_AI_API_KEY_KEY),
+/* harmony export */   SUB_ACCOUNT: () => (/* binding */ SUB_ACCOUNT)
 /* harmony export */ });
 const OPEN_AI_API_KEY_KEY = "OPEN_AI_API_KEY";
+const SUB_ACCOUNT = "SUB_ACCOUNT";
 
 
 /***/ }),
@@ -56987,17 +56989,31 @@ function PopUpApp() {
 function CourseNavigation() {
     const [isDisabled, setIsDisabled] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [queryString, setQueryString] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
-    async function submitQuery(queryString) {
+    const [subAccount, setSubAccount] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(169877);
+    const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    async function submitQuery(queryString, subAccount) {
         setIsDisabled(true);
-        await webextension_polyfill__WEBPACK_IMPORTED_MODULE_2__.runtime.sendMessage({
-            searchForCourse: queryString
+        const response = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_2__.runtime.sendMessage({
+            searchForCourse: { queryString, subAccount }
         });
+        console.log(response);
         setIsDisabled(false);
+        //If submitQuery does not receive a true back from sendMessage, alert the user
+        if (!response.success) {
+            setError(response.error);
+        }
     }
-    return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col card-body search-box", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", { children: "Course Navigation" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", { onSubmit: async (e) => {
+    return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col card-body search-box", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", { children: "Course Navigation" }), error && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "alert alert-warning", children: error }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", { onSubmit: async (e) => {
                     e.preventDefault();
-                    await submitQuery(queryString);
-                }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "row", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { disabled: isDisabled, autoFocus: true, id: "search-box", type: 'text', placeholder: 'Enter search here', onChange: (e) => setQueryString(e.target.value) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { disabled: isDisabled, className: "btn", children: "Search" }) })] })] });
+                    setError(null);
+                    if (!queryString) {
+                        setError("Please enter a search query.");
+                    }
+                    await submitQuery(queryString, subAccount);
+                }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { disabled: isDisabled, autoFocus: true, id: "search-box", type: 'text', placeholder: 'Enter search here', onChange: (e) => setQueryString(e.target.value) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { disabled: isDisabled, value: subAccount !== null && subAccount !== void 0 ? subAccount : "", onChange: (e) => {
+                                    const val = e.target.value;
+                                    setSubAccount(parseInt(val, 10));
+                                }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "", children: "Pick account/subaccount" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "169877", children: "Distance Education" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "170329", children: "Distance Education Development" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "98244", children: "Unity College" })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { disabled: isDisabled, className: "btn", children: "Search" }) })] })] });
 }
 function SetOpenAiKey() {
     const [key, setKey] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('');
