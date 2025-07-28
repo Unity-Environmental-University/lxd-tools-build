@@ -29031,21 +29031,19 @@ webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.onMessage.addListener
         try {
             await openTargetCourse(message.queryString, message.subAccount);
             sendResponse({ success: true });
-            return true;
         }
         catch (e) {
             sendResponse({ success: false, error: e.message || 'Unknown error' });
-            return true;
         }
-        return true;
     }
+    return true;
 });
 async function openTargetCourse(queryString, subAccount) {
     console.log(queryString, subAccount);
     const params = queryString.split('|');
     const searchCode = params.length > 0 ? params[0] : null;
     if (!searchCode)
-        return;
+        throw new Error("No search code provided");
     let queryUrl = `/api/v1/accounts/${subAccount}/courses?search_term=${searchCode}`;
     if (!document.documentURI.includes(".instructure.com")) {
         queryUrl = `https://unity.instructure.com/accounts/${subAccount}?search_term=${searchCode}`;
@@ -29080,7 +29078,7 @@ async function openTargetCourse(queryString, subAccount) {
         }
     }
     if (!searchCode && !course)
-        return;
+        throw new Error("No course found");
     let url = `/accounts/${subAccount}?search_term=${searchCode}`;
     let potentialUrls = [];
     if (course && (!courses || courses.length < 4)) {

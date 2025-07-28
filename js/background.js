@@ -7185,30 +7185,24 @@ const messageHandlers = {
         const { queryString, subAccount } = params;
         const activeTab = await getActiveTab();
         if (!(activeTab === null || activeTab === void 0 ? void 0 : activeTab.id)) {
-            //if there isn't an activeTab id, send a response of false
             sendResponse({ success: false, error: "Please open a new tab and try again." });
-            //This is supposed to keep the channel open?
             return true;
         }
-        //a try block that executes the script, responds true it works, responds false if it doesn't
         try {
             await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.scripting.executeScript({
                 target: { tabId: activeTab.id },
                 files: ['./js/content.js'],
             });
-            await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.sendMessage(activeTab.id, { queryString, subAccount });
-            sendResponse({ success: true });
-            return true;
+            const contentResult = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.sendMessage(activeTab.id, { queryString, subAccount });
+            sendResponse(contentResult);
         }
         catch (e) {
-            if (e.message === "Cannot access a chrome:// URL") {
-                sendResponse({ success: false, error: "Please open a new tab and try again." });
-            }
-            else {
-                sendResponse({ success: false, error: e.message || 'Unknown error' });
-                console.log(e.message);
-                return true;
-            }
+            sendResponse({
+                success: false,
+                error: e.message === "Cannot access a chrome:// URL"
+                    ? "Please open a new tab and try again."
+                    : e.message || "Unknown error",
+            });
         }
         return true;
     },

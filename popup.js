@@ -56989,10 +56989,17 @@ function PopUpApp() {
 function CourseNavigation() {
     const [isDisabled, setIsDisabled] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [queryString, setQueryString] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
-    const [subAccount, setSubAccount] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(169877);
+    const [subAccount, setSubAccount] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(() => {
+        const saved = localStorage.getItem(_consts__WEBPACK_IMPORTED_MODULE_7__.SUB_ACCOUNT);
+        return saved ? parseInt(saved, 10) : 169877;
+    });
     const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
     async function submitQuery(queryString, subAccount) {
         setIsDisabled(true);
+        if (!navigator.onLine) {
+            setError("Check internet connection and try again.");
+            return;
+        }
         const response = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_2__.runtime.sendMessage({
             searchForCourse: { queryString, subAccount }
         });
@@ -57005,9 +57012,15 @@ function CourseNavigation() {
     }
     return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col card-body search-box", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", { children: "Course Navigation" }), error && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "alert alert-warning", children: error }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", { onSubmit: async (e) => {
                     e.preventDefault();
+                    localStorage.setItem(_consts__WEBPACK_IMPORTED_MODULE_7__.SUB_ACCOUNT, subAccount.toString());
                     setError(null);
                     if (!queryString) {
                         setError("Please enter a search query.");
+                        return;
+                    }
+                    if (!subAccount) {
+                        setError("Please select a subaccount.");
+                        return;
                     }
                     await submitQuery(queryString, subAccount);
                 }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { disabled: isDisabled, autoFocus: true, id: "search-box", type: 'text', placeholder: 'Enter search here', onChange: (e) => setQueryString(e.target.value) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { disabled: isDisabled, value: subAccount !== null && subAccount !== void 0 ? subAccount : "", onChange: (e) => {
