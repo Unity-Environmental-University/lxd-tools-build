@@ -6383,8 +6383,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   syllabusHeaderName: () => (/* binding */ syllabusHeaderName),
 /* harmony export */   updatedDateSyllabusHtml: () => (/* binding */ updatedDateSyllabusHtml)
 /* harmony export */ });
+/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
 /* harmony import */ var _date__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/date */ "./src/date.ts");
 /* harmony import */ var _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/content/assignments/Assignment */ "./src/canvas/content/assignments/Assignment.ts");
+
 
 
 const DEFAULT_LOCALE = 'en-US';
@@ -6433,10 +6435,37 @@ function getStartDateFromSyllabus(syllabusHtml, locale = DEFAULT_LOCALE) {
     const strongParas = paras.filter((para) => para.querySelector('strong'));
     if (strongParas.length < 5)
         throw new MalformedSyllabusError(`Missing syllabus headers\n${strongParas}`);
+    const termNameEl = strongParas[1];
     const datesEl = strongParas[2];
-    const dateRange = (0,_date__WEBPACK_IMPORTED_MODULE_0__.findDateRange)(datesEl.innerHTML, locale);
+    let dateRange = (0,_date__WEBPACK_IMPORTED_MODULE_0__.findDateRange)(datesEl.innerHTML, locale);
     if (!dateRange)
         throw new MalformedSyllabusError("Date range not found in syllabus");
+    const termName = termNameEl.textContent || '';
+    let yearToUse;
+    const yearMatchNew = termName.match(/\.(\d{2})$/);
+    if (yearMatchNew) {
+        yearToUse = 2000 + parseInt(yearMatchNew[1]);
+    }
+    else {
+        const yearMatchOld = termName.match(/DE-(\d{2})-/);
+        if (yearMatchOld) {
+            yearToUse = 2000 + parseInt(yearMatchOld[1]);
+        }
+    }
+    if (yearToUse) {
+        dateRange = {
+            start: temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from({
+                year: yearToUse,
+                month: dateRange.start.month,
+                day: dateRange.start.day
+            }),
+            end: temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from({
+                year: yearToUse,
+                month: dateRange.end.month,
+                day: dateRange.end.day
+            })
+        };
+    }
     return dateRange.start;
 }
 function getUpdatedStyleTermName(termStart, weekCount, locale = DEFAULT_LOCALE) {
