@@ -1824,6 +1824,34 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/available-typed-arrays/index.js":
+/*!******************************************************!*\
+  !*** ./node_modules/available-typed-arrays/index.js ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+var possibleNames = __webpack_require__(/*! possible-typed-array-names */ "./node_modules/possible-typed-array-names/index.js");
+
+var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
+
+/** @type {import('.')} */
+module.exports = function availableTypedArrays() {
+	var /** @type {ReturnType<typeof availableTypedArrays>} */ out = [];
+	for (var i = 0; i < possibleNames.length; i++) {
+		if (typeof g[possibleNames[i]] === 'function') {
+			// @ts-expect-error
+			out[out.length] = possibleNames[i];
+		}
+	}
+	return out;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/call-bind-apply-helpers/actualApply.js":
 /*!*************************************************************!*\
   !*** ./node_modules/call-bind-apply-helpers/actualApply.js ***!
@@ -1911,7 +1939,7 @@ var $TypeError = __webpack_require__(/*! es-errors/type */ "./node_modules/es-er
 var $call = __webpack_require__(/*! ./functionCall */ "./node_modules/call-bind-apply-helpers/functionCall.js");
 var $actualApply = __webpack_require__(/*! ./actualApply */ "./node_modules/call-bind-apply-helpers/actualApply.js");
 
-/** @type {import('.')} */
+/** @type {(args: [Function, thisArg?: unknown, ...args: unknown[]]) => Function} TODO FIXME, find a way to use import('.') */
 module.exports = function callBindBasic(args) {
 	if (args.length < 1 || typeof args[0] !== 'function') {
 		throw new $TypeError('a function is required');
@@ -2016,10 +2044,11 @@ var $indexOf = callBindBasic([GetIntrinsic('%String.prototype.indexOf%')]);
 
 /** @type {import('.')} */
 module.exports = function callBoundIntrinsic(name, allowMissing) {
-	// eslint-disable-next-line no-extra-parens
-	var intrinsic = /** @type {Parameters<typeof callBindBasic>[0][0]} */ (GetIntrinsic(name, !!allowMissing));
+	/* eslint no-extra-parens: 0 */
+
+	var intrinsic = /** @type {(this: unknown, ...args: unknown[]) => unknown} */ (GetIntrinsic(name, !!allowMissing));
 	if (typeof intrinsic === 'function' && $indexOf(name, '.prototype.') > -1) {
-		return callBindBasic([intrinsic]);
+		return callBindBasic(/** @type {const} */ ([intrinsic]));
 	}
 	return intrinsic;
 };
@@ -2352,6 +2381,7 @@ var isCallable = __webpack_require__(/*! is-callable */ "./node_modules/is-calla
 var toStr = Object.prototype.toString;
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 
+/** @type {<This, A extends readonly unknown[]>(arr: A, iterator: (this: This | void, value: A[number], index: number, arr: A) => void, receiver: This | undefined) => void} */
 var forEachArray = function forEachArray(array, iterator, receiver) {
     for (var i = 0, len = array.length; i < len; i++) {
         if (hasOwnProperty.call(array, i)) {
@@ -2364,6 +2394,7 @@ var forEachArray = function forEachArray(array, iterator, receiver) {
     }
 };
 
+/** @type {<This, S extends string>(string: S, iterator: (this: This | void, value: S[number], index: number, string: S) => void, receiver: This | undefined) => void} */
 var forEachString = function forEachString(string, iterator, receiver) {
     for (var i = 0, len = string.length; i < len; i++) {
         // no such thing as a sparse string.
@@ -2375,6 +2406,7 @@ var forEachString = function forEachString(string, iterator, receiver) {
     }
 };
 
+/** @type {<This, O>(obj: O, iterator: (this: This | void, value: O[keyof O], index: keyof O, obj: O) => void, receiver: This | undefined) => void} */
 var forEachObject = function forEachObject(object, iterator, receiver) {
     for (var k in object) {
         if (hasOwnProperty.call(object, k)) {
@@ -2387,7 +2419,13 @@ var forEachObject = function forEachObject(object, iterator, receiver) {
     }
 };
 
-var forEach = function forEach(list, iterator, thisArg) {
+/** @type {(x: unknown) => x is readonly unknown[]} */
+function isArray(x) {
+    return toStr.call(x) === '[object Array]';
+}
+
+/** @type {import('.')._internal} */
+module.exports = function forEach(list, iterator, thisArg) {
     if (!isCallable(iterator)) {
         throw new TypeError('iterator must be a function');
     }
@@ -2397,7 +2435,7 @@ var forEach = function forEach(list, iterator, thisArg) {
         receiver = thisArg;
     }
 
-    if (toStr.call(list) === '[object Array]') {
+    if (isArray(list)) {
         forEachArray(list, iterator, receiver);
     } else if (typeof list === 'string') {
         forEachString(list, iterator, receiver);
@@ -2405,8 +2443,6 @@ var forEach = function forEach(list, iterator, thisArg) {
         forEachObject(list, iterator, receiver);
     }
 };
-
-module.exports = forEach;
 
 
 /***/ }),
@@ -2621,6 +2657,7 @@ var INTRINSICS = {
 	'%Error%': $Error,
 	'%eval%': eval, // eslint-disable-line no-eval
 	'%EvalError%': $EvalError,
+	'%Float16Array%': typeof Float16Array === 'undefined' ? undefined : Float16Array,
 	'%Float32Array%': typeof Float32Array === 'undefined' ? undefined : Float32Array,
 	'%Float64Array%': typeof Float64Array === 'undefined' ? undefined : Float64Array,
 	'%FinalizationRegistry%': typeof FinalizationRegistry === 'undefined' ? undefined : FinalizationRegistry,
@@ -4492,85 +4529,6 @@ module.exports = function setFunctionLength(fn, length) {
 
 /***/ }),
 
-/***/ "./src/canvas/image.ts":
-/*!*****************************!*\
-  !*** ./src/canvas/image.ts ***!
-  \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   backgroundDownloadImage: () => (/* binding */ backgroundDownloadImage),
-/* harmony export */   contentDownloadImage: () => (/* binding */ contentDownloadImage),
-/* harmony export */   getCroppedSquareBlob: () => (/* binding */ getCroppedSquareBlob),
-/* harmony export */   getResizedBlob: () => (/* binding */ getResizedBlob)
-/* harmony export */ });
-/* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! webextension-polyfill */ "./node_modules/webextension-polyfill/dist/browser-polyfill.js");
-/* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
-
-
-async function getResizedBlob(src, width, height = undefined) {
-    const imageSrc = await contentDownloadImage(src);
-    const canvas = document.createElement('canvas');
-    const image = new Image();
-    image.src = imageSrc;
-    const ctx = canvas.getContext('2d');
-    return new Promise((resolve) => {
-        image.onload = () => {
-            height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
-            assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
-            console.log(image.src);
-            canvas.width = width;
-            canvas.height = height;
-            ctx.drawImage(image, 0, 0, width, height);
-            canvas.toBlob(resolve);
-        };
-    });
-}
-async function getCroppedSquareBlob(src, size) {
-    const imageSrc = await contentDownloadImage(src);
-    const image = new Image();
-    image.src = imageSrc;
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    return new Promise((resolve) => {
-        image.onload = () => {
-            assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
-            const minDim = Math.min(image.width, image.height);
-            const cropX = (image.width - minDim) / 2;
-            const cropY = (image.height - minDim) / 2;
-            canvas.width = size;
-            canvas.height = size;
-            ctx.drawImage(image, cropX, cropY, minDim, minDim, 0, 0, size, size);
-            canvas.toBlob(resolve);
-        };
-    });
-}
-async function contentDownloadImage(src) {
-    const base64 = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.sendMessage({ downloadImage: src });
-    return base64;
-}
-function backgroundDownloadImage(src) {
-    //if(!height) height = src.height / src.width * width;
-    const imageUrl = src;
-    return new Promise(async (resolve) => {
-        const imageFileResponse = await fetch(imageUrl);
-        const reader = new FileReader();
-        reader.onload = event => {
-            console.log(reader.result);
-            resolve(reader.result);
-        };
-        const blob = await imageFileResponse.blob();
-        reader.readAsDataURL(blob);
-    });
-}
-
-
-/***/ }),
-
 /***/ "./node_modules/util/support/isBufferBrowser.js":
 /*!******************************************************!*\
   !*** ./node_modules/util/support/isBufferBrowser.js ***!
@@ -5669,7 +5627,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 		__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 		(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else { var mod; }
+  } else // removed by dead control flow
+{ var mod; }
 })(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this, function (module) {
   /* webextension-polyfill - v0.10.0 - Fri Aug 12 2022 19:42:44 */
 
@@ -6945,8 +6904,8 @@ var availableTypedArrays = __webpack_require__(/*! available-typed-arrays */ "./
 var callBind = __webpack_require__(/*! call-bind */ "./node_modules/call-bind/index.js");
 var callBound = __webpack_require__(/*! call-bound */ "./node_modules/call-bound/index.js");
 var gOPD = __webpack_require__(/*! gopd */ "./node_modules/gopd/index.js");
+var getProto = __webpack_require__(/*! get-proto */ "./node_modules/get-proto/index.js");
 
-/** @type {(O: object) => string} */
 var $toString = callBound('Object.prototype.toString');
 var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "./node_modules/has-tostringtag/shams.js")();
 
@@ -6954,7 +6913,6 @@ var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
 var typedArrays = availableTypedArrays();
 
 var $slice = callBound('String.prototype.slice');
-var getPrototypeOf = Object.getPrototypeOf; // require('getprototypeof');
 
 /** @type {<T = unknown>(array: readonly T[], value: unknown) => number} */
 var $indexOf = callBound('Array.prototype.indexOf', true) || function indexOf(array, value) {
@@ -6966,18 +6924,18 @@ var $indexOf = callBound('Array.prototype.indexOf', true) || function indexOf(ar
 	return -1;
 };
 
-/** @typedef {(receiver: import('.').TypedArray) => string | typeof Uint8Array.prototype.slice.call | typeof Uint8Array.prototype.set.call} Getter */
-/** @type {{ [k in `\$${import('.').TypedArrayName}`]?: Getter } & { __proto__: null }} */
+/** @typedef {import('./types').Getter} Getter */
+/** @type {import('./types').Cache} */
 var cache = { __proto__: null };
-if (hasToStringTag && gOPD && getPrototypeOf) {
+if (hasToStringTag && gOPD && getProto) {
 	forEach(typedArrays, function (typedArray) {
 		var arr = new g[typedArray]();
-		if (Symbol.toStringTag in arr) {
-			var proto = getPrototypeOf(arr);
+		if (Symbol.toStringTag in arr && getProto) {
+			var proto = getProto(arr);
 			// @ts-expect-error TS won't narrow inside a closure
 			var descriptor = gOPD(proto, Symbol.toStringTag);
-			if (!descriptor) {
-				var superProto = getPrototypeOf(proto);
+			if (!descriptor && proto) {
+				var superProto = getProto(proto);
 				// @ts-expect-error TS won't narrow inside a closure
 				descriptor = gOPD(superProto, Symbol.toStringTag);
 			}
@@ -6990,8 +6948,12 @@ if (hasToStringTag && gOPD && getPrototypeOf) {
 		var arr = new g[typedArray]();
 		var fn = arr.slice || arr.set;
 		if (fn) {
-			// @ts-expect-error TODO: fix
-			cache['$' + typedArray] = callBind(fn);
+			cache[
+				/** @type {`$${import('.').TypedArrayName}`} */ ('$' + typedArray)
+			] = /** @type {import('./types').BoundSlice | import('./types').BoundSet} */ (
+				// @ts-expect-error TODO FIXME
+				callBind(fn)
+			);
 		}
 	});
 }
@@ -7000,15 +6962,14 @@ if (hasToStringTag && gOPD && getPrototypeOf) {
 var tryTypedArrays = function tryAllTypedArrays(value) {
 	/** @type {ReturnType<typeof tryAllTypedArrays>} */ var found = false;
 	forEach(
-		// eslint-disable-next-line no-extra-parens
-		/** @type {Record<`\$${TypedArrayName}`, Getter>} */ /** @type {any} */ (cache),
+		/** @type {Record<`\$${import('.').TypedArrayName}`, Getter>} */ (cache),
 		/** @type {(getter: Getter, name: `\$${import('.').TypedArrayName}`) => void} */
 		function (getter, typedArray) {
 			if (!found) {
 				try {
-				// @ts-expect-error TODO: fix
+					// @ts-expect-error a throw is fine here
 					if ('$' + getter(value) === typedArray) {
-						found = $slice(typedArray, 1);
+						found = /** @type {import('.').TypedArrayName} */ ($slice(typedArray, 1));
 					}
 				} catch (e) { /**/ }
 			}
@@ -7021,14 +6982,13 @@ var tryTypedArrays = function tryAllTypedArrays(value) {
 var trySlices = function tryAllSlices(value) {
 	/** @type {ReturnType<typeof tryAllSlices>} */ var found = false;
 	forEach(
-		// eslint-disable-next-line no-extra-parens
-		/** @type {Record<`\$${TypedArrayName}`, Getter>} */ /** @type {any} */ (cache),
-		/** @type {(getter: typeof cache, name: `\$${import('.').TypedArrayName}`) => void} */ function (getter, name) {
+		/** @type {Record<`\$${import('.').TypedArrayName}`, Getter>} */(cache),
+		/** @type {(getter: Getter, name: `\$${import('.').TypedArrayName}`) => void} */ function (getter, name) {
 			if (!found) {
 				try {
-					// @ts-expect-error TODO: fix
+					// @ts-expect-error a throw is fine here
 					getter(value);
-					found = $slice(name, 1);
+					found = /** @type {import('.').TypedArrayName} */ ($slice(name, 1));
 				} catch (e) { /**/ }
 			}
 		}
@@ -7058,30 +7018,81 @@ module.exports = function whichTypedArray(value) {
 
 /***/ }),
 
-/***/ "./node_modules/available-typed-arrays/index.js":
-/*!******************************************************!*\
-  !*** ./node_modules/available-typed-arrays/index.js ***!
-  \******************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ "./src/canvas/image.ts":
+/*!*****************************!*\
+  !*** ./src/canvas/image.ts ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   backgroundDownloadImage: () => (/* binding */ backgroundDownloadImage),
+/* harmony export */   contentDownloadImage: () => (/* binding */ contentDownloadImage),
+/* harmony export */   getCroppedSquareBlob: () => (/* binding */ getCroppedSquareBlob),
+/* harmony export */   getResizedBlob: () => (/* binding */ getResizedBlob)
+/* harmony export */ });
+/* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! webextension-polyfill */ "./node_modules/webextension-polyfill/dist/browser-polyfill.js");
+/* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
 
 
-var possibleNames = __webpack_require__(/*! possible-typed-array-names */ "./node_modules/possible-typed-array-names/index.js");
-
-var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
-
-/** @type {import('.')} */
-module.exports = function availableTypedArrays() {
-	var /** @type {ReturnType<typeof availableTypedArrays>} */ out = [];
-	for (var i = 0; i < possibleNames.length; i++) {
-		if (typeof g[possibleNames[i]] === 'function') {
-			// @ts-expect-error
-			out[out.length] = possibleNames[i];
-		}
-	}
-	return out;
-};
+async function getResizedBlob(src, width, height = undefined) {
+    const imageSrc = await contentDownloadImage(src);
+    const canvas = document.createElement('canvas');
+    const image = new Image();
+    image.src = imageSrc;
+    const ctx = canvas.getContext('2d');
+    return new Promise((resolve) => {
+        image.onload = () => {
+            height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
+            assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
+            console.log(image.src);
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(image, 0, 0, width, height);
+            canvas.toBlob(resolve);
+        };
+    });
+}
+async function getCroppedSquareBlob(src, size) {
+    const imageSrc = await contentDownloadImage(src);
+    const image = new Image();
+    image.src = imageSrc;
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    return new Promise((resolve) => {
+        image.onload = () => {
+            assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
+            const minDim = Math.min(image.width, image.height);
+            const cropX = (image.width - minDim) / 2;
+            const cropY = (image.height - minDim) / 2;
+            canvas.width = size;
+            canvas.height = size;
+            ctx.drawImage(image, cropX, cropY, minDim, minDim, 0, 0, size, size);
+            canvas.toBlob(resolve);
+        };
+    });
+}
+async function contentDownloadImage(src) {
+    const base64 = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.sendMessage({ downloadImage: src });
+    return base64;
+}
+function backgroundDownloadImage(src) {
+    //if(!height) height = src.height / src.width * width;
+    const imageUrl = src;
+    return new Promise(async (resolve) => {
+        const imageFileResponse = await fetch(imageUrl);
+        const reader = new FileReader();
+        reader.onload = event => {
+            console.log(reader.result);
+            resolve(reader.result);
+        };
+        const blob = await imageFileResponse.blob();
+        reader.readAsDataURL(blob);
+    });
+}
 
 
 /***/ })
