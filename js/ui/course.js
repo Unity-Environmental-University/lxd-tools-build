@@ -62582,6 +62582,29 @@ async function updateAssignmentDueDates(offset, assignments, options) {
 
 /***/ }),
 
+/***/ "./src/canvas/content/assignments/legacy.ts":
+/*!**************************************************!*\
+  !*** ./src/canvas/content/assignments/legacy.ts ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   assignmentDataGen: () => (/* binding */ assignmentDataGen),
+/* harmony export */   getAssignmentData: () => (/* binding */ getAssignmentData),
+/* harmony export */   updateAssignmentData: () => (/* binding */ updateAssignmentData)
+/* harmony export */ });
+/* harmony import */ var _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/content/assignments/AssignmentKind */ "./src/canvas/content/assignments/AssignmentKind.ts");
+// noinspection JSUnusedGlobalSymbols
+
+const assignmentDataGen = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__["default"].dataGenerator;
+const updateAssignmentData = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__["default"].put;
+const getAssignmentData = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__["default"].get;
+
+
+/***/ }),
+
 /***/ "./src/canvas/content/determineContent.ts":
 /*!************************************************!*\
   !*** ./src/canvas/content/determineContent.ts ***!
@@ -65497,6 +65520,242 @@ function downloadFile(url, fileName) {
 
 /***/ }),
 
+/***/ "./src/ui/course/RubricButton.tsx":
+/*!****************************************!*\
+  !*** ./src/ui/course/RubricButton.tsx ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   RubricButton: () => (/* binding */ RubricButton)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _canvas__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas */ "./src/canvas/index.ts");
+/* harmony import */ var _canvas_course__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @canvas/course */ "./src/canvas/course/index.ts");
+/* harmony import */ var _canvas_content_assignments_legacy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @canvas/content/assignments/legacy */ "./src/canvas/content/assignments/legacy.ts");
+/* harmony import */ var _canvas_content_assignments__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @canvas/content/assignments */ "./src/canvas/content/assignments/index.ts");
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
+/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
+
+
+
+
+
+
+
+
+function RubricButton({ course }) {
+    const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_7__.useState)(false);
+    async function insertRubric(course) {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+        setIsLoading(true);
+        if (!confirm("This will try to update the rubric for the assignment based on the same assignment in DEV/BP. Confirm?")) {
+            setIsLoading(false);
+            return;
+        }
+        try {
+            let relatedCourse;
+            if (course.isDev) {
+                relatedCourse = await (0,_canvas_course__WEBPACK_IMPORTED_MODULE_2__.getSingleCourse)('BP_' + course.baseCode, course.getAccountIds());
+            }
+            else if (course.isBlueprint()) {
+                relatedCourse = await course.getParentCourse();
+            }
+            else {
+                throw new Error("Course is not a blueprint or dev course");
+            }
+            if (!relatedCourse)
+                throw new Error("Related course not found");
+            const page = document.documentURI;
+            const contentData = await (0,_canvas__WEBPACK_IMPORTED_MODULE_1__.getContentDataFromUrl)(page, {});
+            let assignment;
+            let relatedAssignment;
+            let result;
+            if (isAssignment(contentData)) {
+                assignment = contentData;
+                relatedAssignment = await getAssignmentByName(relatedCourse, assignment.name);
+                if (!relatedAssignment)
+                    throw new Error("Related assignment not found");
+            }
+            else if (isDiscussion(contentData)) {
+                const discussion = contentData;
+                if (!discussion.assignment_id)
+                    throw new Error("Discussion does not have an assignment id. This is likely because it's an ungraded discussion.");
+                assignment = await (0,_canvas_content_assignments_legacy__WEBPACK_IMPORTED_MODULE_3__.getAssignmentData)(course.id, discussion.assignment_id);
+                relatedAssignment = await getDiscussionByName(relatedCourse, discussion.title);
+                if (!relatedAssignment)
+                    throw new Error("Related discussion not found");
+            }
+            else {
+                throw new Error("Content is not an assignment or discussion");
+            }
+            if (!assignment)
+                throw new Error("Assignment data not found");
+            if (!relatedAssignment)
+                throw new Error("Related assignment data not found");
+            if (!relatedAssignment.rubric_settings)
+                throw new Error("Related assignment does not have a rubric.");
+            //Get Assignment Rubric, if it has one
+            let assignmentRubric = undefined;
+            if (assignment.rubric_settings) {
+                assignmentRubric = await (0,_canvas__WEBPACK_IMPORTED_MODULE_1__.getRubric)(course.id, (_a = assignment.rubric_settings) === null || _a === void 0 ? void 0 : _a.id, { include: ["associations"] });
+            }
+            //Get Related Rubric
+            const relatedRubric = await (0,_canvas__WEBPACK_IMPORTED_MODULE_1__.getRubric)(relatedCourse.id, (_b = relatedAssignment.rubric_settings) === null || _b === void 0 ? void 0 : _b.id);
+            if (!relatedRubric)
+                throw new Error("Related assignment does not have a rubric");
+            //Set rubric association, if there's an assignment rubric and associations
+            let rubricAssociation = undefined;
+            if (assignmentRubric && assignmentRubric.associations) {
+                for (const association of assignmentRubric.associations) {
+                    if (association.association_type === "Assignment") {
+                        rubricAssociation = association;
+                    }
+                }
+                if (!rubricAssociation)
+                    throw new Error("Assignment Rubric does not have an association to the assignment to use");
+            }
+            if (assignmentRubric && rubricAssociation) {
+                //Make an updated rubric
+                const updatedRubric = {
+                    // Required identifiers
+                    'rubric_association_id': rubricAssociation.id,
+                    // Rubric-level fields
+                    'rubric[title]': cleanText(relatedRubric.title),
+                    'rubric[free_form_criterion_comments]': ((_c = relatedRubric.free_form_criterion_comments) !== null && _c !== void 0 ? _c : true) ? 1 : 0,
+                    'rubric[skip_updating_points_possible]': 0,
+                    // Association-level fields
+                    'rubric_association[association_id]': rubricAssociation.association_id,
+                    'rubric_association[association_type]': rubricAssociation.association_type,
+                    'rubric_association[use_for_grading]': ((_d = rubricAssociation.use_for_grading) !== null && _d !== void 0 ? _d : true) ? 1 : 0,
+                    'rubric_association[hide_score_total]': ((_e = rubricAssociation.hide_score_total) !== null && _e !== void 0 ? _e : false) ? 1 : 0,
+                    'rubric_association[purpose]': (_f = rubricAssociation.purpose) !== null && _f !== void 0 ? _f : 'grading'
+                };
+                // Add criteria and ratings (Canvas requires indexed hash-style keys)
+                ((_g = relatedRubric.data) !== null && _g !== void 0 ? _g : []).forEach((criterion, i) => {
+                    var _a, _b, _c, _d, _e;
+                    updatedRubric[`rubric[criteria][${i}][id]`] = (_a = criterion.id) !== null && _a !== void 0 ? _a : `new_${i}`;
+                    updatedRubric[`rubric[criteria][${i}][description]`] = (_b = cleanText(criterion.description)) !== null && _b !== void 0 ? _b : '';
+                    updatedRubric[`rubric[criteria][${i}][long_description]`] = (_c = cleanText(criterion.long_description)) !== null && _c !== void 0 ? _c : '';
+                    updatedRubric[`rubric[criteria][${i}][points]`] = (_d = criterion.points) !== null && _d !== void 0 ? _d : 0;
+                    // Ratings must be fully expanded
+                    ((_e = criterion.ratings) !== null && _e !== void 0 ? _e : []).forEach((rating, j) => {
+                        var _a, _b, _c, _d;
+                        updatedRubric[`rubric[criteria][${i}][ratings][${j}][id]`] = (_a = rating.id) !== null && _a !== void 0 ? _a : `new_${i}_${j}`;
+                        updatedRubric[`rubric[criteria][${i}][ratings][${j}][description]`] = (_b = cleanText(rating.description)) !== null && _b !== void 0 ? _b : '';
+                        updatedRubric[`rubric[criteria][${i}][ratings][${j}][long_description]`] = (_c = cleanText(rating.long_description)) !== null && _c !== void 0 ? _c : '';
+                        updatedRubric[`rubric[criteria][${i}][ratings][${j}][points]`] = (_d = rating.points) !== null && _d !== void 0 ? _d : 0;
+                    });
+                });
+                result = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(`/api/v1/courses/${course.id}/rubrics/${assignmentRubric.id}`, {
+                    fetchInit: {
+                        method: 'PUT',
+                        body: (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_6__.formDataify)(updatedRubric)
+                    }
+                });
+            }
+            else {
+                //Create a rubric
+                const newRubric = {
+                    'rubric[title]': cleanText(relatedRubric.title),
+                    'rubric[free_form_criterion_comments]': ((_h = relatedRubric.free_form_criterion_comments) !== null && _h !== void 0 ? _h : true) ? 1 : 0,
+                    'rubric_association[association_id]': assignment.id,
+                    'rubric_association[association_type]': "Assignment",
+                    'rubric_association[use_for_grading]': 1,
+                    'rubric_association[hide_score_total]': 0,
+                    'rubric_association[purpose]': "grading",
+                };
+                ((_j = relatedRubric.data) !== null && _j !== void 0 ? _j : []).forEach((criterion, i) => {
+                    var _a, _b, _c, _d, _e;
+                    newRubric[`rubric[criteria][${i}][id]`] = (_a = criterion.id) !== null && _a !== void 0 ? _a : `new_${i}`;
+                    newRubric[`rubric[criteria][${i}][description]`] = (_b = cleanText(criterion.description)) !== null && _b !== void 0 ? _b : '';
+                    newRubric[`rubric[criteria][${i}][long_description]`] = (_c = cleanText(criterion.long_description)) !== null && _c !== void 0 ? _c : '';
+                    newRubric[`rubric[criteria][${i}][points]`] = (_d = criterion.points) !== null && _d !== void 0 ? _d : 0;
+                    // Ratings must be fully expanded
+                    ((_e = criterion.ratings) !== null && _e !== void 0 ? _e : []).forEach((rating, j) => {
+                        var _a, _b, _c, _d;
+                        newRubric[`rubric[criteria][${i}][ratings][${j}][id]`] = (_a = rating.id) !== null && _a !== void 0 ? _a : `new_${i}_${j}`;
+                        newRubric[`rubric[criteria][${i}][ratings][${j}][description]`] = (_b = cleanText(rating.description)) !== null && _b !== void 0 ? _b : '';
+                        newRubric[`rubric[criteria][${i}][ratings][${j}][long_description]`] = (_c = cleanText(rating.long_description)) !== null && _c !== void 0 ? _c : '';
+                        newRubric[`rubric[criteria][${i}][ratings][${j}][points]`] = (_d = rating.points) !== null && _d !== void 0 ? _d : 0;
+                    });
+                });
+                //Push rubric to course
+                result = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(`/api/v1/courses/${course.id}/rubrics`, {
+                    fetchInit: {
+                        method: 'POST',
+                        body: (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_6__.formDataify)(newRubric)
+                    }
+                });
+            }
+            if (result && (result.id || result.rubric)) {
+                if (relatedRubric.points_possible === assignment.points_possible) {
+                    if (confirm("Rubric updated successfully! Do you want to refresh the page to see the changes?"))
+                        location.reload();
+                }
+                else {
+                    if (confirm("Rubric updated successfully, but the assignment points are different from the rubric points. You may need to update the points manually. Do you want to refresh the page to see the changes?"))
+                        location.reload();
+                }
+            }
+            else {
+                throw new Error("Update failed: " + JSON.stringify(result));
+            }
+        }
+        catch (e) {
+            console.error("Rubric update error:", e);
+            alert("Failed to update rubric: " + e.message);
+        }
+        setIsLoading(false);
+    }
+    function isAssignment(contentData) {
+        return (typeof contentData === "object" &&
+            contentData !== null &&
+            "submission_types" in contentData &&
+            "points_possible" in contentData);
+    }
+    function isDiscussion(contentData) {
+        return (typeof contentData === "object" &&
+            contentData !== null &&
+            "discussion_type" in contentData &&
+            "title" in contentData);
+    }
+    async function getAssignmentByName(course, name) {
+        const assignmentGen = (0,_canvas_content_assignments__WEBPACK_IMPORTED_MODULE_4__.assignmentDataGen)(course.id);
+        for await (const assignment of assignmentGen) {
+            if (assignment.name === name) {
+                return assignment;
+            }
+        }
+    }
+    async function getDiscussionByName(course, name) {
+        const discussions = await course.getDiscussions();
+        for (const discussion of discussions) {
+            if (discussion.name === name) {
+                const discussionData = discussion.data;
+                if (!discussionData.assignment_id)
+                    throw new Error("Discussion does not have an assignment id. This is likely because it's an ungraded discussion.");
+                return await (0,_canvas_content_assignments_legacy__WEBPACK_IMPORTED_MODULE_3__.getAssignmentData)(course.id, discussionData.assignment_id);
+            }
+        }
+    }
+    const cleanText = (text) => {
+        if (typeof text !== 'string')
+            return text;
+        const parser = new DOMParser();
+        const decoded = parser.parseFromString(`<!doctype html><body>${text}`, 'text/html').body.textContent;
+        return decoded || text;
+    };
+    return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "relative inline-block", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { title: "Pull the rubric from a corresponding assignment into this one.", onClick: e => insertRubric(course), disabled: isLoading, className: "btn", children: "Rubric" }), isLoading && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute inset-0 flex items-center justify-center rounded-md backdrop-blur-sm bg-white/40", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "animate-spin h-5 w-5 border-2 border-t-transparent border-gray-700 rounded-full" }) }))] }) });
+}
+
+
+/***/ }),
+
 /***/ "./src/ui/course/addButtons.tsx":
 /*!**************************************!*\
   !*** ./src/ui/course/addButtons.tsx ***!
@@ -65511,6 +65770,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   addHighlightBigImageResizer: () => (/* binding */ addHighlightBigImageResizer),
 /* harmony export */   addHomeTileButton: () => (/* binding */ addHomeTileButton),
 /* harmony export */   addOpenAllLinksButton: () => (/* binding */ addOpenAllLinksButton),
+/* harmony export */   addRubricButton: () => (/* binding */ addRubricButton),
 /* harmony export */   addSectionsButton: () => (/* binding */ addSectionsButton),
 /* harmony export */   openContentExternalLinks: () => (/* binding */ openContentExternalLinks),
 /* harmony export */   openContentFiles: () => (/* binding */ openContentFiles)
@@ -65518,10 +65778,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
 /* harmony import */ var _ui_course_HighlightBigImages__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/ui/course/HighlightBigImages */ "./src/ui/course/HighlightBigImages.tsx");
-/* harmony import */ var _canvas_content_openThisContentInTarget__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/content/openThisContentInTarget */ "./src/canvas/content/openThisContentInTarget.ts");
-/* harmony import */ var _ui_course_HomeTileApp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/ui/course/HomeTileApp */ "./src/ui/course/HomeTileApp.tsx");
-/* harmony import */ var _ui_course_BpButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/ui/course/BpButton */ "./src/ui/course/BpButton.tsx");
-/* harmony import */ var _canvas_content_getContentFuncs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/canvas/content/getContentFuncs */ "./src/canvas/content/getContentFuncs.ts");
+/* harmony import */ var _canvas_course_Course__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/course/Course */ "./src/canvas/course/Course.ts");
+/* harmony import */ var _canvas_content_openThisContentInTarget__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/canvas/content/openThisContentInTarget */ "./src/canvas/content/openThisContentInTarget.ts");
+/* harmony import */ var _ui_course_HomeTileApp__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/ui/course/HomeTileApp */ "./src/ui/course/HomeTileApp.tsx");
+/* harmony import */ var _ui_course_BpButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/ui/course/BpButton */ "./src/ui/course/BpButton.tsx");
+/* harmony import */ var _canvas_content_getContentFuncs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/canvas/content/getContentFuncs */ "./src/canvas/content/getContentFuncs.ts");
+/* harmony import */ var _canvas_content_determineContent__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/canvas/content/determineContent */ "./src/canvas/content/determineContent.ts");
+/* harmony import */ var _ui_course_RubricButton__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/ui/course/RubricButton */ "./src/ui/course/RubricButton.tsx");
+/* harmony import */ var _canvas_content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @canvas/content/discussions/DiscussionKind */ "./src/canvas/content/discussions/DiscussionKind.ts");
+/* harmony import */ var _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @canvas/content/assignments/AssignmentKind */ "./src/canvas/content/assignments/AssignmentKind.ts");
+
+
+
+
+
 
 
 
@@ -65532,7 +65802,7 @@ __webpack_require__.r(__webpack_exports__);
 function addHomeTileButton(el, course) {
     const root = document.createElement("div");
     const rootDiv = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(root);
-    rootDiv.render((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_course_HomeTileApp__WEBPACK_IMPORTED_MODULE_4__.HomeTileApp, { el: el, course: course }));
+    rootDiv.render((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_course_HomeTileApp__WEBPACK_IMPORTED_MODULE_5__.HomeTileApp, { el: el, course: course }));
     document.body.append(root);
 }
 async function addSectionsButton(header, bp, currentCourse = null) {
@@ -65545,7 +65815,7 @@ async function addSectionsButton(header, bp, currentCourse = null) {
     if (!sections)
         return;
     header.append(sectionBtn);
-    sectionBtn.addEventListener('click', async () => await (0,_canvas_content_openThisContentInTarget__WEBPACK_IMPORTED_MODULE_3__["default"])(sourceCourse, sections));
+    sectionBtn.addEventListener('click', async () => await (0,_canvas_content_openThisContentInTarget__WEBPACK_IMPORTED_MODULE_4__["default"])(sourceCourse, sections));
 }
 async function addDevButton(header, course) {
     if (course.courseCode && !course.courseCode.includes('DEV')) {
@@ -65556,7 +65826,7 @@ async function addDevButton(header, course) {
             parentBtn.innerHTML = "DEV";
             parentBtn.title = "Open the dev version of this course";
             header === null || header === void 0 ? void 0 : header.append(parentBtn);
-            parentBtn.addEventListener('click', async () => await (0,_canvas_content_openThisContentInTarget__WEBPACK_IMPORTED_MODULE_3__["default"])(course, parentCourse));
+            parentBtn.addEventListener('click', async () => await (0,_canvas_content_openThisContentInTarget__WEBPACK_IMPORTED_MODULE_4__["default"])(course, parentCourse));
         }
     }
 }
@@ -65564,7 +65834,7 @@ async function addBpButton(header, currentCourse, currentBp) {
     const rootDiv = document.createElement('div');
     header.append(rootDiv);
     const bpButtonRoot = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(rootDiv);
-    bpButtonRoot.render((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_course_BpButton__WEBPACK_IMPORTED_MODULE_5__.BpButton, { course: currentCourse, currentBp: currentBp }));
+    bpButtonRoot.render((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_course_BpButton__WEBPACK_IMPORTED_MODULE_6__.BpButton, { course: currentCourse, currentBp: currentBp }));
 }
 async function addOpenAllLinksButton(header, currentContentItem) {
     const btn = document.createElement('btn');
@@ -65583,14 +65853,14 @@ async function addOpenAllLinksButton(header, currentContentItem) {
 function openContentFiles(contentItem) {
     if (!contentItem.body)
         return;
-    const urls = new Set((0,_canvas_content_getContentFuncs__WEBPACK_IMPORTED_MODULE_6__.getFileLinks)(contentItem.body, contentItem.courseId));
+    const urls = new Set((0,_canvas_content_getContentFuncs__WEBPACK_IMPORTED_MODULE_7__.getFileLinks)(contentItem.body, contentItem.courseId));
     for (const url of urls)
         window.open(url, "_blank");
 }
 function openContentExternalLinks(contentItem) {
     if (!contentItem.body)
         return;
-    const urls = new Set((0,_canvas_content_getContentFuncs__WEBPACK_IMPORTED_MODULE_6__.getExternalLinks)(contentItem.body, contentItem.courseId));
+    const urls = new Set((0,_canvas_content_getContentFuncs__WEBPACK_IMPORTED_MODULE_7__.getExternalLinks)(contentItem.body, contentItem.courseId));
     for (const url of urls)
         window.open(url, "_blank");
 }
@@ -65609,6 +65879,19 @@ function addHighlightBigImageResizer(currentContentItem) {
         const rootDiv = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(root);
         rootDiv.render((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_course_HighlightBigImages__WEBPACK_IMPORTED_MODULE_2__.HighlightBigImages, { el: notification, bannerImage: image, currentContentItem: currentContentItem, resizeTo: 1200 }));
         document.body.append(root);
+    }
+}
+async function addRubricButton(header) {
+    const page = window.document.URL;
+    const course = await _canvas_course_Course__WEBPACK_IMPORTED_MODULE_3__.Course.getFromUrl(page);
+    const contentKind = (0,_canvas_content_determineContent__WEBPACK_IMPORTED_MODULE_8__.getContentKindFromUrl)(page);
+    if (!course)
+        return;
+    if (contentKind === _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_11__["default"] || contentKind === _canvas_content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_10__["default"]) {
+        const rootDiv = document.createElement('div');
+        header.append(rootDiv);
+        const rubricButtonRoot = react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot(rootDiv);
+        rubricButtonRoot.render((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_course_RubricButton__WEBPACK_IMPORTED_MODULE_9__.RubricButton, { course: course }));
     }
 }
 
@@ -65703,6 +65986,9 @@ async function main() {
     if (bp) {
         await (0,_ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__.addBpButton)(header, currentCourse, bp);
         await (0,_ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__.addSectionsButton)(header, bp, currentCourse);
+    }
+    if (currentCourse.isBlueprint() || currentCourse.isDev) {
+        await (0,_ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__.addRubricButton)(header);
     }
     if (currentContentItem) {
         await (0,_ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__.addOpenAllLinksButton)(header, currentContentItem);
