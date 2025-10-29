@@ -1,0 +1,91 @@
+name: Promote Tested Build to Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_bump:
+        description: "Select which version to bump for the live release"
+        required: true
+        type: choice
+        default: patch
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout lxd-tools-build (test branch)
+        uses: actions/checkout@v4
+        with:
+          repository: your-org/lxd-tools-build
+          token: ${{ secrets.BUILD_REPO_TOKEN }} # TODO; set this up
+          ref: test
+          path: lxd-tools-build
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Bump version
+        id: bump
+        working-directory: lxd-tools-build
+        run: |
+          bump="${{ github.event.inputs.version_bump }}"
+          echo "🔢 Bumping version: $bump"
+          
+          # Get current version
+          current=$(node -p "require('./package.json').version")
+          echo "Current version: $current"
+
+          # Bump version using npm version (no git tag yet)
+          new_version=$(npm version $bump --no-git-tag-version)
+          echo "New version: $new_version"
+          echo "version=$new_version" >> $GITHUB_OUTPUT
+
+          # Sync manifest.json version
+          node -e "
+          const fs = require('fs');
+          const m = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));
+          const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+          m.version = pkg.version;
+          fs.writeFileSync('manifest.json', JSON.stringify(m, null, 2));
+          "
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json manifest.json
+          git commit -m "Bump version to $new_version"
+
+      - name: Push updated test branch
+        working-directory: lxd-tools-build
+        run: |
+          git push origin test
+
+      - name: Checkout main branch
+        working-directory: lxd-tools-build
+        run: |
+          git fetch origin stable
+          git checkout stable
+          git merge --no-ff test -m "Promote test to main (v${{ steps.bump.outputs.version }})"
+
+      - name: Push main and tag release
+        working-directory: lxd-tools-build
+        run: |
+          git push origin stable
+          git tag -f v${{ steps.bump.outputs.version }}
+          git push origin -f v${{ steps.bump.outputs.version }}
+
+      - name: Summary
+        run: |
+          echo "✅ Successfully promoted test → main"
+          echo "🏷️ Released version: v${{ steps.bump.outputs.version }}"
+
+      #TODO; Understand the version bumping stuff a bit more
+      #TODO; Create a new release branch in lxd-tools
+      #TODO; Push auto-update artifacts to server
+      #TODO; Automate release notes
+      #TODO; Automate Teams notification
