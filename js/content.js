@@ -99,8 +99,8 @@ function createCalendarGetters(e) {
         i: r
       })))[n](e);
       // removed by dead control flow
-// removed by dead control flow
-{ var o, r; }
+ // removed by dead control flow
+ var o, r;  
     };
   }
   return t;
@@ -130,8 +130,8 @@ function toPlainMonthDaySlots(e, t) {
 function getOffsetNanosecondsForAdapter(e, t, n) {
   return o = t.call(e, Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)(n))), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.validateTimeZoneOffset)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireInteger)(o));
   // removed by dead control flow
-// removed by dead control flow
-{ var o; }
+ // removed by dead control flow
+ var o;  
 }
 
 function createAdapterOps(e, t = ho) {
@@ -824,10 +824,10 @@ const xn = {
 /*!***********************************************************!*\
   !*** ./node_modules/temporal-polyfill/chunks/internal.js ***!
   \***********************************************************/
-/***/ ((__unused_webpack___webpack_module__, __nested_webpack_exports__, __nested_webpack_require_49631__) => {
+/***/ ((__unused_webpack___webpack_module__, __nested_webpack_exports__, __nested_webpack_require_49627__) => {
 
-__nested_webpack_require_49631__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_49631__.d(__nested_webpack_exports__, {
+__nested_webpack_require_49627__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_49627__.d(__nested_webpack_exports__, {
 /* harmony export */   DurationBranding: () => (/* binding */ qt),
 /* harmony export */   InstantBranding: () => (/* binding */ Oe),
 /* harmony export */   PlainDateBranding: () => (/* binding */ J),
@@ -2075,15 +2075,15 @@ function Tt(e, n) {
   const [t, o, r, i] = (e => (e = normalizeOptions(e), [ da(e), ...refineTimeDisplayTuple(e) ]))(n);
   return a = e.calendar, s = t, c = i, formatIsoDateTimeFields(roundDateTimeToNano(e, r, o), c) + formatCalendar(a, s);
   // removed by dead control flow
-// removed by dead control flow
-{ var a, s, c; }
+ // removed by dead control flow
+ var a, s, c;  
 }
 
 function yt(e, n) {
   return t = e.calendar, o = e, r = refineDateDisplayOptions(n), formatIsoDateFields(o) + formatCalendar(t, r);
   // removed by dead control flow
-// removed by dead control flow
-{ var t, o, r; }
+ // removed by dead control flow
+ var t, o, r;  
 }
 
 function et(e, n) {
@@ -2098,8 +2098,8 @@ function qe(e, n) {
   const [t, o, r] = refineTimeDisplayOptions(n);
   return i = r, formatIsoTimeFields(roundTimeToNano(e, o, t)[0], i);
   // removed by dead control flow
-// removed by dead control flow
-{ var i; }
+ // removed by dead control flow
+ var i;  
 }
 
 function zt(e, n) {
@@ -3412,8 +3412,8 @@ function kt(e, n) {
     ...refineFields(o, Ni)
   })));
   // removed by dead control flow
-// removed by dead control flow
-{ var t, o; }
+ // removed by dead control flow
+ var t, o;  
 }
 
 function mergeCalendarFields(e, n, t, o, r = [], i = []) {
@@ -4301,17 +4301,17 @@ let ys;
 /*!************************!*\
   !*** ./src/Account.ts ***!
   \************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_149722__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_149710__) => {
 
-__nested_webpack_require_149722__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_149722__.d(__nested_webpack_exports__, {
+__nested_webpack_require_149710__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_149710__.d(__nested_webpack_exports__, {
 /* harmony export */   Account: () => (/* binding */ Account),
 /* harmony export */   RootAccountNotFoundError: () => (/* binding */ RootAccountNotFoundError),
 /* harmony export */   getAccountIdFromUrl: () => (/* binding */ getAccountIdFromUrl)
 /* harmony export */ });
-/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_149722__(/*! ./baseCanvasObject */ "./src/baseCanvasObject.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_149722__(/*! ./fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_149722__(/*! ./fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_149710__(/*! ./baseCanvasObject */ "./src/baseCanvasObject.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_149710__(/*! ./fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_149710__(/*! ./fetch/fetchJson */ "./src/fetch/fetchJson.ts");
 
 
 
@@ -4374,10 +4374,10 @@ const getAccountIdFromUrl = (url = null) => {
 /*!****************************************!*\
   !*** ./src/NotImplementedException.ts ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_152881__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_152869__) => {
 
-__nested_webpack_require_152881__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_152881__.d(__nested_webpack_exports__, {
+__nested_webpack_require_152869__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_152869__.d(__nested_webpack_exports__, {
 /* harmony export */   NotImplementedException: () => (/* binding */ NotImplementedException)
 /* harmony export */ });
 class NotImplementedException extends Error {
@@ -4391,13 +4391,13 @@ class NotImplementedException extends Error {
 /*!**********************************!*\
   !*** ./src/__mocks__/Account.ts ***!
   \**********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_153445__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_153433__) => {
 
-__nested_webpack_require_153445__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_153445__.d(__nested_webpack_exports__, {
+__nested_webpack_require_153433__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_153433__.d(__nested_webpack_exports__, {
 /* harmony export */   MockAccount: () => (/* binding */ MockAccount)
 /* harmony export */ });
-/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_153445__(/*! @/baseCanvasObject */ "./src/baseCanvasObject.ts");
+/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_153433__(/*! @/baseCanvasObject */ "./src/baseCanvasObject.ts");
 
 // Create a type alias for the original Account class
 class MockAccount extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
@@ -4452,10 +4452,10 @@ class MockAccount extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCan
 /*!********************************!*\
   !*** ./src/__mocks__/index.ts ***!
   \********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_155596__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_155584__) => {
 
-__nested_webpack_require_155596__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_155596__.d(__nested_webpack_exports__, {
+__nested_webpack_require_155584__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_155584__.d(__nested_webpack_exports__, {
 /* harmony export */   MockAccount: () => (/* reexport safe */ _Account__WEBPACK_IMPORTED_MODULE_0__.MockAccount),
 /* harmony export */   mockAccountData: () => (/* reexport safe */ _mockAccountData__WEBPACK_IMPORTED_MODULE_1__.mockAccountData),
 /* harmony export */   mockAsyncGen: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_7__.mockAsyncGen),
@@ -4469,14 +4469,14 @@ __nested_webpack_require_155596__.r(__nested_webpack_exports__);
 /* harmony export */   mockUserData: () => (/* reexport safe */ _mockUserData__WEBPACK_IMPORTED_MODULE_5__.mockUserData),
 /* harmony export */   returnMockAsyncGen: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_7__.returnMockAsyncGen)
 /* harmony export */ });
-/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_155596__(/*! ./Account */ "./src/__mocks__/Account.ts");
-/* harmony import */ var _mockAccountData__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_155596__(/*! ./mockAccountData */ "./src/__mocks__/mockAccountData.ts");
-/* harmony import */ var _mockEnrollment__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_155596__(/*! ./mockEnrollment */ "./src/__mocks__/mockEnrollment.ts");
-/* harmony import */ var _mockRubricData__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_155596__(/*! ./mockRubricData */ "./src/__mocks__/mockRubricData.ts");
-/* harmony import */ var _mockTabData__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_155596__(/*! ./mockTabData */ "./src/__mocks__/mockTabData.ts");
-/* harmony import */ var _mockUserData__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_155596__(/*! ./mockUserData */ "./src/__mocks__/mockUserData.ts");
-/* harmony import */ var _mockTermData__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_155596__(/*! ./mockTermData */ "./src/__mocks__/mockTermData.ts");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_155596__(/*! ./utils */ "./src/__mocks__/utils.ts");
+/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_155584__(/*! ./Account */ "./src/__mocks__/Account.ts");
+/* harmony import */ var _mockAccountData__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_155584__(/*! ./mockAccountData */ "./src/__mocks__/mockAccountData.ts");
+/* harmony import */ var _mockEnrollment__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_155584__(/*! ./mockEnrollment */ "./src/__mocks__/mockEnrollment.ts");
+/* harmony import */ var _mockRubricData__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_155584__(/*! ./mockRubricData */ "./src/__mocks__/mockRubricData.ts");
+/* harmony import */ var _mockTabData__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_155584__(/*! ./mockTabData */ "./src/__mocks__/mockTabData.ts");
+/* harmony import */ var _mockUserData__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_155584__(/*! ./mockUserData */ "./src/__mocks__/mockUserData.ts");
+/* harmony import */ var _mockTermData__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_155584__(/*! ./mockTermData */ "./src/__mocks__/mockTermData.ts");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_155584__(/*! ./utils */ "./src/__mocks__/utils.ts");
 
 
 
@@ -4493,10 +4493,10 @@ __nested_webpack_require_155596__.r(__nested_webpack_exports__);
 /*!******************************************!*\
   !*** ./src/__mocks__/mockAccountData.ts ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_158716__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_158704__) => {
 
-__nested_webpack_require_158716__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_158716__.d(__nested_webpack_exports__, {
+__nested_webpack_require_158704__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_158704__.d(__nested_webpack_exports__, {
 /* harmony export */   mockAccountData: () => (/* binding */ mockAccountData)
 /* harmony export */ });
 /**
@@ -4548,14 +4548,14 @@ const mockAccountData = {
 /*!*****************************************!*\
   !*** ./src/__mocks__/mockEnrollment.ts ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_161103__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_161091__) => {
 
-__nested_webpack_require_161103__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_161103__.d(__nested_webpack_exports__, {
+__nested_webpack_require_161091__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_161091__.d(__nested_webpack_exports__, {
 /* harmony export */   mockEnrollment: () => (/* binding */ mockEnrollment)
 /* harmony export */ });
-/* harmony import */ var _mocks_mockUserData__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_161103__(/*! @/__mocks__/mockUserData */ "./src/__mocks__/mockUserData.ts");
-/* harmony import */ var _enrollments__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_161103__(/*! @/enrollments */ "./src/enrollments/index.ts");
+/* harmony import */ var _mocks_mockUserData__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_161091__(/*! @/__mocks__/mockUserData */ "./src/__mocks__/mockUserData.ts");
+/* harmony import */ var _enrollments__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_161091__(/*! @/enrollments */ "./src/enrollments/index.ts");
 
 
 const mockEnrollment = {
@@ -4584,10 +4584,10 @@ const mockEnrollment = {
 /*!*****************************************!*\
   !*** ./src/__mocks__/mockRubricData.ts ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_162438__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_162426__) => {
 
-__nested_webpack_require_162438__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_162438__.d(__nested_webpack_exports__, {
+__nested_webpack_require_162426__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_162426__.d(__nested_webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   mockRubric: () => (/* binding */ mockRubric),
 /* harmony export */   mockRubricAssessment: () => (/* binding */ mockRubricAssessment),
@@ -4653,10 +4653,10 @@ function mockRubricsForAssignments(assignmentIds, rubricOverride, associationOve
 /*!**************************************!*\
   !*** ./src/__mocks__/mockTabData.ts ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_164696__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_164684__) => {
 
-__nested_webpack_require_164696__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_164696__.d(__nested_webpack_exports__, {
+__nested_webpack_require_164684__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_164684__.d(__nested_webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   mockTabData: () => (/* binding */ mockTabData)
 /* harmony export */ });
@@ -4678,10 +4678,10 @@ const mockTabData = {
 /*!***************************************!*\
   !*** ./src/__mocks__/mockTermData.ts ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_165488__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_165476__) => {
 
-__nested_webpack_require_165488__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_165488__.d(__nested_webpack_exports__, {
+__nested_webpack_require_165476__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_165476__.d(__nested_webpack_exports__, {
 /* harmony export */   mockTermData: () => (/* binding */ mockTermData)
 /* harmony export */ });
 const mockTermData = {
@@ -4696,10 +4696,10 @@ const mockTermData = {
 /*!***************************************!*\
   !*** ./src/__mocks__/mockUserData.ts ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_166083__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_166071__) => {
 
-__nested_webpack_require_166083__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_166083__.d(__nested_webpack_exports__, {
+__nested_webpack_require_166071__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_166071__.d(__nested_webpack_exports__, {
 /* harmony export */   mockUserData: () => (/* binding */ mockUserData)
 /* harmony export */ });
 //Generated by ChatGPT-4o
@@ -4721,10 +4721,10 @@ const mockUserData = {
 /*!********************************!*\
   !*** ./src/__mocks__/utils.ts ***!
   \********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_166795__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_166783__) => {
 
-__nested_webpack_require_166795__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_166795__.d(__nested_webpack_exports__, {
+__nested_webpack_require_166783__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_166783__.d(__nested_webpack_exports__, {
 /* harmony export */   mockAsyncGen: () => (/* binding */ mockAsyncGen),
 /* harmony export */   returnMockAsyncGen: () => (/* binding */ returnMockAsyncGen)
 /* harmony export */ });
@@ -4745,18 +4745,18 @@ function mockAsyncGen(dataSet) {
 /*!*********************************!*\
   !*** ./src/baseCanvasObject.ts ***!
   \*********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_167551__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_167539__) => {
 
-__nested_webpack_require_167551__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_167551__.d(__nested_webpack_exports__, {
+__nested_webpack_require_167539__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_167539__.d(__nested_webpack_exports__, {
 /* harmony export */   BaseCanvasObject: () => (/* binding */ BaseCanvasObject)
 /* harmony export */ });
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_167551__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_167551__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_167551__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_167551__(/*! ./fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _fetch_utils__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_167551__(/*! ./fetch/utils */ "./src/fetch/utils.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_167551__(/*! ./fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_167539__(/*! assert */ "assert");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_167539__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_167539__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_167539__(/*! ./fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _fetch_utils__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_167539__(/*! ./fetch/utils */ "./src/fetch/utils.ts");
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_167539__(/*! ./fetch/fetchJson */ "./src/fetch/fetchJson.ts");
 
 
 
@@ -4872,9 +4872,9 @@ class BaseCanvasObject {
 /*!*******************************!*\
   !*** ./src/canvasDataDefs.ts ***!
   \*******************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_173054__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_173042__) => {
 
-__nested_webpack_require_173054__.r(__nested_webpack_exports__);
+__nested_webpack_require_173042__.r(__nested_webpack_exports__);
 
 
 
@@ -4884,10 +4884,10 @@ __nested_webpack_require_173054__.r(__nested_webpack_exports__);
 /*!****************************!*\
   !*** ./src/canvasUtils.ts ***!
   \****************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_173324__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_173312__) => {
 
-__nested_webpack_require_173324__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_173324__.d(__nested_webpack_exports__, {
+__nested_webpack_require_173312__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_173312__.d(__nested_webpack_exports__, {
 /* harmony export */   batchGen: () => (/* binding */ batchGen),
 /* harmony export */   batchify: () => (/* binding */ batchify),
 /* harmony export */   callAll: () => (/* binding */ callAll),
@@ -4907,9 +4907,9 @@ __nested_webpack_require_173324__.r(__nested_webpack_exports__);
 /* harmony export */   renderAsyncGen: () => (/* binding */ renderAsyncGen),
 /* harmony export */   searchParamsFromObject: () => (/* binding */ searchParamsFromObject)
 /* harmony export */ });
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_173324__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_173324__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_173324__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_173312__(/*! assert */ "assert");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_173312__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_173312__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
 
 
 function isWithParamsFunc(func) {
@@ -5253,23 +5253,23 @@ async function* generatorMap(generator, nextMapFunc) {
 /*!****************************************!*\
   !*** ./src/content/BaseContentItem.ts ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_186280__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_186268__) => {
 
-__nested_webpack_require_186280__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_186280__.d(__nested_webpack_exports__, {
+__nested_webpack_require_186268__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_186268__.d(__nested_webpack_exports__, {
 /* harmony export */   BaseContentItem: () => (/* binding */ BaseContentItem),
 /* harmony export */   getBannerImage: () => (/* binding */ getBannerImage),
 /* harmony export */   postContentConfig: () => (/* binding */ postContentConfig),
 /* harmony export */   putContentConfig: () => (/* binding */ putContentConfig)
 /* harmony export */ });
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_186280__(/*! @canvas/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_186280__(/*! @canvas/baseCanvasObject */ "./src/baseCanvasObject.ts");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_186280__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_186280__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_186280__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_186280__(/*! @canvas/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_186280__(/*! @canvas/course/getCourseIdFromUrl */ "./src/course/getCourseIdFromUrl.ts");
-/* harmony import */ var _canvas_NotImplementedException__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_186280__(/*! @canvas/NotImplementedException */ "./src/NotImplementedException.ts");
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_186268__(/*! @canvas/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_186268__(/*! @canvas/baseCanvasObject */ "./src/baseCanvasObject.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_186268__(/*! assert */ "assert");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_186268__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_186268__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_186268__(/*! @canvas/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_186268__(/*! @canvas/course/getCourseIdFromUrl */ "./src/course/getCourseIdFromUrl.ts");
+/* harmony import */ var _canvas_NotImplementedException__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_186268__(/*! @canvas/NotImplementedException */ "./src/NotImplementedException.ts");
 
 
 
@@ -5449,17 +5449,17 @@ function postContentConfig(data, config) {
 /*!************************************!*\
   !*** ./src/content/ContentKind.ts ***!
   \************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_194486__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_194474__) => {
 
-__nested_webpack_require_194486__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_194486__.d(__nested_webpack_exports__, {
+__nested_webpack_require_194474__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_194474__.d(__nested_webpack_exports__, {
 /* harmony export */   contentUrlFuncs: () => (/* binding */ contentUrlFuncs),
 /* harmony export */   courseContentUrlFunc: () => (/* binding */ courseContentUrlFunc),
 /* harmony export */   postContentFunc: () => (/* binding */ postContentFunc),
 /* harmony export */   putContentFunc: () => (/* binding */ putContentFunc)
 /* harmony export */ });
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_194486__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_194486__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_194474__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_194474__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
 
 
 function contentUrlFuncs(contentUrlPart) {
@@ -5506,17 +5506,17 @@ function postContentFunc(getApiUrl) {
 /*!***********************************************!*\
   !*** ./src/content/assignments/Assignment.ts ***!
   \***********************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_197361__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_197349__) => {
 
-__nested_webpack_require_197361__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_197361__.d(__nested_webpack_exports__, {
+__nested_webpack_require_197349__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_197349__.d(__nested_webpack_exports__, {
 /* harmony export */   Assignment: () => (/* binding */ Assignment)
 /* harmony export */ });
-/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_197361__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_197361__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_197361__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_197361__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_197361__(/*! @/content/assignments/AssignmentKind */ "./src/content/assignments/AssignmentKind.ts");
+/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_197349__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
+/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_197349__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_197349__(/*! assert */ "assert");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_197349__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_197349__(/*! @/content/assignments/AssignmentKind */ "./src/content/assignments/AssignmentKind.ts");
 
 
 
@@ -5578,16 +5578,16 @@ class Assignment extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.B
 /*!***************************************************!*\
   !*** ./src/content/assignments/AssignmentKind.ts ***!
   \***************************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_201021__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_201009__) => {
 
-__nested_webpack_require_201021__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_201021__.d(__nested_webpack_exports__, {
+__nested_webpack_require_201009__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_201009__.d(__nested_webpack_exports__, {
 /* harmony export */   assignmentUrlFuncs: () => (/* binding */ assignmentUrlFuncs),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_201021__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_201021__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_201021__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_201009__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_201009__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_201009__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
 
 
 
@@ -5616,16 +5616,16 @@ const AssignmentKind = {
 /*!******************************************!*\
   !*** ./src/content/assignments/index.ts ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_203026__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_203014__) => {
 
-__nested_webpack_require_203026__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_203026__.d(__nested_webpack_exports__, {
+__nested_webpack_require_203014__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_203014__.d(__nested_webpack_exports__, {
 /* harmony export */   assignmentDataGen: () => (/* binding */ assignmentDataGen),
 /* harmony export */   updateAssignmentData: () => (/* binding */ updateAssignmentData),
 /* harmony export */   updateAssignmentDueDates: () => (/* binding */ updateAssignmentDueDates)
 /* harmony export */ });
-/* harmony import */ var _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_203026__(/*! @/content/assignments/AssignmentKind */ "./src/content/assignments/AssignmentKind.ts");
-/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_203026__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
+/* harmony import */ var _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_203014__(/*! @/content/assignments/AssignmentKind */ "./src/content/assignments/AssignmentKind.ts");
+/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_203014__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
 
 
 const assignmentDataGen = _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__["default"].dataGenerator;
@@ -5654,10 +5654,10 @@ async function updateAssignmentDueDates(offset, assignments, options) {
 /*!*****************************************!*\
   !*** ./src/content/determineContent.ts ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_204962__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_204950__) => {
 
-__nested_webpack_require_204962__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_204962__.d(__nested_webpack_exports__, {
+__nested_webpack_require_204950__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_204950__.d(__nested_webpack_exports__, {
 /* harmony export */   CONTENT_KINDS: () => (/* binding */ CONTENT_KINDS),
 /* harmony export */   ContentKinds: () => (/* binding */ ContentKinds),
 /* harmony export */   getContentClassFromUrl: () => (/* binding */ getContentClassFromUrl),
@@ -5666,14 +5666,14 @@ __nested_webpack_require_204962__.r(__nested_webpack_exports__);
 /* harmony export */   getContentKindFromContent: () => (/* binding */ getContentKindFromContent),
 /* harmony export */   getContentKindFromUrl: () => (/* binding */ getContentKindFromUrl)
 /* harmony export */ });
-/* harmony import */ var _content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_204962__(/*! @/content/quizzes/Quiz */ "./src/content/quizzes/Quiz.ts");
-/* harmony import */ var _content_pages_Page__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_204962__(/*! @/content/pages/Page */ "./src/content/pages/Page.ts");
-/* harmony import */ var _content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_204962__(/*! @/content/discussions/Discussion */ "./src/content/discussions/Discussion.ts");
-/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_204962__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
-/* harmony import */ var _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_204962__(/*! @/content/assignments/AssignmentKind */ "./src/content/assignments/AssignmentKind.ts");
-/* harmony import */ var _content_quizzes_QuizKind__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_204962__(/*! @/content/quizzes/QuizKind */ "./src/content/quizzes/QuizKind.ts");
-/* harmony import */ var _content_pages_PageKind__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_204962__(/*! @/content/pages/PageKind */ "./src/content/pages/PageKind.ts");
-/* harmony import */ var _content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_204962__(/*! @/content/discussions/DiscussionKind */ "./src/content/discussions/DiscussionKind.ts");
+/* harmony import */ var _content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_204950__(/*! @/content/quizzes/Quiz */ "./src/content/quizzes/Quiz.ts");
+/* harmony import */ var _content_pages_Page__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_204950__(/*! @/content/pages/Page */ "./src/content/pages/Page.ts");
+/* harmony import */ var _content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_204950__(/*! @/content/discussions/Discussion */ "./src/content/discussions/Discussion.ts");
+/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_204950__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
+/* harmony import */ var _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_204950__(/*! @/content/assignments/AssignmentKind */ "./src/content/assignments/AssignmentKind.ts");
+/* harmony import */ var _content_quizzes_QuizKind__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_204950__(/*! @/content/quizzes/QuizKind */ "./src/content/quizzes/QuizKind.ts");
+/* harmony import */ var _content_pages_PageKind__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_204950__(/*! @/content/pages/PageKind */ "./src/content/pages/PageKind.ts");
+/* harmony import */ var _content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_204950__(/*! @/content/discussions/DiscussionKind */ "./src/content/discussions/DiscussionKind.ts");
 
 
 
@@ -5740,15 +5740,15 @@ async function getContentDataFromUrl(url, config) {
 /*!***********************************************!*\
   !*** ./src/content/discussions/Discussion.ts ***!
   \***********************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_209425__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_209413__) => {
 
-__nested_webpack_require_209425__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_209425__.d(__nested_webpack_exports__, {
+__nested_webpack_require_209413__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_209413__.d(__nested_webpack_exports__, {
 /* harmony export */   Discussion: () => (/* binding */ Discussion)
 /* harmony export */ });
-/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_209425__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_209425__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
-/* harmony import */ var _content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_209425__(/*! @/content/discussions/DiscussionKind */ "./src/content/discussions/DiscussionKind.ts");
+/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_209413__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
+/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_209413__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
+/* harmony import */ var _content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_209413__(/*! @/content/discussions/DiscussionKind */ "./src/content/discussions/DiscussionKind.ts");
 
 
 
@@ -5781,16 +5781,16 @@ class Discussion extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.B
 /*!***************************************************!*\
   !*** ./src/content/discussions/DiscussionKind.ts ***!
   \***************************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_211528__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_211516__) => {
 
-__nested_webpack_require_211528__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_211528__.d(__nested_webpack_exports__, {
+__nested_webpack_require_211516__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_211516__.d(__nested_webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   discussionUrlFuncs: () => (/* binding */ discussionUrlFuncs)
 /* harmony export */ });
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_211528__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_211528__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_211528__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_211516__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_211516__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_211516__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
 
 
 
@@ -5818,15 +5818,15 @@ const DiscussionKind = {
 /*!******************************************!*\
   !*** ./src/content/discussions/index.ts ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_213516__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_213504__) => {
 
-__nested_webpack_require_213516__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_213516__.d(__nested_webpack_exports__, {
+__nested_webpack_require_213504__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_213504__.d(__nested_webpack_exports__, {
 /* harmony export */   Discussion: () => (/* reexport safe */ _Discussion__WEBPACK_IMPORTED_MODULE_0__.Discussion),
 /* harmony export */   discussionUrlFuncs: () => (/* reexport safe */ _DiscussionKind__WEBPACK_IMPORTED_MODULE_1__.discussionUrlFuncs)
 /* harmony export */ });
-/* harmony import */ var _Discussion__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_213516__(/*! ./Discussion */ "./src/content/discussions/Discussion.ts");
-/* harmony import */ var _DiscussionKind__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_213516__(/*! ./DiscussionKind */ "./src/content/discussions/DiscussionKind.ts");
+/* harmony import */ var _Discussion__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_213504__(/*! ./Discussion */ "./src/content/discussions/Discussion.ts");
+/* harmony import */ var _DiscussionKind__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_213504__(/*! ./DiscussionKind */ "./src/content/discussions/DiscussionKind.ts");
 
 
 
@@ -5837,10 +5837,10 @@ __nested_webpack_require_213516__.r(__nested_webpack_exports__);
 /*!****************************************!*\
   !*** ./src/content/getContentFuncs.ts ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_214493__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_214481__) => {
 
-__nested_webpack_require_214493__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_214493__.d(__nested_webpack_exports__, {
+__nested_webpack_require_214481__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_214481__.d(__nested_webpack_exports__, {
 /* harmony export */   getExternalLinks: () => (/* binding */ getExternalLinks),
 /* harmony export */   getFileLinks: () => (/* binding */ getFileLinks)
 /* harmony export */ });
@@ -5872,10 +5872,10 @@ function getExternalLinks(body, courseId) {
 /*!******************************!*\
   !*** ./src/content/index.ts ***!
   \******************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_215700__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_215688__) => {
 
-__nested_webpack_require_215700__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_215700__.d(__nested_webpack_exports__, {
+__nested_webpack_require_215688__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_215688__.d(__nested_webpack_exports__, {
 /* harmony export */   BaseContentItem: () => (/* reexport safe */ _BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem),
 /* harmony export */   CONTENT_KINDS: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.CONTENT_KINDS),
 /* harmony export */   ContentKinds: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.ContentKinds),
@@ -5899,16 +5899,16 @@ __nested_webpack_require_215700__.r(__nested_webpack_exports__);
 /* harmony export */   updateAssignmentData: () => (/* reexport safe */ _assignments__WEBPACK_IMPORTED_MODULE_9__.updateAssignmentData),
 /* harmony export */   updateAssignmentDueDates: () => (/* reexport safe */ _assignments__WEBPACK_IMPORTED_MODULE_9__.updateAssignmentDueDates)
 /* harmony export */ });
-/* harmony import */ var _BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_215700__(/*! ./BaseContentItem */ "./src/content/BaseContentItem.ts");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_215700__(/*! ./types */ "./src/content/types.ts");
-/* harmony import */ var _determineContent__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_215700__(/*! ./determineContent */ "./src/content/determineContent.ts");
-/* harmony import */ var _getContentFuncs__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_215700__(/*! ./getContentFuncs */ "./src/content/getContentFuncs.ts");
-/* harmony import */ var _ContentKind__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_215700__(/*! ./ContentKind */ "./src/content/ContentKind.ts");
-/* harmony import */ var _openThisContentInTarget__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_215700__(/*! ./openThisContentInTarget */ "./src/content/openThisContentInTarget.ts");
-/* harmony import */ var _pages__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_215700__(/*! ./pages */ "./src/content/pages/index.ts");
-/* harmony import */ var _quizzes__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_215700__(/*! ./quizzes */ "./src/content/quizzes/index.ts");
-/* harmony import */ var _discussions__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_215700__(/*! ./discussions */ "./src/content/discussions/index.ts");
-/* harmony import */ var _assignments__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_215700__(/*! ./assignments */ "./src/content/assignments/index.ts");
+/* harmony import */ var _BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_215688__(/*! ./BaseContentItem */ "./src/content/BaseContentItem.ts");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_215688__(/*! ./types */ "./src/content/types.ts");
+/* harmony import */ var _determineContent__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_215688__(/*! ./determineContent */ "./src/content/determineContent.ts");
+/* harmony import */ var _getContentFuncs__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_215688__(/*! ./getContentFuncs */ "./src/content/getContentFuncs.ts");
+/* harmony import */ var _ContentKind__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_215688__(/*! ./ContentKind */ "./src/content/ContentKind.ts");
+/* harmony import */ var _openThisContentInTarget__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_215688__(/*! ./openThisContentInTarget */ "./src/content/openThisContentInTarget.ts");
+/* harmony import */ var _pages__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_215688__(/*! ./pages */ "./src/content/pages/index.ts");
+/* harmony import */ var _quizzes__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_215688__(/*! ./quizzes */ "./src/content/quizzes/index.ts");
+/* harmony import */ var _discussions__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_215688__(/*! ./discussions */ "./src/content/discussions/index.ts");
+/* harmony import */ var _assignments__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_215688__(/*! ./assignments */ "./src/content/assignments/index.ts");
 
 
 
@@ -5927,13 +5927,13 @@ __nested_webpack_require_215700__.r(__nested_webpack_exports__);
 /*!************************************************!*\
   !*** ./src/content/openThisContentInTarget.ts ***!
   \************************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_220579__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_220567__) => {
 
-__nested_webpack_require_220579__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_220579__.d(__nested_webpack_exports__, {
+__nested_webpack_require_220567__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_220567__.d(__nested_webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ openThisContentInTarget)
 /* harmony export */ });
-/* harmony import */ var _content_determineContent__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_220579__(/*! @/content/determineContent */ "./src/content/determineContent.ts");
+/* harmony import */ var _content_determineContent__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_220567__(/*! @/content/determineContent */ "./src/content/determineContent.ts");
 
 function getIdOrCourse(courseOrId) {
     if (typeof courseOrId === 'object')
@@ -5971,14 +5971,14 @@ async function openThisContentInTarget(currentCourse, target) {
 /*!***********************************!*\
   !*** ./src/content/pages/Page.ts ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_222370__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_222358__) => {
 
-__nested_webpack_require_222370__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_222370__.d(__nested_webpack_exports__, {
+__nested_webpack_require_222358__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_222358__.d(__nested_webpack_exports__, {
 /* harmony export */   Page: () => (/* binding */ Page)
 /* harmony export */ });
-/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_222370__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
-/* harmony import */ var _content_pages_PageKind__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_222370__(/*! @/content/pages/PageKind */ "./src/content/pages/PageKind.ts");
+/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_222358__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
+/* harmony import */ var _content_pages_PageKind__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_222358__(/*! @/content/pages/PageKind */ "./src/content/pages/PageKind.ts");
 
 
 class Page extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
@@ -6015,16 +6015,16 @@ class Page extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseCon
 /*!***************************************!*\
   !*** ./src/content/pages/PageKind.ts ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_224125__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_224113__) => {
 
-__nested_webpack_require_224125__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_224125__.d(__nested_webpack_exports__, {
+__nested_webpack_require_224113__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_224113__.d(__nested_webpack_exports__, {
 /* harmony export */   PageUrlFuncs: () => (/* binding */ PageUrlFuncs),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_224125__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_224125__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_224125__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_224113__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_224113__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_224113__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
 
 
 
@@ -6053,16 +6053,16 @@ const PageKind = {
 /*!************************************!*\
   !*** ./src/content/pages/index.ts ***!
   \************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_226407__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_226395__) => {
 
-__nested_webpack_require_226407__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_226407__.d(__nested_webpack_exports__, {
+__nested_webpack_require_226395__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_226395__.d(__nested_webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _learningMaterialsForModule__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_226407__(/*! ./learningMaterialsForModule */ "./src/content/pages/learningMaterialsForModule.ts");
-/* harmony import */ var _Page__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_226407__(/*! ./Page */ "./src/content/pages/Page.ts");
-/* harmony import */ var _PageKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_226407__(/*! ./PageKind */ "./src/content/pages/PageKind.ts");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_226407__(/*! ./types */ "./src/content/pages/types.ts");
+/* harmony import */ var _learningMaterialsForModule__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_226395__(/*! ./learningMaterialsForModule */ "./src/content/pages/learningMaterialsForModule.ts");
+/* harmony import */ var _Page__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_226395__(/*! ./Page */ "./src/content/pages/Page.ts");
+/* harmony import */ var _PageKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_226395__(/*! ./PageKind */ "./src/content/pages/PageKind.ts");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_226395__(/*! ./types */ "./src/content/pages/types.ts");
 
 
 
@@ -6081,14 +6081,14 @@ __nested_webpack_require_226407__.r(__nested_webpack_exports__);
 /*!*********************************************************!*\
   !*** ./src/content/pages/learningMaterialsForModule.ts ***!
   \*********************************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_227881__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_227869__) => {
 
-__nested_webpack_require_227881__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_227881__.d(__nested_webpack_exports__, {
+__nested_webpack_require_227869__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_227869__.d(__nested_webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   learningMaterialsForModule: () => (/* binding */ learningMaterialsForModule)
 /* harmony export */ });
-/* harmony import */ var _canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_227881__(/*! @canvas/content/pages/PageKind */ "./src/content/pages/PageKind.ts");
+/* harmony import */ var _canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_227869__(/*! @canvas/content/pages/PageKind */ "./src/content/pages/PageKind.ts");
 
 async function* learningMaterialsForModule(courseId, module) {
     const lmItems = module.items.filter(a => a.title.match(/learning materials/i));
@@ -6106,9 +6106,9 @@ async function* learningMaterialsForModule(courseId, module) {
 /*!************************************!*\
   !*** ./src/content/pages/types.ts ***!
   \************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_229074__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_229062__) => {
 
-__nested_webpack_require_229074__.r(__nested_webpack_exports__);
+__nested_webpack_require_229062__.r(__nested_webpack_exports__);
 
 
 
@@ -6118,15 +6118,15 @@ __nested_webpack_require_229074__.r(__nested_webpack_exports__);
 /*!*************************************!*\
   !*** ./src/content/quizzes/Quiz.ts ***!
   \*************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_229380__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_229368__) => {
 
-__nested_webpack_require_229380__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_229380__.d(__nested_webpack_exports__, {
+__nested_webpack_require_229368__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_229368__.d(__nested_webpack_exports__, {
 /* harmony export */   Quiz: () => (/* binding */ Quiz)
 /* harmony export */ });
-/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_229380__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_229380__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_229380__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_229368__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_229368__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_229368__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
 
 
 
@@ -6157,16 +6157,16 @@ class Quiz extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseCon
 /*!*****************************************!*\
   !*** ./src/content/quizzes/QuizKind.ts ***!
   \*****************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_231091__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_231079__) => {
 
-__nested_webpack_require_231091__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_231091__.d(__nested_webpack_exports__, {
+__nested_webpack_require_231079__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_231079__.d(__nested_webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   quizUrlFuncs: () => (/* binding */ quizUrlFuncs)
 /* harmony export */ });
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_231091__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_231091__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_231091__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_231079__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_231079__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_231079__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
 
 
 
@@ -6193,9 +6193,9 @@ const QuizKind = {
 /*!**************************************!*\
   !*** ./src/content/quizzes/index.ts ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_232992__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_232980__) => {
 
-__nested_webpack_require_232992__.r(__nested_webpack_exports__);
+__nested_webpack_require_232980__.r(__nested_webpack_exports__);
 
 
 
@@ -6205,9 +6205,9 @@ __nested_webpack_require_232992__.r(__nested_webpack_exports__);
 /*!******************************!*\
   !*** ./src/content/types.ts ***!
   \******************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_233270__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_233258__) => {
 
-__nested_webpack_require_233270__.r(__nested_webpack_exports__);
+__nested_webpack_require_233258__.r(__nested_webpack_exports__);
 
 
 
@@ -6217,35 +6217,35 @@ __nested_webpack_require_233270__.r(__nested_webpack_exports__);
 /*!******************************!*\
   !*** ./src/course/Course.ts ***!
   \******************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_233548__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_233536__) => {
 
-__nested_webpack_require_233548__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_233548__.d(__nested_webpack_exports__, {
+__nested_webpack_require_233536__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_233536__.d(__nested_webpack_exports__, {
 /* harmony export */   COURSE_CODE_REGEX: () => (/* binding */ COURSE_CODE_REGEX),
 /* harmony export */   Course: () => (/* binding */ Course)
 /* harmony export */ });
-/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_233548__(/*! ../baseCanvasObject */ "./src/baseCanvasObject.ts");
-/* harmony import */ var _blueprint__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_233548__(/*! ./blueprint */ "./src/course/blueprint.ts");
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_233548__(/*! ../canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _changeStartDate__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_233548__(/*! ./changeStartDate */ "./src/course/changeStartDate.ts");
-/* harmony import */ var _modules__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_233548__(/*! ./modules */ "./src/course/modules.ts");
-/* harmony import */ var _profile__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_233548__(/*! ../profile */ "./src/profile.ts");
-/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_233548__(/*! ./toolbox */ "./src/course/toolbox.ts");
-/* harmony import */ var _content_assignments__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_233548__(/*! @/content/assignments */ "./src/content/assignments/index.ts");
-/* harmony import */ var _course_code__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_233548__(/*! @/course/code */ "./src/course/code.ts");
-/* harmony import */ var _term_Term__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_233548__(/*! @/term/Term */ "./src/term/Term.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_233548__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _fetch_utils__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_233548__(/*! @/fetch/utils */ "./src/fetch/utils.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_233548__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_13__ = __nested_webpack_require_233548__(/*! @/course/getCourseIdFromUrl */ "./src/course/getCourseIdFromUrl.ts");
-/* harmony import */ var _content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_14__ = __nested_webpack_require_233548__(/*! @/content/quizzes/Quiz */ "./src/content/quizzes/Quiz.ts");
-/* harmony import */ var _content_pages_Page__WEBPACK_IMPORTED_MODULE_15__ = __nested_webpack_require_233548__(/*! @/content/pages/Page */ "./src/content/pages/Page.ts");
-/* harmony import */ var _content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_16__ = __nested_webpack_require_233548__(/*! @/content/discussions/Discussion */ "./src/content/discussions/Discussion.ts");
-/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_17__ = __nested_webpack_require_233548__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
-/* harmony import */ var _fetch_apiGetConfig__WEBPACK_IMPORTED_MODULE_18__ = __nested_webpack_require_233548__(/*! @/fetch/apiGetConfig */ "./src/fetch/apiGetConfig.ts");
-/* harmony import */ var _canvas_course_cachedGetAssociatedCoursesFunc__WEBPACK_IMPORTED_MODULE_19__ = __nested_webpack_require_233548__(/*! @canvas/course/cachedGetAssociatedCoursesFunc */ "./src/course/cachedGetAssociatedCoursesFunc.ts");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_20__ = __nested_webpack_require_233548__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__nested_webpack_require_233548__.n(assert__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_233536__(/*! ../baseCanvasObject */ "./src/baseCanvasObject.ts");
+/* harmony import */ var _blueprint__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_233536__(/*! ./blueprint */ "./src/course/blueprint.ts");
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_233536__(/*! ../canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _changeStartDate__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_233536__(/*! ./changeStartDate */ "./src/course/changeStartDate.ts");
+/* harmony import */ var _modules__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_233536__(/*! ./modules */ "./src/course/modules.ts");
+/* harmony import */ var _profile__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_233536__(/*! ../profile */ "./src/profile.ts");
+/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_233536__(/*! ./toolbox */ "./src/course/toolbox.ts");
+/* harmony import */ var _content_assignments__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_233536__(/*! @/content/assignments */ "./src/content/assignments/index.ts");
+/* harmony import */ var _course_code__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_233536__(/*! @/course/code */ "./src/course/code.ts");
+/* harmony import */ var _term_Term__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_233536__(/*! @/term/Term */ "./src/term/Term.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_233536__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _fetch_utils__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_233536__(/*! @/fetch/utils */ "./src/fetch/utils.ts");
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_233536__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_13__ = __nested_webpack_require_233536__(/*! @/course/getCourseIdFromUrl */ "./src/course/getCourseIdFromUrl.ts");
+/* harmony import */ var _content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_14__ = __nested_webpack_require_233536__(/*! @/content/quizzes/Quiz */ "./src/content/quizzes/Quiz.ts");
+/* harmony import */ var _content_pages_Page__WEBPACK_IMPORTED_MODULE_15__ = __nested_webpack_require_233536__(/*! @/content/pages/Page */ "./src/content/pages/Page.ts");
+/* harmony import */ var _content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_16__ = __nested_webpack_require_233536__(/*! @/content/discussions/Discussion */ "./src/content/discussions/Discussion.ts");
+/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_17__ = __nested_webpack_require_233536__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
+/* harmony import */ var _fetch_apiGetConfig__WEBPACK_IMPORTED_MODULE_18__ = __nested_webpack_require_233536__(/*! @/fetch/apiGetConfig */ "./src/fetch/apiGetConfig.ts");
+/* harmony import */ var _canvas_course_cachedGetAssociatedCoursesFunc__WEBPACK_IMPORTED_MODULE_19__ = __nested_webpack_require_233536__(/*! @canvas/course/cachedGetAssociatedCoursesFunc */ "./src/course/cachedGetAssociatedCoursesFunc.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_20__ = __nested_webpack_require_233536__(/*! assert */ "assert");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__nested_webpack_require_233536__.n(assert__WEBPACK_IMPORTED_MODULE_20__);
 
 
 
@@ -6691,9 +6691,9 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
 /*!****************************************!*\
   !*** ./src/course/IBlueprintCourse.ts ***!
   \****************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_256236__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_256224__) => {
 
-__nested_webpack_require_256236__.r(__nested_webpack_exports__);
+__nested_webpack_require_256224__.r(__nested_webpack_exports__);
 
 
 
@@ -6703,13 +6703,13 @@ __nested_webpack_require_256236__.r(__nested_webpack_exports__);
 /*!************************************************!*\
   !*** ./src/course/__mocks__/mockCourseData.ts ***!
   \************************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_256586__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_256574__) => {
 
-__nested_webpack_require_256586__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_256586__.d(__nested_webpack_exports__, {
+__nested_webpack_require_256574__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_256574__.d(__nested_webpack_exports__, {
 /* harmony export */   mockCourseData: () => (/* binding */ mockCourseData)
 /* harmony export */ });
-/* harmony import */ var _mocks_mockTermData__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_256586__(/*! @/__mocks__/mockTermData */ "./src/__mocks__/mockTermData.ts");
+/* harmony import */ var _mocks_mockTermData__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_256574__(/*! @/__mocks__/mockTermData */ "./src/__mocks__/mockTermData.ts");
 
 const mockCourseData = {
     account_id: 0,
@@ -6764,10 +6764,10 @@ const mockCourseData = {
 /*!************************************************!*\
   !*** ./src/course/__mocks__/mockModuleData.ts ***!
   \************************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_258454__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_258442__) => {
 
-__nested_webpack_require_258454__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_258454__.d(__nested_webpack_exports__, {
+__nested_webpack_require_258442__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_258442__.d(__nested_webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   mockGradModules: () => (/* binding */ mockGradModules),
 /* harmony export */   mockModuleData: () => (/* binding */ mockModuleData),
@@ -6833,10 +6833,10 @@ for (let i = 1; i <= 8; i++) {
 /*!*********************************!*\
   !*** ./src/course/blueprint.ts ***!
   \*********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_260457__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_260445__) => {
 
-__nested_webpack_require_260457__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_260457__.d(__nested_webpack_exports__, {
+__nested_webpack_require_260445__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_260445__.d(__nested_webpack_exports__, {
 /* harmony export */   beginBpSync: () => (/* binding */ beginBpSync),
 /* harmony export */   genBlueprintDataForCode: () => (/* binding */ genBlueprintDataForCode),
 /* harmony export */   getBlueprintsFromCode: () => (/* binding */ getBlueprintsFromCode),
@@ -6846,13 +6846,13 @@ __nested_webpack_require_260457__.r(__nested_webpack_exports__);
 /* harmony export */   setAsBlueprint: () => (/* binding */ setAsBlueprint),
 /* harmony export */   unSetAsBlueprint: () => (/* binding */ unSetAsBlueprint)
 /* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_260457__(/*! ../canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_260457__(/*! ./toolbox */ "./src/course/toolbox.ts");
-/* harmony import */ var _course_code__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_260457__(/*! @/course/code */ "./src/course/code.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_260457__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _fetch_utils__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_260457__(/*! @/fetch/utils */ "./src/fetch/utils.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_260457__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_260457__(/*! @/fetch/apiWriteConfig */ "./src/fetch/apiWriteConfig.ts");
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_260445__(/*! ../canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_260445__(/*! ./toolbox */ "./src/course/toolbox.ts");
+/* harmony import */ var _course_code__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_260445__(/*! @/course/code */ "./src/course/code.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_260445__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _fetch_utils__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_260445__(/*! @/fetch/utils */ "./src/fetch/utils.ts");
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_260445__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_260445__(/*! @/fetch/apiWriteConfig */ "./src/fetch/apiWriteConfig.ts");
 
 
 
@@ -6955,13 +6955,13 @@ async function unSetAsBlueprint(courseId, config) {
 /*!******************************************************!*\
   !*** ./src/course/cachedGetAssociatedCoursesFunc.ts ***!
   \******************************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_266287__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_266275__) => {
 
-__nested_webpack_require_266287__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_266287__.d(__nested_webpack_exports__, {
+__nested_webpack_require_266275__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_266275__.d(__nested_webpack_exports__, {
 /* harmony export */   cachedGetAssociatedCoursesFunc: () => (/* binding */ cachedGetAssociatedCoursesFunc)
 /* harmony export */ });
-/* harmony import */ var _canvas_course_getSections__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_266287__(/*! @canvas/course/getSections */ "./src/course/getSections.ts");
+/* harmony import */ var _canvas_course_getSections__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_266275__(/*! @canvas/course/getSections */ "./src/course/getSections.ts");
 
 function cachedGetAssociatedCoursesFunc(course) {
     let cache = null;
@@ -6980,10 +6980,10 @@ function cachedGetAssociatedCoursesFunc(course) {
 /*!***************************************!*\
   !*** ./src/course/changeStartDate.ts ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_267281__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_267269__) => {
 
-__nested_webpack_require_267281__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_267281__.d(__nested_webpack_exports__, {
+__nested_webpack_require_267269__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_267269__.d(__nested_webpack_exports__, {
 /* harmony export */   MalformedSyllabusError: () => (/* binding */ MalformedSyllabusError),
 /* harmony export */   NoAssignmentsWithDueDatesError: () => (/* binding */ NoAssignmentsWithDueDatesError),
 /* harmony export */   NoOverviewModuleFoundError: () => (/* binding */ NoOverviewModuleFoundError),
@@ -6996,8 +6996,8 @@ __nested_webpack_require_267281__.r(__nested_webpack_exports__);
 /* harmony export */   syllabusHeaderName: () => (/* binding */ syllabusHeaderName),
 /* harmony export */   updatedDateSyllabusHtml: () => (/* binding */ updatedDateSyllabusHtml)
 /* harmony export */ });
-/* harmony import */ var _date__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_267281__(/*! @/date */ "./src/date.ts");
-/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_267281__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
+/* harmony import */ var _date__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_267269__(/*! @/date */ "./src/date.ts");
+/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_267269__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
 
 
 const DEFAULT_LOCALE = 'en-US';
@@ -7113,16 +7113,16 @@ class NoAssignmentsWithDueDatesError extends Error {
 /*!****************************!*\
   !*** ./src/course/code.ts ***!
   \****************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_274174__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_274162__) => {
 
-__nested_webpack_require_274174__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_274174__.d(__nested_webpack_exports__, {
+__nested_webpack_require_274162__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_274162__.d(__nested_webpack_exports__, {
 /* harmony export */   MalformedCourseCodeError: () => (/* binding */ MalformedCourseCodeError),
 /* harmony export */   baseCourseCode: () => (/* binding */ baseCourseCode),
 /* harmony export */   parseCourseCode: () => (/* binding */ parseCourseCode),
 /* harmony export */   stringIsCourseCode: () => (/* binding */ stringIsCourseCode)
 /* harmony export */ });
-/* harmony import */ var _course_Course__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_274174__(/*! @/course/Course */ "./src/course/Course.ts");
+/* harmony import */ var _course_Course__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_274162__(/*! @/course/Course */ "./src/course/Course.ts");
 
 function parseCourseCode(code) {
     const match = _course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
@@ -7162,9 +7162,9 @@ class MalformedCourseCodeError extends Error {
 /*!***********************************!*\
   !*** ./src/course/courseTypes.ts ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_276003__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_275991__) => {
 
-__nested_webpack_require_276003__.r(__nested_webpack_exports__);
+__nested_webpack_require_275991__.r(__nested_webpack_exports__);
 
 
 
@@ -7174,10 +7174,10 @@ __nested_webpack_require_276003__.r(__nested_webpack_exports__);
 /*!******************************************!*\
   !*** ./src/course/getCourseIdFromUrl.ts ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_276329__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_276317__) => {
 
-__nested_webpack_require_276329__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_276329__.d(__nested_webpack_exports__, {
+__nested_webpack_require_276317__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_276317__.d(__nested_webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ getCourseIdFromUrl)
 /* harmony export */ });
 function getCourseIdFromUrl(url) {
@@ -7195,15 +7195,15 @@ function getCourseIdFromUrl(url) {
 /*!***********************************!*\
   !*** ./src/course/getSections.ts ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_276950__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_276938__) => {
 
-__nested_webpack_require_276950__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_276950__.d(__nested_webpack_exports__, {
+__nested_webpack_require_276938__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_276938__.d(__nested_webpack_exports__, {
 /* harmony export */   getSections: () => (/* binding */ getSections)
 /* harmony export */ });
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_276950__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_276950__(/*! @canvas/course/Course */ "./src/course/Course.ts");
-/* harmony import */ var _canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_276950__(/*! @canvas/course/blueprint */ "./src/course/blueprint.ts");
+/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_276938__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_276938__(/*! @canvas/course/Course */ "./src/course/Course.ts");
+/* harmony import */ var _canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_276938__(/*! @canvas/course/blueprint */ "./src/course/blueprint.ts");
 
 
 
@@ -7218,10 +7218,10 @@ async function getSections(courseId, config) {
 /*!***********************************************!*\
   !*** ./src/course/getTermNameFromSections.ts ***!
   \***********************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_278246__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_278234__) => {
 
-__nested_webpack_require_278246__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_278246__.d(__nested_webpack_exports__, {
+__nested_webpack_require_278234__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_278234__.d(__nested_webpack_exports__, {
 /* harmony export */   getTermNameFromSections: () => (/* binding */ getTermNameFromSections)
 /* harmony export */ });
 async function getTermNameFromSections(sections) {
@@ -7241,10 +7241,10 @@ async function getTermNameFromSections(sections) {
 /*!*****************************!*\
   !*** ./src/course/index.ts ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_279081__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_279069__) => {
 
-__nested_webpack_require_279081__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_279081__.d(__nested_webpack_exports__, {
+__nested_webpack_require_279069__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_279069__.d(__nested_webpack_exports__, {
 /* harmony export */   COURSE_CODE_REGEX: () => (/* reexport safe */ _Course__WEBPACK_IMPORTED_MODULE_2__.COURSE_CODE_REGEX),
 /* harmony export */   Course: () => (/* reexport safe */ _Course__WEBPACK_IMPORTED_MODULE_2__.Course),
 /* harmony export */   CourseNotFoundException: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.CourseNotFoundException),
@@ -7281,17 +7281,17 @@ __nested_webpack_require_279081__.r(__nested_webpack_exports__);
 /* harmony export */   setGradingStandardForCourse: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.setGradingStandardForCourse),
 /* harmony export */   unSetAsBlueprint: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.unSetAsBlueprint)
 /* harmony export */ });
-/* harmony import */ var _blueprint__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_279081__(/*! ./blueprint */ "./src/course/blueprint.ts");
-/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_279081__(/*! ./toolbox */ "./src/course/toolbox.ts");
-/* harmony import */ var _Course__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_279081__(/*! ./Course */ "./src/course/Course.ts");
-/* harmony import */ var _courseTypes__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_279081__(/*! ./courseTypes */ "./src/course/courseTypes.ts");
-/* harmony import */ var _getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_279081__(/*! ./getCourseIdFromUrl */ "./src/course/getCourseIdFromUrl.ts");
-/* harmony import */ var _getSections__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_279081__(/*! ./getSections */ "./src/course/getSections.ts");
-/* harmony import */ var _getTermNameFromSections__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_279081__(/*! ./getTermNameFromSections */ "./src/course/getTermNameFromSections.ts");
-/* harmony import */ var _IBlueprintCourse__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_279081__(/*! ./IBlueprintCourse */ "./src/course/IBlueprintCourse.ts");
-/* harmony import */ var _modules__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_279081__(/*! ./modules */ "./src/course/modules.ts");
-/* harmony import */ var _notABlueprintError__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_279081__(/*! ./notABlueprintError */ "./src/course/notABlueprintError.ts");
-/* harmony import */ var _retireBlueprint__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_279081__(/*! ./retireBlueprint */ "./src/course/retireBlueprint.ts");
+/* harmony import */ var _blueprint__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_279069__(/*! ./blueprint */ "./src/course/blueprint.ts");
+/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_279069__(/*! ./toolbox */ "./src/course/toolbox.ts");
+/* harmony import */ var _Course__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_279069__(/*! ./Course */ "./src/course/Course.ts");
+/* harmony import */ var _courseTypes__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_279069__(/*! ./courseTypes */ "./src/course/courseTypes.ts");
+/* harmony import */ var _getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_279069__(/*! ./getCourseIdFromUrl */ "./src/course/getCourseIdFromUrl.ts");
+/* harmony import */ var _getSections__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_279069__(/*! ./getSections */ "./src/course/getSections.ts");
+/* harmony import */ var _getTermNameFromSections__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_279069__(/*! ./getTermNameFromSections */ "./src/course/getTermNameFromSections.ts");
+/* harmony import */ var _IBlueprintCourse__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_279069__(/*! ./IBlueprintCourse */ "./src/course/IBlueprintCourse.ts");
+/* harmony import */ var _modules__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_279069__(/*! ./modules */ "./src/course/modules.ts");
+/* harmony import */ var _notABlueprintError__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_279069__(/*! ./notABlueprintError */ "./src/course/notABlueprintError.ts");
+/* harmony import */ var _retireBlueprint__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_279069__(/*! ./retireBlueprint */ "./src/course/retireBlueprint.ts");
 
 
 
@@ -7311,10 +7311,10 @@ __nested_webpack_require_279081__.r(__nested_webpack_exports__);
 /*!*******************************!*\
   !*** ./src/course/modules.ts ***!
   \*******************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_285567__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_285555__) => {
 
-__nested_webpack_require_285567__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_285567__.d(__nested_webpack_exports__, {
+__nested_webpack_require_285555__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_285555__.d(__nested_webpack_exports__, {
 /* harmony export */   changeModuleLockDate: () => (/* binding */ changeModuleLockDate),
 /* harmony export */   getModuleOverview: () => (/* binding */ getModuleOverview),
 /* harmony export */   getModuleWeekNumber: () => (/* binding */ getModuleWeekNumber),
@@ -7326,10 +7326,10 @@ __nested_webpack_require_285567__.r(__nested_webpack_exports__);
 /* harmony export */   moduleGenerator: () => (/* binding */ moduleGenerator),
 /* harmony export */   saveModuleItem: () => (/* binding */ saveModuleItem)
 /* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_285567__(/*! ../canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_285567__(/*! @canvas/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_285567__(/*! @canvas/content/pages/Page */ "./src/content/pages/Page.ts");
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_285567__(/*! @canvas/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_285555__(/*! ../canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_285555__(/*! @canvas/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_285555__(/*! @canvas/content/pages/Page */ "./src/content/pages/Page.ts");
+/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_285555__(/*! @canvas/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
 
 
 
@@ -7410,10 +7410,10 @@ const isQuizItemData = isModuleItemTypeFunc("Quiz");
 /*!******************************************!*\
   !*** ./src/course/notABlueprintError.ts ***!
   \******************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_290268__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_290256__) => {
 
-__nested_webpack_require_290268__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_290268__.d(__nested_webpack_exports__, {
+__nested_webpack_require_290256__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_290256__.d(__nested_webpack_exports__, {
 /* harmony export */   NotABlueprintError: () => (/* binding */ NotABlueprintError)
 /* harmony export */ });
 class NotABlueprintError extends Error {
@@ -7427,15 +7427,15 @@ class NotABlueprintError extends Error {
 /*!***************************************!*\
   !*** ./src/course/retireBlueprint.ts ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_290832__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_290820__) => {
 
-__nested_webpack_require_290832__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_290832__.d(__nested_webpack_exports__, {
+__nested_webpack_require_290820__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_290820__.d(__nested_webpack_exports__, {
 /* harmony export */   retireBlueprint: () => (/* binding */ retireBlueprint)
 /* harmony export */ });
-/* harmony import */ var _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_290832__(/*! @canvas/course/Course */ "./src/course/Course.ts");
-/* harmony import */ var _canvas_course_code__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_290832__(/*! @canvas/course/code */ "./src/course/code.ts");
-/* harmony import */ var _canvas_course_notABlueprintError__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_290832__(/*! @canvas/course/notABlueprintError */ "./src/course/notABlueprintError.ts");
+/* harmony import */ var _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_290820__(/*! @canvas/course/Course */ "./src/course/Course.ts");
+/* harmony import */ var _canvas_course_code__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_290820__(/*! @canvas/course/code */ "./src/course/code.ts");
+/* harmony import */ var _canvas_course_notABlueprintError__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_290820__(/*! @canvas/course/notABlueprintError */ "./src/course/notABlueprintError.ts");
 
 
 
@@ -7461,10 +7461,10 @@ async function retireBlueprint(course, termName, config) {
 /*!*******************************!*\
   !*** ./src/course/toolbox.ts ***!
   \*******************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_292598__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_292586__) => {
 
-__nested_webpack_require_292598__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_292598__.d(__nested_webpack_exports__, {
+__nested_webpack_require_292586__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_292586__.d(__nested_webpack_exports__, {
 /* harmony export */   CourseNotFoundException: () => (/* binding */ CourseNotFoundException),
 /* harmony export */   createNewCourse: () => (/* binding */ createNewCourse),
 /* harmony export */   getCourseById: () => (/* binding */ getCourseById),
@@ -7477,11 +7477,11 @@ __nested_webpack_require_292598__.r(__nested_webpack_exports__);
 /* harmony export */   saveCourseData: () => (/* binding */ saveCourseData),
 /* harmony export */   setGradingStandardForCourse: () => (/* binding */ setGradingStandardForCourse)
 /* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_292598__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _Course__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_292598__(/*! ./Course */ "./src/course/Course.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_292598__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_292598__(/*! @canvas/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_292598__(/*! @canvas/fetch/utils */ "./src/fetch/utils.ts");
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_292586__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _Course__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_292586__(/*! ./Course */ "./src/course/Course.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_292586__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_292586__(/*! @canvas/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_292586__(/*! @canvas/fetch/utils */ "./src/fetch/utils.ts");
 
 
 
@@ -7571,19 +7571,19 @@ function getCourseName(data) {
 /*!*********************!*\
   !*** ./src/date.ts ***!
   \*********************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_298410__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_298398__) => {
 
-__nested_webpack_require_298410__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_298410__.d(__nested_webpack_exports__, {
+__nested_webpack_require_298398__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_298398__.d(__nested_webpack_exports__, {
 /* harmony export */   MalformedDateError: () => (/* binding */ MalformedDateError),
 /* harmony export */   StringNotAMonthDateError: () => (/* binding */ StringNotAMonthDateError),
 /* harmony export */   findDateRange: () => (/* binding */ findDateRange),
 /* harmony export */   oldDateToPlainDate: () => (/* binding */ oldDateToPlainDate)
 /* harmony export */ });
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_298410__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_298410__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_298410__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_298410__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_298398__(/*! assert */ "assert");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_298398__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_298398__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_298398__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
 
 
 
@@ -7700,9 +7700,9 @@ class MalformedDateError extends Error {
 /*!********************************************!*\
   !*** ./src/enrollments/EnrollmentTypes.ts ***!
   \********************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_303962__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_303950__) => {
 
-__nested_webpack_require_303962__.r(__nested_webpack_exports__);
+__nested_webpack_require_303950__.r(__nested_webpack_exports__);
 
 
 
@@ -7712,10 +7712,10 @@ __nested_webpack_require_303962__.r(__nested_webpack_exports__);
 /*!*******************************************!*\
   !*** ./src/enrollments/enrollmentRole.ts ***!
   \*******************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_304292__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_304280__) => {
 
-__nested_webpack_require_304292__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_304292__.d(__nested_webpack_exports__, {
+__nested_webpack_require_304280__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_304280__.d(__nested_webpack_exports__, {
 /* harmony export */   createEnrollmentRole: () => (/* binding */ createEnrollmentRole)
 /* harmony export */ });
 function createEnrollmentRole(role) {
@@ -7729,13 +7729,13 @@ function createEnrollmentRole(role) {
 /*!***************************************************!*\
   !*** ./src/enrollments/getEnrollmentGenerator.ts ***!
   \***************************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_304889__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_304877__) => {
 
-__nested_webpack_require_304889__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_304889__.d(__nested_webpack_exports__, {
+__nested_webpack_require_304877__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_304877__.d(__nested_webpack_exports__, {
 /* harmony export */   getEnrollmentGenerator: () => (/* binding */ getEnrollmentGenerator)
 /* harmony export */ });
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_304889__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_304877__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
 
 const getEnrollmentGenerator = (config) => {
     let url;
@@ -7764,16 +7764,16 @@ const getEnrollmentGenerator = (config) => {
 /*!**********************************!*\
   !*** ./src/enrollments/index.ts ***!
   \**********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_306181__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_306169__) => {
 
-__nested_webpack_require_306181__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_306181__.d(__nested_webpack_exports__, {
+__nested_webpack_require_306169__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_306169__.d(__nested_webpack_exports__, {
 /* harmony export */   createEnrollmentRole: () => (/* reexport safe */ _enrollmentRole__WEBPACK_IMPORTED_MODULE_0__.createEnrollmentRole),
 /* harmony export */   getEnrollmentGenerator: () => (/* reexport safe */ _getEnrollmentGenerator__WEBPACK_IMPORTED_MODULE_1__.getEnrollmentGenerator)
 /* harmony export */ });
-/* harmony import */ var _enrollmentRole__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_306181__(/*! ./enrollmentRole */ "./src/enrollments/enrollmentRole.ts");
-/* harmony import */ var _getEnrollmentGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_306181__(/*! ./getEnrollmentGenerator */ "./src/enrollments/getEnrollmentGenerator.ts");
-/* harmony import */ var _EnrollmentTypes__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_306181__(/*! ./EnrollmentTypes */ "./src/enrollments/EnrollmentTypes.ts");
+/* harmony import */ var _enrollmentRole__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_306169__(/*! ./enrollmentRole */ "./src/enrollments/enrollmentRole.ts");
+/* harmony import */ var _getEnrollmentGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_306169__(/*! ./getEnrollmentGenerator */ "./src/enrollments/getEnrollmentGenerator.ts");
+/* harmony import */ var _EnrollmentTypes__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_306169__(/*! ./EnrollmentTypes */ "./src/enrollments/EnrollmentTypes.ts");
 
 
 
@@ -7785,14 +7785,14 @@ __nested_webpack_require_306181__.r(__nested_webpack_exports__);
 /*!***********************************!*\
   !*** ./src/fetch/apiGetConfig.ts ***!
   \***********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_307358__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_307346__) => {
 
-__nested_webpack_require_307358__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_307358__.d(__nested_webpack_exports__, {
+__nested_webpack_require_307346__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_307346__.d(__nested_webpack_exports__, {
 /* harmony export */   apiGetConfig: () => (/* binding */ apiGetConfig),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_307358__(/*! @canvas/fetch/utils */ "./src/fetch/utils.ts");
+/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_307346__(/*! @canvas/fetch/utils */ "./src/fetch/utils.ts");
 
 function apiGetConfig(queryParams, baseConfig) {
     return (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_0__.overrideConfig)({
@@ -7808,15 +7808,15 @@ function apiGetConfig(queryParams, baseConfig) {
 /*!*************************************!*\
   !*** ./src/fetch/apiWriteConfig.ts ***!
   \*************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_308298__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_308286__) => {
 
-__nested_webpack_require_308298__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_308298__.d(__nested_webpack_exports__, {
+__nested_webpack_require_308286__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_308286__.d(__nested_webpack_exports__, {
 /* harmony export */   apiWriteConfig: () => (/* binding */ apiWriteConfig),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_308298__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_308298__(/*! @canvas/fetch/utils */ "./src/fetch/utils.ts");
+/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_308286__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_308286__(/*! @canvas/fetch/utils */ "./src/fetch/utils.ts");
 
 
 function apiWriteConfig(method, data, baseConfig) {
@@ -7837,10 +7837,10 @@ function apiWriteConfig(method, data, baseConfig) {
 /*!********************************!*\
   !*** ./src/fetch/fetchJson.ts ***!
   \********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_309513__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_309501__) => {
 
-__nested_webpack_require_309513__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_309513__.d(__nested_webpack_exports__, {
+__nested_webpack_require_309501__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_309501__.d(__nested_webpack_exports__, {
 /* harmony export */   fetchJson: () => (/* binding */ fetchJson)
 /* harmony export */ });
 async function fetchJson(url, config = null) {
@@ -7866,15 +7866,15 @@ async function fetchJson(url, config = null) {
 /*!********************************************!*\
   !*** ./src/fetch/getPagedDataGenerator.ts ***!
   \********************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_310559__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_310547__) => {
 
-__nested_webpack_require_310559__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_310559__.d(__nested_webpack_exports__, {
+__nested_webpack_require_310547__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_310547__.d(__nested_webpack_exports__, {
 /* harmony export */   getPagedData: () => (/* binding */ getPagedData),
 /* harmony export */   getPagedDataGenerator: () => (/* binding */ getPagedDataGenerator),
 /* harmony export */   mergePagedDataGenerators: () => (/* binding */ mergePagedDataGenerators)
 /* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_310559__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_310547__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
 
 /**
  * @param url The entire path of the url
@@ -8022,10 +8022,10 @@ function getNextLink(response) {
 /*!****************************!*\
   !*** ./src/fetch/index.ts ***!
   \****************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_317640__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_317628__) => {
 
-__nested_webpack_require_317640__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_317640__.d(__nested_webpack_exports__, {
+__nested_webpack_require_317628__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_317628__.d(__nested_webpack_exports__, {
 /* harmony export */   apiGetConfig: () => (/* reexport safe */ _apiGetConfig__WEBPACK_IMPORTED_MODULE_3__.apiGetConfig),
 /* harmony export */   apiWriteConfig: () => (/* reexport safe */ _apiWriteConfig__WEBPACK_IMPORTED_MODULE_2__.apiWriteConfig),
 /* harmony export */   fetchGetConfig: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_0__.fetchGetConfig),
@@ -8035,11 +8035,11 @@ __nested_webpack_require_317640__.r(__nested_webpack_exports__);
 /* harmony export */   mergePagedDataGenerators: () => (/* reexport safe */ _getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.mergePagedDataGenerators),
 /* harmony export */   overrideConfig: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_0__.overrideConfig)
 /* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_317640__(/*! ./utils */ "./src/fetch/utils.ts");
-/* harmony import */ var _getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_317640__(/*! ./getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _apiWriteConfig__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_317640__(/*! ./apiWriteConfig */ "./src/fetch/apiWriteConfig.ts");
-/* harmony import */ var _apiGetConfig__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_317640__(/*! ./apiGetConfig */ "./src/fetch/apiGetConfig.ts");
-/* harmony import */ var _fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_317640__(/*! ./fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_317628__(/*! ./utils */ "./src/fetch/utils.ts");
+/* harmony import */ var _getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_317628__(/*! ./getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _apiWriteConfig__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_317628__(/*! ./apiWriteConfig */ "./src/fetch/apiWriteConfig.ts");
+/* harmony import */ var _apiGetConfig__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_317628__(/*! ./apiGetConfig */ "./src/fetch/apiGetConfig.ts");
+/* harmony import */ var _fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_317628__(/*! ./fetchJson */ "./src/fetch/fetchJson.ts");
 
 
 
@@ -8053,14 +8053,14 @@ __nested_webpack_require_317640__.r(__nested_webpack_exports__);
 /*!****************************!*\
   !*** ./src/fetch/utils.ts ***!
   \****************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_319763__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_319751__) => {
 
-__nested_webpack_require_319763__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_319763__.d(__nested_webpack_exports__, {
+__nested_webpack_require_319751__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_319751__.d(__nested_webpack_exports__, {
 /* harmony export */   fetchGetConfig: () => (/* binding */ fetchGetConfig),
 /* harmony export */   overrideConfig: () => (/* binding */ overrideConfig)
 /* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_319763__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_319751__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
 
 function overrideConfig(source, override) {
     return (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(source, override) ?? {};
@@ -8078,15 +8078,15 @@ function fetchGetConfig(options, baseConfig) {
 /*!**********************!*\
   !*** ./src/files.ts ***!
   \**********************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_320659__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_320647__) => {
 
-__nested_webpack_require_320659__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_320659__.d(__nested_webpack_exports__, {
+__nested_webpack_require_320647__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_320647__.d(__nested_webpack_exports__, {
 /* harmony export */   uploadFile: () => (/* binding */ uploadFile)
 /* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_320659__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_320659__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_320659__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_320647__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_320647__(/*! assert */ "assert");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_320647__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
 
 
 async function uploadFile(file, folder, url) {
@@ -8121,10 +8121,10 @@ async function uploadFile(file, folder, url) {
 /*!************************!*\
   !*** ./src/profile.ts ***!
   \************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_322330__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_322318__) => {
 
-__nested_webpack_require_322330__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_322330__.d(__nested_webpack_exports__, {
+__nested_webpack_require_322318__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_322318__.d(__nested_webpack_exports__, {
 /* harmony export */   frontPageBio: () => (/* binding */ frontPageBio),
 /* harmony export */   getCurioPageFrontPageProfile: () => (/* binding */ getCurioPageFrontPageProfile),
 /* harmony export */   getFacultyPages: () => (/* binding */ getFacultyPages),
@@ -8133,11 +8133,11 @@ __nested_webpack_require_322330__.r(__nested_webpack_exports__);
 /* harmony export */   renderProfileIntoCurioFrontPage: () => (/* binding */ renderProfileIntoCurioFrontPage),
 /* harmony export */   winnow: () => (/* binding */ winnow)
 /* harmony export */ });
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_322330__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_322330__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_322330__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_322330__(/*! @/Account */ "./src/Account.ts");
-/* harmony import */ var _course_toolbox__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_322330__(/*! @/course/toolbox */ "./src/course/toolbox.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_322318__(/*! assert */ "assert");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_322318__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_322318__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_322318__(/*! @/Account */ "./src/Account.ts");
+/* harmony import */ var _course_toolbox__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_322318__(/*! @/course/toolbox */ "./src/course/toolbox.ts");
 
 
 
@@ -8364,9 +8364,9 @@ function getCurioProfileImage(el) {
 /*!****************************!*\
   !*** ./src/rubricTypes.ts ***!
   \****************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_331355__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_331342__) => {
 
-__nested_webpack_require_331355__.r(__nested_webpack_exports__);
+__nested_webpack_require_331342__.r(__nested_webpack_exports__);
 
 
 
@@ -8376,10 +8376,10 @@ __nested_webpack_require_331355__.r(__nested_webpack_exports__);
 /*!************************!*\
   !*** ./src/rubrics.ts ***!
   \************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_331609__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_331596__) => {
 
-__nested_webpack_require_331609__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_331609__.d(__nested_webpack_exports__, {
+__nested_webpack_require_331596__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_331596__.d(__nested_webpack_exports__, {
 /* harmony export */   getRubric: () => (/* binding */ getRubric),
 /* harmony export */   getRubricsFetchUrl: () => (/* binding */ getRubricsFetchUrl),
 /* harmony export */   rubricApiUrl: () => (/* binding */ rubricApiUrl),
@@ -8387,9 +8387,9 @@ __nested_webpack_require_331609__.r(__nested_webpack_exports__);
 /* harmony export */   rubricsForCourseGen: () => (/* binding */ rubricsForCourseGen),
 /* harmony export */   updateRubricAssociation: () => (/* binding */ updateRubricAssociation)
 /* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_331609__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_331609__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_331609__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_331596__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_331596__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_331596__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
 
 
 
@@ -8435,18 +8435,18 @@ async function updateRubricAssociation(courseId, rubricAssociationId, data, conf
 /*!**************************!*\
   !*** ./src/term/Term.ts ***!
   \**************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_334635__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_334622__) => {
 
-__nested_webpack_require_334635__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_334635__.d(__nested_webpack_exports__, {
+__nested_webpack_require_334622__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_334622__.d(__nested_webpack_exports__, {
 /* harmony export */   Term: () => (/* binding */ Term)
 /* harmony export */ });
-/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_334635__(/*! @/baseCanvasObject */ "./src/baseCanvasObject.ts");
-/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_334635__(/*! @/Account */ "./src/Account.ts");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_334635__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_334635__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_334635__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_334635__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_334622__(/*! @/baseCanvasObject */ "./src/baseCanvasObject.ts");
+/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_334622__(/*! @/Account */ "./src/Account.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_334622__(/*! assert */ "assert");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_334622__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_334622__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_334622__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
 
 
 
@@ -8511,14 +8511,14 @@ class Term extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObje
 /*!**************************************!*\
   !*** ./src/term/dateFromTermName.ts ***!
   \**************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_338177__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_338164__) => {
 
-__nested_webpack_require_338177__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_338177__.d(__nested_webpack_exports__, {
+__nested_webpack_require_338164__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_338164__.d(__nested_webpack_exports__, {
 /* harmony export */   dateFromTermName: () => (/* binding */ dateFromTermName),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_338177__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
+/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_338164__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
 
 function dateFromTermName(termName) {
     const [newCode, month, day, year] = /DE\dW(\d+)\.(\d+)\.(\d+)/i.exec(termName) ?? [];
@@ -8540,13 +8540,13 @@ function dateFromTermName(termName) {
 /*!***************************************!*\
   !*** ./src/term/getTermsGenerator.ts ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_339413__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_339400__) => {
 
-__nested_webpack_require_339413__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_339413__.d(__nested_webpack_exports__, {
+__nested_webpack_require_339400__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_339400__.d(__nested_webpack_exports__, {
 /* harmony export */   getTermsGenerator: () => (/* binding */ getTermsGenerator)
 /* harmony export */ });
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_339413__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_339400__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
 
 const defaultTermQueryParams = {
     workflow_state: 'active',
@@ -8565,17 +8565,17 @@ const getTermsGenerator = (rootAccountId, queryParams) => {
 /*!***************************!*\
   !*** ./src/term/index.ts ***!
   \***************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_340419__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_340406__) => {
 
-__nested_webpack_require_340419__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_340419__.d(__nested_webpack_exports__, {
+__nested_webpack_require_340406__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_340406__.d(__nested_webpack_exports__, {
 /* harmony export */   Term: () => (/* reexport safe */ _Term__WEBPACK_IMPORTED_MODULE_1__.Term),
 /* harmony export */   dateFromTermName: () => (/* reexport safe */ _dateFromTermName__WEBPACK_IMPORTED_MODULE_0__.dateFromTermName),
 /* harmony export */   getTermsGenerator: () => (/* reexport safe */ _getTermsGenerator__WEBPACK_IMPORTED_MODULE_2__.getTermsGenerator)
 /* harmony export */ });
-/* harmony import */ var _dateFromTermName__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_340419__(/*! ./dateFromTermName */ "./src/term/dateFromTermName.ts");
-/* harmony import */ var _Term__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_340419__(/*! ./Term */ "./src/term/Term.ts");
-/* harmony import */ var _getTermsGenerator__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_340419__(/*! ./getTermsGenerator */ "./src/term/getTermsGenerator.ts");
+/* harmony import */ var _dateFromTermName__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_340406__(/*! ./dateFromTermName */ "./src/term/dateFromTermName.ts");
+/* harmony import */ var _Term__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_340406__(/*! ./Term */ "./src/term/Term.ts");
+/* harmony import */ var _getTermsGenerator__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_340406__(/*! ./getTermsGenerator */ "./src/term/getTermsGenerator.ts");
 
 
 
@@ -8587,10 +8587,10 @@ __nested_webpack_require_340419__.r(__nested_webpack_exports__);
 /*!************************!*\
   !*** ./src/toolbox.ts ***!
   \************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_341566__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_341553__) => {
 
-__nested_webpack_require_341566__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_341566__.d(__nested_webpack_exports__, {
+__nested_webpack_require_341553__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_341553__.d(__nested_webpack_exports__, {
 /* harmony export */   aMinusBSortFn: () => (/* binding */ aMinusBSortFn),
 /* harmony export */   bMinusASortFn: () => (/* binding */ bMinusASortFn),
 /* harmony export */   isNotNullOrUndefined: () => (/* binding */ isNotNullOrUndefined),
@@ -8622,9 +8622,9 @@ function bMinusASortFn(func) {
 /*!**********************!*\
   !*** ./src/types.ts ***!
   \**********************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_342639__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_342626__) => {
 
-__nested_webpack_require_342639__.r(__nested_webpack_exports__);
+__nested_webpack_require_342626__.r(__nested_webpack_exports__);
 
 
 
@@ -8634,13 +8634,13 @@ __nested_webpack_require_342639__.r(__nested_webpack_exports__);
 /*!***************************************!*\
   !*** ./src/users/getUserGenerator.ts ***!
   \***************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_342953__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_342940__) => {
 
-__nested_webpack_require_342953__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_342953__.d(__nested_webpack_exports__, {
+__nested_webpack_require_342940__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_342940__.d(__nested_webpack_exports__, {
 /* harmony export */   getUserGenerator: () => (/* binding */ getUserGenerator)
 /* harmony export */ });
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_342953__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_342940__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
 
 const getUserGenerator = (config) => {
     let url;
@@ -8665,13 +8665,13 @@ const getUserGenerator = (config) => {
 /*!****************************!*\
   !*** ./src/users/index.ts ***!
   \****************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_344043__) => {
+/***/ ((__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_344030__) => {
 
-__nested_webpack_require_344043__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_344043__.d(__nested_webpack_exports__, {
+__nested_webpack_require_344030__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_344030__.d(__nested_webpack_exports__, {
 /* harmony export */   getUserGenerator: () => (/* reexport safe */ _getUserGenerator__WEBPACK_IMPORTED_MODULE_0__.getUserGenerator)
 /* harmony export */ });
-/* harmony import */ var _getUserGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_344043__(/*! ./getUserGenerator */ "./src/users/getUserGenerator.ts");
+/* harmony import */ var _getUserGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_344030__(/*! ./getUserGenerator */ "./src/users/getUserGenerator.ts");
 
 
 
@@ -8693,7 +8693,7 @@ module.exports = __webpack_require__(/*! assert */ "../ueu_canvas/node_modules/a
 /******/ 	var __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
-/******/ 	function __nested_webpack_require_344904__(moduleId) {
+/******/ 	function __nested_webpack_require_344891__(moduleId) {
 /******/ 		// Check if module is in cache
 /******/ 		var cachedModule = __webpack_module_cache__[moduleId];
 /******/ 		if (cachedModule !== undefined) {
@@ -8707,7 +8707,7 @@ module.exports = __webpack_require__(/*! assert */ "../ueu_canvas/node_modules/a
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_344904__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_344891__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -8717,11 +8717,11 @@ module.exports = __webpack_require__(/*! assert */ "../ueu_canvas/node_modules/a
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nested_webpack_require_344904__.n = (module) => {
+/******/ 		__nested_webpack_require_344891__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
 /******/ 				() => (module['default']) :
 /******/ 				() => (module);
-/******/ 			__nested_webpack_require_344904__.d(getter, { a: getter });
+/******/ 			__nested_webpack_require_344891__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
@@ -8729,9 +8729,9 @@ module.exports = __webpack_require__(/*! assert */ "../ueu_canvas/node_modules/a
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__nested_webpack_require_344904__.d = (exports, definition) => {
+/******/ 		__nested_webpack_require_344891__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
-/******/ 				if(__nested_webpack_require_344904__.o(definition, key) && !__nested_webpack_require_344904__.o(exports, key)) {
+/******/ 				if(__nested_webpack_require_344891__.o(definition, key) && !__nested_webpack_require_344891__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
@@ -8740,13 +8740,13 @@ module.exports = __webpack_require__(/*! assert */ "../ueu_canvas/node_modules/a
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_344904__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 		__nested_webpack_require_344891__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__nested_webpack_require_344904__.r = (exports) => {
+/******/ 		__nested_webpack_require_344891__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
@@ -8761,8 +8761,8 @@ var __nested_webpack_exports__ = {};
 /*!**********************!*\
   !*** ./src/index.ts ***!
   \**********************/
-__nested_webpack_require_344904__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_344904__.d(__nested_webpack_exports__, {
+__nested_webpack_require_344891__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_344891__.d(__nested_webpack_exports__, {
 /* harmony export */   Account: () => (/* reexport safe */ _Account__WEBPACK_IMPORTED_MODULE_14__.Account),
 /* harmony export */   BaseCanvasObject: () => (/* reexport safe */ _baseCanvasObject__WEBPACK_IMPORTED_MODULE_3__.BaseCanvasObject),
 /* harmony export */   BaseContentItem: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.BaseContentItem),
@@ -8886,28 +8886,28 @@ __nested_webpack_require_344904__.r(__nested_webpack_exports__);
 /* harmony export */   uploadFile: () => (/* reexport safe */ _files__WEBPACK_IMPORTED_MODULE_15__.uploadFile),
 /* harmony export */   winnow: () => (/* reexport safe */ _profile__WEBPACK_IMPORTED_MODULE_16__.winnow)
 /* harmony export */ });
-/* harmony import */ var _term_getTermsGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_344904__(/*! @/term/getTermsGenerator */ "./src/term/getTermsGenerator.ts");
-/* harmony import */ var _course_mocks_mockCourseData__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_344904__(/*! @/course/__mocks__/mockCourseData */ "./src/course/__mocks__/mockCourseData.ts");
-/* harmony import */ var _course_mocks_mockModuleData__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_344904__(/*! @/course/__mocks__/mockModuleData */ "./src/course/__mocks__/mockModuleData.ts");
-/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_344904__(/*! ./baseCanvasObject */ "./src/baseCanvasObject.ts");
-/* harmony import */ var _NotImplementedException__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_344904__(/*! ./NotImplementedException */ "./src/NotImplementedException.ts");
-/* harmony import */ var _rubrics__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_344904__(/*! ./rubrics */ "./src/rubrics.ts");
-/* harmony import */ var _rubricTypes__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_344904__(/*! ./rubricTypes */ "./src/rubricTypes.ts");
-/* harmony import */ var _canvasDataDefs__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_344904__(/*! ./canvasDataDefs */ "./src/canvasDataDefs.ts");
-/* harmony import */ var _enrollments__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_344904__(/*! ./enrollments */ "./src/enrollments/index.ts");
-/* harmony import */ var _term__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_344904__(/*! ./term */ "./src/term/index.ts");
-/* harmony import */ var _content__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_344904__(/*! ./content */ "./src/content/index.ts");
-/* harmony import */ var _course__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_344904__(/*! ./course */ "./src/course/index.ts");
-/* harmony import */ var _users__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_344904__(/*! ./users */ "./src/users/index.ts");
-/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_13__ = __nested_webpack_require_344904__(/*! ./toolbox */ "./src/toolbox.ts");
-/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_14__ = __nested_webpack_require_344904__(/*! ./Account */ "./src/Account.ts");
-/* harmony import */ var _files__WEBPACK_IMPORTED_MODULE_15__ = __nested_webpack_require_344904__(/*! ./files */ "./src/files.ts");
-/* harmony import */ var _profile__WEBPACK_IMPORTED_MODULE_16__ = __nested_webpack_require_344904__(/*! ./profile */ "./src/profile.ts");
-/* harmony import */ var _date__WEBPACK_IMPORTED_MODULE_17__ = __nested_webpack_require_344904__(/*! ./date */ "./src/date.ts");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_18__ = __nested_webpack_require_344904__(/*! ./types */ "./src/types.ts");
-/* harmony import */ var _fetch__WEBPACK_IMPORTED_MODULE_19__ = __nested_webpack_require_344904__(/*! ./fetch */ "./src/fetch/index.ts");
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_20__ = __nested_webpack_require_344904__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _mocks___WEBPACK_IMPORTED_MODULE_21__ = __nested_webpack_require_344904__(/*! ./__mocks__ */ "./src/__mocks__/index.ts");
+/* harmony import */ var _term_getTermsGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_344891__(/*! @/term/getTermsGenerator */ "./src/term/getTermsGenerator.ts");
+/* harmony import */ var _course_mocks_mockCourseData__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_344891__(/*! @/course/__mocks__/mockCourseData */ "./src/course/__mocks__/mockCourseData.ts");
+/* harmony import */ var _course_mocks_mockModuleData__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_344891__(/*! @/course/__mocks__/mockModuleData */ "./src/course/__mocks__/mockModuleData.ts");
+/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_344891__(/*! ./baseCanvasObject */ "./src/baseCanvasObject.ts");
+/* harmony import */ var _NotImplementedException__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_344891__(/*! ./NotImplementedException */ "./src/NotImplementedException.ts");
+/* harmony import */ var _rubrics__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_344891__(/*! ./rubrics */ "./src/rubrics.ts");
+/* harmony import */ var _rubricTypes__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_344891__(/*! ./rubricTypes */ "./src/rubricTypes.ts");
+/* harmony import */ var _canvasDataDefs__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_344891__(/*! ./canvasDataDefs */ "./src/canvasDataDefs.ts");
+/* harmony import */ var _enrollments__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_344891__(/*! ./enrollments */ "./src/enrollments/index.ts");
+/* harmony import */ var _term__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_344891__(/*! ./term */ "./src/term/index.ts");
+/* harmony import */ var _content__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_344891__(/*! ./content */ "./src/content/index.ts");
+/* harmony import */ var _course__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_344891__(/*! ./course */ "./src/course/index.ts");
+/* harmony import */ var _users__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_344891__(/*! ./users */ "./src/users/index.ts");
+/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_13__ = __nested_webpack_require_344891__(/*! ./toolbox */ "./src/toolbox.ts");
+/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_14__ = __nested_webpack_require_344891__(/*! ./Account */ "./src/Account.ts");
+/* harmony import */ var _files__WEBPACK_IMPORTED_MODULE_15__ = __nested_webpack_require_344891__(/*! ./files */ "./src/files.ts");
+/* harmony import */ var _profile__WEBPACK_IMPORTED_MODULE_16__ = __nested_webpack_require_344891__(/*! ./profile */ "./src/profile.ts");
+/* harmony import */ var _date__WEBPACK_IMPORTED_MODULE_17__ = __nested_webpack_require_344891__(/*! ./date */ "./src/date.ts");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_18__ = __nested_webpack_require_344891__(/*! ./types */ "./src/types.ts");
+/* harmony import */ var _fetch__WEBPACK_IMPORTED_MODULE_19__ = __nested_webpack_require_344891__(/*! ./fetch */ "./src/fetch/index.ts");
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_20__ = __nested_webpack_require_344891__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _mocks___WEBPACK_IMPORTED_MODULE_21__ = __nested_webpack_require_344891__(/*! ./__mocks__ */ "./src/__mocks__/index.ts");
 
 
 
@@ -11498,6 +11498,25 @@ module.exports = Function.prototype.bind || implementation;
 
 /***/ }),
 
+/***/ "../ueu_canvas/node_modules/generator-function/index.js":
+/*!**************************************************************!*\
+  !*** ../ueu_canvas/node_modules/generator-function/index.js ***!
+  \**************************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+// eslint-disable-next-line no-extra-parens, no-empty-function
+const cached = /** @type {GeneratorFunctionConstructor} */ (function* () {}.constructor);
+
+/** @type {import('.')} */
+module.exports = () => cached;
+
+
+
+/***/ }),
+
 /***/ "../ueu_canvas/node_modules/get-intrinsic/index.js":
 /*!*********************************************************!*\
   !*** ../ueu_canvas/node_modules/get-intrinsic/index.js ***!
@@ -12372,17 +12391,7 @@ var getProto = __webpack_require__(/*! get-proto */ "../ueu_canvas/node_modules/
 var toStr = callBound('Object.prototype.toString');
 var fnToStr = callBound('Function.prototype.toString');
 
-var getGeneratorFunc = function () { // eslint-disable-line consistent-return
-	if (!hasToStringTag) {
-		return false;
-	}
-	try {
-		return Function('return function*() {}')();
-	} catch (e) {
-	}
-};
-/** @type {undefined | false | null | GeneratorFunctionConstructor} */
-var GeneratorFunction;
+var getGeneratorFunction = __webpack_require__(/*! generator-function */ "../ueu_canvas/node_modules/generator-function/index.js");
 
 /** @type {import('.')} */
 module.exports = function isGeneratorFunction(fn) {
@@ -12399,14 +12408,8 @@ module.exports = function isGeneratorFunction(fn) {
 	if (!getProto) {
 		return false;
 	}
-	if (typeof GeneratorFunction === 'undefined') {
-		var generatorFunc = getGeneratorFunc();
-		GeneratorFunction = generatorFunc
-			// eslint-disable-next-line no-extra-parens
-			? /** @type {GeneratorFunctionConstructor} */ (getProto(generatorFunc))
-			: false;
-	}
-	return getProto(fn) === GeneratorFunction;
+	var GeneratorFunction = getGeneratorFunction();
+	return GeneratorFunction && getProto(fn) === GeneratorFunction.prototype;
 };
 
 
@@ -17046,6 +17049,25 @@ module.exports = Function.prototype.bind || implementation;
 
 /***/ }),
 
+/***/ "./node_modules/generator-function/index.js":
+/*!**************************************************!*\
+  !*** ./node_modules/generator-function/index.js ***!
+  \**************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+// eslint-disable-next-line no-extra-parens, no-empty-function
+const cached = /** @type {GeneratorFunctionConstructor} */ (function* () {}.constructor);
+
+/** @type {import('.')} */
+module.exports = () => cached;
+
+
+
+/***/ }),
+
 /***/ "./node_modules/get-intrinsic/index.js":
 /*!*********************************************!*\
   !*** ./node_modules/get-intrinsic/index.js ***!
@@ -17920,17 +17942,7 @@ var getProto = __webpack_require__(/*! get-proto */ "./node_modules/get-proto/in
 var toStr = callBound('Object.prototype.toString');
 var fnToStr = callBound('Function.prototype.toString');
 
-var getGeneratorFunc = function () { // eslint-disable-line consistent-return
-	if (!hasToStringTag) {
-		return false;
-	}
-	try {
-		return Function('return function*() {}')();
-	} catch (e) {
-	}
-};
-/** @type {undefined | false | null | GeneratorFunctionConstructor} */
-var GeneratorFunction;
+var getGeneratorFunction = __webpack_require__(/*! generator-function */ "./node_modules/generator-function/index.js");
 
 /** @type {import('.')} */
 module.exports = function isGeneratorFunction(fn) {
@@ -17947,14 +17959,8 @@ module.exports = function isGeneratorFunction(fn) {
 	if (!getProto) {
 		return false;
 	}
-	if (typeof GeneratorFunction === 'undefined') {
-		var generatorFunc = getGeneratorFunc();
-		GeneratorFunction = generatorFunc
-			// eslint-disable-next-line no-extra-parens
-			? /** @type {GeneratorFunctionConstructor} */ (getProto(generatorFunc))
-			: false;
-	}
-	return getProto(fn) === GeneratorFunction;
+	var GeneratorFunction = getGeneratorFunction();
+	return GeneratorFunction && getProto(fn) === GeneratorFunction.prototype;
 };
 
 
@@ -19100,7 +19106,7 @@ function createCalendarGetters(e) {
         i: r
       })))[n](e);
       // removed by dead control flow
-{ var o, r; }
+ var o, r; 
     };
   }
   return t;
@@ -19130,7 +19136,7 @@ function toPlainMonthDaySlots(e, t) {
 function getOffsetNanosecondsForAdapter(e, t, n) {
   return o = t.call(e, Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)(n))), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.validateTimeZoneOffset)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireInteger)(o));
   // removed by dead control flow
-{ var o; }
+ var o; 
 }
 
 function createAdapterOps(e, t = ho) {
@@ -21075,13 +21081,13 @@ function Tt(e, n) {
   const [t, o, r, i] = (e => (e = normalizeOptions(e), [ da(e), ...refineTimeDisplayTuple(e) ]))(n);
   return a = e.calendar, s = t, c = i, formatIsoDateTimeFields(roundDateTimeToNano(e, r, o), c) + formatCalendar(a, s);
   // removed by dead control flow
-{ var a, s, c; }
+ var a, s, c; 
 }
 
 function yt(e, n) {
   return t = e.calendar, o = e, r = refineDateDisplayOptions(n), formatIsoDateFields(o) + formatCalendar(t, r);
   // removed by dead control flow
-{ var t, o, r; }
+ var t, o, r; 
 }
 
 function et(e, n) {
@@ -21096,7 +21102,7 @@ function qe(e, n) {
   const [t, o, r] = refineTimeDisplayOptions(n);
   return i = r, formatIsoTimeFields(roundTimeToNano(e, o, t)[0], i);
   // removed by dead control flow
-{ var i; }
+ var i; 
 }
 
 function zt(e, n) {
@@ -22409,7 +22415,7 @@ function kt(e, n) {
     ...refineFields(o, Ni)
   })));
   // removed by dead control flow
-{ var t, o; }
+ var t, o; 
 }
 
 function mergeCalendarFields(e, n, t, o, r = [], i = []) {
@@ -26662,10 +26668,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Assignment: () => (/* binding */ Assignment)
 /* harmony export */ });
 /* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/assignments/AssignmentKind */ "./src/canvas/content/assignments/AssignmentKind.ts");
+/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/content/assignments/AssignmentKind */ "./src/canvas/content/assignments/AssignmentKind.ts");
 
 
 
@@ -26675,16 +26681,16 @@ class Assignment extends _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODUL
         super(assignmentData, courseId);
     }
     async setDueAt(dueAt, config) {
-        const sourceDueAt = this.rawData.due_at ? temporal_polyfill__WEBPACK_IMPORTED_MODULE_3__.Temporal.Instant.from(this.rawData.due_at) : null;
-        const targetDueAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_3__.Temporal.Instant.from(dueAt.toISOString());
+        const sourceDueAt = this.rawData.due_at ? temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(this.rawData.due_at) : null;
+        const targetDueAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(dueAt.toISOString());
         const payload = {
             assignment: {
                 due_at: dueAt.toISOString(),
             }
         };
         if (this.rawData.peer_reviews && 'automatic_peer_reviews' in this.rawData) {
-            const peerReviewTime = this.rawData.peer_reviews_assign_at ? temporal_polyfill__WEBPACK_IMPORTED_MODULE_3__.Temporal.Instant.from(this.rawData.peer_reviews_assign_at) : null;
-            assert__WEBPACK_IMPORTED_MODULE_1___default()(sourceDueAt, "Trying to set peer review date without a due date for the assignment.");
+            const peerReviewTime = this.rawData.peer_reviews_assign_at ? temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(this.rawData.peer_reviews_assign_at) : null;
+            assert__WEBPACK_IMPORTED_MODULE_2___default()(sourceDueAt, "Trying to set peer review date without a due date for the assignment.");
             if (peerReviewTime) {
                 const peerReviewOffset = sourceDueAt.until(peerReviewTime);
                 const newPeerReviewTime = targetDueAt.add(peerReviewOffset);
@@ -26714,7 +26720,7 @@ class Assignment extends _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODUL
         }, config);
     }
 }
-Assignment.kind = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_2__["default"];
+Assignment.kind = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_3__["default"];
 Assignment.nameProperty = 'name';
 Assignment.bodyProperty = 'description';
 Assignment.contentUrlTemplate = "/api/v1/courses/{course_id}/assignments/{content_id}";
@@ -26814,8 +26820,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Discussion: () => (/* binding */ Discussion)
 /* harmony export */ });
 /* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
-/* harmony import */ var _canvas_content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/content/discussions/DiscussionKind */ "./src/canvas/content/discussions/DiscussionKind.ts");
+/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
+/* harmony import */ var _canvas_content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/discussions/DiscussionKind */ "./src/canvas/content/discussions/DiscussionKind.ts");
 
 
 
@@ -26824,7 +26830,7 @@ class Discussion extends _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODUL
         const data = this.rawData;
         if (!this.rawData.delayed_post_at)
             return;
-        let delayedPostAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.Instant.from(this.rawData.delayed_post_at).toZonedDateTimeISO('UTC');
+        let delayedPostAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(this.rawData.delayed_post_at).toZonedDateTimeISO('UTC');
         delayedPostAt = delayedPostAt.add({ days });
         const payload = {
             delayed_post_at: new Date(delayedPostAt.epochMilliseconds).toISOString()
@@ -26835,7 +26841,7 @@ class Discussion extends _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODUL
         return this.canvasData;
     }
 }
-Discussion.kindInfo = _canvas_content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_1__["default"];
+Discussion.kindInfo = _canvas_content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_2__["default"];
 Discussion.nameProperty = 'title';
 Discussion.bodyProperty = 'message';
 Discussion.contentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics/{content_id}";
@@ -26954,7 +26960,7 @@ const PageKind = {
     },
     getName: page => page.title,
     getBody: page => page.body,
-    getId: page => page.page_id,
+    getId: page => page.id,
     get: (id, courseId, config) => (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(PageUrlFuncs.getApiUrl(courseId, id), config),
     getByString: async (courseId, contentId, config, options) => {
         const { allowPartialMatch } = options !== null && options !== void 0 ? options : {};
@@ -27673,10 +27679,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   syllabusHeaderName: () => (/* binding */ syllabusHeaderName),
 /* harmony export */   updatedDateSyllabusHtml: () => (/* binding */ updatedDateSyllabusHtml)
 /* harmony export */ });
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
-/* harmony import */ var _date__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/date */ "./src/date.ts");
-/* harmony import */ var _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/content/assignments/Assignment */ "./src/canvas/content/assignments/Assignment.ts");
-/* harmony import */ var _canvas_content_assignments__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @canvas/content/assignments */ "./src/canvas/content/assignments/index.ts");
+/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
+/* harmony import */ var _date__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/date */ "./src/date.ts");
+/* harmony import */ var _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/assignments/Assignment */ "./src/canvas/content/assignments/Assignment.ts");
+/* harmony import */ var _canvas_content_assignments__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @canvas/content/assignments */ "./src/canvas/content/assignments/index.ts");
 
 
 
@@ -27690,16 +27696,16 @@ function getModuleUnlockStartDate(modules) {
     if (!unlockDateString)
         return null;
     const oldDate = new Date(unlockDateString);
-    return (0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(oldDate);
+    return (0,_date__WEBPACK_IMPORTED_MODULE_1__.oldDateToPlainDate)(oldDate);
 }
 //This may be unnecessary, as the API call is now pulling by due_at date.
 function sortAssignmentsByDueDate(assignments) {
     return assignments
         .toSorted((a, b) => {
-        a = a instanceof _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__.Assignment ? a.rawData : a;
-        b = b instanceof _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__.Assignment ? b.rawData : b;
+        a = a instanceof _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_2__.Assignment ? a.rawData : a;
+        b = b instanceof _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_2__.Assignment ? b.rawData : b;
         if (a.due_at && b.due_at) {
-            return (0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(new Date(b.due_at)).until((0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(new Date(a.due_at))).days;
+            return (0,_date__WEBPACK_IMPORTED_MODULE_1__.oldDateToPlainDate)(new Date(b.due_at)).until((0,_date__WEBPACK_IMPORTED_MODULE_1__.oldDateToPlainDate)(new Date(a.due_at))).days;
         }
         if (a.due_at)
             return -1;
@@ -27709,7 +27715,7 @@ function sortAssignmentsByDueDate(assignments) {
     });
 }
 async function getStartDateAssignments(courseId) {
-    const assignmentGen = (0,_canvas_content_assignments__WEBPACK_IMPORTED_MODULE_2__.assignmentDataGen)(courseId, {
+    const assignmentGen = (0,_canvas_content_assignments__WEBPACK_IMPORTED_MODULE_3__.assignmentDataGen)(courseId, {
         queryParams: {
             order_by: "due_at",
             per_page: 2,
@@ -27726,7 +27732,7 @@ async function getStartDateAssignments(courseId) {
         throw new NoAssignmentsWithDueDatesError();
     //Set to monday of that week.
     const firstAssignmentDue = new Date(assignmentDueAt);
-    const plainDateDue = (0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(firstAssignmentDue);
+    const plainDateDue = (0,_date__WEBPACK_IMPORTED_MODULE_1__.oldDateToPlainDate)(firstAssignmentDue);
     const dayOfWeekOffset = 1 - plainDateDue.dayOfWeek;
     return plainDateDue.add({ days: dayOfWeekOffset });
 }
@@ -27742,7 +27748,7 @@ function getStartDateFromSyllabus(syllabusHtml, locale = DEFAULT_LOCALE) {
         throw new MalformedSyllabusError(`Missing syllabus headers\n${strongParas}`);
     const termNameEl = strongParas[1];
     const datesEl = strongParas[2];
-    let dateRange = (0,_date__WEBPACK_IMPORTED_MODULE_0__.findDateRange)(datesEl.innerHTML, locale);
+    let dateRange = (0,_date__WEBPACK_IMPORTED_MODULE_1__.findDateRange)(datesEl.innerHTML, locale);
     if (!dateRange)
         throw new MalformedSyllabusError("Date range not found in syllabus");
     const termName = termNameEl.textContent || '';
@@ -27759,12 +27765,12 @@ function getStartDateFromSyllabus(syllabusHtml, locale = DEFAULT_LOCALE) {
     }
     if (yearToUse) {
         dateRange = {
-            start: temporal_polyfill__WEBPACK_IMPORTED_MODULE_3__.Temporal.PlainDate.from({
+            start: temporal_polyfill__WEBPACK_IMPORTED_MODULE_0__.Temporal.PlainDate.from({
                 year: yearToUse,
                 month: dateRange.start.month,
                 day: dateRange.start.day
             }),
-            end: temporal_polyfill__WEBPACK_IMPORTED_MODULE_3__.Temporal.PlainDate.from({
+            end: temporal_polyfill__WEBPACK_IMPORTED_MODULE_0__.Temporal.PlainDate.from({
                 year: yearToUse,
                 month: dateRange.end.month,
                 day: dateRange.end.day
@@ -27808,7 +27814,7 @@ function updatedDateSyllabusHtml(html, newStartDate, isGrad = undefined, locale 
     const changedText = [];
     const oldTermName = termNameEl.textContent || '';
     const oldDates = datesEl.textContent || '';
-    const dateRange = (0,_date__WEBPACK_IMPORTED_MODULE_0__.findDateRange)(datesEl.innerHTML, locale);
+    const dateRange = (0,_date__WEBPACK_IMPORTED_MODULE_1__.findDateRange)(datesEl.innerHTML, locale);
     if (!dateRange)
         throw new MalformedSyllabusError("Date range not found in syllabus");
     const courseDuration = dateRange.start.until(dateRange.end);
