@@ -26954,7 +26954,7 @@ const PageKind = {
     },
     getName: page => page.title,
     getBody: page => page.body,
-    getId: page => page.page_id,
+    getId: page => page.id,
     get: (id, courseId, config) => (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(PageUrlFuncs.getApiUrl(courseId, id), config),
     getByString: async (courseId, contentId, config, options) => {
         const { allowPartialMatch } = options !== null && options !== void 0 ? options : {};
