@@ -63577,10 +63577,10 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
         console.log('done');
     }
     async generateHomeTile(module) {
-        const overviewPage = await (0,_modules__WEBPACK_IMPORTED_MODULE_4__.getModuleOverview)(module, this.id);
-        if (!overviewPage)
+        const hometileSrcPage = await (0,_modules__WEBPACK_IMPORTED_MODULE_4__.getHometileSrcPage)(module, this.id);
+        if (!hometileSrcPage)
             throw new Error("Module does not have an overview");
-        const bannerImg = (0,_canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_15__.getBannerImage)(overviewPage);
+        const bannerImg = (0,_canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_15__.getBannerImage)(hometileSrcPage);
         if (!bannerImg)
             throw new Error("No banner image on page");
         const resizedImageBlob = await (0,_image__WEBPACK_IMPORTED_MODULE_5__.getResizedBlob)(bannerImg.src, HOMETILE_WIDTH);
@@ -63628,6 +63628,30 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
     async updateSettings(newSettings, config) {
         const configToUse = (0,_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_21__["default"])("PUT", newSettings, config);
         return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(`/api/v1/courses/${this.id}/settings`, configToUse);
+    }
+    isUndergrad() {
+        if (this.courseCode) {
+            const match = this.courseCode.match(/\d{3,4}/);
+            if (match)
+                return parseInt(match[0], 10) < 500;
+        }
+        return false;
+    }
+    isGrad() {
+        if (this.courseCode) {
+            const match = this.courseCode.match(/\d{3,4}/);
+            if (match)
+                return parseInt(match[0], 10) >= 500 && parseInt(match[0], 10) < 1000;
+        }
+        return false;
+    }
+    isCareerInstitute() {
+        if (this.courseCode) {
+            const match = this.courseCode.match(/\d{4}/);
+            if (match)
+                return true;
+        }
+        return false;
     }
 }
 Course.nameProperty = 'name';
@@ -64209,7 +64233,8 @@ function getCourseName(data) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   changeModuleLockDate: () => (/* binding */ changeModuleLockDate),
-/* harmony export */   getModuleOverview: () => (/* binding */ getModuleOverview),
+/* harmony export */   getFirstPage: () => (/* binding */ getFirstPage),
+/* harmony export */   getHometileSrcPage: () => (/* binding */ getHometileSrcPage),
 /* harmony export */   getModuleWeekNumber: () => (/* binding */ getModuleWeekNumber),
 /* harmony export */   getModulesByWeekNumber: () => (/* binding */ getModulesByWeekNumber),
 /* harmony export */   isAssignmentItemData: () => (/* binding */ isAssignmentItemData),
@@ -64223,6 +64248,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
 /* harmony import */ var _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/pages/Page */ "./src/canvas/content/pages/Page.ts");
 /* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _canvas_course_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @canvas/course/index */ "./src/canvas/course/index.ts");
+
 
 
 
@@ -64252,12 +64279,29 @@ async function changeModuleLockDate(courseId, module, targetDate) {
         }
     });
 }
-async function getModuleOverview(module, courseId) {
-    const overview = module.items.find(item => item.type === "Page" &&
-        item.title.toLowerCase().includes('overview'));
-    if (!(overview === null || overview === void 0 ? void 0 : overview.url))
+async function getHometileSrcPage(module, courseId) {
+    const course = await (0,_canvas_course_index__WEBPACK_IMPORTED_MODULE_4__.getCourseById)(courseId);
+    let hometileSrc;
+    if (course.isCareerInstitute()) {
+        // if career institute, grab first page
+        hometileSrc = module.items.find(item => item.type === "Page");
+    }
+    else {
+        hometileSrc = module.items.find(item => item.type === "Page" &&
+            item.title.toLowerCase().includes('overview'));
+    }
+    console.log("hometileSrc: ", hometileSrc);
+    if (!(hometileSrc === null || hometileSrc === void 0 ? void 0 : hometileSrc.url))
         return; //skip this if it's not an overview
-    const url = overview.url.replace(/.*\/api\/v1/, '/api/v1');
+    const url = hometileSrc.url.replace(/.*\/api\/v1/, '/api/v1');
+    const pageData = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url);
+    return new _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_2__.Page(pageData, courseId);
+}
+async function getFirstPage(module, courseId) {
+    const firstPage = module.items[0];
+    if (!firstPage.url)
+        throw new Error("Modules does not contain a page.");
+    const url = firstPage.url.replace(/.*\/api\/v1/, '/api/v1');
     const pageData = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url);
     return new _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_2__.Page(pageData, courseId);
 }
@@ -65491,7 +65535,7 @@ async function generateBanners(course, moduleNumber = 0) {
     var _a;
     const code = (_a = course.baseCode) !== null && _a !== void 0 ? _a : "CODE_NOT_FOUND";
     const module = (await course.getModules())[moduleNumber];
-    const overviewPage = await (0,_canvas_course_modules__WEBPACK_IMPORTED_MODULE_5__.getModuleOverview)(module, module.id);
+    const overviewPage = await (0,_canvas_course_modules__WEBPACK_IMPORTED_MODULE_5__.getHometileSrcPage)(module, module.id);
     if (!overviewPage)
         throw new Error("Module does not have an overview");
     const bannerImg = (0,_canvas__WEBPACK_IMPORTED_MODULE_6__.getBannerImage)(overviewPage);
