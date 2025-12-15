@@ -2558,6 +2558,25 @@ module.exports = Function.prototype.bind || implementation;
 
 /***/ }),
 
+/***/ "./node_modules/generator-function/index.js":
+/*!**************************************************!*\
+  !*** ./node_modules/generator-function/index.js ***!
+  \**************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+// eslint-disable-next-line no-extra-parens, no-empty-function
+const cached = /** @type {GeneratorFunctionConstructor} */ (function* () {}.constructor);
+
+/** @type {import('.')} */
+module.exports = () => cached;
+
+
+
+/***/ }),
+
 /***/ "./node_modules/get-intrinsic/index.js":
 /*!*********************************************!*\
   !*** ./node_modules/get-intrinsic/index.js ***!
@@ -3432,17 +3451,7 @@ var getProto = __webpack_require__(/*! get-proto */ "./node_modules/get-proto/in
 var toStr = callBound('Object.prototype.toString');
 var fnToStr = callBound('Function.prototype.toString');
 
-var getGeneratorFunc = function () { // eslint-disable-line consistent-return
-	if (!hasToStringTag) {
-		return false;
-	}
-	try {
-		return Function('return function*() {}')();
-	} catch (e) {
-	}
-};
-/** @type {undefined | false | null | GeneratorFunctionConstructor} */
-var GeneratorFunction;
+var getGeneratorFunction = __webpack_require__(/*! generator-function */ "./node_modules/generator-function/index.js");
 
 /** @type {import('.')} */
 module.exports = function isGeneratorFunction(fn) {
@@ -3459,14 +3468,8 @@ module.exports = function isGeneratorFunction(fn) {
 	if (!getProto) {
 		return false;
 	}
-	if (typeof GeneratorFunction === 'undefined') {
-		var generatorFunc = getGeneratorFunc();
-		GeneratorFunction = generatorFunc
-			// eslint-disable-next-line no-extra-parens
-			? /** @type {GeneratorFunctionConstructor} */ (getProto(generatorFunc))
-			: false;
-	}
-	return getProto(fn) === GeneratorFunction;
+	var GeneratorFunction = getGeneratorFunction();
+	return GeneratorFunction && getProto(fn) === GeneratorFunction.prototype;
 };
 
 
