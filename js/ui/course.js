@@ -1,118 +1,10 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./node_modules/@restart/ui/esm/Button.js"
-/*!************************************************!*\
-  !*** ./node_modules/@restart/ui/esm/Button.js ***!
-  \************************************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   isTrivialHref: () => (/* binding */ isTrivialHref),
-/* harmony export */   useButtonProps: () => (/* binding */ useButtonProps)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-const _excluded = ["as", "disabled"];
-function _objectWithoutPropertiesLoose(r, e) { if (null == r) return {}; var t = {}; for (var n in r) if ({}.hasOwnProperty.call(r, n)) { if (e.indexOf(n) >= 0) continue; t[n] = r[n]; } return t; }
-
-
-function isTrivialHref(href) {
-  return !href || href.trim() === '#';
-}
-function useButtonProps({
-  tagName,
-  disabled,
-  href,
-  target,
-  rel,
-  role,
-  onClick,
-  tabIndex = 0,
-  type
-}) {
-  if (!tagName) {
-    if (href != null || target != null || rel != null) {
-      tagName = 'a';
-    } else {
-      tagName = 'button';
-    }
-  }
-  const meta = {
-    tagName
-  };
-  if (tagName === 'button') {
-    return [{
-      type: type || 'button',
-      disabled
-    }, meta];
-  }
-  const handleClick = event => {
-    if (disabled || tagName === 'a' && isTrivialHref(href)) {
-      event.preventDefault();
-    }
-    if (disabled) {
-      event.stopPropagation();
-      return;
-    }
-    onClick == null ? void 0 : onClick(event);
-  };
-  const handleKeyDown = event => {
-    if (event.key === ' ') {
-      event.preventDefault();
-      handleClick(event);
-    }
-  };
-  if (tagName === 'a') {
-    // Ensure there's a href so Enter can trigger anchor button.
-    href || (href = '#');
-    if (disabled) {
-      href = undefined;
-    }
-  }
-  return [{
-    role: role != null ? role : 'button',
-    // explicitly undefined so that it overrides the props disabled in a spread
-    // e.g. <Tag {...props} {...hookProps} />
-    disabled: undefined,
-    tabIndex: disabled ? undefined : tabIndex,
-    href,
-    target: tagName === 'a' ? target : undefined,
-    'aria-disabled': !disabled ? undefined : disabled,
-    rel: tagName === 'a' ? rel : undefined,
-    onClick: handleClick,
-    onKeyDown: handleKeyDown
-  }, meta];
-}
-const Button = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((_ref, ref) => {
-  let {
-      as: asProp,
-      disabled
-    } = _ref,
-    props = _objectWithoutPropertiesLoose(_ref, _excluded);
-  const [buttonProps, {
-    tagName: Component
-  }] = useButtonProps(Object.assign({
-    tagName: asProp,
-    disabled
-  }, props));
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Component, Object.assign({}, props, buttonProps, {
-    ref: ref
-  }));
-});
-Button.displayName = 'Button';
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Button);
-
-/***/ },
-
-/***/ "./node_modules/@ueu/ueu-canvas/dist/index.js"
-/*!****************************************************!*\
-  !*** ./node_modules/@ueu/ueu-canvas/dist/index.js ***!
-  \****************************************************/
+/***/ "../ueu_canvas/dist/index.js"
+/*!***********************************!*\
+  !*** ../ueu_canvas/dist/index.js ***!
+  \***********************************/
 (module, __unused_webpack_exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -125,20 +17,4434 @@ return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/Account.ts"
+/*!************************!*\
+  !*** ./src/Account.ts ***!
+  \************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_631__) {
+
+__nested_webpack_require_631__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_631__.d(__nested_webpack_exports__, {
+/* harmony export */   Account: () => (/* binding */ Account),
+/* harmony export */   RootAccountNotFoundError: () => (/* binding */ RootAccountNotFoundError),
+/* harmony export */   getAccountIdFromUrl: () => (/* binding */ getAccountIdFromUrl)
+/* harmony export */ });
+/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_631__(/*! ./baseCanvasObject */ "./src/baseCanvasObject.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_631__(/*! ./fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_631__(/*! ./fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+
+
+
+/**
+ *  A base class for objects that interact with the Canvas API
+ */
+class Account extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
+    static nameProperty = 'name'; // The field name of the primary name of the canvas object type
+    static contentUrlTemplate = '/api/v1/accounts/{content_id}'; // A templated url to get a single item
+    static allContentUrlTemplate = '/api/v1/accounts'; // A templated url to get all items
+    static account;
+    static async getFromUrl(url = null) {
+        if (url === null) {
+            url = document.documentURI;
+        }
+        const match = /accounts\/(\d+)/.exec(url);
+        if (match) {
+            console.log(match);
+            return await this.getAccountById(parseInt(match[1]));
+        }
+        return null;
+    }
+    static async getAccountById(accountId, config = undefined) {
+        const data = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__.fetchJson)(`/api/v1/accounts/${accountId}`, config);
+        return new Account(data);
+    }
+    static async getRootAccount(resetCache = false) {
+        if (!resetCache && this.hasOwnProperty('account') && this.account) {
+            return this.account;
+        }
+        const accountGen = (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)('/api/v1/accounts');
+        for await (const account of accountGen) {
+            if (account.root_account_id)
+                continue; //if there is a root_account_id, this is not the root account
+            const root = new Account(account);
+            this.account = root;
+            return root;
+        }
+    }
+    get rootAccountId() {
+        return this.canvasData['root_account_id'];
+    }
+}
+class RootAccountNotFoundError extends Error {
+    name = 'RootAccountNotFoundError';
+}
+const getAccountIdFromUrl = (url = null) => {
+    if (url === null) {
+        url = document.documentURI;
+    }
+    const match = /accounts\/(\d+)/.exec(url);
+    return match ? parseInt(match[1]) : null;
+};
+
+
+
+/***/ },
+
+/***/ "./src/NotImplementedException.ts"
+/*!****************************************!*\
+  !*** ./src/NotImplementedException.ts ***!
+  \****************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_3778__) {
+
+__nested_webpack_require_3778__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_3778__.d(__nested_webpack_exports__, {
+/* harmony export */   NotImplementedException: () => (/* binding */ NotImplementedException)
+/* harmony export */ });
+class NotImplementedException extends Error {
+    name = "NotImplementedException";
+}
+
+
+/***/ },
+
+/***/ "./src/__mocks__/Account.ts"
+/*!**********************************!*\
+  !*** ./src/__mocks__/Account.ts ***!
+  \**********************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_4330__) {
+
+__nested_webpack_require_4330__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_4330__.d(__nested_webpack_exports__, {
+/* harmony export */   MockAccount: () => (/* binding */ MockAccount)
+/* harmony export */ });
+/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_4330__(/*! @/baseCanvasObject */ "./src/baseCanvasObject.ts");
+
+// Create a type alias for the original Account class
+class MockAccount extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
+    static nameProperty = 'name';
+    static contentUrlTemplate = '/api/v1/accounts/{content_id}';
+    static allContentUrlTemplate = '/api/v1/accounts';
+    static mockAccount;
+    static mockAccounts = [];
+    static mockDataById = {};
+    static resetMocks() {
+        this.mockAccounts = [];
+        this.mockDataById = {};
+        this.mockAccount = undefined;
+    }
+    static async getFromUrl(url = null) {
+        if (url === null) {
+            url = document.documentURI;
+        }
+        const match = /accounts\/(\d+)/.exec(url);
+        if (match) {
+            return await this.getAccountById(parseInt(match[1]));
+        }
+        return null;
+    }
+    static async getAccountById(accountId, _config = undefined) {
+        const data = this.mockDataById[accountId];
+        if (!data) {
+            throw new Error(`No mock data found for account ID: ${accountId}`);
+        }
+        return new MockAccount(data);
+    }
+    static async getRootAccount(resetCache = false) {
+        if (!resetCache && this.mockAccount) {
+            return this.mockAccount;
+        }
+        const root = this.mockAccounts.find((a) => a.rootAccountId === null);
+        if (!root) {
+            throw new Error('No root account found in mock data');
+        }
+        this.mockAccount = root;
+        return root;
+    }
+    get rootAccountId() {
+        return this.canvasData['root_account_id'];
+    }
+}
+
+
+/***/ },
+
+/***/ "./src/__mocks__/index.ts"
+/*!********************************!*\
+  !*** ./src/__mocks__/index.ts ***!
+  \********************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_6469__) {
+
+__nested_webpack_require_6469__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_6469__.d(__nested_webpack_exports__, {
+/* harmony export */   MockAccount: () => (/* reexport safe */ _Account__WEBPACK_IMPORTED_MODULE_0__.MockAccount),
+/* harmony export */   mockAccountData: () => (/* reexport safe */ _mockAccountData__WEBPACK_IMPORTED_MODULE_1__.mockAccountData),
+/* harmony export */   mockAsyncGen: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_7__.mockAsyncGen),
+/* harmony export */   mockEnrollment: () => (/* reexport safe */ _mockEnrollment__WEBPACK_IMPORTED_MODULE_2__.mockEnrollment),
+/* harmony export */   mockRubric: () => (/* reexport safe */ _mockRubricData__WEBPACK_IMPORTED_MODULE_3__.mockRubric),
+/* harmony export */   mockRubricAssessment: () => (/* reexport safe */ _mockRubricData__WEBPACK_IMPORTED_MODULE_3__.mockRubricAssessment),
+/* harmony export */   mockRubricAssociation: () => (/* reexport safe */ _mockRubricData__WEBPACK_IMPORTED_MODULE_3__.mockRubricAssociation),
+/* harmony export */   mockRubricsForAssignments: () => (/* reexport safe */ _mockRubricData__WEBPACK_IMPORTED_MODULE_3__.mockRubricsForAssignments),
+/* harmony export */   mockTabData: () => (/* reexport safe */ _mockTabData__WEBPACK_IMPORTED_MODULE_4__.mockTabData),
+/* harmony export */   mockTermData: () => (/* reexport safe */ _mockTermData__WEBPACK_IMPORTED_MODULE_6__.mockTermData),
+/* harmony export */   mockUserData: () => (/* reexport safe */ _mockUserData__WEBPACK_IMPORTED_MODULE_5__.mockUserData),
+/* harmony export */   returnMockAsyncGen: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_7__.returnMockAsyncGen)
+/* harmony export */ });
+/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_6469__(/*! ./Account */ "./src/__mocks__/Account.ts");
+/* harmony import */ var _mockAccountData__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_6469__(/*! ./mockAccountData */ "./src/__mocks__/mockAccountData.ts");
+/* harmony import */ var _mockEnrollment__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_6469__(/*! ./mockEnrollment */ "./src/__mocks__/mockEnrollment.ts");
+/* harmony import */ var _mockRubricData__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_6469__(/*! ./mockRubricData */ "./src/__mocks__/mockRubricData.ts");
+/* harmony import */ var _mockTabData__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_6469__(/*! ./mockTabData */ "./src/__mocks__/mockTabData.ts");
+/* harmony import */ var _mockUserData__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_6469__(/*! ./mockUserData */ "./src/__mocks__/mockUserData.ts");
+/* harmony import */ var _mockTermData__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_6469__(/*! ./mockTermData */ "./src/__mocks__/mockTermData.ts");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_6469__(/*! ./utils */ "./src/__mocks__/utils.ts");
+
+
+
+
+
+
+
+
+
+
+/***/ },
+
+/***/ "./src/__mocks__/mockAccountData.ts"
+/*!******************************************!*\
+  !*** ./src/__mocks__/mockAccountData.ts ***!
+  \******************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_9577__) {
+
+__nested_webpack_require_9577__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_9577__.d(__nested_webpack_exports__, {
+/* harmony export */   mockAccountData: () => (/* binding */ mockAccountData)
+/* harmony export */ });
+/**
+ * From Canvas Api Docs - https://canvas.instructure.com/doc/api/accounts.html
+ */
+const mockAccountData = {
+    // the ID of the Account object
+    "id": 2,
+    // The display name of the account
+    "name": "Canvas Account",
+    // The UUID of the account
+    "uuid": "WvAHhY5FINzq5IyRIJybGeiXyFkG3SqHUPb7jZY5",
+    // The account's parent ID, or null if this is the root account
+    "parent_account_id": 1,
+    // The ID of the root account, or null if this is the root account
+    "root_account_id": 1,
+    // The storage quota for the account in megabytes, if not otherwise specified
+    "default_storage_quota_mb": 500,
+    // The storage quota for a user in the account in megabytes, if not otherwise
+    // specified
+    "default_user_storage_quota_mb": 50,
+    // The storage quota for a group in the account in megabytes, if not otherwise
+    // specified
+    "default_group_storage_quota_mb": 50,
+    // The default time zone of the account. Allowed time zones are
+    // {http://www.iana.org/time-zones IANA time zones} or friendlier
+    // {http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html Ruby on Rails
+    // time zones}.
+    "default_time_zone": "America/Denver",
+    // The account's identifier in the Student Information System. Only included if
+    // the user has permission to view SIS information.
+    "sis_account_id": "123xyz",
+    // The account's identifier in the Student Information System. Only included if
+    // the user has permission to view SIS information.
+    "integration_id": "123xyz",
+    // The id of the SIS import if created through SIS. Only included if the user
+    // has permission to manage SIS information.
+    "sis_import_id": 12,
+    // The account's identifier that is sent as context_id in LTI launches.
+    "lti_guid": "123xyz",
+    // The state of the account. Can be 'active' or 'deleted'.
+    "workflow_state": "active"
+};
+
+
+/***/ },
+
+/***/ "./src/__mocks__/mockEnrollment.ts"
+/*!*****************************************!*\
+  !*** ./src/__mocks__/mockEnrollment.ts ***!
+  \*****************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_11952__) {
+
+__nested_webpack_require_11952__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_11952__.d(__nested_webpack_exports__, {
+/* harmony export */   mockEnrollment: () => (/* binding */ mockEnrollment)
+/* harmony export */ });
+/* harmony import */ var _mocks_mockUserData__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_11952__(/*! @/__mocks__/mockUserData */ "./src/__mocks__/mockUserData.ts");
+/* harmony import */ var _enrollments__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_11952__(/*! @/enrollments */ "./src/enrollments/index.ts");
+
+
+const mockEnrollment = {
+    created_at: "",
+    end_at: "",
+    html_url: "",
+    role: (0,_enrollments__WEBPACK_IMPORTED_MODULE_1__.createEnrollmentRole)(""),
+    role_id: 0,
+    root_account_id: 0,
+    start_at: "",
+    total_activity_time: 0,
+    unposted_current_points: 0,
+    updated_at: "",
+    id: 1,
+    user_id: 1,
+    type: 'StudentEnrollment',
+    enrollment_state: 'active',
+    course_id: 1,
+    user: { ..._mocks_mockUserData__WEBPACK_IMPORTED_MODULE_0__.mockUserData, id: 1, name: 'Student Name', sis_user_id: '12345' }
+};
+
+
+/***/ },
+
+/***/ "./src/__mocks__/mockRubricData.ts"
+/*!*****************************************!*\
+  !*** ./src/__mocks__/mockRubricData.ts ***!
+  \*****************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_13275__) {
+
+__nested_webpack_require_13275__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_13275__.d(__nested_webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   mockRubric: () => (/* binding */ mockRubric),
+/* harmony export */   mockRubricAssessment: () => (/* binding */ mockRubricAssessment),
+/* harmony export */   mockRubricAssociation: () => (/* binding */ mockRubricAssociation),
+/* harmony export */   mockRubricsForAssignments: () => (/* binding */ mockRubricsForAssignments)
+/* harmony export */ });
+const mockRubricAssociation = {
+    association_id: 0,
+    association_type: "Assignment",
+    hide_outcome_results: false,
+    hide_points: false,
+    hide_score_total: false,
+    id: 0,
+    purpose: 'grading',
+    rubric_id: 0,
+    use_for_grading: false
+};
+const mockRubricAssessment = {
+    artifact_attempt: 0,
+    artifact_id: 0,
+    artifact_type: "",
+    assessment_type: 'grading',
+    assessor_id: 0,
+    id: 0,
+    rubric_association_id: 0,
+    rubric_id: 0,
+    score: 0
+};
+const mockRubric = {
+    // the ID of the rubric
+    "id": 1,
+    // title of the rubric
+    "title": "some title",
+    // the context owning the rubric
+    "context_id": 1,
+    "context_type": "Course",
+    "points_possible": 10.0,
+    "reusable": false,
+    "read_only": true,
+    "free_form_criterion_comments": true,
+    "hide_score_total": true,
+    "data": null,
+    "assessments": [mockRubricAssessment],
+    "associations": [mockRubricAssociation]
+};
+function mockRubricsForAssignments(assignmentIds, rubricOverride, associationOverride) {
+    return assignmentIds.map((association_id, index) => {
+        const rubric_id = 1000 + index;
+        return {
+            ...mockRubric,
+            id: rubric_id,
+            associations: [{ ...mockRubricAssociation, rubric_id, association_id, ...associationOverride }],
+            ...rubricOverride
+        };
+    });
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (mockRubric);
+
+
+/***/ },
+
+/***/ "./src/__mocks__/mockTabData.ts"
+/*!**************************************!*\
+  !*** ./src/__mocks__/mockTabData.ts ***!
+  \**************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_15521__) {
+
+__nested_webpack_require_15521__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_15521__.d(__nested_webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   mockTabData: () => (/* binding */ mockTabData)
+/* harmony export */ });
+const mockTabData = {
+    full_url: "/api/v1/...",
+    html_url: "http://localhost",
+    id: "0",
+    label: "tab",
+    position: 0,
+    type: "",
+    visibility: ""
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (mockTabData);
+
+
+/***/ },
+
+/***/ "./src/__mocks__/mockTermData.ts"
+/*!***************************************!*\
+  !*** ./src/__mocks__/mockTermData.ts ***!
+  \***************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_16301__) {
+
+__nested_webpack_require_16301__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_16301__.d(__nested_webpack_exports__, {
+/* harmony export */   mockTermData: () => (/* binding */ mockTermData)
+/* harmony export */ });
+const mockTermData = {
+    id: 1,
+    course_count: 0, end_at: "", name: "", start_at: "", workflow_state: "active"
+};
+
+
+/***/ },
+
+/***/ "./src/__mocks__/mockUserData.ts"
+/*!***************************************!*\
+  !*** ./src/__mocks__/mockUserData.ts ***!
+  \***************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_16884__) {
+
+__nested_webpack_require_16884__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_16884__.d(__nested_webpack_exports__, {
+/* harmony export */   mockUserData: () => (/* binding */ mockUserData)
+/* harmony export */ });
+//Generated by ChatGPT-4o
+const mockUserData = {
+    id: 1,
+    name: 'John Doe',
+    sortable_name: 'Doe, John',
+    last_name: 'Doe',
+    first_name: 'John',
+    short_name: 'J. Doe',
+    email: 'john.doe@example.com',
+    bio: 'This is a bio for John Doe.',
+};
+
+
+/***/ },
+
+/***/ "./src/__mocks__/utils.ts"
+/*!********************************!*\
+  !*** ./src/__mocks__/utils.ts ***!
+  \********************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_17584__) {
+
+__nested_webpack_require_17584__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_17584__.d(__nested_webpack_exports__, {
+/* harmony export */   mockAsyncGen: () => (/* binding */ mockAsyncGen),
+/* harmony export */   returnMockAsyncGen: () => (/* binding */ returnMockAsyncGen)
+/* harmony export */ });
+function returnMockAsyncGen(dataSet) {
+    return async function* () {
+        for (const value of dataSet)
+            yield value;
+    };
+}
+function mockAsyncGen(dataSet) {
+    return returnMockAsyncGen(dataSet)();
+}
+
+
+/***/ },
+
+/***/ "./src/baseCanvasObject.ts"
+/*!*********************************!*\
+  !*** ./src/baseCanvasObject.ts ***!
+  \*********************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_18328__) {
+
+__nested_webpack_require_18328__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_18328__.d(__nested_webpack_exports__, {
+/* harmony export */   BaseCanvasObject: () => (/* binding */ BaseCanvasObject)
+/* harmony export */ });
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_18328__(/*! assert */ "assert");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_18328__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_18328__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_18328__(/*! ./fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _fetch_utils__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_18328__(/*! ./fetch/utils */ "./src/fetch/utils.ts");
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_18328__(/*! ./fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+
+
+
+
+
+/**
+ * DEPRECATED
+ */
+class BaseCanvasObject {
+    static idProperty = 'id'; // The field name of the id of the canvas object type
+    static nameProperty = 'name'; // The field name of the primary name of the canvas object type
+    static contentUrlTemplate = null; // A templated url to get a single item
+    static allContentUrlTemplate = null; // A templated url to get all items
+    canvasData;
+    _accountId = null;
+    get accountId() {
+        return this._accountId;
+    }
+    constructor(data) {
+        this.canvasData = data || {}; // A dict holding the decoded json representation of the object in Canvas
+    }
+    getClass() {
+        return this.constructor;
+    }
+    getItem(item) {
+        return this.canvasData[item];
+    }
+    get myClass() {
+        return this.constructor;
+    }
+    get nameKey() {
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(this.myClass.nameProperty);
+        return this.myClass.nameProperty;
+    }
+    get rawData() {
+        return { ...this.canvasData };
+    }
+    get contentUrlPath() {
+        const constructor = this.constructor;
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.accountId === 'number');
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof constructor.contentUrlTemplate === 'string');
+        return '/api/v1/' + constructor.contentUrlTemplate
+            .replace('{content_id}', this.id.toString())
+            .replace('{account_id}', this.accountId.toString());
+    }
+    get htmlContentUrl() {
+        return `${this.contentUrlPath}`;
+    }
+    get data() {
+        return this.canvasData;
+    }
+    static async getDataById(contentId, courseId = null, config = null) {
+        const url = this.getUrlPathFromIds(contentId, courseId);
+        const response = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(!Array.isArray(response));
+        return response;
+    }
+    static getUrlPathFromIds(contentId, courseId) {
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.contentUrlTemplate === 'string');
+        let url = this.contentUrlTemplate
+            .replace('{content_id}', contentId.toString());
+        if (courseId)
+            url = url.replace('{course_id}', courseId.toString());
+        return url;
+    }
+    /**
+     * @param courseId - The course ID to get elements within, if applicable
+     * @param accountId - The account ID to get elements within, if applicable
+     */
+    static getAllUrl(courseId = null, accountId = null) {
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.allContentUrlTemplate === 'string');
+        let replaced = this.allContentUrlTemplate;
+        if (courseId)
+            replaced = replaced.replace('{course_id}', courseId.toString());
+        if (accountId)
+            replaced = replaced.replace('{account_id}', accountId.toString());
+        return replaced;
+    }
+    static async getAll(config = null) {
+        const url = this.getAllUrl();
+        return await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.renderAsyncGen)((0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.getPagedDataGenerator)(this.getAllUrl(), config));
+    }
+    get id() {
+        const id = this.canvasData[this.constructor.idProperty];
+        return parseInt(id);
+    }
+    get name() {
+        const nameProperty = this.getClass().nameProperty;
+        if (!nameProperty)
+            return 'NAME PROPERTY NOT SET';
+        return this.getItem(nameProperty);
+    }
+    async saveData(data, config) {
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(this.contentUrlPath);
+        config = (0,_fetch_utils__WEBPACK_IMPORTED_MODULE_3__.overrideConfig)({
+            fetchInit: {
+                method: 'PUT',
+                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.formDataify)(data)
+            }
+        }, config);
+        let results = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(this.contentUrlPath, config);
+        if (Array.isArray(results))
+            results = results[0];
+        this.canvasData = { ...this.canvasData, ...results };
+        return this.canvasData;
+    }
+}
+
+
+/***/ },
+
+/***/ "./src/canvasDataDefs.ts"
+/*!*******************************!*\
+  !*** ./src/canvasDataDefs.ts ***!
+  \*******************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_23819__) {
+
+__nested_webpack_require_23819__.r(__nested_webpack_exports__);
+
+
+
+/***/ },
+
+/***/ "./src/canvasUtils.ts"
+/*!****************************!*\
+  !*** ./src/canvasUtils.ts ***!
+  \****************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_24077__) {
+
+__nested_webpack_require_24077__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_24077__.d(__nested_webpack_exports__, {
+/* harmony export */   batchGen: () => (/* binding */ batchGen),
+/* harmony export */   batchify: () => (/* binding */ batchify),
+/* harmony export */   callAll: () => (/* binding */ callAll),
+/* harmony export */   courseNameSort: () => (/* binding */ courseNameSort),
+/* harmony export */   deFormDataify: () => (/* binding */ deFormDataify),
+/* harmony export */   deepObjectCopy: () => (/* binding */ deepObjectCopy),
+/* harmony export */   deepObjectMerge: () => (/* binding */ deepObjectMerge),
+/* harmony export */   filterUniqueFunc: () => (/* binding */ filterUniqueFunc),
+/* harmony export */   formDataify: () => (/* binding */ formDataify),
+/* harmony export */   generatorMap: () => (/* binding */ generatorMap),
+/* harmony export */   getItemTypeAndId: () => (/* binding */ getItemTypeAndId),
+/* harmony export */   getPlainTextFromHtml: () => (/* binding */ getPlainTextFromHtml),
+/* harmony export */   numbers: () => (/* binding */ numbers),
+/* harmony export */   parentElement: () => (/* binding */ parentElement),
+/* harmony export */   queryStringify: () => (/* binding */ queryStringify),
+/* harmony export */   range: () => (/* binding */ range),
+/* harmony export */   renderAsyncGen: () => (/* binding */ renderAsyncGen),
+/* harmony export */   searchParamsFromObject: () => (/* binding */ searchParamsFromObject)
+/* harmony export */ });
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_24077__(/*! assert */ "assert");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_24077__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_24077__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+
+
+function isWithParamsFunc(func) {
+    return typeof func === 'function' && func.length > 0;
+}
+function isWithoutParamsFunc(func) {
+    return typeof func === 'function' && func.length === 0;
+}
+function callAll(funcs, params) {
+    const output = [];
+    for (const func of funcs) {
+        if ((typeof func === 'object')) {
+            output.push(func.func(func.params));
+            continue;
+        }
+        if (isWithoutParamsFunc(func)) {
+            output.push(func());
+            continue;
+        }
+        if (isWithParamsFunc(func) && typeof params !== 'undefined') {
+            output.push(func(params));
+        }
+    }
+    return output;
+}
+
+/**
+ * Traverses up the DOM and finds a parent with a matching Tag
+ * @param el
+ * @param tagName
+ */
+function parentElement(el, tagName) {
+    if (!el)
+        return null;
+    while (el && el.parentElement) {
+        el = el.parentElement;
+        if (el.tagName && el.tagName.toLowerCase() == tagName) {
+            return el;
+        }
+    }
+    return null;
+}
+const type_lut = {
+    Assignment: 'assignment',
+    Discussion: 'discussion_topic',
+    Quiz: 'quiz',
+    ExternalTool: 'external_tool',
+    File: 'attachment',
+    Page: 'wiki_page',
+    ExternalUrl: null, //Not passable to restrict
+    Subheader: null, //Not passable to restrict
+};
+function formDataify(data) {
+    const formData = new FormData();
+    for (const key in data) {
+        addToFormData(formData, key, data[key]);
+    }
+    if (document) {
+        const el = document.querySelector("input[name='authenticity_token']");
+        const authenticityToken = el ? el.value : null;
+        const cookies = getCookies();
+        let csrfToken = cookies['_csrf_token'];
+        if (authenticityToken)
+            formData.append('authenticity_token', authenticityToken);
+        else if (csrfToken) {
+            csrfToken = csrfToken.replaceAll(/%([0-9A-F]{2})/g, (substring, hex) => {
+                const hexCode = hex;
+                return String.fromCharCode(parseInt(hexCode, 16));
+            });
+            console.log(csrfToken);
+            formData.append('authenticity_token', csrfToken);
+        }
+    }
+    return formData;
+}
+function deepObjectCopy(toCopy, complexObjectsTracker = []) {
+    return deepObjectMerge(toCopy, {}, true, complexObjectsTracker);
+}
+function deepObjectMerge(a, b, overrideWithA = false, complexObjectsTracker = []) {
+    for (const value of [a, b]) {
+        if (typeof value == "object" &&
+            complexObjectsTracker.includes(value))
+            throw new Error(`Infinite Loop: Element ${value} contains itself`);
+    }
+    //if the types don't match
+    if (a && b && (typeof a !== typeof b ||
+        Array.isArray(a) != Array.isArray(b))) {
+        if (a === b)
+            return a;
+        if (overrideWithA)
+            return a;
+        throw new Error(`Type clash on merge ${typeof a} ${a}, ${typeof b} ${b}`);
+    }
+    //If either or both are arrays, merge if able to
+    if (Array.isArray(a)) {
+        if (!b)
+            return deepObjectCopy(a, complexObjectsTracker);
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(Array.isArray(b), "We should not get here if b is not an array");
+        const mergedArray = [...a, ...b];
+        const outputArray = mergedArray.map(value => {
+            if (!value)
+                return value;
+            if (typeof value === 'object' && Object.getPrototypeOf(value) === Object.prototype) {
+                //Make a deep of any object literal
+                if (!value)
+                    return value;
+                value = deepObjectCopy(value, [...complexObjectsTracker, a, b]);
+            }
+            return value;
+        });
+        return outputArray;
+    }
+    if (Array.isArray(b))
+        return deepObjectCopy(b, complexObjectsTracker); //we already know A is not an array at this point, return a deep copy of b
+    if ((a && typeof a === 'object') || (b && typeof b === 'object')) {
+        if (a instanceof File && b instanceof File) {
+            if (!overrideWithA)
+                assert__WEBPACK_IMPORTED_MODULE_0___default()(a.size == b.size && a.name == b.name, `File value clash ${a.name} ${b.name}`);
+            return a;
+        }
+        if (a && Object.getPrototypeOf(a) != Object.prototype
+            || b && Object.getPrototypeOf(b) != Object.prototype) {
+            if (!overrideWithA)
+                assert__WEBPACK_IMPORTED_MODULE_0___default()(!a || !b || a === b, `Non-mergeable object clash ${a} ${b}`);
+            if (a)
+                return a;
+            if (b)
+                return b;
+        }
+        if (a && !b)
+            return deepObjectCopy(a, complexObjectsTracker);
+        if (b && !a)
+            return deepObjectCopy(b, complexObjectsTracker);
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(a && typeof a === 'object' && Object.getPrototypeOf(a) === Object.prototype, "a should always be defined here.");
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(b && typeof b === 'object' && Object.getPrototypeOf(b) === Object.prototype, "b should always be defined here.");
+        const allKeys = [...Object.keys(a), ...Object.keys(b)].filter(filterUniqueFunc);
+        const aRecord = a;
+        const bRecord = b;
+        const entries = allKeys.map((key) => [
+            key,
+            deepObjectMerge(aRecord[key], bRecord[key], overrideWithA, [...complexObjectsTracker, a, b])
+        ]);
+        return Object.fromEntries(entries);
+    }
+    if (a && b) {
+        if (overrideWithA || a === b)
+            return a;
+        throw new Error(`Values unmergeable, ${a}>:${typeof a}, ${b} ${typeof b}`);
+    }
+    if (a)
+        return a;
+    if (b)
+        return b;
+    if (a === null)
+        return a;
+    if (b === null)
+        return b;
+    assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof a === 'undefined');
+    return a;
+}
+function deFormDataify(formData) {
+    return [...formData.entries()].reduce((aggregator, [key, value]) => {
+        const isArray = key.includes('[]');
+        const keys = key.split('[').map(key => key.replaceAll(/[\[\]]/g, ''));
+        if (isArray)
+            keys.pop(); //remove the last, empty, key if it's an array
+        let currentValue = isArray ? [value] : value;
+        while (keys.length > 0) {
+            let newValue;
+            newValue = {
+                [keys.pop()]: currentValue
+            };
+            currentValue = newValue;
+        }
+        return deepObjectMerge(aggregator, currentValue) || { ...aggregator };
+    }, {});
+}
+function getCookies() {
+    const cookieString = document.cookie;
+    const cookies = cookieString.split('; ');
+    const out = {};
+    for (const cookie of cookies) {
+        const [key, value] = cookie.split('=');
+        out[key] = value;
+    }
+    return out;
+}
+/**
+ * Adds arrays and objects in the form formData posts expects
+ * @param formData
+ * @param key
+ * @param value
+ */
+function addToFormData(formData, key, value) {
+    if (Array.isArray(value)) {
+        for (const item of value) {
+            addToFormData(formData, `${key}[]`, item);
+        }
+    }
+    else if (typeof value === 'object') {
+        for (const itemKey in value) {
+            const itemValue = value[itemKey];
+            addToFormData(formData, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
+        }
+    }
+    else {
+        formData.append(key, value);
+    }
+}
+function queryStringify(data) {
+    const searchParams = new URLSearchParams();
+    for (const key in data) {
+        addToQuery(searchParams, key, data[key]);
+    }
+    return searchParams;
+}
+function addToQuery(searchParams, key, value) {
+    if (Array.isArray(value)) {
+        for (const item of value) {
+            addToQuery(searchParams, `${key}[]`, item);
+        }
+    }
+    else if (typeof value === 'object') {
+        for (const itemKey in value) {
+            const itemValue = value[itemKey];
+            addToQuery(searchParams, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
+        }
+    }
+    else {
+        searchParams.append(key, value);
+    }
+}
+/**
+ * Takes in a module item and returns an object specifying its type and content id
+ * @param item
+ */
+async function getItemTypeAndId(item) {
+    let id;
+    let type;
+    assert__WEBPACK_IMPORTED_MODULE_0___default()(type_lut.hasOwnProperty(item.type), "Unexpected type " + item.type);
+    type = type_lut[item.type];
+    if (type === "wiki_page") {
+        assert__WEBPACK_IMPORTED_MODULE_0___default()(item.url); //wiki_page items always have a url param
+        const pageData = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(item.url);
+        id = pageData.page_id;
+    }
+    else {
+        id = item.content_id;
+    }
+    return { type, id };
+}
+/**
+ * @param queryParams
+ * @returns {URLSearchParams} The correctly formatted parameters
+ */
+function searchParamsFromObject(queryParams) {
+    return queryStringify(queryParams);
+}
+/**
+ * sort courses (or course Data) alphabetically by name
+ * @param a item to compare.
+ * @param b item to compare.
+ */
+function courseNameSort(a, b) {
+    if (a.name < b.name)
+        return -1;
+    if (b.name < a.name)
+        return 1;
+    return 0;
+}
+function* range(start, end, step = 1) {
+    if (typeof end === 'undefined') {
+        let i = start;
+        while (true) {
+            yield i;
+            i += step;
+        }
+    }
+    for (let i = start; i <= end; i++) {
+        yield i;
+    }
+}
+function* numbers(start, step = 1) {
+    let i = 0;
+    while (true) {
+        yield i;
+        i += step;
+    }
+}
+function getPlainTextFromHtml(html) {
+    const el = document.createElement('div');
+    el.innerHTML = html;
+    return el.innerText || el.textContent || "";
+}
+function batchify(toBatch, batchSize) {
+    const out = [];
+    for (let i = 0; i < toBatch.length; i += batchSize) {
+        out.push(toBatch.slice(i, i + batchSize));
+    }
+    return out;
+}
+function filterUniqueFunc(item, index, array) {
+    return array.indexOf(item) === index;
+}
+async function* batchGen(generator, batchSize) {
+    if (batchSize <= 0)
+        throw new Error("Batch size cannot be 0 or lower");
+    while (true) {
+        const out = [];
+        for (let i = 0; i < batchSize; i++) {
+            const next = await generator.next();
+            if (next.done) {
+                if (out.length > 0)
+                    yield out;
+                return;
+            }
+            out.push(next.value);
+        }
+        yield out;
+    }
+}
+async function renderAsyncGen(generator) {
+    const out = [];
+    for await (const item of generator) {
+        out.push(item);
+    }
+    return out;
+}
+async function* generatorMap(generator, nextMapFunc) {
+    let i = 0;
+    for await (const value of generator) {
+        yield nextMapFunc(value, i, generator);
+        i++;
+    }
+}
+
+
+/***/ },
+
+/***/ "./src/content/BaseContentItem.ts"
+/*!****************************************!*\
+  !*** ./src/content/BaseContentItem.ts ***!
+  \****************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_37021__) {
+
+__nested_webpack_require_37021__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_37021__.d(__nested_webpack_exports__, {
+/* harmony export */   BaseContentItem: () => (/* binding */ BaseContentItem),
+/* harmony export */   getBannerImage: () => (/* binding */ getBannerImage),
+/* harmony export */   postContentConfig: () => (/* binding */ postContentConfig),
+/* harmony export */   putContentConfig: () => (/* binding */ putContentConfig)
+/* harmony export */ });
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_37021__(/*! @canvas/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_37021__(/*! @canvas/baseCanvasObject */ "./src/baseCanvasObject.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_37021__(/*! assert */ "assert");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_37021__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_37021__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_37021__(/*! @canvas/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_37021__(/*! @canvas/course/getCourseIdFromUrl */ "./src/course/getCourseIdFromUrl.ts");
+/* harmony import */ var _canvas_NotImplementedException__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_37021__(/*! @canvas/NotImplementedException */ "./src/NotImplementedException.ts");
+
+
+
+
+
+//import {getResizedBlob} from "@/image";
+
+
+class BaseContentItem extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_1__.BaseCanvasObject {
+    static bodyProperty;
+    static nameProperty = 'name';
+    kind = undefined;
+    _courseId;
+    constructor(canvasData, courseId) {
+        super(canvasData);
+        this._courseId = courseId;
+    }
+    get htmlContentUrl() {
+        return `${this.contentUrlPath}`.replace('/api/v1/', '/');
+    }
+    static get contentUrlPart() {
+        assert__WEBPACK_IMPORTED_MODULE_2___default()(this.allContentUrlTemplate, "Not a content url template");
+        const urlTermMatch = /\/([\w_]+)$/.exec(this.allContentUrlTemplate);
+        if (!urlTermMatch)
+            return null;
+        return urlTermMatch[1];
+    }
+    static async getAllInCourse(courseId, config = null) {
+        const url = this.getAllUrl(courseId);
+        const data = await (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_4__.getPagedData)(url, config);
+        return data.map(item => new this(item, courseId));
+    }
+    static clearAddedContentTags(text) {
+        if (!text)
+            return null;
+        let out = text.replace(/<\/?link[^>]*>/g, '');
+        out = out.replace(/<\/?script[^>]*>/g, '');
+        return out;
+    }
+    static async getFromUrl(url = null, courseId = null) {
+        if (url === null) {
+            url = document.documentURI;
+        }
+        url = url.replace(/\.com/, '.com/api/v1');
+        const data = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url);
+        if (!courseId) {
+            courseId = (0,_canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_5__["default"])(url);
+            if (!courseId)
+                return null;
+        }
+        //If this is a collection of data, we can't process it as a Canvas Object
+        if (Array.isArray(data))
+            return null;
+        assert__WEBPACK_IMPORTED_MODULE_2___default()(!Array.isArray(data));
+        if (data) {
+            return new this(data, courseId);
+        }
+        return null;
+    }
+    static async getById(contentId, courseId) {
+        return new this(await this.getDataById(contentId, courseId), courseId);
+    }
+    get bodyKey() {
+        return this.myClass.bodyProperty;
+    }
+    get body() {
+        if (!this.bodyKey)
+            return null;
+        return this.myClass.clearAddedContentTags(this.canvasData[this.bodyKey]);
+    }
+    get dueAt() {
+        if (!this.canvasData.hasOwnProperty('due_at')) {
+            return null;
+        }
+        if (!this.canvasData.due_at)
+            return null;
+        return new Date(this.canvasData.due_at);
+    }
+    async setDueAt(date) {
+        throw new _canvas_NotImplementedException__WEBPACK_IMPORTED_MODULE_6__.NotImplementedException();
+    }
+    async dueAtTimeDelta(timeDelta) {
+        if (!this.dueAt)
+            return null;
+        const result = new Date(this.dueAt);
+        result.setDate(result.getDate() + timeDelta);
+        return await this.setDueAt(result);
+    }
+    get contentUrlPath() {
+        let url = this.constructor.contentUrlTemplate;
+        assert__WEBPACK_IMPORTED_MODULE_2___default()(url);
+        url = url.replace('{course_id}', this.courseId.toString());
+        url = url.replace('{content_id}', this.id.toString());
+        return url;
+    }
+    get courseId() {
+        return this._courseId;
+    }
+    async updateContent(text, name, config) {
+        const data = {};
+        const constructor = this.constructor;
+        assert__WEBPACK_IMPORTED_MODULE_2___default()(constructor.bodyProperty);
+        assert__WEBPACK_IMPORTED_MODULE_2___default()(constructor.nameProperty);
+        const nameProp = constructor.nameProperty;
+        const bodyProp = constructor.bodyProperty;
+        if (text && bodyProp) {
+            this.canvasData[bodyProp] = text;
+            data[bodyProp] = text;
+        }
+        if (name && nameProp) {
+            this.canvasData[nameProp] = name;
+            data[nameProp] = name;
+        }
+        return this.saveData(data, config);
+    }
+    async getMeInAnotherCourse(targetCourseId) {
+        const ContentClass = this.constructor;
+        const targets = await ContentClass.getAllInCourse(targetCourseId, { queryParams: { search_term: this.name } });
+        return targets.find((target) => target.name == this.name);
+    }
+    getAllLinks() {
+        const el = this.bodyAsElement;
+        const anchors = el.querySelectorAll('a');
+        const urls = [];
+        for (const link of anchors)
+            urls.push(link.href);
+        return urls;
+    }
+    get bodyAsElement() {
+        assert__WEBPACK_IMPORTED_MODULE_2___default()(this.body, "This content item has no body property");
+        const el = document.createElement('div');
+        el.innerHTML = this.body;
+        return el;
+    }
+}
+async function getFileDataFromUrl(url, courseId) {
+    const match = /.*\/files\/(\d+)/.exec(url);
+    if (!match)
+        return null;
+    if (match) {
+        const fileId = parseInt(match[1]);
+        return await getFileData(fileId, courseId);
+    }
+}
+function getBannerImage(overviewPage) {
+    const pageBody = document.createElement('html');
+    if (!overviewPage.body)
+        throw new Error(`Content item ${overviewPage.name} has no html body`);
+    pageBody.innerHTML = overviewPage.body;
+    return pageBody.querySelector('.cbt-banner-image img');
+}
+async function getFileData(fileId, courseId) {
+    const url = `/api/v1/courses/${courseId}/files/${fileId}`;
+    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url);
+}
+function putContentConfig(data, config) {
+    return (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.deepObjectMerge)(config, {
+        fetchInit: {
+            method: 'PUT',
+            body: (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.formDataify)(data)
+        }
+    }, true);
+}
+function postContentConfig(data, config) {
+    return (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.deepObjectMerge)(config, {
+        fetchInit: {
+            method: 'POST',
+            body: (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.formDataify)(data)
+        }
+    }, true);
+}
+
+
+/***/ },
+
+/***/ "./src/content/ContentKind.ts"
+/*!************************************!*\
+  !*** ./src/content/ContentKind.ts ***!
+  \************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_45215__) {
+
+__nested_webpack_require_45215__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_45215__.d(__nested_webpack_exports__, {
+/* harmony export */   contentUrlFuncs: () => (/* binding */ contentUrlFuncs),
+/* harmony export */   courseContentUrlFunc: () => (/* binding */ courseContentUrlFunc),
+/* harmony export */   postContentFunc: () => (/* binding */ postContentFunc),
+/* harmony export */   putContentFunc: () => (/* binding */ putContentFunc)
+/* harmony export */ });
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_45215__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_45215__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
+
+
+function contentUrlFuncs(contentUrlPart) {
+    const urlRegex = new RegExp(`courses\/(\\d+)\/${contentUrlPart}/(\\d+)`, 'i');
+    const getApiUrl = courseContentUrlFunc(`/api/v1/courses/{courseId}/${contentUrlPart}/{contentId}`);
+    const getAllApiUrl = (courseId) => `/api/v1/courses/${courseId}/${contentUrlPart}`;
+    const getHtmlUrl = courseContentUrlFunc(`/courses/{courseId}/${contentUrlPart}/{contentId}`);
+    function getCourseAndContentIdFromUrl(url) {
+        const [full, courseId, contentId] = url.match(urlRegex) ?? [undefined, undefined, undefined];
+        return [courseId, contentId].map(a => a ? parseInt(a) : undefined);
+    }
+    const isValidUrl = (url) => typeof url === 'string' && typeof getCourseAndContentIdFromUrl(url)[0] !== 'undefined';
+    return {
+        contentUrlPart,
+        getApiUrl,
+        getAllApiUrl,
+        getHtmlUrl,
+        getCourseAndContentIdFromUrl,
+        isValidUrl,
+    };
+}
+function courseContentUrlFunc(url) {
+    return (courseId, contentId) => url
+        .replaceAll('{courseId}', courseId.toString())
+        .replaceAll('{contentId}', contentId.toString());
+}
+function putContentFunc(getApiUrl) {
+    return async function (courseId, contentId, content, config) {
+        const url = getApiUrl(courseId, contentId);
+        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url, (0,_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__.putContentConfig)(content, config));
+    };
+}
+function postContentFunc(getApiUrl) {
+    return async function (courseId, content, config) {
+        const url = getApiUrl(courseId);
+        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url, (0,_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__.postContentConfig)(content, config));
+    };
+}
+
+
+/***/ },
+
+/***/ "./src/content/assignments/Assignment.ts"
+/*!***********************************************!*\
+  !*** ./src/content/assignments/Assignment.ts ***!
+  \***********************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_48078__) {
+
+__nested_webpack_require_48078__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_48078__.d(__nested_webpack_exports__, {
+/* harmony export */   Assignment: () => (/* binding */ Assignment)
+/* harmony export */ });
+/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_48078__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
+/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_48078__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_48078__(/*! assert */ "assert");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_48078__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_48078__(/*! @/content/assignments/AssignmentKind */ "./src/content/assignments/AssignmentKind.ts");
+
+
+
+
+class Assignment extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
+    static kind = _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_3__["default"];
+    static nameProperty = 'name';
+    static bodyProperty = 'description';
+    static contentUrlTemplate = "/api/v1/courses/{course_id}/assignments/{content_id}";
+    static allContentUrlTemplate = "/api/v1/courses/{course_id}/assignments";
+    constructor(assignmentData, courseId) {
+        super(assignmentData, courseId);
+    }
+    async setDueAt(dueAt, config) {
+        const sourceDueAt = this.rawData.due_at ? temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(this.rawData.due_at) : null;
+        const targetDueAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(dueAt.toISOString());
+        const payload = {
+            assignment: {
+                due_at: dueAt.toISOString(),
+            }
+        };
+        if (this.rawData.peer_reviews && 'automatic_peer_reviews' in this.rawData) {
+            const peerReviewTime = this.rawData.peer_reviews_assign_at ? temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(this.rawData.peer_reviews_assign_at) : null;
+            assert__WEBPACK_IMPORTED_MODULE_2___default()(sourceDueAt, "Trying to set peer review date without a due date for the assignment.");
+            if (peerReviewTime) {
+                const peerReviewOffset = sourceDueAt.until(peerReviewTime);
+                const newPeerReviewTime = targetDueAt.add(peerReviewOffset);
+                payload.assignment.peer_reviews_assign_at =
+                    new Date(newPeerReviewTime.epochMilliseconds).toISOString();
+            }
+        }
+        const data = await this.saveData(payload, config);
+        this.canvasData['due_at'] = dueAt.toISOString();
+        return data;
+    }
+    get rawData() {
+        return this.canvasData;
+    }
+    async updateContent(text, name, config) {
+        const assignmentData = {};
+        if (text) {
+            assignmentData.description = text;
+            this.rawData.description = text;
+        }
+        if (name) {
+            assignmentData.name = name;
+            this.rawData.name = name;
+        }
+        return await this.saveData({
+            assignment: assignmentData
+        }, config);
+    }
+}
+
+
+/***/ },
+
+/***/ "./src/content/assignments/AssignmentKind.ts"
+/*!***************************************************!*\
+  !*** ./src/content/assignments/AssignmentKind.ts ***!
+  \***************************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_51726__) {
+
+__nested_webpack_require_51726__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_51726__.d(__nested_webpack_exports__, {
+/* harmony export */   AssignmentKind: () => (/* binding */ AssignmentKind),
+/* harmony export */   assignmentUrlFuncs: () => (/* binding */ assignmentUrlFuncs),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_51726__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_51726__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_51726__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
+
+
+
+const assignmentUrlFuncs = (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('assignments');
+const AssignmentKind = {
+    getId: (data) => data.id,
+    dataIsThisKind: (data) => {
+        return 'submission_types' in data;
+    },
+    getName: (data) => data.name,
+    getBody: (data) => data.description,
+    async get(courseId, contentId, config) {
+        const data = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(assignmentUrlFuncs.getApiUrl(courseId, contentId), config);
+        return data;
+    },
+    ...assignmentUrlFuncs,
+    dataGenerator: (courseId, config) => (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(assignmentUrlFuncs.getAllApiUrl(courseId), config),
+    put: (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(assignmentUrlFuncs.getApiUrl),
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AssignmentKind);
+
+
+/***/ },
+
+/***/ "./src/content/assignments/index.ts"
+/*!******************************************!*\
+  !*** ./src/content/assignments/index.ts ***!
+  \******************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_53796__) {
+
+__nested_webpack_require_53796__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_53796__.d(__nested_webpack_exports__, {
+/* harmony export */   assignmentDataGen: () => (/* binding */ assignmentDataGen),
+/* harmony export */   updateAssignmentData: () => (/* binding */ updateAssignmentData),
+/* harmony export */   updateAssignmentDueDates: () => (/* binding */ updateAssignmentDueDates)
+/* harmony export */ });
+/* harmony import */ var _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_53796__(/*! @/content/assignments/AssignmentKind */ "./src/content/assignments/AssignmentKind.ts");
+/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_53796__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
+
+
+const assignmentDataGen = _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__["default"].dataGenerator;
+const updateAssignmentData = _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__["default"].put;
+async function updateAssignmentDueDates(offset, assignments, options) {
+    const promises = [];
+    const returnAssignments = [];
+    let { courseId } = options ?? {};
+    if (!courseId && courseId !== 0) {
+        courseId = assignments[0].course_id;
+    }
+    if (offset === 0 || offset) {
+        for await (const data of assignments) {
+            const assignment = new _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__.Assignment(data, courseId);
+            returnAssignments.push(assignment);
+            promises.push(assignment.dueAtTimeDelta(Number(offset)));
+        }
+    }
+    return returnAssignments;
+}
+
+
+/***/ },
+
+/***/ "./src/content/determineContent.ts"
+/*!*****************************************!*\
+  !*** ./src/content/determineContent.ts ***!
+  \*****************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_55720__) {
+
+__nested_webpack_require_55720__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_55720__.d(__nested_webpack_exports__, {
+/* harmony export */   CONTENT_KINDS: () => (/* binding */ CONTENT_KINDS),
+/* harmony export */   ContentKinds: () => (/* binding */ ContentKinds),
+/* harmony export */   getContentClassFromUrl: () => (/* binding */ getContentClassFromUrl),
+/* harmony export */   getContentDataFromUrl: () => (/* binding */ getContentDataFromUrl),
+/* harmony export */   getContentItemFromUrl: () => (/* binding */ getContentItemFromUrl),
+/* harmony export */   getContentKindFromContent: () => (/* binding */ getContentKindFromContent),
+/* harmony export */   getContentKindFromUrl: () => (/* binding */ getContentKindFromUrl)
+/* harmony export */ });
+/* harmony import */ var _content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_55720__(/*! @/content/quizzes/Quiz */ "./src/content/quizzes/Quiz.ts");
+/* harmony import */ var _content_pages_Page__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_55720__(/*! @/content/pages/Page */ "./src/content/pages/Page.ts");
+/* harmony import */ var _content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_55720__(/*! @/content/discussions/Discussion */ "./src/content/discussions/Discussion.ts");
+/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_55720__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
+/* harmony import */ var _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_55720__(/*! @/content/assignments/AssignmentKind */ "./src/content/assignments/AssignmentKind.ts");
+/* harmony import */ var _content_quizzes_QuizKind__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_55720__(/*! @/content/quizzes/QuizKind */ "./src/content/quizzes/QuizKind.ts");
+/* harmony import */ var _content_pages_PageKind__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_55720__(/*! @/content/pages/PageKind */ "./src/content/pages/PageKind.ts");
+/* harmony import */ var _content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_55720__(/*! @/content/discussions/DiscussionKind */ "./src/content/discussions/DiscussionKind.ts");
+
+
+
+
+
+
+
+
+const CONTENT_KINDS = [
+    _content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_7__["default"],
+    _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_4__["default"],
+    _content_pages_PageKind__WEBPACK_IMPORTED_MODULE_6__["default"],
+    _content_quizzes_QuizKind__WEBPACK_IMPORTED_MODULE_5__["default"],
+];
+const ContentKinds = {
+    fromUrl: getContentKindFromUrl,
+    fromContent: getContentKindFromContent,
+    getBody(contentData) {
+        const kind = getContentKindFromContent(contentData);
+        return (kind?.getBody)(contentData);
+    }
+};
+function getContentClassFromUrl(url = null) {
+    if (!url)
+        url = document.documentURI;
+    for (const class_ of [_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_3__.Assignment, _content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_0__.Quiz, _content_pages_Page__WEBPACK_IMPORTED_MODULE_1__.Page, _content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_2__.Discussion]) {
+        if (class_.contentUrlPart && url.includes(class_.contentUrlPart))
+            return class_;
+    }
+    return null;
+}
+async function getContentItemFromUrl(url = null) {
+    const ContentClass = getContentClassFromUrl(url);
+    if (!ContentClass)
+        return null;
+    return await ContentClass.getFromUrl(url);
+}
+function getContentKindFromUrl(url) {
+    return CONTENT_KINDS.find(a => a.isValidUrl(url));
+}
+function getContentKindFromContent(contentData) {
+    const result = CONTENT_KINDS.find(a => a.dataIsThisKind(contentData));
+    function typeGuard(result) {
+        return true;
+    }
+    if (!typeGuard(result))
+        throw new Error("Faulty content type coercion");
+    return result;
+}
+async function getContentDataFromUrl(url, config) {
+    const kind = getContentKindFromUrl(url);
+    if (!kind)
+        return;
+    const [courseId, id] = kind.getCourseAndContentIdFromUrl(url);
+    if (!courseId || !id)
+        return;
+    return await kind.get(courseId, id, config);
+}
+
+
+/***/ },
+
+/***/ "./src/content/discussions/Discussion.ts"
+/*!***********************************************!*\
+  !*** ./src/content/discussions/Discussion.ts ***!
+  \***********************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_60171__) {
+
+__nested_webpack_require_60171__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_60171__.d(__nested_webpack_exports__, {
+/* harmony export */   Discussion: () => (/* binding */ Discussion)
+/* harmony export */ });
+/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_60171__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
+/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_60171__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
+/* harmony import */ var _content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_60171__(/*! @/content/discussions/DiscussionKind */ "./src/content/discussions/DiscussionKind.ts");
+
+
+
+class Discussion extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
+    static kindInfo = _content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_2__["default"];
+    static nameProperty = 'title';
+    static bodyProperty = 'message';
+    static contentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics/{content_id}";
+    static allContentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics";
+    async offsetPublishDelay(days, config) {
+        const data = this.rawData;
+        if (!this.rawData.delayed_post_at)
+            return;
+        let delayedPostAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(this.rawData.delayed_post_at).toZonedDateTimeISO('UTC');
+        delayedPostAt = delayedPostAt.add({ days });
+        const payload = {
+            delayed_post_at: new Date(delayedPostAt.epochMilliseconds).toISOString()
+        };
+        await this.saveData(payload, config);
+    }
+    get rawData() {
+        return this.canvasData;
+    }
+}
+
+
+/***/ },
+
+/***/ "./src/content/discussions/DiscussionKind.ts"
+/*!***************************************************!*\
+  !*** ./src/content/discussions/DiscussionKind.ts ***!
+  \***************************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_62262__) {
+
+__nested_webpack_require_62262__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_62262__.d(__nested_webpack_exports__, {
+/* harmony export */   DiscussionKind: () => (/* binding */ DiscussionKind),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   discussionUrlFuncs: () => (/* binding */ discussionUrlFuncs)
+/* harmony export */ });
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_62262__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_62262__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_62262__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
+
+
+
+const discussionUrlFuncs = (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('discussion_topics');
+const DiscussionKind = {
+    ...discussionUrlFuncs,
+    dataIsThisKind(data) {
+        return data.hasOwnProperty('discussion_type');
+    },
+    getId: (data) => data.id,
+    getName: (data) => data.title,
+    getBody: (data) => data.message,
+    async get(courseId, contentId, config) {
+        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(discussionUrlFuncs.getApiUrl(courseId, contentId), config);
+    },
+    dataGenerator: (courseId, config) => (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(discussionUrlFuncs.getAllApiUrl(courseId), config),
+    put: (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(discussionUrlFuncs.getApiUrl),
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DiscussionKind);
+
+
+/***/ },
+
+/***/ "./src/content/discussions/index.ts"
+/*!******************************************!*\
+  !*** ./src/content/discussions/index.ts ***!
+  \******************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_64315__) {
+
+__nested_webpack_require_64315__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_64315__.d(__nested_webpack_exports__, {
+/* harmony export */   Discussion: () => (/* reexport safe */ _Discussion__WEBPACK_IMPORTED_MODULE_0__.Discussion),
+/* harmony export */   DiscussionKind: () => (/* reexport safe */ _DiscussionKind__WEBPACK_IMPORTED_MODULE_1__.DiscussionKind),
+/* harmony export */   discussionUrlFuncs: () => (/* reexport safe */ _DiscussionKind__WEBPACK_IMPORTED_MODULE_1__.discussionUrlFuncs)
+/* harmony export */ });
+/* harmony import */ var _Discussion__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_64315__(/*! ./Discussion */ "./src/content/discussions/Discussion.ts");
+/* harmony import */ var _DiscussionKind__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_64315__(/*! ./DiscussionKind */ "./src/content/discussions/DiscussionKind.ts");
+
+
+
+
+/***/ },
+
+/***/ "./src/content/getContentFuncs.ts"
+/*!****************************************!*\
+  !*** ./src/content/getContentFuncs.ts ***!
+  \****************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_65408__) {
+
+__nested_webpack_require_65408__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_65408__.d(__nested_webpack_exports__, {
+/* harmony export */   getExternalLinks: () => (/* binding */ getExternalLinks),
+/* harmony export */   getFileLinks: () => (/* binding */ getFileLinks)
+/* harmony export */ });
+function getAllLinks(body) {
+    const el = bodyAsElement(body);
+    const anchors = el.querySelectorAll('a');
+    const urls = [];
+    for (const link of anchors)
+        urls.push(link.href);
+    return urls;
+}
+function bodyAsElement(body) {
+    const el = document.createElement('div');
+    el.innerHTML = body;
+    return el;
+}
+function getFileLinks(body, courseId) {
+    return getAllLinks(body).filter(a => a.match(/instructure\.com.*files\/\d+/i)).map(a => a.split('?')[0]);
+}
+function getExternalLinks(body, courseId) {
+    // Correct regex to exclude unity.instructure.com links properly
+    return getAllLinks(body).filter(a => !a.match(/:\/\/unity\.instructure\.com\//i));
+}
+
+
+/***/ },
+
+/***/ "./src/content/index.ts"
+/*!******************************!*\
+  !*** ./src/content/index.ts ***!
+  \******************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_66603__) {
+
+__nested_webpack_require_66603__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_66603__.d(__nested_webpack_exports__, {
+/* harmony export */   BaseContentItem: () => (/* reexport safe */ _BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem),
+/* harmony export */   CONTENT_KINDS: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.CONTENT_KINDS),
+/* harmony export */   ContentKinds: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.ContentKinds),
+/* harmony export */   Discussion: () => (/* reexport safe */ _discussions__WEBPACK_IMPORTED_MODULE_8__.Discussion),
+/* harmony export */   DiscussionKind: () => (/* reexport safe */ _discussions__WEBPACK_IMPORTED_MODULE_8__.DiscussionKind),
+/* harmony export */   Page: () => (/* reexport safe */ _pages__WEBPACK_IMPORTED_MODULE_6__.Page),
+/* harmony export */   PageKind: () => (/* reexport safe */ _pages__WEBPACK_IMPORTED_MODULE_6__.PageKind),
+/* harmony export */   PageUrlFuncs: () => (/* reexport safe */ _pages__WEBPACK_IMPORTED_MODULE_6__.PageUrlFuncs),
+/* harmony export */   assignmentDataGen: () => (/* reexport safe */ _assignments__WEBPACK_IMPORTED_MODULE_9__.assignmentDataGen),
+/* harmony export */   contentUrlFuncs: () => (/* reexport safe */ _ContentKind__WEBPACK_IMPORTED_MODULE_4__.contentUrlFuncs),
+/* harmony export */   courseContentUrlFunc: () => (/* reexport safe */ _ContentKind__WEBPACK_IMPORTED_MODULE_4__.courseContentUrlFunc),
+/* harmony export */   discussionUrlFuncs: () => (/* reexport safe */ _discussions__WEBPACK_IMPORTED_MODULE_8__.discussionUrlFuncs),
+/* harmony export */   getBannerImage: () => (/* reexport safe */ _BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.getBannerImage),
+/* harmony export */   getContentClassFromUrl: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.getContentClassFromUrl),
+/* harmony export */   getContentDataFromUrl: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.getContentDataFromUrl),
+/* harmony export */   getContentItemFromUrl: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.getContentItemFromUrl),
+/* harmony export */   getContentKindFromContent: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.getContentKindFromContent),
+/* harmony export */   getContentKindFromUrl: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.getContentKindFromUrl),
+/* harmony export */   getExternalLinks: () => (/* reexport safe */ _getContentFuncs__WEBPACK_IMPORTED_MODULE_3__.getExternalLinks),
+/* harmony export */   getFileLinks: () => (/* reexport safe */ _getContentFuncs__WEBPACK_IMPORTED_MODULE_3__.getFileLinks),
+/* harmony export */   learningMaterialsForModule: () => (/* reexport safe */ _pages__WEBPACK_IMPORTED_MODULE_6__.learningMaterialsForModule),
+/* harmony export */   openThisContentInTarget: () => (/* reexport safe */ _openThisContentInTarget__WEBPACK_IMPORTED_MODULE_5__.openThisContentInTarget),
+/* harmony export */   postContentConfig: () => (/* reexport safe */ _BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.postContentConfig),
+/* harmony export */   postContentFunc: () => (/* reexport safe */ _ContentKind__WEBPACK_IMPORTED_MODULE_4__.postContentFunc),
+/* harmony export */   putContentConfig: () => (/* reexport safe */ _BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.putContentConfig),
+/* harmony export */   putContentFunc: () => (/* reexport safe */ _ContentKind__WEBPACK_IMPORTED_MODULE_4__.putContentFunc),
+/* harmony export */   updateAssignmentData: () => (/* reexport safe */ _assignments__WEBPACK_IMPORTED_MODULE_9__.updateAssignmentData),
+/* harmony export */   updateAssignmentDueDates: () => (/* reexport safe */ _assignments__WEBPACK_IMPORTED_MODULE_9__.updateAssignmentDueDates)
+/* harmony export */ });
+/* harmony import */ var _BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_66603__(/*! ./BaseContentItem */ "./src/content/BaseContentItem.ts");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_66603__(/*! ./types */ "./src/content/types.ts");
+/* harmony import */ var _determineContent__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_66603__(/*! ./determineContent */ "./src/content/determineContent.ts");
+/* harmony import */ var _getContentFuncs__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_66603__(/*! ./getContentFuncs */ "./src/content/getContentFuncs.ts");
+/* harmony import */ var _ContentKind__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_66603__(/*! ./ContentKind */ "./src/content/ContentKind.ts");
+/* harmony import */ var _openThisContentInTarget__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_66603__(/*! ./openThisContentInTarget */ "./src/content/openThisContentInTarget.ts");
+/* harmony import */ var _pages__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_66603__(/*! ./pages */ "./src/content/pages/index.ts");
+/* harmony import */ var _quizzes__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_66603__(/*! ./quizzes */ "./src/content/quizzes/index.ts");
+/* harmony import */ var _discussions__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_66603__(/*! ./discussions */ "./src/content/discussions/index.ts");
+/* harmony import */ var _assignments__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_66603__(/*! ./assignments */ "./src/content/assignments/index.ts");
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ },
+
+/***/ "./src/content/openThisContentInTarget.ts"
+/*!************************************************!*\
+  !*** ./src/content/openThisContentInTarget.ts ***!
+  \************************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_72214__) {
+
+__nested_webpack_require_72214__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_72214__.d(__nested_webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   openThisContentInTarget: () => (/* binding */ openThisContentInTarget)
+/* harmony export */ });
+/* harmony import */ var _content_determineContent__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_72214__(/*! @/content/determineContent */ "./src/content/determineContent.ts");
+
+function getIdOrCourse(courseOrId) {
+    if (typeof courseOrId === 'object')
+        return courseOrId.id;
+    return courseOrId;
+}
+const openThisContentInTarget = async function (currentCourse, target) {
+    if (!window)
+        return;
+    const currentCourseId = getIdOrCourse(currentCourse);
+    const targetCourseIds = Array.isArray(target) ? target.map(getIdOrCourse) : [getIdOrCourse(target)];
+    const currentContentItem = await (0,_content_determineContent__WEBPACK_IMPORTED_MODULE_0__.getContentItemFromUrl)(document.documentURI);
+    const targetInfos = targetCourseIds.map((targetCourseId) => {
+        return {
+            courseId: targetCourseId,
+            contentItemPromise: currentContentItem?.getMeInAnotherCourse(targetCourseId)
+        };
+    });
+    for (const { courseId, contentItemPromise } of targetInfos) {
+        const targetContentItem = await contentItemPromise;
+        if (targetContentItem) {
+            window.open(targetContentItem.htmlContentUrl);
+        }
+        else {
+            const url = document.URL.replace(currentCourseId.toString(), courseId.toString());
+            window.open(url);
+        }
+    }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (openThisContentInTarget);
+
+
+/***/ },
+
+/***/ "./src/content/pages/Page.ts"
+/*!***********************************!*\
+  !*** ./src/content/pages/Page.ts ***!
+  \***********************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_74178__) {
+
+__nested_webpack_require_74178__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_74178__.d(__nested_webpack_exports__, {
+/* harmony export */   Page: () => (/* binding */ Page)
+/* harmony export */ });
+/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_74178__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
+/* harmony import */ var _content_pages_PageKind__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_74178__(/*! @/content/pages/PageKind */ "./src/content/pages/PageKind.ts");
+
+
+class Page extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
+    static kindInfo = _content_pages_PageKind__WEBPACK_IMPORTED_MODULE_1__["default"];
+    static idProperty = 'page_id';
+    static nameProperty = 'title';
+    static bodyProperty = 'body';
+    static contentUrlTemplate = "/api/v1/courses/{course_id}/pages/{content_id}";
+    static allContentUrlTemplate = "/api/v1/courses/{course_id}/pages";
+    constructor(canvasData, courseId) {
+        super(canvasData, courseId);
+    }
+    get body() {
+        return this.canvasData[this.bodyKey];
+    }
+    async updateContent(text, name, config) {
+        const data = {};
+        if (text) {
+            this.canvasData[this.bodyKey] = text;
+            data['wiki_page[body]'] = text;
+        }
+        if (name) {
+            this.canvasData[this.nameKey] = name;
+            data[this.nameKey] = name;
+        }
+        return this.saveData(data, config);
+    }
+}
+
+
+/***/ },
+
+/***/ "./src/content/pages/PageKind.ts"
+/*!***************************************!*\
+  !*** ./src/content/pages/PageKind.ts ***!
+  \***************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_75921__) {
+
+__nested_webpack_require_75921__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_75921__.d(__nested_webpack_exports__, {
+/* harmony export */   PageKind: () => (/* binding */ PageKind),
+/* harmony export */   PageUrlFuncs: () => (/* binding */ PageUrlFuncs),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_75921__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_75921__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_75921__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
+
+
+
+const PageUrlFuncs = (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('pages');
+const getStringApiUrl = (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.courseContentUrlFunc)(`/api/v1/courses/{courseId}/pages/{contentId}`);
+const PageKind = {
+    ...PageUrlFuncs,
+    dataIsThisKind: (data) => {
+        return 'page_id' in data;
+    },
+    getName: page => page.title,
+    getBody: page => page.body,
+    getId: page => page.id,
+    get: (id, courseId, config) => (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(PageUrlFuncs.getApiUrl(courseId, id), config),
+    getByString: (courseId, contentId, config) => (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(getStringApiUrl(courseId, contentId), config),
+    dataGenerator: (courseId, config = { queryParams: { include: ['body'] } }) => (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(PageUrlFuncs.getAllApiUrl(courseId), config),
+    put: (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(PageUrlFuncs.getApiUrl),
+    post: (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.postContentFunc)(PageUrlFuncs.getAllApiUrl),
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PageKind);
+
+
+/***/ },
+
+/***/ "./src/content/pages/index.ts"
+/*!************************************!*\
+  !*** ./src/content/pages/index.ts ***!
+  \************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_78256__) {
+
+__nested_webpack_require_78256__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_78256__.d(__nested_webpack_exports__, {
+/* harmony export */   Page: () => (/* reexport safe */ _Page__WEBPACK_IMPORTED_MODULE_1__.Page),
+/* harmony export */   PageKind: () => (/* reexport safe */ _PageKind__WEBPACK_IMPORTED_MODULE_2__.PageKind),
+/* harmony export */   PageUrlFuncs: () => (/* reexport safe */ _PageKind__WEBPACK_IMPORTED_MODULE_2__.PageUrlFuncs),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   learningMaterialsForModule: () => (/* reexport safe */ _learningMaterialsForModule__WEBPACK_IMPORTED_MODULE_0__.learningMaterialsForModule)
+/* harmony export */ });
+/* harmony import */ var _learningMaterialsForModule__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_78256__(/*! ./learningMaterialsForModule */ "./src/content/pages/learningMaterialsForModule.ts");
+/* harmony import */ var _Page__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_78256__(/*! ./Page */ "./src/content/pages/Page.ts");
+/* harmony import */ var _PageKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_78256__(/*! ./PageKind */ "./src/content/pages/PageKind.ts");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_78256__(/*! ./types */ "./src/content/pages/types.ts");
+
+
+
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+    learningMaterialsForModule: _learningMaterialsForModule__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Page: _Page__WEBPACK_IMPORTED_MODULE_1__.Page,
+    PageKind: _PageKind__WEBPACK_IMPORTED_MODULE_2__["default"],
+    ..._types__WEBPACK_IMPORTED_MODULE_3__,
+});
+
+
+/***/ },
+
+/***/ "./src/content/pages/learningMaterialsForModule.ts"
+/*!*********************************************************!*\
+  !*** ./src/content/pages/learningMaterialsForModule.ts ***!
+  \*********************************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_80212__) {
+
+__nested_webpack_require_80212__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_80212__.d(__nested_webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   learningMaterialsForModule: () => (/* binding */ learningMaterialsForModule)
+/* harmony export */ });
+/* harmony import */ var _canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_80212__(/*! @canvas/content/pages/PageKind */ "./src/content/pages/PageKind.ts");
+
+async function* learningMaterialsForModule(courseId, module) {
+    const lmItems = module.items.filter(a => a.title.match(/learning materials/i));
+    for await (const item of lmItems) {
+        const page = await _canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_0__["default"].get(courseId, item.content_id);
+        yield { item, page };
+    }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (learningMaterialsForModule);
+
+
+/***/ },
+
+/***/ "./src/content/pages/types.ts"
+/*!************************************!*\
+  !*** ./src/content/pages/types.ts ***!
+  \************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_81393__) {
+
+__nested_webpack_require_81393__.r(__nested_webpack_exports__);
+
+
+
+/***/ },
+
+/***/ "./src/content/quizzes/Quiz.ts"
+/*!*************************************!*\
+  !*** ./src/content/quizzes/Quiz.ts ***!
+  \*************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_81687__) {
+
+__nested_webpack_require_81687__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_81687__.d(__nested_webpack_exports__, {
+/* harmony export */   Quiz: () => (/* binding */ Quiz)
+/* harmony export */ });
+/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_81687__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_81687__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_81687__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
+
+
+
+class Quiz extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
+    static nameProperty = 'title';
+    static bodyProperty = 'description';
+    static contentUrlTemplate = "/api/v1/courses/{course_id}/quizzes/{content_id}";
+    static allContentUrlTemplate = "/api/v1/courses/{course_id}/quizzes";
+    async setDueAt(date) {
+        const url = `/api/v1/courses/${this.courseId}/quizzes/${this.id}`;
+        return (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url, {
+            fetchInit: {
+                method: 'PUT',
+                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({
+                    quiz: {
+                        due_at: date
+                    }
+                })
+            }
+        });
+    }
+}
+
+
+/***/ },
+
+/***/ "./src/content/quizzes/QuizKind.ts"
+/*!*****************************************!*\
+  !*** ./src/content/quizzes/QuizKind.ts ***!
+  \*****************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_83386__) {
+
+__nested_webpack_require_83386__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_83386__.d(__nested_webpack_exports__, {
+/* harmony export */   QuizKind: () => (/* binding */ QuizKind),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   quizUrlFuncs: () => (/* binding */ quizUrlFuncs)
+/* harmony export */ });
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_83386__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_83386__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_83386__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
+
+
+
+const quizUrlFuncs = (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('quizzes');
+const QuizKind = {
+    getId: (data) => data.id,
+    getName: (data) => data.title,
+    dataIsThisKind: (data) => 'quiz_type' in data,
+    getBody: (data) => data.description,
+    async get(courseId, contentId, config) {
+        const data = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(quizUrlFuncs.getApiUrl(courseId, contentId), config);
+        return data;
+    },
+    ...quizUrlFuncs,
+    dataGenerator: (courseId, config) => (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(quizUrlFuncs.getAllApiUrl(courseId), config),
+    put: (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(quizUrlFuncs.getApiUrl),
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (QuizKind);
+
+
+/***/ },
+
+/***/ "./src/content/quizzes/index.ts"
+/*!**************************************!*\
+  !*** ./src/content/quizzes/index.ts ***!
+  \**************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_85340__) {
+
+__nested_webpack_require_85340__.r(__nested_webpack_exports__);
+
+
+
+/***/ },
+
+/***/ "./src/content/types.ts"
+/*!******************************!*\
+  !*** ./src/content/types.ts ***!
+  \******************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_85606__) {
+
+__nested_webpack_require_85606__.r(__nested_webpack_exports__);
+
+
+
+/***/ },
+
+/***/ "./src/course/Course.ts"
+/*!******************************!*\
+  !*** ./src/course/Course.ts ***!
+  \******************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_85872__) {
+
+__nested_webpack_require_85872__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_85872__.d(__nested_webpack_exports__, {
+/* harmony export */   COURSE_CODE_REGEX: () => (/* binding */ COURSE_CODE_REGEX),
+/* harmony export */   Course: () => (/* binding */ Course)
+/* harmony export */ });
+/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_85872__(/*! ../baseCanvasObject */ "./src/baseCanvasObject.ts");
+/* harmony import */ var _blueprint__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_85872__(/*! ./blueprint */ "./src/course/blueprint.ts");
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_85872__(/*! ../canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _changeStartDate__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_85872__(/*! ./changeStartDate */ "./src/course/changeStartDate.ts");
+/* harmony import */ var _modules__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_85872__(/*! ./modules */ "./src/course/modules.ts");
+/* harmony import */ var _profile__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_85872__(/*! ../profile */ "./src/profile.ts");
+/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_85872__(/*! ./toolbox */ "./src/course/toolbox.ts");
+/* harmony import */ var _content_assignments__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_85872__(/*! @/content/assignments */ "./src/content/assignments/index.ts");
+/* harmony import */ var _course_code__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_85872__(/*! @/course/code */ "./src/course/code.ts");
+/* harmony import */ var _term_Term__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_85872__(/*! @/term/Term */ "./src/term/Term.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_85872__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _fetch_utils__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_85872__(/*! @/fetch/utils */ "./src/fetch/utils.ts");
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_85872__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_13__ = __nested_webpack_require_85872__(/*! @/course/getCourseIdFromUrl */ "./src/course/getCourseIdFromUrl.ts");
+/* harmony import */ var _content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_14__ = __nested_webpack_require_85872__(/*! @/content/quizzes/Quiz */ "./src/content/quizzes/Quiz.ts");
+/* harmony import */ var _content_pages_Page__WEBPACK_IMPORTED_MODULE_15__ = __nested_webpack_require_85872__(/*! @/content/pages/Page */ "./src/content/pages/Page.ts");
+/* harmony import */ var _content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_16__ = __nested_webpack_require_85872__(/*! @/content/discussions/Discussion */ "./src/content/discussions/Discussion.ts");
+/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_17__ = __nested_webpack_require_85872__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
+/* harmony import */ var _fetch_apiGetConfig__WEBPACK_IMPORTED_MODULE_18__ = __nested_webpack_require_85872__(/*! @/fetch/apiGetConfig */ "./src/fetch/apiGetConfig.ts");
+/* harmony import */ var _canvas_course_cachedGetAssociatedCoursesFunc__WEBPACK_IMPORTED_MODULE_19__ = __nested_webpack_require_85872__(/*! @canvas/course/cachedGetAssociatedCoursesFunc */ "./src/course/cachedGetAssociatedCoursesFunc.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_20__ = __nested_webpack_require_85872__(/*! assert */ "assert");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__nested_webpack_require_85872__.n(assert__WEBPACK_IMPORTED_MODULE_20__);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const HOMETILE_WIDTH = 500;
+const COURSE_CODE_REGEX = /^(.+[^_])?_?(\w{4}\d{3})/i;
+class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
+    static nameProperty = 'name';
+    _modules = undefined;
+    modulesByWeekNumber = undefined;
+    static contentClasses = [_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_17__.Assignment, _content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_16__.Discussion, _content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_14__.Quiz, _content_pages_Page__WEBPACK_IMPORTED_MODULE_15__.Page];
+    isBlueprint;
+    getAssociatedCourses;
+    constructor(data) {
+        console.warn("Course is being deprecated");
+        super(data);
+        this.isBlueprint = (() => (0,_blueprint__WEBPACK_IMPORTED_MODULE_1__.isBlueprint)(data));
+        this.getAssociatedCourses = (0,_canvas_course_cachedGetAssociatedCoursesFunc__WEBPACK_IMPORTED_MODULE_19__.cachedGetAssociatedCoursesFunc)(this);
+    }
+    static async getFromUrl(url = null) {
+        if (url === null) {
+            url = document.documentURI;
+        }
+        const match = /courses\/(\d+)/.exec(url);
+        if (match) {
+            const id = (0,_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_13__["default"])(url);
+            if (!id)
+                return null;
+            return (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getCourseById)(id);
+        }
+        return null;
+    }
+    static async getCourseById(courseId, config = undefined) {
+        const data = await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getCourseData)(courseId, config);
+        return new Course(data);
+    }
+    static async publishAll(courses, accountId) {
+        if (courses.length == 0)
+            return false;
+        const courseIds = courses.map((course) => {
+            if (course instanceof Course) {
+                return course.id;
+            }
+            return course;
+        });
+        const url = `/api/v1/accounts/${accountId}/courses`;
+        const data = {
+            'event': 'offer',
+            'course_ids': courseIds,
+        };
+        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(url, {
+            fetchInit: {
+                method: 'PUT',
+                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)(data),
+            }
+        });
+    }
+    get contentUrlPath() {
+        return `/api/v1/courses/${this.id}`;
+    }
+    get courseUrl() {
+        return this.htmlContentUrl;
+    }
+    get htmlContentUrl() {
+        return `/courses/${this.id}`;
+    }
+    get parsedCourseCode() {
+        return (0,_course_code__WEBPACK_IMPORTED_MODULE_8__.parseCourseCode)(this.canvasData.course_code);
+    }
+    get courseCode() {
+        return this.canvasData.course_code;
+    }
+    get baseCode() {
+        return (0,_course_code__WEBPACK_IMPORTED_MODULE_8__.baseCourseCode)(this.canvasData.course_code);
+    }
+    get termId() {
+        const id = this.canvasData.enrollment_term_id;
+        if (typeof id === 'number')
+            return id;
+        else
+            return id[0];
+    }
+    async getTerm() {
+        assert__WEBPACK_IMPORTED_MODULE_20___default()(typeof this.termId === 'number');
+        if (this.termId)
+            return _term_Term__WEBPACK_IMPORTED_MODULE_9__.Term.getTermById(this.termId);
+        else
+            return null;
+    }
+    get fileUploadUrl() {
+        return `/api/v1/courses/${this.id}/files`;
+    }
+    get codePrefix() {
+        const match = COURSE_CODE_REGEX.exec(this.rawData.course_code);
+        return match ? match[1] : '';
+    }
+    get workflowState() {
+        return this.canvasData.workflow_state;
+    }
+    get isDev() {
+        return !!this.name.match(/^DEV/);
+    }
+    get rootAccountId() {
+        return this.canvasData.root_account_id;
+    }
+    get accountId() {
+        return this.canvasData.account_id;
+    }
+    async getModules(config) {
+        if (this._modules) {
+            return this._modules;
+        }
+        const modules = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_modules__WEBPACK_IMPORTED_MODULE_4__.moduleGenerator)(this.id, {
+            queryParams: {
+                include: ['items', 'content_details']
+            }
+        }));
+        this._modules = modules;
+        return modules;
+    }
+    async getStartDateFromModules() {
+        return (0,_changeStartDate__WEBPACK_IMPORTED_MODULE_3__.getModuleUnlockStartDate)(await this.getModules());
+    }
+    async getInstructors() {
+        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`/api/v1/courses/${this.id}/users?enrollment_type=teacher`);
+    }
+    async getLatePolicy(config) {
+        const latePolicyResult = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`/api/v1/courses/${this.id}/late_policy`, config);
+        if ('late_policy' in latePolicyResult)
+            return latePolicyResult.late_policy;
+        return undefined;
+    }
+    async getAvailableGradingStandards(config) {
+        let out = [];
+        console.log(this.name);
+        const { id, account_id, root_account_id } = this.canvasData;
+        try {
+            if (id) {
+                const courseGradingStandards = await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getGradingStandards)(id, "course", config);
+                out = [...out, ...courseGradingStandards];
+            }
+            if (account_id) {
+                const accountGradingStandards = await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getGradingStandards)(account_id, 'account', config);
+                out = [...out, ...accountGradingStandards];
+            }
+            if (root_account_id) {
+                const rootAccountGradingStandards = await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getGradingStandards)(root_account_id, 'account', config);
+                out = [...out, ...rootAccountGradingStandards];
+            }
+        }
+        catch (e) {
+            console.warn(e);
+        }
+        return out.filter(_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.filterUniqueFunc);
+    }
+    async getCurrentGradingStandard(config) {
+        const { grading_standard_id, account_id, root_account_id } = this.canvasData;
+        const urls = [];
+        if (grading_standard_id) {
+            urls.push(`/api/v1/courses/${this.id}/grading_standards/${grading_standard_id}`);
+            if (root_account_id)
+                urls.push(`/api/v1/accounts/${root_account_id}/grading_standards/${grading_standard_id}`);
+            if (account_id)
+                urls.push(`/api/v1/accounts/${account_id}/grading_standards/${grading_standard_id}`);
+        }
+        const standards = (await this.getAvailableGradingStandards(config)).filter(standard => standard.id === grading_standard_id);
+        if (standards.length == 0)
+            return null;
+        return standards[0];
+    }
+    async getModulesByWeekNumber(config) {
+        if (this.modulesByWeekNumber)
+            return this.modulesByWeekNumber;
+        const modules = await this.getModules(config);
+        this.modulesByWeekNumber = await (0,_modules__WEBPACK_IMPORTED_MODULE_4__.getModulesByWeekNumber)(modules);
+        return (this.modulesByWeekNumber);
+    }
+    /**
+     * Returns a list of links to items in a given module
+     *
+     * @param moduleOrWeekNumber
+     * @param target An object specifying an item or items to look for
+     * type - specifies the type,
+     * search - a string to search for in titles. optional.
+     * index - return the indexth one of these in the week (minus the intro in week 1, which should be index 0)
+     * if none is specified, return all matches
+     */
+    async getModuleItemLinks(moduleOrWeekNumber, target) {
+        assert__WEBPACK_IMPORTED_MODULE_20___default()(target.hasOwnProperty('type'));
+        const targetType = target.type;
+        const contentSearchString = target.hasOwnProperty('search') ? target.search : null;
+        let targetIndex = isNaN(target.index) ? null : target.index;
+        let targetModuleWeekNumber;
+        let targetModule;
+        if (typeof moduleOrWeekNumber === 'number') {
+            const modules = await this.getModulesByWeekNumber();
+            assert__WEBPACK_IMPORTED_MODULE_20___default()(modules.hasOwnProperty(moduleOrWeekNumber));
+            targetModuleWeekNumber = moduleOrWeekNumber;
+            targetModule = modules[targetModuleWeekNumber];
+        }
+        else {
+            targetModule = moduleOrWeekNumber;
+            targetModuleWeekNumber = (0,_modules__WEBPACK_IMPORTED_MODULE_4__.getModuleWeekNumber)(targetModule);
+        }
+        const urls = [];
+        if (targetModule && typeof targetType !== 'undefined') {
+            //If it's a page, just search for the parameter string
+            if (targetType === 'Page' && contentSearchString) {
+                const pages = await this.getPages({
+                    queryParams: { search_term: contentSearchString }
+                });
+                pages.forEach((page) => urls.push(page.htmlContentUrl));
+                //If it's anything else, get only those items in the module and set url to the targetIndexth one.
+            }
+            else if (targetType) {
+                //bump index for week 1 to account for intro discussion / checking for rubric would require pulling too much data
+                //and too much performance overhead
+                if (targetIndex && targetType === 'Discussion' && targetModuleWeekNumber === 1)
+                    targetIndex++;
+                const matchingTypeItems = targetModule.items.filter((item) => item.type === targetType);
+                if (targetIndex && matchingTypeItems.length >= targetIndex) {
+                    //We refer to and number the assignments indexed at 1, but the array is indexed at 0
+                    const targetItem = matchingTypeItems[targetIndex - 1];
+                    urls.push(targetItem.html_url);
+                }
+                else if (!targetIndex) {
+                    for (const item of matchingTypeItems)
+                        urls.push(item.html_url);
+                }
+            }
+        }
+        return urls;
+    }
+    async getSyllabus(config = { queryParams: {} }) {
+        if (this.canvasData.syllabus_body)
+            return this.canvasData.syllabus_body;
+        const data = await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getCourseData)(this.id, (0,_fetch_utils__WEBPACK_IMPORTED_MODULE_11__.fetchGetConfig)({ include: ['syllabus_body'] }, config));
+        assert__WEBPACK_IMPORTED_MODULE_20___default()(data.syllabus_body);
+        this.canvasData.syllabus_body = data.syllabus_body;
+        return this.canvasData.syllabus_body;
+    }
+    // /**
+    //  * gets all assignments in a course
+    //  * @returns {Promise<Assignment[]>}
+    //  * @param config
+    //  */
+    async getAssignments(config) {
+        console.warn('deprecated, use assignmentDataGen instead');
+        config = (0,_fetch_utils__WEBPACK_IMPORTED_MODULE_11__.overrideConfig)(config, { queryParams: { include: ['due_at'] } });
+        const assignmentDatas = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_content_assignments__WEBPACK_IMPORTED_MODULE_7__.assignmentDataGen)(this.id, config));
+        return (assignmentDatas.map(data => new _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_17__.Assignment(data, this.id)));
+    }
+    cachedContent = [];
+    async getContent(config, refresh = false) {
+        if (refresh || this.cachedContent.length == 0) {
+            const discussions = await this.getDiscussions(config);
+            const assignments = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_content_assignments__WEBPACK_IMPORTED_MODULE_7__.assignmentDataGen)(this.id, config));
+            const quizzes = await this.getQuizzes(config);
+            const pages = await this.getPages(config);
+            this.cachedContent = [
+                ...discussions,
+                ...assignments.map(a => new _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_17__.Assignment(a, this.id)),
+                ...quizzes,
+                ...pages
+            ];
+        }
+        return this.cachedContent;
+    }
+    async getDiscussions(config) {
+        return await _content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_16__.Discussion.getAllInCourse(this.id, config);
+    }
+    async getAssignmentGroups(config) {
+        return await (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_10__.getPagedData)(`/api/v1/courses/${this.id}/assignment_groups`, config);
+    }
+    async getQuizzes(config) {
+        return await _content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_14__.Quiz.getAllInCourse(this.id, config);
+    }
+    async getSubsections() {
+        const url = `/api/v1/courses/${this.id}/sections`;
+        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(url);
+    }
+    async getTabs(config) {
+        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`/api/v1/courses/${this.id}/tabs`, config);
+    }
+    async getFrontPage() {
+        try {
+            const data = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`${this.contentUrlPath}/front_page`);
+            return new _content_pages_Page__WEBPACK_IMPORTED_MODULE_15__.Page(data, this.id);
+        }
+        catch (error) {
+            return null;
+        }
+    }
+    getTab(label) {
+        return this.canvasData.tabs.find((tab) => tab.label === label) || null;
+    }
+    async reload() {
+        const id = this.id;
+        const reloaded = await Course.getCourseById(id);
+        this.canvasData = reloaded.rawData;
+    }
+    async changeSyllabus(newHtml) {
+        this.canvasData['syllabus_body'] = newHtml;
+        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`/api/v1/courses/${this.id}`, {
+            fetchInit: {
+                method: 'PUT',
+                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({
+                    course: {
+                        syllabus_body: newHtml
+                    }
+                })
+            }
+        });
+    }
+    async publish() {
+        const url = `/api/v1/courses/${this.id}`;
+        const courseData = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(url, {
+            fetchInit: {
+                method: 'PUT',
+                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({ 'offer': true })
+            }
+        });
+        console.log(courseData);
+        this.canvasData = courseData;
+    }
+    get devCode() {
+        return 'DEV_' + this.baseCode;
+    }
+    async getParentCourse(return_dev_search = false) {
+        const migrations = await (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_10__.getPagedData)(`/api/v1/courses/${this.id}/content_migrations`);
+        const parentCode = this.devCode;
+        if (migrations.length < 1) {
+            console.log('no migrations found');
+            if (return_dev_search) {
+                return (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getSingleCourse)(parentCode, this.getAccountIds());
+            }
+            else
+                return;
+        }
+        migrations.sort((a, b) => b.id - a.id);
+        try {
+            for (const migration of migrations) {
+                const course = await Course.getCourseById(migration['settings']['source_course_id']);
+                if (course && course.codePrefix.includes("DEV"))
+                    return course;
+            }
+        }
+        catch (e) {
+            return await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getSingleCourse)(parentCode, this.getAccountIds());
+        }
+        return await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getSingleCourse)(parentCode, this.getAccountIds());
+    }
+    getAccountIds() {
+        return [this.accountId, this.rootAccountId].filter(a => typeof a !== 'undefined' && a !== null);
+    }
+    // async regenerateHomeTiles() {
+    //     const modules = await this.getModules();
+    //     const urls = await Promise.all(modules.map(async (module) => {
+    //         try {
+    //             const dataUrl = await this.generateHomeTile(module)
+    //
+    //         } catch (e) {
+    //             console.log(e);
+    //         }
+    //     }));
+    //     console.log('done');
+    //
+    // }
+    // async generateHomeTile(module: IModuleData) {
+    //     const overviewPage = await getModuleOverview(module, this.id);
+    //     if (!overviewPage) throw new Error("Module does not have an overview");
+    //     const bannerImg = getBannerImage(overviewPage);
+    //     if (!bannerImg) throw new Error("No banner image on page");
+    //     const resizedImageBlob = await getResizedBlob(bannerImg.src, HOMETILE_WIDTH);
+    //     const fileName = `hometile${module.position}.png`;
+    //     assert(resizedImageBlob);
+    //     const file = new File([resizedImageBlob], fileName)
+    //     return await uploadFile(file, 'Images/hometile', this.fileUploadUrl);
+    // }
+    getPages(config = null) {
+        return _content_pages_Page__WEBPACK_IMPORTED_MODULE_15__.Page.getAllInCourse(this.id, config);
+    }
+    async getFrontPageProfile() {
+        const frontPage = await this.getFrontPage();
+        try {
+            assert__WEBPACK_IMPORTED_MODULE_20___default()(frontPage && frontPage.body, "Course front page not found");
+            const frontPageProfile = (0,_profile__WEBPACK_IMPORTED_MODULE_5__.getCurioPageFrontPageProfile)(frontPage?.body);
+            frontPageProfile.sourcePage = frontPage;
+            return frontPageProfile;
+        }
+        catch (e) {
+            return {
+                bio: 'NOT FOUND',
+                sourcePage: frontPage,
+            };
+        }
+    }
+    async getPotentialInstructorProfiles() {
+        try {
+            const instructors = await this.getInstructors();
+            let profiles = [];
+            if (!instructors)
+                return profiles;
+            for (const instructor of instructors) {
+                profiles = profiles.concat(await (0,_profile__WEBPACK_IMPORTED_MODULE_5__.getPotentialFacultyProfiles)(instructor));
+            }
+            return profiles;
+        }
+        catch (e) {
+            return [];
+        }
+    }
+    async getSettings(config) {
+        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`/api/v1/courses/${this.id}/settings`, config);
+    }
+    async updateSettings(newSettings, config) {
+        const configToUse = (0,_fetch_apiGetConfig__WEBPACK_IMPORTED_MODULE_18__["default"])(newSettings, config);
+        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`/api/v1/courses/${this.id}/settings`, configToUse);
+    }
+}
+
+
+/***/ },
+
+/***/ "./src/course/IBlueprintCourse.ts"
+/*!****************************************!*\
+  !*** ./src/course/IBlueprintCourse.ts ***!
+  \****************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_108548__) {
+
+__nested_webpack_require_108548__.r(__nested_webpack_exports__);
+
+
+
+/***/ },
+
+/***/ "./src/course/__mocks__/mockCourseData.ts"
+/*!************************************************!*\
+  !*** ./src/course/__mocks__/mockCourseData.ts ***!
+  \************************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_108886__) {
+
+__nested_webpack_require_108886__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_108886__.d(__nested_webpack_exports__, {
+/* harmony export */   mockCourseData: () => (/* binding */ mockCourseData)
+/* harmony export */ });
+/* harmony import */ var _mocks_mockTermData__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_108886__(/*! @/__mocks__/mockTermData */ "./src/__mocks__/mockTermData.ts");
+
+const mockCourseData = {
+    account_id: 0,
+    allow_student_assignment_edits: false,
+    allow_student_forum_attachments: false,
+    allow_wiki_comments: false,
+    apply_assignment_group_weights: false,
+    blueprint: false,
+    blueprint_restrictions: {
+        content: false,
+        points: false,
+        due_dates: false,
+        availability_dates: false
+    },
+    blueprint_restrictions_by_object_type: {},
+    calendar: {},
+    course_code: "BP_TEST000",
+    course_format: "",
+    course_progress: {},
+    created_at: "",
+    default_view: "wiki",
+    end_at: "",
+    enrollment_term_id: 0,
+    enrollments: 0,
+    grading_standard_id: 0,
+    hide_final_grades: false,
+    id: 0,
+    license: "",
+    locale: "",
+    name: "BP_TEST000",
+    open_enrollment: false,
+    original_name: "",
+    permissions: {},
+    public_description: "",
+    restrict_enrollments_to_course_dates: false,
+    root_account_id: 0,
+    self_enrollment: false,
+    start_at: "",
+    storage_quota_mb: 0,
+    storage_quota_used_mb: 0,
+    template: false,
+    term: _mocks_mockTermData__WEBPACK_IMPORTED_MODULE_0__.mockTermData,
+    time_zone: "",
+    uuid: "",
+    workflow_state: 'available'
+};
+
+
+/***/ },
+
+/***/ "./src/course/__mocks__/mockModuleData.ts"
+/*!************************************************!*\
+  !*** ./src/course/__mocks__/mockModuleData.ts ***!
+  \************************************************/
+(__unused_webpack___webpack_module__, __nested_webpack_exports__, __nested_webpack_require_110754__) {
+
+__nested_webpack_require_110754__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_110754__.d(__nested_webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   mockGradModules: () => (/* binding */ mockGradModules),
+/* harmony export */   mockModuleData: () => (/* binding */ mockModuleData),
+/* harmony export */   mockModuleItemData: () => (/* binding */ mockModuleItemData),
+/* harmony export */   mockUgModules: () => (/* binding */ mockUgModules)
+/* harmony export */ });
+const mockModuleData = {
+    id: 0,
+    items: [],
+    items_count: 0,
+    items_url: "",
+    name: "",
+    position: 0,
+    prerequisite_module_ids: [],
+    published: false,
+    require_sequential_progress: false,
+    state: "",
+    unlock_at: ""
+};
+const mockModuleItemData = {
+    id: 1,
+    module_id: 0,
+    position: 0,
+    title: "string",
+    indent: 0,
+    type: 'Assignment',
+    content_id: 0,
+    url: 'http://localhost:8080',
+    html_url: '',
+    page_url: "https://this.page",
+    new_tab: false,
+    completion_requirement: {
+        type: "must_submit",
+        min_score: 0
+    },
+};
+const mockUgModules = [];
+const mockGradModules = [];
+for (let i = 1; i <= 8; i++) {
+    const module = {
+        ...mockModuleData,
+        name: `Week ${i}`,
+    };
+    const moduleItem = { ...mockModuleItemData,
+        position: i - 1,
+        title: `Week ${i} Overview`
+    };
+    const gradModule = { ...module };
+    gradModule.items = [{ ...moduleItem }];
+    mockGradModules.push(gradModule);
+    if (i <= 5) {
+        const ugModule = { ...module };
+        ugModule.items = [{ ...moduleItem }];
+        mockUgModules.push(ugModule);
+    }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (mockModuleData);
+
+
+/***/ },
+
+/***/ "./src/course/blueprint.ts"
+/*!*********************************!*\
+  !*** ./src/course/blueprint.ts ***!
+  \*********************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_112745__) {
+
+__nested_webpack_require_112745__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_112745__.d(__nested_webpack_exports__, {
+/* harmony export */   beginBpSync: () => (/* binding */ beginBpSync),
+/* harmony export */   genBlueprintDataForCode: () => (/* binding */ genBlueprintDataForCode),
+/* harmony export */   getBlueprintsFromCode: () => (/* binding */ getBlueprintsFromCode),
+/* harmony export */   isBlueprint: () => (/* binding */ isBlueprint),
+/* harmony export */   lockBlueprint: () => (/* binding */ lockBlueprint),
+/* harmony export */   sectionDataGenerator: () => (/* binding */ sectionDataGenerator),
+/* harmony export */   setAsBlueprint: () => (/* binding */ setAsBlueprint),
+/* harmony export */   unSetAsBlueprint: () => (/* binding */ unSetAsBlueprint)
+/* harmony export */ });
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_112745__(/*! ../canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_112745__(/*! ./toolbox */ "./src/course/toolbox.ts");
+/* harmony import */ var _course_code__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_112745__(/*! @/course/code */ "./src/course/code.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_112745__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _fetch_utils__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_112745__(/*! @/fetch/utils */ "./src/fetch/utils.ts");
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_112745__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_112745__(/*! @/fetch/apiWriteConfig */ "./src/fetch/apiWriteConfig.ts");
+
+
+
+
+
+
+
+function isBlueprint({ blueprint }) {
+    return !!blueprint;
+}
+//W
+function genBlueprintDataForCode(courseCode, accountIds, queryParams) {
+    if (!courseCode) {
+        console.warn("Course code not present");
+        return null;
+    }
+    const baseCode = (0,_course_code__WEBPACK_IMPORTED_MODULE_2__.baseCourseCode)(courseCode);
+    if (!baseCode) {
+        console.warn(`Code ${courseCode} invalid`);
+        return null;
+    }
+    return (0,_toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseDataGenerator)(baseCode, accountIds, undefined, (0,_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.fetchGetConfig)({
+        blueprint: true,
+        include: ['concluded'],
+    }, { queryParams }));
+}
+function sectionDataGenerator(courseId, config) {
+    const url = `/api/v1/courses/${courseId}/blueprint_templates/default/associated_courses`;
+    return (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedDataGenerator)(url, config);
+}
+async function beginBpSync(courseId, { message, copy_settings, config }) {
+    const url = `/api/v1/courses/${courseId}/blueprint_templates/default/migrations`;
+    if (typeof copy_settings === 'undefined')
+        copy_settings = true;
+    return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, (0,_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__["default"])('POST', {
+        message,
+        copy_settings
+    }, config));
+}
+async function getBlueprintsFromCode(code, accountIds, config) {
+    const [_, baseCode] = code.match(/_(\w{4}\d{3})$/) || [];
+    if (!baseCode)
+        return null;
+    const bps = (0,_toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseGenerator)(`BP_${baseCode}`, accountIds, undefined, config);
+    return (await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.renderAsyncGen)(bps)).toSorted((a, b) => b.name.length - a.name.length);
+}
+async function lockBlueprint(courseId, modules) {
+    let items = [];
+    items = items.concat(...modules.map(a => [].concat(...a.items)));
+    const promises = items.map(async (item) => {
+        const url = `/api/v1/courses/${courseId}/blueprint_templates/default/restrict_item`;
+        const { type, id } = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.getItemTypeAndId)(item);
+        if (typeof id === 'undefined')
+            return;
+        const body = {
+            "content_type": type,
+            "content_id": id,
+            "restricted": true,
+            "_method": 'PUT'
+        };
+        await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, {
+            fetchInit: {
+                method: 'PUT',
+                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(body)
+            }
+        });
+    });
+    await Promise.all(promises);
+}
+async function setAsBlueprint(courseId, config) {
+    const url = `/api/v1/courses/${courseId}`;
+    const payload = {
+        course: {
+            blueprint: true,
+            use_blueprint_restrictions_by_object_type: 0,
+            blueprint_restrictions: {
+                content: 1,
+                points: 1,
+                due_dates: 1,
+                availability_dates: 1,
+            }
+        }
+    };
+    return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, (0,_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__["default"])('PUT', payload, config));
+}
+async function unSetAsBlueprint(courseId, config) {
+    const url = `/api/v1/courses/${courseId}`;
+    const payload = {
+        course: {
+            blueprint: false
+        }
+    };
+    return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, (0,_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__["default"])("PUT", payload, config));
+}
+
+
+/***/ },
+
+/***/ "./src/course/cachedGetAssociatedCoursesFunc.ts"
+/*!******************************************************!*\
+  !*** ./src/course/cachedGetAssociatedCoursesFunc.ts ***!
+  \******************************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_118563__) {
+
+__nested_webpack_require_118563__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_118563__.d(__nested_webpack_exports__, {
+/* harmony export */   cachedGetAssociatedCoursesFunc: () => (/* binding */ cachedGetAssociatedCoursesFunc)
+/* harmony export */ });
+/* harmony import */ var _canvas_course_getSections__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_118563__(/*! @canvas/course/getSections */ "./src/course/getSections.ts");
+
+function cachedGetAssociatedCoursesFunc(course) {
+    let cache = null;
+    return async (redownload = false) => {
+        if (!redownload && cache)
+            return cache;
+        cache = await (0,_canvas_course_getSections__WEBPACK_IMPORTED_MODULE_0__.getSections)(course.id);
+        return cache;
+    };
+}
+
+
+/***/ },
+
+/***/ "./src/course/changeStartDate.ts"
+/*!***************************************!*\
+  !*** ./src/course/changeStartDate.ts ***!
+  \***************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_119545__) {
+
+__nested_webpack_require_119545__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_119545__.d(__nested_webpack_exports__, {
+/* harmony export */   MalformedSyllabusError: () => (/* binding */ MalformedSyllabusError),
+/* harmony export */   NoAssignmentsWithDueDatesError: () => (/* binding */ NoAssignmentsWithDueDatesError),
+/* harmony export */   NoOverviewModuleFoundError: () => (/* binding */ NoOverviewModuleFoundError),
+/* harmony export */   getModuleUnlockStartDate: () => (/* binding */ getModuleUnlockStartDate),
+/* harmony export */   getNewTermName: () => (/* binding */ getNewTermName),
+/* harmony export */   getOldUgTermName: () => (/* binding */ getOldUgTermName),
+/* harmony export */   getStartDateAssignments: () => (/* binding */ getStartDateAssignments),
+/* harmony export */   getUpdatedStyleTermName: () => (/* binding */ getUpdatedStyleTermName),
+/* harmony export */   sortAssignmentsByDueDate: () => (/* binding */ sortAssignmentsByDueDate),
+/* harmony export */   syllabusHeaderName: () => (/* binding */ syllabusHeaderName),
+/* harmony export */   updatedDateSyllabusHtml: () => (/* binding */ updatedDateSyllabusHtml)
+/* harmony export */ });
+/* harmony import */ var _date__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_119545__(/*! @/date */ "./src/date.ts");
+/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_119545__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
+
+
+const DEFAULT_LOCALE = 'en-US';
+function getModuleUnlockStartDate(modules) {
+    if (modules.length == 0)
+        throw new NoOverviewModuleFoundError();
+    const overviewModule = modules[0];
+    const unlockDateString = overviewModule.unlock_at;
+    if (!unlockDateString)
+        return null;
+    const oldDate = new Date(unlockDateString);
+    return (0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(oldDate);
+}
+function sortAssignmentsByDueDate(assignments) {
+    return assignments
+        .toSorted((a, b) => {
+        a = a instanceof _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__.Assignment ? a.rawData : a;
+        b = b instanceof _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__.Assignment ? b.rawData : b;
+        if (a.due_at && b.due_at) {
+            return (0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(new Date(b.due_at)).until((0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(new Date(a.due_at))).days;
+        }
+        if (a.due_at)
+            return -1;
+        if (b.due_at)
+            return 1;
+        return 0;
+    });
+}
+function getStartDateAssignments(assignments) {
+    const sorted = sortAssignmentsByDueDate(assignments).map(a => a.rawData ?? a).filter(a => a.due_at);
+    if (sorted.length == 0)
+        throw new NoAssignmentsWithDueDatesError();
+    const firstAssignmentDue = new Date(sorted[0].due_at);
+    //Set to monday of that week.
+    const plainDateDue = (0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(firstAssignmentDue);
+    const dayOfWeekOffset = 1 - plainDateDue.dayOfWeek;
+    return plainDateDue.add({ days: dayOfWeekOffset });
+}
+function getUpdatedStyleTermName(termStart, weekCount, locale = DEFAULT_LOCALE) {
+    const month = termStart.toLocaleString(locale, { month: '2-digit' });
+    const day = termStart.toLocaleString(locale, { day: '2-digit' });
+    const year = termStart.toLocaleString(locale, { year: '2-digit' });
+    return `DE${weekCount}W${month}.${day}.${year}`;
+}
+function getOldUgTermName(termStart, locale = DEFAULT_LOCALE) {
+    const year = termStart.toLocaleString(DEFAULT_LOCALE, { year: '2-digit' });
+    const month = termStart.toLocaleString(DEFAULT_LOCALE, { month: 'short' });
+    return `DE-${year}-${month}`;
+}
+function getNewTermName(oldTermName, newTermStart, locale = DEFAULT_LOCALE) {
+    const [termName, weekCount] = oldTermName.match(/DE(\d)W\d\d\.\d\d\.\d\d/) || [];
+    if (termName)
+        return getUpdatedStyleTermName(newTermStart, weekCount);
+    const termNameUg = oldTermName.match(/(DE(?:.HL|)-\d\d)-(\w+)\w{2}?/i);
+    if (termNameUg)
+        return getUpdatedStyleTermName(newTermStart, 5);
+    throw new MalformedSyllabusError(`Can't Recognize Term Name ${oldTermName}`);
+}
+function updatedDateSyllabusHtml(html, newStartDate, locale = DEFAULT_LOCALE) {
+    const syllabusBody = document.createElement('div');
+    syllabusBody.innerHTML = html;
+    const syllabusCalloutBox = syllabusBody.querySelector('div.cbt-callout-box');
+    if (!syllabusCalloutBox)
+        throw new MalformedSyllabusError("Can't find syllabus callout box");
+    const paras = Array.from(syllabusCalloutBox.querySelectorAll('p'));
+    const strongParas = paras.filter((para) => para.querySelector('strong'));
+    if (strongParas.length < 5)
+        throw new MalformedSyllabusError(`Missing syllabus headers\n${strongParas}`);
+    const [_courseNameEl, termNameEl, datesEl, _instructorNameEl, _instructorContactInfoEl, _creditsEl] = strongParas;
+    const changedText = [];
+    const oldTermName = termNameEl.textContent || '';
+    const oldDates = datesEl.textContent || '';
+    const dateRange = (0,_date__WEBPACK_IMPORTED_MODULE_0__.findDateRange)(datesEl.innerHTML, locale);
+    if (!dateRange)
+        throw new MalformedSyllabusError("Date range not found in syllabus");
+    const courseDuration = dateRange.start.until(dateRange.end);
+    const newEndDate = newStartDate.add(courseDuration);
+    const newTermName = getNewTermName(oldTermName, newStartDate);
+    const dateRangeText = `${dateToSyllabusString(newStartDate)} - ${dateToSyllabusString(newEndDate)}`;
+    termNameEl.innerHTML = `<strong>${syllabusHeaderName(termNameEl)}:</strong><span> ${newTermName}</span>`;
+    datesEl.innerHTML = `<strong>${syllabusHeaderName(datesEl)}:</strong><span> ${dateRangeText}</span>`;
+    changedText.push(`${oldTermName} -> ${termNameEl.textContent}`);
+    changedText.push(`${oldDates} -> ${datesEl.textContent}`);
+    const output = {
+        html: syllabusBody.innerHTML.replaceAll(/<p>\s*(&nbsp;)?<\/p>/ig, ''),
+        changedText,
+    };
+    syllabusBody.remove();
+    return output;
+}
+function dateToSyllabusString(date) {
+    return `${date.toLocaleString(DEFAULT_LOCALE, { month: 'long', day: 'numeric' })}`;
+}
+function syllabusHeaderName(el) {
+    let [_, head] = /([^:]*):/.exec(el.innerHTML) ?? [];
+    head = head?.replaceAll(/<[^>]*>/g, '');
+    return head;
+}
+class NoOverviewModuleFoundError extends Error {
+    name = "NoOverviewModuleFoundError";
+}
+class MalformedSyllabusError extends Error {
+    name = "MalformedSyllabusError";
+}
+class NoAssignmentsWithDueDatesError extends Error {
+    name = "NoAssignmentsWithDueDatesError";
+}
+
+
+/***/ },
+
+/***/ "./src/course/code.ts"
+/*!****************************!*\
+  !*** ./src/course/code.ts ***!
+  \****************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_126426__) {
+
+__nested_webpack_require_126426__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_126426__.d(__nested_webpack_exports__, {
+/* harmony export */   MalformedCourseCodeError: () => (/* binding */ MalformedCourseCodeError),
+/* harmony export */   baseCourseCode: () => (/* binding */ baseCourseCode),
+/* harmony export */   parseCourseCode: () => (/* binding */ parseCourseCode),
+/* harmony export */   stringIsCourseCode: () => (/* binding */ stringIsCourseCode)
+/* harmony export */ });
+/* harmony import */ var _course_Course__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_126426__(/*! @/course/Course */ "./src/course/Course.ts");
+
+function parseCourseCode(code) {
+    const match = _course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
+    if (!match)
+        return null;
+    const prefix = match[1] || "";
+    const courseCode = match[2] || "";
+    if (prefix.length > 0) {
+        return `${prefix}_${courseCode}`;
+    }
+    return courseCode;
+}
+function baseCourseCode(code) {
+    const match = _course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
+    if (!match)
+        return null;
+    return match[2];
+}
+function stringIsCourseCode(code) {
+    return _course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
+}
+class MalformedCourseCodeError extends Error {
+    name = "MalformedCourseCodeError";
+    courseCode;
+    constructor(courseCode, message, options) {
+        if (!message)
+            message = `${courseCode} is not a valid course code`;
+        super(message, options);
+        this.courseCode = courseCode;
+    }
+}
+
+
+/***/ },
+
+/***/ "./src/course/courseTypes.ts"
+/*!***********************************!*\
+  !*** ./src/course/courseTypes.ts ***!
+  \***********************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_128243__) {
+
+__nested_webpack_require_128243__.r(__nested_webpack_exports__);
+
+
+
+/***/ },
+
+/***/ "./src/course/getCourseIdFromUrl.ts"
+/*!******************************************!*\
+  !*** ./src/course/getCourseIdFromUrl.ts ***!
+  \******************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_128557__) {
+
+__nested_webpack_require_128557__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_128557__.d(__nested_webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   getCourseIdFromUrl: () => (/* binding */ getCourseIdFromUrl)
+/* harmony export */ });
+function getCourseIdFromUrl(url) {
+    const match = /courses\/(\d+)/.exec(url);
+    if (match) {
+        return parseInt(match[1]);
+    }
+    return null;
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getCourseIdFromUrl);
+
+
+/***/ },
+
+/***/ "./src/course/getSections.ts"
+/*!***********************************!*\
+  !*** ./src/course/getSections.ts ***!
+  \***********************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_129331__) {
+
+__nested_webpack_require_129331__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_129331__.d(__nested_webpack_exports__, {
+/* harmony export */   getSections: () => (/* binding */ getSections)
+/* harmony export */ });
+/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_129331__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_129331__(/*! @canvas/course/Course */ "./src/course/Course.ts");
+/* harmony import */ var _canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_129331__(/*! @canvas/course/blueprint */ "./src/course/blueprint.ts");
+
+
+
+async function getSections(courseId, config) {
+    return (await (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.renderAsyncGen)((0,_canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_2__.sectionDataGenerator)(courseId, config))).map(section => new _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__.Course(section));
+}
+
+
+/***/ },
+
+/***/ "./src/course/getTermNameFromSections.ts"
+/*!***********************************************!*\
+  !*** ./src/course/getTermNameFromSections.ts ***!
+  \***********************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_130615__) {
+
+__nested_webpack_require_130615__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_130615__.d(__nested_webpack_exports__, {
+/* harmony export */   getTermNameFromSections: () => (/* binding */ getTermNameFromSections)
+/* harmony export */ });
+async function getTermNameFromSections(sections) {
+    const [section] = sections;
+    if (!section)
+        throw new Error("Cannot determine term name by sections; there are no sections.");
+    const sectionTerm = await section.getTerm();
+    if (!sectionTerm)
+        throw new Error("Section does not have associated term: " + section.name);
+    return sectionTerm.name;
+}
+
+
+/***/ },
+
+/***/ "./src/course/index.ts"
+/*!*****************************!*\
+  !*** ./src/course/index.ts ***!
+  \*****************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_131438__) {
+
+__nested_webpack_require_131438__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_131438__.d(__nested_webpack_exports__, {
+/* harmony export */   COURSE_CODE_REGEX: () => (/* reexport safe */ _Course__WEBPACK_IMPORTED_MODULE_2__.COURSE_CODE_REGEX),
+/* harmony export */   Course: () => (/* reexport safe */ _Course__WEBPACK_IMPORTED_MODULE_2__.Course),
+/* harmony export */   CourseNotFoundException: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.CourseNotFoundException),
+/* harmony export */   NotABlueprintError: () => (/* reexport safe */ _notABlueprintError__WEBPACK_IMPORTED_MODULE_9__.NotABlueprintError),
+/* harmony export */   beginBpSync: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.beginBpSync),
+/* harmony export */   changeModuleLockDate: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.changeModuleLockDate),
+/* harmony export */   createNewCourse: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.createNewCourse),
+/* harmony export */   genBlueprintDataForCode: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.genBlueprintDataForCode),
+/* harmony export */   getBlueprintsFromCode: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.getBlueprintsFromCode),
+/* harmony export */   getCourseById: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseById),
+/* harmony export */   getCourseData: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseData),
+/* harmony export */   getCourseDataGenerator: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseDataGenerator),
+/* harmony export */   getCourseGenerator: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseGenerator),
+/* harmony export */   getCourseIdFromUrl: () => (/* reexport safe */ _getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_4__.getCourseIdFromUrl),
+/* harmony export */   getCourseName: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseName),
+/* harmony export */   getGradingStandards: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getGradingStandards),
+/* harmony export */   getModuleOverview: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.getModuleOverview),
+/* harmony export */   getModuleWeekNumber: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.getModuleWeekNumber),
+/* harmony export */   getModulesByWeekNumber: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.getModulesByWeekNumber),
+/* harmony export */   getSections: () => (/* reexport safe */ _getSections__WEBPACK_IMPORTED_MODULE_5__.getSections),
+/* harmony export */   getSingleCourse: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getSingleCourse),
+/* harmony export */   getTermNameFromSections: () => (/* reexport safe */ _getTermNameFromSections__WEBPACK_IMPORTED_MODULE_6__.getTermNameFromSections),
+/* harmony export */   isAssignmentItemData: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.isAssignmentItemData),
+/* harmony export */   isBlueprint: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.isBlueprint),
+/* harmony export */   isDiscussionItemData: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.isDiscussionItemData),
+/* harmony export */   isPageItemData: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.isPageItemData),
+/* harmony export */   isQuizItemData: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.isQuizItemData),
+/* harmony export */   lockBlueprint: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.lockBlueprint),
+/* harmony export */   moduleGenerator: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.moduleGenerator),
+/* harmony export */   retireBlueprint: () => (/* reexport safe */ _retireBlueprint__WEBPACK_IMPORTED_MODULE_10__.retireBlueprint),
+/* harmony export */   saveCourseData: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.saveCourseData),
+/* harmony export */   saveModuleItem: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.saveModuleItem),
+/* harmony export */   sectionDataGenerator: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.sectionDataGenerator),
+/* harmony export */   setAsBlueprint: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.setAsBlueprint),
+/* harmony export */   setGradingStandardForCourse: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.setGradingStandardForCourse),
+/* harmony export */   unSetAsBlueprint: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.unSetAsBlueprint)
+/* harmony export */ });
+/* harmony import */ var _blueprint__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_131438__(/*! ./blueprint */ "./src/course/blueprint.ts");
+/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_131438__(/*! ./toolbox */ "./src/course/toolbox.ts");
+/* harmony import */ var _Course__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_131438__(/*! ./Course */ "./src/course/Course.ts");
+/* harmony import */ var _courseTypes__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_131438__(/*! ./courseTypes */ "./src/course/courseTypes.ts");
+/* harmony import */ var _getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_131438__(/*! ./getCourseIdFromUrl */ "./src/course/getCourseIdFromUrl.ts");
+/* harmony import */ var _getSections__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_131438__(/*! ./getSections */ "./src/course/getSections.ts");
+/* harmony import */ var _getTermNameFromSections__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_131438__(/*! ./getTermNameFromSections */ "./src/course/getTermNameFromSections.ts");
+/* harmony import */ var _IBlueprintCourse__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_131438__(/*! ./IBlueprintCourse */ "./src/course/IBlueprintCourse.ts");
+/* harmony import */ var _modules__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_131438__(/*! ./modules */ "./src/course/modules.ts");
+/* harmony import */ var _notABlueprintError__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_131438__(/*! ./notABlueprintError */ "./src/course/notABlueprintError.ts");
+/* harmony import */ var _retireBlueprint__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_131438__(/*! ./retireBlueprint */ "./src/course/retireBlueprint.ts");
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ },
+
+/***/ "./src/course/modules.ts"
+/*!*******************************!*\
+  !*** ./src/course/modules.ts ***!
+  \*******************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_138052__) {
+
+__nested_webpack_require_138052__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_138052__.d(__nested_webpack_exports__, {
+/* harmony export */   changeModuleLockDate: () => (/* binding */ changeModuleLockDate),
+/* harmony export */   getModuleOverview: () => (/* binding */ getModuleOverview),
+/* harmony export */   getModuleWeekNumber: () => (/* binding */ getModuleWeekNumber),
+/* harmony export */   getModulesByWeekNumber: () => (/* binding */ getModulesByWeekNumber),
+/* harmony export */   isAssignmentItemData: () => (/* binding */ isAssignmentItemData),
+/* harmony export */   isDiscussionItemData: () => (/* binding */ isDiscussionItemData),
+/* harmony export */   isPageItemData: () => (/* binding */ isPageItemData),
+/* harmony export */   isQuizItemData: () => (/* binding */ isQuizItemData),
+/* harmony export */   moduleGenerator: () => (/* binding */ moduleGenerator),
+/* harmony export */   saveModuleItem: () => (/* binding */ saveModuleItem)
+/* harmony export */ });
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_138052__(/*! ../canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_138052__(/*! @canvas/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_138052__(/*! @canvas/content/pages/Page */ "./src/content/pages/Page.ts");
+/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_138052__(/*! @canvas/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+
+
+
+
+async function saveModuleItem(courseId, moduleId, moduleItemId, moduleItem) {
+    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(`/api/v1/courses/${courseId}/modules/${moduleId}/modules/items/${moduleItemId}`, {
+        fetchInit: {
+            method: "PUT",
+            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)({ moduleItem: moduleItem }),
+        }
+    });
+}
+function moduleGenerator(courseId, config) {
+    return (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedDataGenerator)(`/api/v1/courses/${courseId}/modules`, config);
+}
+async function changeModuleLockDate(courseId, module, targetDate) {
+    const payload = {
+        module: {
+            unlock_at: targetDate.toString()
+        }
+    };
+    const url = `/api/v1/courses/${courseId}/modules/${module.id}`;
+    const result = (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url, {
+        fetchInit: {
+            method: 'PUT',
+            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(payload)
+        }
+    });
+}
+async function getModuleOverview(module, courseId) {
+    const overview = module.items.find(item => item.type === "Page" &&
+        item.title.toLowerCase().includes('overview'));
+    if (!overview?.url)
+        return; //skip this if it's not an overview
+    const url = overview.url.replace(/.*\/api\/v1/, '/api/v1');
+    const pageData = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url);
+    return new _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_2__.Page(pageData, courseId);
+}
+function getModuleWeekNumber(module) {
+    const regex = /(week|module) (\d+)/i;
+    const match = module.name.match(regex);
+    let weekNumber = !match ? null : Number(match[1]);
+    if (!weekNumber) {
+        for (const moduleItem of module.items) {
+            if (!moduleItem.hasOwnProperty('title')) {
+                continue;
+            }
+            const match = moduleItem.title.match(regex);
+            if (match) {
+                weekNumber = match[2];
+            }
+        }
+    }
+    return weekNumber;
+}
+async function getModulesByWeekNumber(modules) {
+    const modulesByWeekNumber = {};
+    for (const module of modules) {
+        const weekNumber = getModuleWeekNumber(module);
+        if (weekNumber) {
+            modulesByWeekNumber[weekNumber] = module;
+        }
+    }
+    return modulesByWeekNumber;
+}
+const isModuleItemTypeFunc = (typeString) => (item) => {
+    return item.type === typeString;
+};
+const isPageItemData = isModuleItemTypeFunc("Page");
+const isAssignmentItemData = isModuleItemTypeFunc("Assignment");
+const isDiscussionItemData = isModuleItemTypeFunc("Discussion");
+const isQuizItemData = isModuleItemTypeFunc("Quiz");
+
+
+/***/ },
+
+/***/ "./src/course/notABlueprintError.ts"
+/*!******************************************!*\
+  !*** ./src/course/notABlueprintError.ts ***!
+  \******************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_142741__) {
+
+__nested_webpack_require_142741__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_142741__.d(__nested_webpack_exports__, {
+/* harmony export */   NotABlueprintError: () => (/* binding */ NotABlueprintError)
+/* harmony export */ });
+class NotABlueprintError extends Error {
+    name = "NotABlueprintError";
+}
+
+
+/***/ },
+
+/***/ "./src/course/retireBlueprint.ts"
+/*!***************************************!*\
+  !*** ./src/course/retireBlueprint.ts ***!
+  \***************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_143293__) {
+
+__nested_webpack_require_143293__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_143293__.d(__nested_webpack_exports__, {
+/* harmony export */   retireBlueprint: () => (/* binding */ retireBlueprint)
+/* harmony export */ });
+/* harmony import */ var _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_143293__(/*! @canvas/course/Course */ "./src/course/Course.ts");
+/* harmony import */ var _canvas_course_code__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_143293__(/*! @canvas/course/code */ "./src/course/code.ts");
+/* harmony import */ var _canvas_course_notABlueprintError__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_143293__(/*! @canvas/course/notABlueprintError */ "./src/course/notABlueprintError.ts");
+
+
+
+async function retireBlueprint(course, termName, config) {
+    if (!course.parsedCourseCode)
+        throw new _canvas_course_code__WEBPACK_IMPORTED_MODULE_1__.MalformedCourseCodeError(course.courseCode);
+    const isCurrentBlueprint = course.parsedCourseCode?.match('BP_');
+    if (!isCurrentBlueprint)
+        throw new _canvas_course_notABlueprintError__WEBPACK_IMPORTED_MODULE_2__.NotABlueprintError("This blueprint is not named BP_; are you trying to retire a retired blueprint?");
+    const newCode = `BP-${termName}_${course.baseCode}`;
+    const saveData = {};
+    saveData[_canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__.Course.nameProperty] = course.name.replace(course.parsedCourseCode, newCode);
+    saveData['course_code'] = newCode;
+    await course.saveData({
+        course: saveData
+    }, config);
+}
+
+
+/***/ },
+
+/***/ "./src/course/toolbox.ts"
+/*!*******************************!*\
+  !*** ./src/course/toolbox.ts ***!
+  \*******************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_145047__) {
+
+__nested_webpack_require_145047__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_145047__.d(__nested_webpack_exports__, {
+/* harmony export */   CourseNotFoundException: () => (/* binding */ CourseNotFoundException),
+/* harmony export */   createNewCourse: () => (/* binding */ createNewCourse),
+/* harmony export */   getCourseById: () => (/* binding */ getCourseById),
+/* harmony export */   getCourseData: () => (/* binding */ getCourseData),
+/* harmony export */   getCourseDataGenerator: () => (/* binding */ getCourseDataGenerator),
+/* harmony export */   getCourseGenerator: () => (/* binding */ getCourseGenerator),
+/* harmony export */   getCourseName: () => (/* binding */ getCourseName),
+/* harmony export */   getGradingStandards: () => (/* binding */ getGradingStandards),
+/* harmony export */   getSingleCourse: () => (/* binding */ getSingleCourse),
+/* harmony export */   saveCourseData: () => (/* binding */ saveCourseData),
+/* harmony export */   setGradingStandardForCourse: () => (/* binding */ setGradingStandardForCourse)
+/* harmony export */ });
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_145047__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _Course__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_145047__(/*! ./Course */ "./src/course/Course.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_145047__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_145047__(/*! @canvas/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_145047__(/*! @canvas/fetch/utils */ "./src/fetch/utils.ts");
+
+
+
+
+
+async function getGradingStandards(contextId, contextType, config) {
+    const url = `/api/v1/${contextType}s/${contextId}/grading_standards`;
+    return await (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.getPagedData)(url, config);
+}
+function getCourseData(id, config) {
+    const url = `/api/v1/courses/${id}`;
+    return (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(url, config);
+}
+function getCourseDataGenerator(queryString, accountIds, term, config) {
+    if (!Array.isArray(accountIds))
+        accountIds = [accountIds];
+    const defaultConfig = queryString ? {
+        queryParams: {
+            search_term: queryString,
+        }
+    } : {};
+    const termId = typeof term === 'number' ? term : term?.id;
+    if (termId && defaultConfig.queryParams)
+        defaultConfig.queryParams.enrollment_term_id = termId;
+    config = (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.overrideConfig)(defaultConfig, config);
+    const generators = accountIds.map(accountId => {
+        const url = `/api/v1/accounts/${accountId}/courses`;
+        return (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.getPagedDataGenerator)(url, config);
+    });
+    return (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.mergePagedDataGenerators)(generators);
+}
+function getCourseGenerator(queryString, accountIds, term, config) {
+    return (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.generatorMap)(getCourseDataGenerator(queryString, accountIds, term, config), courseData => new _Course__WEBPACK_IMPORTED_MODULE_1__.Course(courseData));
+}
+async function getSingleCourse(queryString, accountIds, term, config) {
+    for (const accountId of accountIds) {
+        const courseDatas = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(`/api/v1/accounts/${accountId}/courses`, (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.overrideConfig)({ queryParams: { search_term: queryString } }, config));
+        if (courseDatas.length > 0)
+            return new _Course__WEBPACK_IMPORTED_MODULE_1__.Course(courseDatas[0]);
+    }
+    return undefined;
+}
+async function getCourseById(id, config) {
+    return new _Course__WEBPACK_IMPORTED_MODULE_1__.Course(await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(`/api/v1/courses/${id}`, config));
+}
+async function createNewCourse(courseCode, accountId, name, config) {
+    name ??= courseCode;
+    const createUrl = `/api/v1/accounts/${accountId}/courses/`;
+    const createConfig = {
+        fetchInit: {
+            method: 'POST',
+            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)({
+                course: {
+                    name,
+                    course_code: courseCode
+                }
+            })
+        }
+    };
+    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(createUrl, (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(createConfig, config, true));
+}
+class CourseNotFoundException extends Error {
+}
+async function saveCourseData(courseId, data, config) {
+    const url = `/api/v1/courses/${courseId}`;
+    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(url, (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.overrideConfig)(config, {
+        fetchInit: {
+            method: 'PUT',
+            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)({ course: data })
+        }
+    }));
+}
+async function setGradingStandardForCourse(courseId, standardId, config) {
+    return await saveCourseData(courseId, { grading_standard_id: standardId });
+}
+function getCourseName(data) {
+    const [full, withoutCode] = /[^:]*:\s*(.*)/.exec(data.name) ?? [];
+    if (withoutCode)
+        return withoutCode;
+    return data.name;
+}
+
+
+/***/ },
+
+/***/ "./src/date.ts"
+/*!*********************!*\
+  !*** ./src/date.ts ***!
+  \*********************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_150847__) {
+
+__nested_webpack_require_150847__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_150847__.d(__nested_webpack_exports__, {
+/* harmony export */   MalformedDateError: () => (/* binding */ MalformedDateError),
+/* harmony export */   StringNotAMonthDateError: () => (/* binding */ StringNotAMonthDateError),
+/* harmony export */   findDateRange: () => (/* binding */ findDateRange),
+/* harmony export */   oldDateToPlainDate: () => (/* binding */ oldDateToPlainDate)
+/* harmony export */ });
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_150847__(/*! assert */ "assert");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_150847__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_150847__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_150847__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
+
+
+
+function getMonthNames(style = "long", locale = 'en-US') {
+    return Array.from((0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.range)(1, 12)).map((monthInt) => {
+        return temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from({
+            day: 1,
+            month: monthInt,
+            year: temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.Now.plainDateISO().year
+        }).toLocaleString(locale, {
+            month: style
+        });
+    });
+}
+/**
+ * takes a string of formatted [monthname] [date] and give a plain date
+ * @param value the string to evaluate
+ * @param locale the locale to use to generate month names, e.g. en-US
+ * @param year the year to give the date object. If not provided defaults to current year.
+ */
+function plainDateFromMonthDayString(value, locale, year) {
+    year ??= temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.Now.plainDateISO().year;
+    const match = value.match(getDateRegexString(locale));
+    if (!match)
+        throw new MalformedDateError(value);
+    const fullDate = match[1];
+    return temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from({
+        month: getMonthNumberLut(locale)[match[2]],
+        day: parseInt(match[3]),
+        year
+    });
+}
+const monthNumberLutCache = {};
+/**
+ * returns a string with 3 capturing groups -- 1 - month date, 2 month, 3 date. cuts off rd/th...
+ * @param locale
+ */
+function getMonthNumberLut(locale) {
+    if (monthNumberLutCache[locale])
+        return monthNumberLutCache[locale];
+    const monthNames = getMonthNames('long', locale);
+    const shortMonthNames = getMonthNames('short', locale);
+    const monthNumberLut = {};
+    assert__WEBPACK_IMPORTED_MODULE_0___default()(monthNames.length === shortMonthNames.length);
+    for (let i = 0; i < monthNames.length; i++) {
+        monthNumberLut[monthNames[i]] = i + 1;
+        monthNumberLut[shortMonthNames[i]] = i + 1;
+    }
+    monthNumberLutCache[locale] = monthNumberLut;
+    return monthNumberLut;
+}
+const dateRegexStringCache = {};
+//TODO: Make the capture groups in this optional
+function getDateRegexString(locale = 'en-US') {
+    if (dateRegexStringCache[locale])
+        return dateRegexStringCache[locale];
+    const monthNames = getMonthNames('long', locale);
+    const shortMonthNames = getMonthNames('short', locale);
+    const monthRegexDatePart = `(?:${[...monthNames, ...shortMonthNames].join('|')})`;
+    const output = `((${monthRegexDatePart}) (\\d+))(?:\\w{2}|)`;
+    dateRegexStringCache[locale] = output;
+    return output;
+}
+/**
+ * Looks for a date range in text and, if found, returns an object with start and end params as Temporal PlainDates
+ * @param textToSearch
+ * @param locale
+ */
+function findDateRange(textToSearch, locale = 'en-US') {
+    const dateRegExString = getDateRegexString(locale);
+    const searchRegex = new RegExp(`(${dateRegExString}).*(${dateRegExString})`, 'i');
+    const dateRegex = new RegExp(dateRegExString, 'i');
+    const matchRange = textToSearch.match(searchRegex);
+    if (!matchRange)
+        return null; //No date range found in syllabus
+    let start, end;
+    for (const separator of ['-', 'to']) {
+        [start, end] = matchRange[0].split(separator);
+        if (start && end)
+            break;
+    }
+    if (!start || !end)
+        throw new MalformedDateError('Cannot find date range in syllabus');
+    const startMatch = start.match(dateRegex);
+    const endMatch = end.match(dateRegex);
+    if (!startMatch)
+        throw new MalformedDateError(`Missing Start Date ${start}`);
+    if (!endMatch)
+        throw new MalformedDateError(`Missing End Date ${end}`);
+    return {
+        start: plainDateFromMonthDayString(startMatch[0], locale),
+        end: plainDateFromMonthDayString(endMatch[0], locale)
+    };
+}
+function oldDateToPlainDate(date) {
+    const data = {
+        day: date.getDate(),
+        month: date.getMonth() + 1,
+        year: date.getFullYear(),
+    };
+    return temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from(data);
+}
+class StringNotAMonthDateError extends Error {
+    name = "StringNotAMonthDateError";
+}
+class MalformedDateError extends Error {
+    name = "MalformedDateError";
+}
+
+
+/***/ },
+
+/***/ "./src/enrollments/EnrollmentTypes.ts"
+/*!********************************************!*\
+  !*** ./src/enrollments/EnrollmentTypes.ts ***!
+  \********************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_156387__) {
+
+__nested_webpack_require_156387__.r(__nested_webpack_exports__);
+
+
+
+/***/ },
+
+/***/ "./src/enrollments/enrollmentRole.ts"
+/*!*******************************************!*\
+  !*** ./src/enrollments/enrollmentRole.ts ***!
+  \*******************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_156705__) {
+
+__nested_webpack_require_156705__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_156705__.d(__nested_webpack_exports__, {
+/* harmony export */   createEnrollmentRole: () => (/* binding */ createEnrollmentRole)
+/* harmony export */ });
+function createEnrollmentRole(role) {
+    return role;
+}
+
+
+/***/ },
+
+/***/ "./src/enrollments/getEnrollmentGenerator.ts"
+/*!***************************************************!*\
+  !*** ./src/enrollments/getEnrollmentGenerator.ts ***!
+  \***************************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_157290__) {
+
+__nested_webpack_require_157290__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_157290__.d(__nested_webpack_exports__, {
+/* harmony export */   getEnrollmentGenerator: () => (/* binding */ getEnrollmentGenerator)
+/* harmony export */ });
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_157290__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+
+const getEnrollmentGenerator = (config) => {
+    let url;
+    const { queryParams, ...internalParams } = config;
+    if ('userId' in config) {
+        url = `/api/v1/users/${config.userId}/enrollments`;
+    }
+    else if ('courseId' in config) {
+        url = `/api/v1/courses/${config.courseId}/enrollments`;
+    }
+    else if ('sectionId' in config) {
+        url = `/api/v1/sections/${config.sectionId}/enrollments`;
+    }
+    else {
+        throw new Error('config type not recognized');
+    }
+    return (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__.getPagedDataGenerator)(url, {
+        queryParams,
+    });
+};
+
+
+/***/ },
+
+/***/ "./src/enrollments/index.ts"
+/*!**********************************!*\
+  !*** ./src/enrollments/index.ts ***!
+  \**********************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_158570__) {
+
+__nested_webpack_require_158570__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_158570__.d(__nested_webpack_exports__, {
+/* harmony export */   createEnrollmentRole: () => (/* reexport safe */ _enrollmentRole__WEBPACK_IMPORTED_MODULE_0__.createEnrollmentRole),
+/* harmony export */   getEnrollmentGenerator: () => (/* reexport safe */ _getEnrollmentGenerator__WEBPACK_IMPORTED_MODULE_1__.getEnrollmentGenerator)
+/* harmony export */ });
+/* harmony import */ var _enrollmentRole__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_158570__(/*! ./enrollmentRole */ "./src/enrollments/enrollmentRole.ts");
+/* harmony import */ var _getEnrollmentGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_158570__(/*! ./getEnrollmentGenerator */ "./src/enrollments/getEnrollmentGenerator.ts");
+/* harmony import */ var _EnrollmentTypes__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_158570__(/*! ./EnrollmentTypes */ "./src/enrollments/EnrollmentTypes.ts");
+
+
+
+
+
+/***/ },
+
+/***/ "./src/fetch/apiGetConfig.ts"
+/*!***********************************!*\
+  !*** ./src/fetch/apiGetConfig.ts ***!
+  \***********************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_159735__) {
+
+__nested_webpack_require_159735__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_159735__.d(__nested_webpack_exports__, {
+/* harmony export */   apiGetConfig: () => (/* binding */ apiGetConfig),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_159735__(/*! @canvas/fetch/utils */ "./src/fetch/utils.ts");
+
+function apiGetConfig(queryParams, baseConfig) {
+    return (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_0__.overrideConfig)({
+        queryParams,
+    }, baseConfig);
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (apiGetConfig);
+
+
+/***/ },
+
+/***/ "./src/fetch/apiWriteConfig.ts"
+/*!*************************************!*\
+  !*** ./src/fetch/apiWriteConfig.ts ***!
+  \*************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_160663__) {
+
+__nested_webpack_require_160663__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_160663__.d(__nested_webpack_exports__, {
+/* harmony export */   apiWriteConfig: () => (/* binding */ apiWriteConfig),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_160663__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_160663__(/*! @canvas/fetch/utils */ "./src/fetch/utils.ts");
+
+
+function apiWriteConfig(method, data, baseConfig) {
+    const body = (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(data);
+    return (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_1__.overrideConfig)({
+        fetchInit: {
+            method,
+            body,
+        }
+    }, baseConfig);
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (apiWriteConfig);
+
+
+/***/ },
+
+/***/ "./src/fetch/fetchJson.ts"
+/*!********************************!*\
+  !*** ./src/fetch/fetchJson.ts ***!
+  \********************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_161866__) {
+
+__nested_webpack_require_161866__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_161866__.d(__nested_webpack_exports__, {
+/* harmony export */   fetchJson: () => (/* binding */ fetchJson)
+/* harmony export */ });
+async function fetchJson(url, config = null) {
+    const match = url.search(/^(\/|\w+:\/\/)/);
+    if (match < 0)
+        throw new Error("url does not start with / or http");
+    if (config?.queryParams) {
+        url += '?' + new URLSearchParams(config.queryParams);
+    }
+    config ??= {};
+    const response = await fetch(url, config.fetchInit);
+    const responseJson = await response.json();
+    if (!responseJson)
+        throw new Error("Could not fetch json");
+    responseJson.retrieved_at = new Date().toISOString();
+    return responseJson;
+}
+
+
+/***/ },
+
+/***/ "./src/fetch/getPagedDataGenerator.ts"
+/*!********************************************!*\
+  !*** ./src/fetch/getPagedDataGenerator.ts ***!
+  \********************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_162900__) {
+
+__nested_webpack_require_162900__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_162900__.d(__nested_webpack_exports__, {
+/* harmony export */   getPagedData: () => (/* binding */ getPagedData),
+/* harmony export */   getPagedDataGenerator: () => (/* binding */ getPagedDataGenerator),
+/* harmony export */   mergePagedDataGenerators: () => (/* binding */ mergePagedDataGenerators)
+/* harmony export */ });
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_162900__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
+
+/**
+ * @param url The entire path of the url
+ * @param config a configuration object of type ICanvasCallConfig
+ * @returns {Promise<Record<string, any>[]>}
+ */
+async function getPagedData(url, config = null) {
+    const generator = getPagedDataGenerator(url, config);
+    const out = [];
+    for await (const value of generator) {
+        out.push(value);
+    }
+    return out;
+}
+/**
+ * Merges multiple asynchronous paginated data generators into a single generator.
+ *
+ * This function combines the results of multiple paginated data generators into a unified stream. Each generator
+ * is processed sequentially, and its results are yielded one by one as they become available. This allows for
+ * easy handling of multiple paginated API requests or data sources in parallel without needing to collect all
+ * results in memory at once.
+ *
+ * The function is particularly useful when dealing with multiple sources of paginated data (e.g., multiple API
+ * endpoints) that need to be processed as one continuous stream of results, without waiting for all pages from one
+ * source to finish before beginning to process the next.
+ *
+ * @template T - A type parameter that extends `CanvasData`, ensuring that the data being yielded is in a format consistent
+ *               with Canvas API data structures.
+ * @param {AsyncGenerator<T, T[], void>[]} generators - An array of asynchronous generators, each of which yields paginated
+ *               results of type `T`. These could represent different paginated data sources that are combined into a single stream.
+ *
+ * @yields {T} - The function yields items of type `T` as they are retrieved from each generator in sequence.
+ *
+ * @example
+ * // Example usage combining two paginated API responses into a single data stream
+ * const generator1 = fetchPagedDataFromSource1();
+ * const generator2 = fetchPagedDataFromSource2();
+ *
+ * for await (const data of mergePagedDataGenerators([generator1, generator2])) {
+ *     console.log(data); // Process each item from both generators as a single stream
+ * }
+ *
+ */
+async function* mergePagedDataGenerators(generators) {
+    for (const generator of generators) {
+        for await (const result of generator) {
+            yield result;
+        }
+    }
+}
+/**
+ * Handles the response data from a Canvas API call, normalizing it into an array of `CanvasData` objects.
+ *
+ * This function accepts various formats of the data (single object, array of objects, or a keyed object containing arrays of objects),
+ * and ensures the result is always an array. If no valid array is found, it returns an empty array and logs a warning.
+ *
+ * @template T - A type that extends `CanvasData`.
+ * @param {T | T[] | { [key: string]: T[] }} data - The response data to process. This can be a single object, an array of objects,
+ *        or a keyed object where the values are arrays of objects.
+ * @param {string} url - The URL from which the data was retrieved, used for logging purposes if no valid data is found.
+ * @returns {T[]} An array of `CanvasData` objects, or an empty array if no valid array of data is present.
+ */
+function handleResponseData(data, url) {
+    if (typeof data === 'undefined' || data == null) {
+        console.warn(`no data found for ${url}`);
+        return [];
+    }
+    if (typeof data === 'object' && !Array.isArray(data)) {
+        const values = Array.from(Object.values(data));
+        if (values) {
+            data = values.find((a) => Array.isArray(a));
+        }
+    }
+    if (!Array.isArray(data)) {
+        console.warn(`No valid data found for ${url}`);
+        return [];
+    }
+    return data;
+}
+/**
+ * Async generator function that retrieves paged data from a Canvas API endpoint.
+ * It sends HTTP GET requests to the provided URL, processes the results, and iterates
+ * through all pages of data, yielding each individual item.
+ *
+ * The generator automatically handles pagination by examining the 'Link' header
+ * returned in each response and fetching the next page as long as a 'next' link is available.
+ *
+ * @template T - A generic type parameter extending CanvasData to represent the structure of the data.
+ * @param {string} url - The full URL for the API request. If the `queryParams` option is provided in the config, it appends the query parameters to the URL.
+ * @param {ICanvasCallConfig | null} [config=null] - Optional configuration object for the request, including query parameters and additional fetch options like headers.
+ * @yields {T} - Yields individual items of the retrieved data from each page, one at a time.
+ *
+ * @throws {Error} - If the request fails or the URL contains "undefined", a warning is logged to the console.
+ *
+ * @example
+ * ```
+ * const generator = getPagedDataGenerator<MyDataType>('https://canvas.example.com/api/data', config);
+ * for await (const item of generator) {
+ *     console.log(item);  // Handle each item individually
+ * }
+ * ```
+ */
+async function* getPagedDataGenerator(url, config = null) {
+    if (config?.queryParams) {
+        url += '?' + (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.searchParamsFromObject)(config.queryParams);
+    }
+    if (url.includes('undefined')) {
+        console.warn(url);
+    }
+    /* Returns a list of data from a GET request, going through multiple pages of data requests as necessary */
+    let response = await fetch(url, config?.fetchInit);
+    const data = handleResponseData(await response.json(), url);
+    if (data.length === 0)
+        return data;
+    for (const value of data)
+        yield value;
+    let next_page_link = "!";
+    while (next_page_link.length !== 0 &&
+        response &&
+        response.ok) {
+        const nextLink = getNextLink(response);
+        if (!nextLink)
+            break;
+        next_page_link = nextLink.split(";")[0].split("<")[1].split(">")[0];
+        response = await fetch(next_page_link, config?.fetchInit);
+        const responseData = handleResponseData(await response.json(), url);
+        for (const value of responseData) {
+            value.retrieved_at = new Date().toISOString();
+            yield value;
+        }
+    }
+}
+function getNextLink(response) {
+    const link = response.headers.get("Link");
+    if (!link)
+        return null;
+    const paginationLinks = link.split(",");
+    return paginationLinks.find((link) => link.includes('next'));
+}
+
+
+/***/ },
+
+/***/ "./src/fetch/index.ts"
+/*!****************************!*\
+  !*** ./src/fetch/index.ts ***!
+  \****************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_169969__) {
+
+__nested_webpack_require_169969__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_169969__.d(__nested_webpack_exports__, {
+/* harmony export */   apiGetConfig: () => (/* reexport safe */ _apiGetConfig__WEBPACK_IMPORTED_MODULE_3__.apiGetConfig),
+/* harmony export */   apiWriteConfig: () => (/* reexport safe */ _apiWriteConfig__WEBPACK_IMPORTED_MODULE_2__.apiWriteConfig),
+/* harmony export */   fetchGetConfig: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_0__.fetchGetConfig),
+/* harmony export */   fetchJson: () => (/* reexport safe */ _fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson),
+/* harmony export */   getPagedData: () => (/* reexport safe */ _getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedData),
+/* harmony export */   getPagedDataGenerator: () => (/* reexport safe */ _getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator),
+/* harmony export */   mergePagedDataGenerators: () => (/* reexport safe */ _getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.mergePagedDataGenerators),
+/* harmony export */   overrideConfig: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_0__.overrideConfig)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_169969__(/*! ./utils */ "./src/fetch/utils.ts");
+/* harmony import */ var _getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_169969__(/*! ./getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _apiWriteConfig__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_169969__(/*! ./apiWriteConfig */ "./src/fetch/apiWriteConfig.ts");
+/* harmony import */ var _apiGetConfig__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_169969__(/*! ./apiGetConfig */ "./src/fetch/apiGetConfig.ts");
+/* harmony import */ var _fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_169969__(/*! ./fetchJson */ "./src/fetch/fetchJson.ts");
+
+
+
+
+
+
+
+/***/ },
+
+/***/ "./src/fetch/utils.ts"
+/*!****************************!*\
+  !*** ./src/fetch/utils.ts ***!
+  \****************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_172080__) {
+
+__nested_webpack_require_172080__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_172080__.d(__nested_webpack_exports__, {
+/* harmony export */   fetchGetConfig: () => (/* binding */ fetchGetConfig),
+/* harmony export */   overrideConfig: () => (/* binding */ overrideConfig)
+/* harmony export */ });
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_172080__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
+
+function overrideConfig(source, override) {
+    return (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(source, override) ?? {};
+}
+function fetchGetConfig(options, baseConfig) {
+    return overrideConfig(baseConfig, {
+        queryParams: options,
+    });
+}
+
+
+/***/ },
+
+/***/ "./src/files.ts"
+/*!**********************!*\
+  !*** ./src/files.ts ***!
+  \**********************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_172964__) {
+
+__nested_webpack_require_172964__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_172964__.d(__nested_webpack_exports__, {
+/* harmony export */   uploadFile: () => (/* binding */ uploadFile)
+/* harmony export */ });
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_172964__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_172964__(/*! assert */ "assert");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_172964__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
+
+
+async function uploadFile(file, folder, url) {
+    const initialParams = {
+        name: file.name,
+        no_redirect: true,
+        on_duplicate: 'overwrite'
+    };
+    if (typeof folder === 'number')
+        initialParams.parent_folder_id = folder;
+    else
+        initialParams.parent_folder_path = folder;
+    let response = await fetch(url, {
+        body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(initialParams),
+        method: 'POST'
+    });
+    const data = await response.json();
+    const uploadParams = data.upload_params;
+    const uploadFormData = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(uploadParams);
+    uploadFormData.append('file', file);
+    response = await fetch(data.upload_url, {
+        method: 'POST',
+        body: uploadFormData,
+    });
+    assert__WEBPACK_IMPORTED_MODULE_1___default()(response.ok);
+}
+
+
+/***/ },
+
+/***/ "./src/profile.ts"
+/*!************************!*\
+  !*** ./src/profile.ts ***!
+  \************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_174623__) {
+
+__nested_webpack_require_174623__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_174623__.d(__nested_webpack_exports__, {
+/* harmony export */   frontPageBio: () => (/* binding */ frontPageBio),
+/* harmony export */   getCurioPageFrontPageProfile: () => (/* binding */ getCurioPageFrontPageProfile),
+/* harmony export */   getFacultyPages: () => (/* binding */ getFacultyPages),
+/* harmony export */   getPotentialFacultyProfiles: () => (/* binding */ getPotentialFacultyProfiles),
+/* harmony export */   getProfileFromPage: () => (/* binding */ getProfileFromPage),
+/* harmony export */   renderProfileIntoCurioFrontPage: () => (/* binding */ renderProfileIntoCurioFrontPage),
+/* harmony export */   winnow: () => (/* binding */ winnow)
+/* harmony export */ });
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_174623__(/*! assert */ "assert");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_174623__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_174623__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_174623__(/*! @/Account */ "./src/Account.ts");
+/* harmony import */ var _course_toolbox__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_174623__(/*! @/course/toolbox */ "./src/course/toolbox.ts");
+
+
+
+
+let facultyCourseCached;
+async function getFacultyCourse() {
+    const facultyCourse = facultyCourseCached ?? await (0,_course_toolbox__WEBPACK_IMPORTED_MODULE_3__.getSingleCourse)('Faculty Bios', (await _Account__WEBPACK_IMPORTED_MODULE_2__.Account.getAll()).map(a => a.id));
+    facultyCourseCached = facultyCourse;
+    assert__WEBPACK_IMPORTED_MODULE_0___default()(facultyCourse);
+    return facultyCourse;
+}
+async function getFacultyPages(searchTerm) {
+    const facultyCourse = await getFacultyCourse();
+    return await facultyCourse.getPages({
+        queryParams: {
+            include: ['body'],
+            search_term: searchTerm
+        }
+    });
+}
+async function getPotentialFacultyProfiles(user) {
+    let pages = [];
+    const [lastName, firstName] = user.name.split(' ');
+    for (const query of [
+        user.name,
+        lastName,
+        firstName,
+    ]) {
+        console.log(query);
+        pages = await getFacultyPages(query);
+        if (pages.length > 0)
+            break;
+    }
+    const profiles = pages.map((page) => getProfileFromPage(page, user), true);
+    if (profiles.length > 0) {
+        for (const profile of profiles) {
+            profile.displayName ??= user.name;
+        }
+    }
+    return profiles;
+}
+function getProfileFromPage(page, user) {
+    const profile = getProfileFromPageHtml(page.body, user);
+    profile.sourcePage = page;
+    return profile;
+}
+function getProfileFromPageHtml(html, user) {
+    const el = document.createElement('div');
+    el.innerHTML = html;
+    const displayName = getDisplayName(el);
+    const body = getProfileBody(el);
+    const image = getImageLink(el);
+    return {
+        user,
+        bio: body,
+        displayName,
+        image,
+        imageLink: image?.src,
+    };
+}
+function getProfileBody(el) {
+    const h4s = el.querySelectorAll('h4');
+    const instructorHeaders = Array.from(h4s).filter((el) => {
+        return el.innerHTML.search(/instructor/i);
+    });
+    let potentials = [];
+    for (const header of instructorHeaders) {
+        const potentialParent = header.parentElement;
+        if (potentialParent) {
+            header.remove();
+            potentials.push(potentialParent.innerHTML);
+        }
+    }
+    potentials = winnow(potentials, [
+        (potential) => potential.length > 0,
+    ]);
+    /* just guess if we can't find anything */
+    if (potentials.length > 0) {
+        return potentials[0];
+    }
+    return null;
+}
+function getDisplayName(el) {
+    let titles = Array.from(el.querySelectorAll('strong em'));
+    if (titles.length === 0) {
+        const enclosedImages = Array.from(el.querySelectorAll('p img'));
+        titles = enclosedImages.map((el) => (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.parentElement)(el, 'p')?.nextElementSibling)
+            .filter((el) => el instanceof Element);
+    }
+    if (titles.length === 0) {
+        const headings = Array.from(el.querySelectorAll('p strong'));
+        const instructorHeaders = headings.filter(el => el.innerHTML.search(/Instructor/));
+        titles = instructorHeaders.map((el) => el.previousElementSibling)
+            .filter((el) => el instanceof Element);
+    }
+    titles = titles.filter((title) => title.textContent && title.textContent.length > 0);
+    if (titles.length > 0)
+        return titles[0].textContent;
+    return null;
+}
+/**
+ * Finds all the image links in the content and returns the biggest.
+ * @param el
+ */
+function getImageLink(el) {
+    const imgs = el.querySelectorAll('img');
+    if (imgs.length === 0)
+        return null;
+    return Array.from(imgs)[1];
+}
+/**
+ * Takes in a list of parameters and a set of filter functions. Runs filter functions until there are one or fewer elements,
+ * or it runs out of filter functions. Returns post-filtered list.
+ * @param originalList The list of items to run
+ * @param winnowFuncs A list of filter functions, run in order
+ * @param returnLastNonEmpty If true, will return the last non-empty array found if elements are winnowed to 0
+ */
+function winnow(originalList, winnowFuncs, returnLastNonEmpty = false) {
+    let copyList = [...originalList];
+    if (copyList.length === 1)
+        return copyList; //already at 1 element
+    let lastSet = [...copyList];
+    for (const winnowFunc of winnowFuncs) {
+        lastSet = [...copyList];
+        copyList = copyList.filter(winnowFunc);
+        if (copyList.length === 1)
+            break;
+    }
+    if (copyList.length === 0 && returnLastNonEmpty)
+        return lastSet;
+    return copyList;
+}
+function getCurioPageFrontPageProfile(html, user) {
+    const el = document.createElement('div');
+    el.innerHTML = html;
+    try {
+        const header = getCurioHeader(el);
+        const match = header.innerHTML.match(/Meet your instructor, ?(.*)!/i);
+        const displayName = match ? match[1] : null;
+        const bio = getCurioBio(el);
+        const image = getCurioProfileImage(el);
+        return {
+            user,
+            displayName,
+            image,
+            imageLink: image ? image.src : null,
+            bio: bio?.innerHTML
+        };
+    }
+    catch (e) {
+        return {
+            user,
+            displayName: "CANNOT LOCATE PROFILE",
+            bio: e.toString(),
+        };
+    }
+}
+function frontPageBio(profile) {
+    return profile.bio + `<p>${profile.displayName} should be contacted during the term using Canvas Inbox,
+ but can be reached after and before the term via their email address: ${profile.user.email}</p>`;
+}
+function renderProfileIntoCurioFrontPage(html, profile) {
+    const el = document.createElement('div');
+    el.innerHTML = html;
+    if (profile.displayName) {
+        const header = getCurioHeader(el);
+        header.innerHTML = `Meet your instructor, ${profile.displayName}!`;
+    }
+    if (profile.bio) {
+        const bio = getCurioBio(el);
+        if (bio) {
+            const classes = bio.classList;
+            if (!classes.contains('cbt-instructor-bio'))
+                classes.add('cbt-instructor-bio');
+            bio.innerHTML = frontPageBio(profile);
+        }
+    }
+    if (profile.image) {
+        const image = getCurioProfileImage(el);
+        if (image) {
+            image.src = profile.image.src;
+            image.alt = profile.image.alt;
+        }
+    }
+    else if (profile.imageLink) {
+        const image = getCurioProfileImage(el);
+        if (image) {
+            image.src = profile.imageLink;
+        }
+    }
+    return el.innerHTML;
+}
+function getCurioHeader(el) {
+    let h2s = Array.from(el.querySelectorAll('h2'));
+    h2s = h2s.filter((h2) => h2.innerHTML.match(/Meet your instructor/i));
+    if (h2s.length <= 0)
+        throw new Error(`Can't find bio section of front page.\n${h2s.map(a => a.innerHTML)}\n${el.innerHTML}`);
+    return h2s[0];
+}
+function getCurioProfileDiv(el) {
+    const header = getCurioHeader(el);
+    const sectionEl = header.nextElementSibling;
+    assert__WEBPACK_IMPORTED_MODULE_0___default()(sectionEl, "Body element of bio not found on page.");
+    return sectionEl;
+}
+function getCurioBio(el) {
+    const profileDiv = getCurioProfileDiv(el);
+    const bio = profileDiv.querySelector('.cbt-instructor-bio');
+    if (bio && bio.innerHTML)
+        return bio;
+    const div = getCurioProfileDiv(el);
+    const p = div.querySelector('p');
+    return p?.parentElement;
+}
+function getCurioProfileImage(el) {
+    return getCurioProfileDiv(el).querySelector('img');
+}
+
+
+
+/***/ },
+
+/***/ "./src/rubricTypes.ts"
+/*!****************************!*\
+  !*** ./src/rubricTypes.ts ***!
+  \****************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_183636__) {
+
+__nested_webpack_require_183636__.r(__nested_webpack_exports__);
+
+
+
+/***/ },
+
+/***/ "./src/rubrics.ts"
+/*!************************!*\
+  !*** ./src/rubrics.ts ***!
+  \************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_183878__) {
+
+__nested_webpack_require_183878__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_183878__.d(__nested_webpack_exports__, {
+/* harmony export */   getRubric: () => (/* binding */ getRubric),
+/* harmony export */   getRubricsFetchUrl: () => (/* binding */ getRubricsFetchUrl),
+/* harmony export */   rubricApiUrl: () => (/* binding */ rubricApiUrl),
+/* harmony export */   rubricAssociationUrl: () => (/* binding */ rubricAssociationUrl),
+/* harmony export */   rubricsForCourseGen: () => (/* binding */ rubricsForCourseGen),
+/* harmony export */   updateRubricAssociation: () => (/* binding */ updateRubricAssociation)
+/* harmony export */ });
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_183878__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_183878__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_183878__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+
+
+
+function getRubricsFetchUrl(courseId) { return `/api/v1/courses/${courseId}/rubrics`; }
+function rubricApiUrl(courseId, rubricId) { return `/api/v1/courses/${courseId}/rubrics/${rubricId}`; }
+function rubricsForCourseGen(courseId, options, config) {
+    const url = getRubricsFetchUrl(courseId);
+    const dataGenerator = (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(url, config);
+    if (options?.include) {
+        return async function* () {
+            for await (const rubric of dataGenerator) {
+                yield await getRubric(rubric.context_id, rubric.id, options, config);
+            }
+        }();
+    }
+    return dataGenerator;
+}
+async function getRubric(courseId, rubricId, options, config) {
+    const url = rubricApiUrl(courseId, rubricId);
+    if (options?.include) {
+        config ??= {};
+        config.queryParams = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(config?.queryParams, { include: options.include });
+    }
+    return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__.fetchJson)(url, config);
+}
+function rubricAssociationUrl(courseId, rubricAssociationId) {
+    return `/api/v1/courses/${courseId}/rubric_associations/${rubricAssociationId}`;
+}
+async function updateRubricAssociation(courseId, rubricAssociationId, data, config) {
+    const url = rubricAssociationUrl(courseId, rubricAssociationId);
+    return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__.fetchJson)(url, (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(config, {
+        fetchInit: {
+            method: 'PUT',
+            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(data)
+        },
+    }, true));
+}
+
+
+/***/ },
+
+/***/ "./src/term/Term.ts"
+/*!**************************!*\
+  !*** ./src/term/Term.ts ***!
+  \**************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_186892__) {
+
+__nested_webpack_require_186892__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_186892__.d(__nested_webpack_exports__, {
+/* harmony export */   Term: () => (/* binding */ Term)
+/* harmony export */ });
+/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_186892__(/*! @/baseCanvasObject */ "./src/baseCanvasObject.ts");
+/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_186892__(/*! @/Account */ "./src/Account.ts");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_186892__(/*! assert */ "assert");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_186892__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_186892__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_186892__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
+
+
+
+
+
+class Term extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
+    static nameProperty = "name";
+    static async getTerm(code, workflowState = 'all', config = undefined) {
+        const terms = await this.searchTerms(code, workflowState, config);
+        if (!Array.isArray(terms) || terms.length <= 0) {
+            return null;
+        }
+        return terms[0];
+    }
+    static async getTermById(termId, config = null) {
+        const account = await _Account__WEBPACK_IMPORTED_MODULE_1__.Account.getRootAccount();
+        if (!account)
+            throw new _Account__WEBPACK_IMPORTED_MODULE_1__.RootAccountNotFoundError();
+        const url = `/api/v1/accounts/${account.id}/terms/${termId}`;
+        const termData = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
+        if (termData)
+            return new Term(termData);
+        return null;
+    }
+    static async getAllActiveTerms(config = null) {
+        return await this.searchTerms(null, 'active', config);
+    }
+    static async searchTerms(code = null, workflowState = 'all', config = null) {
+        config = config || {};
+        config.queryParams = config.queryParams || {};
+        const queryParams = config.queryParams;
+        if (workflowState)
+            queryParams['workflow_state'] = workflowState;
+        if (code)
+            queryParams['term_name'] = code;
+        const rootAccount = await _Account__WEBPACK_IMPORTED_MODULE_1__.Account.getRootAccount();
+        assert__WEBPACK_IMPORTED_MODULE_2___default()(rootAccount);
+        const url = `/api/v1/accounts/${rootAccount.id}/terms`;
+        const data = await (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedData)(url, config);
+        const terms = [];
+        for (const datum of data) {
+            if (datum.hasOwnProperty('enrollment_terms')) {
+                for (const termData of datum['enrollment_terms']) {
+                    terms.push(termData);
+                }
+            }
+            else {
+                terms.push(datum);
+            }
+        }
+        if (!terms || terms.length === 0) {
+            return null;
+        }
+        return terms.map(term => new Term(term));
+    }
+}
+
+
+/***/ },
+
+/***/ "./src/term/dateFromTermName.ts"
+/*!**************************************!*\
+  !*** ./src/term/dateFromTermName.ts ***!
+  \**************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_190422__) {
+
+__nested_webpack_require_190422__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_190422__.d(__nested_webpack_exports__, {
+/* harmony export */   dateFromTermName: () => (/* binding */ dateFromTermName),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_190422__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
+
+function dateFromTermName(termName) {
+    const [newCode, month, day, year] = /DE\dW(\d+)\.(\d+)\.(\d+)/i.exec(termName) ?? [];
+    if (newCode) {
+        const yearInt = parseInt(year);
+        return temporal_polyfill__WEBPACK_IMPORTED_MODULE_0__.Temporal.PlainDate.from({
+            month: parseInt(month),
+            day: parseInt(day),
+            year: yearInt < 100 ? 2000 + yearInt : yearInt
+        });
+    }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (dateFromTermName);
+
+
+/***/ },
+
+/***/ "./src/term/getTermsGenerator.ts"
+/*!***************************************!*\
+  !*** ./src/term/getTermsGenerator.ts ***!
+  \***************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_191646__) {
+
+__nested_webpack_require_191646__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_191646__.d(__nested_webpack_exports__, {
+/* harmony export */   getTermsGenerator: () => (/* binding */ getTermsGenerator)
+/* harmony export */ });
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_191646__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+
+const defaultTermQueryParams = {
+    workflow_state: 'active',
+};
+const getTermsGenerator = (rootAccountId, queryParams) => {
+    const generator = (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__.getPagedDataGenerator)(`/api/v1/accounts/${rootAccountId}/terms`, {
+        queryParams: { ...defaultTermQueryParams, ...queryParams ?? {} },
+    });
+    return generator;
+};
+
+
+/***/ },
+
+/***/ "./src/term/index.ts"
+/*!***************************!*\
+  !*** ./src/term/index.ts ***!
+  \***************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_192640__) {
+
+__nested_webpack_require_192640__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_192640__.d(__nested_webpack_exports__, {
+/* harmony export */   Term: () => (/* reexport safe */ _Term__WEBPACK_IMPORTED_MODULE_1__.Term),
+/* harmony export */   dateFromTermName: () => (/* reexport safe */ _dateFromTermName__WEBPACK_IMPORTED_MODULE_0__.dateFromTermName),
+/* harmony export */   getTermsGenerator: () => (/* reexport safe */ _getTermsGenerator__WEBPACK_IMPORTED_MODULE_2__.getTermsGenerator)
+/* harmony export */ });
+/* harmony import */ var _dateFromTermName__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_192640__(/*! ./dateFromTermName */ "./src/term/dateFromTermName.ts");
+/* harmony import */ var _Term__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_192640__(/*! ./Term */ "./src/term/Term.ts");
+/* harmony import */ var _getTermsGenerator__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_192640__(/*! ./getTermsGenerator */ "./src/term/getTermsGenerator.ts");
+
+
+
+
+
+/***/ },
+
+/***/ "./src/toolbox.ts"
+/*!************************!*\
+  !*** ./src/toolbox.ts ***!
+  \************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_193775__) {
+
+__nested_webpack_require_193775__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_193775__.d(__nested_webpack_exports__, {
+/* harmony export */   aMinusBSortFn: () => (/* binding */ aMinusBSortFn),
+/* harmony export */   bMinusASortFn: () => (/* binding */ bMinusASortFn),
+/* harmony export */   isNotNullOrUndefined: () => (/* binding */ isNotNullOrUndefined),
+/* harmony export */   sleep: () => (/* binding */ sleep)
+/* harmony export */ });
+function sleep(milliseconds) {
+    return new Promise((resolve, reject) => {
+        setTimeout(resolve, milliseconds);
+    });
+}
+function isNotNullOrUndefined(value) {
+    if (value === null)
+        return false;
+    if (typeof value === 'undefined')
+        return false;
+    return true;
+}
+function aMinusBSortFn(func) {
+    return (a, b) => func(a) - func(b);
+}
+function bMinusASortFn(func) {
+    return (a, b) => func(b) - func(a);
+}
+
+
+/***/ },
+
+/***/ "./src/types.ts"
+/*!**********************!*\
+  !*** ./src/types.ts ***!
+  \**********************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_194836__) {
+
+__nested_webpack_require_194836__.r(__nested_webpack_exports__);
+
+
+
+/***/ },
+
+/***/ "./src/users/getUserGenerator.ts"
+/*!***************************************!*\
+  !*** ./src/users/getUserGenerator.ts ***!
+  \***************************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_195138__) {
+
+__nested_webpack_require_195138__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_195138__.d(__nested_webpack_exports__, {
+/* harmony export */   getUserGenerator: () => (/* binding */ getUserGenerator)
+/* harmony export */ });
+/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_195138__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
+
+const getUserGenerator = (config) => {
+    let url;
+    if ('accountId' in config) {
+        url = `/api/v1/accounts/${config.accountId}/users`;
+    }
+    else if ('courseId' in config) {
+        url = `/api/v1/courses/${config.courseId}/users`;
+    }
+    else {
+        throw new Error('config type not recognized');
+    }
+    return (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__.getPagedDataGenerator)(url, {
+        queryParams: config,
+    });
+};
+
+
+/***/ },
+
+/***/ "./src/users/index.ts"
+/*!****************************!*\
+  !*** ./src/users/index.ts ***!
+  \****************************/
+(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_196216__) {
+
+__nested_webpack_require_196216__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_196216__.d(__nested_webpack_exports__, {
+/* harmony export */   getUserGenerator: () => (/* reexport safe */ _getUserGenerator__WEBPACK_IMPORTED_MODULE_0__.getUserGenerator)
+/* harmony export */ });
+/* harmony import */ var _getUserGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_196216__(/*! ./getUserGenerator */ "./src/users/getUserGenerator.ts");
+
+
+
+/***/ },
+
+/***/ "assert"
+/*!*************************!*\
+  !*** external "assert" ***!
+  \*************************/
+(module) {
+
+module.exports = __webpack_require__(/*! assert */ "../ueu_canvas/node_modules/assert/build/assert.js");
+
+/***/ },
+
 /***/ "./node_modules/temporal-polyfill/chunks/classApi.js"
 /*!***********************************************************!*\
   !*** ./node_modules/temporal-polyfill/chunks/classApi.js ***!
   \***********************************************************/
-(__unused_webpack___webpack_module__, __nested_webpack_exports__, __nested_webpack_require_783__) {
+(__unused_webpack___webpack_module__, __nested_webpack_exports__, __nested_webpack_require_197156__) {
 
-__nested_webpack_require_783__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_783__.d(__nested_webpack_exports__, {
+__nested_webpack_require_197156__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_197156__.d(__nested_webpack_exports__, {
 /* harmony export */   DateTimeFormat: () => (/* binding */ Sr),
 /* harmony export */   IntlExtended: () => (/* binding */ Tr),
 /* harmony export */   Temporal: () => (/* binding */ mr),
 /* harmony export */   toTemporalInstant: () => (/* binding */ toTemporalInstant)
 /* harmony export */ });
-/* harmony import */ var _internal_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_783__(/*! ./internal.js */ "./node_modules/temporal-polyfill/chunks/internal.js");
+/* harmony import */ var _internal_js__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_197156__(/*! ./internal.js */ "./node_modules/temporal-polyfill/chunks/internal.js");
 function createSlotClass(e, t, n, o, r) {
   function Class(...e) {
     if (!(this instanceof Class)) {
@@ -932,10 +5238,10 @@ const xn = {
 /*!***********************************************************!*\
   !*** ./node_modules/temporal-polyfill/chunks/internal.js ***!
   \***********************************************************/
-(__unused_webpack___webpack_module__, __nested_webpack_exports__, __nested_webpack_require_49607__) {
+(__unused_webpack___webpack_module__, __nested_webpack_exports__, __nested_webpack_require_245980__) {
 
-__nested_webpack_require_49607__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_49607__.d(__nested_webpack_exports__, {
+__nested_webpack_require_245980__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_245980__.d(__nested_webpack_exports__, {
 /* harmony export */   DurationBranding: () => (/* binding */ qt),
 /* harmony export */   InstantBranding: () => (/* binding */ Oe),
 /* harmony export */   PlainDateBranding: () => (/* binding */ J),
@@ -4403,4420 +8709,6 @@ let ys;
 
 
 
-/***/ },
-
-/***/ "./src/Account.ts"
-/*!************************!*\
-  !*** ./src/Account.ts ***!
-  \************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_149678__) {
-
-__nested_webpack_require_149678__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_149678__.d(__nested_webpack_exports__, {
-/* harmony export */   Account: () => (/* binding */ Account),
-/* harmony export */   RootAccountNotFoundError: () => (/* binding */ RootAccountNotFoundError),
-/* harmony export */   getAccountIdFromUrl: () => (/* binding */ getAccountIdFromUrl)
-/* harmony export */ });
-/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_149678__(/*! ./baseCanvasObject */ "./src/baseCanvasObject.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_149678__(/*! ./fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_149678__(/*! ./fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-
-
-
-/**
- *  A base class for objects that interact with the Canvas API
- */
-class Account extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
-    static nameProperty = 'name'; // The field name of the primary name of the canvas object type
-    static contentUrlTemplate = '/api/v1/accounts/{content_id}'; // A templated url to get a single item
-    static allContentUrlTemplate = '/api/v1/accounts'; // A templated url to get all items
-    static account;
-    static async getFromUrl(url = null) {
-        if (url === null) {
-            url = document.documentURI;
-        }
-        const match = /accounts\/(\d+)/.exec(url);
-        if (match) {
-            console.log(match);
-            return await this.getAccountById(parseInt(match[1]));
-        }
-        return null;
-    }
-    static async getAccountById(accountId, config = undefined) {
-        const data = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__.fetchJson)(`/api/v1/accounts/${accountId}`, config);
-        return new Account(data);
-    }
-    static async getRootAccount(resetCache = false) {
-        if (!resetCache && this.hasOwnProperty('account') && this.account) {
-            return this.account;
-        }
-        const accountGen = (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)('/api/v1/accounts');
-        for await (const account of accountGen) {
-            if (account.root_account_id)
-                continue; //if there is a root_account_id, this is not the root account
-            const root = new Account(account);
-            this.account = root;
-            return root;
-        }
-    }
-    get rootAccountId() {
-        return this.canvasData['root_account_id'];
-    }
-}
-class RootAccountNotFoundError extends Error {
-    name = 'RootAccountNotFoundError';
-}
-const getAccountIdFromUrl = (url = null) => {
-    if (url === null) {
-        url = document.documentURI;
-    }
-    const match = /accounts\/(\d+)/.exec(url);
-    return match ? parseInt(match[1]) : null;
-};
-
-
-
-/***/ },
-
-/***/ "./src/NotImplementedException.ts"
-/*!****************************************!*\
-  !*** ./src/NotImplementedException.ts ***!
-  \****************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_152825__) {
-
-__nested_webpack_require_152825__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_152825__.d(__nested_webpack_exports__, {
-/* harmony export */   NotImplementedException: () => (/* binding */ NotImplementedException)
-/* harmony export */ });
-class NotImplementedException extends Error {
-    name = "NotImplementedException";
-}
-
-
-/***/ },
-
-/***/ "./src/__mocks__/Account.ts"
-/*!**********************************!*\
-  !*** ./src/__mocks__/Account.ts ***!
-  \**********************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_153377__) {
-
-__nested_webpack_require_153377__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_153377__.d(__nested_webpack_exports__, {
-/* harmony export */   MockAccount: () => (/* binding */ MockAccount)
-/* harmony export */ });
-/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_153377__(/*! @/baseCanvasObject */ "./src/baseCanvasObject.ts");
-
-// Create a type alias for the original Account class
-class MockAccount extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
-    static nameProperty = 'name';
-    static contentUrlTemplate = '/api/v1/accounts/{content_id}';
-    static allContentUrlTemplate = '/api/v1/accounts';
-    static mockAccount;
-    static mockAccounts = [];
-    static mockDataById = {};
-    static resetMocks() {
-        this.mockAccounts = [];
-        this.mockDataById = {};
-        this.mockAccount = undefined;
-    }
-    static async getFromUrl(url = null) {
-        if (url === null) {
-            url = document.documentURI;
-        }
-        const match = /accounts\/(\d+)/.exec(url);
-        if (match) {
-            return await this.getAccountById(parseInt(match[1]));
-        }
-        return null;
-    }
-    static async getAccountById(accountId, _config = undefined) {
-        const data = this.mockDataById[accountId];
-        if (!data) {
-            throw new Error(`No mock data found for account ID: ${accountId}`);
-        }
-        return new MockAccount(data);
-    }
-    static async getRootAccount(resetCache = false) {
-        if (!resetCache && this.mockAccount) {
-            return this.mockAccount;
-        }
-        const root = this.mockAccounts.find((a) => a.rootAccountId === null);
-        if (!root) {
-            throw new Error('No root account found in mock data');
-        }
-        this.mockAccount = root;
-        return root;
-    }
-    get rootAccountId() {
-        return this.canvasData['root_account_id'];
-    }
-}
-
-
-/***/ },
-
-/***/ "./src/__mocks__/index.ts"
-/*!********************************!*\
-  !*** ./src/__mocks__/index.ts ***!
-  \********************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_155516__) {
-
-__nested_webpack_require_155516__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_155516__.d(__nested_webpack_exports__, {
-/* harmony export */   MockAccount: () => (/* reexport safe */ _Account__WEBPACK_IMPORTED_MODULE_0__.MockAccount),
-/* harmony export */   mockAccountData: () => (/* reexport safe */ _mockAccountData__WEBPACK_IMPORTED_MODULE_1__.mockAccountData),
-/* harmony export */   mockAsyncGen: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_7__.mockAsyncGen),
-/* harmony export */   mockEnrollment: () => (/* reexport safe */ _mockEnrollment__WEBPACK_IMPORTED_MODULE_2__.mockEnrollment),
-/* harmony export */   mockRubric: () => (/* reexport safe */ _mockRubricData__WEBPACK_IMPORTED_MODULE_3__.mockRubric),
-/* harmony export */   mockRubricAssessment: () => (/* reexport safe */ _mockRubricData__WEBPACK_IMPORTED_MODULE_3__.mockRubricAssessment),
-/* harmony export */   mockRubricAssociation: () => (/* reexport safe */ _mockRubricData__WEBPACK_IMPORTED_MODULE_3__.mockRubricAssociation),
-/* harmony export */   mockRubricsForAssignments: () => (/* reexport safe */ _mockRubricData__WEBPACK_IMPORTED_MODULE_3__.mockRubricsForAssignments),
-/* harmony export */   mockTabData: () => (/* reexport safe */ _mockTabData__WEBPACK_IMPORTED_MODULE_4__.mockTabData),
-/* harmony export */   mockTermData: () => (/* reexport safe */ _mockTermData__WEBPACK_IMPORTED_MODULE_6__.mockTermData),
-/* harmony export */   mockUserData: () => (/* reexport safe */ _mockUserData__WEBPACK_IMPORTED_MODULE_5__.mockUserData),
-/* harmony export */   returnMockAsyncGen: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_7__.returnMockAsyncGen)
-/* harmony export */ });
-/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_155516__(/*! ./Account */ "./src/__mocks__/Account.ts");
-/* harmony import */ var _mockAccountData__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_155516__(/*! ./mockAccountData */ "./src/__mocks__/mockAccountData.ts");
-/* harmony import */ var _mockEnrollment__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_155516__(/*! ./mockEnrollment */ "./src/__mocks__/mockEnrollment.ts");
-/* harmony import */ var _mockRubricData__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_155516__(/*! ./mockRubricData */ "./src/__mocks__/mockRubricData.ts");
-/* harmony import */ var _mockTabData__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_155516__(/*! ./mockTabData */ "./src/__mocks__/mockTabData.ts");
-/* harmony import */ var _mockUserData__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_155516__(/*! ./mockUserData */ "./src/__mocks__/mockUserData.ts");
-/* harmony import */ var _mockTermData__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_155516__(/*! ./mockTermData */ "./src/__mocks__/mockTermData.ts");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_155516__(/*! ./utils */ "./src/__mocks__/utils.ts");
-
-
-
-
-
-
-
-
-
-
-/***/ },
-
-/***/ "./src/__mocks__/mockAccountData.ts"
-/*!******************************************!*\
-  !*** ./src/__mocks__/mockAccountData.ts ***!
-  \******************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_158624__) {
-
-__nested_webpack_require_158624__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_158624__.d(__nested_webpack_exports__, {
-/* harmony export */   mockAccountData: () => (/* binding */ mockAccountData)
-/* harmony export */ });
-/**
- * From Canvas Api Docs - https://canvas.instructure.com/doc/api/accounts.html
- */
-const mockAccountData = {
-    // the ID of the Account object
-    "id": 2,
-    // The display name of the account
-    "name": "Canvas Account",
-    // The UUID of the account
-    "uuid": "WvAHhY5FINzq5IyRIJybGeiXyFkG3SqHUPb7jZY5",
-    // The account's parent ID, or null if this is the root account
-    "parent_account_id": 1,
-    // The ID of the root account, or null if this is the root account
-    "root_account_id": 1,
-    // The storage quota for the account in megabytes, if not otherwise specified
-    "default_storage_quota_mb": 500,
-    // The storage quota for a user in the account in megabytes, if not otherwise
-    // specified
-    "default_user_storage_quota_mb": 50,
-    // The storage quota for a group in the account in megabytes, if not otherwise
-    // specified
-    "default_group_storage_quota_mb": 50,
-    // The default time zone of the account. Allowed time zones are
-    // {http://www.iana.org/time-zones IANA time zones} or friendlier
-    // {http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html Ruby on Rails
-    // time zones}.
-    "default_time_zone": "America/Denver",
-    // The account's identifier in the Student Information System. Only included if
-    // the user has permission to view SIS information.
-    "sis_account_id": "123xyz",
-    // The account's identifier in the Student Information System. Only included if
-    // the user has permission to view SIS information.
-    "integration_id": "123xyz",
-    // The id of the SIS import if created through SIS. Only included if the user
-    // has permission to manage SIS information.
-    "sis_import_id": 12,
-    // The account's identifier that is sent as context_id in LTI launches.
-    "lti_guid": "123xyz",
-    // The state of the account. Can be 'active' or 'deleted'.
-    "workflow_state": "active"
-};
-
-
-/***/ },
-
-/***/ "./src/__mocks__/mockEnrollment.ts"
-/*!*****************************************!*\
-  !*** ./src/__mocks__/mockEnrollment.ts ***!
-  \*****************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_160999__) {
-
-__nested_webpack_require_160999__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_160999__.d(__nested_webpack_exports__, {
-/* harmony export */   mockEnrollment: () => (/* binding */ mockEnrollment)
-/* harmony export */ });
-/* harmony import */ var _mocks_mockUserData__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_160999__(/*! @/__mocks__/mockUserData */ "./src/__mocks__/mockUserData.ts");
-/* harmony import */ var _enrollments__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_160999__(/*! @/enrollments */ "./src/enrollments/index.ts");
-
-
-const mockEnrollment = {
-    created_at: "",
-    end_at: "",
-    html_url: "",
-    role: (0,_enrollments__WEBPACK_IMPORTED_MODULE_1__.createEnrollmentRole)(""),
-    role_id: 0,
-    root_account_id: 0,
-    start_at: "",
-    total_activity_time: 0,
-    unposted_current_points: 0,
-    updated_at: "",
-    id: 1,
-    user_id: 1,
-    type: 'StudentEnrollment',
-    enrollment_state: 'active',
-    course_id: 1,
-    user: { ..._mocks_mockUserData__WEBPACK_IMPORTED_MODULE_0__.mockUserData, id: 1, name: 'Student Name', sis_user_id: '12345' }
-};
-
-
-/***/ },
-
-/***/ "./src/__mocks__/mockRubricData.ts"
-/*!*****************************************!*\
-  !*** ./src/__mocks__/mockRubricData.ts ***!
-  \*****************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_162322__) {
-
-__nested_webpack_require_162322__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_162322__.d(__nested_webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   mockRubric: () => (/* binding */ mockRubric),
-/* harmony export */   mockRubricAssessment: () => (/* binding */ mockRubricAssessment),
-/* harmony export */   mockRubricAssociation: () => (/* binding */ mockRubricAssociation),
-/* harmony export */   mockRubricsForAssignments: () => (/* binding */ mockRubricsForAssignments)
-/* harmony export */ });
-const mockRubricAssociation = {
-    association_id: 0,
-    association_type: "Assignment",
-    hide_outcome_results: false,
-    hide_points: false,
-    hide_score_total: false,
-    id: 0,
-    purpose: 'grading',
-    rubric_id: 0,
-    use_for_grading: false
-};
-const mockRubricAssessment = {
-    artifact_attempt: 0,
-    artifact_id: 0,
-    artifact_type: "",
-    assessment_type: 'grading',
-    assessor_id: 0,
-    id: 0,
-    rubric_association_id: 0,
-    rubric_id: 0,
-    score: 0
-};
-const mockRubric = {
-    // the ID of the rubric
-    "id": 1,
-    // title of the rubric
-    "title": "some title",
-    // the context owning the rubric
-    "context_id": 1,
-    "context_type": "Course",
-    "points_possible": 10.0,
-    "reusable": false,
-    "read_only": true,
-    "free_form_criterion_comments": true,
-    "hide_score_total": true,
-    "data": null,
-    "assessments": [mockRubricAssessment],
-    "associations": [mockRubricAssociation]
-};
-function mockRubricsForAssignments(assignmentIds, rubricOverride, associationOverride) {
-    return assignmentIds.map((association_id, index) => {
-        const rubric_id = 1000 + index;
-        return {
-            ...mockRubric,
-            id: rubric_id,
-            associations: [{ ...mockRubricAssociation, rubric_id, association_id, ...associationOverride }],
-            ...rubricOverride
-        };
-    });
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (mockRubric);
-
-
-/***/ },
-
-/***/ "./src/__mocks__/mockTabData.ts"
-/*!**************************************!*\
-  !*** ./src/__mocks__/mockTabData.ts ***!
-  \**************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_164568__) {
-
-__nested_webpack_require_164568__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_164568__.d(__nested_webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   mockTabData: () => (/* binding */ mockTabData)
-/* harmony export */ });
-const mockTabData = {
-    full_url: "/api/v1/...",
-    html_url: "http://localhost",
-    id: "0",
-    label: "tab",
-    position: 0,
-    type: "",
-    visibility: ""
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (mockTabData);
-
-
-/***/ },
-
-/***/ "./src/__mocks__/mockTermData.ts"
-/*!***************************************!*\
-  !*** ./src/__mocks__/mockTermData.ts ***!
-  \***************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_165348__) {
-
-__nested_webpack_require_165348__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_165348__.d(__nested_webpack_exports__, {
-/* harmony export */   mockTermData: () => (/* binding */ mockTermData)
-/* harmony export */ });
-const mockTermData = {
-    id: 1,
-    course_count: 0, end_at: "", name: "", start_at: "", workflow_state: "active"
-};
-
-
-/***/ },
-
-/***/ "./src/__mocks__/mockUserData.ts"
-/*!***************************************!*\
-  !*** ./src/__mocks__/mockUserData.ts ***!
-  \***************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_165931__) {
-
-__nested_webpack_require_165931__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_165931__.d(__nested_webpack_exports__, {
-/* harmony export */   mockUserData: () => (/* binding */ mockUserData)
-/* harmony export */ });
-//Generated by ChatGPT-4o
-const mockUserData = {
-    id: 1,
-    name: 'John Doe',
-    sortable_name: 'Doe, John',
-    last_name: 'Doe',
-    first_name: 'John',
-    short_name: 'J. Doe',
-    email: 'john.doe@example.com',
-    bio: 'This is a bio for John Doe.',
-};
-
-
-/***/ },
-
-/***/ "./src/__mocks__/utils.ts"
-/*!********************************!*\
-  !*** ./src/__mocks__/utils.ts ***!
-  \********************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_166631__) {
-
-__nested_webpack_require_166631__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_166631__.d(__nested_webpack_exports__, {
-/* harmony export */   mockAsyncGen: () => (/* binding */ mockAsyncGen),
-/* harmony export */   returnMockAsyncGen: () => (/* binding */ returnMockAsyncGen)
-/* harmony export */ });
-function returnMockAsyncGen(dataSet) {
-    return async function* () {
-        for (const value of dataSet)
-            yield value;
-    };
-}
-function mockAsyncGen(dataSet) {
-    return returnMockAsyncGen(dataSet)();
-}
-
-
-/***/ },
-
-/***/ "./src/baseCanvasObject.ts"
-/*!*********************************!*\
-  !*** ./src/baseCanvasObject.ts ***!
-  \*********************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_167375__) {
-
-__nested_webpack_require_167375__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_167375__.d(__nested_webpack_exports__, {
-/* harmony export */   BaseCanvasObject: () => (/* binding */ BaseCanvasObject)
-/* harmony export */ });
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_167375__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_167375__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_167375__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_167375__(/*! ./fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _fetch_utils__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_167375__(/*! ./fetch/utils */ "./src/fetch/utils.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_167375__(/*! ./fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-
-
-
-
-
-/**
- * DEPRECATED
- */
-class BaseCanvasObject {
-    static idProperty = 'id'; // The field name of the id of the canvas object type
-    static nameProperty = 'name'; // The field name of the primary name of the canvas object type
-    static contentUrlTemplate = null; // A templated url to get a single item
-    static allContentUrlTemplate = null; // A templated url to get all items
-    canvasData;
-    _accountId = null;
-    get accountId() {
-        return this._accountId;
-    }
-    constructor(data) {
-        this.canvasData = data || {}; // A dict holding the decoded json representation of the object in Canvas
-    }
-    getClass() {
-        return this.constructor;
-    }
-    getItem(item) {
-        return this.canvasData[item];
-    }
-    get myClass() {
-        return this.constructor;
-    }
-    get nameKey() {
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(this.myClass.nameProperty);
-        return this.myClass.nameProperty;
-    }
-    get rawData() {
-        return { ...this.canvasData };
-    }
-    get contentUrlPath() {
-        const constructor = this.constructor;
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.accountId === 'number');
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof constructor.contentUrlTemplate === 'string');
-        return '/api/v1/' + constructor.contentUrlTemplate
-            .replace('{content_id}', this.id.toString())
-            .replace('{account_id}', this.accountId.toString());
-    }
-    get htmlContentUrl() {
-        return `${this.contentUrlPath}`;
-    }
-    get data() {
-        return this.canvasData;
-    }
-    static async getDataById(contentId, courseId = null, config = null) {
-        const url = this.getUrlPathFromIds(contentId, courseId);
-        const response = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(!Array.isArray(response));
-        return response;
-    }
-    static getUrlPathFromIds(contentId, courseId) {
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.contentUrlTemplate === 'string');
-        let url = this.contentUrlTemplate
-            .replace('{content_id}', contentId.toString());
-        if (courseId)
-            url = url.replace('{course_id}', courseId.toString());
-        return url;
-    }
-    /**
-     * @param courseId - The course ID to get elements within, if applicable
-     * @param accountId - The account ID to get elements within, if applicable
-     */
-    static getAllUrl(courseId = null, accountId = null) {
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.allContentUrlTemplate === 'string');
-        let replaced = this.allContentUrlTemplate;
-        if (courseId)
-            replaced = replaced.replace('{course_id}', courseId.toString());
-        if (accountId)
-            replaced = replaced.replace('{account_id}', accountId.toString());
-        return replaced;
-    }
-    static async getAll(config = null) {
-        const url = this.getAllUrl();
-        return await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.renderAsyncGen)((0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.getPagedDataGenerator)(this.getAllUrl(), config));
-    }
-    get id() {
-        const id = this.canvasData[this.constructor.idProperty];
-        return parseInt(id);
-    }
-    get name() {
-        const nameProperty = this.getClass().nameProperty;
-        if (!nameProperty)
-            return 'NAME PROPERTY NOT SET';
-        return this.getItem(nameProperty);
-    }
-    async saveData(data, config) {
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(this.contentUrlPath);
-        config = (0,_fetch_utils__WEBPACK_IMPORTED_MODULE_3__.overrideConfig)({
-            fetchInit: {
-                method: 'PUT',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.formDataify)(data)
-            }
-        }, config);
-        let results = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(this.contentUrlPath, config);
-        if (Array.isArray(results))
-            results = results[0];
-        this.canvasData = { ...this.canvasData, ...results };
-        return this.canvasData;
-    }
-}
-
-
-/***/ },
-
-/***/ "./src/canvasDataDefs.ts"
-/*!*******************************!*\
-  !*** ./src/canvasDataDefs.ts ***!
-  \*******************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_172866__) {
-
-__nested_webpack_require_172866__.r(__nested_webpack_exports__);
-
-
-
-/***/ },
-
-/***/ "./src/canvasUtils.ts"
-/*!****************************!*\
-  !*** ./src/canvasUtils.ts ***!
-  \****************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_173124__) {
-
-__nested_webpack_require_173124__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_173124__.d(__nested_webpack_exports__, {
-/* harmony export */   batchGen: () => (/* binding */ batchGen),
-/* harmony export */   batchify: () => (/* binding */ batchify),
-/* harmony export */   callAll: () => (/* binding */ callAll),
-/* harmony export */   courseNameSort: () => (/* binding */ courseNameSort),
-/* harmony export */   deFormDataify: () => (/* binding */ deFormDataify),
-/* harmony export */   deepObjectCopy: () => (/* binding */ deepObjectCopy),
-/* harmony export */   deepObjectMerge: () => (/* binding */ deepObjectMerge),
-/* harmony export */   filterUniqueFunc: () => (/* binding */ filterUniqueFunc),
-/* harmony export */   formDataify: () => (/* binding */ formDataify),
-/* harmony export */   generatorMap: () => (/* binding */ generatorMap),
-/* harmony export */   getItemTypeAndId: () => (/* binding */ getItemTypeAndId),
-/* harmony export */   getPlainTextFromHtml: () => (/* binding */ getPlainTextFromHtml),
-/* harmony export */   numbers: () => (/* binding */ numbers),
-/* harmony export */   parentElement: () => (/* binding */ parentElement),
-/* harmony export */   queryStringify: () => (/* binding */ queryStringify),
-/* harmony export */   range: () => (/* binding */ range),
-/* harmony export */   renderAsyncGen: () => (/* binding */ renderAsyncGen),
-/* harmony export */   searchParamsFromObject: () => (/* binding */ searchParamsFromObject)
-/* harmony export */ });
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_173124__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_173124__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_173124__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-
-
-function isWithParamsFunc(func) {
-    return typeof func === 'function' && func.length > 0;
-}
-function isWithoutParamsFunc(func) {
-    return typeof func === 'function' && func.length === 0;
-}
-function callAll(funcs, params) {
-    const output = [];
-    for (const func of funcs) {
-        if ((typeof func === 'object')) {
-            output.push(func.func(func.params));
-            continue;
-        }
-        if (isWithoutParamsFunc(func)) {
-            output.push(func());
-            continue;
-        }
-        if (isWithParamsFunc(func) && typeof params !== 'undefined') {
-            output.push(func(params));
-        }
-    }
-    return output;
-}
-
-/**
- * Traverses up the DOM and finds a parent with a matching Tag
- * @param el
- * @param tagName
- */
-function parentElement(el, tagName) {
-    if (!el)
-        return null;
-    while (el && el.parentElement) {
-        el = el.parentElement;
-        if (el.tagName && el.tagName.toLowerCase() == tagName) {
-            return el;
-        }
-    }
-    return null;
-}
-const type_lut = {
-    Assignment: 'assignment',
-    Discussion: 'discussion_topic',
-    Quiz: 'quiz',
-    ExternalTool: 'external_tool',
-    File: 'attachment',
-    Page: 'wiki_page',
-    ExternalUrl: null, //Not passable to restrict
-    Subheader: null, //Not passable to restrict
-};
-function formDataify(data) {
-    const formData = new FormData();
-    for (const key in data) {
-        addToFormData(formData, key, data[key]);
-    }
-    if (document) {
-        const el = document.querySelector("input[name='authenticity_token']");
-        const authenticityToken = el ? el.value : null;
-        const cookies = getCookies();
-        let csrfToken = cookies['_csrf_token'];
-        if (authenticityToken)
-            formData.append('authenticity_token', authenticityToken);
-        else if (csrfToken) {
-            csrfToken = csrfToken.replaceAll(/%([0-9A-F]{2})/g, (substring, hex) => {
-                const hexCode = hex;
-                return String.fromCharCode(parseInt(hexCode, 16));
-            });
-            console.log(csrfToken);
-            formData.append('authenticity_token', csrfToken);
-        }
-    }
-    return formData;
-}
-function deepObjectCopy(toCopy, complexObjectsTracker = []) {
-    return deepObjectMerge(toCopy, {}, true, complexObjectsTracker);
-}
-function deepObjectMerge(a, b, overrideWithA = false, complexObjectsTracker = []) {
-    for (const value of [a, b]) {
-        if (typeof value == "object" &&
-            complexObjectsTracker.includes(value))
-            throw new Error(`Infinite Loop: Element ${value} contains itself`);
-    }
-    //if the types don't match
-    if (a && b && (typeof a !== typeof b ||
-        Array.isArray(a) != Array.isArray(b))) {
-        if (a === b)
-            return a;
-        if (overrideWithA)
-            return a;
-        throw new Error(`Type clash on merge ${typeof a} ${a}, ${typeof b} ${b}`);
-    }
-    //If either or both are arrays, merge if able to
-    if (Array.isArray(a)) {
-        if (!b)
-            return deepObjectCopy(a, complexObjectsTracker);
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(Array.isArray(b), "We should not get here if b is not an array");
-        const mergedArray = [...a, ...b];
-        const outputArray = mergedArray.map(value => {
-            if (!value)
-                return value;
-            if (typeof value === 'object' && Object.getPrototypeOf(value) === Object.prototype) {
-                //Make a deep of any object literal
-                if (!value)
-                    return value;
-                value = deepObjectCopy(value, [...complexObjectsTracker, a, b]);
-            }
-            return value;
-        });
-        return outputArray;
-    }
-    if (Array.isArray(b))
-        return deepObjectCopy(b, complexObjectsTracker); //we already know A is not an array at this point, return a deep copy of b
-    if ((a && typeof a === 'object') || (b && typeof b === 'object')) {
-        if (a instanceof File && b instanceof File) {
-            if (!overrideWithA)
-                assert__WEBPACK_IMPORTED_MODULE_0___default()(a.size == b.size && a.name == b.name, `File value clash ${a.name} ${b.name}`);
-            return a;
-        }
-        if (a && Object.getPrototypeOf(a) != Object.prototype
-            || b && Object.getPrototypeOf(b) != Object.prototype) {
-            if (!overrideWithA)
-                assert__WEBPACK_IMPORTED_MODULE_0___default()(!a || !b || a === b, `Non-mergeable object clash ${a} ${b}`);
-            if (a)
-                return a;
-            if (b)
-                return b;
-        }
-        if (a && !b)
-            return deepObjectCopy(a, complexObjectsTracker);
-        if (b && !a)
-            return deepObjectCopy(b, complexObjectsTracker);
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(a && typeof a === 'object' && Object.getPrototypeOf(a) === Object.prototype, "a should always be defined here.");
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(b && typeof b === 'object' && Object.getPrototypeOf(b) === Object.prototype, "b should always be defined here.");
-        const allKeys = [...Object.keys(a), ...Object.keys(b)].filter(filterUniqueFunc);
-        const aRecord = a;
-        const bRecord = b;
-        const entries = allKeys.map((key) => [
-            key,
-            deepObjectMerge(aRecord[key], bRecord[key], overrideWithA, [...complexObjectsTracker, a, b])
-        ]);
-        return Object.fromEntries(entries);
-    }
-    if (a && b) {
-        if (overrideWithA || a === b)
-            return a;
-        throw new Error(`Values unmergeable, ${a}>:${typeof a}, ${b} ${typeof b}`);
-    }
-    if (a)
-        return a;
-    if (b)
-        return b;
-    if (a === null)
-        return a;
-    if (b === null)
-        return b;
-    assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof a === 'undefined');
-    return a;
-}
-function deFormDataify(formData) {
-    return [...formData.entries()].reduce((aggregator, [key, value]) => {
-        const isArray = key.includes('[]');
-        const keys = key.split('[').map(key => key.replaceAll(/[\[\]]/g, ''));
-        if (isArray)
-            keys.pop(); //remove the last, empty, key if it's an array
-        let currentValue = isArray ? [value] : value;
-        while (keys.length > 0) {
-            let newValue;
-            newValue = {
-                [keys.pop()]: currentValue
-            };
-            currentValue = newValue;
-        }
-        return deepObjectMerge(aggregator, currentValue) || { ...aggregator };
-    }, {});
-}
-function getCookies() {
-    const cookieString = document.cookie;
-    const cookies = cookieString.split('; ');
-    const out = {};
-    for (const cookie of cookies) {
-        const [key, value] = cookie.split('=');
-        out[key] = value;
-    }
-    return out;
-}
-/**
- * Adds arrays and objects in the form formData posts expects
- * @param formData
- * @param key
- * @param value
- */
-function addToFormData(formData, key, value) {
-    if (Array.isArray(value)) {
-        for (const item of value) {
-            addToFormData(formData, `${key}[]`, item);
-        }
-    }
-    else if (typeof value === 'object') {
-        for (const itemKey in value) {
-            const itemValue = value[itemKey];
-            addToFormData(formData, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
-        }
-    }
-    else {
-        formData.append(key, value);
-    }
-}
-function queryStringify(data) {
-    const searchParams = new URLSearchParams();
-    for (const key in data) {
-        addToQuery(searchParams, key, data[key]);
-    }
-    return searchParams;
-}
-function addToQuery(searchParams, key, value) {
-    if (Array.isArray(value)) {
-        for (const item of value) {
-            addToQuery(searchParams, `${key}[]`, item);
-        }
-    }
-    else if (typeof value === 'object') {
-        for (const itemKey in value) {
-            const itemValue = value[itemKey];
-            addToQuery(searchParams, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
-        }
-    }
-    else {
-        searchParams.append(key, value);
-    }
-}
-/**
- * Takes in a module item and returns an object specifying its type and content id
- * @param item
- */
-async function getItemTypeAndId(item) {
-    let id;
-    let type;
-    assert__WEBPACK_IMPORTED_MODULE_0___default()(type_lut.hasOwnProperty(item.type), "Unexpected type " + item.type);
-    type = type_lut[item.type];
-    if (type === "wiki_page") {
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(item.url); //wiki_page items always have a url param
-        const pageData = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(item.url);
-        id = pageData.page_id;
-    }
-    else {
-        id = item.content_id;
-    }
-    return { type, id };
-}
-/**
- * @param queryParams
- * @returns {URLSearchParams} The correctly formatted parameters
- */
-function searchParamsFromObject(queryParams) {
-    return queryStringify(queryParams);
-}
-/**
- * sort courses (or course Data) alphabetically by name
- * @param a item to compare.
- * @param b item to compare.
- */
-function courseNameSort(a, b) {
-    if (a.name < b.name)
-        return -1;
-    if (b.name < a.name)
-        return 1;
-    return 0;
-}
-function* range(start, end, step = 1) {
-    if (typeof end === 'undefined') {
-        let i = start;
-        while (true) {
-            yield i;
-            i += step;
-        }
-    }
-    for (let i = start; i <= end; i++) {
-        yield i;
-    }
-}
-function* numbers(start, step = 1) {
-    let i = 0;
-    while (true) {
-        yield i;
-        i += step;
-    }
-}
-function getPlainTextFromHtml(html) {
-    const el = document.createElement('div');
-    el.innerHTML = html;
-    return el.innerText || el.textContent || "";
-}
-function batchify(toBatch, batchSize) {
-    const out = [];
-    for (let i = 0; i < toBatch.length; i += batchSize) {
-        out.push(toBatch.slice(i, i + batchSize));
-    }
-    return out;
-}
-function filterUniqueFunc(item, index, array) {
-    return array.indexOf(item) === index;
-}
-async function* batchGen(generator, batchSize) {
-    if (batchSize <= 0)
-        throw new Error("Batch size cannot be 0 or lower");
-    while (true) {
-        const out = [];
-        for (let i = 0; i < batchSize; i++) {
-            const next = await generator.next();
-            if (next.done) {
-                if (out.length > 0)
-                    yield out;
-                return;
-            }
-            out.push(next.value);
-        }
-        yield out;
-    }
-}
-async function renderAsyncGen(generator) {
-    const out = [];
-    for await (const item of generator) {
-        out.push(item);
-    }
-    return out;
-}
-async function* generatorMap(generator, nextMapFunc) {
-    let i = 0;
-    for await (const value of generator) {
-        yield nextMapFunc(value, i, generator);
-        i++;
-    }
-}
-
-
-/***/ },
-
-/***/ "./src/content/BaseContentItem.ts"
-/*!****************************************!*\
-  !*** ./src/content/BaseContentItem.ts ***!
-  \****************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_186068__) {
-
-__nested_webpack_require_186068__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_186068__.d(__nested_webpack_exports__, {
-/* harmony export */   BaseContentItem: () => (/* binding */ BaseContentItem),
-/* harmony export */   getBannerImage: () => (/* binding */ getBannerImage),
-/* harmony export */   postContentConfig: () => (/* binding */ postContentConfig),
-/* harmony export */   putContentConfig: () => (/* binding */ putContentConfig)
-/* harmony export */ });
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_186068__(/*! @canvas/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_186068__(/*! @canvas/baseCanvasObject */ "./src/baseCanvasObject.ts");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_186068__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_186068__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_186068__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_186068__(/*! @canvas/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_186068__(/*! @canvas/course/getCourseIdFromUrl */ "./src/course/getCourseIdFromUrl.ts");
-/* harmony import */ var _canvas_NotImplementedException__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_186068__(/*! @canvas/NotImplementedException */ "./src/NotImplementedException.ts");
-
-
-
-
-
-//import {getResizedBlob} from "@/image";
-
-
-class BaseContentItem extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_1__.BaseCanvasObject {
-    static bodyProperty;
-    static nameProperty = 'name';
-    kind = undefined;
-    _courseId;
-    constructor(canvasData, courseId) {
-        super(canvasData);
-        this._courseId = courseId;
-    }
-    get htmlContentUrl() {
-        return `${this.contentUrlPath}`.replace('/api/v1/', '/');
-    }
-    static get contentUrlPart() {
-        assert__WEBPACK_IMPORTED_MODULE_2___default()(this.allContentUrlTemplate, "Not a content url template");
-        const urlTermMatch = /\/([\w_]+)$/.exec(this.allContentUrlTemplate);
-        if (!urlTermMatch)
-            return null;
-        return urlTermMatch[1];
-    }
-    static async getAllInCourse(courseId, config = null) {
-        const url = this.getAllUrl(courseId);
-        const data = await (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_4__.getPagedData)(url, config);
-        return data.map(item => new this(item, courseId));
-    }
-    static clearAddedContentTags(text) {
-        if (!text)
-            return null;
-        let out = text.replace(/<\/?link[^>]*>/g, '');
-        out = out.replace(/<\/?script[^>]*>/g, '');
-        return out;
-    }
-    static async getFromUrl(url = null, courseId = null) {
-        if (url === null) {
-            url = document.documentURI;
-        }
-        url = url.replace(/\.com/, '.com/api/v1');
-        const data = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url);
-        if (!courseId) {
-            courseId = (0,_canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_5__["default"])(url);
-            if (!courseId)
-                return null;
-        }
-        //If this is a collection of data, we can't process it as a Canvas Object
-        if (Array.isArray(data))
-            return null;
-        assert__WEBPACK_IMPORTED_MODULE_2___default()(!Array.isArray(data));
-        if (data) {
-            return new this(data, courseId);
-        }
-        return null;
-    }
-    static async getById(contentId, courseId) {
-        return new this(await this.getDataById(contentId, courseId), courseId);
-    }
-    get bodyKey() {
-        return this.myClass.bodyProperty;
-    }
-    get body() {
-        if (!this.bodyKey)
-            return null;
-        return this.myClass.clearAddedContentTags(this.canvasData[this.bodyKey]);
-    }
-    get dueAt() {
-        if (!this.canvasData.hasOwnProperty('due_at')) {
-            return null;
-        }
-        if (!this.canvasData.due_at)
-            return null;
-        return new Date(this.canvasData.due_at);
-    }
-    async setDueAt(date) {
-        throw new _canvas_NotImplementedException__WEBPACK_IMPORTED_MODULE_6__.NotImplementedException();
-    }
-    async dueAtTimeDelta(timeDelta) {
-        if (!this.dueAt)
-            return null;
-        const result = new Date(this.dueAt);
-        result.setDate(result.getDate() + timeDelta);
-        return await this.setDueAt(result);
-    }
-    get contentUrlPath() {
-        let url = this.constructor.contentUrlTemplate;
-        assert__WEBPACK_IMPORTED_MODULE_2___default()(url);
-        url = url.replace('{course_id}', this.courseId.toString());
-        url = url.replace('{content_id}', this.id.toString());
-        return url;
-    }
-    get courseId() {
-        return this._courseId;
-    }
-    async updateContent(text, name, config) {
-        const data = {};
-        const constructor = this.constructor;
-        assert__WEBPACK_IMPORTED_MODULE_2___default()(constructor.bodyProperty);
-        assert__WEBPACK_IMPORTED_MODULE_2___default()(constructor.nameProperty);
-        const nameProp = constructor.nameProperty;
-        const bodyProp = constructor.bodyProperty;
-        if (text && bodyProp) {
-            this.canvasData[bodyProp] = text;
-            data[bodyProp] = text;
-        }
-        if (name && nameProp) {
-            this.canvasData[nameProp] = name;
-            data[nameProp] = name;
-        }
-        return this.saveData(data, config);
-    }
-    async getMeInAnotherCourse(targetCourseId) {
-        const ContentClass = this.constructor;
-        const targets = await ContentClass.getAllInCourse(targetCourseId, { queryParams: { search_term: this.name } });
-        return targets.find((target) => target.name == this.name);
-    }
-    getAllLinks() {
-        const el = this.bodyAsElement;
-        const anchors = el.querySelectorAll('a');
-        const urls = [];
-        for (const link of anchors)
-            urls.push(link.href);
-        return urls;
-    }
-    get bodyAsElement() {
-        assert__WEBPACK_IMPORTED_MODULE_2___default()(this.body, "This content item has no body property");
-        const el = document.createElement('div');
-        el.innerHTML = this.body;
-        return el;
-    }
-}
-async function getFileDataFromUrl(url, courseId) {
-    const match = /.*\/files\/(\d+)/.exec(url);
-    if (!match)
-        return null;
-    if (match) {
-        const fileId = parseInt(match[1]);
-        return await getFileData(fileId, courseId);
-    }
-}
-function getBannerImage(overviewPage) {
-    const pageBody = document.createElement('html');
-    if (!overviewPage.body)
-        throw new Error(`Content item ${overviewPage.name} has no html body`);
-    pageBody.innerHTML = overviewPage.body;
-    return pageBody.querySelector('.cbt-banner-image img');
-}
-async function getFileData(fileId, courseId) {
-    const url = `/api/v1/courses/${courseId}/files/${fileId}`;
-    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url);
-}
-function putContentConfig(data, config) {
-    return (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.deepObjectMerge)(config, {
-        fetchInit: {
-            method: 'PUT',
-            body: (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.formDataify)(data)
-        }
-    }, true);
-}
-function postContentConfig(data, config) {
-    return (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.deepObjectMerge)(config, {
-        fetchInit: {
-            method: 'POST',
-            body: (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.formDataify)(data)
-        }
-    }, true);
-}
-
-
-/***/ },
-
-/***/ "./src/content/ContentKind.ts"
-/*!************************************!*\
-  !*** ./src/content/ContentKind.ts ***!
-  \************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_194262__) {
-
-__nested_webpack_require_194262__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_194262__.d(__nested_webpack_exports__, {
-/* harmony export */   contentUrlFuncs: () => (/* binding */ contentUrlFuncs),
-/* harmony export */   courseContentUrlFunc: () => (/* binding */ courseContentUrlFunc),
-/* harmony export */   postContentFunc: () => (/* binding */ postContentFunc),
-/* harmony export */   putContentFunc: () => (/* binding */ putContentFunc)
-/* harmony export */ });
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_194262__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_194262__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
-
-
-function contentUrlFuncs(contentUrlPart) {
-    const urlRegex = new RegExp(`courses\/(\\d+)\/${contentUrlPart}/(\\d+)`, 'i');
-    const getApiUrl = courseContentUrlFunc(`/api/v1/courses/{courseId}/${contentUrlPart}/{contentId}`);
-    const getAllApiUrl = (courseId) => `/api/v1/courses/${courseId}/${contentUrlPart}`;
-    const getHtmlUrl = courseContentUrlFunc(`/courses/{courseId}/${contentUrlPart}/{contentId}`);
-    function getCourseAndContentIdFromUrl(url) {
-        const [full, courseId, contentId] = url.match(urlRegex) ?? [undefined, undefined, undefined];
-        return [courseId, contentId].map(a => a ? parseInt(a) : undefined);
-    }
-    const isValidUrl = (url) => typeof url === 'string' && typeof getCourseAndContentIdFromUrl(url)[0] !== 'undefined';
-    return {
-        contentUrlPart,
-        getApiUrl,
-        getAllApiUrl,
-        getHtmlUrl,
-        getCourseAndContentIdFromUrl,
-        isValidUrl,
-    };
-}
-function courseContentUrlFunc(url) {
-    return (courseId, contentId) => url
-        .replaceAll('{courseId}', courseId.toString())
-        .replaceAll('{contentId}', contentId.toString());
-}
-function putContentFunc(getApiUrl) {
-    return async function (courseId, contentId, content, config) {
-        const url = getApiUrl(courseId, contentId);
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url, (0,_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__.putContentConfig)(content, config));
-    };
-}
-function postContentFunc(getApiUrl) {
-    return async function (courseId, content, config) {
-        const url = getApiUrl(courseId);
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url, (0,_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__.postContentConfig)(content, config));
-    };
-}
-
-
-/***/ },
-
-/***/ "./src/content/assignments/Assignment.ts"
-/*!***********************************************!*\
-  !*** ./src/content/assignments/Assignment.ts ***!
-  \***********************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_197125__) {
-
-__nested_webpack_require_197125__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_197125__.d(__nested_webpack_exports__, {
-/* harmony export */   Assignment: () => (/* binding */ Assignment)
-/* harmony export */ });
-/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_197125__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_197125__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_197125__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_197125__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_197125__(/*! @/content/assignments/AssignmentKind */ "./src/content/assignments/AssignmentKind.ts");
-
-
-
-
-class Assignment extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
-    static kind = _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_3__["default"];
-    static nameProperty = 'name';
-    static bodyProperty = 'description';
-    static contentUrlTemplate = "/api/v1/courses/{course_id}/assignments/{content_id}";
-    static allContentUrlTemplate = "/api/v1/courses/{course_id}/assignments";
-    constructor(assignmentData, courseId) {
-        super(assignmentData, courseId);
-    }
-    async setDueAt(dueAt, config) {
-        const sourceDueAt = this.rawData.due_at ? temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(this.rawData.due_at) : null;
-        const targetDueAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(dueAt.toISOString());
-        const payload = {
-            assignment: {
-                due_at: dueAt.toISOString(),
-            }
-        };
-        if (this.rawData.peer_reviews && 'automatic_peer_reviews' in this.rawData) {
-            const peerReviewTime = this.rawData.peer_reviews_assign_at ? temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(this.rawData.peer_reviews_assign_at) : null;
-            assert__WEBPACK_IMPORTED_MODULE_2___default()(sourceDueAt, "Trying to set peer review date without a due date for the assignment.");
-            if (peerReviewTime) {
-                const peerReviewOffset = sourceDueAt.until(peerReviewTime);
-                const newPeerReviewTime = targetDueAt.add(peerReviewOffset);
-                payload.assignment.peer_reviews_assign_at =
-                    new Date(newPeerReviewTime.epochMilliseconds).toISOString();
-            }
-        }
-        const data = await this.saveData(payload, config);
-        this.canvasData['due_at'] = dueAt.toISOString();
-        return data;
-    }
-    get rawData() {
-        return this.canvasData;
-    }
-    async updateContent(text, name, config) {
-        const assignmentData = {};
-        if (text) {
-            assignmentData.description = text;
-            this.rawData.description = text;
-        }
-        if (name) {
-            assignmentData.name = name;
-            this.rawData.name = name;
-        }
-        return await this.saveData({
-            assignment: assignmentData
-        }, config);
-    }
-}
-
-
-/***/ },
-
-/***/ "./src/content/assignments/AssignmentKind.ts"
-/*!***************************************************!*\
-  !*** ./src/content/assignments/AssignmentKind.ts ***!
-  \***************************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_200773__) {
-
-__nested_webpack_require_200773__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_200773__.d(__nested_webpack_exports__, {
-/* harmony export */   AssignmentKind: () => (/* binding */ AssignmentKind),
-/* harmony export */   assignmentUrlFuncs: () => (/* binding */ assignmentUrlFuncs),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_200773__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_200773__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_200773__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
-
-
-
-const assignmentUrlFuncs = (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('assignments');
-const AssignmentKind = {
-    getId: (data) => data.id,
-    dataIsThisKind: (data) => {
-        return 'submission_types' in data;
-    },
-    getName: (data) => data.name,
-    getBody: (data) => data.description,
-    async get(courseId, contentId, config) {
-        const data = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(assignmentUrlFuncs.getApiUrl(courseId, contentId), config);
-        return data;
-    },
-    ...assignmentUrlFuncs,
-    dataGenerator: (courseId, config) => (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(assignmentUrlFuncs.getAllApiUrl(courseId), config),
-    put: (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(assignmentUrlFuncs.getApiUrl),
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AssignmentKind);
-
-
-/***/ },
-
-/***/ "./src/content/assignments/index.ts"
-/*!******************************************!*\
-  !*** ./src/content/assignments/index.ts ***!
-  \******************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_202843__) {
-
-__nested_webpack_require_202843__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_202843__.d(__nested_webpack_exports__, {
-/* harmony export */   assignmentDataGen: () => (/* binding */ assignmentDataGen),
-/* harmony export */   updateAssignmentData: () => (/* binding */ updateAssignmentData),
-/* harmony export */   updateAssignmentDueDates: () => (/* binding */ updateAssignmentDueDates)
-/* harmony export */ });
-/* harmony import */ var _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_202843__(/*! @/content/assignments/AssignmentKind */ "./src/content/assignments/AssignmentKind.ts");
-/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_202843__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
-
-
-const assignmentDataGen = _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__["default"].dataGenerator;
-const updateAssignmentData = _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__["default"].put;
-async function updateAssignmentDueDates(offset, assignments, options) {
-    const promises = [];
-    const returnAssignments = [];
-    let { courseId } = options ?? {};
-    if (!courseId && courseId !== 0) {
-        courseId = assignments[0].course_id;
-    }
-    if (offset === 0 || offset) {
-        for await (const data of assignments) {
-            const assignment = new _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__.Assignment(data, courseId);
-            returnAssignments.push(assignment);
-            promises.push(assignment.dueAtTimeDelta(Number(offset)));
-        }
-    }
-    return returnAssignments;
-}
-
-
-/***/ },
-
-/***/ "./src/content/determineContent.ts"
-/*!*****************************************!*\
-  !*** ./src/content/determineContent.ts ***!
-  \*****************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_204767__) {
-
-__nested_webpack_require_204767__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_204767__.d(__nested_webpack_exports__, {
-/* harmony export */   CONTENT_KINDS: () => (/* binding */ CONTENT_KINDS),
-/* harmony export */   ContentKinds: () => (/* binding */ ContentKinds),
-/* harmony export */   getContentClassFromUrl: () => (/* binding */ getContentClassFromUrl),
-/* harmony export */   getContentDataFromUrl: () => (/* binding */ getContentDataFromUrl),
-/* harmony export */   getContentItemFromUrl: () => (/* binding */ getContentItemFromUrl),
-/* harmony export */   getContentKindFromContent: () => (/* binding */ getContentKindFromContent),
-/* harmony export */   getContentKindFromUrl: () => (/* binding */ getContentKindFromUrl)
-/* harmony export */ });
-/* harmony import */ var _content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_204767__(/*! @/content/quizzes/Quiz */ "./src/content/quizzes/Quiz.ts");
-/* harmony import */ var _content_pages_Page__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_204767__(/*! @/content/pages/Page */ "./src/content/pages/Page.ts");
-/* harmony import */ var _content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_204767__(/*! @/content/discussions/Discussion */ "./src/content/discussions/Discussion.ts");
-/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_204767__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
-/* harmony import */ var _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_204767__(/*! @/content/assignments/AssignmentKind */ "./src/content/assignments/AssignmentKind.ts");
-/* harmony import */ var _content_quizzes_QuizKind__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_204767__(/*! @/content/quizzes/QuizKind */ "./src/content/quizzes/QuizKind.ts");
-/* harmony import */ var _content_pages_PageKind__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_204767__(/*! @/content/pages/PageKind */ "./src/content/pages/PageKind.ts");
-/* harmony import */ var _content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_204767__(/*! @/content/discussions/DiscussionKind */ "./src/content/discussions/DiscussionKind.ts");
-
-
-
-
-
-
-
-
-const CONTENT_KINDS = [
-    _content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_7__["default"],
-    _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_4__["default"],
-    _content_pages_PageKind__WEBPACK_IMPORTED_MODULE_6__["default"],
-    _content_quizzes_QuizKind__WEBPACK_IMPORTED_MODULE_5__["default"],
-];
-const ContentKinds = {
-    fromUrl: getContentKindFromUrl,
-    fromContent: getContentKindFromContent,
-    getBody(contentData) {
-        const kind = getContentKindFromContent(contentData);
-        return (kind?.getBody)(contentData);
-    }
-};
-function getContentClassFromUrl(url = null) {
-    if (!url)
-        url = document.documentURI;
-    for (const class_ of [_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_3__.Assignment, _content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_0__.Quiz, _content_pages_Page__WEBPACK_IMPORTED_MODULE_1__.Page, _content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_2__.Discussion]) {
-        if (class_.contentUrlPart && url.includes(class_.contentUrlPart))
-            return class_;
-    }
-    return null;
-}
-async function getContentItemFromUrl(url = null) {
-    const ContentClass = getContentClassFromUrl(url);
-    if (!ContentClass)
-        return null;
-    return await ContentClass.getFromUrl(url);
-}
-function getContentKindFromUrl(url) {
-    return CONTENT_KINDS.find(a => a.isValidUrl(url));
-}
-function getContentKindFromContent(contentData) {
-    const result = CONTENT_KINDS.find(a => a.dataIsThisKind(contentData));
-    function typeGuard(result) {
-        return true;
-    }
-    if (!typeGuard(result))
-        throw new Error("Faulty content type coercion");
-    return result;
-}
-async function getContentDataFromUrl(url, config) {
-    const kind = getContentKindFromUrl(url);
-    if (!kind)
-        return;
-    const [courseId, id] = kind.getCourseAndContentIdFromUrl(url);
-    if (!courseId || !id)
-        return;
-    return await kind.get(courseId, id, config);
-}
-
-
-/***/ },
-
-/***/ "./src/content/discussions/Discussion.ts"
-/*!***********************************************!*\
-  !*** ./src/content/discussions/Discussion.ts ***!
-  \***********************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_209218__) {
-
-__nested_webpack_require_209218__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_209218__.d(__nested_webpack_exports__, {
-/* harmony export */   Discussion: () => (/* binding */ Discussion)
-/* harmony export */ });
-/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_209218__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_209218__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
-/* harmony import */ var _content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_209218__(/*! @/content/discussions/DiscussionKind */ "./src/content/discussions/DiscussionKind.ts");
-
-
-
-class Discussion extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
-    static kindInfo = _content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_2__["default"];
-    static nameProperty = 'title';
-    static bodyProperty = 'message';
-    static contentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics/{content_id}";
-    static allContentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics";
-    async offsetPublishDelay(days, config) {
-        const data = this.rawData;
-        if (!this.rawData.delayed_post_at)
-            return;
-        let delayedPostAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(this.rawData.delayed_post_at).toZonedDateTimeISO('UTC');
-        delayedPostAt = delayedPostAt.add({ days });
-        const payload = {
-            delayed_post_at: new Date(delayedPostAt.epochMilliseconds).toISOString()
-        };
-        await this.saveData(payload, config);
-    }
-    get rawData() {
-        return this.canvasData;
-    }
-}
-
-
-/***/ },
-
-/***/ "./src/content/discussions/DiscussionKind.ts"
-/*!***************************************************!*\
-  !*** ./src/content/discussions/DiscussionKind.ts ***!
-  \***************************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_211309__) {
-
-__nested_webpack_require_211309__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_211309__.d(__nested_webpack_exports__, {
-/* harmony export */   DiscussionKind: () => (/* binding */ DiscussionKind),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   discussionUrlFuncs: () => (/* binding */ discussionUrlFuncs)
-/* harmony export */ });
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_211309__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_211309__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_211309__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
-
-
-
-const discussionUrlFuncs = (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('discussion_topics');
-const DiscussionKind = {
-    ...discussionUrlFuncs,
-    dataIsThisKind(data) {
-        return data.hasOwnProperty('discussion_type');
-    },
-    getId: (data) => data.id,
-    getName: (data) => data.title,
-    getBody: (data) => data.message,
-    async get(courseId, contentId, config) {
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(discussionUrlFuncs.getApiUrl(courseId, contentId), config);
-    },
-    dataGenerator: (courseId, config) => (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(discussionUrlFuncs.getAllApiUrl(courseId), config),
-    put: (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(discussionUrlFuncs.getApiUrl),
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DiscussionKind);
-
-
-/***/ },
-
-/***/ "./src/content/discussions/index.ts"
-/*!******************************************!*\
-  !*** ./src/content/discussions/index.ts ***!
-  \******************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_213362__) {
-
-__nested_webpack_require_213362__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_213362__.d(__nested_webpack_exports__, {
-/* harmony export */   Discussion: () => (/* reexport safe */ _Discussion__WEBPACK_IMPORTED_MODULE_0__.Discussion),
-/* harmony export */   DiscussionKind: () => (/* reexport safe */ _DiscussionKind__WEBPACK_IMPORTED_MODULE_1__.DiscussionKind),
-/* harmony export */   discussionUrlFuncs: () => (/* reexport safe */ _DiscussionKind__WEBPACK_IMPORTED_MODULE_1__.discussionUrlFuncs)
-/* harmony export */ });
-/* harmony import */ var _Discussion__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_213362__(/*! ./Discussion */ "./src/content/discussions/Discussion.ts");
-/* harmony import */ var _DiscussionKind__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_213362__(/*! ./DiscussionKind */ "./src/content/discussions/DiscussionKind.ts");
-
-
-
-
-/***/ },
-
-/***/ "./src/content/getContentFuncs.ts"
-/*!****************************************!*\
-  !*** ./src/content/getContentFuncs.ts ***!
-  \****************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_214455__) {
-
-__nested_webpack_require_214455__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_214455__.d(__nested_webpack_exports__, {
-/* harmony export */   getExternalLinks: () => (/* binding */ getExternalLinks),
-/* harmony export */   getFileLinks: () => (/* binding */ getFileLinks)
-/* harmony export */ });
-function getAllLinks(body) {
-    const el = bodyAsElement(body);
-    const anchors = el.querySelectorAll('a');
-    const urls = [];
-    for (const link of anchors)
-        urls.push(link.href);
-    return urls;
-}
-function bodyAsElement(body) {
-    const el = document.createElement('div');
-    el.innerHTML = body;
-    return el;
-}
-function getFileLinks(body, courseId) {
-    return getAllLinks(body).filter(a => a.match(/instructure\.com.*files\/\d+/i)).map(a => a.split('?')[0]);
-}
-function getExternalLinks(body, courseId) {
-    // Correct regex to exclude unity.instructure.com links properly
-    return getAllLinks(body).filter(a => !a.match(/:\/\/unity\.instructure\.com\//i));
-}
-
-
-/***/ },
-
-/***/ "./src/content/index.ts"
-/*!******************************!*\
-  !*** ./src/content/index.ts ***!
-  \******************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_215650__) {
-
-__nested_webpack_require_215650__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_215650__.d(__nested_webpack_exports__, {
-/* harmony export */   BaseContentItem: () => (/* reexport safe */ _BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem),
-/* harmony export */   CONTENT_KINDS: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.CONTENT_KINDS),
-/* harmony export */   ContentKinds: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.ContentKinds),
-/* harmony export */   Discussion: () => (/* reexport safe */ _discussions__WEBPACK_IMPORTED_MODULE_8__.Discussion),
-/* harmony export */   DiscussionKind: () => (/* reexport safe */ _discussions__WEBPACK_IMPORTED_MODULE_8__.DiscussionKind),
-/* harmony export */   Page: () => (/* reexport safe */ _pages__WEBPACK_IMPORTED_MODULE_6__.Page),
-/* harmony export */   PageKind: () => (/* reexport safe */ _pages__WEBPACK_IMPORTED_MODULE_6__.PageKind),
-/* harmony export */   PageUrlFuncs: () => (/* reexport safe */ _pages__WEBPACK_IMPORTED_MODULE_6__.PageUrlFuncs),
-/* harmony export */   assignmentDataGen: () => (/* reexport safe */ _assignments__WEBPACK_IMPORTED_MODULE_9__.assignmentDataGen),
-/* harmony export */   contentUrlFuncs: () => (/* reexport safe */ _ContentKind__WEBPACK_IMPORTED_MODULE_4__.contentUrlFuncs),
-/* harmony export */   courseContentUrlFunc: () => (/* reexport safe */ _ContentKind__WEBPACK_IMPORTED_MODULE_4__.courseContentUrlFunc),
-/* harmony export */   discussionUrlFuncs: () => (/* reexport safe */ _discussions__WEBPACK_IMPORTED_MODULE_8__.discussionUrlFuncs),
-/* harmony export */   getBannerImage: () => (/* reexport safe */ _BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.getBannerImage),
-/* harmony export */   getContentClassFromUrl: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.getContentClassFromUrl),
-/* harmony export */   getContentDataFromUrl: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.getContentDataFromUrl),
-/* harmony export */   getContentItemFromUrl: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.getContentItemFromUrl),
-/* harmony export */   getContentKindFromContent: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.getContentKindFromContent),
-/* harmony export */   getContentKindFromUrl: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.getContentKindFromUrl),
-/* harmony export */   getExternalLinks: () => (/* reexport safe */ _getContentFuncs__WEBPACK_IMPORTED_MODULE_3__.getExternalLinks),
-/* harmony export */   getFileLinks: () => (/* reexport safe */ _getContentFuncs__WEBPACK_IMPORTED_MODULE_3__.getFileLinks),
-/* harmony export */   learningMaterialsForModule: () => (/* reexport safe */ _pages__WEBPACK_IMPORTED_MODULE_6__.learningMaterialsForModule),
-/* harmony export */   openThisContentInTarget: () => (/* reexport safe */ _openThisContentInTarget__WEBPACK_IMPORTED_MODULE_5__.openThisContentInTarget),
-/* harmony export */   postContentConfig: () => (/* reexport safe */ _BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.postContentConfig),
-/* harmony export */   postContentFunc: () => (/* reexport safe */ _ContentKind__WEBPACK_IMPORTED_MODULE_4__.postContentFunc),
-/* harmony export */   putContentConfig: () => (/* reexport safe */ _BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.putContentConfig),
-/* harmony export */   putContentFunc: () => (/* reexport safe */ _ContentKind__WEBPACK_IMPORTED_MODULE_4__.putContentFunc),
-/* harmony export */   updateAssignmentData: () => (/* reexport safe */ _assignments__WEBPACK_IMPORTED_MODULE_9__.updateAssignmentData),
-/* harmony export */   updateAssignmentDueDates: () => (/* reexport safe */ _assignments__WEBPACK_IMPORTED_MODULE_9__.updateAssignmentDueDates)
-/* harmony export */ });
-/* harmony import */ var _BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_215650__(/*! ./BaseContentItem */ "./src/content/BaseContentItem.ts");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_215650__(/*! ./types */ "./src/content/types.ts");
-/* harmony import */ var _determineContent__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_215650__(/*! ./determineContent */ "./src/content/determineContent.ts");
-/* harmony import */ var _getContentFuncs__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_215650__(/*! ./getContentFuncs */ "./src/content/getContentFuncs.ts");
-/* harmony import */ var _ContentKind__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_215650__(/*! ./ContentKind */ "./src/content/ContentKind.ts");
-/* harmony import */ var _openThisContentInTarget__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_215650__(/*! ./openThisContentInTarget */ "./src/content/openThisContentInTarget.ts");
-/* harmony import */ var _pages__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_215650__(/*! ./pages */ "./src/content/pages/index.ts");
-/* harmony import */ var _quizzes__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_215650__(/*! ./quizzes */ "./src/content/quizzes/index.ts");
-/* harmony import */ var _discussions__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_215650__(/*! ./discussions */ "./src/content/discussions/index.ts");
-/* harmony import */ var _assignments__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_215650__(/*! ./assignments */ "./src/content/assignments/index.ts");
-
-
-
-
-
-
-
-
-
-
-
-
-/***/ },
-
-/***/ "./src/content/openThisContentInTarget.ts"
-/*!************************************************!*\
-  !*** ./src/content/openThisContentInTarget.ts ***!
-  \************************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_221261__) {
-
-__nested_webpack_require_221261__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_221261__.d(__nested_webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   openThisContentInTarget: () => (/* binding */ openThisContentInTarget)
-/* harmony export */ });
-/* harmony import */ var _content_determineContent__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_221261__(/*! @/content/determineContent */ "./src/content/determineContent.ts");
-
-function getIdOrCourse(courseOrId) {
-    if (typeof courseOrId === 'object')
-        return courseOrId.id;
-    return courseOrId;
-}
-const openThisContentInTarget = async function (currentCourse, target) {
-    if (!window)
-        return;
-    const currentCourseId = getIdOrCourse(currentCourse);
-    const targetCourseIds = Array.isArray(target) ? target.map(getIdOrCourse) : [getIdOrCourse(target)];
-    const currentContentItem = await (0,_content_determineContent__WEBPACK_IMPORTED_MODULE_0__.getContentItemFromUrl)(document.documentURI);
-    const targetInfos = targetCourseIds.map((targetCourseId) => {
-        return {
-            courseId: targetCourseId,
-            contentItemPromise: currentContentItem?.getMeInAnotherCourse(targetCourseId)
-        };
-    });
-    for (const { courseId, contentItemPromise } of targetInfos) {
-        const targetContentItem = await contentItemPromise;
-        if (targetContentItem) {
-            window.open(targetContentItem.htmlContentUrl);
-        }
-        else {
-            const url = document.URL.replace(currentCourseId.toString(), courseId.toString());
-            window.open(url);
-        }
-    }
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (openThisContentInTarget);
-
-
-/***/ },
-
-/***/ "./src/content/pages/Page.ts"
-/*!***********************************!*\
-  !*** ./src/content/pages/Page.ts ***!
-  \***********************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_223225__) {
-
-__nested_webpack_require_223225__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_223225__.d(__nested_webpack_exports__, {
-/* harmony export */   Page: () => (/* binding */ Page)
-/* harmony export */ });
-/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_223225__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
-/* harmony import */ var _content_pages_PageKind__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_223225__(/*! @/content/pages/PageKind */ "./src/content/pages/PageKind.ts");
-
-
-class Page extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
-    static kindInfo = _content_pages_PageKind__WEBPACK_IMPORTED_MODULE_1__["default"];
-    static idProperty = 'page_id';
-    static nameProperty = 'title';
-    static bodyProperty = 'body';
-    static contentUrlTemplate = "/api/v1/courses/{course_id}/pages/{content_id}";
-    static allContentUrlTemplate = "/api/v1/courses/{course_id}/pages";
-    constructor(canvasData, courseId) {
-        super(canvasData, courseId);
-    }
-    get body() {
-        return this.canvasData[this.bodyKey];
-    }
-    async updateContent(text, name, config) {
-        const data = {};
-        if (text) {
-            this.canvasData[this.bodyKey] = text;
-            data['wiki_page[body]'] = text;
-        }
-        if (name) {
-            this.canvasData[this.nameKey] = name;
-            data[this.nameKey] = name;
-        }
-        return this.saveData(data, config);
-    }
-}
-
-
-/***/ },
-
-/***/ "./src/content/pages/PageKind.ts"
-/*!***************************************!*\
-  !*** ./src/content/pages/PageKind.ts ***!
-  \***************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_224968__) {
-
-__nested_webpack_require_224968__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_224968__.d(__nested_webpack_exports__, {
-/* harmony export */   PageKind: () => (/* binding */ PageKind),
-/* harmony export */   PageUrlFuncs: () => (/* binding */ PageUrlFuncs),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_224968__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_224968__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_224968__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
-
-
-
-const PageUrlFuncs = (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('pages');
-const getStringApiUrl = (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.courseContentUrlFunc)(`/api/v1/courses/{courseId}/pages/{contentId}`);
-const PageKind = {
-    ...PageUrlFuncs,
-    dataIsThisKind: (data) => {
-        return 'page_id' in data;
-    },
-    getName: page => page.title,
-    getBody: page => page.body,
-    getId: page => page.id,
-    get: (id, courseId, config) => (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(PageUrlFuncs.getApiUrl(courseId, id), config),
-    getByString: (courseId, contentId, config) => (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(getStringApiUrl(courseId, contentId), config),
-    dataGenerator: (courseId, config = { queryParams: { include: ['body'] } }) => (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(PageUrlFuncs.getAllApiUrl(courseId), config),
-    put: (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(PageUrlFuncs.getApiUrl),
-    post: (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.postContentFunc)(PageUrlFuncs.getAllApiUrl),
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PageKind);
-
-
-/***/ },
-
-/***/ "./src/content/pages/index.ts"
-/*!************************************!*\
-  !*** ./src/content/pages/index.ts ***!
-  \************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_227303__) {
-
-__nested_webpack_require_227303__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_227303__.d(__nested_webpack_exports__, {
-/* harmony export */   Page: () => (/* reexport safe */ _Page__WEBPACK_IMPORTED_MODULE_1__.Page),
-/* harmony export */   PageKind: () => (/* reexport safe */ _PageKind__WEBPACK_IMPORTED_MODULE_2__.PageKind),
-/* harmony export */   PageUrlFuncs: () => (/* reexport safe */ _PageKind__WEBPACK_IMPORTED_MODULE_2__.PageUrlFuncs),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   learningMaterialsForModule: () => (/* reexport safe */ _learningMaterialsForModule__WEBPACK_IMPORTED_MODULE_0__.learningMaterialsForModule)
-/* harmony export */ });
-/* harmony import */ var _learningMaterialsForModule__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_227303__(/*! ./learningMaterialsForModule */ "./src/content/pages/learningMaterialsForModule.ts");
-/* harmony import */ var _Page__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_227303__(/*! ./Page */ "./src/content/pages/Page.ts");
-/* harmony import */ var _PageKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_227303__(/*! ./PageKind */ "./src/content/pages/PageKind.ts");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_227303__(/*! ./types */ "./src/content/pages/types.ts");
-
-
-
-
-
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-    learningMaterialsForModule: _learningMaterialsForModule__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Page: _Page__WEBPACK_IMPORTED_MODULE_1__.Page,
-    PageKind: _PageKind__WEBPACK_IMPORTED_MODULE_2__["default"],
-    ..._types__WEBPACK_IMPORTED_MODULE_3__,
-});
-
-
-/***/ },
-
-/***/ "./src/content/pages/learningMaterialsForModule.ts"
-/*!*********************************************************!*\
-  !*** ./src/content/pages/learningMaterialsForModule.ts ***!
-  \*********************************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_229259__) {
-
-__nested_webpack_require_229259__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_229259__.d(__nested_webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   learningMaterialsForModule: () => (/* binding */ learningMaterialsForModule)
-/* harmony export */ });
-/* harmony import */ var _canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_229259__(/*! @canvas/content/pages/PageKind */ "./src/content/pages/PageKind.ts");
-
-async function* learningMaterialsForModule(courseId, module) {
-    const lmItems = module.items.filter(a => a.title.match(/learning materials/i));
-    for await (const item of lmItems) {
-        const page = await _canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_0__["default"].get(courseId, item.content_id);
-        yield { item, page };
-    }
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (learningMaterialsForModule);
-
-
-/***/ },
-
-/***/ "./src/content/pages/types.ts"
-/*!************************************!*\
-  !*** ./src/content/pages/types.ts ***!
-  \************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_230440__) {
-
-__nested_webpack_require_230440__.r(__nested_webpack_exports__);
-
-
-
-/***/ },
-
-/***/ "./src/content/quizzes/Quiz.ts"
-/*!*************************************!*\
-  !*** ./src/content/quizzes/Quiz.ts ***!
-  \*************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_230734__) {
-
-__nested_webpack_require_230734__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_230734__.d(__nested_webpack_exports__, {
-/* harmony export */   Quiz: () => (/* binding */ Quiz)
-/* harmony export */ });
-/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_230734__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_230734__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_230734__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
-
-
-
-class Quiz extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
-    static nameProperty = 'title';
-    static bodyProperty = 'description';
-    static contentUrlTemplate = "/api/v1/courses/{course_id}/quizzes/{content_id}";
-    static allContentUrlTemplate = "/api/v1/courses/{course_id}/quizzes";
-    async setDueAt(date) {
-        const url = `/api/v1/courses/${this.courseId}/quizzes/${this.id}`;
-        return (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url, {
-            fetchInit: {
-                method: 'PUT',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({
-                    quiz: {
-                        due_at: date
-                    }
-                })
-            }
-        });
-    }
-}
-
-
-/***/ },
-
-/***/ "./src/content/quizzes/QuizKind.ts"
-/*!*****************************************!*\
-  !*** ./src/content/quizzes/QuizKind.ts ***!
-  \*****************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_232433__) {
-
-__nested_webpack_require_232433__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_232433__.d(__nested_webpack_exports__, {
-/* harmony export */   QuizKind: () => (/* binding */ QuizKind),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   quizUrlFuncs: () => (/* binding */ quizUrlFuncs)
-/* harmony export */ });
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_232433__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_232433__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_232433__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
-
-
-
-const quizUrlFuncs = (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('quizzes');
-const QuizKind = {
-    getId: (data) => data.id,
-    getName: (data) => data.title,
-    dataIsThisKind: (data) => 'quiz_type' in data,
-    getBody: (data) => data.description,
-    async get(courseId, contentId, config) {
-        const data = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(quizUrlFuncs.getApiUrl(courseId, contentId), config);
-        return data;
-    },
-    ...quizUrlFuncs,
-    dataGenerator: (courseId, config) => (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(quizUrlFuncs.getAllApiUrl(courseId), config),
-    put: (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(quizUrlFuncs.getApiUrl),
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (QuizKind);
-
-
-/***/ },
-
-/***/ "./src/content/quizzes/index.ts"
-/*!**************************************!*\
-  !*** ./src/content/quizzes/index.ts ***!
-  \**************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_234387__) {
-
-__nested_webpack_require_234387__.r(__nested_webpack_exports__);
-
-
-
-/***/ },
-
-/***/ "./src/content/types.ts"
-/*!******************************!*\
-  !*** ./src/content/types.ts ***!
-  \******************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_234653__) {
-
-__nested_webpack_require_234653__.r(__nested_webpack_exports__);
-
-
-
-/***/ },
-
-/***/ "./src/course/Course.ts"
-/*!******************************!*\
-  !*** ./src/course/Course.ts ***!
-  \******************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_234919__) {
-
-__nested_webpack_require_234919__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_234919__.d(__nested_webpack_exports__, {
-/* harmony export */   COURSE_CODE_REGEX: () => (/* binding */ COURSE_CODE_REGEX),
-/* harmony export */   Course: () => (/* binding */ Course)
-/* harmony export */ });
-/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_234919__(/*! ../baseCanvasObject */ "./src/baseCanvasObject.ts");
-/* harmony import */ var _blueprint__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_234919__(/*! ./blueprint */ "./src/course/blueprint.ts");
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_234919__(/*! ../canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _changeStartDate__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_234919__(/*! ./changeStartDate */ "./src/course/changeStartDate.ts");
-/* harmony import */ var _modules__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_234919__(/*! ./modules */ "./src/course/modules.ts");
-/* harmony import */ var _profile__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_234919__(/*! ../profile */ "./src/profile.ts");
-/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_234919__(/*! ./toolbox */ "./src/course/toolbox.ts");
-/* harmony import */ var _content_assignments__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_234919__(/*! @/content/assignments */ "./src/content/assignments/index.ts");
-/* harmony import */ var _course_code__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_234919__(/*! @/course/code */ "./src/course/code.ts");
-/* harmony import */ var _term_Term__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_234919__(/*! @/term/Term */ "./src/term/Term.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_234919__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _fetch_utils__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_234919__(/*! @/fetch/utils */ "./src/fetch/utils.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_234919__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_13__ = __nested_webpack_require_234919__(/*! @/course/getCourseIdFromUrl */ "./src/course/getCourseIdFromUrl.ts");
-/* harmony import */ var _content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_14__ = __nested_webpack_require_234919__(/*! @/content/quizzes/Quiz */ "./src/content/quizzes/Quiz.ts");
-/* harmony import */ var _content_pages_Page__WEBPACK_IMPORTED_MODULE_15__ = __nested_webpack_require_234919__(/*! @/content/pages/Page */ "./src/content/pages/Page.ts");
-/* harmony import */ var _content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_16__ = __nested_webpack_require_234919__(/*! @/content/discussions/Discussion */ "./src/content/discussions/Discussion.ts");
-/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_17__ = __nested_webpack_require_234919__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
-/* harmony import */ var _fetch_apiGetConfig__WEBPACK_IMPORTED_MODULE_18__ = __nested_webpack_require_234919__(/*! @/fetch/apiGetConfig */ "./src/fetch/apiGetConfig.ts");
-/* harmony import */ var _canvas_course_cachedGetAssociatedCoursesFunc__WEBPACK_IMPORTED_MODULE_19__ = __nested_webpack_require_234919__(/*! @canvas/course/cachedGetAssociatedCoursesFunc */ "./src/course/cachedGetAssociatedCoursesFunc.ts");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_20__ = __nested_webpack_require_234919__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__nested_webpack_require_234919__.n(assert__WEBPACK_IMPORTED_MODULE_20__);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const HOMETILE_WIDTH = 500;
-const COURSE_CODE_REGEX = /^(.+[^_])?_?(\w{4}\d{3})/i;
-class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
-    static nameProperty = 'name';
-    _modules = undefined;
-    modulesByWeekNumber = undefined;
-    static contentClasses = [_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_17__.Assignment, _content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_16__.Discussion, _content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_14__.Quiz, _content_pages_Page__WEBPACK_IMPORTED_MODULE_15__.Page];
-    isBlueprint;
-    getAssociatedCourses;
-    constructor(data) {
-        console.warn("Course is being deprecated");
-        super(data);
-        this.isBlueprint = (() => (0,_blueprint__WEBPACK_IMPORTED_MODULE_1__.isBlueprint)(data));
-        this.getAssociatedCourses = (0,_canvas_course_cachedGetAssociatedCoursesFunc__WEBPACK_IMPORTED_MODULE_19__.cachedGetAssociatedCoursesFunc)(this);
-    }
-    static async getFromUrl(url = null) {
-        if (url === null) {
-            url = document.documentURI;
-        }
-        const match = /courses\/(\d+)/.exec(url);
-        if (match) {
-            const id = (0,_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_13__["default"])(url);
-            if (!id)
-                return null;
-            return (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getCourseById)(id);
-        }
-        return null;
-    }
-    static async getCourseById(courseId, config = undefined) {
-        const data = await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getCourseData)(courseId, config);
-        return new Course(data);
-    }
-    static async publishAll(courses, accountId) {
-        if (courses.length == 0)
-            return false;
-        const courseIds = courses.map((course) => {
-            if (course instanceof Course) {
-                return course.id;
-            }
-            return course;
-        });
-        const url = `/api/v1/accounts/${accountId}/courses`;
-        const data = {
-            'event': 'offer',
-            'course_ids': courseIds,
-        };
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(url, {
-            fetchInit: {
-                method: 'PUT',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)(data),
-            }
-        });
-    }
-    get contentUrlPath() {
-        return `/api/v1/courses/${this.id}`;
-    }
-    get courseUrl() {
-        return this.htmlContentUrl;
-    }
-    get htmlContentUrl() {
-        return `/courses/${this.id}`;
-    }
-    get parsedCourseCode() {
-        return (0,_course_code__WEBPACK_IMPORTED_MODULE_8__.parseCourseCode)(this.canvasData.course_code);
-    }
-    get courseCode() {
-        return this.canvasData.course_code;
-    }
-    get baseCode() {
-        return (0,_course_code__WEBPACK_IMPORTED_MODULE_8__.baseCourseCode)(this.canvasData.course_code);
-    }
-    get termId() {
-        const id = this.canvasData.enrollment_term_id;
-        if (typeof id === 'number')
-            return id;
-        else
-            return id[0];
-    }
-    async getTerm() {
-        assert__WEBPACK_IMPORTED_MODULE_20___default()(typeof this.termId === 'number');
-        if (this.termId)
-            return _term_Term__WEBPACK_IMPORTED_MODULE_9__.Term.getTermById(this.termId);
-        else
-            return null;
-    }
-    get fileUploadUrl() {
-        return `/api/v1/courses/${this.id}/files`;
-    }
-    get codePrefix() {
-        const match = COURSE_CODE_REGEX.exec(this.rawData.course_code);
-        return match ? match[1] : '';
-    }
-    get workflowState() {
-        return this.canvasData.workflow_state;
-    }
-    get isDev() {
-        return !!this.name.match(/^DEV/);
-    }
-    get rootAccountId() {
-        return this.canvasData.root_account_id;
-    }
-    get accountId() {
-        return this.canvasData.account_id;
-    }
-    async getModules(config) {
-        if (this._modules) {
-            return this._modules;
-        }
-        const modules = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_modules__WEBPACK_IMPORTED_MODULE_4__.moduleGenerator)(this.id, {
-            queryParams: {
-                include: ['items', 'content_details']
-            }
-        }));
-        this._modules = modules;
-        return modules;
-    }
-    async getStartDateFromModules() {
-        return (0,_changeStartDate__WEBPACK_IMPORTED_MODULE_3__.getModuleUnlockStartDate)(await this.getModules());
-    }
-    async getInstructors() {
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`/api/v1/courses/${this.id}/users?enrollment_type=teacher`);
-    }
-    async getLatePolicy(config) {
-        const latePolicyResult = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`/api/v1/courses/${this.id}/late_policy`, config);
-        if ('late_policy' in latePolicyResult)
-            return latePolicyResult.late_policy;
-        return undefined;
-    }
-    async getAvailableGradingStandards(config) {
-        let out = [];
-        console.log(this.name);
-        const { id, account_id, root_account_id } = this.canvasData;
-        try {
-            if (id) {
-                const courseGradingStandards = await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getGradingStandards)(id, "course", config);
-                out = [...out, ...courseGradingStandards];
-            }
-            if (account_id) {
-                const accountGradingStandards = await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getGradingStandards)(account_id, 'account', config);
-                out = [...out, ...accountGradingStandards];
-            }
-            if (root_account_id) {
-                const rootAccountGradingStandards = await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getGradingStandards)(root_account_id, 'account', config);
-                out = [...out, ...rootAccountGradingStandards];
-            }
-        }
-        catch (e) {
-            console.warn(e);
-        }
-        return out.filter(_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.filterUniqueFunc);
-    }
-    async getCurrentGradingStandard(config) {
-        const { grading_standard_id, account_id, root_account_id } = this.canvasData;
-        const urls = [];
-        if (grading_standard_id) {
-            urls.push(`/api/v1/courses/${this.id}/grading_standards/${grading_standard_id}`);
-            if (root_account_id)
-                urls.push(`/api/v1/accounts/${root_account_id}/grading_standards/${grading_standard_id}`);
-            if (account_id)
-                urls.push(`/api/v1/accounts/${account_id}/grading_standards/${grading_standard_id}`);
-        }
-        const standards = (await this.getAvailableGradingStandards(config)).filter(standard => standard.id === grading_standard_id);
-        if (standards.length == 0)
-            return null;
-        return standards[0];
-    }
-    async getModulesByWeekNumber(config) {
-        if (this.modulesByWeekNumber)
-            return this.modulesByWeekNumber;
-        const modules = await this.getModules(config);
-        this.modulesByWeekNumber = await (0,_modules__WEBPACK_IMPORTED_MODULE_4__.getModulesByWeekNumber)(modules);
-        return (this.modulesByWeekNumber);
-    }
-    /**
-     * Returns a list of links to items in a given module
-     *
-     * @param moduleOrWeekNumber
-     * @param target An object specifying an item or items to look for
-     * type - specifies the type,
-     * search - a string to search for in titles. optional.
-     * index - return the indexth one of these in the week (minus the intro in week 1, which should be index 0)
-     * if none is specified, return all matches
-     */
-    async getModuleItemLinks(moduleOrWeekNumber, target) {
-        assert__WEBPACK_IMPORTED_MODULE_20___default()(target.hasOwnProperty('type'));
-        const targetType = target.type;
-        const contentSearchString = target.hasOwnProperty('search') ? target.search : null;
-        let targetIndex = isNaN(target.index) ? null : target.index;
-        let targetModuleWeekNumber;
-        let targetModule;
-        if (typeof moduleOrWeekNumber === 'number') {
-            const modules = await this.getModulesByWeekNumber();
-            assert__WEBPACK_IMPORTED_MODULE_20___default()(modules.hasOwnProperty(moduleOrWeekNumber));
-            targetModuleWeekNumber = moduleOrWeekNumber;
-            targetModule = modules[targetModuleWeekNumber];
-        }
-        else {
-            targetModule = moduleOrWeekNumber;
-            targetModuleWeekNumber = (0,_modules__WEBPACK_IMPORTED_MODULE_4__.getModuleWeekNumber)(targetModule);
-        }
-        const urls = [];
-        if (targetModule && typeof targetType !== 'undefined') {
-            //If it's a page, just search for the parameter string
-            if (targetType === 'Page' && contentSearchString) {
-                const pages = await this.getPages({
-                    queryParams: { search_term: contentSearchString }
-                });
-                pages.forEach((page) => urls.push(page.htmlContentUrl));
-                //If it's anything else, get only those items in the module and set url to the targetIndexth one.
-            }
-            else if (targetType) {
-                //bump index for week 1 to account for intro discussion / checking for rubric would require pulling too much data
-                //and too much performance overhead
-                if (targetIndex && targetType === 'Discussion' && targetModuleWeekNumber === 1)
-                    targetIndex++;
-                const matchingTypeItems = targetModule.items.filter((item) => item.type === targetType);
-                if (targetIndex && matchingTypeItems.length >= targetIndex) {
-                    //We refer to and number the assignments indexed at 1, but the array is indexed at 0
-                    const targetItem = matchingTypeItems[targetIndex - 1];
-                    urls.push(targetItem.html_url);
-                }
-                else if (!targetIndex) {
-                    for (const item of matchingTypeItems)
-                        urls.push(item.html_url);
-                }
-            }
-        }
-        return urls;
-    }
-    async getSyllabus(config = { queryParams: {} }) {
-        if (this.canvasData.syllabus_body)
-            return this.canvasData.syllabus_body;
-        const data = await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getCourseData)(this.id, (0,_fetch_utils__WEBPACK_IMPORTED_MODULE_11__.fetchGetConfig)({ include: ['syllabus_body'] }, config));
-        assert__WEBPACK_IMPORTED_MODULE_20___default()(data.syllabus_body);
-        this.canvasData.syllabus_body = data.syllabus_body;
-        return this.canvasData.syllabus_body;
-    }
-    // /**
-    //  * gets all assignments in a course
-    //  * @returns {Promise<Assignment[]>}
-    //  * @param config
-    //  */
-    async getAssignments(config) {
-        console.warn('deprecated, use assignmentDataGen instead');
-        config = (0,_fetch_utils__WEBPACK_IMPORTED_MODULE_11__.overrideConfig)(config, { queryParams: { include: ['due_at'] } });
-        const assignmentDatas = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_content_assignments__WEBPACK_IMPORTED_MODULE_7__.assignmentDataGen)(this.id, config));
-        return (assignmentDatas.map(data => new _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_17__.Assignment(data, this.id)));
-    }
-    cachedContent = [];
-    async getContent(config, refresh = false) {
-        if (refresh || this.cachedContent.length == 0) {
-            const discussions = await this.getDiscussions(config);
-            const assignments = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_content_assignments__WEBPACK_IMPORTED_MODULE_7__.assignmentDataGen)(this.id, config));
-            const quizzes = await this.getQuizzes(config);
-            const pages = await this.getPages(config);
-            this.cachedContent = [
-                ...discussions,
-                ...assignments.map(a => new _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_17__.Assignment(a, this.id)),
-                ...quizzes,
-                ...pages
-            ];
-        }
-        return this.cachedContent;
-    }
-    async getDiscussions(config) {
-        return await _content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_16__.Discussion.getAllInCourse(this.id, config);
-    }
-    async getAssignmentGroups(config) {
-        return await (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_10__.getPagedData)(`/api/v1/courses/${this.id}/assignment_groups`, config);
-    }
-    async getQuizzes(config) {
-        return await _content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_14__.Quiz.getAllInCourse(this.id, config);
-    }
-    async getSubsections() {
-        const url = `/api/v1/courses/${this.id}/sections`;
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(url);
-    }
-    async getTabs(config) {
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`/api/v1/courses/${this.id}/tabs`, config);
-    }
-    async getFrontPage() {
-        try {
-            const data = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`${this.contentUrlPath}/front_page`);
-            return new _content_pages_Page__WEBPACK_IMPORTED_MODULE_15__.Page(data, this.id);
-        }
-        catch (error) {
-            return null;
-        }
-    }
-    getTab(label) {
-        return this.canvasData.tabs.find((tab) => tab.label === label) || null;
-    }
-    async reload() {
-        const id = this.id;
-        const reloaded = await Course.getCourseById(id);
-        this.canvasData = reloaded.rawData;
-    }
-    async changeSyllabus(newHtml) {
-        this.canvasData['syllabus_body'] = newHtml;
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`/api/v1/courses/${this.id}`, {
-            fetchInit: {
-                method: 'PUT',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({
-                    course: {
-                        syllabus_body: newHtml
-                    }
-                })
-            }
-        });
-    }
-    async publish() {
-        const url = `/api/v1/courses/${this.id}`;
-        const courseData = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(url, {
-            fetchInit: {
-                method: 'PUT',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({ 'offer': true })
-            }
-        });
-        console.log(courseData);
-        this.canvasData = courseData;
-    }
-    get devCode() {
-        return 'DEV_' + this.baseCode;
-    }
-    async getParentCourse(return_dev_search = false) {
-        const migrations = await (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_10__.getPagedData)(`/api/v1/courses/${this.id}/content_migrations`);
-        const parentCode = this.devCode;
-        if (migrations.length < 1) {
-            console.log('no migrations found');
-            if (return_dev_search) {
-                return (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getSingleCourse)(parentCode, this.getAccountIds());
-            }
-            else
-                return;
-        }
-        migrations.sort((a, b) => b.id - a.id);
-        try {
-            for (const migration of migrations) {
-                const course = await Course.getCourseById(migration['settings']['source_course_id']);
-                if (course && course.codePrefix.includes("DEV"))
-                    return course;
-            }
-        }
-        catch (e) {
-            return await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getSingleCourse)(parentCode, this.getAccountIds());
-        }
-        return await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getSingleCourse)(parentCode, this.getAccountIds());
-    }
-    getAccountIds() {
-        return [this.accountId, this.rootAccountId].filter(a => typeof a !== 'undefined' && a !== null);
-    }
-    // async regenerateHomeTiles() {
-    //     const modules = await this.getModules();
-    //     const urls = await Promise.all(modules.map(async (module) => {
-    //         try {
-    //             const dataUrl = await this.generateHomeTile(module)
-    //
-    //         } catch (e) {
-    //             console.log(e);
-    //         }
-    //     }));
-    //     console.log('done');
-    //
-    // }
-    // async generateHomeTile(module: IModuleData) {
-    //     const overviewPage = await getModuleOverview(module, this.id);
-    //     if (!overviewPage) throw new Error("Module does not have an overview");
-    //     const bannerImg = getBannerImage(overviewPage);
-    //     if (!bannerImg) throw new Error("No banner image on page");
-    //     const resizedImageBlob = await getResizedBlob(bannerImg.src, HOMETILE_WIDTH);
-    //     const fileName = `hometile${module.position}.png`;
-    //     assert(resizedImageBlob);
-    //     const file = new File([resizedImageBlob], fileName)
-    //     return await uploadFile(file, 'Images/hometile', this.fileUploadUrl);
-    // }
-    getPages(config = null) {
-        return _content_pages_Page__WEBPACK_IMPORTED_MODULE_15__.Page.getAllInCourse(this.id, config);
-    }
-    async getFrontPageProfile() {
-        const frontPage = await this.getFrontPage();
-        try {
-            assert__WEBPACK_IMPORTED_MODULE_20___default()(frontPage && frontPage.body, "Course front page not found");
-            const frontPageProfile = (0,_profile__WEBPACK_IMPORTED_MODULE_5__.getCurioPageFrontPageProfile)(frontPage?.body);
-            frontPageProfile.sourcePage = frontPage;
-            return frontPageProfile;
-        }
-        catch (e) {
-            return {
-                bio: 'NOT FOUND',
-                sourcePage: frontPage,
-            };
-        }
-    }
-    async getPotentialInstructorProfiles() {
-        try {
-            const instructors = await this.getInstructors();
-            let profiles = [];
-            if (!instructors)
-                return profiles;
-            for (const instructor of instructors) {
-                profiles = profiles.concat(await (0,_profile__WEBPACK_IMPORTED_MODULE_5__.getPotentialFacultyProfiles)(instructor));
-            }
-            return profiles;
-        }
-        catch (e) {
-            return [];
-        }
-    }
-    async getSettings(config) {
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`/api/v1/courses/${this.id}/settings`, config);
-    }
-    async updateSettings(newSettings, config) {
-        const configToUse = (0,_fetch_apiGetConfig__WEBPACK_IMPORTED_MODULE_18__["default"])(newSettings, config);
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`/api/v1/courses/${this.id}/settings`, configToUse);
-    }
-}
-
-
-/***/ },
-
-/***/ "./src/course/IBlueprintCourse.ts"
-/*!****************************************!*\
-  !*** ./src/course/IBlueprintCourse.ts ***!
-  \****************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_257595__) {
-
-__nested_webpack_require_257595__.r(__nested_webpack_exports__);
-
-
-
-/***/ },
-
-/***/ "./src/course/__mocks__/mockCourseData.ts"
-/*!************************************************!*\
-  !*** ./src/course/__mocks__/mockCourseData.ts ***!
-  \************************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_257933__) {
-
-__nested_webpack_require_257933__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_257933__.d(__nested_webpack_exports__, {
-/* harmony export */   mockCourseData: () => (/* binding */ mockCourseData)
-/* harmony export */ });
-/* harmony import */ var _mocks_mockTermData__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_257933__(/*! @/__mocks__/mockTermData */ "./src/__mocks__/mockTermData.ts");
-
-const mockCourseData = {
-    account_id: 0,
-    allow_student_assignment_edits: false,
-    allow_student_forum_attachments: false,
-    allow_wiki_comments: false,
-    apply_assignment_group_weights: false,
-    blueprint: false,
-    blueprint_restrictions: {
-        content: false,
-        points: false,
-        due_dates: false,
-        availability_dates: false
-    },
-    blueprint_restrictions_by_object_type: {},
-    calendar: {},
-    course_code: "BP_TEST000",
-    course_format: "",
-    course_progress: {},
-    created_at: "",
-    default_view: "wiki",
-    end_at: "",
-    enrollment_term_id: 0,
-    enrollments: 0,
-    grading_standard_id: 0,
-    hide_final_grades: false,
-    id: 0,
-    license: "",
-    locale: "",
-    name: "BP_TEST000",
-    open_enrollment: false,
-    original_name: "",
-    permissions: {},
-    public_description: "",
-    restrict_enrollments_to_course_dates: false,
-    root_account_id: 0,
-    self_enrollment: false,
-    start_at: "",
-    storage_quota_mb: 0,
-    storage_quota_used_mb: 0,
-    template: false,
-    term: _mocks_mockTermData__WEBPACK_IMPORTED_MODULE_0__.mockTermData,
-    time_zone: "",
-    uuid: "",
-    workflow_state: 'available'
-};
-
-
-/***/ },
-
-/***/ "./src/course/__mocks__/mockModuleData.ts"
-/*!************************************************!*\
-  !*** ./src/course/__mocks__/mockModuleData.ts ***!
-  \************************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_259789__) {
-
-__nested_webpack_require_259789__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_259789__.d(__nested_webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   mockGradModules: () => (/* binding */ mockGradModules),
-/* harmony export */   mockModuleData: () => (/* binding */ mockModuleData),
-/* harmony export */   mockModuleItemData: () => (/* binding */ mockModuleItemData),
-/* harmony export */   mockUgModules: () => (/* binding */ mockUgModules)
-/* harmony export */ });
-const mockModuleData = {
-    id: 0,
-    items: [],
-    items_count: 0,
-    items_url: "",
-    name: "",
-    position: 0,
-    prerequisite_module_ids: [],
-    published: false,
-    require_sequential_progress: false,
-    state: "",
-    unlock_at: ""
-};
-const mockModuleItemData = {
-    id: 1,
-    module_id: 0,
-    position: 0,
-    title: "string",
-    indent: 0,
-    type: 'Assignment',
-    content_id: 0,
-    url: 'http://localhost:8080',
-    html_url: '',
-    page_url: "https://this.page",
-    new_tab: false,
-    completion_requirement: {
-        type: "must_submit",
-        min_score: 0
-    },
-};
-const mockUgModules = [];
-const mockGradModules = [];
-for (let i = 1; i <= 8; i++) {
-    const module = {
-        ...mockModuleData,
-        name: `Week ${i}`,
-    };
-    const moduleItem = { ...mockModuleItemData,
-        position: i - 1,
-        title: `Week ${i} Overview`
-    };
-    const gradModule = { ...module };
-    gradModule.items = [{ ...moduleItem }];
-    mockGradModules.push(gradModule);
-    if (i <= 5) {
-        const ugModule = { ...module };
-        ugModule.items = [{ ...moduleItem }];
-        mockUgModules.push(ugModule);
-    }
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (mockModuleData);
-
-
-/***/ },
-
-/***/ "./src/course/blueprint.ts"
-/*!*********************************!*\
-  !*** ./src/course/blueprint.ts ***!
-  \*********************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_261780__) {
-
-__nested_webpack_require_261780__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_261780__.d(__nested_webpack_exports__, {
-/* harmony export */   beginBpSync: () => (/* binding */ beginBpSync),
-/* harmony export */   genBlueprintDataForCode: () => (/* binding */ genBlueprintDataForCode),
-/* harmony export */   getBlueprintsFromCode: () => (/* binding */ getBlueprintsFromCode),
-/* harmony export */   isBlueprint: () => (/* binding */ isBlueprint),
-/* harmony export */   lockBlueprint: () => (/* binding */ lockBlueprint),
-/* harmony export */   sectionDataGenerator: () => (/* binding */ sectionDataGenerator),
-/* harmony export */   setAsBlueprint: () => (/* binding */ setAsBlueprint),
-/* harmony export */   unSetAsBlueprint: () => (/* binding */ unSetAsBlueprint)
-/* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_261780__(/*! ../canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_261780__(/*! ./toolbox */ "./src/course/toolbox.ts");
-/* harmony import */ var _course_code__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_261780__(/*! @/course/code */ "./src/course/code.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_261780__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _fetch_utils__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_261780__(/*! @/fetch/utils */ "./src/fetch/utils.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_261780__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_261780__(/*! @/fetch/apiWriteConfig */ "./src/fetch/apiWriteConfig.ts");
-
-
-
-
-
-
-
-function isBlueprint({ blueprint }) {
-    return !!blueprint;
-}
-//W
-function genBlueprintDataForCode(courseCode, accountIds, queryParams) {
-    if (!courseCode) {
-        console.warn("Course code not present");
-        return null;
-    }
-    const baseCode = (0,_course_code__WEBPACK_IMPORTED_MODULE_2__.baseCourseCode)(courseCode);
-    if (!baseCode) {
-        console.warn(`Code ${courseCode} invalid`);
-        return null;
-    }
-    return (0,_toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseDataGenerator)(baseCode, accountIds, undefined, (0,_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.fetchGetConfig)({
-        blueprint: true,
-        include: ['concluded'],
-    }, { queryParams }));
-}
-function sectionDataGenerator(courseId, config) {
-    const url = `/api/v1/courses/${courseId}/blueprint_templates/default/associated_courses`;
-    return (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedDataGenerator)(url, config);
-}
-async function beginBpSync(courseId, { message, copy_settings, config }) {
-    const url = `/api/v1/courses/${courseId}/blueprint_templates/default/migrations`;
-    if (typeof copy_settings === 'undefined')
-        copy_settings = true;
-    return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, (0,_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__["default"])('POST', {
-        message,
-        copy_settings
-    }, config));
-}
-async function getBlueprintsFromCode(code, accountIds, config) {
-    const [_, baseCode] = code.match(/_(\w{4}\d{3})$/) || [];
-    if (!baseCode)
-        return null;
-    const bps = (0,_toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseGenerator)(`BP_${baseCode}`, accountIds, undefined, config);
-    return (await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.renderAsyncGen)(bps)).toSorted((a, b) => b.name.length - a.name.length);
-}
-async function lockBlueprint(courseId, modules) {
-    let items = [];
-    items = items.concat(...modules.map(a => [].concat(...a.items)));
-    const promises = items.map(async (item) => {
-        const url = `/api/v1/courses/${courseId}/blueprint_templates/default/restrict_item`;
-        const { type, id } = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.getItemTypeAndId)(item);
-        if (typeof id === 'undefined')
-            return;
-        const body = {
-            "content_type": type,
-            "content_id": id,
-            "restricted": true,
-            "_method": 'PUT'
-        };
-        await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, {
-            fetchInit: {
-                method: 'PUT',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(body)
-            }
-        });
-    });
-    await Promise.all(promises);
-}
-async function setAsBlueprint(courseId, config) {
-    const url = `/api/v1/courses/${courseId}`;
-    const payload = {
-        course: {
-            blueprint: true,
-            use_blueprint_restrictions_by_object_type: 0,
-            blueprint_restrictions: {
-                content: 1,
-                points: 1,
-                due_dates: 1,
-                availability_dates: 1,
-            }
-        }
-    };
-    return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, (0,_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__["default"])('PUT', payload, config));
-}
-async function unSetAsBlueprint(courseId, config) {
-    const url = `/api/v1/courses/${courseId}`;
-    const payload = {
-        course: {
-            blueprint: false
-        }
-    };
-    return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, (0,_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__["default"])("PUT", payload, config));
-}
-
-
-/***/ },
-
-/***/ "./src/course/cachedGetAssociatedCoursesFunc.ts"
-/*!******************************************************!*\
-  !*** ./src/course/cachedGetAssociatedCoursesFunc.ts ***!
-  \******************************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_267598__) {
-
-__nested_webpack_require_267598__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_267598__.d(__nested_webpack_exports__, {
-/* harmony export */   cachedGetAssociatedCoursesFunc: () => (/* binding */ cachedGetAssociatedCoursesFunc)
-/* harmony export */ });
-/* harmony import */ var _canvas_course_getSections__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_267598__(/*! @canvas/course/getSections */ "./src/course/getSections.ts");
-
-function cachedGetAssociatedCoursesFunc(course) {
-    let cache = null;
-    return async (redownload = false) => {
-        if (!redownload && cache)
-            return cache;
-        cache = await (0,_canvas_course_getSections__WEBPACK_IMPORTED_MODULE_0__.getSections)(course.id);
-        return cache;
-    };
-}
-
-
-/***/ },
-
-/***/ "./src/course/changeStartDate.ts"
-/*!***************************************!*\
-  !*** ./src/course/changeStartDate.ts ***!
-  \***************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_268580__) {
-
-__nested_webpack_require_268580__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_268580__.d(__nested_webpack_exports__, {
-/* harmony export */   MalformedSyllabusError: () => (/* binding */ MalformedSyllabusError),
-/* harmony export */   NoAssignmentsWithDueDatesError: () => (/* binding */ NoAssignmentsWithDueDatesError),
-/* harmony export */   NoOverviewModuleFoundError: () => (/* binding */ NoOverviewModuleFoundError),
-/* harmony export */   getModuleUnlockStartDate: () => (/* binding */ getModuleUnlockStartDate),
-/* harmony export */   getNewTermName: () => (/* binding */ getNewTermName),
-/* harmony export */   getOldUgTermName: () => (/* binding */ getOldUgTermName),
-/* harmony export */   getStartDateAssignments: () => (/* binding */ getStartDateAssignments),
-/* harmony export */   getUpdatedStyleTermName: () => (/* binding */ getUpdatedStyleTermName),
-/* harmony export */   sortAssignmentsByDueDate: () => (/* binding */ sortAssignmentsByDueDate),
-/* harmony export */   syllabusHeaderName: () => (/* binding */ syllabusHeaderName),
-/* harmony export */   updatedDateSyllabusHtml: () => (/* binding */ updatedDateSyllabusHtml)
-/* harmony export */ });
-/* harmony import */ var _date__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_268580__(/*! @/date */ "./src/date.ts");
-/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_268580__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
-
-
-const DEFAULT_LOCALE = 'en-US';
-function getModuleUnlockStartDate(modules) {
-    if (modules.length == 0)
-        throw new NoOverviewModuleFoundError();
-    const overviewModule = modules[0];
-    const unlockDateString = overviewModule.unlock_at;
-    if (!unlockDateString)
-        return null;
-    const oldDate = new Date(unlockDateString);
-    return (0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(oldDate);
-}
-function sortAssignmentsByDueDate(assignments) {
-    return assignments
-        .toSorted((a, b) => {
-        a = a instanceof _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__.Assignment ? a.rawData : a;
-        b = b instanceof _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__.Assignment ? b.rawData : b;
-        if (a.due_at && b.due_at) {
-            return (0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(new Date(b.due_at)).until((0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(new Date(a.due_at))).days;
-        }
-        if (a.due_at)
-            return -1;
-        if (b.due_at)
-            return 1;
-        return 0;
-    });
-}
-function getStartDateAssignments(assignments) {
-    const sorted = sortAssignmentsByDueDate(assignments).map(a => a.rawData ?? a).filter(a => a.due_at);
-    if (sorted.length == 0)
-        throw new NoAssignmentsWithDueDatesError();
-    const firstAssignmentDue = new Date(sorted[0].due_at);
-    //Set to monday of that week.
-    const plainDateDue = (0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(firstAssignmentDue);
-    const dayOfWeekOffset = 1 - plainDateDue.dayOfWeek;
-    return plainDateDue.add({ days: dayOfWeekOffset });
-}
-function getUpdatedStyleTermName(termStart, weekCount, locale = DEFAULT_LOCALE) {
-    const month = termStart.toLocaleString(locale, { month: '2-digit' });
-    const day = termStart.toLocaleString(locale, { day: '2-digit' });
-    const year = termStart.toLocaleString(locale, { year: '2-digit' });
-    return `DE${weekCount}W${month}.${day}.${year}`;
-}
-function getOldUgTermName(termStart, locale = DEFAULT_LOCALE) {
-    const year = termStart.toLocaleString(DEFAULT_LOCALE, { year: '2-digit' });
-    const month = termStart.toLocaleString(DEFAULT_LOCALE, { month: 'short' });
-    return `DE-${year}-${month}`;
-}
-function getNewTermName(oldTermName, newTermStart, locale = DEFAULT_LOCALE) {
-    const [termName, weekCount] = oldTermName.match(/DE(\d)W\d\d\.\d\d\.\d\d/) || [];
-    if (termName)
-        return getUpdatedStyleTermName(newTermStart, weekCount);
-    const termNameUg = oldTermName.match(/(DE(?:.HL|)-\d\d)-(\w+)\w{2}?/i);
-    if (termNameUg)
-        return getUpdatedStyleTermName(newTermStart, 5);
-    throw new MalformedSyllabusError(`Can't Recognize Term Name ${oldTermName}`);
-}
-function updatedDateSyllabusHtml(html, newStartDate, locale = DEFAULT_LOCALE) {
-    const syllabusBody = document.createElement('div');
-    syllabusBody.innerHTML = html;
-    const syllabusCalloutBox = syllabusBody.querySelector('div.cbt-callout-box');
-    if (!syllabusCalloutBox)
-        throw new MalformedSyllabusError("Can't find syllabus callout box");
-    const paras = Array.from(syllabusCalloutBox.querySelectorAll('p'));
-    const strongParas = paras.filter((para) => para.querySelector('strong'));
-    if (strongParas.length < 5)
-        throw new MalformedSyllabusError(`Missing syllabus headers\n${strongParas}`);
-    const [_courseNameEl, termNameEl, datesEl, _instructorNameEl, _instructorContactInfoEl, _creditsEl] = strongParas;
-    const changedText = [];
-    const oldTermName = termNameEl.textContent || '';
-    const oldDates = datesEl.textContent || '';
-    const dateRange = (0,_date__WEBPACK_IMPORTED_MODULE_0__.findDateRange)(datesEl.innerHTML, locale);
-    if (!dateRange)
-        throw new MalformedSyllabusError("Date range not found in syllabus");
-    const courseDuration = dateRange.start.until(dateRange.end);
-    const newEndDate = newStartDate.add(courseDuration);
-    const newTermName = getNewTermName(oldTermName, newStartDate);
-    const dateRangeText = `${dateToSyllabusString(newStartDate)} - ${dateToSyllabusString(newEndDate)}`;
-    termNameEl.innerHTML = `<strong>${syllabusHeaderName(termNameEl)}:</strong><span> ${newTermName}</span>`;
-    datesEl.innerHTML = `<strong>${syllabusHeaderName(datesEl)}:</strong><span> ${dateRangeText}</span>`;
-    changedText.push(`${oldTermName} -> ${termNameEl.textContent}`);
-    changedText.push(`${oldDates} -> ${datesEl.textContent}`);
-    const output = {
-        html: syllabusBody.innerHTML.replaceAll(/<p>\s*(&nbsp;)?<\/p>/ig, ''),
-        changedText,
-    };
-    syllabusBody.remove();
-    return output;
-}
-function dateToSyllabusString(date) {
-    return `${date.toLocaleString(DEFAULT_LOCALE, { month: 'long', day: 'numeric' })}`;
-}
-function syllabusHeaderName(el) {
-    let [_, head] = /([^:]*):/.exec(el.innerHTML) ?? [];
-    head = head?.replaceAll(/<[^>]*>/g, '');
-    return head;
-}
-class NoOverviewModuleFoundError extends Error {
-    name = "NoOverviewModuleFoundError";
-}
-class MalformedSyllabusError extends Error {
-    name = "MalformedSyllabusError";
-}
-class NoAssignmentsWithDueDatesError extends Error {
-    name = "NoAssignmentsWithDueDatesError";
-}
-
-
-/***/ },
-
-/***/ "./src/course/code.ts"
-/*!****************************!*\
-  !*** ./src/course/code.ts ***!
-  \****************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_275461__) {
-
-__nested_webpack_require_275461__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_275461__.d(__nested_webpack_exports__, {
-/* harmony export */   MalformedCourseCodeError: () => (/* binding */ MalformedCourseCodeError),
-/* harmony export */   baseCourseCode: () => (/* binding */ baseCourseCode),
-/* harmony export */   parseCourseCode: () => (/* binding */ parseCourseCode),
-/* harmony export */   stringIsCourseCode: () => (/* binding */ stringIsCourseCode)
-/* harmony export */ });
-/* harmony import */ var _course_Course__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_275461__(/*! @/course/Course */ "./src/course/Course.ts");
-
-function parseCourseCode(code) {
-    const match = _course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
-    if (!match)
-        return null;
-    const prefix = match[1] || "";
-    const courseCode = match[2] || "";
-    if (prefix.length > 0) {
-        return `${prefix}_${courseCode}`;
-    }
-    return courseCode;
-}
-function baseCourseCode(code) {
-    const match = _course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
-    if (!match)
-        return null;
-    return match[2];
-}
-function stringIsCourseCode(code) {
-    return _course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
-}
-class MalformedCourseCodeError extends Error {
-    name = "MalformedCourseCodeError";
-    courseCode;
-    constructor(courseCode, message, options) {
-        if (!message)
-            message = `${courseCode} is not a valid course code`;
-        super(message, options);
-        this.courseCode = courseCode;
-    }
-}
-
-
-/***/ },
-
-/***/ "./src/course/courseTypes.ts"
-/*!***********************************!*\
-  !*** ./src/course/courseTypes.ts ***!
-  \***********************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_277278__) {
-
-__nested_webpack_require_277278__.r(__nested_webpack_exports__);
-
-
-
-/***/ },
-
-/***/ "./src/course/getCourseIdFromUrl.ts"
-/*!******************************************!*\
-  !*** ./src/course/getCourseIdFromUrl.ts ***!
-  \******************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_277592__) {
-
-__nested_webpack_require_277592__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_277592__.d(__nested_webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   getCourseIdFromUrl: () => (/* binding */ getCourseIdFromUrl)
-/* harmony export */ });
-function getCourseIdFromUrl(url) {
-    const match = /courses\/(\d+)/.exec(url);
-    if (match) {
-        return parseInt(match[1]);
-    }
-    return null;
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getCourseIdFromUrl);
-
-
-/***/ },
-
-/***/ "./src/course/getSections.ts"
-/*!***********************************!*\
-  !*** ./src/course/getSections.ts ***!
-  \***********************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_278366__) {
-
-__nested_webpack_require_278366__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_278366__.d(__nested_webpack_exports__, {
-/* harmony export */   getSections: () => (/* binding */ getSections)
-/* harmony export */ });
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_278366__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_278366__(/*! @canvas/course/Course */ "./src/course/Course.ts");
-/* harmony import */ var _canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_278366__(/*! @canvas/course/blueprint */ "./src/course/blueprint.ts");
-
-
-
-async function getSections(courseId, config) {
-    return (await (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.renderAsyncGen)((0,_canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_2__.sectionDataGenerator)(courseId, config))).map(section => new _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__.Course(section));
-}
-
-
-/***/ },
-
-/***/ "./src/course/getTermNameFromSections.ts"
-/*!***********************************************!*\
-  !*** ./src/course/getTermNameFromSections.ts ***!
-  \***********************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_279650__) {
-
-__nested_webpack_require_279650__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_279650__.d(__nested_webpack_exports__, {
-/* harmony export */   getTermNameFromSections: () => (/* binding */ getTermNameFromSections)
-/* harmony export */ });
-async function getTermNameFromSections(sections) {
-    const [section] = sections;
-    if (!section)
-        throw new Error("Cannot determine term name by sections; there are no sections.");
-    const sectionTerm = await section.getTerm();
-    if (!sectionTerm)
-        throw new Error("Section does not have associated term: " + section.name);
-    return sectionTerm.name;
-}
-
-
-/***/ },
-
-/***/ "./src/course/index.ts"
-/*!*****************************!*\
-  !*** ./src/course/index.ts ***!
-  \*****************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_280473__) {
-
-__nested_webpack_require_280473__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_280473__.d(__nested_webpack_exports__, {
-/* harmony export */   COURSE_CODE_REGEX: () => (/* reexport safe */ _Course__WEBPACK_IMPORTED_MODULE_2__.COURSE_CODE_REGEX),
-/* harmony export */   Course: () => (/* reexport safe */ _Course__WEBPACK_IMPORTED_MODULE_2__.Course),
-/* harmony export */   CourseNotFoundException: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.CourseNotFoundException),
-/* harmony export */   NotABlueprintError: () => (/* reexport safe */ _notABlueprintError__WEBPACK_IMPORTED_MODULE_9__.NotABlueprintError),
-/* harmony export */   beginBpSync: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.beginBpSync),
-/* harmony export */   changeModuleLockDate: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.changeModuleLockDate),
-/* harmony export */   createNewCourse: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.createNewCourse),
-/* harmony export */   genBlueprintDataForCode: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.genBlueprintDataForCode),
-/* harmony export */   getBlueprintsFromCode: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.getBlueprintsFromCode),
-/* harmony export */   getCourseById: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseById),
-/* harmony export */   getCourseData: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseData),
-/* harmony export */   getCourseDataGenerator: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseDataGenerator),
-/* harmony export */   getCourseGenerator: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseGenerator),
-/* harmony export */   getCourseIdFromUrl: () => (/* reexport safe */ _getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_4__.getCourseIdFromUrl),
-/* harmony export */   getCourseName: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseName),
-/* harmony export */   getGradingStandards: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getGradingStandards),
-/* harmony export */   getModuleOverview: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.getModuleOverview),
-/* harmony export */   getModuleWeekNumber: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.getModuleWeekNumber),
-/* harmony export */   getModulesByWeekNumber: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.getModulesByWeekNumber),
-/* harmony export */   getSections: () => (/* reexport safe */ _getSections__WEBPACK_IMPORTED_MODULE_5__.getSections),
-/* harmony export */   getSingleCourse: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getSingleCourse),
-/* harmony export */   getTermNameFromSections: () => (/* reexport safe */ _getTermNameFromSections__WEBPACK_IMPORTED_MODULE_6__.getTermNameFromSections),
-/* harmony export */   isAssignmentItemData: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.isAssignmentItemData),
-/* harmony export */   isBlueprint: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.isBlueprint),
-/* harmony export */   isDiscussionItemData: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.isDiscussionItemData),
-/* harmony export */   isPageItemData: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.isPageItemData),
-/* harmony export */   isQuizItemData: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.isQuizItemData),
-/* harmony export */   lockBlueprint: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.lockBlueprint),
-/* harmony export */   moduleGenerator: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.moduleGenerator),
-/* harmony export */   retireBlueprint: () => (/* reexport safe */ _retireBlueprint__WEBPACK_IMPORTED_MODULE_10__.retireBlueprint),
-/* harmony export */   saveCourseData: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.saveCourseData),
-/* harmony export */   saveModuleItem: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.saveModuleItem),
-/* harmony export */   sectionDataGenerator: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.sectionDataGenerator),
-/* harmony export */   setAsBlueprint: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.setAsBlueprint),
-/* harmony export */   setGradingStandardForCourse: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.setGradingStandardForCourse),
-/* harmony export */   unSetAsBlueprint: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.unSetAsBlueprint)
-/* harmony export */ });
-/* harmony import */ var _blueprint__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_280473__(/*! ./blueprint */ "./src/course/blueprint.ts");
-/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_280473__(/*! ./toolbox */ "./src/course/toolbox.ts");
-/* harmony import */ var _Course__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_280473__(/*! ./Course */ "./src/course/Course.ts");
-/* harmony import */ var _courseTypes__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_280473__(/*! ./courseTypes */ "./src/course/courseTypes.ts");
-/* harmony import */ var _getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_280473__(/*! ./getCourseIdFromUrl */ "./src/course/getCourseIdFromUrl.ts");
-/* harmony import */ var _getSections__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_280473__(/*! ./getSections */ "./src/course/getSections.ts");
-/* harmony import */ var _getTermNameFromSections__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_280473__(/*! ./getTermNameFromSections */ "./src/course/getTermNameFromSections.ts");
-/* harmony import */ var _IBlueprintCourse__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_280473__(/*! ./IBlueprintCourse */ "./src/course/IBlueprintCourse.ts");
-/* harmony import */ var _modules__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_280473__(/*! ./modules */ "./src/course/modules.ts");
-/* harmony import */ var _notABlueprintError__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_280473__(/*! ./notABlueprintError */ "./src/course/notABlueprintError.ts");
-/* harmony import */ var _retireBlueprint__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_280473__(/*! ./retireBlueprint */ "./src/course/retireBlueprint.ts");
-
-
-
-
-
-
-
-
-
-
-
-
-
-/***/ },
-
-/***/ "./src/course/modules.ts"
-/*!*******************************!*\
-  !*** ./src/course/modules.ts ***!
-  \*******************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_287087__) {
-
-__nested_webpack_require_287087__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_287087__.d(__nested_webpack_exports__, {
-/* harmony export */   changeModuleLockDate: () => (/* binding */ changeModuleLockDate),
-/* harmony export */   getModuleOverview: () => (/* binding */ getModuleOverview),
-/* harmony export */   getModuleWeekNumber: () => (/* binding */ getModuleWeekNumber),
-/* harmony export */   getModulesByWeekNumber: () => (/* binding */ getModulesByWeekNumber),
-/* harmony export */   isAssignmentItemData: () => (/* binding */ isAssignmentItemData),
-/* harmony export */   isDiscussionItemData: () => (/* binding */ isDiscussionItemData),
-/* harmony export */   isPageItemData: () => (/* binding */ isPageItemData),
-/* harmony export */   isQuizItemData: () => (/* binding */ isQuizItemData),
-/* harmony export */   moduleGenerator: () => (/* binding */ moduleGenerator),
-/* harmony export */   saveModuleItem: () => (/* binding */ saveModuleItem)
-/* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_287087__(/*! ../canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_287087__(/*! @canvas/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_287087__(/*! @canvas/content/pages/Page */ "./src/content/pages/Page.ts");
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_287087__(/*! @canvas/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-
-
-
-
-async function saveModuleItem(courseId, moduleId, moduleItemId, moduleItem) {
-    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(`/api/v1/courses/${courseId}/modules/${moduleId}/modules/items/${moduleItemId}`, {
-        fetchInit: {
-            method: "PUT",
-            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)({ moduleItem: moduleItem }),
-        }
-    });
-}
-function moduleGenerator(courseId, config) {
-    return (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedDataGenerator)(`/api/v1/courses/${courseId}/modules`, config);
-}
-async function changeModuleLockDate(courseId, module, targetDate) {
-    const payload = {
-        module: {
-            unlock_at: targetDate.toString()
-        }
-    };
-    const url = `/api/v1/courses/${courseId}/modules/${module.id}`;
-    const result = (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url, {
-        fetchInit: {
-            method: 'PUT',
-            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(payload)
-        }
-    });
-}
-async function getModuleOverview(module, courseId) {
-    const overview = module.items.find(item => item.type === "Page" &&
-        item.title.toLowerCase().includes('overview'));
-    if (!overview?.url)
-        return; //skip this if it's not an overview
-    const url = overview.url.replace(/.*\/api\/v1/, '/api/v1');
-    const pageData = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url);
-    return new _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_2__.Page(pageData, courseId);
-}
-function getModuleWeekNumber(module) {
-    const regex = /(week|module) (\d+)/i;
-    const match = module.name.match(regex);
-    let weekNumber = !match ? null : Number(match[1]);
-    if (!weekNumber) {
-        for (const moduleItem of module.items) {
-            if (!moduleItem.hasOwnProperty('title')) {
-                continue;
-            }
-            const match = moduleItem.title.match(regex);
-            if (match) {
-                weekNumber = match[2];
-            }
-        }
-    }
-    return weekNumber;
-}
-async function getModulesByWeekNumber(modules) {
-    const modulesByWeekNumber = {};
-    for (const module of modules) {
-        const weekNumber = getModuleWeekNumber(module);
-        if (weekNumber) {
-            modulesByWeekNumber[weekNumber] = module;
-        }
-    }
-    return modulesByWeekNumber;
-}
-const isModuleItemTypeFunc = (typeString) => (item) => {
-    return item.type === typeString;
-};
-const isPageItemData = isModuleItemTypeFunc("Page");
-const isAssignmentItemData = isModuleItemTypeFunc("Assignment");
-const isDiscussionItemData = isModuleItemTypeFunc("Discussion");
-const isQuizItemData = isModuleItemTypeFunc("Quiz");
-
-
-/***/ },
-
-/***/ "./src/course/notABlueprintError.ts"
-/*!******************************************!*\
-  !*** ./src/course/notABlueprintError.ts ***!
-  \******************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_291776__) {
-
-__nested_webpack_require_291776__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_291776__.d(__nested_webpack_exports__, {
-/* harmony export */   NotABlueprintError: () => (/* binding */ NotABlueprintError)
-/* harmony export */ });
-class NotABlueprintError extends Error {
-    name = "NotABlueprintError";
-}
-
-
-/***/ },
-
-/***/ "./src/course/retireBlueprint.ts"
-/*!***************************************!*\
-  !*** ./src/course/retireBlueprint.ts ***!
-  \***************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_292328__) {
-
-__nested_webpack_require_292328__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_292328__.d(__nested_webpack_exports__, {
-/* harmony export */   retireBlueprint: () => (/* binding */ retireBlueprint)
-/* harmony export */ });
-/* harmony import */ var _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_292328__(/*! @canvas/course/Course */ "./src/course/Course.ts");
-/* harmony import */ var _canvas_course_code__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_292328__(/*! @canvas/course/code */ "./src/course/code.ts");
-/* harmony import */ var _canvas_course_notABlueprintError__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_292328__(/*! @canvas/course/notABlueprintError */ "./src/course/notABlueprintError.ts");
-
-
-
-async function retireBlueprint(course, termName, config) {
-    if (!course.parsedCourseCode)
-        throw new _canvas_course_code__WEBPACK_IMPORTED_MODULE_1__.MalformedCourseCodeError(course.courseCode);
-    const isCurrentBlueprint = course.parsedCourseCode?.match('BP_');
-    if (!isCurrentBlueprint)
-        throw new _canvas_course_notABlueprintError__WEBPACK_IMPORTED_MODULE_2__.NotABlueprintError("This blueprint is not named BP_; are you trying to retire a retired blueprint?");
-    const newCode = `BP-${termName}_${course.baseCode}`;
-    const saveData = {};
-    saveData[_canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__.Course.nameProperty] = course.name.replace(course.parsedCourseCode, newCode);
-    saveData['course_code'] = newCode;
-    await course.saveData({
-        course: saveData
-    }, config);
-}
-
-
-/***/ },
-
-/***/ "./src/course/toolbox.ts"
-/*!*******************************!*\
-  !*** ./src/course/toolbox.ts ***!
-  \*******************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_294082__) {
-
-__nested_webpack_require_294082__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_294082__.d(__nested_webpack_exports__, {
-/* harmony export */   CourseNotFoundException: () => (/* binding */ CourseNotFoundException),
-/* harmony export */   createNewCourse: () => (/* binding */ createNewCourse),
-/* harmony export */   getCourseById: () => (/* binding */ getCourseById),
-/* harmony export */   getCourseData: () => (/* binding */ getCourseData),
-/* harmony export */   getCourseDataGenerator: () => (/* binding */ getCourseDataGenerator),
-/* harmony export */   getCourseGenerator: () => (/* binding */ getCourseGenerator),
-/* harmony export */   getCourseName: () => (/* binding */ getCourseName),
-/* harmony export */   getGradingStandards: () => (/* binding */ getGradingStandards),
-/* harmony export */   getSingleCourse: () => (/* binding */ getSingleCourse),
-/* harmony export */   saveCourseData: () => (/* binding */ saveCourseData),
-/* harmony export */   setGradingStandardForCourse: () => (/* binding */ setGradingStandardForCourse)
-/* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_294082__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _Course__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_294082__(/*! ./Course */ "./src/course/Course.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_294082__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_294082__(/*! @canvas/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_294082__(/*! @canvas/fetch/utils */ "./src/fetch/utils.ts");
-
-
-
-
-
-async function getGradingStandards(contextId, contextType, config) {
-    const url = `/api/v1/${contextType}s/${contextId}/grading_standards`;
-    return await (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.getPagedData)(url, config);
-}
-function getCourseData(id, config) {
-    const url = `/api/v1/courses/${id}`;
-    return (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(url, config);
-}
-function getCourseDataGenerator(queryString, accountIds, term, config) {
-    if (!Array.isArray(accountIds))
-        accountIds = [accountIds];
-    const defaultConfig = queryString ? {
-        queryParams: {
-            search_term: queryString,
-        }
-    } : {};
-    const termId = typeof term === 'number' ? term : term?.id;
-    if (termId && defaultConfig.queryParams)
-        defaultConfig.queryParams.enrollment_term_id = termId;
-    config = (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.overrideConfig)(defaultConfig, config);
-    const generators = accountIds.map(accountId => {
-        const url = `/api/v1/accounts/${accountId}/courses`;
-        return (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.getPagedDataGenerator)(url, config);
-    });
-    return (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.mergePagedDataGenerators)(generators);
-}
-function getCourseGenerator(queryString, accountIds, term, config) {
-    return (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.generatorMap)(getCourseDataGenerator(queryString, accountIds, term, config), courseData => new _Course__WEBPACK_IMPORTED_MODULE_1__.Course(courseData));
-}
-async function getSingleCourse(queryString, accountIds, term, config) {
-    for (const accountId of accountIds) {
-        const courseDatas = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(`/api/v1/accounts/${accountId}/courses`, (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.overrideConfig)({ queryParams: { search_term: queryString } }, config));
-        if (courseDatas.length > 0)
-            return new _Course__WEBPACK_IMPORTED_MODULE_1__.Course(courseDatas[0]);
-    }
-    return undefined;
-}
-async function getCourseById(id, config) {
-    return new _Course__WEBPACK_IMPORTED_MODULE_1__.Course(await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(`/api/v1/courses/${id}`, config));
-}
-async function createNewCourse(courseCode, accountId, name, config) {
-    name ??= courseCode;
-    const createUrl = `/api/v1/accounts/${accountId}/courses/`;
-    const createConfig = {
-        fetchInit: {
-            method: 'POST',
-            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)({
-                course: {
-                    name,
-                    course_code: courseCode
-                }
-            })
-        }
-    };
-    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(createUrl, (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(createConfig, config, true));
-}
-class CourseNotFoundException extends Error {
-}
-async function saveCourseData(courseId, data, config) {
-    const url = `/api/v1/courses/${courseId}`;
-    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(url, (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.overrideConfig)(config, {
-        fetchInit: {
-            method: 'PUT',
-            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)({ course: data })
-        }
-    }));
-}
-async function setGradingStandardForCourse(courseId, standardId, config) {
-    return await saveCourseData(courseId, { grading_standard_id: standardId });
-}
-function getCourseName(data) {
-    const [full, withoutCode] = /[^:]*:\s*(.*)/.exec(data.name) ?? [];
-    if (withoutCode)
-        return withoutCode;
-    return data.name;
-}
-
-
-/***/ },
-
-/***/ "./src/date.ts"
-/*!*********************!*\
-  !*** ./src/date.ts ***!
-  \*********************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_299882__) {
-
-__nested_webpack_require_299882__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_299882__.d(__nested_webpack_exports__, {
-/* harmony export */   MalformedDateError: () => (/* binding */ MalformedDateError),
-/* harmony export */   StringNotAMonthDateError: () => (/* binding */ StringNotAMonthDateError),
-/* harmony export */   findDateRange: () => (/* binding */ findDateRange),
-/* harmony export */   oldDateToPlainDate: () => (/* binding */ oldDateToPlainDate)
-/* harmony export */ });
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_299882__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_299882__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_299882__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_299882__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
-
-
-
-function getMonthNames(style = "long", locale = 'en-US') {
-    return Array.from((0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.range)(1, 12)).map((monthInt) => {
-        return temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from({
-            day: 1,
-            month: monthInt,
-            year: temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.Now.plainDateISO().year
-        }).toLocaleString(locale, {
-            month: style
-        });
-    });
-}
-/**
- * takes a string of formatted [monthname] [date] and give a plain date
- * @param value the string to evaluate
- * @param locale the locale to use to generate month names, e.g. en-US
- * @param year the year to give the date object. If not provided defaults to current year.
- */
-function plainDateFromMonthDayString(value, locale, year) {
-    year ??= temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.Now.plainDateISO().year;
-    const match = value.match(getDateRegexString(locale));
-    if (!match)
-        throw new MalformedDateError(value);
-    const fullDate = match[1];
-    return temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from({
-        month: getMonthNumberLut(locale)[match[2]],
-        day: parseInt(match[3]),
-        year
-    });
-}
-const monthNumberLutCache = {};
-/**
- * returns a string with 3 capturing groups -- 1 - month date, 2 month, 3 date. cuts off rd/th...
- * @param locale
- */
-function getMonthNumberLut(locale) {
-    if (monthNumberLutCache[locale])
-        return monthNumberLutCache[locale];
-    const monthNames = getMonthNames('long', locale);
-    const shortMonthNames = getMonthNames('short', locale);
-    const monthNumberLut = {};
-    assert__WEBPACK_IMPORTED_MODULE_0___default()(monthNames.length === shortMonthNames.length);
-    for (let i = 0; i < monthNames.length; i++) {
-        monthNumberLut[monthNames[i]] = i + 1;
-        monthNumberLut[shortMonthNames[i]] = i + 1;
-    }
-    monthNumberLutCache[locale] = monthNumberLut;
-    return monthNumberLut;
-}
-const dateRegexStringCache = {};
-//TODO: Make the capture groups in this optional
-function getDateRegexString(locale = 'en-US') {
-    if (dateRegexStringCache[locale])
-        return dateRegexStringCache[locale];
-    const monthNames = getMonthNames('long', locale);
-    const shortMonthNames = getMonthNames('short', locale);
-    const monthRegexDatePart = `(?:${[...monthNames, ...shortMonthNames].join('|')})`;
-    const output = `((${monthRegexDatePart}) (\\d+))(?:\\w{2}|)`;
-    dateRegexStringCache[locale] = output;
-    return output;
-}
-/**
- * Looks for a date range in text and, if found, returns an object with start and end params as Temporal PlainDates
- * @param textToSearch
- * @param locale
- */
-function findDateRange(textToSearch, locale = 'en-US') {
-    const dateRegExString = getDateRegexString(locale);
-    const searchRegex = new RegExp(`(${dateRegExString}).*(${dateRegExString})`, 'i');
-    const dateRegex = new RegExp(dateRegExString, 'i');
-    const matchRange = textToSearch.match(searchRegex);
-    if (!matchRange)
-        return null; //No date range found in syllabus
-    let start, end;
-    for (const separator of ['-', 'to']) {
-        [start, end] = matchRange[0].split(separator);
-        if (start && end)
-            break;
-    }
-    if (!start || !end)
-        throw new MalformedDateError('Cannot find date range in syllabus');
-    const startMatch = start.match(dateRegex);
-    const endMatch = end.match(dateRegex);
-    if (!startMatch)
-        throw new MalformedDateError(`Missing Start Date ${start}`);
-    if (!endMatch)
-        throw new MalformedDateError(`Missing End Date ${end}`);
-    return {
-        start: plainDateFromMonthDayString(startMatch[0], locale),
-        end: plainDateFromMonthDayString(endMatch[0], locale)
-    };
-}
-function oldDateToPlainDate(date) {
-    const data = {
-        day: date.getDate(),
-        month: date.getMonth() + 1,
-        year: date.getFullYear(),
-    };
-    return temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from(data);
-}
-class StringNotAMonthDateError extends Error {
-    name = "StringNotAMonthDateError";
-}
-class MalformedDateError extends Error {
-    name = "MalformedDateError";
-}
-
-
-/***/ },
-
-/***/ "./src/enrollments/EnrollmentTypes.ts"
-/*!********************************************!*\
-  !*** ./src/enrollments/EnrollmentTypes.ts ***!
-  \********************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_305422__) {
-
-__nested_webpack_require_305422__.r(__nested_webpack_exports__);
-
-
-
-/***/ },
-
-/***/ "./src/enrollments/enrollmentRole.ts"
-/*!*******************************************!*\
-  !*** ./src/enrollments/enrollmentRole.ts ***!
-  \*******************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_305740__) {
-
-__nested_webpack_require_305740__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_305740__.d(__nested_webpack_exports__, {
-/* harmony export */   createEnrollmentRole: () => (/* binding */ createEnrollmentRole)
-/* harmony export */ });
-function createEnrollmentRole(role) {
-    return role;
-}
-
-
-/***/ },
-
-/***/ "./src/enrollments/getEnrollmentGenerator.ts"
-/*!***************************************************!*\
-  !*** ./src/enrollments/getEnrollmentGenerator.ts ***!
-  \***************************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_306325__) {
-
-__nested_webpack_require_306325__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_306325__.d(__nested_webpack_exports__, {
-/* harmony export */   getEnrollmentGenerator: () => (/* binding */ getEnrollmentGenerator)
-/* harmony export */ });
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_306325__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-
-const getEnrollmentGenerator = (config) => {
-    let url;
-    const { queryParams, ...internalParams } = config;
-    if ('userId' in config) {
-        url = `/api/v1/users/${config.userId}/enrollments`;
-    }
-    else if ('courseId' in config) {
-        url = `/api/v1/courses/${config.courseId}/enrollments`;
-    }
-    else if ('sectionId' in config) {
-        url = `/api/v1/sections/${config.sectionId}/enrollments`;
-    }
-    else {
-        throw new Error('config type not recognized');
-    }
-    return (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__.getPagedDataGenerator)(url, {
-        queryParams,
-    });
-};
-
-
-/***/ },
-
-/***/ "./src/enrollments/index.ts"
-/*!**********************************!*\
-  !*** ./src/enrollments/index.ts ***!
-  \**********************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_307605__) {
-
-__nested_webpack_require_307605__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_307605__.d(__nested_webpack_exports__, {
-/* harmony export */   createEnrollmentRole: () => (/* reexport safe */ _enrollmentRole__WEBPACK_IMPORTED_MODULE_0__.createEnrollmentRole),
-/* harmony export */   getEnrollmentGenerator: () => (/* reexport safe */ _getEnrollmentGenerator__WEBPACK_IMPORTED_MODULE_1__.getEnrollmentGenerator)
-/* harmony export */ });
-/* harmony import */ var _enrollmentRole__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_307605__(/*! ./enrollmentRole */ "./src/enrollments/enrollmentRole.ts");
-/* harmony import */ var _getEnrollmentGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_307605__(/*! ./getEnrollmentGenerator */ "./src/enrollments/getEnrollmentGenerator.ts");
-/* harmony import */ var _EnrollmentTypes__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_307605__(/*! ./EnrollmentTypes */ "./src/enrollments/EnrollmentTypes.ts");
-
-
-
-
-
-/***/ },
-
-/***/ "./src/fetch/apiGetConfig.ts"
-/*!***********************************!*\
-  !*** ./src/fetch/apiGetConfig.ts ***!
-  \***********************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_308770__) {
-
-__nested_webpack_require_308770__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_308770__.d(__nested_webpack_exports__, {
-/* harmony export */   apiGetConfig: () => (/* binding */ apiGetConfig),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_308770__(/*! @canvas/fetch/utils */ "./src/fetch/utils.ts");
-
-function apiGetConfig(queryParams, baseConfig) {
-    return (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_0__.overrideConfig)({
-        queryParams,
-    }, baseConfig);
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (apiGetConfig);
-
-
-/***/ },
-
-/***/ "./src/fetch/apiWriteConfig.ts"
-/*!*************************************!*\
-  !*** ./src/fetch/apiWriteConfig.ts ***!
-  \*************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_309698__) {
-
-__nested_webpack_require_309698__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_309698__.d(__nested_webpack_exports__, {
-/* harmony export */   apiWriteConfig: () => (/* binding */ apiWriteConfig),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_309698__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_309698__(/*! @canvas/fetch/utils */ "./src/fetch/utils.ts");
-
-
-function apiWriteConfig(method, data, baseConfig) {
-    const body = (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(data);
-    return (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_1__.overrideConfig)({
-        fetchInit: {
-            method,
-            body,
-        }
-    }, baseConfig);
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (apiWriteConfig);
-
-
-/***/ },
-
-/***/ "./src/fetch/fetchJson.ts"
-/*!********************************!*\
-  !*** ./src/fetch/fetchJson.ts ***!
-  \********************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_310901__) {
-
-__nested_webpack_require_310901__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_310901__.d(__nested_webpack_exports__, {
-/* harmony export */   fetchJson: () => (/* binding */ fetchJson)
-/* harmony export */ });
-async function fetchJson(url, config = null) {
-    const match = url.search(/^(\/|\w+:\/\/)/);
-    if (match < 0)
-        throw new Error("url does not start with / or http");
-    if (config?.queryParams) {
-        url += '?' + new URLSearchParams(config.queryParams);
-    }
-    config ??= {};
-    const response = await fetch(url, config.fetchInit);
-    const responseJson = await response.json();
-    if (!responseJson)
-        throw new Error("Could not fetch json");
-    responseJson.retrieved_at = new Date().toISOString();
-    return responseJson;
-}
-
-
-/***/ },
-
-/***/ "./src/fetch/getPagedDataGenerator.ts"
-/*!********************************************!*\
-  !*** ./src/fetch/getPagedDataGenerator.ts ***!
-  \********************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_311935__) {
-
-__nested_webpack_require_311935__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_311935__.d(__nested_webpack_exports__, {
-/* harmony export */   getPagedData: () => (/* binding */ getPagedData),
-/* harmony export */   getPagedDataGenerator: () => (/* binding */ getPagedDataGenerator),
-/* harmony export */   mergePagedDataGenerators: () => (/* binding */ mergePagedDataGenerators)
-/* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_311935__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
-
-/**
- * @param url The entire path of the url
- * @param config a configuration object of type ICanvasCallConfig
- * @returns {Promise<Record<string, any>[]>}
- */
-async function getPagedData(url, config = null) {
-    const generator = getPagedDataGenerator(url, config);
-    const out = [];
-    for await (const value of generator) {
-        out.push(value);
-    }
-    return out;
-}
-/**
- * Merges multiple asynchronous paginated data generators into a single generator.
- *
- * This function combines the results of multiple paginated data generators into a unified stream. Each generator
- * is processed sequentially, and its results are yielded one by one as they become available. This allows for
- * easy handling of multiple paginated API requests or data sources in parallel without needing to collect all
- * results in memory at once.
- *
- * The function is particularly useful when dealing with multiple sources of paginated data (e.g., multiple API
- * endpoints) that need to be processed as one continuous stream of results, without waiting for all pages from one
- * source to finish before beginning to process the next.
- *
- * @template T - A type parameter that extends `CanvasData`, ensuring that the data being yielded is in a format consistent
- *               with Canvas API data structures.
- * @param {AsyncGenerator<T, T[], void>[]} generators - An array of asynchronous generators, each of which yields paginated
- *               results of type `T`. These could represent different paginated data sources that are combined into a single stream.
- *
- * @yields {T} - The function yields items of type `T` as they are retrieved from each generator in sequence.
- *
- * @example
- * // Example usage combining two paginated API responses into a single data stream
- * const generator1 = fetchPagedDataFromSource1();
- * const generator2 = fetchPagedDataFromSource2();
- *
- * for await (const data of mergePagedDataGenerators([generator1, generator2])) {
- *     console.log(data); // Process each item from both generators as a single stream
- * }
- *
- */
-async function* mergePagedDataGenerators(generators) {
-    for (const generator of generators) {
-        for await (const result of generator) {
-            yield result;
-        }
-    }
-}
-/**
- * Handles the response data from a Canvas API call, normalizing it into an array of `CanvasData` objects.
- *
- * This function accepts various formats of the data (single object, array of objects, or a keyed object containing arrays of objects),
- * and ensures the result is always an array. If no valid array is found, it returns an empty array and logs a warning.
- *
- * @template T - A type that extends `CanvasData`.
- * @param {T | T[] | { [key: string]: T[] }} data - The response data to process. This can be a single object, an array of objects,
- *        or a keyed object where the values are arrays of objects.
- * @param {string} url - The URL from which the data was retrieved, used for logging purposes if no valid data is found.
- * @returns {T[]} An array of `CanvasData` objects, or an empty array if no valid array of data is present.
- */
-function handleResponseData(data, url) {
-    if (typeof data === 'undefined' || data == null) {
-        console.warn(`no data found for ${url}`);
-        return [];
-    }
-    if (typeof data === 'object' && !Array.isArray(data)) {
-        const values = Array.from(Object.values(data));
-        if (values) {
-            data = values.find((a) => Array.isArray(a));
-        }
-    }
-    if (!Array.isArray(data)) {
-        console.warn(`No valid data found for ${url}`);
-        return [];
-    }
-    return data;
-}
-/**
- * Async generator function that retrieves paged data from a Canvas API endpoint.
- * It sends HTTP GET requests to the provided URL, processes the results, and iterates
- * through all pages of data, yielding each individual item.
- *
- * The generator automatically handles pagination by examining the 'Link' header
- * returned in each response and fetching the next page as long as a 'next' link is available.
- *
- * @template T - A generic type parameter extending CanvasData to represent the structure of the data.
- * @param {string} url - The full URL for the API request. If the `queryParams` option is provided in the config, it appends the query parameters to the URL.
- * @param {ICanvasCallConfig | null} [config=null] - Optional configuration object for the request, including query parameters and additional fetch options like headers.
- * @yields {T} - Yields individual items of the retrieved data from each page, one at a time.
- *
- * @throws {Error} - If the request fails or the URL contains "undefined", a warning is logged to the console.
- *
- * @example
- * ```
- * const generator = getPagedDataGenerator<MyDataType>('https://canvas.example.com/api/data', config);
- * for await (const item of generator) {
- *     console.log(item);  // Handle each item individually
- * }
- * ```
- */
-async function* getPagedDataGenerator(url, config = null) {
-    if (config?.queryParams) {
-        url += '?' + (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.searchParamsFromObject)(config.queryParams);
-    }
-    if (url.includes('undefined')) {
-        console.warn(url);
-    }
-    /* Returns a list of data from a GET request, going through multiple pages of data requests as necessary */
-    let response = await fetch(url, config?.fetchInit);
-    const data = handleResponseData(await response.json(), url);
-    if (data.length === 0)
-        return data;
-    for (const value of data)
-        yield value;
-    let next_page_link = "!";
-    while (next_page_link.length !== 0 &&
-        response &&
-        response.ok) {
-        const nextLink = getNextLink(response);
-        if (!nextLink)
-            break;
-        next_page_link = nextLink.split(";")[0].split("<")[1].split(">")[0];
-        response = await fetch(next_page_link, config?.fetchInit);
-        const responseData = handleResponseData(await response.json(), url);
-        for (const value of responseData) {
-            value.retrieved_at = new Date().toISOString();
-            yield value;
-        }
-    }
-}
-function getNextLink(response) {
-    const link = response.headers.get("Link");
-    if (!link)
-        return null;
-    const paginationLinks = link.split(",");
-    return paginationLinks.find((link) => link.includes('next'));
-}
-
-
-/***/ },
-
-/***/ "./src/fetch/index.ts"
-/*!****************************!*\
-  !*** ./src/fetch/index.ts ***!
-  \****************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_319004__) {
-
-__nested_webpack_require_319004__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_319004__.d(__nested_webpack_exports__, {
-/* harmony export */   apiGetConfig: () => (/* reexport safe */ _apiGetConfig__WEBPACK_IMPORTED_MODULE_3__.apiGetConfig),
-/* harmony export */   apiWriteConfig: () => (/* reexport safe */ _apiWriteConfig__WEBPACK_IMPORTED_MODULE_2__.apiWriteConfig),
-/* harmony export */   fetchGetConfig: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_0__.fetchGetConfig),
-/* harmony export */   fetchJson: () => (/* reexport safe */ _fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson),
-/* harmony export */   getPagedData: () => (/* reexport safe */ _getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedData),
-/* harmony export */   getPagedDataGenerator: () => (/* reexport safe */ _getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator),
-/* harmony export */   mergePagedDataGenerators: () => (/* reexport safe */ _getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.mergePagedDataGenerators),
-/* harmony export */   overrideConfig: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_0__.overrideConfig)
-/* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_319004__(/*! ./utils */ "./src/fetch/utils.ts");
-/* harmony import */ var _getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_319004__(/*! ./getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _apiWriteConfig__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_319004__(/*! ./apiWriteConfig */ "./src/fetch/apiWriteConfig.ts");
-/* harmony import */ var _apiGetConfig__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_319004__(/*! ./apiGetConfig */ "./src/fetch/apiGetConfig.ts");
-/* harmony import */ var _fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_319004__(/*! ./fetchJson */ "./src/fetch/fetchJson.ts");
-
-
-
-
-
-
-
-/***/ },
-
-/***/ "./src/fetch/utils.ts"
-/*!****************************!*\
-  !*** ./src/fetch/utils.ts ***!
-  \****************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_321115__) {
-
-__nested_webpack_require_321115__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_321115__.d(__nested_webpack_exports__, {
-/* harmony export */   fetchGetConfig: () => (/* binding */ fetchGetConfig),
-/* harmony export */   overrideConfig: () => (/* binding */ overrideConfig)
-/* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_321115__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
-
-function overrideConfig(source, override) {
-    return (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(source, override) ?? {};
-}
-function fetchGetConfig(options, baseConfig) {
-    return overrideConfig(baseConfig, {
-        queryParams: options,
-    });
-}
-
-
-/***/ },
-
-/***/ "./src/files.ts"
-/*!**********************!*\
-  !*** ./src/files.ts ***!
-  \**********************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_321999__) {
-
-__nested_webpack_require_321999__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_321999__.d(__nested_webpack_exports__, {
-/* harmony export */   uploadFile: () => (/* binding */ uploadFile)
-/* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_321999__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_321999__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nested_webpack_require_321999__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
-
-
-async function uploadFile(file, folder, url) {
-    const initialParams = {
-        name: file.name,
-        no_redirect: true,
-        on_duplicate: 'overwrite'
-    };
-    if (typeof folder === 'number')
-        initialParams.parent_folder_id = folder;
-    else
-        initialParams.parent_folder_path = folder;
-    let response = await fetch(url, {
-        body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(initialParams),
-        method: 'POST'
-    });
-    const data = await response.json();
-    const uploadParams = data.upload_params;
-    const uploadFormData = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(uploadParams);
-    uploadFormData.append('file', file);
-    response = await fetch(data.upload_url, {
-        method: 'POST',
-        body: uploadFormData,
-    });
-    assert__WEBPACK_IMPORTED_MODULE_1___default()(response.ok);
-}
-
-
-/***/ },
-
-/***/ "./src/profile.ts"
-/*!************************!*\
-  !*** ./src/profile.ts ***!
-  \************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_323658__) {
-
-__nested_webpack_require_323658__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_323658__.d(__nested_webpack_exports__, {
-/* harmony export */   frontPageBio: () => (/* binding */ frontPageBio),
-/* harmony export */   getCurioPageFrontPageProfile: () => (/* binding */ getCurioPageFrontPageProfile),
-/* harmony export */   getFacultyPages: () => (/* binding */ getFacultyPages),
-/* harmony export */   getPotentialFacultyProfiles: () => (/* binding */ getPotentialFacultyProfiles),
-/* harmony export */   getProfileFromPage: () => (/* binding */ getProfileFromPage),
-/* harmony export */   renderProfileIntoCurioFrontPage: () => (/* binding */ renderProfileIntoCurioFrontPage),
-/* harmony export */   winnow: () => (/* binding */ winnow)
-/* harmony export */ });
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_323658__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nested_webpack_require_323658__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_323658__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_323658__(/*! @/Account */ "./src/Account.ts");
-/* harmony import */ var _course_toolbox__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_323658__(/*! @/course/toolbox */ "./src/course/toolbox.ts");
-
-
-
-
-let facultyCourseCached;
-async function getFacultyCourse() {
-    const facultyCourse = facultyCourseCached ?? await (0,_course_toolbox__WEBPACK_IMPORTED_MODULE_3__.getSingleCourse)('Faculty Bios', (await _Account__WEBPACK_IMPORTED_MODULE_2__.Account.getAll()).map(a => a.id));
-    facultyCourseCached = facultyCourse;
-    assert__WEBPACK_IMPORTED_MODULE_0___default()(facultyCourse);
-    return facultyCourse;
-}
-async function getFacultyPages(searchTerm) {
-    const facultyCourse = await getFacultyCourse();
-    return await facultyCourse.getPages({
-        queryParams: {
-            include: ['body'],
-            search_term: searchTerm
-        }
-    });
-}
-async function getPotentialFacultyProfiles(user) {
-    let pages = [];
-    const [lastName, firstName] = user.name.split(' ');
-    for (const query of [
-        user.name,
-        lastName,
-        firstName,
-    ]) {
-        console.log(query);
-        pages = await getFacultyPages(query);
-        if (pages.length > 0)
-            break;
-    }
-    const profiles = pages.map((page) => getProfileFromPage(page, user), true);
-    if (profiles.length > 0) {
-        for (const profile of profiles) {
-            profile.displayName ??= user.name;
-        }
-    }
-    return profiles;
-}
-function getProfileFromPage(page, user) {
-    const profile = getProfileFromPageHtml(page.body, user);
-    profile.sourcePage = page;
-    return profile;
-}
-function getProfileFromPageHtml(html, user) {
-    const el = document.createElement('div');
-    el.innerHTML = html;
-    const displayName = getDisplayName(el);
-    const body = getProfileBody(el);
-    const image = getImageLink(el);
-    return {
-        user,
-        bio: body,
-        displayName,
-        image,
-        imageLink: image?.src,
-    };
-}
-function getProfileBody(el) {
-    const h4s = el.querySelectorAll('h4');
-    const instructorHeaders = Array.from(h4s).filter((el) => {
-        return el.innerHTML.search(/instructor/i);
-    });
-    let potentials = [];
-    for (const header of instructorHeaders) {
-        const potentialParent = header.parentElement;
-        if (potentialParent) {
-            header.remove();
-            potentials.push(potentialParent.innerHTML);
-        }
-    }
-    potentials = winnow(potentials, [
-        (potential) => potential.length > 0,
-    ]);
-    /* just guess if we can't find anything */
-    if (potentials.length > 0) {
-        return potentials[0];
-    }
-    return null;
-}
-function getDisplayName(el) {
-    let titles = Array.from(el.querySelectorAll('strong em'));
-    if (titles.length === 0) {
-        const enclosedImages = Array.from(el.querySelectorAll('p img'));
-        titles = enclosedImages.map((el) => (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.parentElement)(el, 'p')?.nextElementSibling)
-            .filter((el) => el instanceof Element);
-    }
-    if (titles.length === 0) {
-        const headings = Array.from(el.querySelectorAll('p strong'));
-        const instructorHeaders = headings.filter(el => el.innerHTML.search(/Instructor/));
-        titles = instructorHeaders.map((el) => el.previousElementSibling)
-            .filter((el) => el instanceof Element);
-    }
-    titles = titles.filter((title) => title.textContent && title.textContent.length > 0);
-    if (titles.length > 0)
-        return titles[0].textContent;
-    return null;
-}
-/**
- * Finds all the image links in the content and returns the biggest.
- * @param el
- */
-function getImageLink(el) {
-    const imgs = el.querySelectorAll('img');
-    if (imgs.length === 0)
-        return null;
-    return Array.from(imgs)[1];
-}
-/**
- * Takes in a list of parameters and a set of filter functions. Runs filter functions until there are one or fewer elements,
- * or it runs out of filter functions. Returns post-filtered list.
- * @param originalList The list of items to run
- * @param winnowFuncs A list of filter functions, run in order
- * @param returnLastNonEmpty If true, will return the last non-empty array found if elements are winnowed to 0
- */
-function winnow(originalList, winnowFuncs, returnLastNonEmpty = false) {
-    let copyList = [...originalList];
-    if (copyList.length === 1)
-        return copyList; //already at 1 element
-    let lastSet = [...copyList];
-    for (const winnowFunc of winnowFuncs) {
-        lastSet = [...copyList];
-        copyList = copyList.filter(winnowFunc);
-        if (copyList.length === 1)
-            break;
-    }
-    if (copyList.length === 0 && returnLastNonEmpty)
-        return lastSet;
-    return copyList;
-}
-function getCurioPageFrontPageProfile(html, user) {
-    const el = document.createElement('div');
-    el.innerHTML = html;
-    try {
-        const header = getCurioHeader(el);
-        const match = header.innerHTML.match(/Meet your instructor, ?(.*)!/i);
-        const displayName = match ? match[1] : null;
-        const bio = getCurioBio(el);
-        const image = getCurioProfileImage(el);
-        return {
-            user,
-            displayName,
-            image,
-            imageLink: image ? image.src : null,
-            bio: bio?.innerHTML
-        };
-    }
-    catch (e) {
-        return {
-            user,
-            displayName: "CANNOT LOCATE PROFILE",
-            bio: e.toString(),
-        };
-    }
-}
-function frontPageBio(profile) {
-    return profile.bio + `<p>${profile.displayName} should be contacted during the term using Canvas Inbox,
- but can be reached after and before the term via their email address: ${profile.user.email}</p>`;
-}
-function renderProfileIntoCurioFrontPage(html, profile) {
-    const el = document.createElement('div');
-    el.innerHTML = html;
-    if (profile.displayName) {
-        const header = getCurioHeader(el);
-        header.innerHTML = `Meet your instructor, ${profile.displayName}!`;
-    }
-    if (profile.bio) {
-        const bio = getCurioBio(el);
-        if (bio) {
-            const classes = bio.classList;
-            if (!classes.contains('cbt-instructor-bio'))
-                classes.add('cbt-instructor-bio');
-            bio.innerHTML = frontPageBio(profile);
-        }
-    }
-    if (profile.image) {
-        const image = getCurioProfileImage(el);
-        if (image) {
-            image.src = profile.image.src;
-            image.alt = profile.image.alt;
-        }
-    }
-    else if (profile.imageLink) {
-        const image = getCurioProfileImage(el);
-        if (image) {
-            image.src = profile.imageLink;
-        }
-    }
-    return el.innerHTML;
-}
-function getCurioHeader(el) {
-    let h2s = Array.from(el.querySelectorAll('h2'));
-    h2s = h2s.filter((h2) => h2.innerHTML.match(/Meet your instructor/i));
-    if (h2s.length <= 0)
-        throw new Error(`Can't find bio section of front page.\n${h2s.map(a => a.innerHTML)}\n${el.innerHTML}`);
-    return h2s[0];
-}
-function getCurioProfileDiv(el) {
-    const header = getCurioHeader(el);
-    const sectionEl = header.nextElementSibling;
-    assert__WEBPACK_IMPORTED_MODULE_0___default()(sectionEl, "Body element of bio not found on page.");
-    return sectionEl;
-}
-function getCurioBio(el) {
-    const profileDiv = getCurioProfileDiv(el);
-    const bio = profileDiv.querySelector('.cbt-instructor-bio');
-    if (bio && bio.innerHTML)
-        return bio;
-    const div = getCurioProfileDiv(el);
-    const p = div.querySelector('p');
-    return p?.parentElement;
-}
-function getCurioProfileImage(el) {
-    return getCurioProfileDiv(el).querySelector('img');
-}
-
-
-
-/***/ },
-
-/***/ "./src/rubricTypes.ts"
-/*!****************************!*\
-  !*** ./src/rubricTypes.ts ***!
-  \****************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_332671__) {
-
-__nested_webpack_require_332671__.r(__nested_webpack_exports__);
-
-
-
-/***/ },
-
-/***/ "./src/rubrics.ts"
-/*!************************!*\
-  !*** ./src/rubrics.ts ***!
-  \************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_332913__) {
-
-__nested_webpack_require_332913__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_332913__.d(__nested_webpack_exports__, {
-/* harmony export */   getRubric: () => (/* binding */ getRubric),
-/* harmony export */   getRubricsFetchUrl: () => (/* binding */ getRubricsFetchUrl),
-/* harmony export */   rubricApiUrl: () => (/* binding */ rubricApiUrl),
-/* harmony export */   rubricAssociationUrl: () => (/* binding */ rubricAssociationUrl),
-/* harmony export */   rubricsForCourseGen: () => (/* binding */ rubricsForCourseGen),
-/* harmony export */   updateRubricAssociation: () => (/* binding */ updateRubricAssociation)
-/* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_332913__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_332913__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_332913__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-
-
-
-function getRubricsFetchUrl(courseId) { return `/api/v1/courses/${courseId}/rubrics`; }
-function rubricApiUrl(courseId, rubricId) { return `/api/v1/courses/${courseId}/rubrics/${rubricId}`; }
-function rubricsForCourseGen(courseId, options, config) {
-    const url = getRubricsFetchUrl(courseId);
-    const dataGenerator = (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(url, config);
-    if (options?.include) {
-        return async function* () {
-            for await (const rubric of dataGenerator) {
-                yield await getRubric(rubric.context_id, rubric.id, options, config);
-            }
-        }();
-    }
-    return dataGenerator;
-}
-async function getRubric(courseId, rubricId, options, config) {
-    const url = rubricApiUrl(courseId, rubricId);
-    if (options?.include) {
-        config ??= {};
-        config.queryParams = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(config?.queryParams, { include: options.include });
-    }
-    return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__.fetchJson)(url, config);
-}
-function rubricAssociationUrl(courseId, rubricAssociationId) {
-    return `/api/v1/courses/${courseId}/rubric_associations/${rubricAssociationId}`;
-}
-async function updateRubricAssociation(courseId, rubricAssociationId, data, config) {
-    const url = rubricAssociationUrl(courseId, rubricAssociationId);
-    return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__.fetchJson)(url, (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(config, {
-        fetchInit: {
-            method: 'PUT',
-            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(data)
-        },
-    }, true));
-}
-
-
-/***/ },
-
-/***/ "./src/term/Term.ts"
-/*!**************************!*\
-  !*** ./src/term/Term.ts ***!
-  \**************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_335927__) {
-
-__nested_webpack_require_335927__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_335927__.d(__nested_webpack_exports__, {
-/* harmony export */   Term: () => (/* binding */ Term)
-/* harmony export */ });
-/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_335927__(/*! @/baseCanvasObject */ "./src/baseCanvasObject.ts");
-/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_335927__(/*! @/Account */ "./src/Account.ts");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_335927__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nested_webpack_require_335927__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_335927__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_335927__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-
-
-
-
-
-class Term extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
-    static nameProperty = "name";
-    static async getTerm(code, workflowState = 'all', config = undefined) {
-        const terms = await this.searchTerms(code, workflowState, config);
-        if (!Array.isArray(terms) || terms.length <= 0) {
-            return null;
-        }
-        return terms[0];
-    }
-    static async getTermById(termId, config = null) {
-        const account = await _Account__WEBPACK_IMPORTED_MODULE_1__.Account.getRootAccount();
-        if (!account)
-            throw new _Account__WEBPACK_IMPORTED_MODULE_1__.RootAccountNotFoundError();
-        const url = `/api/v1/accounts/${account.id}/terms/${termId}`;
-        const termData = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
-        if (termData)
-            return new Term(termData);
-        return null;
-    }
-    static async getAllActiveTerms(config = null) {
-        return await this.searchTerms(null, 'active', config);
-    }
-    static async searchTerms(code = null, workflowState = 'all', config = null) {
-        config = config || {};
-        config.queryParams = config.queryParams || {};
-        const queryParams = config.queryParams;
-        if (workflowState)
-            queryParams['workflow_state'] = workflowState;
-        if (code)
-            queryParams['term_name'] = code;
-        const rootAccount = await _Account__WEBPACK_IMPORTED_MODULE_1__.Account.getRootAccount();
-        assert__WEBPACK_IMPORTED_MODULE_2___default()(rootAccount);
-        const url = `/api/v1/accounts/${rootAccount.id}/terms`;
-        const data = await (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedData)(url, config);
-        const terms = [];
-        for (const datum of data) {
-            if (datum.hasOwnProperty('enrollment_terms')) {
-                for (const termData of datum['enrollment_terms']) {
-                    terms.push(termData);
-                }
-            }
-            else {
-                terms.push(datum);
-            }
-        }
-        if (!terms || terms.length === 0) {
-            return null;
-        }
-        return terms.map(term => new Term(term));
-    }
-}
-
-
-/***/ },
-
-/***/ "./src/term/dateFromTermName.ts"
-/*!**************************************!*\
-  !*** ./src/term/dateFromTermName.ts ***!
-  \**************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_339457__) {
-
-__nested_webpack_require_339457__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_339457__.d(__nested_webpack_exports__, {
-/* harmony export */   dateFromTermName: () => (/* binding */ dateFromTermName),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_339457__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
-
-function dateFromTermName(termName) {
-    const [newCode, month, day, year] = /DE\dW(\d+)\.(\d+)\.(\d+)/i.exec(termName) ?? [];
-    if (newCode) {
-        const yearInt = parseInt(year);
-        return temporal_polyfill__WEBPACK_IMPORTED_MODULE_0__.Temporal.PlainDate.from({
-            month: parseInt(month),
-            day: parseInt(day),
-            year: yearInt < 100 ? 2000 + yearInt : yearInt
-        });
-    }
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (dateFromTermName);
-
-
-/***/ },
-
-/***/ "./src/term/getTermsGenerator.ts"
-/*!***************************************!*\
-  !*** ./src/term/getTermsGenerator.ts ***!
-  \***************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_340681__) {
-
-__nested_webpack_require_340681__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_340681__.d(__nested_webpack_exports__, {
-/* harmony export */   getTermsGenerator: () => (/* binding */ getTermsGenerator)
-/* harmony export */ });
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_340681__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-
-const defaultTermQueryParams = {
-    workflow_state: 'active',
-};
-const getTermsGenerator = (rootAccountId, queryParams) => {
-    const generator = (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__.getPagedDataGenerator)(`/api/v1/accounts/${rootAccountId}/terms`, {
-        queryParams: { ...defaultTermQueryParams, ...queryParams ?? {} },
-    });
-    return generator;
-};
-
-
-/***/ },
-
-/***/ "./src/term/index.ts"
-/*!***************************!*\
-  !*** ./src/term/index.ts ***!
-  \***************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_341675__) {
-
-__nested_webpack_require_341675__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_341675__.d(__nested_webpack_exports__, {
-/* harmony export */   Term: () => (/* reexport safe */ _Term__WEBPACK_IMPORTED_MODULE_1__.Term),
-/* harmony export */   dateFromTermName: () => (/* reexport safe */ _dateFromTermName__WEBPACK_IMPORTED_MODULE_0__.dateFromTermName),
-/* harmony export */   getTermsGenerator: () => (/* reexport safe */ _getTermsGenerator__WEBPACK_IMPORTED_MODULE_2__.getTermsGenerator)
-/* harmony export */ });
-/* harmony import */ var _dateFromTermName__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_341675__(/*! ./dateFromTermName */ "./src/term/dateFromTermName.ts");
-/* harmony import */ var _Term__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_341675__(/*! ./Term */ "./src/term/Term.ts");
-/* harmony import */ var _getTermsGenerator__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_341675__(/*! ./getTermsGenerator */ "./src/term/getTermsGenerator.ts");
-
-
-
-
-
-/***/ },
-
-/***/ "./src/toolbox.ts"
-/*!************************!*\
-  !*** ./src/toolbox.ts ***!
-  \************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_342810__) {
-
-__nested_webpack_require_342810__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_342810__.d(__nested_webpack_exports__, {
-/* harmony export */   aMinusBSortFn: () => (/* binding */ aMinusBSortFn),
-/* harmony export */   bMinusASortFn: () => (/* binding */ bMinusASortFn),
-/* harmony export */   isNotNullOrUndefined: () => (/* binding */ isNotNullOrUndefined),
-/* harmony export */   sleep: () => (/* binding */ sleep)
-/* harmony export */ });
-function sleep(milliseconds) {
-    return new Promise((resolve, reject) => {
-        setTimeout(resolve, milliseconds);
-    });
-}
-function isNotNullOrUndefined(value) {
-    if (value === null)
-        return false;
-    if (typeof value === 'undefined')
-        return false;
-    return true;
-}
-function aMinusBSortFn(func) {
-    return (a, b) => func(a) - func(b);
-}
-function bMinusASortFn(func) {
-    return (a, b) => func(b) - func(a);
-}
-
-
-/***/ },
-
-/***/ "./src/types.ts"
-/*!**********************!*\
-  !*** ./src/types.ts ***!
-  \**********************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_343871__) {
-
-__nested_webpack_require_343871__.r(__nested_webpack_exports__);
-
-
-
-/***/ },
-
-/***/ "./src/users/getUserGenerator.ts"
-/*!***************************************!*\
-  !*** ./src/users/getUserGenerator.ts ***!
-  \***************************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_344173__) {
-
-__nested_webpack_require_344173__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_344173__.d(__nested_webpack_exports__, {
-/* harmony export */   getUserGenerator: () => (/* binding */ getUserGenerator)
-/* harmony export */ });
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_344173__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-
-const getUserGenerator = (config) => {
-    let url;
-    if ('accountId' in config) {
-        url = `/api/v1/accounts/${config.accountId}/users`;
-    }
-    else if ('courseId' in config) {
-        url = `/api/v1/courses/${config.courseId}/users`;
-    }
-    else {
-        throw new Error('config type not recognized');
-    }
-    return (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__.getPagedDataGenerator)(url, {
-        queryParams: config,
-    });
-};
-
-
-/***/ },
-
-/***/ "./src/users/index.ts"
-/*!****************************!*\
-  !*** ./src/users/index.ts ***!
-  \****************************/
-(__unused_webpack_module, __nested_webpack_exports__, __nested_webpack_require_345251__) {
-
-__nested_webpack_require_345251__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_345251__.d(__nested_webpack_exports__, {
-/* harmony export */   getUserGenerator: () => (/* reexport safe */ _getUserGenerator__WEBPACK_IMPORTED_MODULE_0__.getUserGenerator)
-/* harmony export */ });
-/* harmony import */ var _getUserGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_345251__(/*! ./getUserGenerator */ "./src/users/getUserGenerator.ts");
-
-
-
-/***/ },
-
-/***/ "assert"
-/*!*************************!*\
-  !*** external "assert" ***!
-  \*************************/
-(module) {
-
-module.exports = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-
 /***/ }
 
 /******/ 	});
@@ -8825,7 +8717,7 @@ module.exports = __webpack_require__(/*! assert */ "./node_modules/assert/build/
 /******/ 	var __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
-/******/ 	function __nested_webpack_require_346096__(moduleId) {
+/******/ 	function __nested_webpack_require_346108__(moduleId) {
 /******/ 		// Check if module is in cache
 /******/ 		var cachedModule = __webpack_module_cache__[moduleId];
 /******/ 		if (cachedModule !== undefined) {
@@ -8845,7 +8737,7 @@ module.exports = __webpack_require__(/*! assert */ "./node_modules/assert/build/
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_346096__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_346108__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -8855,11 +8747,11 @@ module.exports = __webpack_require__(/*! assert */ "./node_modules/assert/build/
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nested_webpack_require_346096__.n = (module) => {
+/******/ 		__nested_webpack_require_346108__.n = (module) => {
 /******/ 			var getter = module && module.__esModule ?
 /******/ 				() => (module['default']) :
 /******/ 				() => (module);
-/******/ 			__nested_webpack_require_346096__.d(getter, { a: getter });
+/******/ 			__nested_webpack_require_346108__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
@@ -8867,9 +8759,9 @@ module.exports = __webpack_require__(/*! assert */ "./node_modules/assert/build/
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__nested_webpack_require_346096__.d = (exports, definition) => {
+/******/ 		__nested_webpack_require_346108__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
-/******/ 				if(__nested_webpack_require_346096__.o(definition, key) && !__nested_webpack_require_346096__.o(exports, key)) {
+/******/ 				if(__nested_webpack_require_346108__.o(definition, key) && !__nested_webpack_require_346108__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
@@ -8878,13 +8770,13 @@ module.exports = __webpack_require__(/*! assert */ "./node_modules/assert/build/
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
-/******/ 		__nested_webpack_require_346096__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 		__nested_webpack_require_346108__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__nested_webpack_require_346096__.r = (exports) => {
+/******/ 		__nested_webpack_require_346108__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
@@ -8899,8 +8791,8 @@ var __nested_webpack_exports__ = {};
 /*!**********************!*\
   !*** ./src/index.ts ***!
   \**********************/
-__nested_webpack_require_346096__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_346096__.d(__nested_webpack_exports__, {
+__nested_webpack_require_346108__.r(__nested_webpack_exports__);
+/* harmony export */ __nested_webpack_require_346108__.d(__nested_webpack_exports__, {
 /* harmony export */   Account: () => (/* reexport safe */ _Account__WEBPACK_IMPORTED_MODULE_14__.Account),
 /* harmony export */   BaseCanvasObject: () => (/* reexport safe */ _baseCanvasObject__WEBPACK_IMPORTED_MODULE_3__.BaseCanvasObject),
 /* harmony export */   BaseContentItem: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.BaseContentItem),
@@ -9031,28 +8923,28 @@ __nested_webpack_require_346096__.r(__nested_webpack_exports__);
 /* harmony export */   uploadFile: () => (/* reexport safe */ _files__WEBPACK_IMPORTED_MODULE_15__.uploadFile),
 /* harmony export */   winnow: () => (/* reexport safe */ _profile__WEBPACK_IMPORTED_MODULE_16__.winnow)
 /* harmony export */ });
-/* harmony import */ var _term_getTermsGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_346096__(/*! @/term/getTermsGenerator */ "./src/term/getTermsGenerator.ts");
-/* harmony import */ var _course_mocks_mockCourseData__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_346096__(/*! @/course/__mocks__/mockCourseData */ "./src/course/__mocks__/mockCourseData.ts");
-/* harmony import */ var _course_mocks_mockModuleData__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_346096__(/*! @/course/__mocks__/mockModuleData */ "./src/course/__mocks__/mockModuleData.ts");
-/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_346096__(/*! ./baseCanvasObject */ "./src/baseCanvasObject.ts");
-/* harmony import */ var _NotImplementedException__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_346096__(/*! ./NotImplementedException */ "./src/NotImplementedException.ts");
-/* harmony import */ var _rubrics__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_346096__(/*! ./rubrics */ "./src/rubrics.ts");
-/* harmony import */ var _rubricTypes__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_346096__(/*! ./rubricTypes */ "./src/rubricTypes.ts");
-/* harmony import */ var _canvasDataDefs__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_346096__(/*! ./canvasDataDefs */ "./src/canvasDataDefs.ts");
-/* harmony import */ var _enrollments__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_346096__(/*! ./enrollments */ "./src/enrollments/index.ts");
-/* harmony import */ var _term__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_346096__(/*! ./term */ "./src/term/index.ts");
-/* harmony import */ var _content__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_346096__(/*! ./content */ "./src/content/index.ts");
-/* harmony import */ var _course__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_346096__(/*! ./course */ "./src/course/index.ts");
-/* harmony import */ var _users__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_346096__(/*! ./users */ "./src/users/index.ts");
-/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_13__ = __nested_webpack_require_346096__(/*! ./toolbox */ "./src/toolbox.ts");
-/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_14__ = __nested_webpack_require_346096__(/*! ./Account */ "./src/Account.ts");
-/* harmony import */ var _files__WEBPACK_IMPORTED_MODULE_15__ = __nested_webpack_require_346096__(/*! ./files */ "./src/files.ts");
-/* harmony import */ var _profile__WEBPACK_IMPORTED_MODULE_16__ = __nested_webpack_require_346096__(/*! ./profile */ "./src/profile.ts");
-/* harmony import */ var _date__WEBPACK_IMPORTED_MODULE_17__ = __nested_webpack_require_346096__(/*! ./date */ "./src/date.ts");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_18__ = __nested_webpack_require_346096__(/*! ./types */ "./src/types.ts");
-/* harmony import */ var _fetch__WEBPACK_IMPORTED_MODULE_19__ = __nested_webpack_require_346096__(/*! ./fetch */ "./src/fetch/index.ts");
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_20__ = __nested_webpack_require_346096__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _mocks___WEBPACK_IMPORTED_MODULE_21__ = __nested_webpack_require_346096__(/*! ./__mocks__ */ "./src/__mocks__/index.ts");
+/* harmony import */ var _term_getTermsGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_346108__(/*! @/term/getTermsGenerator */ "./src/term/getTermsGenerator.ts");
+/* harmony import */ var _course_mocks_mockCourseData__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_346108__(/*! @/course/__mocks__/mockCourseData */ "./src/course/__mocks__/mockCourseData.ts");
+/* harmony import */ var _course_mocks_mockModuleData__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_346108__(/*! @/course/__mocks__/mockModuleData */ "./src/course/__mocks__/mockModuleData.ts");
+/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_346108__(/*! ./baseCanvasObject */ "./src/baseCanvasObject.ts");
+/* harmony import */ var _NotImplementedException__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_346108__(/*! ./NotImplementedException */ "./src/NotImplementedException.ts");
+/* harmony import */ var _rubrics__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_346108__(/*! ./rubrics */ "./src/rubrics.ts");
+/* harmony import */ var _rubricTypes__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_346108__(/*! ./rubricTypes */ "./src/rubricTypes.ts");
+/* harmony import */ var _canvasDataDefs__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_346108__(/*! ./canvasDataDefs */ "./src/canvasDataDefs.ts");
+/* harmony import */ var _enrollments__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_346108__(/*! ./enrollments */ "./src/enrollments/index.ts");
+/* harmony import */ var _term__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_346108__(/*! ./term */ "./src/term/index.ts");
+/* harmony import */ var _content__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_346108__(/*! ./content */ "./src/content/index.ts");
+/* harmony import */ var _course__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_346108__(/*! ./course */ "./src/course/index.ts");
+/* harmony import */ var _users__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_346108__(/*! ./users */ "./src/users/index.ts");
+/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_13__ = __nested_webpack_require_346108__(/*! ./toolbox */ "./src/toolbox.ts");
+/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_14__ = __nested_webpack_require_346108__(/*! ./Account */ "./src/Account.ts");
+/* harmony import */ var _files__WEBPACK_IMPORTED_MODULE_15__ = __nested_webpack_require_346108__(/*! ./files */ "./src/files.ts");
+/* harmony import */ var _profile__WEBPACK_IMPORTED_MODULE_16__ = __nested_webpack_require_346108__(/*! ./profile */ "./src/profile.ts");
+/* harmony import */ var _date__WEBPACK_IMPORTED_MODULE_17__ = __nested_webpack_require_346108__(/*! ./date */ "./src/date.ts");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_18__ = __nested_webpack_require_346108__(/*! ./types */ "./src/types.ts");
+/* harmony import */ var _fetch__WEBPACK_IMPORTED_MODULE_19__ = __nested_webpack_require_346108__(/*! ./fetch */ "./src/fetch/index.ts");
+/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_20__ = __nested_webpack_require_346108__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
+/* harmony import */ var _mocks___WEBPACK_IMPORTED_MODULE_21__ = __nested_webpack_require_346108__(/*! ./__mocks__ */ "./src/__mocks__/index.ts");
 
 
 
@@ -9083,6 +8975,5670 @@ __nested_webpack_require_346096__.r(__nested_webpack_exports__);
 /******/ })()
 ;
 });
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/assert/build/assert.js"
+/*!*********************************************************!*\
+  !*** ../ueu_canvas/node_modules/assert/build/assert.js ***!
+  \*********************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+/* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
+// Currently in sync with Node.js lib/assert.js
+// https://github.com/nodejs/node/commit/2a51ae424a513ec9a6aa3466baa0cc1d55dd4f3b
+
+// Originally from narwhal.js (http://narwhaljs.org)
+// Copyright (c) 2009 Thomas Robinson <280north.com>
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the 'Software'), to
+// deal in the Software without restriction, including without limitation the
+// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+// sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+// ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _require = __webpack_require__(/*! ./internal/errors */ "../ueu_canvas/node_modules/assert/build/internal/errors.js"),
+  _require$codes = _require.codes,
+  ERR_AMBIGUOUS_ARGUMENT = _require$codes.ERR_AMBIGUOUS_ARGUMENT,
+  ERR_INVALID_ARG_TYPE = _require$codes.ERR_INVALID_ARG_TYPE,
+  ERR_INVALID_ARG_VALUE = _require$codes.ERR_INVALID_ARG_VALUE,
+  ERR_INVALID_RETURN_VALUE = _require$codes.ERR_INVALID_RETURN_VALUE,
+  ERR_MISSING_ARGS = _require$codes.ERR_MISSING_ARGS;
+var AssertionError = __webpack_require__(/*! ./internal/assert/assertion_error */ "../ueu_canvas/node_modules/assert/build/internal/assert/assertion_error.js");
+var _require2 = __webpack_require__(/*! util/ */ "../ueu_canvas/node_modules/util/util.js"),
+  inspect = _require2.inspect;
+var _require$types = (__webpack_require__(/*! util/ */ "../ueu_canvas/node_modules/util/util.js").types),
+  isPromise = _require$types.isPromise,
+  isRegExp = _require$types.isRegExp;
+var objectAssign = __webpack_require__(/*! object.assign/polyfill */ "../ueu_canvas/node_modules/object.assign/polyfill.js")();
+var objectIs = __webpack_require__(/*! object-is/polyfill */ "../ueu_canvas/node_modules/object-is/polyfill.js")();
+var RegExpPrototypeTest = __webpack_require__(/*! call-bind/callBound */ "../ueu_canvas/node_modules/call-bind/callBound.js")('RegExp.prototype.test');
+var errorCache = new Map();
+var isDeepEqual;
+var isDeepStrictEqual;
+var parseExpressionAt;
+var findNodeAround;
+var decoder;
+function lazyLoadComparison() {
+  var comparison = __webpack_require__(/*! ./internal/util/comparisons */ "../ueu_canvas/node_modules/assert/build/internal/util/comparisons.js");
+  isDeepEqual = comparison.isDeepEqual;
+  isDeepStrictEqual = comparison.isDeepStrictEqual;
+}
+
+// Escape control characters but not \n and \t to keep the line breaks and
+// indentation intact.
+// eslint-disable-next-line no-control-regex
+var escapeSequencesRegExp = /[\x00-\x08\x0b\x0c\x0e-\x1f]/g;
+var meta = ["\\u0000", "\\u0001", "\\u0002", "\\u0003", "\\u0004", "\\u0005", "\\u0006", "\\u0007", '\\b', '', '', "\\u000b", '\\f', '', "\\u000e", "\\u000f", "\\u0010", "\\u0011", "\\u0012", "\\u0013", "\\u0014", "\\u0015", "\\u0016", "\\u0017", "\\u0018", "\\u0019", "\\u001a", "\\u001b", "\\u001c", "\\u001d", "\\u001e", "\\u001f"];
+var escapeFn = function escapeFn(str) {
+  return meta[str.charCodeAt(0)];
+};
+var warned = false;
+
+// The assert module provides functions that throw
+// AssertionError's when particular conditions are not met. The
+// assert module must conform to the following interface.
+
+var assert = module.exports = ok;
+var NO_EXCEPTION_SENTINEL = {};
+
+// All of the following functions must throw an AssertionError
+// when a corresponding condition is not met, with a message that
+// may be undefined if not provided. All assertion methods provide
+// both the actual and expected values to the assertion error for
+// display purposes.
+
+function innerFail(obj) {
+  if (obj.message instanceof Error) throw obj.message;
+  throw new AssertionError(obj);
+}
+function fail(actual, expected, message, operator, stackStartFn) {
+  var argsLen = arguments.length;
+  var internalMessage;
+  if (argsLen === 0) {
+    internalMessage = 'Failed';
+  } else if (argsLen === 1) {
+    message = actual;
+    actual = undefined;
+  } else {
+    if (warned === false) {
+      warned = true;
+      var warn = process.emitWarning ? process.emitWarning : console.warn.bind(console);
+      warn('assert.fail() with more than one argument is deprecated. ' + 'Please use assert.strictEqual() instead or only pass a message.', 'DeprecationWarning', 'DEP0094');
+    }
+    if (argsLen === 2) operator = '!=';
+  }
+  if (message instanceof Error) throw message;
+  var errArgs = {
+    actual: actual,
+    expected: expected,
+    operator: operator === undefined ? 'fail' : operator,
+    stackStartFn: stackStartFn || fail
+  };
+  if (message !== undefined) {
+    errArgs.message = message;
+  }
+  var err = new AssertionError(errArgs);
+  if (internalMessage) {
+    err.message = internalMessage;
+    err.generatedMessage = true;
+  }
+  throw err;
+}
+assert.fail = fail;
+
+// The AssertionError is defined in internal/error.
+assert.AssertionError = AssertionError;
+function innerOk(fn, argLen, value, message) {
+  if (!value) {
+    var generatedMessage = false;
+    if (argLen === 0) {
+      generatedMessage = true;
+      message = 'No value argument passed to `assert.ok()`';
+    } else if (message instanceof Error) {
+      throw message;
+    }
+    var err = new AssertionError({
+      actual: value,
+      expected: true,
+      message: message,
+      operator: '==',
+      stackStartFn: fn
+    });
+    err.generatedMessage = generatedMessage;
+    throw err;
+  }
+}
+
+// Pure assertion tests whether a value is truthy, as determined
+// by !!value.
+function ok() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  innerOk.apply(void 0, [ok, args.length].concat(args));
+}
+assert.ok = ok;
+
+// The equality assertion tests shallow, coercive equality with ==.
+/* eslint-disable no-restricted-properties */
+assert.equal = function equal(actual, expected, message) {
+  if (arguments.length < 2) {
+    throw new ERR_MISSING_ARGS('actual', 'expected');
+  }
+  // eslint-disable-next-line eqeqeq
+  if (actual != expected) {
+    innerFail({
+      actual: actual,
+      expected: expected,
+      message: message,
+      operator: '==',
+      stackStartFn: equal
+    });
+  }
+};
+
+// The non-equality assertion tests for whether two objects are not
+// equal with !=.
+assert.notEqual = function notEqual(actual, expected, message) {
+  if (arguments.length < 2) {
+    throw new ERR_MISSING_ARGS('actual', 'expected');
+  }
+  // eslint-disable-next-line eqeqeq
+  if (actual == expected) {
+    innerFail({
+      actual: actual,
+      expected: expected,
+      message: message,
+      operator: '!=',
+      stackStartFn: notEqual
+    });
+  }
+};
+
+// The equivalence assertion tests a deep equality relation.
+assert.deepEqual = function deepEqual(actual, expected, message) {
+  if (arguments.length < 2) {
+    throw new ERR_MISSING_ARGS('actual', 'expected');
+  }
+  if (isDeepEqual === undefined) lazyLoadComparison();
+  if (!isDeepEqual(actual, expected)) {
+    innerFail({
+      actual: actual,
+      expected: expected,
+      message: message,
+      operator: 'deepEqual',
+      stackStartFn: deepEqual
+    });
+  }
+};
+
+// The non-equivalence assertion tests for any deep inequality.
+assert.notDeepEqual = function notDeepEqual(actual, expected, message) {
+  if (arguments.length < 2) {
+    throw new ERR_MISSING_ARGS('actual', 'expected');
+  }
+  if (isDeepEqual === undefined) lazyLoadComparison();
+  if (isDeepEqual(actual, expected)) {
+    innerFail({
+      actual: actual,
+      expected: expected,
+      message: message,
+      operator: 'notDeepEqual',
+      stackStartFn: notDeepEqual
+    });
+  }
+};
+/* eslint-enable */
+
+assert.deepStrictEqual = function deepStrictEqual(actual, expected, message) {
+  if (arguments.length < 2) {
+    throw new ERR_MISSING_ARGS('actual', 'expected');
+  }
+  if (isDeepEqual === undefined) lazyLoadComparison();
+  if (!isDeepStrictEqual(actual, expected)) {
+    innerFail({
+      actual: actual,
+      expected: expected,
+      message: message,
+      operator: 'deepStrictEqual',
+      stackStartFn: deepStrictEqual
+    });
+  }
+};
+assert.notDeepStrictEqual = notDeepStrictEqual;
+function notDeepStrictEqual(actual, expected, message) {
+  if (arguments.length < 2) {
+    throw new ERR_MISSING_ARGS('actual', 'expected');
+  }
+  if (isDeepEqual === undefined) lazyLoadComparison();
+  if (isDeepStrictEqual(actual, expected)) {
+    innerFail({
+      actual: actual,
+      expected: expected,
+      message: message,
+      operator: 'notDeepStrictEqual',
+      stackStartFn: notDeepStrictEqual
+    });
+  }
+}
+assert.strictEqual = function strictEqual(actual, expected, message) {
+  if (arguments.length < 2) {
+    throw new ERR_MISSING_ARGS('actual', 'expected');
+  }
+  if (!objectIs(actual, expected)) {
+    innerFail({
+      actual: actual,
+      expected: expected,
+      message: message,
+      operator: 'strictEqual',
+      stackStartFn: strictEqual
+    });
+  }
+};
+assert.notStrictEqual = function notStrictEqual(actual, expected, message) {
+  if (arguments.length < 2) {
+    throw new ERR_MISSING_ARGS('actual', 'expected');
+  }
+  if (objectIs(actual, expected)) {
+    innerFail({
+      actual: actual,
+      expected: expected,
+      message: message,
+      operator: 'notStrictEqual',
+      stackStartFn: notStrictEqual
+    });
+  }
+};
+var Comparison = /*#__PURE__*/_createClass(function Comparison(obj, keys, actual) {
+  var _this = this;
+  _classCallCheck(this, Comparison);
+  keys.forEach(function (key) {
+    if (key in obj) {
+      if (actual !== undefined && typeof actual[key] === 'string' && isRegExp(obj[key]) && RegExpPrototypeTest(obj[key], actual[key])) {
+        _this[key] = actual[key];
+      } else {
+        _this[key] = obj[key];
+      }
+    }
+  });
+});
+function compareExceptionKey(actual, expected, key, message, keys, fn) {
+  if (!(key in actual) || !isDeepStrictEqual(actual[key], expected[key])) {
+    if (!message) {
+      // Create placeholder objects to create a nice output.
+      var a = new Comparison(actual, keys);
+      var b = new Comparison(expected, keys, actual);
+      var err = new AssertionError({
+        actual: a,
+        expected: b,
+        operator: 'deepStrictEqual',
+        stackStartFn: fn
+      });
+      err.actual = actual;
+      err.expected = expected;
+      err.operator = fn.name;
+      throw err;
+    }
+    innerFail({
+      actual: actual,
+      expected: expected,
+      message: message,
+      operator: fn.name,
+      stackStartFn: fn
+    });
+  }
+}
+function expectedException(actual, expected, msg, fn) {
+  if (typeof expected !== 'function') {
+    if (isRegExp(expected)) return RegExpPrototypeTest(expected, actual);
+    // assert.doesNotThrow does not accept objects.
+    if (arguments.length === 2) {
+      throw new ERR_INVALID_ARG_TYPE('expected', ['Function', 'RegExp'], expected);
+    }
+
+    // Handle primitives properly.
+    if (_typeof(actual) !== 'object' || actual === null) {
+      var err = new AssertionError({
+        actual: actual,
+        expected: expected,
+        message: msg,
+        operator: 'deepStrictEqual',
+        stackStartFn: fn
+      });
+      err.operator = fn.name;
+      throw err;
+    }
+    var keys = Object.keys(expected);
+    // Special handle errors to make sure the name and the message are compared
+    // as well.
+    if (expected instanceof Error) {
+      keys.push('name', 'message');
+    } else if (keys.length === 0) {
+      throw new ERR_INVALID_ARG_VALUE('error', expected, 'may not be an empty object');
+    }
+    if (isDeepEqual === undefined) lazyLoadComparison();
+    keys.forEach(function (key) {
+      if (typeof actual[key] === 'string' && isRegExp(expected[key]) && RegExpPrototypeTest(expected[key], actual[key])) {
+        return;
+      }
+      compareExceptionKey(actual, expected, key, msg, keys, fn);
+    });
+    return true;
+  }
+  // Guard instanceof against arrow functions as they don't have a prototype.
+  if (expected.prototype !== undefined && actual instanceof expected) {
+    return true;
+  }
+  if (Error.isPrototypeOf(expected)) {
+    return false;
+  }
+  return expected.call({}, actual) === true;
+}
+function getActual(fn) {
+  if (typeof fn !== 'function') {
+    throw new ERR_INVALID_ARG_TYPE('fn', 'Function', fn);
+  }
+  try {
+    fn();
+  } catch (e) {
+    return e;
+  }
+  return NO_EXCEPTION_SENTINEL;
+}
+function checkIsPromise(obj) {
+  // Accept native ES6 promises and promises that are implemented in a similar
+  // way. Do not accept thenables that use a function as `obj` and that have no
+  // `catch` handler.
+
+  // TODO: thenables are checked up until they have the correct methods,
+  // but according to documentation, the `then` method should receive
+  // the `fulfill` and `reject` arguments as well or it may be never resolved.
+
+  return isPromise(obj) || obj !== null && _typeof(obj) === 'object' && typeof obj.then === 'function' && typeof obj.catch === 'function';
+}
+function waitForActual(promiseFn) {
+  return Promise.resolve().then(function () {
+    var resultPromise;
+    if (typeof promiseFn === 'function') {
+      // Return a rejected promise if `promiseFn` throws synchronously.
+      resultPromise = promiseFn();
+      // Fail in case no promise is returned.
+      if (!checkIsPromise(resultPromise)) {
+        throw new ERR_INVALID_RETURN_VALUE('instance of Promise', 'promiseFn', resultPromise);
+      }
+    } else if (checkIsPromise(promiseFn)) {
+      resultPromise = promiseFn;
+    } else {
+      throw new ERR_INVALID_ARG_TYPE('promiseFn', ['Function', 'Promise'], promiseFn);
+    }
+    return Promise.resolve().then(function () {
+      return resultPromise;
+    }).then(function () {
+      return NO_EXCEPTION_SENTINEL;
+    }).catch(function (e) {
+      return e;
+    });
+  });
+}
+function expectsError(stackStartFn, actual, error, message) {
+  if (typeof error === 'string') {
+    if (arguments.length === 4) {
+      throw new ERR_INVALID_ARG_TYPE('error', ['Object', 'Error', 'Function', 'RegExp'], error);
+    }
+    if (_typeof(actual) === 'object' && actual !== null) {
+      if (actual.message === error) {
+        throw new ERR_AMBIGUOUS_ARGUMENT('error/message', "The error message \"".concat(actual.message, "\" is identical to the message."));
+      }
+    } else if (actual === error) {
+      throw new ERR_AMBIGUOUS_ARGUMENT('error/message', "The error \"".concat(actual, "\" is identical to the message."));
+    }
+    message = error;
+    error = undefined;
+  } else if (error != null && _typeof(error) !== 'object' && typeof error !== 'function') {
+    throw new ERR_INVALID_ARG_TYPE('error', ['Object', 'Error', 'Function', 'RegExp'], error);
+  }
+  if (actual === NO_EXCEPTION_SENTINEL) {
+    var details = '';
+    if (error && error.name) {
+      details += " (".concat(error.name, ")");
+    }
+    details += message ? ": ".concat(message) : '.';
+    var fnType = stackStartFn.name === 'rejects' ? 'rejection' : 'exception';
+    innerFail({
+      actual: undefined,
+      expected: error,
+      operator: stackStartFn.name,
+      message: "Missing expected ".concat(fnType).concat(details),
+      stackStartFn: stackStartFn
+    });
+  }
+  if (error && !expectedException(actual, error, message, stackStartFn)) {
+    throw actual;
+  }
+}
+function expectsNoError(stackStartFn, actual, error, message) {
+  if (actual === NO_EXCEPTION_SENTINEL) return;
+  if (typeof error === 'string') {
+    message = error;
+    error = undefined;
+  }
+  if (!error || expectedException(actual, error)) {
+    var details = message ? ": ".concat(message) : '.';
+    var fnType = stackStartFn.name === 'doesNotReject' ? 'rejection' : 'exception';
+    innerFail({
+      actual: actual,
+      expected: error,
+      operator: stackStartFn.name,
+      message: "Got unwanted ".concat(fnType).concat(details, "\n") + "Actual message: \"".concat(actual && actual.message, "\""),
+      stackStartFn: stackStartFn
+    });
+  }
+  throw actual;
+}
+assert.throws = function throws(promiseFn) {
+  for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+    args[_key2 - 1] = arguments[_key2];
+  }
+  expectsError.apply(void 0, [throws, getActual(promiseFn)].concat(args));
+};
+assert.rejects = function rejects(promiseFn) {
+  for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+    args[_key3 - 1] = arguments[_key3];
+  }
+  return waitForActual(promiseFn).then(function (result) {
+    return expectsError.apply(void 0, [rejects, result].concat(args));
+  });
+};
+assert.doesNotThrow = function doesNotThrow(fn) {
+  for (var _len4 = arguments.length, args = new Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
+    args[_key4 - 1] = arguments[_key4];
+  }
+  expectsNoError.apply(void 0, [doesNotThrow, getActual(fn)].concat(args));
+};
+assert.doesNotReject = function doesNotReject(fn) {
+  for (var _len5 = arguments.length, args = new Array(_len5 > 1 ? _len5 - 1 : 0), _key5 = 1; _key5 < _len5; _key5++) {
+    args[_key5 - 1] = arguments[_key5];
+  }
+  return waitForActual(fn).then(function (result) {
+    return expectsNoError.apply(void 0, [doesNotReject, result].concat(args));
+  });
+};
+assert.ifError = function ifError(err) {
+  if (err !== null && err !== undefined) {
+    var message = 'ifError got unwanted exception: ';
+    if (_typeof(err) === 'object' && typeof err.message === 'string') {
+      if (err.message.length === 0 && err.constructor) {
+        message += err.constructor.name;
+      } else {
+        message += err.message;
+      }
+    } else {
+      message += inspect(err);
+    }
+    var newErr = new AssertionError({
+      actual: err,
+      expected: null,
+      operator: 'ifError',
+      message: message,
+      stackStartFn: ifError
+    });
+
+    // Make sure we actually have a stack trace!
+    var origStack = err.stack;
+    if (typeof origStack === 'string') {
+      // This will remove any duplicated frames from the error frames taken
+      // from within `ifError` and add the original error frames to the newly
+      // created ones.
+      var tmp2 = origStack.split('\n');
+      tmp2.shift();
+      // Filter all frames existing in err.stack.
+      var tmp1 = newErr.stack.split('\n');
+      for (var i = 0; i < tmp2.length; i++) {
+        // Find the first occurrence of the frame.
+        var pos = tmp1.indexOf(tmp2[i]);
+        if (pos !== -1) {
+          // Only keep new frames.
+          tmp1 = tmp1.slice(0, pos);
+          break;
+        }
+      }
+      newErr.stack = "".concat(tmp1.join('\n'), "\n").concat(tmp2.join('\n'));
+    }
+    throw newErr;
+  }
+};
+
+// Currently in sync with Node.js lib/assert.js
+// https://github.com/nodejs/node/commit/2a871df3dfb8ea663ef5e1f8f62701ec51384ecb
+function internalMatch(string, regexp, message, fn, fnName) {
+  if (!isRegExp(regexp)) {
+    throw new ERR_INVALID_ARG_TYPE('regexp', 'RegExp', regexp);
+  }
+  var match = fnName === 'match';
+  if (typeof string !== 'string' || RegExpPrototypeTest(regexp, string) !== match) {
+    if (message instanceof Error) {
+      throw message;
+    }
+    var generatedMessage = !message;
+
+    // 'The input was expected to not match the regular expression ' +
+    message = message || (typeof string !== 'string' ? 'The "string" argument must be of type string. Received type ' + "".concat(_typeof(string), " (").concat(inspect(string), ")") : (match ? 'The input did not match the regular expression ' : 'The input was expected to not match the regular expression ') + "".concat(inspect(regexp), ". Input:\n\n").concat(inspect(string), "\n"));
+    var err = new AssertionError({
+      actual: string,
+      expected: regexp,
+      message: message,
+      operator: fnName,
+      stackStartFn: fn
+    });
+    err.generatedMessage = generatedMessage;
+    throw err;
+  }
+}
+assert.match = function match(string, regexp, message) {
+  internalMatch(string, regexp, message, match, 'match');
+};
+assert.doesNotMatch = function doesNotMatch(string, regexp, message) {
+  internalMatch(string, regexp, message, doesNotMatch, 'doesNotMatch');
+};
+
+// Expose a strict only variant of assert
+function strict() {
+  for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+    args[_key6] = arguments[_key6];
+  }
+  innerOk.apply(void 0, [strict, args.length].concat(args));
+}
+assert.strict = objectAssign(strict, assert, {
+  equal: assert.strictEqual,
+  deepEqual: assert.deepStrictEqual,
+  notEqual: assert.notStrictEqual,
+  notDeepEqual: assert.notDeepStrictEqual
+});
+assert.strict.strict = assert.strict;
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/assert/build/internal/assert/assertion_error.js"
+/*!**********************************************************************************!*\
+  !*** ../ueu_canvas/node_modules/assert/build/internal/assert/assertion_error.js ***!
+  \**********************************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+/* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
+// Currently in sync with Node.js lib/internal/assert/assertion_error.js
+// https://github.com/nodejs/node/commit/0817840f775032169ddd70c85ac059f18ffcc81c
+
+
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _wrapNativeSuper(Class) { var _cache = typeof Map === "function" ? new Map() : undefined; _wrapNativeSuper = function _wrapNativeSuper(Class) { if (Class === null || !_isNativeFunction(Class)) return Class; if (typeof Class !== "function") { throw new TypeError("Super expression must either be null or a function"); } if (typeof _cache !== "undefined") { if (_cache.has(Class)) return _cache.get(Class); _cache.set(Class, Wrapper); } function Wrapper() { return _construct(Class, arguments, _getPrototypeOf(this).constructor); } Wrapper.prototype = Object.create(Class.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }); return _setPrototypeOf(Wrapper, Class); }; return _wrapNativeSuper(Class); }
+function _construct(Parent, args, Class) { if (_isNativeReflectConstruct()) { _construct = Reflect.construct.bind(); } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeFunction(fn) { return Function.toString.call(fn).indexOf("[native code]") !== -1; }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+var _require = __webpack_require__(/*! util/ */ "../ueu_canvas/node_modules/util/util.js"),
+  inspect = _require.inspect;
+var _require2 = __webpack_require__(/*! ../errors */ "../ueu_canvas/node_modules/assert/build/internal/errors.js"),
+  ERR_INVALID_ARG_TYPE = _require2.codes.ERR_INVALID_ARG_TYPE;
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith
+function endsWith(str, search, this_len) {
+  if (this_len === undefined || this_len > str.length) {
+    this_len = str.length;
+  }
+  return str.substring(this_len - search.length, this_len) === search;
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat
+function repeat(str, count) {
+  count = Math.floor(count);
+  if (str.length == 0 || count == 0) return '';
+  var maxCount = str.length * count;
+  count = Math.floor(Math.log(count) / Math.log(2));
+  while (count) {
+    str += str;
+    count--;
+  }
+  str += str.substring(0, maxCount - str.length);
+  return str;
+}
+var blue = '';
+var green = '';
+var red = '';
+var white = '';
+var kReadableOperator = {
+  deepStrictEqual: 'Expected values to be strictly deep-equal:',
+  strictEqual: 'Expected values to be strictly equal:',
+  strictEqualObject: 'Expected "actual" to be reference-equal to "expected":',
+  deepEqual: 'Expected values to be loosely deep-equal:',
+  equal: 'Expected values to be loosely equal:',
+  notDeepStrictEqual: 'Expected "actual" not to be strictly deep-equal to:',
+  notStrictEqual: 'Expected "actual" to be strictly unequal to:',
+  notStrictEqualObject: 'Expected "actual" not to be reference-equal to "expected":',
+  notDeepEqual: 'Expected "actual" not to be loosely deep-equal to:',
+  notEqual: 'Expected "actual" to be loosely unequal to:',
+  notIdentical: 'Values identical but not reference-equal:'
+};
+
+// Comparing short primitives should just show === / !== instead of using the
+// diff.
+var kMaxShortLength = 10;
+function copyError(source) {
+  var keys = Object.keys(source);
+  var target = Object.create(Object.getPrototypeOf(source));
+  keys.forEach(function (key) {
+    target[key] = source[key];
+  });
+  Object.defineProperty(target, 'message', {
+    value: source.message
+  });
+  return target;
+}
+function inspectValue(val) {
+  // The util.inspect default values could be changed. This makes sure the
+  // error messages contain the necessary information nevertheless.
+  return inspect(val, {
+    compact: false,
+    customInspect: false,
+    depth: 1000,
+    maxArrayLength: Infinity,
+    // Assert compares only enumerable properties (with a few exceptions).
+    showHidden: false,
+    // Having a long line as error is better than wrapping the line for
+    // comparison for now.
+    // TODO(BridgeAR): `breakLength` should be limited as soon as soon as we
+    // have meta information about the inspected properties (i.e., know where
+    // in what line the property starts and ends).
+    breakLength: Infinity,
+    // Assert does not detect proxies currently.
+    showProxy: false,
+    sorted: true,
+    // Inspect getters as we also check them when comparing entries.
+    getters: true
+  });
+}
+function createErrDiff(actual, expected, operator) {
+  var other = '';
+  var res = '';
+  var lastPos = 0;
+  var end = '';
+  var skipped = false;
+  var actualInspected = inspectValue(actual);
+  var actualLines = actualInspected.split('\n');
+  var expectedLines = inspectValue(expected).split('\n');
+  var i = 0;
+  var indicator = '';
+
+  // In case both values are objects explicitly mark them as not reference equal
+  // for the `strictEqual` operator.
+  if (operator === 'strictEqual' && _typeof(actual) === 'object' && _typeof(expected) === 'object' && actual !== null && expected !== null) {
+    operator = 'strictEqualObject';
+  }
+
+  // If "actual" and "expected" fit on a single line and they are not strictly
+  // equal, check further special handling.
+  if (actualLines.length === 1 && expectedLines.length === 1 && actualLines[0] !== expectedLines[0]) {
+    var inputLength = actualLines[0].length + expectedLines[0].length;
+    // If the character length of "actual" and "expected" together is less than
+    // kMaxShortLength and if neither is an object and at least one of them is
+    // not `zero`, use the strict equal comparison to visualize the output.
+    if (inputLength <= kMaxShortLength) {
+      if ((_typeof(actual) !== 'object' || actual === null) && (_typeof(expected) !== 'object' || expected === null) && (actual !== 0 || expected !== 0)) {
+        // -0 === +0
+        return "".concat(kReadableOperator[operator], "\n\n") + "".concat(actualLines[0], " !== ").concat(expectedLines[0], "\n");
+      }
+    } else if (operator !== 'strictEqualObject') {
+      // If the stderr is a tty and the input length is lower than the current
+      // columns per line, add a mismatch indicator below the output. If it is
+      // not a tty, use a default value of 80 characters.
+      var maxLength = process.stderr && process.stderr.isTTY ? process.stderr.columns : 80;
+      if (inputLength < maxLength) {
+        while (actualLines[0][i] === expectedLines[0][i]) {
+          i++;
+        }
+        // Ignore the first characters.
+        if (i > 2) {
+          // Add position indicator for the first mismatch in case it is a
+          // single line and the input length is less than the column length.
+          indicator = "\n  ".concat(repeat(' ', i), "^");
+          i = 0;
+        }
+      }
+    }
+  }
+
+  // Remove all ending lines that match (this optimizes the output for
+  // readability by reducing the number of total changed lines).
+  var a = actualLines[actualLines.length - 1];
+  var b = expectedLines[expectedLines.length - 1];
+  while (a === b) {
+    if (i++ < 2) {
+      end = "\n  ".concat(a).concat(end);
+    } else {
+      other = a;
+    }
+    actualLines.pop();
+    expectedLines.pop();
+    if (actualLines.length === 0 || expectedLines.length === 0) break;
+    a = actualLines[actualLines.length - 1];
+    b = expectedLines[expectedLines.length - 1];
+  }
+  var maxLines = Math.max(actualLines.length, expectedLines.length);
+  // Strict equal with identical objects that are not identical by reference.
+  // E.g., assert.deepStrictEqual({ a: Symbol() }, { a: Symbol() })
+  if (maxLines === 0) {
+    // We have to get the result again. The lines were all removed before.
+    var _actualLines = actualInspected.split('\n');
+
+    // Only remove lines in case it makes sense to collapse those.
+    // TODO: Accept env to always show the full error.
+    if (_actualLines.length > 30) {
+      _actualLines[26] = "".concat(blue, "...").concat(white);
+      while (_actualLines.length > 27) {
+        _actualLines.pop();
+      }
+    }
+    return "".concat(kReadableOperator.notIdentical, "\n\n").concat(_actualLines.join('\n'), "\n");
+  }
+  if (i > 3) {
+    end = "\n".concat(blue, "...").concat(white).concat(end);
+    skipped = true;
+  }
+  if (other !== '') {
+    end = "\n  ".concat(other).concat(end);
+    other = '';
+  }
+  var printedLines = 0;
+  var msg = kReadableOperator[operator] + "\n".concat(green, "+ actual").concat(white, " ").concat(red, "- expected").concat(white);
+  var skippedMsg = " ".concat(blue, "...").concat(white, " Lines skipped");
+  for (i = 0; i < maxLines; i++) {
+    // Only extra expected lines exist
+    var cur = i - lastPos;
+    if (actualLines.length < i + 1) {
+      // If the last diverging line is more than one line above and the
+      // current line is at least line three, add some of the former lines and
+      // also add dots to indicate skipped entries.
+      if (cur > 1 && i > 2) {
+        if (cur > 4) {
+          res += "\n".concat(blue, "...").concat(white);
+          skipped = true;
+        } else if (cur > 3) {
+          res += "\n  ".concat(expectedLines[i - 2]);
+          printedLines++;
+        }
+        res += "\n  ".concat(expectedLines[i - 1]);
+        printedLines++;
+      }
+      // Mark the current line as the last diverging one.
+      lastPos = i;
+      // Add the expected line to the cache.
+      other += "\n".concat(red, "-").concat(white, " ").concat(expectedLines[i]);
+      printedLines++;
+      // Only extra actual lines exist
+    } else if (expectedLines.length < i + 1) {
+      // If the last diverging line is more than one line above and the
+      // current line is at least line three, add some of the former lines and
+      // also add dots to indicate skipped entries.
+      if (cur > 1 && i > 2) {
+        if (cur > 4) {
+          res += "\n".concat(blue, "...").concat(white);
+          skipped = true;
+        } else if (cur > 3) {
+          res += "\n  ".concat(actualLines[i - 2]);
+          printedLines++;
+        }
+        res += "\n  ".concat(actualLines[i - 1]);
+        printedLines++;
+      }
+      // Mark the current line as the last diverging one.
+      lastPos = i;
+      // Add the actual line to the result.
+      res += "\n".concat(green, "+").concat(white, " ").concat(actualLines[i]);
+      printedLines++;
+      // Lines diverge
+    } else {
+      var expectedLine = expectedLines[i];
+      var actualLine = actualLines[i];
+      // If the lines diverge, specifically check for lines that only diverge by
+      // a trailing comma. In that case it is actually identical and we should
+      // mark it as such.
+      var divergingLines = actualLine !== expectedLine && (!endsWith(actualLine, ',') || actualLine.slice(0, -1) !== expectedLine);
+      // If the expected line has a trailing comma but is otherwise identical,
+      // add a comma at the end of the actual line. Otherwise the output could
+      // look weird as in:
+      //
+      //   [
+      //     1         // No comma at the end!
+      // +   2
+      //   ]
+      //
+      if (divergingLines && endsWith(expectedLine, ',') && expectedLine.slice(0, -1) === actualLine) {
+        divergingLines = false;
+        actualLine += ',';
+      }
+      if (divergingLines) {
+        // If the last diverging line is more than one line above and the
+        // current line is at least line three, add some of the former lines and
+        // also add dots to indicate skipped entries.
+        if (cur > 1 && i > 2) {
+          if (cur > 4) {
+            res += "\n".concat(blue, "...").concat(white);
+            skipped = true;
+          } else if (cur > 3) {
+            res += "\n  ".concat(actualLines[i - 2]);
+            printedLines++;
+          }
+          res += "\n  ".concat(actualLines[i - 1]);
+          printedLines++;
+        }
+        // Mark the current line as the last diverging one.
+        lastPos = i;
+        // Add the actual line to the result and cache the expected diverging
+        // line so consecutive diverging lines show up as +++--- and not +-+-+-.
+        res += "\n".concat(green, "+").concat(white, " ").concat(actualLine);
+        other += "\n".concat(red, "-").concat(white, " ").concat(expectedLine);
+        printedLines += 2;
+        // Lines are identical
+      } else {
+        // Add all cached information to the result before adding other things
+        // and reset the cache.
+        res += other;
+        other = '';
+        // If the last diverging line is exactly one line above or if it is the
+        // very first line, add the line to the result.
+        if (cur === 1 || i === 0) {
+          res += "\n  ".concat(actualLine);
+          printedLines++;
+        }
+      }
+    }
+    // Inspected object to big (Show ~20 rows max)
+    if (printedLines > 20 && i < maxLines - 2) {
+      return "".concat(msg).concat(skippedMsg, "\n").concat(res, "\n").concat(blue, "...").concat(white).concat(other, "\n") + "".concat(blue, "...").concat(white);
+    }
+  }
+  return "".concat(msg).concat(skipped ? skippedMsg : '', "\n").concat(res).concat(other).concat(end).concat(indicator);
+}
+var AssertionError = /*#__PURE__*/function (_Error, _inspect$custom) {
+  _inherits(AssertionError, _Error);
+  var _super = _createSuper(AssertionError);
+  function AssertionError(options) {
+    var _this;
+    _classCallCheck(this, AssertionError);
+    if (_typeof(options) !== 'object' || options === null) {
+      throw new ERR_INVALID_ARG_TYPE('options', 'Object', options);
+    }
+    var message = options.message,
+      operator = options.operator,
+      stackStartFn = options.stackStartFn;
+    var actual = options.actual,
+      expected = options.expected;
+    var limit = Error.stackTraceLimit;
+    Error.stackTraceLimit = 0;
+    if (message != null) {
+      _this = _super.call(this, String(message));
+    } else {
+      if (process.stderr && process.stderr.isTTY) {
+        // Reset on each call to make sure we handle dynamically set environment
+        // variables correct.
+        if (process.stderr && process.stderr.getColorDepth && process.stderr.getColorDepth() !== 1) {
+          blue = "\x1B[34m";
+          green = "\x1B[32m";
+          white = "\x1B[39m";
+          red = "\x1B[31m";
+        } else {
+          blue = '';
+          green = '';
+          white = '';
+          red = '';
+        }
+      }
+      // Prevent the error stack from being visible by duplicating the error
+      // in a very close way to the original in case both sides are actually
+      // instances of Error.
+      if (_typeof(actual) === 'object' && actual !== null && _typeof(expected) === 'object' && expected !== null && 'stack' in actual && actual instanceof Error && 'stack' in expected && expected instanceof Error) {
+        actual = copyError(actual);
+        expected = copyError(expected);
+      }
+      if (operator === 'deepStrictEqual' || operator === 'strictEqual') {
+        _this = _super.call(this, createErrDiff(actual, expected, operator));
+      } else if (operator === 'notDeepStrictEqual' || operator === 'notStrictEqual') {
+        // In case the objects are equal but the operator requires unequal, show
+        // the first object and say A equals B
+        var base = kReadableOperator[operator];
+        var res = inspectValue(actual).split('\n');
+
+        // In case "actual" is an object, it should not be reference equal.
+        if (operator === 'notStrictEqual' && _typeof(actual) === 'object' && actual !== null) {
+          base = kReadableOperator.notStrictEqualObject;
+        }
+
+        // Only remove lines in case it makes sense to collapse those.
+        // TODO: Accept env to always show the full error.
+        if (res.length > 30) {
+          res[26] = "".concat(blue, "...").concat(white);
+          while (res.length > 27) {
+            res.pop();
+          }
+        }
+
+        // Only print a single input.
+        if (res.length === 1) {
+          _this = _super.call(this, "".concat(base, " ").concat(res[0]));
+        } else {
+          _this = _super.call(this, "".concat(base, "\n\n").concat(res.join('\n'), "\n"));
+        }
+      } else {
+        var _res = inspectValue(actual);
+        var other = '';
+        var knownOperators = kReadableOperator[operator];
+        if (operator === 'notDeepEqual' || operator === 'notEqual') {
+          _res = "".concat(kReadableOperator[operator], "\n\n").concat(_res);
+          if (_res.length > 1024) {
+            _res = "".concat(_res.slice(0, 1021), "...");
+          }
+        } else {
+          other = "".concat(inspectValue(expected));
+          if (_res.length > 512) {
+            _res = "".concat(_res.slice(0, 509), "...");
+          }
+          if (other.length > 512) {
+            other = "".concat(other.slice(0, 509), "...");
+          }
+          if (operator === 'deepEqual' || operator === 'equal') {
+            _res = "".concat(knownOperators, "\n\n").concat(_res, "\n\nshould equal\n\n");
+          } else {
+            other = " ".concat(operator, " ").concat(other);
+          }
+        }
+        _this = _super.call(this, "".concat(_res).concat(other));
+      }
+    }
+    Error.stackTraceLimit = limit;
+    _this.generatedMessage = !message;
+    Object.defineProperty(_assertThisInitialized(_this), 'name', {
+      value: 'AssertionError [ERR_ASSERTION]',
+      enumerable: false,
+      writable: true,
+      configurable: true
+    });
+    _this.code = 'ERR_ASSERTION';
+    _this.actual = actual;
+    _this.expected = expected;
+    _this.operator = operator;
+    if (Error.captureStackTrace) {
+      // eslint-disable-next-line no-restricted-syntax
+      Error.captureStackTrace(_assertThisInitialized(_this), stackStartFn);
+    }
+    // Create error message including the error code in the name.
+    _this.stack;
+    // Reset the name.
+    _this.name = 'AssertionError';
+    return _possibleConstructorReturn(_this);
+  }
+  _createClass(AssertionError, [{
+    key: "toString",
+    value: function toString() {
+      return "".concat(this.name, " [").concat(this.code, "]: ").concat(this.message);
+    }
+  }, {
+    key: _inspect$custom,
+    value: function value(recurseTimes, ctx) {
+      // This limits the `actual` and `expected` property default inspection to
+      // the minimum depth. Otherwise those values would be too verbose compared
+      // to the actual error message which contains a combined view of these two
+      // input values.
+      return inspect(this, _objectSpread(_objectSpread({}, ctx), {}, {
+        customInspect: false,
+        depth: 0
+      }));
+    }
+  }]);
+  return AssertionError;
+}( /*#__PURE__*/_wrapNativeSuper(Error), inspect.custom);
+module.exports = AssertionError;
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/assert/build/internal/errors.js"
+/*!******************************************************************!*\
+  !*** ../ueu_canvas/node_modules/assert/build/internal/errors.js ***!
+  \******************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+// Currently in sync with Node.js lib/internal/errors.js
+// https://github.com/nodejs/node/commit/3b044962c48fe313905877a96b5d0894a5404f6f
+
+/* eslint node-core/documented-errors: "error" */
+/* eslint node-core/alphabetize-errors: "error" */
+/* eslint node-core/prefer-util-format-errors: "error" */
+
+
+
+// The whole point behind this internal module is to allow Node.js to no
+// longer be forced to treat every error message change as a semver-major
+// change. The NodeError classes here all expose a `code` property whose
+// value statically and permanently identifies the error. While the error
+// message may change, the code should not.
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+var codes = {};
+
+// Lazy loaded
+var assert;
+var util;
+function createErrorType(code, message, Base) {
+  if (!Base) {
+    Base = Error;
+  }
+  function getMessage(arg1, arg2, arg3) {
+    if (typeof message === 'string') {
+      return message;
+    } else {
+      return message(arg1, arg2, arg3);
+    }
+  }
+  var NodeError = /*#__PURE__*/function (_Base) {
+    _inherits(NodeError, _Base);
+    var _super = _createSuper(NodeError);
+    function NodeError(arg1, arg2, arg3) {
+      var _this;
+      _classCallCheck(this, NodeError);
+      _this = _super.call(this, getMessage(arg1, arg2, arg3));
+      _this.code = code;
+      return _this;
+    }
+    return _createClass(NodeError);
+  }(Base);
+  codes[code] = NodeError;
+}
+
+// https://github.com/nodejs/node/blob/v10.8.0/lib/internal/errors.js
+function oneOf(expected, thing) {
+  if (Array.isArray(expected)) {
+    var len = expected.length;
+    expected = expected.map(function (i) {
+      return String(i);
+    });
+    if (len > 2) {
+      return "one of ".concat(thing, " ").concat(expected.slice(0, len - 1).join(', '), ", or ") + expected[len - 1];
+    } else if (len === 2) {
+      return "one of ".concat(thing, " ").concat(expected[0], " or ").concat(expected[1]);
+    } else {
+      return "of ".concat(thing, " ").concat(expected[0]);
+    }
+  } else {
+    return "of ".concat(thing, " ").concat(String(expected));
+  }
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith
+function startsWith(str, search, pos) {
+  return str.substr(!pos || pos < 0 ? 0 : +pos, search.length) === search;
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith
+function endsWith(str, search, this_len) {
+  if (this_len === undefined || this_len > str.length) {
+    this_len = str.length;
+  }
+  return str.substring(this_len - search.length, this_len) === search;
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes
+function includes(str, search, start) {
+  if (typeof start !== 'number') {
+    start = 0;
+  }
+  if (start + search.length > str.length) {
+    return false;
+  } else {
+    return str.indexOf(search, start) !== -1;
+  }
+}
+createErrorType('ERR_AMBIGUOUS_ARGUMENT', 'The "%s" argument is ambiguous. %s', TypeError);
+createErrorType('ERR_INVALID_ARG_TYPE', function (name, expected, actual) {
+  if (assert === undefined) assert = __webpack_require__(/*! ../assert */ "../ueu_canvas/node_modules/assert/build/assert.js");
+  assert(typeof name === 'string', "'name' must be a string");
+
+  // determiner: 'must be' or 'must not be'
+  var determiner;
+  if (typeof expected === 'string' && startsWith(expected, 'not ')) {
+    determiner = 'must not be';
+    expected = expected.replace(/^not /, '');
+  } else {
+    determiner = 'must be';
+  }
+  var msg;
+  if (endsWith(name, ' argument')) {
+    // For cases like 'first argument'
+    msg = "The ".concat(name, " ").concat(determiner, " ").concat(oneOf(expected, 'type'));
+  } else {
+    var type = includes(name, '.') ? 'property' : 'argument';
+    msg = "The \"".concat(name, "\" ").concat(type, " ").concat(determiner, " ").concat(oneOf(expected, 'type'));
+  }
+
+  // TODO(BridgeAR): Improve the output by showing `null` and similar.
+  msg += ". Received type ".concat(_typeof(actual));
+  return msg;
+}, TypeError);
+createErrorType('ERR_INVALID_ARG_VALUE', function (name, value) {
+  var reason = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'is invalid';
+  if (util === undefined) util = __webpack_require__(/*! util/ */ "../ueu_canvas/node_modules/util/util.js");
+  var inspected = util.inspect(value);
+  if (inspected.length > 128) {
+    inspected = "".concat(inspected.slice(0, 128), "...");
+  }
+  return "The argument '".concat(name, "' ").concat(reason, ". Received ").concat(inspected);
+}, TypeError, RangeError);
+createErrorType('ERR_INVALID_RETURN_VALUE', function (input, name, value) {
+  var type;
+  if (value && value.constructor && value.constructor.name) {
+    type = "instance of ".concat(value.constructor.name);
+  } else {
+    type = "type ".concat(_typeof(value));
+  }
+  return "Expected ".concat(input, " to be returned from the \"").concat(name, "\"") + " function but got ".concat(type, ".");
+}, TypeError);
+createErrorType('ERR_MISSING_ARGS', function () {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+  if (assert === undefined) assert = __webpack_require__(/*! ../assert */ "../ueu_canvas/node_modules/assert/build/assert.js");
+  assert(args.length > 0, 'At least one arg needs to be specified');
+  var msg = 'The ';
+  var len = args.length;
+  args = args.map(function (a) {
+    return "\"".concat(a, "\"");
+  });
+  switch (len) {
+    case 1:
+      msg += "".concat(args[0], " argument");
+      break;
+    case 2:
+      msg += "".concat(args[0], " and ").concat(args[1], " arguments");
+      break;
+    default:
+      msg += args.slice(0, len - 1).join(', ');
+      msg += ", and ".concat(args[len - 1], " arguments");
+      break;
+  }
+  return "".concat(msg, " must be specified");
+}, TypeError);
+module.exports.codes = codes;
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/assert/build/internal/util/comparisons.js"
+/*!****************************************************************************!*\
+  !*** ../ueu_canvas/node_modules/assert/build/internal/util/comparisons.js ***!
+  \****************************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+// Currently in sync with Node.js lib/internal/util/comparisons.js
+// https://github.com/nodejs/node/commit/112cc7c27551254aa2b17098fb774867f05ed0d9
+
+
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+var regexFlagsSupported = /a/g.flags !== undefined;
+var arrayFromSet = function arrayFromSet(set) {
+  var array = [];
+  set.forEach(function (value) {
+    return array.push(value);
+  });
+  return array;
+};
+var arrayFromMap = function arrayFromMap(map) {
+  var array = [];
+  map.forEach(function (value, key) {
+    return array.push([key, value]);
+  });
+  return array;
+};
+var objectIs = Object.is ? Object.is : __webpack_require__(/*! object-is */ "../ueu_canvas/node_modules/object-is/index.js");
+var objectGetOwnPropertySymbols = Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols : function () {
+  return [];
+};
+var numberIsNaN = Number.isNaN ? Number.isNaN : __webpack_require__(/*! is-nan */ "../ueu_canvas/node_modules/is-nan/index.js");
+function uncurryThis(f) {
+  return f.call.bind(f);
+}
+var hasOwnProperty = uncurryThis(Object.prototype.hasOwnProperty);
+var propertyIsEnumerable = uncurryThis(Object.prototype.propertyIsEnumerable);
+var objectToString = uncurryThis(Object.prototype.toString);
+var _require$types = (__webpack_require__(/*! util/ */ "../ueu_canvas/node_modules/util/util.js").types),
+  isAnyArrayBuffer = _require$types.isAnyArrayBuffer,
+  isArrayBufferView = _require$types.isArrayBufferView,
+  isDate = _require$types.isDate,
+  isMap = _require$types.isMap,
+  isRegExp = _require$types.isRegExp,
+  isSet = _require$types.isSet,
+  isNativeError = _require$types.isNativeError,
+  isBoxedPrimitive = _require$types.isBoxedPrimitive,
+  isNumberObject = _require$types.isNumberObject,
+  isStringObject = _require$types.isStringObject,
+  isBooleanObject = _require$types.isBooleanObject,
+  isBigIntObject = _require$types.isBigIntObject,
+  isSymbolObject = _require$types.isSymbolObject,
+  isFloat32Array = _require$types.isFloat32Array,
+  isFloat64Array = _require$types.isFloat64Array;
+function isNonIndex(key) {
+  if (key.length === 0 || key.length > 10) return true;
+  for (var i = 0; i < key.length; i++) {
+    var code = key.charCodeAt(i);
+    if (code < 48 || code > 57) return true;
+  }
+  // The maximum size for an array is 2 ** 32 -1.
+  return key.length === 10 && key >= Math.pow(2, 32);
+}
+function getOwnNonIndexProperties(value) {
+  return Object.keys(value).filter(isNonIndex).concat(objectGetOwnPropertySymbols(value).filter(Object.prototype.propertyIsEnumerable.bind(value)));
+}
+
+// Taken from https://github.com/feross/buffer/blob/680e9e5e488f22aac27599a57dc844a6315928dd/index.js
+// original notice:
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @license  MIT
+ */
+function compare(a, b) {
+  if (a === b) {
+    return 0;
+  }
+  var x = a.length;
+  var y = b.length;
+  for (var i = 0, len = Math.min(x, y); i < len; ++i) {
+    if (a[i] !== b[i]) {
+      x = a[i];
+      y = b[i];
+      break;
+    }
+  }
+  if (x < y) {
+    return -1;
+  }
+  if (y < x) {
+    return 1;
+  }
+  return 0;
+}
+var ONLY_ENUMERABLE = undefined;
+var kStrict = true;
+var kLoose = false;
+var kNoIterator = 0;
+var kIsArray = 1;
+var kIsSet = 2;
+var kIsMap = 3;
+
+// Check if they have the same source and flags
+function areSimilarRegExps(a, b) {
+  return regexFlagsSupported ? a.source === b.source && a.flags === b.flags : RegExp.prototype.toString.call(a) === RegExp.prototype.toString.call(b);
+}
+function areSimilarFloatArrays(a, b) {
+  if (a.byteLength !== b.byteLength) {
+    return false;
+  }
+  for (var offset = 0; offset < a.byteLength; offset++) {
+    if (a[offset] !== b[offset]) {
+      return false;
+    }
+  }
+  return true;
+}
+function areSimilarTypedArrays(a, b) {
+  if (a.byteLength !== b.byteLength) {
+    return false;
+  }
+  return compare(new Uint8Array(a.buffer, a.byteOffset, a.byteLength), new Uint8Array(b.buffer, b.byteOffset, b.byteLength)) === 0;
+}
+function areEqualArrayBuffers(buf1, buf2) {
+  return buf1.byteLength === buf2.byteLength && compare(new Uint8Array(buf1), new Uint8Array(buf2)) === 0;
+}
+function isEqualBoxedPrimitive(val1, val2) {
+  if (isNumberObject(val1)) {
+    return isNumberObject(val2) && objectIs(Number.prototype.valueOf.call(val1), Number.prototype.valueOf.call(val2));
+  }
+  if (isStringObject(val1)) {
+    return isStringObject(val2) && String.prototype.valueOf.call(val1) === String.prototype.valueOf.call(val2);
+  }
+  if (isBooleanObject(val1)) {
+    return isBooleanObject(val2) && Boolean.prototype.valueOf.call(val1) === Boolean.prototype.valueOf.call(val2);
+  }
+  if (isBigIntObject(val1)) {
+    return isBigIntObject(val2) && BigInt.prototype.valueOf.call(val1) === BigInt.prototype.valueOf.call(val2);
+  }
+  return isSymbolObject(val2) && Symbol.prototype.valueOf.call(val1) === Symbol.prototype.valueOf.call(val2);
+}
+
+// Notes: Type tags are historical [[Class]] properties that can be set by
+// FunctionTemplate::SetClassName() in C++ or Symbol.toStringTag in JS
+// and retrieved using Object.prototype.toString.call(obj) in JS
+// See https://tc39.github.io/ecma262/#sec-object.prototype.tostring
+// for a list of tags pre-defined in the spec.
+// There are some unspecified tags in the wild too (e.g. typed array tags).
+// Since tags can be altered, they only serve fast failures
+//
+// Typed arrays and buffers are checked by comparing the content in their
+// underlying ArrayBuffer. This optimization requires that it's
+// reasonable to interpret their underlying memory in the same way,
+// which is checked by comparing their type tags.
+// (e.g. a Uint8Array and a Uint16Array with the same memory content
+// could still be different because they will be interpreted differently).
+//
+// For strict comparison, objects should have
+// a) The same built-in type tags
+// b) The same prototypes.
+
+function innerDeepEqual(val1, val2, strict, memos) {
+  // All identical values are equivalent, as determined by ===.
+  if (val1 === val2) {
+    if (val1 !== 0) return true;
+    return strict ? objectIs(val1, val2) : true;
+  }
+
+  // Check more closely if val1 and val2 are equal.
+  if (strict) {
+    if (_typeof(val1) !== 'object') {
+      return typeof val1 === 'number' && numberIsNaN(val1) && numberIsNaN(val2);
+    }
+    if (_typeof(val2) !== 'object' || val1 === null || val2 === null) {
+      return false;
+    }
+    if (Object.getPrototypeOf(val1) !== Object.getPrototypeOf(val2)) {
+      return false;
+    }
+  } else {
+    if (val1 === null || _typeof(val1) !== 'object') {
+      if (val2 === null || _typeof(val2) !== 'object') {
+        // eslint-disable-next-line eqeqeq
+        return val1 == val2;
+      }
+      return false;
+    }
+    if (val2 === null || _typeof(val2) !== 'object') {
+      return false;
+    }
+  }
+  var val1Tag = objectToString(val1);
+  var val2Tag = objectToString(val2);
+  if (val1Tag !== val2Tag) {
+    return false;
+  }
+  if (Array.isArray(val1)) {
+    // Check for sparse arrays and general fast path
+    if (val1.length !== val2.length) {
+      return false;
+    }
+    var keys1 = getOwnNonIndexProperties(val1, ONLY_ENUMERABLE);
+    var keys2 = getOwnNonIndexProperties(val2, ONLY_ENUMERABLE);
+    if (keys1.length !== keys2.length) {
+      return false;
+    }
+    return keyCheck(val1, val2, strict, memos, kIsArray, keys1);
+  }
+  // [browserify] This triggers on certain types in IE (Map/Set) so we don't
+  // wan't to early return out of the rest of the checks. However we can check
+  // if the second value is one of these values and the first isn't.
+  if (val1Tag === '[object Object]') {
+    // return keyCheck(val1, val2, strict, memos, kNoIterator);
+    if (!isMap(val1) && isMap(val2) || !isSet(val1) && isSet(val2)) {
+      return false;
+    }
+  }
+  if (isDate(val1)) {
+    if (!isDate(val2) || Date.prototype.getTime.call(val1) !== Date.prototype.getTime.call(val2)) {
+      return false;
+    }
+  } else if (isRegExp(val1)) {
+    if (!isRegExp(val2) || !areSimilarRegExps(val1, val2)) {
+      return false;
+    }
+  } else if (isNativeError(val1) || val1 instanceof Error) {
+    // Do not compare the stack as it might differ even though the error itself
+    // is otherwise identical.
+    if (val1.message !== val2.message || val1.name !== val2.name) {
+      return false;
+    }
+  } else if (isArrayBufferView(val1)) {
+    if (!strict && (isFloat32Array(val1) || isFloat64Array(val1))) {
+      if (!areSimilarFloatArrays(val1, val2)) {
+        return false;
+      }
+    } else if (!areSimilarTypedArrays(val1, val2)) {
+      return false;
+    }
+    // Buffer.compare returns true, so val1.length === val2.length. If they both
+    // only contain numeric keys, we don't need to exam further than checking
+    // the symbols.
+    var _keys = getOwnNonIndexProperties(val1, ONLY_ENUMERABLE);
+    var _keys2 = getOwnNonIndexProperties(val2, ONLY_ENUMERABLE);
+    if (_keys.length !== _keys2.length) {
+      return false;
+    }
+    return keyCheck(val1, val2, strict, memos, kNoIterator, _keys);
+  } else if (isSet(val1)) {
+    if (!isSet(val2) || val1.size !== val2.size) {
+      return false;
+    }
+    return keyCheck(val1, val2, strict, memos, kIsSet);
+  } else if (isMap(val1)) {
+    if (!isMap(val2) || val1.size !== val2.size) {
+      return false;
+    }
+    return keyCheck(val1, val2, strict, memos, kIsMap);
+  } else if (isAnyArrayBuffer(val1)) {
+    if (!areEqualArrayBuffers(val1, val2)) {
+      return false;
+    }
+  } else if (isBoxedPrimitive(val1) && !isEqualBoxedPrimitive(val1, val2)) {
+    return false;
+  }
+  return keyCheck(val1, val2, strict, memos, kNoIterator);
+}
+function getEnumerables(val, keys) {
+  return keys.filter(function (k) {
+    return propertyIsEnumerable(val, k);
+  });
+}
+function keyCheck(val1, val2, strict, memos, iterationType, aKeys) {
+  // For all remaining Object pairs, including Array, objects and Maps,
+  // equivalence is determined by having:
+  // a) The same number of owned enumerable properties
+  // b) The same set of keys/indexes (although not necessarily the same order)
+  // c) Equivalent values for every corresponding key/index
+  // d) For Sets and Maps, equal contents
+  // Note: this accounts for both named and indexed properties on Arrays.
+  if (arguments.length === 5) {
+    aKeys = Object.keys(val1);
+    var bKeys = Object.keys(val2);
+
+    // The pair must have the same number of owned properties.
+    if (aKeys.length !== bKeys.length) {
+      return false;
+    }
+  }
+
+  // Cheap key test
+  var i = 0;
+  for (; i < aKeys.length; i++) {
+    if (!hasOwnProperty(val2, aKeys[i])) {
+      return false;
+    }
+  }
+  if (strict && arguments.length === 5) {
+    var symbolKeysA = objectGetOwnPropertySymbols(val1);
+    if (symbolKeysA.length !== 0) {
+      var count = 0;
+      for (i = 0; i < symbolKeysA.length; i++) {
+        var key = symbolKeysA[i];
+        if (propertyIsEnumerable(val1, key)) {
+          if (!propertyIsEnumerable(val2, key)) {
+            return false;
+          }
+          aKeys.push(key);
+          count++;
+        } else if (propertyIsEnumerable(val2, key)) {
+          return false;
+        }
+      }
+      var symbolKeysB = objectGetOwnPropertySymbols(val2);
+      if (symbolKeysA.length !== symbolKeysB.length && getEnumerables(val2, symbolKeysB).length !== count) {
+        return false;
+      }
+    } else {
+      var _symbolKeysB = objectGetOwnPropertySymbols(val2);
+      if (_symbolKeysB.length !== 0 && getEnumerables(val2, _symbolKeysB).length !== 0) {
+        return false;
+      }
+    }
+  }
+  if (aKeys.length === 0 && (iterationType === kNoIterator || iterationType === kIsArray && val1.length === 0 || val1.size === 0)) {
+    return true;
+  }
+
+  // Use memos to handle cycles.
+  if (memos === undefined) {
+    memos = {
+      val1: new Map(),
+      val2: new Map(),
+      position: 0
+    };
+  } else {
+    // We prevent up to two map.has(x) calls by directly retrieving the value
+    // and checking for undefined. The map can only contain numbers, so it is
+    // safe to check for undefined only.
+    var val2MemoA = memos.val1.get(val1);
+    if (val2MemoA !== undefined) {
+      var val2MemoB = memos.val2.get(val2);
+      if (val2MemoB !== undefined) {
+        return val2MemoA === val2MemoB;
+      }
+    }
+    memos.position++;
+  }
+  memos.val1.set(val1, memos.position);
+  memos.val2.set(val2, memos.position);
+  var areEq = objEquiv(val1, val2, strict, aKeys, memos, iterationType);
+  memos.val1.delete(val1);
+  memos.val2.delete(val2);
+  return areEq;
+}
+function setHasEqualElement(set, val1, strict, memo) {
+  // Go looking.
+  var setValues = arrayFromSet(set);
+  for (var i = 0; i < setValues.length; i++) {
+    var val2 = setValues[i];
+    if (innerDeepEqual(val1, val2, strict, memo)) {
+      // Remove the matching element to make sure we do not check that again.
+      set.delete(val2);
+      return true;
+    }
+  }
+  return false;
+}
+
+// See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness#Loose_equality_using
+// Sadly it is not possible to detect corresponding values properly in case the
+// type is a string, number, bigint or boolean. The reason is that those values
+// can match lots of different string values (e.g., 1n == '+00001').
+function findLooseMatchingPrimitives(prim) {
+  switch (_typeof(prim)) {
+    case 'undefined':
+      return null;
+    case 'object':
+      // Only pass in null as object!
+      return undefined;
+    case 'symbol':
+      return false;
+    case 'string':
+      prim = +prim;
+    // Loose equal entries exist only if the string is possible to convert to
+    // a regular number and not NaN.
+    // Fall through
+    case 'number':
+      if (numberIsNaN(prim)) {
+        return false;
+      }
+  }
+  return true;
+}
+function setMightHaveLoosePrim(a, b, prim) {
+  var altValue = findLooseMatchingPrimitives(prim);
+  if (altValue != null) return altValue;
+  return b.has(altValue) && !a.has(altValue);
+}
+function mapMightHaveLoosePrim(a, b, prim, item, memo) {
+  var altValue = findLooseMatchingPrimitives(prim);
+  if (altValue != null) {
+    return altValue;
+  }
+  var curB = b.get(altValue);
+  if (curB === undefined && !b.has(altValue) || !innerDeepEqual(item, curB, false, memo)) {
+    return false;
+  }
+  return !a.has(altValue) && innerDeepEqual(item, curB, false, memo);
+}
+function setEquiv(a, b, strict, memo) {
+  // This is a lazily initiated Set of entries which have to be compared
+  // pairwise.
+  var set = null;
+  var aValues = arrayFromSet(a);
+  for (var i = 0; i < aValues.length; i++) {
+    var val = aValues[i];
+    // Note: Checking for the objects first improves the performance for object
+    // heavy sets but it is a minor slow down for primitives. As they are fast
+    // to check this improves the worst case scenario instead.
+    if (_typeof(val) === 'object' && val !== null) {
+      if (set === null) {
+        set = new Set();
+      }
+      // If the specified value doesn't exist in the second set its an not null
+      // object (or non strict only: a not matching primitive) we'll need to go
+      // hunting for something thats deep-(strict-)equal to it. To make this
+      // O(n log n) complexity we have to copy these values in a new set first.
+      set.add(val);
+    } else if (!b.has(val)) {
+      if (strict) return false;
+
+      // Fast path to detect missing string, symbol, undefined and null values.
+      if (!setMightHaveLoosePrim(a, b, val)) {
+        return false;
+      }
+      if (set === null) {
+        set = new Set();
+      }
+      set.add(val);
+    }
+  }
+  if (set !== null) {
+    var bValues = arrayFromSet(b);
+    for (var _i = 0; _i < bValues.length; _i++) {
+      var _val = bValues[_i];
+      // We have to check if a primitive value is already
+      // matching and only if it's not, go hunting for it.
+      if (_typeof(_val) === 'object' && _val !== null) {
+        if (!setHasEqualElement(set, _val, strict, memo)) return false;
+      } else if (!strict && !a.has(_val) && !setHasEqualElement(set, _val, strict, memo)) {
+        return false;
+      }
+    }
+    return set.size === 0;
+  }
+  return true;
+}
+function mapHasEqualEntry(set, map, key1, item1, strict, memo) {
+  // To be able to handle cases like:
+  //   Map([[{}, 'a'], [{}, 'b']]) vs Map([[{}, 'b'], [{}, 'a']])
+  // ... we need to consider *all* matching keys, not just the first we find.
+  var setValues = arrayFromSet(set);
+  for (var i = 0; i < setValues.length; i++) {
+    var key2 = setValues[i];
+    if (innerDeepEqual(key1, key2, strict, memo) && innerDeepEqual(item1, map.get(key2), strict, memo)) {
+      set.delete(key2);
+      return true;
+    }
+  }
+  return false;
+}
+function mapEquiv(a, b, strict, memo) {
+  var set = null;
+  var aEntries = arrayFromMap(a);
+  for (var i = 0; i < aEntries.length; i++) {
+    var _aEntries$i = _slicedToArray(aEntries[i], 2),
+      key = _aEntries$i[0],
+      item1 = _aEntries$i[1];
+    if (_typeof(key) === 'object' && key !== null) {
+      if (set === null) {
+        set = new Set();
+      }
+      set.add(key);
+    } else {
+      // By directly retrieving the value we prevent another b.has(key) check in
+      // almost all possible cases.
+      var item2 = b.get(key);
+      if (item2 === undefined && !b.has(key) || !innerDeepEqual(item1, item2, strict, memo)) {
+        if (strict) return false;
+        // Fast path to detect missing string, symbol, undefined and null
+        // keys.
+        if (!mapMightHaveLoosePrim(a, b, key, item1, memo)) return false;
+        if (set === null) {
+          set = new Set();
+        }
+        set.add(key);
+      }
+    }
+  }
+  if (set !== null) {
+    var bEntries = arrayFromMap(b);
+    for (var _i2 = 0; _i2 < bEntries.length; _i2++) {
+      var _bEntries$_i = _slicedToArray(bEntries[_i2], 2),
+        _key = _bEntries$_i[0],
+        item = _bEntries$_i[1];
+      if (_typeof(_key) === 'object' && _key !== null) {
+        if (!mapHasEqualEntry(set, a, _key, item, strict, memo)) return false;
+      } else if (!strict && (!a.has(_key) || !innerDeepEqual(a.get(_key), item, false, memo)) && !mapHasEqualEntry(set, a, _key, item, false, memo)) {
+        return false;
+      }
+    }
+    return set.size === 0;
+  }
+  return true;
+}
+function objEquiv(a, b, strict, keys, memos, iterationType) {
+  // Sets and maps don't have their entries accessible via normal object
+  // properties.
+  var i = 0;
+  if (iterationType === kIsSet) {
+    if (!setEquiv(a, b, strict, memos)) {
+      return false;
+    }
+  } else if (iterationType === kIsMap) {
+    if (!mapEquiv(a, b, strict, memos)) {
+      return false;
+    }
+  } else if (iterationType === kIsArray) {
+    for (; i < a.length; i++) {
+      if (hasOwnProperty(a, i)) {
+        if (!hasOwnProperty(b, i) || !innerDeepEqual(a[i], b[i], strict, memos)) {
+          return false;
+        }
+      } else if (hasOwnProperty(b, i)) {
+        return false;
+      } else {
+        // Array is sparse.
+        var keysA = Object.keys(a);
+        for (; i < keysA.length; i++) {
+          var key = keysA[i];
+          if (!hasOwnProperty(b, key) || !innerDeepEqual(a[key], b[key], strict, memos)) {
+            return false;
+          }
+        }
+        if (keysA.length !== Object.keys(b).length) {
+          return false;
+        }
+        return true;
+      }
+    }
+  }
+
+  // The pair must have equivalent values for every corresponding key.
+  // Possibly expensive deep test:
+  for (i = 0; i < keys.length; i++) {
+    var _key2 = keys[i];
+    if (!innerDeepEqual(a[_key2], b[_key2], strict, memos)) {
+      return false;
+    }
+  }
+  return true;
+}
+function isDeepEqual(val1, val2) {
+  return innerDeepEqual(val1, val2, kLoose);
+}
+function isDeepStrictEqual(val1, val2) {
+  return innerDeepEqual(val1, val2, kStrict);
+}
+module.exports = {
+  isDeepEqual: isDeepEqual,
+  isDeepStrictEqual: isDeepStrictEqual
+};
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/available-typed-arrays/index.js"
+/*!******************************************************************!*\
+  !*** ../ueu_canvas/node_modules/available-typed-arrays/index.js ***!
+  \******************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var possibleNames = __webpack_require__(/*! possible-typed-array-names */ "../ueu_canvas/node_modules/possible-typed-array-names/index.js");
+
+var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
+
+/** @type {import('.')} */
+module.exports = function availableTypedArrays() {
+	var /** @type {ReturnType<typeof availableTypedArrays>} */ out = [];
+	for (var i = 0; i < possibleNames.length; i++) {
+		if (typeof g[possibleNames[i]] === 'function') {
+			// @ts-expect-error
+			out[out.length] = possibleNames[i];
+		}
+	}
+	return out;
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/call-bind-apply-helpers/actualApply.js"
+/*!*************************************************************************!*\
+  !*** ../ueu_canvas/node_modules/call-bind-apply-helpers/actualApply.js ***!
+  \*************************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var bind = __webpack_require__(/*! function-bind */ "../ueu_canvas/node_modules/function-bind/index.js");
+
+var $apply = __webpack_require__(/*! ./functionApply */ "../ueu_canvas/node_modules/call-bind-apply-helpers/functionApply.js");
+var $call = __webpack_require__(/*! ./functionCall */ "../ueu_canvas/node_modules/call-bind-apply-helpers/functionCall.js");
+var $reflectApply = __webpack_require__(/*! ./reflectApply */ "../ueu_canvas/node_modules/call-bind-apply-helpers/reflectApply.js");
+
+/** @type {import('./actualApply')} */
+module.exports = $reflectApply || bind.call($call, $apply);
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/call-bind-apply-helpers/applyBind.js"
+/*!***********************************************************************!*\
+  !*** ../ueu_canvas/node_modules/call-bind-apply-helpers/applyBind.js ***!
+  \***********************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var bind = __webpack_require__(/*! function-bind */ "../ueu_canvas/node_modules/function-bind/index.js");
+var $apply = __webpack_require__(/*! ./functionApply */ "../ueu_canvas/node_modules/call-bind-apply-helpers/functionApply.js");
+var actualApply = __webpack_require__(/*! ./actualApply */ "../ueu_canvas/node_modules/call-bind-apply-helpers/actualApply.js");
+
+/** @type {import('./applyBind')} */
+module.exports = function applyBind() {
+	return actualApply(bind, $apply, arguments);
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/call-bind-apply-helpers/functionApply.js"
+/*!***************************************************************************!*\
+  !*** ../ueu_canvas/node_modules/call-bind-apply-helpers/functionApply.js ***!
+  \***************************************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('./functionApply')} */
+module.exports = Function.prototype.apply;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/call-bind-apply-helpers/functionCall.js"
+/*!**************************************************************************!*\
+  !*** ../ueu_canvas/node_modules/call-bind-apply-helpers/functionCall.js ***!
+  \**************************************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('./functionCall')} */
+module.exports = Function.prototype.call;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/call-bind-apply-helpers/index.js"
+/*!*******************************************************************!*\
+  !*** ../ueu_canvas/node_modules/call-bind-apply-helpers/index.js ***!
+  \*******************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var bind = __webpack_require__(/*! function-bind */ "../ueu_canvas/node_modules/function-bind/index.js");
+var $TypeError = __webpack_require__(/*! es-errors/type */ "../ueu_canvas/node_modules/es-errors/type.js");
+
+var $call = __webpack_require__(/*! ./functionCall */ "../ueu_canvas/node_modules/call-bind-apply-helpers/functionCall.js");
+var $actualApply = __webpack_require__(/*! ./actualApply */ "../ueu_canvas/node_modules/call-bind-apply-helpers/actualApply.js");
+
+/** @type {(args: [Function, thisArg?: unknown, ...args: unknown[]]) => Function} TODO FIXME, find a way to use import('.') */
+module.exports = function callBindBasic(args) {
+	if (args.length < 1 || typeof args[0] !== 'function') {
+		throw new $TypeError('a function is required');
+	}
+	return $actualApply(bind, $call, args);
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/call-bind-apply-helpers/reflectApply.js"
+/*!**************************************************************************!*\
+  !*** ../ueu_canvas/node_modules/call-bind-apply-helpers/reflectApply.js ***!
+  \**************************************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('./reflectApply')} */
+module.exports = typeof Reflect !== 'undefined' && Reflect && Reflect.apply;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/call-bind/callBound.js"
+/*!*********************************************************!*\
+  !*** ../ueu_canvas/node_modules/call-bind/callBound.js ***!
+  \*********************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var GetIntrinsic = __webpack_require__(/*! get-intrinsic */ "../ueu_canvas/node_modules/get-intrinsic/index.js");
+
+var callBind = __webpack_require__(/*! ./ */ "../ueu_canvas/node_modules/call-bind/index.js");
+
+var $indexOf = callBind(GetIntrinsic('String.prototype.indexOf'));
+
+module.exports = function callBoundIntrinsic(name, allowMissing) {
+	var intrinsic = GetIntrinsic(name, !!allowMissing);
+	if (typeof intrinsic === 'function' && $indexOf(name, '.prototype.') > -1) {
+		return callBind(intrinsic);
+	}
+	return intrinsic;
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/call-bind/index.js"
+/*!*****************************************************!*\
+  !*** ../ueu_canvas/node_modules/call-bind/index.js ***!
+  \*****************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var setFunctionLength = __webpack_require__(/*! set-function-length */ "../ueu_canvas/node_modules/set-function-length/index.js");
+
+var $defineProperty = __webpack_require__(/*! es-define-property */ "../ueu_canvas/node_modules/es-define-property/index.js");
+
+var callBindBasic = __webpack_require__(/*! call-bind-apply-helpers */ "../ueu_canvas/node_modules/call-bind-apply-helpers/index.js");
+var applyBind = __webpack_require__(/*! call-bind-apply-helpers/applyBind */ "../ueu_canvas/node_modules/call-bind-apply-helpers/applyBind.js");
+
+module.exports = function callBind(originalFunction) {
+	var func = callBindBasic(arguments);
+	var adjustedLength = originalFunction.length - (arguments.length - 1);
+	return setFunctionLength(
+		func,
+		1 + (adjustedLength > 0 ? adjustedLength : 0),
+		true
+	);
+};
+
+if ($defineProperty) {
+	$defineProperty(module.exports, 'apply', { value: applyBind });
+} else {
+	module.exports.apply = applyBind;
+}
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/call-bound/index.js"
+/*!******************************************************!*\
+  !*** ../ueu_canvas/node_modules/call-bound/index.js ***!
+  \******************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var GetIntrinsic = __webpack_require__(/*! get-intrinsic */ "../ueu_canvas/node_modules/get-intrinsic/index.js");
+
+var callBindBasic = __webpack_require__(/*! call-bind-apply-helpers */ "../ueu_canvas/node_modules/call-bind-apply-helpers/index.js");
+
+/** @type {(thisArg: string, searchString: string, position?: number) => number} */
+var $indexOf = callBindBasic([GetIntrinsic('%String.prototype.indexOf%')]);
+
+/** @type {import('.')} */
+module.exports = function callBoundIntrinsic(name, allowMissing) {
+	/* eslint no-extra-parens: 0 */
+
+	var intrinsic = /** @type {(this: unknown, ...args: unknown[]) => unknown} */ (GetIntrinsic(name, !!allowMissing));
+	if (typeof intrinsic === 'function' && $indexOf(name, '.prototype.') > -1) {
+		return callBindBasic(/** @type {const} */ ([intrinsic]));
+	}
+	return intrinsic;
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/define-data-property/index.js"
+/*!****************************************************************!*\
+  !*** ../ueu_canvas/node_modules/define-data-property/index.js ***!
+  \****************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var $defineProperty = __webpack_require__(/*! es-define-property */ "../ueu_canvas/node_modules/es-define-property/index.js");
+
+var $SyntaxError = __webpack_require__(/*! es-errors/syntax */ "../ueu_canvas/node_modules/es-errors/syntax.js");
+var $TypeError = __webpack_require__(/*! es-errors/type */ "../ueu_canvas/node_modules/es-errors/type.js");
+
+var gopd = __webpack_require__(/*! gopd */ "../ueu_canvas/node_modules/gopd/index.js");
+
+/** @type {import('.')} */
+module.exports = function defineDataProperty(
+	obj,
+	property,
+	value
+) {
+	if (!obj || (typeof obj !== 'object' && typeof obj !== 'function')) {
+		throw new $TypeError('`obj` must be an object or a function`');
+	}
+	if (typeof property !== 'string' && typeof property !== 'symbol') {
+		throw new $TypeError('`property` must be a string or a symbol`');
+	}
+	if (arguments.length > 3 && typeof arguments[3] !== 'boolean' && arguments[3] !== null) {
+		throw new $TypeError('`nonEnumerable`, if provided, must be a boolean or null');
+	}
+	if (arguments.length > 4 && typeof arguments[4] !== 'boolean' && arguments[4] !== null) {
+		throw new $TypeError('`nonWritable`, if provided, must be a boolean or null');
+	}
+	if (arguments.length > 5 && typeof arguments[5] !== 'boolean' && arguments[5] !== null) {
+		throw new $TypeError('`nonConfigurable`, if provided, must be a boolean or null');
+	}
+	if (arguments.length > 6 && typeof arguments[6] !== 'boolean') {
+		throw new $TypeError('`loose`, if provided, must be a boolean');
+	}
+
+	var nonEnumerable = arguments.length > 3 ? arguments[3] : null;
+	var nonWritable = arguments.length > 4 ? arguments[4] : null;
+	var nonConfigurable = arguments.length > 5 ? arguments[5] : null;
+	var loose = arguments.length > 6 ? arguments[6] : false;
+
+	/* @type {false | TypedPropertyDescriptor<unknown>} */
+	var desc = !!gopd && gopd(obj, property);
+
+	if ($defineProperty) {
+		$defineProperty(obj, property, {
+			configurable: nonConfigurable === null && desc ? desc.configurable : !nonConfigurable,
+			enumerable: nonEnumerable === null && desc ? desc.enumerable : !nonEnumerable,
+			value: value,
+			writable: nonWritable === null && desc ? desc.writable : !nonWritable
+		});
+	} else if (loose || (!nonEnumerable && !nonWritable && !nonConfigurable)) {
+		// must fall back to [[Set]], and was not explicitly asked to make non-enumerable, non-writable, or non-configurable
+		obj[property] = value; // eslint-disable-line no-param-reassign
+	} else {
+		throw new $SyntaxError('This environment does not support defining a property as non-configurable, non-writable, or non-enumerable.');
+	}
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/define-properties/index.js"
+/*!*************************************************************!*\
+  !*** ../ueu_canvas/node_modules/define-properties/index.js ***!
+  \*************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var keys = __webpack_require__(/*! object-keys */ "../ueu_canvas/node_modules/object-keys/index.js");
+var hasSymbols = typeof Symbol === 'function' && typeof Symbol('foo') === 'symbol';
+
+var toStr = Object.prototype.toString;
+var concat = Array.prototype.concat;
+var defineDataProperty = __webpack_require__(/*! define-data-property */ "../ueu_canvas/node_modules/define-data-property/index.js");
+
+var isFunction = function (fn) {
+	return typeof fn === 'function' && toStr.call(fn) === '[object Function]';
+};
+
+var supportsDescriptors = __webpack_require__(/*! has-property-descriptors */ "../ueu_canvas/node_modules/has-property-descriptors/index.js")();
+
+var defineProperty = function (object, name, value, predicate) {
+	if (name in object) {
+		if (predicate === true) {
+			if (object[name] === value) {
+				return;
+			}
+		} else if (!isFunction(predicate) || !predicate()) {
+			return;
+		}
+	}
+
+	if (supportsDescriptors) {
+		defineDataProperty(object, name, value, true);
+	} else {
+		defineDataProperty(object, name, value);
+	}
+};
+
+var defineProperties = function (object, map) {
+	var predicates = arguments.length > 2 ? arguments[2] : {};
+	var props = keys(map);
+	if (hasSymbols) {
+		props = concat.call(props, Object.getOwnPropertySymbols(map));
+	}
+	for (var i = 0; i < props.length; i += 1) {
+		defineProperty(object, props[i], map[props[i]], predicates[props[i]]);
+	}
+};
+
+defineProperties.supportsDescriptors = !!supportsDescriptors;
+
+module.exports = defineProperties;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/dunder-proto/get.js"
+/*!******************************************************!*\
+  !*** ../ueu_canvas/node_modules/dunder-proto/get.js ***!
+  \******************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var callBind = __webpack_require__(/*! call-bind-apply-helpers */ "../ueu_canvas/node_modules/call-bind-apply-helpers/index.js");
+var gOPD = __webpack_require__(/*! gopd */ "../ueu_canvas/node_modules/gopd/index.js");
+
+var hasProtoAccessor;
+try {
+	// eslint-disable-next-line no-extra-parens, no-proto
+	hasProtoAccessor = /** @type {{ __proto__?: typeof Array.prototype }} */ ([]).__proto__ === Array.prototype;
+} catch (e) {
+	if (!e || typeof e !== 'object' || !('code' in e) || e.code !== 'ERR_PROTO_ACCESS') {
+		throw e;
+	}
+}
+
+// eslint-disable-next-line no-extra-parens
+var desc = !!hasProtoAccessor && gOPD && gOPD(Object.prototype, /** @type {keyof typeof Object.prototype} */ ('__proto__'));
+
+var $Object = Object;
+var $getPrototypeOf = $Object.getPrototypeOf;
+
+/** @type {import('./get')} */
+module.exports = desc && typeof desc.get === 'function'
+	? callBind([desc.get])
+	: typeof $getPrototypeOf === 'function'
+		? /** @type {import('./get')} */ function getDunder(value) {
+			// eslint-disable-next-line eqeqeq
+			return $getPrototypeOf(value == null ? value : $Object(value));
+		}
+		: false;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/es-define-property/index.js"
+/*!**************************************************************!*\
+  !*** ../ueu_canvas/node_modules/es-define-property/index.js ***!
+  \**************************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('.')} */
+var $defineProperty = Object.defineProperty || false;
+if ($defineProperty) {
+	try {
+		$defineProperty({}, 'a', { value: 1 });
+	} catch (e) {
+		// IE 8 has a broken defineProperty
+		$defineProperty = false;
+	}
+}
+
+module.exports = $defineProperty;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/es-errors/eval.js"
+/*!****************************************************!*\
+  !*** ../ueu_canvas/node_modules/es-errors/eval.js ***!
+  \****************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('./eval')} */
+module.exports = EvalError;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/es-errors/index.js"
+/*!*****************************************************!*\
+  !*** ../ueu_canvas/node_modules/es-errors/index.js ***!
+  \*****************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('.')} */
+module.exports = Error;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/es-errors/range.js"
+/*!*****************************************************!*\
+  !*** ../ueu_canvas/node_modules/es-errors/range.js ***!
+  \*****************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('./range')} */
+module.exports = RangeError;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/es-errors/ref.js"
+/*!***************************************************!*\
+  !*** ../ueu_canvas/node_modules/es-errors/ref.js ***!
+  \***************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('./ref')} */
+module.exports = ReferenceError;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/es-errors/syntax.js"
+/*!******************************************************!*\
+  !*** ../ueu_canvas/node_modules/es-errors/syntax.js ***!
+  \******************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('./syntax')} */
+module.exports = SyntaxError;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/es-errors/type.js"
+/*!****************************************************!*\
+  !*** ../ueu_canvas/node_modules/es-errors/type.js ***!
+  \****************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('./type')} */
+module.exports = TypeError;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/es-errors/uri.js"
+/*!***************************************************!*\
+  !*** ../ueu_canvas/node_modules/es-errors/uri.js ***!
+  \***************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('./uri')} */
+module.exports = URIError;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/es-object-atoms/index.js"
+/*!***********************************************************!*\
+  !*** ../ueu_canvas/node_modules/es-object-atoms/index.js ***!
+  \***********************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('.')} */
+module.exports = Object;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/for-each/index.js"
+/*!****************************************************!*\
+  !*** ../ueu_canvas/node_modules/for-each/index.js ***!
+  \****************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var isCallable = __webpack_require__(/*! is-callable */ "../ueu_canvas/node_modules/is-callable/index.js");
+
+var toStr = Object.prototype.toString;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+/** @type {<This, A extends readonly unknown[]>(arr: A, iterator: (this: This | void, value: A[number], index: number, arr: A) => void, receiver: This | undefined) => void} */
+var forEachArray = function forEachArray(array, iterator, receiver) {
+    for (var i = 0, len = array.length; i < len; i++) {
+        if (hasOwnProperty.call(array, i)) {
+            if (receiver == null) {
+                iterator(array[i], i, array);
+            } else {
+                iterator.call(receiver, array[i], i, array);
+            }
+        }
+    }
+};
+
+/** @type {<This, S extends string>(string: S, iterator: (this: This | void, value: S[number], index: number, string: S) => void, receiver: This | undefined) => void} */
+var forEachString = function forEachString(string, iterator, receiver) {
+    for (var i = 0, len = string.length; i < len; i++) {
+        // no such thing as a sparse string.
+        if (receiver == null) {
+            iterator(string.charAt(i), i, string);
+        } else {
+            iterator.call(receiver, string.charAt(i), i, string);
+        }
+    }
+};
+
+/** @type {<This, O>(obj: O, iterator: (this: This | void, value: O[keyof O], index: keyof O, obj: O) => void, receiver: This | undefined) => void} */
+var forEachObject = function forEachObject(object, iterator, receiver) {
+    for (var k in object) {
+        if (hasOwnProperty.call(object, k)) {
+            if (receiver == null) {
+                iterator(object[k], k, object);
+            } else {
+                iterator.call(receiver, object[k], k, object);
+            }
+        }
+    }
+};
+
+/** @type {(x: unknown) => x is readonly unknown[]} */
+function isArray(x) {
+    return toStr.call(x) === '[object Array]';
+}
+
+/** @type {import('.')._internal} */
+module.exports = function forEach(list, iterator, thisArg) {
+    if (!isCallable(iterator)) {
+        throw new TypeError('iterator must be a function');
+    }
+
+    var receiver;
+    if (arguments.length >= 3) {
+        receiver = thisArg;
+    }
+
+    if (isArray(list)) {
+        forEachArray(list, iterator, receiver);
+    } else if (typeof list === 'string') {
+        forEachString(list, iterator, receiver);
+    } else {
+        forEachObject(list, iterator, receiver);
+    }
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/function-bind/implementation.js"
+/*!******************************************************************!*\
+  !*** ../ueu_canvas/node_modules/function-bind/implementation.js ***!
+  \******************************************************************/
+(module) {
+
+"use strict";
+
+
+/* eslint no-invalid-this: 1 */
+
+var ERROR_MESSAGE = 'Function.prototype.bind called on incompatible ';
+var toStr = Object.prototype.toString;
+var max = Math.max;
+var funcType = '[object Function]';
+
+var concatty = function concatty(a, b) {
+    var arr = [];
+
+    for (var i = 0; i < a.length; i += 1) {
+        arr[i] = a[i];
+    }
+    for (var j = 0; j < b.length; j += 1) {
+        arr[j + a.length] = b[j];
+    }
+
+    return arr;
+};
+
+var slicy = function slicy(arrLike, offset) {
+    var arr = [];
+    for (var i = offset || 0, j = 0; i < arrLike.length; i += 1, j += 1) {
+        arr[j] = arrLike[i];
+    }
+    return arr;
+};
+
+var joiny = function (arr, joiner) {
+    var str = '';
+    for (var i = 0; i < arr.length; i += 1) {
+        str += arr[i];
+        if (i + 1 < arr.length) {
+            str += joiner;
+        }
+    }
+    return str;
+};
+
+module.exports = function bind(that) {
+    var target = this;
+    if (typeof target !== 'function' || toStr.apply(target) !== funcType) {
+        throw new TypeError(ERROR_MESSAGE + target);
+    }
+    var args = slicy(arguments, 1);
+
+    var bound;
+    var binder = function () {
+        if (this instanceof bound) {
+            var result = target.apply(
+                this,
+                concatty(args, arguments)
+            );
+            if (Object(result) === result) {
+                return result;
+            }
+            return this;
+        }
+        return target.apply(
+            that,
+            concatty(args, arguments)
+        );
+
+    };
+
+    var boundLength = max(0, target.length - args.length);
+    var boundArgs = [];
+    for (var i = 0; i < boundLength; i++) {
+        boundArgs[i] = '$' + i;
+    }
+
+    bound = Function('binder', 'return function (' + joiny(boundArgs, ',') + '){ return binder.apply(this,arguments); }')(binder);
+
+    if (target.prototype) {
+        var Empty = function Empty() {};
+        Empty.prototype = target.prototype;
+        bound.prototype = new Empty();
+        Empty.prototype = null;
+    }
+
+    return bound;
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/function-bind/index.js"
+/*!*********************************************************!*\
+  !*** ../ueu_canvas/node_modules/function-bind/index.js ***!
+  \*********************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var implementation = __webpack_require__(/*! ./implementation */ "../ueu_canvas/node_modules/function-bind/implementation.js");
+
+module.exports = Function.prototype.bind || implementation;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/generator-function/index.js"
+/*!**************************************************************!*\
+  !*** ../ueu_canvas/node_modules/generator-function/index.js ***!
+  \**************************************************************/
+(module) {
+
+"use strict";
+
+
+// eslint-disable-next-line no-extra-parens, no-empty-function
+const cached = /** @type {GeneratorFunctionConstructor} */ (function* () {}.constructor);
+
+/** @type {import('.')} */
+module.exports = () => cached;
+
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/get-intrinsic/index.js"
+/*!*********************************************************!*\
+  !*** ../ueu_canvas/node_modules/get-intrinsic/index.js ***!
+  \*********************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var undefined;
+
+var $Object = __webpack_require__(/*! es-object-atoms */ "../ueu_canvas/node_modules/es-object-atoms/index.js");
+
+var $Error = __webpack_require__(/*! es-errors */ "../ueu_canvas/node_modules/es-errors/index.js");
+var $EvalError = __webpack_require__(/*! es-errors/eval */ "../ueu_canvas/node_modules/es-errors/eval.js");
+var $RangeError = __webpack_require__(/*! es-errors/range */ "../ueu_canvas/node_modules/es-errors/range.js");
+var $ReferenceError = __webpack_require__(/*! es-errors/ref */ "../ueu_canvas/node_modules/es-errors/ref.js");
+var $SyntaxError = __webpack_require__(/*! es-errors/syntax */ "../ueu_canvas/node_modules/es-errors/syntax.js");
+var $TypeError = __webpack_require__(/*! es-errors/type */ "../ueu_canvas/node_modules/es-errors/type.js");
+var $URIError = __webpack_require__(/*! es-errors/uri */ "../ueu_canvas/node_modules/es-errors/uri.js");
+
+var abs = __webpack_require__(/*! math-intrinsics/abs */ "../ueu_canvas/node_modules/math-intrinsics/abs.js");
+var floor = __webpack_require__(/*! math-intrinsics/floor */ "../ueu_canvas/node_modules/math-intrinsics/floor.js");
+var max = __webpack_require__(/*! math-intrinsics/max */ "../ueu_canvas/node_modules/math-intrinsics/max.js");
+var min = __webpack_require__(/*! math-intrinsics/min */ "../ueu_canvas/node_modules/math-intrinsics/min.js");
+var pow = __webpack_require__(/*! math-intrinsics/pow */ "../ueu_canvas/node_modules/math-intrinsics/pow.js");
+var round = __webpack_require__(/*! math-intrinsics/round */ "../ueu_canvas/node_modules/math-intrinsics/round.js");
+var sign = __webpack_require__(/*! math-intrinsics/sign */ "../ueu_canvas/node_modules/math-intrinsics/sign.js");
+
+var $Function = Function;
+
+// eslint-disable-next-line consistent-return
+var getEvalledConstructor = function (expressionSyntax) {
+	try {
+		return $Function('"use strict"; return (' + expressionSyntax + ').constructor;')();
+	} catch (e) {}
+};
+
+var $gOPD = __webpack_require__(/*! gopd */ "../ueu_canvas/node_modules/gopd/index.js");
+var $defineProperty = __webpack_require__(/*! es-define-property */ "../ueu_canvas/node_modules/es-define-property/index.js");
+
+var throwTypeError = function () {
+	throw new $TypeError();
+};
+var ThrowTypeError = $gOPD
+	? (function () {
+		try {
+			// eslint-disable-next-line no-unused-expressions, no-caller, no-restricted-properties
+			arguments.callee; // IE 8 does not throw here
+			return throwTypeError;
+		} catch (calleeThrows) {
+			try {
+				// IE 8 throws on Object.getOwnPropertyDescriptor(arguments, '')
+				return $gOPD(arguments, 'callee').get;
+			} catch (gOPDthrows) {
+				return throwTypeError;
+			}
+		}
+	}())
+	: throwTypeError;
+
+var hasSymbols = __webpack_require__(/*! has-symbols */ "../ueu_canvas/node_modules/has-symbols/index.js")();
+
+var getProto = __webpack_require__(/*! get-proto */ "../ueu_canvas/node_modules/get-proto/index.js");
+var $ObjectGPO = __webpack_require__(/*! get-proto/Object.getPrototypeOf */ "../ueu_canvas/node_modules/get-proto/Object.getPrototypeOf.js");
+var $ReflectGPO = __webpack_require__(/*! get-proto/Reflect.getPrototypeOf */ "../ueu_canvas/node_modules/get-proto/Reflect.getPrototypeOf.js");
+
+var $apply = __webpack_require__(/*! call-bind-apply-helpers/functionApply */ "../ueu_canvas/node_modules/call-bind-apply-helpers/functionApply.js");
+var $call = __webpack_require__(/*! call-bind-apply-helpers/functionCall */ "../ueu_canvas/node_modules/call-bind-apply-helpers/functionCall.js");
+
+var needsEval = {};
+
+var TypedArray = typeof Uint8Array === 'undefined' || !getProto ? undefined : getProto(Uint8Array);
+
+var INTRINSICS = {
+	__proto__: null,
+	'%AggregateError%': typeof AggregateError === 'undefined' ? undefined : AggregateError,
+	'%Array%': Array,
+	'%ArrayBuffer%': typeof ArrayBuffer === 'undefined' ? undefined : ArrayBuffer,
+	'%ArrayIteratorPrototype%': hasSymbols && getProto ? getProto([][Symbol.iterator]()) : undefined,
+	'%AsyncFromSyncIteratorPrototype%': undefined,
+	'%AsyncFunction%': needsEval,
+	'%AsyncGenerator%': needsEval,
+	'%AsyncGeneratorFunction%': needsEval,
+	'%AsyncIteratorPrototype%': needsEval,
+	'%Atomics%': typeof Atomics === 'undefined' ? undefined : Atomics,
+	'%BigInt%': typeof BigInt === 'undefined' ? undefined : BigInt,
+	'%BigInt64Array%': typeof BigInt64Array === 'undefined' ? undefined : BigInt64Array,
+	'%BigUint64Array%': typeof BigUint64Array === 'undefined' ? undefined : BigUint64Array,
+	'%Boolean%': Boolean,
+	'%DataView%': typeof DataView === 'undefined' ? undefined : DataView,
+	'%Date%': Date,
+	'%decodeURI%': decodeURI,
+	'%decodeURIComponent%': decodeURIComponent,
+	'%encodeURI%': encodeURI,
+	'%encodeURIComponent%': encodeURIComponent,
+	'%Error%': $Error,
+	'%eval%': eval, // eslint-disable-line no-eval
+	'%EvalError%': $EvalError,
+	'%Float16Array%': typeof Float16Array === 'undefined' ? undefined : Float16Array,
+	'%Float32Array%': typeof Float32Array === 'undefined' ? undefined : Float32Array,
+	'%Float64Array%': typeof Float64Array === 'undefined' ? undefined : Float64Array,
+	'%FinalizationRegistry%': typeof FinalizationRegistry === 'undefined' ? undefined : FinalizationRegistry,
+	'%Function%': $Function,
+	'%GeneratorFunction%': needsEval,
+	'%Int8Array%': typeof Int8Array === 'undefined' ? undefined : Int8Array,
+	'%Int16Array%': typeof Int16Array === 'undefined' ? undefined : Int16Array,
+	'%Int32Array%': typeof Int32Array === 'undefined' ? undefined : Int32Array,
+	'%isFinite%': isFinite,
+	'%isNaN%': isNaN,
+	'%IteratorPrototype%': hasSymbols && getProto ? getProto(getProto([][Symbol.iterator]())) : undefined,
+	'%JSON%': typeof JSON === 'object' ? JSON : undefined,
+	'%Map%': typeof Map === 'undefined' ? undefined : Map,
+	'%MapIteratorPrototype%': typeof Map === 'undefined' || !hasSymbols || !getProto ? undefined : getProto(new Map()[Symbol.iterator]()),
+	'%Math%': Math,
+	'%Number%': Number,
+	'%Object%': $Object,
+	'%Object.getOwnPropertyDescriptor%': $gOPD,
+	'%parseFloat%': parseFloat,
+	'%parseInt%': parseInt,
+	'%Promise%': typeof Promise === 'undefined' ? undefined : Promise,
+	'%Proxy%': typeof Proxy === 'undefined' ? undefined : Proxy,
+	'%RangeError%': $RangeError,
+	'%ReferenceError%': $ReferenceError,
+	'%Reflect%': typeof Reflect === 'undefined' ? undefined : Reflect,
+	'%RegExp%': RegExp,
+	'%Set%': typeof Set === 'undefined' ? undefined : Set,
+	'%SetIteratorPrototype%': typeof Set === 'undefined' || !hasSymbols || !getProto ? undefined : getProto(new Set()[Symbol.iterator]()),
+	'%SharedArrayBuffer%': typeof SharedArrayBuffer === 'undefined' ? undefined : SharedArrayBuffer,
+	'%String%': String,
+	'%StringIteratorPrototype%': hasSymbols && getProto ? getProto(''[Symbol.iterator]()) : undefined,
+	'%Symbol%': hasSymbols ? Symbol : undefined,
+	'%SyntaxError%': $SyntaxError,
+	'%ThrowTypeError%': ThrowTypeError,
+	'%TypedArray%': TypedArray,
+	'%TypeError%': $TypeError,
+	'%Uint8Array%': typeof Uint8Array === 'undefined' ? undefined : Uint8Array,
+	'%Uint8ClampedArray%': typeof Uint8ClampedArray === 'undefined' ? undefined : Uint8ClampedArray,
+	'%Uint16Array%': typeof Uint16Array === 'undefined' ? undefined : Uint16Array,
+	'%Uint32Array%': typeof Uint32Array === 'undefined' ? undefined : Uint32Array,
+	'%URIError%': $URIError,
+	'%WeakMap%': typeof WeakMap === 'undefined' ? undefined : WeakMap,
+	'%WeakRef%': typeof WeakRef === 'undefined' ? undefined : WeakRef,
+	'%WeakSet%': typeof WeakSet === 'undefined' ? undefined : WeakSet,
+
+	'%Function.prototype.call%': $call,
+	'%Function.prototype.apply%': $apply,
+	'%Object.defineProperty%': $defineProperty,
+	'%Object.getPrototypeOf%': $ObjectGPO,
+	'%Math.abs%': abs,
+	'%Math.floor%': floor,
+	'%Math.max%': max,
+	'%Math.min%': min,
+	'%Math.pow%': pow,
+	'%Math.round%': round,
+	'%Math.sign%': sign,
+	'%Reflect.getPrototypeOf%': $ReflectGPO
+};
+
+if (getProto) {
+	try {
+		null.error; // eslint-disable-line no-unused-expressions
+	} catch (e) {
+		// https://github.com/tc39/proposal-shadowrealm/pull/384#issuecomment-1364264229
+		var errorProto = getProto(getProto(e));
+		INTRINSICS['%Error.prototype%'] = errorProto;
+	}
+}
+
+var doEval = function doEval(name) {
+	var value;
+	if (name === '%AsyncFunction%') {
+		value = getEvalledConstructor('async function () {}');
+	} else if (name === '%GeneratorFunction%') {
+		value = getEvalledConstructor('function* () {}');
+	} else if (name === '%AsyncGeneratorFunction%') {
+		value = getEvalledConstructor('async function* () {}');
+	} else if (name === '%AsyncGenerator%') {
+		var fn = doEval('%AsyncGeneratorFunction%');
+		if (fn) {
+			value = fn.prototype;
+		}
+	} else if (name === '%AsyncIteratorPrototype%') {
+		var gen = doEval('%AsyncGenerator%');
+		if (gen && getProto) {
+			value = getProto(gen.prototype);
+		}
+	}
+
+	INTRINSICS[name] = value;
+
+	return value;
+};
+
+var LEGACY_ALIASES = {
+	__proto__: null,
+	'%ArrayBufferPrototype%': ['ArrayBuffer', 'prototype'],
+	'%ArrayPrototype%': ['Array', 'prototype'],
+	'%ArrayProto_entries%': ['Array', 'prototype', 'entries'],
+	'%ArrayProto_forEach%': ['Array', 'prototype', 'forEach'],
+	'%ArrayProto_keys%': ['Array', 'prototype', 'keys'],
+	'%ArrayProto_values%': ['Array', 'prototype', 'values'],
+	'%AsyncFunctionPrototype%': ['AsyncFunction', 'prototype'],
+	'%AsyncGenerator%': ['AsyncGeneratorFunction', 'prototype'],
+	'%AsyncGeneratorPrototype%': ['AsyncGeneratorFunction', 'prototype', 'prototype'],
+	'%BooleanPrototype%': ['Boolean', 'prototype'],
+	'%DataViewPrototype%': ['DataView', 'prototype'],
+	'%DatePrototype%': ['Date', 'prototype'],
+	'%ErrorPrototype%': ['Error', 'prototype'],
+	'%EvalErrorPrototype%': ['EvalError', 'prototype'],
+	'%Float32ArrayPrototype%': ['Float32Array', 'prototype'],
+	'%Float64ArrayPrototype%': ['Float64Array', 'prototype'],
+	'%FunctionPrototype%': ['Function', 'prototype'],
+	'%Generator%': ['GeneratorFunction', 'prototype'],
+	'%GeneratorPrototype%': ['GeneratorFunction', 'prototype', 'prototype'],
+	'%Int8ArrayPrototype%': ['Int8Array', 'prototype'],
+	'%Int16ArrayPrototype%': ['Int16Array', 'prototype'],
+	'%Int32ArrayPrototype%': ['Int32Array', 'prototype'],
+	'%JSONParse%': ['JSON', 'parse'],
+	'%JSONStringify%': ['JSON', 'stringify'],
+	'%MapPrototype%': ['Map', 'prototype'],
+	'%NumberPrototype%': ['Number', 'prototype'],
+	'%ObjectPrototype%': ['Object', 'prototype'],
+	'%ObjProto_toString%': ['Object', 'prototype', 'toString'],
+	'%ObjProto_valueOf%': ['Object', 'prototype', 'valueOf'],
+	'%PromisePrototype%': ['Promise', 'prototype'],
+	'%PromiseProto_then%': ['Promise', 'prototype', 'then'],
+	'%Promise_all%': ['Promise', 'all'],
+	'%Promise_reject%': ['Promise', 'reject'],
+	'%Promise_resolve%': ['Promise', 'resolve'],
+	'%RangeErrorPrototype%': ['RangeError', 'prototype'],
+	'%ReferenceErrorPrototype%': ['ReferenceError', 'prototype'],
+	'%RegExpPrototype%': ['RegExp', 'prototype'],
+	'%SetPrototype%': ['Set', 'prototype'],
+	'%SharedArrayBufferPrototype%': ['SharedArrayBuffer', 'prototype'],
+	'%StringPrototype%': ['String', 'prototype'],
+	'%SymbolPrototype%': ['Symbol', 'prototype'],
+	'%SyntaxErrorPrototype%': ['SyntaxError', 'prototype'],
+	'%TypedArrayPrototype%': ['TypedArray', 'prototype'],
+	'%TypeErrorPrototype%': ['TypeError', 'prototype'],
+	'%Uint8ArrayPrototype%': ['Uint8Array', 'prototype'],
+	'%Uint8ClampedArrayPrototype%': ['Uint8ClampedArray', 'prototype'],
+	'%Uint16ArrayPrototype%': ['Uint16Array', 'prototype'],
+	'%Uint32ArrayPrototype%': ['Uint32Array', 'prototype'],
+	'%URIErrorPrototype%': ['URIError', 'prototype'],
+	'%WeakMapPrototype%': ['WeakMap', 'prototype'],
+	'%WeakSetPrototype%': ['WeakSet', 'prototype']
+};
+
+var bind = __webpack_require__(/*! function-bind */ "../ueu_canvas/node_modules/function-bind/index.js");
+var hasOwn = __webpack_require__(/*! hasown */ "../ueu_canvas/node_modules/hasown/index.js");
+var $concat = bind.call($call, Array.prototype.concat);
+var $spliceApply = bind.call($apply, Array.prototype.splice);
+var $replace = bind.call($call, String.prototype.replace);
+var $strSlice = bind.call($call, String.prototype.slice);
+var $exec = bind.call($call, RegExp.prototype.exec);
+
+/* adapted from https://github.com/lodash/lodash/blob/4.17.15/dist/lodash.js#L6735-L6744 */
+var rePropName = /[^%.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|%$))/g;
+var reEscapeChar = /\\(\\)?/g; /** Used to match backslashes in property paths. */
+var stringToPath = function stringToPath(string) {
+	var first = $strSlice(string, 0, 1);
+	var last = $strSlice(string, -1);
+	if (first === '%' && last !== '%') {
+		throw new $SyntaxError('invalid intrinsic syntax, expected closing `%`');
+	} else if (last === '%' && first !== '%') {
+		throw new $SyntaxError('invalid intrinsic syntax, expected opening `%`');
+	}
+	var result = [];
+	$replace(string, rePropName, function (match, number, quote, subString) {
+		result[result.length] = quote ? $replace(subString, reEscapeChar, '$1') : number || match;
+	});
+	return result;
+};
+/* end adaptation */
+
+var getBaseIntrinsic = function getBaseIntrinsic(name, allowMissing) {
+	var intrinsicName = name;
+	var alias;
+	if (hasOwn(LEGACY_ALIASES, intrinsicName)) {
+		alias = LEGACY_ALIASES[intrinsicName];
+		intrinsicName = '%' + alias[0] + '%';
+	}
+
+	if (hasOwn(INTRINSICS, intrinsicName)) {
+		var value = INTRINSICS[intrinsicName];
+		if (value === needsEval) {
+			value = doEval(intrinsicName);
+		}
+		if (typeof value === 'undefined' && !allowMissing) {
+			throw new $TypeError('intrinsic ' + name + ' exists, but is not available. Please file an issue!');
+		}
+
+		return {
+			alias: alias,
+			name: intrinsicName,
+			value: value
+		};
+	}
+
+	throw new $SyntaxError('intrinsic ' + name + ' does not exist!');
+};
+
+module.exports = function GetIntrinsic(name, allowMissing) {
+	if (typeof name !== 'string' || name.length === 0) {
+		throw new $TypeError('intrinsic name must be a non-empty string');
+	}
+	if (arguments.length > 1 && typeof allowMissing !== 'boolean') {
+		throw new $TypeError('"allowMissing" argument must be a boolean');
+	}
+
+	if ($exec(/^%?[^%]*%?$/, name) === null) {
+		throw new $SyntaxError('`%` may not be present anywhere but at the beginning and end of the intrinsic name');
+	}
+	var parts = stringToPath(name);
+	var intrinsicBaseName = parts.length > 0 ? parts[0] : '';
+
+	var intrinsic = getBaseIntrinsic('%' + intrinsicBaseName + '%', allowMissing);
+	var intrinsicRealName = intrinsic.name;
+	var value = intrinsic.value;
+	var skipFurtherCaching = false;
+
+	var alias = intrinsic.alias;
+	if (alias) {
+		intrinsicBaseName = alias[0];
+		$spliceApply(parts, $concat([0, 1], alias));
+	}
+
+	for (var i = 1, isOwn = true; i < parts.length; i += 1) {
+		var part = parts[i];
+		var first = $strSlice(part, 0, 1);
+		var last = $strSlice(part, -1);
+		if (
+			(
+				(first === '"' || first === "'" || first === '`')
+				|| (last === '"' || last === "'" || last === '`')
+			)
+			&& first !== last
+		) {
+			throw new $SyntaxError('property names with quotes must have matching quotes');
+		}
+		if (part === 'constructor' || !isOwn) {
+			skipFurtherCaching = true;
+		}
+
+		intrinsicBaseName += '.' + part;
+		intrinsicRealName = '%' + intrinsicBaseName + '%';
+
+		if (hasOwn(INTRINSICS, intrinsicRealName)) {
+			value = INTRINSICS[intrinsicRealName];
+		} else if (value != null) {
+			if (!(part in value)) {
+				if (!allowMissing) {
+					throw new $TypeError('base intrinsic for ' + name + ' exists, but the property is not available.');
+				}
+				return void undefined;
+			}
+			if ($gOPD && (i + 1) >= parts.length) {
+				var desc = $gOPD(value, part);
+				isOwn = !!desc;
+
+				// By convention, when a data property is converted to an accessor
+				// property to emulate a data property that does not suffer from
+				// the override mistake, that accessor's getter is marked with
+				// an `originalValue` property. Here, when we detect this, we
+				// uphold the illusion by pretending to see that original data
+				// property, i.e., returning the value rather than the getter
+				// itself.
+				if (isOwn && 'get' in desc && !('originalValue' in desc.get)) {
+					value = desc.get;
+				} else {
+					value = value[part];
+				}
+			} else {
+				isOwn = hasOwn(value, part);
+				value = value[part];
+			}
+
+			if (isOwn && !skipFurtherCaching) {
+				INTRINSICS[intrinsicRealName] = value;
+			}
+		}
+	}
+	return value;
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/get-proto/Object.getPrototypeOf.js"
+/*!*********************************************************************!*\
+  !*** ../ueu_canvas/node_modules/get-proto/Object.getPrototypeOf.js ***!
+  \*********************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var $Object = __webpack_require__(/*! es-object-atoms */ "../ueu_canvas/node_modules/es-object-atoms/index.js");
+
+/** @type {import('./Object.getPrototypeOf')} */
+module.exports = $Object.getPrototypeOf || null;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/get-proto/Reflect.getPrototypeOf.js"
+/*!**********************************************************************!*\
+  !*** ../ueu_canvas/node_modules/get-proto/Reflect.getPrototypeOf.js ***!
+  \**********************************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('./Reflect.getPrototypeOf')} */
+module.exports = (typeof Reflect !== 'undefined' && Reflect.getPrototypeOf) || null;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/get-proto/index.js"
+/*!*****************************************************!*\
+  !*** ../ueu_canvas/node_modules/get-proto/index.js ***!
+  \*****************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var reflectGetProto = __webpack_require__(/*! ./Reflect.getPrototypeOf */ "../ueu_canvas/node_modules/get-proto/Reflect.getPrototypeOf.js");
+var originalGetProto = __webpack_require__(/*! ./Object.getPrototypeOf */ "../ueu_canvas/node_modules/get-proto/Object.getPrototypeOf.js");
+
+var getDunderProto = __webpack_require__(/*! dunder-proto/get */ "../ueu_canvas/node_modules/dunder-proto/get.js");
+
+/** @type {import('.')} */
+module.exports = reflectGetProto
+	? function getProto(O) {
+		// @ts-expect-error TS can't narrow inside a closure, for some reason
+		return reflectGetProto(O);
+	}
+	: originalGetProto
+		? function getProto(O) {
+			if (!O || (typeof O !== 'object' && typeof O !== 'function')) {
+				throw new TypeError('getProto: not an object');
+			}
+			// @ts-expect-error TS can't narrow inside a closure, for some reason
+			return originalGetProto(O);
+		}
+		: getDunderProto
+			? function getProto(O) {
+				// @ts-expect-error TS can't narrow inside a closure, for some reason
+				return getDunderProto(O);
+			}
+			: null;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/gopd/gOPD.js"
+/*!***********************************************!*\
+  !*** ../ueu_canvas/node_modules/gopd/gOPD.js ***!
+  \***********************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('./gOPD')} */
+module.exports = Object.getOwnPropertyDescriptor;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/gopd/index.js"
+/*!************************************************!*\
+  !*** ../ueu_canvas/node_modules/gopd/index.js ***!
+  \************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+/** @type {import('.')} */
+var $gOPD = __webpack_require__(/*! ./gOPD */ "../ueu_canvas/node_modules/gopd/gOPD.js");
+
+if ($gOPD) {
+	try {
+		$gOPD([], 'length');
+	} catch (e) {
+		// IE 8 has a broken gOPD
+		$gOPD = null;
+	}
+}
+
+module.exports = $gOPD;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/has-property-descriptors/index.js"
+/*!********************************************************************!*\
+  !*** ../ueu_canvas/node_modules/has-property-descriptors/index.js ***!
+  \********************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var $defineProperty = __webpack_require__(/*! es-define-property */ "../ueu_canvas/node_modules/es-define-property/index.js");
+
+var hasPropertyDescriptors = function hasPropertyDescriptors() {
+	return !!$defineProperty;
+};
+
+hasPropertyDescriptors.hasArrayLengthDefineBug = function hasArrayLengthDefineBug() {
+	// node v0.6 has a bug where array lengths can be Set but not Defined
+	if (!$defineProperty) {
+		return null;
+	}
+	try {
+		return $defineProperty([], 'length', { value: 1 }).length !== 1;
+	} catch (e) {
+		// In Firefox 4-22, defining length on an array throws an exception.
+		return true;
+	}
+};
+
+module.exports = hasPropertyDescriptors;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/has-symbols/index.js"
+/*!*******************************************************!*\
+  !*** ../ueu_canvas/node_modules/has-symbols/index.js ***!
+  \*******************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var origSymbol = typeof Symbol !== 'undefined' && Symbol;
+var hasSymbolSham = __webpack_require__(/*! ./shams */ "../ueu_canvas/node_modules/has-symbols/shams.js");
+
+/** @type {import('.')} */
+module.exports = function hasNativeSymbols() {
+	if (typeof origSymbol !== 'function') { return false; }
+	if (typeof Symbol !== 'function') { return false; }
+	if (typeof origSymbol('foo') !== 'symbol') { return false; }
+	if (typeof Symbol('bar') !== 'symbol') { return false; }
+
+	return hasSymbolSham();
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/has-symbols/shams.js"
+/*!*******************************************************!*\
+  !*** ../ueu_canvas/node_modules/has-symbols/shams.js ***!
+  \*******************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('./shams')} */
+/* eslint complexity: [2, 18], max-statements: [2, 33] */
+module.exports = function hasSymbols() {
+	if (typeof Symbol !== 'function' || typeof Object.getOwnPropertySymbols !== 'function') { return false; }
+	if (typeof Symbol.iterator === 'symbol') { return true; }
+
+	/** @type {{ [k in symbol]?: unknown }} */
+	var obj = {};
+	var sym = Symbol('test');
+	var symObj = Object(sym);
+	if (typeof sym === 'string') { return false; }
+
+	if (Object.prototype.toString.call(sym) !== '[object Symbol]') { return false; }
+	if (Object.prototype.toString.call(symObj) !== '[object Symbol]') { return false; }
+
+	// temp disabled per https://github.com/ljharb/object.assign/issues/17
+	// if (sym instanceof Symbol) { return false; }
+	// temp disabled per https://github.com/WebReflection/get-own-property-symbols/issues/4
+	// if (!(symObj instanceof Symbol)) { return false; }
+
+	// if (typeof Symbol.prototype.toString !== 'function') { return false; }
+	// if (String(sym) !== Symbol.prototype.toString.call(sym)) { return false; }
+
+	var symVal = 42;
+	obj[sym] = symVal;
+	for (var _ in obj) { return false; } // eslint-disable-line no-restricted-syntax, no-unreachable-loop
+	if (typeof Object.keys === 'function' && Object.keys(obj).length !== 0) { return false; }
+
+	if (typeof Object.getOwnPropertyNames === 'function' && Object.getOwnPropertyNames(obj).length !== 0) { return false; }
+
+	var syms = Object.getOwnPropertySymbols(obj);
+	if (syms.length !== 1 || syms[0] !== sym) { return false; }
+
+	if (!Object.prototype.propertyIsEnumerable.call(obj, sym)) { return false; }
+
+	if (typeof Object.getOwnPropertyDescriptor === 'function') {
+		// eslint-disable-next-line no-extra-parens
+		var descriptor = /** @type {PropertyDescriptor} */ (Object.getOwnPropertyDescriptor(obj, sym));
+		if (descriptor.value !== symVal || descriptor.enumerable !== true) { return false; }
+	}
+
+	return true;
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/has-tostringtag/shams.js"
+/*!***********************************************************!*\
+  !*** ../ueu_canvas/node_modules/has-tostringtag/shams.js ***!
+  \***********************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var hasSymbols = __webpack_require__(/*! has-symbols/shams */ "../ueu_canvas/node_modules/has-symbols/shams.js");
+
+/** @type {import('.')} */
+module.exports = function hasToStringTagShams() {
+	return hasSymbols() && !!Symbol.toStringTag;
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/hasown/index.js"
+/*!**************************************************!*\
+  !*** ../ueu_canvas/node_modules/hasown/index.js ***!
+  \**************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var call = Function.prototype.call;
+var $hasOwn = Object.prototype.hasOwnProperty;
+var bind = __webpack_require__(/*! function-bind */ "../ueu_canvas/node_modules/function-bind/index.js");
+
+/** @type {import('.')} */
+module.exports = bind.call(call, $hasOwn);
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/inherits/inherits_browser.js"
+/*!***************************************************************!*\
+  !*** ../ueu_canvas/node_modules/inherits/inherits_browser.js ***!
+  \***************************************************************/
+(module) {
+
+if (typeof Object.create === 'function') {
+  // implementation from standard node.js 'util' module
+  module.exports = function inherits(ctor, superCtor) {
+    if (superCtor) {
+      ctor.super_ = superCtor
+      ctor.prototype = Object.create(superCtor.prototype, {
+        constructor: {
+          value: ctor,
+          enumerable: false,
+          writable: true,
+          configurable: true
+        }
+      })
+    }
+  };
+} else {
+  // old school shim for old browsers
+  module.exports = function inherits(ctor, superCtor) {
+    if (superCtor) {
+      ctor.super_ = superCtor
+      var TempCtor = function () {}
+      TempCtor.prototype = superCtor.prototype
+      ctor.prototype = new TempCtor()
+      ctor.prototype.constructor = ctor
+    }
+  }
+}
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/is-arguments/index.js"
+/*!********************************************************!*\
+  !*** ../ueu_canvas/node_modules/is-arguments/index.js ***!
+  \********************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "../ueu_canvas/node_modules/has-tostringtag/shams.js")();
+var callBound = __webpack_require__(/*! call-bound */ "../ueu_canvas/node_modules/call-bound/index.js");
+
+var $toString = callBound('Object.prototype.toString');
+
+/** @type {import('.')} */
+var isStandardArguments = function isArguments(value) {
+	if (
+		hasToStringTag
+		&& value
+		&& typeof value === 'object'
+		&& Symbol.toStringTag in value
+	) {
+		return false;
+	}
+	return $toString(value) === '[object Arguments]';
+};
+
+/** @type {import('.')} */
+var isLegacyArguments = function isArguments(value) {
+	if (isStandardArguments(value)) {
+		return true;
+	}
+	return value !== null
+		&& typeof value === 'object'
+		&& 'length' in value
+		&& typeof value.length === 'number'
+		&& value.length >= 0
+		&& $toString(value) !== '[object Array]'
+		&& 'callee' in value
+		&& $toString(value.callee) === '[object Function]';
+};
+
+var supportsStandardArguments = (function () {
+	return isStandardArguments(arguments);
+}());
+
+// @ts-expect-error TODO make this not error
+isStandardArguments.isLegacyArguments = isLegacyArguments; // for tests
+
+/** @type {import('.')} */
+module.exports = supportsStandardArguments ? isStandardArguments : isLegacyArguments;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/is-callable/index.js"
+/*!*******************************************************!*\
+  !*** ../ueu_canvas/node_modules/is-callable/index.js ***!
+  \*******************************************************/
+(module) {
+
+"use strict";
+
+
+var fnToStr = Function.prototype.toString;
+var reflectApply = typeof Reflect === 'object' && Reflect !== null && Reflect.apply;
+var badArrayLike;
+var isCallableMarker;
+if (typeof reflectApply === 'function' && typeof Object.defineProperty === 'function') {
+	try {
+		badArrayLike = Object.defineProperty({}, 'length', {
+			get: function () {
+				throw isCallableMarker;
+			}
+		});
+		isCallableMarker = {};
+		// eslint-disable-next-line no-throw-literal
+		reflectApply(function () { throw 42; }, null, badArrayLike);
+	} catch (_) {
+		if (_ !== isCallableMarker) {
+			reflectApply = null;
+		}
+	}
+} else {
+	reflectApply = null;
+}
+
+var constructorRegex = /^\s*class\b/;
+var isES6ClassFn = function isES6ClassFunction(value) {
+	try {
+		var fnStr = fnToStr.call(value);
+		return constructorRegex.test(fnStr);
+	} catch (e) {
+		return false; // not a function
+	}
+};
+
+var tryFunctionObject = function tryFunctionToStr(value) {
+	try {
+		if (isES6ClassFn(value)) { return false; }
+		fnToStr.call(value);
+		return true;
+	} catch (e) {
+		return false;
+	}
+};
+var toStr = Object.prototype.toString;
+var objectClass = '[object Object]';
+var fnClass = '[object Function]';
+var genClass = '[object GeneratorFunction]';
+var ddaClass = '[object HTMLAllCollection]'; // IE 11
+var ddaClass2 = '[object HTML document.all class]';
+var ddaClass3 = '[object HTMLCollection]'; // IE 9-10
+var hasToStringTag = typeof Symbol === 'function' && !!Symbol.toStringTag; // better: use `has-tostringtag`
+
+var isIE68 = !(0 in [,]); // eslint-disable-line no-sparse-arrays, comma-spacing
+
+var isDDA = function isDocumentDotAll() { return false; };
+if (typeof document === 'object') {
+	// Firefox 3 canonicalizes DDA to undefined when it's not accessed directly
+	var all = document.all;
+	if (toStr.call(all) === toStr.call(document.all)) {
+		isDDA = function isDocumentDotAll(value) {
+			/* globals document: false */
+			// in IE 6-8, typeof document.all is "object" and it's truthy
+			if ((isIE68 || !value) && (typeof value === 'undefined' || typeof value === 'object')) {
+				try {
+					var str = toStr.call(value);
+					return (
+						str === ddaClass
+						|| str === ddaClass2
+						|| str === ddaClass3 // opera 12.16
+						|| str === objectClass // IE 6-8
+					) && value('') == null; // eslint-disable-line eqeqeq
+				} catch (e) { /**/ }
+			}
+			return false;
+		};
+	}
+}
+
+module.exports = reflectApply
+	? function isCallable(value) {
+		if (isDDA(value)) { return true; }
+		if (!value) { return false; }
+		if (typeof value !== 'function' && typeof value !== 'object') { return false; }
+		try {
+			reflectApply(value, null, badArrayLike);
+		} catch (e) {
+			if (e !== isCallableMarker) { return false; }
+		}
+		return !isES6ClassFn(value) && tryFunctionObject(value);
+	}
+	: function isCallable(value) {
+		if (isDDA(value)) { return true; }
+		if (!value) { return false; }
+		if (typeof value !== 'function' && typeof value !== 'object') { return false; }
+		if (hasToStringTag) { return tryFunctionObject(value); }
+		if (isES6ClassFn(value)) { return false; }
+		var strClass = toStr.call(value);
+		if (strClass !== fnClass && strClass !== genClass && !(/^\[object HTML/).test(strClass)) { return false; }
+		return tryFunctionObject(value);
+	};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/is-generator-function/index.js"
+/*!*****************************************************************!*\
+  !*** ../ueu_canvas/node_modules/is-generator-function/index.js ***!
+  \*****************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var callBound = __webpack_require__(/*! call-bound */ "../ueu_canvas/node_modules/call-bound/index.js");
+var safeRegexTest = __webpack_require__(/*! safe-regex-test */ "../ueu_canvas/node_modules/safe-regex-test/index.js");
+var isFnRegex = safeRegexTest(/^\s*(?:function)?\*/);
+var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "../ueu_canvas/node_modules/has-tostringtag/shams.js")();
+var getProto = __webpack_require__(/*! get-proto */ "../ueu_canvas/node_modules/get-proto/index.js");
+
+var toStr = callBound('Object.prototype.toString');
+var fnToStr = callBound('Function.prototype.toString');
+
+var getGeneratorFunction = __webpack_require__(/*! generator-function */ "../ueu_canvas/node_modules/generator-function/index.js");
+
+/** @type {import('.')} */
+module.exports = function isGeneratorFunction(fn) {
+	if (typeof fn !== 'function') {
+		return false;
+	}
+	if (isFnRegex(fnToStr(fn))) {
+		return true;
+	}
+	if (!hasToStringTag) {
+		var str = toStr(fn);
+		return str === '[object GeneratorFunction]';
+	}
+	if (!getProto) {
+		return false;
+	}
+	var GeneratorFunction = getGeneratorFunction();
+	return GeneratorFunction && getProto(fn) === GeneratorFunction.prototype;
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/is-nan/implementation.js"
+/*!***********************************************************!*\
+  !*** ../ueu_canvas/node_modules/is-nan/implementation.js ***!
+  \***********************************************************/
+(module) {
+
+"use strict";
+
+
+/* http://www.ecma-international.org/ecma-262/6.0/#sec-number.isnan */
+
+module.exports = function isNaN(value) {
+	return value !== value;
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/is-nan/index.js"
+/*!**************************************************!*\
+  !*** ../ueu_canvas/node_modules/is-nan/index.js ***!
+  \**************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var callBind = __webpack_require__(/*! call-bind */ "../ueu_canvas/node_modules/call-bind/index.js");
+var define = __webpack_require__(/*! define-properties */ "../ueu_canvas/node_modules/define-properties/index.js");
+
+var implementation = __webpack_require__(/*! ./implementation */ "../ueu_canvas/node_modules/is-nan/implementation.js");
+var getPolyfill = __webpack_require__(/*! ./polyfill */ "../ueu_canvas/node_modules/is-nan/polyfill.js");
+var shim = __webpack_require__(/*! ./shim */ "../ueu_canvas/node_modules/is-nan/shim.js");
+
+var polyfill = callBind(getPolyfill(), Number);
+
+/* http://www.ecma-international.org/ecma-262/6.0/#sec-number.isnan */
+
+define(polyfill, {
+	getPolyfill: getPolyfill,
+	implementation: implementation,
+	shim: shim
+});
+
+module.exports = polyfill;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/is-nan/polyfill.js"
+/*!*****************************************************!*\
+  !*** ../ueu_canvas/node_modules/is-nan/polyfill.js ***!
+  \*****************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var implementation = __webpack_require__(/*! ./implementation */ "../ueu_canvas/node_modules/is-nan/implementation.js");
+
+module.exports = function getPolyfill() {
+	if (Number.isNaN && Number.isNaN(NaN) && !Number.isNaN('a')) {
+		return Number.isNaN;
+	}
+	return implementation;
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/is-nan/shim.js"
+/*!*************************************************!*\
+  !*** ../ueu_canvas/node_modules/is-nan/shim.js ***!
+  \*************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var define = __webpack_require__(/*! define-properties */ "../ueu_canvas/node_modules/define-properties/index.js");
+var getPolyfill = __webpack_require__(/*! ./polyfill */ "../ueu_canvas/node_modules/is-nan/polyfill.js");
+
+/* http://www.ecma-international.org/ecma-262/6.0/#sec-number.isnan */
+
+module.exports = function shimNumberIsNaN() {
+	var polyfill = getPolyfill();
+	define(Number, { isNaN: polyfill }, {
+		isNaN: function testIsNaN() {
+			return Number.isNaN !== polyfill;
+		}
+	});
+	return polyfill;
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/is-regex/index.js"
+/*!****************************************************!*\
+  !*** ../ueu_canvas/node_modules/is-regex/index.js ***!
+  \****************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var callBound = __webpack_require__(/*! call-bound */ "../ueu_canvas/node_modules/call-bound/index.js");
+var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "../ueu_canvas/node_modules/has-tostringtag/shams.js")();
+var hasOwn = __webpack_require__(/*! hasown */ "../ueu_canvas/node_modules/hasown/index.js");
+var gOPD = __webpack_require__(/*! gopd */ "../ueu_canvas/node_modules/gopd/index.js");
+
+/** @type {import('.')} */
+var fn;
+
+if (hasToStringTag) {
+	/** @type {(receiver: ThisParameterType<typeof RegExp.prototype.exec>, ...args: Parameters<typeof RegExp.prototype.exec>) => ReturnType<typeof RegExp.prototype.exec>} */
+	var $exec = callBound('RegExp.prototype.exec');
+	/** @type {object} */
+	var isRegexMarker = {};
+
+	var throwRegexMarker = function () {
+		throw isRegexMarker;
+	};
+	/** @type {{ toString(): never, valueOf(): never, [Symbol.toPrimitive]?(): never }} */
+	var badStringifier = {
+		toString: throwRegexMarker,
+		valueOf: throwRegexMarker
+	};
+
+	if (typeof Symbol.toPrimitive === 'symbol') {
+		badStringifier[Symbol.toPrimitive] = throwRegexMarker;
+	}
+
+	/** @type {import('.')} */
+	// @ts-expect-error TS can't figure out that the $exec call always throws
+	// eslint-disable-next-line consistent-return
+	fn = function isRegex(value) {
+		if (!value || typeof value !== 'object') {
+			return false;
+		}
+
+		// eslint-disable-next-line no-extra-parens
+		var descriptor = /** @type {NonNullable<typeof gOPD>} */ (gOPD)(/** @type {{ lastIndex?: unknown }} */ (value), 'lastIndex');
+		var hasLastIndexDataProperty = descriptor && hasOwn(descriptor, 'value');
+		if (!hasLastIndexDataProperty) {
+			return false;
+		}
+
+		try {
+			// eslint-disable-next-line no-extra-parens
+			$exec(value, /** @type {string} */ (/** @type {unknown} */ (badStringifier)));
+		} catch (e) {
+			return e === isRegexMarker;
+		}
+	};
+} else {
+	/** @type {(receiver: ThisParameterType<typeof Object.prototype.toString>, ...args: Parameters<typeof Object.prototype.toString>) => ReturnType<typeof Object.prototype.toString>} */
+	var $toString = callBound('Object.prototype.toString');
+	/** @const @type {'[object RegExp]'} */
+	var regexClass = '[object RegExp]';
+
+	/** @type {import('.')} */
+	fn = function isRegex(value) {
+		// In older browsers, typeof regex incorrectly returns 'function'
+		if (!value || (typeof value !== 'object' && typeof value !== 'function')) {
+			return false;
+		}
+
+		return $toString(value) === regexClass;
+	};
+}
+
+module.exports = fn;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/is-typed-array/index.js"
+/*!**********************************************************!*\
+  !*** ../ueu_canvas/node_modules/is-typed-array/index.js ***!
+  \**********************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var whichTypedArray = __webpack_require__(/*! which-typed-array */ "../ueu_canvas/node_modules/which-typed-array/index.js");
+
+/** @type {import('.')} */
+module.exports = function isTypedArray(value) {
+	return !!whichTypedArray(value);
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/math-intrinsics/abs.js"
+/*!*********************************************************!*\
+  !*** ../ueu_canvas/node_modules/math-intrinsics/abs.js ***!
+  \*********************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('./abs')} */
+module.exports = Math.abs;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/math-intrinsics/floor.js"
+/*!***********************************************************!*\
+  !*** ../ueu_canvas/node_modules/math-intrinsics/floor.js ***!
+  \***********************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('./floor')} */
+module.exports = Math.floor;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/math-intrinsics/isNaN.js"
+/*!***********************************************************!*\
+  !*** ../ueu_canvas/node_modules/math-intrinsics/isNaN.js ***!
+  \***********************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('./isNaN')} */
+module.exports = Number.isNaN || function isNaN(a) {
+	return a !== a;
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/math-intrinsics/max.js"
+/*!*********************************************************!*\
+  !*** ../ueu_canvas/node_modules/math-intrinsics/max.js ***!
+  \*********************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('./max')} */
+module.exports = Math.max;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/math-intrinsics/min.js"
+/*!*********************************************************!*\
+  !*** ../ueu_canvas/node_modules/math-intrinsics/min.js ***!
+  \*********************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('./min')} */
+module.exports = Math.min;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/math-intrinsics/pow.js"
+/*!*********************************************************!*\
+  !*** ../ueu_canvas/node_modules/math-intrinsics/pow.js ***!
+  \*********************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('./pow')} */
+module.exports = Math.pow;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/math-intrinsics/round.js"
+/*!***********************************************************!*\
+  !*** ../ueu_canvas/node_modules/math-intrinsics/round.js ***!
+  \***********************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('./round')} */
+module.exports = Math.round;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/math-intrinsics/sign.js"
+/*!**********************************************************!*\
+  !*** ../ueu_canvas/node_modules/math-intrinsics/sign.js ***!
+  \**********************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var $isNaN = __webpack_require__(/*! ./isNaN */ "../ueu_canvas/node_modules/math-intrinsics/isNaN.js");
+
+/** @type {import('./sign')} */
+module.exports = function sign(number) {
+	if ($isNaN(number) || number === 0) {
+		return number;
+	}
+	return number < 0 ? -1 : +1;
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/object-is/implementation.js"
+/*!**************************************************************!*\
+  !*** ../ueu_canvas/node_modules/object-is/implementation.js ***!
+  \**************************************************************/
+(module) {
+
+"use strict";
+
+
+var numberIsNaN = function (value) {
+	return value !== value;
+};
+
+module.exports = function is(a, b) {
+	if (a === 0 && b === 0) {
+		return 1 / a === 1 / b;
+	}
+	if (a === b) {
+		return true;
+	}
+	if (numberIsNaN(a) && numberIsNaN(b)) {
+		return true;
+	}
+	return false;
+};
+
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/object-is/index.js"
+/*!*****************************************************!*\
+  !*** ../ueu_canvas/node_modules/object-is/index.js ***!
+  \*****************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var define = __webpack_require__(/*! define-properties */ "../ueu_canvas/node_modules/define-properties/index.js");
+var callBind = __webpack_require__(/*! call-bind */ "../ueu_canvas/node_modules/call-bind/index.js");
+
+var implementation = __webpack_require__(/*! ./implementation */ "../ueu_canvas/node_modules/object-is/implementation.js");
+var getPolyfill = __webpack_require__(/*! ./polyfill */ "../ueu_canvas/node_modules/object-is/polyfill.js");
+var shim = __webpack_require__(/*! ./shim */ "../ueu_canvas/node_modules/object-is/shim.js");
+
+var polyfill = callBind(getPolyfill(), Object);
+
+define(polyfill, {
+	getPolyfill: getPolyfill,
+	implementation: implementation,
+	shim: shim
+});
+
+module.exports = polyfill;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/object-is/polyfill.js"
+/*!********************************************************!*\
+  !*** ../ueu_canvas/node_modules/object-is/polyfill.js ***!
+  \********************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var implementation = __webpack_require__(/*! ./implementation */ "../ueu_canvas/node_modules/object-is/implementation.js");
+
+module.exports = function getPolyfill() {
+	return typeof Object.is === 'function' ? Object.is : implementation;
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/object-is/shim.js"
+/*!****************************************************!*\
+  !*** ../ueu_canvas/node_modules/object-is/shim.js ***!
+  \****************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var getPolyfill = __webpack_require__(/*! ./polyfill */ "../ueu_canvas/node_modules/object-is/polyfill.js");
+var define = __webpack_require__(/*! define-properties */ "../ueu_canvas/node_modules/define-properties/index.js");
+
+module.exports = function shimObjectIs() {
+	var polyfill = getPolyfill();
+	define(Object, { is: polyfill }, {
+		is: function testObjectIs() {
+			return Object.is !== polyfill;
+		}
+	});
+	return polyfill;
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/object-keys/implementation.js"
+/*!****************************************************************!*\
+  !*** ../ueu_canvas/node_modules/object-keys/implementation.js ***!
+  \****************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var keysShim;
+if (!Object.keys) {
+	// modified from https://github.com/es-shims/es5-shim
+	var has = Object.prototype.hasOwnProperty;
+	var toStr = Object.prototype.toString;
+	var isArgs = __webpack_require__(/*! ./isArguments */ "../ueu_canvas/node_modules/object-keys/isArguments.js"); // eslint-disable-line global-require
+	var isEnumerable = Object.prototype.propertyIsEnumerable;
+	var hasDontEnumBug = !isEnumerable.call({ toString: null }, 'toString');
+	var hasProtoEnumBug = isEnumerable.call(function () {}, 'prototype');
+	var dontEnums = [
+		'toString',
+		'toLocaleString',
+		'valueOf',
+		'hasOwnProperty',
+		'isPrototypeOf',
+		'propertyIsEnumerable',
+		'constructor'
+	];
+	var equalsConstructorPrototype = function (o) {
+		var ctor = o.constructor;
+		return ctor && ctor.prototype === o;
+	};
+	var excludedKeys = {
+		$applicationCache: true,
+		$console: true,
+		$external: true,
+		$frame: true,
+		$frameElement: true,
+		$frames: true,
+		$innerHeight: true,
+		$innerWidth: true,
+		$onmozfullscreenchange: true,
+		$onmozfullscreenerror: true,
+		$outerHeight: true,
+		$outerWidth: true,
+		$pageXOffset: true,
+		$pageYOffset: true,
+		$parent: true,
+		$scrollLeft: true,
+		$scrollTop: true,
+		$scrollX: true,
+		$scrollY: true,
+		$self: true,
+		$webkitIndexedDB: true,
+		$webkitStorageInfo: true,
+		$window: true
+	};
+	var hasAutomationEqualityBug = (function () {
+		/* global window */
+		if (typeof window === 'undefined') { return false; }
+		for (var k in window) {
+			try {
+				if (!excludedKeys['$' + k] && has.call(window, k) && window[k] !== null && typeof window[k] === 'object') {
+					try {
+						equalsConstructorPrototype(window[k]);
+					} catch (e) {
+						return true;
+					}
+				}
+			} catch (e) {
+				return true;
+			}
+		}
+		return false;
+	}());
+	var equalsConstructorPrototypeIfNotBuggy = function (o) {
+		/* global window */
+		if (typeof window === 'undefined' || !hasAutomationEqualityBug) {
+			return equalsConstructorPrototype(o);
+		}
+		try {
+			return equalsConstructorPrototype(o);
+		} catch (e) {
+			return false;
+		}
+	};
+
+	keysShim = function keys(object) {
+		var isObject = object !== null && typeof object === 'object';
+		var isFunction = toStr.call(object) === '[object Function]';
+		var isArguments = isArgs(object);
+		var isString = isObject && toStr.call(object) === '[object String]';
+		var theKeys = [];
+
+		if (!isObject && !isFunction && !isArguments) {
+			throw new TypeError('Object.keys called on a non-object');
+		}
+
+		var skipProto = hasProtoEnumBug && isFunction;
+		if (isString && object.length > 0 && !has.call(object, 0)) {
+			for (var i = 0; i < object.length; ++i) {
+				theKeys.push(String(i));
+			}
+		}
+
+		if (isArguments && object.length > 0) {
+			for (var j = 0; j < object.length; ++j) {
+				theKeys.push(String(j));
+			}
+		} else {
+			for (var name in object) {
+				if (!(skipProto && name === 'prototype') && has.call(object, name)) {
+					theKeys.push(String(name));
+				}
+			}
+		}
+
+		if (hasDontEnumBug) {
+			var skipConstructor = equalsConstructorPrototypeIfNotBuggy(object);
+
+			for (var k = 0; k < dontEnums.length; ++k) {
+				if (!(skipConstructor && dontEnums[k] === 'constructor') && has.call(object, dontEnums[k])) {
+					theKeys.push(dontEnums[k]);
+				}
+			}
+		}
+		return theKeys;
+	};
+}
+module.exports = keysShim;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/object-keys/index.js"
+/*!*******************************************************!*\
+  !*** ../ueu_canvas/node_modules/object-keys/index.js ***!
+  \*******************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var slice = Array.prototype.slice;
+var isArgs = __webpack_require__(/*! ./isArguments */ "../ueu_canvas/node_modules/object-keys/isArguments.js");
+
+var origKeys = Object.keys;
+var keysShim = origKeys ? function keys(o) { return origKeys(o); } : __webpack_require__(/*! ./implementation */ "../ueu_canvas/node_modules/object-keys/implementation.js");
+
+var originalKeys = Object.keys;
+
+keysShim.shim = function shimObjectKeys() {
+	if (Object.keys) {
+		var keysWorksWithArguments = (function () {
+			// Safari 5.0 bug
+			var args = Object.keys(arguments);
+			return args && args.length === arguments.length;
+		}(1, 2));
+		if (!keysWorksWithArguments) {
+			Object.keys = function keys(object) { // eslint-disable-line func-name-matching
+				if (isArgs(object)) {
+					return originalKeys(slice.call(object));
+				}
+				return originalKeys(object);
+			};
+		}
+	} else {
+		Object.keys = keysShim;
+	}
+	return Object.keys || keysShim;
+};
+
+module.exports = keysShim;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/object-keys/isArguments.js"
+/*!*************************************************************!*\
+  !*** ../ueu_canvas/node_modules/object-keys/isArguments.js ***!
+  \*************************************************************/
+(module) {
+
+"use strict";
+
+
+var toStr = Object.prototype.toString;
+
+module.exports = function isArguments(value) {
+	var str = toStr.call(value);
+	var isArgs = str === '[object Arguments]';
+	if (!isArgs) {
+		isArgs = str !== '[object Array]' &&
+			value !== null &&
+			typeof value === 'object' &&
+			typeof value.length === 'number' &&
+			value.length >= 0 &&
+			toStr.call(value.callee) === '[object Function]';
+	}
+	return isArgs;
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/object.assign/implementation.js"
+/*!******************************************************************!*\
+  !*** ../ueu_canvas/node_modules/object.assign/implementation.js ***!
+  \******************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+// modified from https://github.com/es-shims/es6-shim
+var objectKeys = __webpack_require__(/*! object-keys */ "../ueu_canvas/node_modules/object-keys/index.js");
+var hasSymbols = __webpack_require__(/*! has-symbols/shams */ "../ueu_canvas/node_modules/has-symbols/shams.js")();
+var callBound = __webpack_require__(/*! call-bound */ "../ueu_canvas/node_modules/call-bound/index.js");
+var $Object = __webpack_require__(/*! es-object-atoms */ "../ueu_canvas/node_modules/es-object-atoms/index.js");
+var $push = callBound('Array.prototype.push');
+var $propIsEnumerable = callBound('Object.prototype.propertyIsEnumerable');
+var originalGetSymbols = hasSymbols ? $Object.getOwnPropertySymbols : null;
+
+// eslint-disable-next-line no-unused-vars
+module.exports = function assign(target, source1) {
+	if (target == null) { throw new TypeError('target must be an object'); }
+	var to = $Object(target); // step 1
+	if (arguments.length === 1) {
+		return to; // step 2
+	}
+	for (var s = 1; s < arguments.length; ++s) {
+		var from = $Object(arguments[s]); // step 3.a.i
+
+		// step 3.a.ii:
+		var keys = objectKeys(from);
+		var getSymbols = hasSymbols && ($Object.getOwnPropertySymbols || originalGetSymbols);
+		if (getSymbols) {
+			var syms = getSymbols(from);
+			for (var j = 0; j < syms.length; ++j) {
+				var key = syms[j];
+				if ($propIsEnumerable(from, key)) {
+					$push(keys, key);
+				}
+			}
+		}
+
+		// step 3.a.iii:
+		for (var i = 0; i < keys.length; ++i) {
+			var nextKey = keys[i];
+			if ($propIsEnumerable(from, nextKey)) { // step 3.a.iii.2
+				var propValue = from[nextKey]; // step 3.a.iii.2.a
+				to[nextKey] = propValue; // step 3.a.iii.2.b
+			}
+		}
+	}
+
+	return to; // step 4
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/object.assign/polyfill.js"
+/*!************************************************************!*\
+  !*** ../ueu_canvas/node_modules/object.assign/polyfill.js ***!
+  \************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var implementation = __webpack_require__(/*! ./implementation */ "../ueu_canvas/node_modules/object.assign/implementation.js");
+
+var lacksProperEnumerationOrder = function () {
+	if (!Object.assign) {
+		return false;
+	}
+	/*
+	 * v8, specifically in node 4.x, has a bug with incorrect property enumeration order
+	 * note: this does not detect the bug unless there's 20 characters
+	 */
+	var str = 'abcdefghijklmnopqrst';
+	var letters = str.split('');
+	var map = {};
+	for (var i = 0; i < letters.length; ++i) {
+		map[letters[i]] = letters[i];
+	}
+	var obj = Object.assign({}, map);
+	var actual = '';
+	for (var k in obj) {
+		actual += k;
+	}
+	return str !== actual;
+};
+
+var assignHasPendingExceptions = function () {
+	if (!Object.assign || !Object.preventExtensions) {
+		return false;
+	}
+	/*
+	 * Firefox 37 still has "pending exception" logic in its Object.assign implementation,
+	 * which is 72% slower than our shim, and Firefox 40's native implementation.
+	 */
+	var thrower = Object.preventExtensions({ 1: 2 });
+	try {
+		Object.assign(thrower, 'xy');
+	} catch (e) {
+		return thrower[1] === 'y';
+	}
+	return false;
+};
+
+module.exports = function getPolyfill() {
+	if (!Object.assign) {
+		return implementation;
+	}
+	if (lacksProperEnumerationOrder()) {
+		return implementation;
+	}
+	if (assignHasPendingExceptions()) {
+		return implementation;
+	}
+	return Object.assign;
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/possible-typed-array-names/index.js"
+/*!**********************************************************************!*\
+  !*** ../ueu_canvas/node_modules/possible-typed-array-names/index.js ***!
+  \**********************************************************************/
+(module) {
+
+"use strict";
+
+
+/** @type {import('.')} */
+module.exports = [
+	'Float16Array',
+	'Float32Array',
+	'Float64Array',
+	'Int8Array',
+	'Int16Array',
+	'Int32Array',
+	'Uint8Array',
+	'Uint8ClampedArray',
+	'Uint16Array',
+	'Uint32Array',
+	'BigInt64Array',
+	'BigUint64Array'
+];
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/safe-regex-test/index.js"
+/*!***********************************************************!*\
+  !*** ../ueu_canvas/node_modules/safe-regex-test/index.js ***!
+  \***********************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var callBound = __webpack_require__(/*! call-bound */ "../ueu_canvas/node_modules/call-bound/index.js");
+var isRegex = __webpack_require__(/*! is-regex */ "../ueu_canvas/node_modules/is-regex/index.js");
+
+var $exec = callBound('RegExp.prototype.exec');
+var $TypeError = __webpack_require__(/*! es-errors/type */ "../ueu_canvas/node_modules/es-errors/type.js");
+
+/** @type {import('.')} */
+module.exports = function regexTester(regex) {
+	if (!isRegex(regex)) {
+		throw new $TypeError('`regex` must be a RegExp');
+	}
+	return function test(s) {
+		return $exec(regex, s) !== null;
+	};
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/set-function-length/index.js"
+/*!***************************************************************!*\
+  !*** ../ueu_canvas/node_modules/set-function-length/index.js ***!
+  \***************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var GetIntrinsic = __webpack_require__(/*! get-intrinsic */ "../ueu_canvas/node_modules/get-intrinsic/index.js");
+var define = __webpack_require__(/*! define-data-property */ "../ueu_canvas/node_modules/define-data-property/index.js");
+var hasDescriptors = __webpack_require__(/*! has-property-descriptors */ "../ueu_canvas/node_modules/has-property-descriptors/index.js")();
+var gOPD = __webpack_require__(/*! gopd */ "../ueu_canvas/node_modules/gopd/index.js");
+
+var $TypeError = __webpack_require__(/*! es-errors/type */ "../ueu_canvas/node_modules/es-errors/type.js");
+var $floor = GetIntrinsic('%Math.floor%');
+
+/** @type {import('.')} */
+module.exports = function setFunctionLength(fn, length) {
+	if (typeof fn !== 'function') {
+		throw new $TypeError('`fn` is not a function');
+	}
+	if (typeof length !== 'number' || length < 0 || length > 0xFFFFFFFF || $floor(length) !== length) {
+		throw new $TypeError('`length` must be a positive 32-bit integer');
+	}
+
+	var loose = arguments.length > 2 && !!arguments[2];
+
+	var functionLengthIsConfigurable = true;
+	var functionLengthIsWritable = true;
+	if ('length' in fn && gOPD) {
+		var desc = gOPD(fn, 'length');
+		if (desc && !desc.configurable) {
+			functionLengthIsConfigurable = false;
+		}
+		if (desc && !desc.writable) {
+			functionLengthIsWritable = false;
+		}
+	}
+
+	if (functionLengthIsConfigurable || functionLengthIsWritable || !loose) {
+		if (hasDescriptors) {
+			define(/** @type {Parameters<define>[0]} */ (fn), 'length', length, true, true);
+		} else {
+			define(/** @type {Parameters<define>[0]} */ (fn), 'length', length);
+		}
+	}
+	return fn;
+};
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/util/support/isBufferBrowser.js"
+/*!******************************************************************!*\
+  !*** ../ueu_canvas/node_modules/util/support/isBufferBrowser.js ***!
+  \******************************************************************/
+(module) {
+
+module.exports = function isBuffer(arg) {
+  return arg && typeof arg === 'object'
+    && typeof arg.copy === 'function'
+    && typeof arg.fill === 'function'
+    && typeof arg.readUInt8 === 'function';
+}
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/util/support/types.js"
+/*!********************************************************!*\
+  !*** ../ueu_canvas/node_modules/util/support/types.js ***!
+  \********************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+// Currently in sync with Node.js lib/internal/util/types.js
+// https://github.com/nodejs/node/commit/112cc7c27551254aa2b17098fb774867f05ed0d9
+
+
+
+var isArgumentsObject = __webpack_require__(/*! is-arguments */ "../ueu_canvas/node_modules/is-arguments/index.js");
+var isGeneratorFunction = __webpack_require__(/*! is-generator-function */ "../ueu_canvas/node_modules/is-generator-function/index.js");
+var whichTypedArray = __webpack_require__(/*! which-typed-array */ "../ueu_canvas/node_modules/which-typed-array/index.js");
+var isTypedArray = __webpack_require__(/*! is-typed-array */ "../ueu_canvas/node_modules/is-typed-array/index.js");
+
+function uncurryThis(f) {
+  return f.call.bind(f);
+}
+
+var BigIntSupported = typeof BigInt !== 'undefined';
+var SymbolSupported = typeof Symbol !== 'undefined';
+
+var ObjectToString = uncurryThis(Object.prototype.toString);
+
+var numberValue = uncurryThis(Number.prototype.valueOf);
+var stringValue = uncurryThis(String.prototype.valueOf);
+var booleanValue = uncurryThis(Boolean.prototype.valueOf);
+
+if (BigIntSupported) {
+  var bigIntValue = uncurryThis(BigInt.prototype.valueOf);
+}
+
+if (SymbolSupported) {
+  var symbolValue = uncurryThis(Symbol.prototype.valueOf);
+}
+
+function checkBoxedPrimitive(value, prototypeValueOf) {
+  if (typeof value !== 'object') {
+    return false;
+  }
+  try {
+    prototypeValueOf(value);
+    return true;
+  } catch(e) {
+    return false;
+  }
+}
+
+exports.isArgumentsObject = isArgumentsObject;
+exports.isGeneratorFunction = isGeneratorFunction;
+exports.isTypedArray = isTypedArray;
+
+// Taken from here and modified for better browser support
+// https://github.com/sindresorhus/p-is-promise/blob/cda35a513bda03f977ad5cde3a079d237e82d7ef/index.js
+function isPromise(input) {
+	return (
+		(
+			typeof Promise !== 'undefined' &&
+			input instanceof Promise
+		) ||
+		(
+			input !== null &&
+			typeof input === 'object' &&
+			typeof input.then === 'function' &&
+			typeof input.catch === 'function'
+		)
+	);
+}
+exports.isPromise = isPromise;
+
+function isArrayBufferView(value) {
+  if (typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView) {
+    return ArrayBuffer.isView(value);
+  }
+
+  return (
+    isTypedArray(value) ||
+    isDataView(value)
+  );
+}
+exports.isArrayBufferView = isArrayBufferView;
+
+
+function isUint8Array(value) {
+  return whichTypedArray(value) === 'Uint8Array';
+}
+exports.isUint8Array = isUint8Array;
+
+function isUint8ClampedArray(value) {
+  return whichTypedArray(value) === 'Uint8ClampedArray';
+}
+exports.isUint8ClampedArray = isUint8ClampedArray;
+
+function isUint16Array(value) {
+  return whichTypedArray(value) === 'Uint16Array';
+}
+exports.isUint16Array = isUint16Array;
+
+function isUint32Array(value) {
+  return whichTypedArray(value) === 'Uint32Array';
+}
+exports.isUint32Array = isUint32Array;
+
+function isInt8Array(value) {
+  return whichTypedArray(value) === 'Int8Array';
+}
+exports.isInt8Array = isInt8Array;
+
+function isInt16Array(value) {
+  return whichTypedArray(value) === 'Int16Array';
+}
+exports.isInt16Array = isInt16Array;
+
+function isInt32Array(value) {
+  return whichTypedArray(value) === 'Int32Array';
+}
+exports.isInt32Array = isInt32Array;
+
+function isFloat32Array(value) {
+  return whichTypedArray(value) === 'Float32Array';
+}
+exports.isFloat32Array = isFloat32Array;
+
+function isFloat64Array(value) {
+  return whichTypedArray(value) === 'Float64Array';
+}
+exports.isFloat64Array = isFloat64Array;
+
+function isBigInt64Array(value) {
+  return whichTypedArray(value) === 'BigInt64Array';
+}
+exports.isBigInt64Array = isBigInt64Array;
+
+function isBigUint64Array(value) {
+  return whichTypedArray(value) === 'BigUint64Array';
+}
+exports.isBigUint64Array = isBigUint64Array;
+
+function isMapToString(value) {
+  return ObjectToString(value) === '[object Map]';
+}
+isMapToString.working = (
+  typeof Map !== 'undefined' &&
+  isMapToString(new Map())
+);
+
+function isMap(value) {
+  if (typeof Map === 'undefined') {
+    return false;
+  }
+
+  return isMapToString.working
+    ? isMapToString(value)
+    : value instanceof Map;
+}
+exports.isMap = isMap;
+
+function isSetToString(value) {
+  return ObjectToString(value) === '[object Set]';
+}
+isSetToString.working = (
+  typeof Set !== 'undefined' &&
+  isSetToString(new Set())
+);
+function isSet(value) {
+  if (typeof Set === 'undefined') {
+    return false;
+  }
+
+  return isSetToString.working
+    ? isSetToString(value)
+    : value instanceof Set;
+}
+exports.isSet = isSet;
+
+function isWeakMapToString(value) {
+  return ObjectToString(value) === '[object WeakMap]';
+}
+isWeakMapToString.working = (
+  typeof WeakMap !== 'undefined' &&
+  isWeakMapToString(new WeakMap())
+);
+function isWeakMap(value) {
+  if (typeof WeakMap === 'undefined') {
+    return false;
+  }
+
+  return isWeakMapToString.working
+    ? isWeakMapToString(value)
+    : value instanceof WeakMap;
+}
+exports.isWeakMap = isWeakMap;
+
+function isWeakSetToString(value) {
+  return ObjectToString(value) === '[object WeakSet]';
+}
+isWeakSetToString.working = (
+  typeof WeakSet !== 'undefined' &&
+  isWeakSetToString(new WeakSet())
+);
+function isWeakSet(value) {
+  return isWeakSetToString(value);
+}
+exports.isWeakSet = isWeakSet;
+
+function isArrayBufferToString(value) {
+  return ObjectToString(value) === '[object ArrayBuffer]';
+}
+isArrayBufferToString.working = (
+  typeof ArrayBuffer !== 'undefined' &&
+  isArrayBufferToString(new ArrayBuffer())
+);
+function isArrayBuffer(value) {
+  if (typeof ArrayBuffer === 'undefined') {
+    return false;
+  }
+
+  return isArrayBufferToString.working
+    ? isArrayBufferToString(value)
+    : value instanceof ArrayBuffer;
+}
+exports.isArrayBuffer = isArrayBuffer;
+
+function isDataViewToString(value) {
+  return ObjectToString(value) === '[object DataView]';
+}
+isDataViewToString.working = (
+  typeof ArrayBuffer !== 'undefined' &&
+  typeof DataView !== 'undefined' &&
+  isDataViewToString(new DataView(new ArrayBuffer(1), 0, 1))
+);
+function isDataView(value) {
+  if (typeof DataView === 'undefined') {
+    return false;
+  }
+
+  return isDataViewToString.working
+    ? isDataViewToString(value)
+    : value instanceof DataView;
+}
+exports.isDataView = isDataView;
+
+// Store a copy of SharedArrayBuffer in case it's deleted elsewhere
+var SharedArrayBufferCopy = typeof SharedArrayBuffer !== 'undefined' ? SharedArrayBuffer : undefined;
+function isSharedArrayBufferToString(value) {
+  return ObjectToString(value) === '[object SharedArrayBuffer]';
+}
+function isSharedArrayBuffer(value) {
+  if (typeof SharedArrayBufferCopy === 'undefined') {
+    return false;
+  }
+
+  if (typeof isSharedArrayBufferToString.working === 'undefined') {
+    isSharedArrayBufferToString.working = isSharedArrayBufferToString(new SharedArrayBufferCopy());
+  }
+
+  return isSharedArrayBufferToString.working
+    ? isSharedArrayBufferToString(value)
+    : value instanceof SharedArrayBufferCopy;
+}
+exports.isSharedArrayBuffer = isSharedArrayBuffer;
+
+function isAsyncFunction(value) {
+  return ObjectToString(value) === '[object AsyncFunction]';
+}
+exports.isAsyncFunction = isAsyncFunction;
+
+function isMapIterator(value) {
+  return ObjectToString(value) === '[object Map Iterator]';
+}
+exports.isMapIterator = isMapIterator;
+
+function isSetIterator(value) {
+  return ObjectToString(value) === '[object Set Iterator]';
+}
+exports.isSetIterator = isSetIterator;
+
+function isGeneratorObject(value) {
+  return ObjectToString(value) === '[object Generator]';
+}
+exports.isGeneratorObject = isGeneratorObject;
+
+function isWebAssemblyCompiledModule(value) {
+  return ObjectToString(value) === '[object WebAssembly.Module]';
+}
+exports.isWebAssemblyCompiledModule = isWebAssemblyCompiledModule;
+
+function isNumberObject(value) {
+  return checkBoxedPrimitive(value, numberValue);
+}
+exports.isNumberObject = isNumberObject;
+
+function isStringObject(value) {
+  return checkBoxedPrimitive(value, stringValue);
+}
+exports.isStringObject = isStringObject;
+
+function isBooleanObject(value) {
+  return checkBoxedPrimitive(value, booleanValue);
+}
+exports.isBooleanObject = isBooleanObject;
+
+function isBigIntObject(value) {
+  return BigIntSupported && checkBoxedPrimitive(value, bigIntValue);
+}
+exports.isBigIntObject = isBigIntObject;
+
+function isSymbolObject(value) {
+  return SymbolSupported && checkBoxedPrimitive(value, symbolValue);
+}
+exports.isSymbolObject = isSymbolObject;
+
+function isBoxedPrimitive(value) {
+  return (
+    isNumberObject(value) ||
+    isStringObject(value) ||
+    isBooleanObject(value) ||
+    isBigIntObject(value) ||
+    isSymbolObject(value)
+  );
+}
+exports.isBoxedPrimitive = isBoxedPrimitive;
+
+function isAnyArrayBuffer(value) {
+  return typeof Uint8Array !== 'undefined' && (
+    isArrayBuffer(value) ||
+    isSharedArrayBuffer(value)
+  );
+}
+exports.isAnyArrayBuffer = isAnyArrayBuffer;
+
+['isProxy', 'isExternal', 'isModuleNamespaceObject'].forEach(function(method) {
+  Object.defineProperty(exports, method, {
+    enumerable: false,
+    value: function() {
+      throw new Error(method + ' is not supported in userland');
+    }
+  });
+});
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/util/util.js"
+/*!***********************************************!*\
+  !*** ../ueu_canvas/node_modules/util/util.js ***!
+  \***********************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
+
+/* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+var getOwnPropertyDescriptors = Object.getOwnPropertyDescriptors ||
+  function getOwnPropertyDescriptors(obj) {
+    var keys = Object.keys(obj);
+    var descriptors = {};
+    for (var i = 0; i < keys.length; i++) {
+      descriptors[keys[i]] = Object.getOwnPropertyDescriptor(obj, keys[i]);
+    }
+    return descriptors;
+  };
+
+var formatRegExp = /%[sdj%]/g;
+exports.format = function(f) {
+  if (!isString(f)) {
+    var objects = [];
+    for (var i = 0; i < arguments.length; i++) {
+      objects.push(inspect(arguments[i]));
+    }
+    return objects.join(' ');
+  }
+
+  var i = 1;
+  var args = arguments;
+  var len = args.length;
+  var str = String(f).replace(formatRegExp, function(x) {
+    if (x === '%%') return '%';
+    if (i >= len) return x;
+    switch (x) {
+      case '%s': return String(args[i++]);
+      case '%d': return Number(args[i++]);
+      case '%j':
+        try {
+          return JSON.stringify(args[i++]);
+        } catch (_) {
+          return '[Circular]';
+        }
+      default:
+        return x;
+    }
+  });
+  for (var x = args[i]; i < len; x = args[++i]) {
+    if (isNull(x) || !isObject(x)) {
+      str += ' ' + x;
+    } else {
+      str += ' ' + inspect(x);
+    }
+  }
+  return str;
+};
+
+
+// Mark that a method should not be used.
+// Returns a modified function which warns once by default.
+// If --no-deprecation is set, then it is a no-op.
+exports.deprecate = function(fn, msg) {
+  if (typeof process !== 'undefined' && process.noDeprecation === true) {
+    return fn;
+  }
+
+  // Allow for deprecating things in the process of starting up.
+  if (typeof process === 'undefined') {
+    return function() {
+      return exports.deprecate(fn, msg).apply(this, arguments);
+    };
+  }
+
+  var warned = false;
+  function deprecated() {
+    if (!warned) {
+      if (process.throwDeprecation) {
+        throw new Error(msg);
+      } else if (process.traceDeprecation) {
+        console.trace(msg);
+      } else {
+        console.error(msg);
+      }
+      warned = true;
+    }
+    return fn.apply(this, arguments);
+  }
+
+  return deprecated;
+};
+
+
+var debugs = {};
+var debugEnvRegex = /^$/;
+
+if (process.env.NODE_DEBUG) {
+  var debugEnv = process.env.NODE_DEBUG;
+  debugEnv = debugEnv.replace(/[|\\{}()[\]^$+?.]/g, '\\$&')
+    .replace(/\*/g, '.*')
+    .replace(/,/g, '$|^')
+    .toUpperCase();
+  debugEnvRegex = new RegExp('^' + debugEnv + '$', 'i');
+}
+exports.debuglog = function(set) {
+  set = set.toUpperCase();
+  if (!debugs[set]) {
+    if (debugEnvRegex.test(set)) {
+      var pid = process.pid;
+      debugs[set] = function() {
+        var msg = exports.format.apply(exports, arguments);
+        console.error('%s %d: %s', set, pid, msg);
+      };
+    } else {
+      debugs[set] = function() {};
+    }
+  }
+  return debugs[set];
+};
+
+
+/**
+ * Echos the value of a value. Trys to print the value out
+ * in the best way possible given the different types.
+ *
+ * @param {Object} obj The object to print out.
+ * @param {Object} opts Optional options object that alters the output.
+ */
+/* legacy: obj, showHidden, depth, colors*/
+function inspect(obj, opts) {
+  // default options
+  var ctx = {
+    seen: [],
+    stylize: stylizeNoColor
+  };
+  // legacy...
+  if (arguments.length >= 3) ctx.depth = arguments[2];
+  if (arguments.length >= 4) ctx.colors = arguments[3];
+  if (isBoolean(opts)) {
+    // legacy...
+    ctx.showHidden = opts;
+  } else if (opts) {
+    // got an "options" object
+    exports._extend(ctx, opts);
+  }
+  // set default options
+  if (isUndefined(ctx.showHidden)) ctx.showHidden = false;
+  if (isUndefined(ctx.depth)) ctx.depth = 2;
+  if (isUndefined(ctx.colors)) ctx.colors = false;
+  if (isUndefined(ctx.customInspect)) ctx.customInspect = true;
+  if (ctx.colors) ctx.stylize = stylizeWithColor;
+  return formatValue(ctx, obj, ctx.depth);
+}
+exports.inspect = inspect;
+
+
+// http://en.wikipedia.org/wiki/ANSI_escape_code#graphics
+inspect.colors = {
+  'bold' : [1, 22],
+  'italic' : [3, 23],
+  'underline' : [4, 24],
+  'inverse' : [7, 27],
+  'white' : [37, 39],
+  'grey' : [90, 39],
+  'black' : [30, 39],
+  'blue' : [34, 39],
+  'cyan' : [36, 39],
+  'green' : [32, 39],
+  'magenta' : [35, 39],
+  'red' : [31, 39],
+  'yellow' : [33, 39]
+};
+
+// Don't use 'blue' not visible on cmd.exe
+inspect.styles = {
+  'special': 'cyan',
+  'number': 'yellow',
+  'boolean': 'yellow',
+  'undefined': 'grey',
+  'null': 'bold',
+  'string': 'green',
+  'date': 'magenta',
+  // "name": intentionally not styling
+  'regexp': 'red'
+};
+
+
+function stylizeWithColor(str, styleType) {
+  var style = inspect.styles[styleType];
+
+  if (style) {
+    return '\u001b[' + inspect.colors[style][0] + 'm' + str +
+           '\u001b[' + inspect.colors[style][1] + 'm';
+  } else {
+    return str;
+  }
+}
+
+
+function stylizeNoColor(str, styleType) {
+  return str;
+}
+
+
+function arrayToHash(array) {
+  var hash = {};
+
+  array.forEach(function(val, idx) {
+    hash[val] = true;
+  });
+
+  return hash;
+}
+
+
+function formatValue(ctx, value, recurseTimes) {
+  // Provide a hook for user-specified inspect functions.
+  // Check that value is an object with an inspect function on it
+  if (ctx.customInspect &&
+      value &&
+      isFunction(value.inspect) &&
+      // Filter out the util module, it's inspect function is special
+      value.inspect !== exports.inspect &&
+      // Also filter out any prototype objects using the circular check.
+      !(value.constructor && value.constructor.prototype === value)) {
+    var ret = value.inspect(recurseTimes, ctx);
+    if (!isString(ret)) {
+      ret = formatValue(ctx, ret, recurseTimes);
+    }
+    return ret;
+  }
+
+  // Primitive types cannot have properties
+  var primitive = formatPrimitive(ctx, value);
+  if (primitive) {
+    return primitive;
+  }
+
+  // Look up the keys of the object.
+  var keys = Object.keys(value);
+  var visibleKeys = arrayToHash(keys);
+
+  if (ctx.showHidden) {
+    keys = Object.getOwnPropertyNames(value);
+  }
+
+  // IE doesn't make error fields non-enumerable
+  // http://msdn.microsoft.com/en-us/library/ie/dww52sbt(v=vs.94).aspx
+  if (isError(value)
+      && (keys.indexOf('message') >= 0 || keys.indexOf('description') >= 0)) {
+    return formatError(value);
+  }
+
+  // Some type of object without properties can be shortcutted.
+  if (keys.length === 0) {
+    if (isFunction(value)) {
+      var name = value.name ? ': ' + value.name : '';
+      return ctx.stylize('[Function' + name + ']', 'special');
+    }
+    if (isRegExp(value)) {
+      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+    }
+    if (isDate(value)) {
+      return ctx.stylize(Date.prototype.toString.call(value), 'date');
+    }
+    if (isError(value)) {
+      return formatError(value);
+    }
+  }
+
+  var base = '', array = false, braces = ['{', '}'];
+
+  // Make Array say that they are Array
+  if (isArray(value)) {
+    array = true;
+    braces = ['[', ']'];
+  }
+
+  // Make functions say that they are functions
+  if (isFunction(value)) {
+    var n = value.name ? ': ' + value.name : '';
+    base = ' [Function' + n + ']';
+  }
+
+  // Make RegExps say that they are RegExps
+  if (isRegExp(value)) {
+    base = ' ' + RegExp.prototype.toString.call(value);
+  }
+
+  // Make dates with properties first say the date
+  if (isDate(value)) {
+    base = ' ' + Date.prototype.toUTCString.call(value);
+  }
+
+  // Make error with message first say the error
+  if (isError(value)) {
+    base = ' ' + formatError(value);
+  }
+
+  if (keys.length === 0 && (!array || value.length == 0)) {
+    return braces[0] + base + braces[1];
+  }
+
+  if (recurseTimes < 0) {
+    if (isRegExp(value)) {
+      return ctx.stylize(RegExp.prototype.toString.call(value), 'regexp');
+    } else {
+      return ctx.stylize('[Object]', 'special');
+    }
+  }
+
+  ctx.seen.push(value);
+
+  var output;
+  if (array) {
+    output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
+  } else {
+    output = keys.map(function(key) {
+      return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
+    });
+  }
+
+  ctx.seen.pop();
+
+  return reduceToSingleString(output, base, braces);
+}
+
+
+function formatPrimitive(ctx, value) {
+  if (isUndefined(value))
+    return ctx.stylize('undefined', 'undefined');
+  if (isString(value)) {
+    var simple = '\'' + JSON.stringify(value).replace(/^"|"$/g, '')
+                                             .replace(/'/g, "\\'")
+                                             .replace(/\\"/g, '"') + '\'';
+    return ctx.stylize(simple, 'string');
+  }
+  if (isNumber(value))
+    return ctx.stylize('' + value, 'number');
+  if (isBoolean(value))
+    return ctx.stylize('' + value, 'boolean');
+  // For some reason typeof null is "object", so special case here.
+  if (isNull(value))
+    return ctx.stylize('null', 'null');
+}
+
+
+function formatError(value) {
+  return '[' + Error.prototype.toString.call(value) + ']';
+}
+
+
+function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
+  var output = [];
+  for (var i = 0, l = value.length; i < l; ++i) {
+    if (hasOwnProperty(value, String(i))) {
+      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
+          String(i), true));
+    } else {
+      output.push('');
+    }
+  }
+  keys.forEach(function(key) {
+    if (!key.match(/^\d+$/)) {
+      output.push(formatProperty(ctx, value, recurseTimes, visibleKeys,
+          key, true));
+    }
+  });
+  return output;
+}
+
+
+function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
+  var name, str, desc;
+  desc = Object.getOwnPropertyDescriptor(value, key) || { value: value[key] };
+  if (desc.get) {
+    if (desc.set) {
+      str = ctx.stylize('[Getter/Setter]', 'special');
+    } else {
+      str = ctx.stylize('[Getter]', 'special');
+    }
+  } else {
+    if (desc.set) {
+      str = ctx.stylize('[Setter]', 'special');
+    }
+  }
+  if (!hasOwnProperty(visibleKeys, key)) {
+    name = '[' + key + ']';
+  }
+  if (!str) {
+    if (ctx.seen.indexOf(desc.value) < 0) {
+      if (isNull(recurseTimes)) {
+        str = formatValue(ctx, desc.value, null);
+      } else {
+        str = formatValue(ctx, desc.value, recurseTimes - 1);
+      }
+      if (str.indexOf('\n') > -1) {
+        if (array) {
+          str = str.split('\n').map(function(line) {
+            return '  ' + line;
+          }).join('\n').slice(2);
+        } else {
+          str = '\n' + str.split('\n').map(function(line) {
+            return '   ' + line;
+          }).join('\n');
+        }
+      }
+    } else {
+      str = ctx.stylize('[Circular]', 'special');
+    }
+  }
+  if (isUndefined(name)) {
+    if (array && key.match(/^\d+$/)) {
+      return str;
+    }
+    name = JSON.stringify('' + key);
+    if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
+      name = name.slice(1, -1);
+      name = ctx.stylize(name, 'name');
+    } else {
+      name = name.replace(/'/g, "\\'")
+                 .replace(/\\"/g, '"')
+                 .replace(/(^"|"$)/g, "'");
+      name = ctx.stylize(name, 'string');
+    }
+  }
+
+  return name + ': ' + str;
+}
+
+
+function reduceToSingleString(output, base, braces) {
+  var numLinesEst = 0;
+  var length = output.reduce(function(prev, cur) {
+    numLinesEst++;
+    if (cur.indexOf('\n') >= 0) numLinesEst++;
+    return prev + cur.replace(/\u001b\[\d\d?m/g, '').length + 1;
+  }, 0);
+
+  if (length > 60) {
+    return braces[0] +
+           (base === '' ? '' : base + '\n ') +
+           ' ' +
+           output.join(',\n  ') +
+           ' ' +
+           braces[1];
+  }
+
+  return braces[0] + base + ' ' + output.join(', ') + ' ' + braces[1];
+}
+
+
+// NOTE: These type checking functions intentionally don't use `instanceof`
+// because it is fragile and can be easily faked with `Object.create()`.
+exports.types = __webpack_require__(/*! ./support/types */ "../ueu_canvas/node_modules/util/support/types.js");
+
+function isArray(ar) {
+  return Array.isArray(ar);
+}
+exports.isArray = isArray;
+
+function isBoolean(arg) {
+  return typeof arg === 'boolean';
+}
+exports.isBoolean = isBoolean;
+
+function isNull(arg) {
+  return arg === null;
+}
+exports.isNull = isNull;
+
+function isNullOrUndefined(arg) {
+  return arg == null;
+}
+exports.isNullOrUndefined = isNullOrUndefined;
+
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+exports.isNumber = isNumber;
+
+function isString(arg) {
+  return typeof arg === 'string';
+}
+exports.isString = isString;
+
+function isSymbol(arg) {
+  return typeof arg === 'symbol';
+}
+exports.isSymbol = isSymbol;
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+exports.isUndefined = isUndefined;
+
+function isRegExp(re) {
+  return isObject(re) && objectToString(re) === '[object RegExp]';
+}
+exports.isRegExp = isRegExp;
+exports.types.isRegExp = isRegExp;
+
+function isObject(arg) {
+  return typeof arg === 'object' && arg !== null;
+}
+exports.isObject = isObject;
+
+function isDate(d) {
+  return isObject(d) && objectToString(d) === '[object Date]';
+}
+exports.isDate = isDate;
+exports.types.isDate = isDate;
+
+function isError(e) {
+  return isObject(e) &&
+      (objectToString(e) === '[object Error]' || e instanceof Error);
+}
+exports.isError = isError;
+exports.types.isNativeError = isError;
+
+function isFunction(arg) {
+  return typeof arg === 'function';
+}
+exports.isFunction = isFunction;
+
+function isPrimitive(arg) {
+  return arg === null ||
+         typeof arg === 'boolean' ||
+         typeof arg === 'number' ||
+         typeof arg === 'string' ||
+         typeof arg === 'symbol' ||  // ES6 symbol
+         typeof arg === 'undefined';
+}
+exports.isPrimitive = isPrimitive;
+
+exports.isBuffer = __webpack_require__(/*! ./support/isBuffer */ "../ueu_canvas/node_modules/util/support/isBufferBrowser.js");
+
+function objectToString(o) {
+  return Object.prototype.toString.call(o);
+}
+
+
+function pad(n) {
+  return n < 10 ? '0' + n.toString(10) : n.toString(10);
+}
+
+
+var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
+              'Oct', 'Nov', 'Dec'];
+
+// 26 Feb 16:19:34
+function timestamp() {
+  var d = new Date();
+  var time = [pad(d.getHours()),
+              pad(d.getMinutes()),
+              pad(d.getSeconds())].join(':');
+  return [d.getDate(), months[d.getMonth()], time].join(' ');
+}
+
+
+// log is just a thin wrapper to console.log that prepends a timestamp
+exports.log = function() {
+  console.log('%s - %s', timestamp(), exports.format.apply(exports, arguments));
+};
+
+
+/**
+ * Inherit the prototype methods from one constructor into another.
+ *
+ * The Function.prototype.inherits from lang.js rewritten as a standalone
+ * function (not on Function.prototype). NOTE: If this file is to be loaded
+ * during bootstrapping this function needs to be rewritten using some native
+ * functions as prototype setup using normal JavaScript does not work as
+ * expected during bootstrapping (see mirror.js in r114903).
+ *
+ * @param {function} ctor Constructor function which needs to inherit the
+ *     prototype.
+ * @param {function} superCtor Constructor function to inherit prototype from.
+ */
+exports.inherits = __webpack_require__(/*! inherits */ "../ueu_canvas/node_modules/inherits/inherits_browser.js");
+
+exports._extend = function(origin, add) {
+  // Don't do anything if add isn't an object
+  if (!add || !isObject(add)) return origin;
+
+  var keys = Object.keys(add);
+  var i = keys.length;
+  while (i--) {
+    origin[keys[i]] = add[keys[i]];
+  }
+  return origin;
+};
+
+function hasOwnProperty(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+
+var kCustomPromisifiedSymbol = typeof Symbol !== 'undefined' ? Symbol('util.promisify.custom') : undefined;
+
+exports.promisify = function promisify(original) {
+  if (typeof original !== 'function')
+    throw new TypeError('The "original" argument must be of type Function');
+
+  if (kCustomPromisifiedSymbol && original[kCustomPromisifiedSymbol]) {
+    var fn = original[kCustomPromisifiedSymbol];
+    if (typeof fn !== 'function') {
+      throw new TypeError('The "util.promisify.custom" argument must be of type Function');
+    }
+    Object.defineProperty(fn, kCustomPromisifiedSymbol, {
+      value: fn, enumerable: false, writable: false, configurable: true
+    });
+    return fn;
+  }
+
+  function fn() {
+    var promiseResolve, promiseReject;
+    var promise = new Promise(function (resolve, reject) {
+      promiseResolve = resolve;
+      promiseReject = reject;
+    });
+
+    var args = [];
+    for (var i = 0; i < arguments.length; i++) {
+      args.push(arguments[i]);
+    }
+    args.push(function (err, value) {
+      if (err) {
+        promiseReject(err);
+      } else {
+        promiseResolve(value);
+      }
+    });
+
+    try {
+      original.apply(this, args);
+    } catch (err) {
+      promiseReject(err);
+    }
+
+    return promise;
+  }
+
+  Object.setPrototypeOf(fn, Object.getPrototypeOf(original));
+
+  if (kCustomPromisifiedSymbol) Object.defineProperty(fn, kCustomPromisifiedSymbol, {
+    value: fn, enumerable: false, writable: false, configurable: true
+  });
+  return Object.defineProperties(
+    fn,
+    getOwnPropertyDescriptors(original)
+  );
+}
+
+exports.promisify.custom = kCustomPromisifiedSymbol
+
+function callbackifyOnRejected(reason, cb) {
+  // `!reason` guard inspired by bluebird (Ref: https://goo.gl/t5IS6M).
+  // Because `null` is a special error value in callbacks which means "no error
+  // occurred", we error-wrap so the callback consumer can distinguish between
+  // "the promise rejected with null" or "the promise fulfilled with undefined".
+  if (!reason) {
+    var newReason = new Error('Promise was rejected with a falsy value');
+    newReason.reason = reason;
+    reason = newReason;
+  }
+  return cb(reason);
+}
+
+function callbackify(original) {
+  if (typeof original !== 'function') {
+    throw new TypeError('The "original" argument must be of type Function');
+  }
+
+  // We DO NOT return the promise as it gives the user a false sense that
+  // the promise is actually somehow related to the callback's execution
+  // and that the callback throwing will reject the promise.
+  function callbackified() {
+    var args = [];
+    for (var i = 0; i < arguments.length; i++) {
+      args.push(arguments[i]);
+    }
+
+    var maybeCb = args.pop();
+    if (typeof maybeCb !== 'function') {
+      throw new TypeError('The last argument must be of type Function');
+    }
+    var self = this;
+    var cb = function() {
+      return maybeCb.apply(self, arguments);
+    };
+    // In true node style we process the callback on `nextTick` with all the
+    // implications (stack, `uncaughtException`, `async_hooks`)
+    original.apply(this, args)
+      .then(function(ret) { process.nextTick(cb.bind(null, null, ret)) },
+            function(rej) { process.nextTick(callbackifyOnRejected.bind(null, rej, cb)) });
+  }
+
+  Object.setPrototypeOf(callbackified, Object.getPrototypeOf(original));
+  Object.defineProperties(callbackified,
+                          getOwnPropertyDescriptors(original));
+  return callbackified;
+}
+exports.callbackify = callbackify;
+
+
+/***/ },
+
+/***/ "../ueu_canvas/node_modules/which-typed-array/index.js"
+/*!*************************************************************!*\
+  !*** ../ueu_canvas/node_modules/which-typed-array/index.js ***!
+  \*************************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var forEach = __webpack_require__(/*! for-each */ "../ueu_canvas/node_modules/for-each/index.js");
+var availableTypedArrays = __webpack_require__(/*! available-typed-arrays */ "../ueu_canvas/node_modules/available-typed-arrays/index.js");
+var callBind = __webpack_require__(/*! call-bind */ "../ueu_canvas/node_modules/call-bind/index.js");
+var callBound = __webpack_require__(/*! call-bound */ "../ueu_canvas/node_modules/call-bound/index.js");
+var gOPD = __webpack_require__(/*! gopd */ "../ueu_canvas/node_modules/gopd/index.js");
+var getProto = __webpack_require__(/*! get-proto */ "../ueu_canvas/node_modules/get-proto/index.js");
+
+var $toString = callBound('Object.prototype.toString');
+var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "../ueu_canvas/node_modules/has-tostringtag/shams.js")();
+
+var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
+var typedArrays = availableTypedArrays();
+
+var $slice = callBound('String.prototype.slice');
+
+/** @type {<T = unknown>(array: readonly T[], value: unknown) => number} */
+var $indexOf = callBound('Array.prototype.indexOf', true) || function indexOf(array, value) {
+	for (var i = 0; i < array.length; i += 1) {
+		if (array[i] === value) {
+			return i;
+		}
+	}
+	return -1;
+};
+
+/** @typedef {import('./types').Getter} Getter */
+/** @type {import('./types').Cache} */
+var cache = { __proto__: null };
+if (hasToStringTag && gOPD && getProto) {
+	forEach(typedArrays, function (typedArray) {
+		var arr = new g[typedArray]();
+		if (Symbol.toStringTag in arr && getProto) {
+			var proto = getProto(arr);
+			// @ts-expect-error TS won't narrow inside a closure
+			var descriptor = gOPD(proto, Symbol.toStringTag);
+			if (!descriptor && proto) {
+				var superProto = getProto(proto);
+				// @ts-expect-error TS won't narrow inside a closure
+				descriptor = gOPD(superProto, Symbol.toStringTag);
+			}
+			if (descriptor && descriptor.get) {
+				var bound = callBind(descriptor.get);
+				cache[
+					/** @type {`$${import('.').TypedArrayName}`} */ ('$' + typedArray)
+				] = bound;
+			}
+		}
+	});
+} else {
+	forEach(typedArrays, function (typedArray) {
+		var arr = new g[typedArray]();
+		var fn = arr.slice || arr.set;
+		if (fn) {
+			var bound = /** @type {import('./types').BoundSlice | import('./types').BoundSet} */ (
+				// @ts-expect-error TODO FIXME
+				callBind(fn)
+			);
+			cache[
+				/** @type {`$${import('.').TypedArrayName}`} */ ('$' + typedArray)
+			] = bound;
+		}
+	});
+}
+
+/** @type {(value: object) => false | import('.').TypedArrayName} */
+var tryTypedArrays = function tryAllTypedArrays(value) {
+	/** @type {ReturnType<typeof tryAllTypedArrays>} */ var found = false;
+	forEach(
+		/** @type {Record<`\$${import('.').TypedArrayName}`, Getter>} */ (cache),
+		/** @type {(getter: Getter, name: `\$${import('.').TypedArrayName}`) => void} */
+		function (getter, typedArray) {
+			if (!found) {
+				try {
+					// @ts-expect-error a throw is fine here
+					if ('$' + getter(value) === typedArray) {
+						found = /** @type {import('.').TypedArrayName} */ ($slice(typedArray, 1));
+					}
+				} catch (e) { /**/ }
+			}
+		}
+	);
+	return found;
+};
+
+/** @type {(value: object) => false | import('.').TypedArrayName} */
+var trySlices = function tryAllSlices(value) {
+	/** @type {ReturnType<typeof tryAllSlices>} */ var found = false;
+	forEach(
+		/** @type {Record<`\$${import('.').TypedArrayName}`, Getter>} */(cache),
+		/** @type {(getter: Getter, name: `\$${import('.').TypedArrayName}`) => void} */ function (getter, name) {
+			if (!found) {
+				try {
+					// @ts-expect-error a throw is fine here
+					getter(value);
+					found = /** @type {import('.').TypedArrayName} */ ($slice(name, 1));
+				} catch (e) { /**/ }
+			}
+		}
+	);
+	return found;
+};
+
+/** @type {import('.')} */
+module.exports = function whichTypedArray(value) {
+	if (!value || typeof value !== 'object') { return false; }
+	if (!hasToStringTag) {
+		/** @type {string} */
+		var tag = $slice($toString(value), 8, -1);
+		if ($indexOf(typedArrays, tag) > -1) {
+			return tag;
+		}
+		if (tag !== 'Object') {
+			return false;
+		}
+		// node < 0.6 hits here on real Typed Arrays
+		return trySlices(value);
+	}
+	if (!gOPD) { return null; } // unknown engine
+	return tryTypedArrays(value);
+};
+
+
+/***/ },
+
+/***/ "./node_modules/@restart/ui/esm/Button.js"
+/*!************************************************!*\
+  !*** ./node_modules/@restart/ui/esm/Button.js ***!
+  \************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   isTrivialHref: () => (/* binding */ isTrivialHref),
+/* harmony export */   useButtonProps: () => (/* binding */ useButtonProps)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+const _excluded = ["as", "disabled"];
+function _objectWithoutPropertiesLoose(r, e) { if (null == r) return {}; var t = {}; for (var n in r) if ({}.hasOwnProperty.call(r, n)) { if (e.indexOf(n) >= 0) continue; t[n] = r[n]; } return t; }
+
+
+function isTrivialHref(href) {
+  return !href || href.trim() === '#';
+}
+function useButtonProps({
+  tagName,
+  disabled,
+  href,
+  target,
+  rel,
+  role,
+  onClick,
+  tabIndex = 0,
+  type
+}) {
+  if (!tagName) {
+    if (href != null || target != null || rel != null) {
+      tagName = 'a';
+    } else {
+      tagName = 'button';
+    }
+  }
+  const meta = {
+    tagName
+  };
+  if (tagName === 'button') {
+    return [{
+      type: type || 'button',
+      disabled
+    }, meta];
+  }
+  const handleClick = event => {
+    if (disabled || tagName === 'a' && isTrivialHref(href)) {
+      event.preventDefault();
+    }
+    if (disabled) {
+      event.stopPropagation();
+      return;
+    }
+    onClick == null ? void 0 : onClick(event);
+  };
+  const handleKeyDown = event => {
+    if (event.key === ' ') {
+      event.preventDefault();
+      handleClick(event);
+    }
+  };
+  if (tagName === 'a') {
+    // Ensure there's a href so Enter can trigger anchor button.
+    href || (href = '#');
+    if (disabled) {
+      href = undefined;
+    }
+  }
+  return [{
+    role: role != null ? role : 'button',
+    // explicitly undefined so that it overrides the props disabled in a spread
+    // e.g. <Tag {...props} {...hookProps} />
+    disabled: undefined,
+    tabIndex: disabled ? undefined : tabIndex,
+    href,
+    target: tagName === 'a' ? target : undefined,
+    'aria-disabled': !disabled ? undefined : disabled,
+    rel: tagName === 'a' ? rel : undefined,
+    onClick: handleClick,
+    onKeyDown: handleKeyDown
+  }, meta];
+}
+const Button = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((_ref, ref) => {
+  let {
+      as: asProp,
+      disabled
+    } = _ref,
+    props = _objectWithoutPropertiesLoose(_ref, _excluded);
+  const [buttonProps, {
+    tagName: Component
+  }] = useButtonProps(Object.assign({
+    tagName: asProp,
+    disabled
+  }, props));
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Component, Object.assign({}, props, buttonProps, {
+    ref: ref
+  }));
+});
+Button.displayName = 'Button';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Button);
 
 /***/ },
 
@@ -56297,7 +61853,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-/* harmony import */ var ueu_canvas__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ueu_canvas */ "./node_modules/@ueu/ueu-canvas/dist/index.js");
+/* harmony import */ var ueu_canvas__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ueu_canvas */ "../ueu_canvas/dist/index.js");
 /* harmony import */ var ueu_canvas__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(ueu_canvas__WEBPACK_IMPORTED_MODULE_2__);
 
 

@@ -3,8 +3,8 @@
     "lxd-extension@unity.edu": {
       "updates": [
         {
-          "version": "2.9.9.2",
-          "update_link": "ai2.unity.edu/lxd-tools/lxd-extension-2.9.9.2.xpi",
+          "version": "2.9.9.4",
+          "update_link": "ai2.unity.edu/lxd-tools/lxd-extension-2.9.9.4.xpi",
           "applications": {
             "gecko": {
               "strict_min_version": "109.0",
