@@ -133,5 +133,5 @@
     "*://*.instructure.com/*"
   ],
   "optional_host_permissions": [],
-  "version": "2.9.9.5"
+  "version": "3.0.0"
 }

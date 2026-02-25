@@ -1824,34 +1824,6 @@ module.exports = {
 
 /***/ },
 
-/***/ "./node_modules/available-typed-arrays/index.js"
-/*!******************************************************!*\
-  !*** ./node_modules/available-typed-arrays/index.js ***!
-  \******************************************************/
-(module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-
-var possibleNames = __webpack_require__(/*! possible-typed-array-names */ "./node_modules/possible-typed-array-names/index.js");
-
-var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
-
-/** @type {import('.')} */
-module.exports = function availableTypedArrays() {
-	var /** @type {ReturnType<typeof availableTypedArrays>} */ out = [];
-	for (var i = 0; i < possibleNames.length; i++) {
-		if (typeof g[possibleNames[i]] === 'function') {
-			// @ts-expect-error
-			out[out.length] = possibleNames[i];
-		}
-	}
-	return out;
-};
-
-
-/***/ },
-
 /***/ "./node_modules/call-bind-apply-helpers/actualApply.js"
 /*!*************************************************************!*\
   !*** ./node_modules/call-bind-apply-helpers/actualApply.js ***!
@@ -4532,6 +4504,85 @@ module.exports = function setFunctionLength(fn, length) {
 
 /***/ },
 
+/***/ "./src/utils/image.ts"
+/*!****************************!*\
+  !*** ./src/utils/image.ts ***!
+  \****************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   backgroundDownloadImage: () => (/* binding */ backgroundDownloadImage),
+/* harmony export */   contentDownloadImage: () => (/* binding */ contentDownloadImage),
+/* harmony export */   getCroppedSquareBlob: () => (/* binding */ getCroppedSquareBlob),
+/* harmony export */   getResizedBlob: () => (/* binding */ getResizedBlob)
+/* harmony export */ });
+/* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! webextension-polyfill */ "./node_modules/webextension-polyfill/dist/browser-polyfill.js");
+/* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
+
+
+async function getResizedBlob(src, width, height = undefined) {
+    const imageSrc = await contentDownloadImage(src);
+    const canvas = document.createElement('canvas');
+    const image = new Image();
+    image.src = imageSrc;
+    const ctx = canvas.getContext('2d');
+    return new Promise((resolve) => {
+        image.onload = () => {
+            height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
+            assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
+            console.log(image.src);
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(image, 0, 0, width, height);
+            canvas.toBlob(resolve);
+        };
+    });
+}
+async function getCroppedSquareBlob(src, size) {
+    const imageSrc = await contentDownloadImage(src);
+    const image = new Image();
+    image.src = imageSrc;
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    return new Promise((resolve) => {
+        image.onload = () => {
+            assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
+            const minDim = Math.min(image.width, image.height);
+            const cropX = (image.width - minDim) / 2;
+            const cropY = (image.height - minDim) / 2;
+            canvas.width = size;
+            canvas.height = size;
+            ctx.drawImage(image, cropX, cropY, minDim, minDim, 0, 0, size, size);
+            canvas.toBlob(resolve);
+        };
+    });
+}
+async function contentDownloadImage(src) {
+    const base64 = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.sendMessage({ downloadImage: src });
+    return base64;
+}
+function backgroundDownloadImage(src) {
+    //if(!height) height = src.height / src.width * width;
+    const imageUrl = src;
+    return new Promise(async (resolve) => {
+        const imageFileResponse = await fetch(imageUrl);
+        const reader = new FileReader();
+        reader.onload = event => {
+            console.log(reader.result);
+            resolve(reader.result);
+        };
+        const blob = await imageFileResponse.blob();
+        reader.readAsDataURL(blob);
+    });
+}
+
+
+/***/ },
+
 /***/ "./node_modules/util/support/isBufferBrowser.js"
 /*!******************************************************!*\
   !*** ./node_modules/util/support/isBufferBrowser.js ***!
@@ -6942,8 +6993,12 @@ if (hasToStringTag && gOPD && getProto) {
 				// @ts-expect-error TS won't narrow inside a closure
 				descriptor = gOPD(superProto, Symbol.toStringTag);
 			}
-			// @ts-expect-error TODO: fix
-			cache['$' + typedArray] = callBind(descriptor.get);
+			if (descriptor && descriptor.get) {
+				var bound = callBind(descriptor.get);
+				cache[
+					/** @type {`$${import('.').TypedArrayName}`} */ ('$' + typedArray)
+				] = bound;
+			}
 		}
 	});
 } else {
@@ -6951,12 +7006,13 @@ if (hasToStringTag && gOPD && getProto) {
 		var arr = new g[typedArray]();
 		var fn = arr.slice || arr.set;
 		if (fn) {
-			cache[
-				/** @type {`$${import('.').TypedArrayName}`} */ ('$' + typedArray)
-			] = /** @type {import('./types').BoundSlice | import('./types').BoundSet} */ (
+			var bound = /** @type {import('./types').BoundSlice | import('./types').BoundSet} */ (
 				// @ts-expect-error TODO FIXME
 				callBind(fn)
 			);
+			cache[
+				/** @type {`$${import('.').TypedArrayName}`} */ ('$' + typedArray)
+			] = bound;
 		}
 	});
 }
@@ -7021,81 +7077,30 @@ module.exports = function whichTypedArray(value) {
 
 /***/ },
 
-/***/ "./src/canvas/image.ts"
-/*!*****************************!*\
-  !*** ./src/canvas/image.ts ***!
-  \*****************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/available-typed-arrays/index.js"
+/*!******************************************************!*\
+  !*** ./node_modules/available-typed-arrays/index.js ***!
+  \******************************************************/
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   backgroundDownloadImage: () => (/* binding */ backgroundDownloadImage),
-/* harmony export */   contentDownloadImage: () => (/* binding */ contentDownloadImage),
-/* harmony export */   getCroppedSquareBlob: () => (/* binding */ getCroppedSquareBlob),
-/* harmony export */   getResizedBlob: () => (/* binding */ getResizedBlob)
-/* harmony export */ });
-/* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! webextension-polyfill */ "./node_modules/webextension-polyfill/dist/browser-polyfill.js");
-/* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
 
 
-async function getResizedBlob(src, width, height = undefined) {
-    const imageSrc = await contentDownloadImage(src);
-    const canvas = document.createElement('canvas');
-    const image = new Image();
-    image.src = imageSrc;
-    const ctx = canvas.getContext('2d');
-    return new Promise((resolve) => {
-        image.onload = () => {
-            height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
-            assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
-            console.log(image.src);
-            canvas.width = width;
-            canvas.height = height;
-            ctx.drawImage(image, 0, 0, width, height);
-            canvas.toBlob(resolve);
-        };
-    });
-}
-async function getCroppedSquareBlob(src, size) {
-    const imageSrc = await contentDownloadImage(src);
-    const image = new Image();
-    image.src = imageSrc;
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    return new Promise((resolve) => {
-        image.onload = () => {
-            assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
-            const minDim = Math.min(image.width, image.height);
-            const cropX = (image.width - minDim) / 2;
-            const cropY = (image.height - minDim) / 2;
-            canvas.width = size;
-            canvas.height = size;
-            ctx.drawImage(image, cropX, cropY, minDim, minDim, 0, 0, size, size);
-            canvas.toBlob(resolve);
-        };
-    });
-}
-async function contentDownloadImage(src) {
-    const base64 = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.sendMessage({ downloadImage: src });
-    return base64;
-}
-function backgroundDownloadImage(src) {
-    //if(!height) height = src.height / src.width * width;
-    const imageUrl = src;
-    return new Promise(async (resolve) => {
-        const imageFileResponse = await fetch(imageUrl);
-        const reader = new FileReader();
-        reader.onload = event => {
-            console.log(reader.result);
-            resolve(reader.result);
-        };
-        const blob = await imageFileResponse.blob();
-        reader.readAsDataURL(blob);
-    });
-}
+var possibleNames = __webpack_require__(/*! possible-typed-array-names */ "./node_modules/possible-typed-array-names/index.js");
+
+var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
+
+/** @type {import('.')} */
+module.exports = function availableTypedArrays() {
+	var /** @type {ReturnType<typeof availableTypedArrays>} */ out = [];
+	for (var i = 0; i < possibleNames.length; i++) {
+		if (typeof g[possibleNames[i]] === 'function') {
+			// @ts-expect-error
+			out[out.length] = possibleNames[i];
+		}
+	}
+	return out;
+};
 
 
 /***/ }
@@ -7196,7 +7201,7 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! webextension-polyfill */ "./node_modules/webextension-polyfill/dist/browser-polyfill.js");
 /* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _canvas_image__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../canvas/image */ "./src/canvas/image.ts");
+/* harmony import */ var _utils_image__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/image */ "./src/utils/image.ts");
 // drawing from https://hackernoon.com/how-to-create-a-chrome-extension-with-react
 
 
@@ -7211,7 +7216,7 @@ const messageHandlers = {
         try {
             await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.scripting.executeScript({
                 target: { tabId: activeTab.id },
-                files: ['./js/content.js'],
+                files: ["./js/content.js"],
             });
             const contentResult = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.sendMessage(activeTab.id, { queryString, subAccount });
             sendResponse(contentResult);
@@ -7241,7 +7246,7 @@ webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.onMessage.addListener
 webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.downloadImage) {
         (async () => {
-            const resized = await (0,_canvas_image__WEBPACK_IMPORTED_MODULE_1__.backgroundDownloadImage)(message.downloadImage);
+            const resized = await (0,_utils_image__WEBPACK_IMPORTED_MODULE_1__.backgroundDownloadImage)(message.downloadImage);
             sendResponse(resized);
         })();
         return true;
@@ -7257,7 +7262,7 @@ async function getActiveTab() {
     const windowTabs = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.query({ lastFocusedWindow: true });
     const activeTabs = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.query({ active: true });
     const activeLastWindow = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.query({ active: true, lastFocusedWindow: true });
-    const [tab] = windowTabs.filter(tab => tab.active);
+    const [tab] = windowTabs.filter((tab) => tab.active);
     return tab;
 }
 
