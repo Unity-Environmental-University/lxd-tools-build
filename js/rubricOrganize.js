@@ -2,11 +2,11 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/ui/rubricOrganize/rubricOrganize.ts":
+/***/ "./src/ui/rubricOrganize/rubricOrganize.ts"
 /*!*************************************************!*\
   !*** ./src/ui/rubricOrganize/rubricOrganize.ts ***!
   \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _rubricOrganize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./rubricOrganize */ "./src/ui/rubricOrganize/rubricOrganize.ts");
@@ -225,7 +225,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/***/ })
+/***/ }
 
 /******/ 	});
 /************************************************************************/
@@ -247,6 +247,12 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module

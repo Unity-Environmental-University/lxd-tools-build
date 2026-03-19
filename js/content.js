@@ -1,4324 +1,23 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./node_modules/@ueu/ueu-canvas/dist/index.js":
-/*!****************************************************!*\
-  !*** ./node_modules/@ueu/ueu-canvas/dist/index.js ***!
-  \****************************************************/
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(true)
-		module.exports = factory();
-	else // removed by dead control flow
-{}
-})(this, () => {
-return /******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
-/******/ 	var __webpack_modules__ = ({
-
-/***/ "./node_modules/temporal-polyfill/chunks/classApi.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/temporal-polyfill/chunks/classApi.js ***!
-  \***********************************************************/
-/***/ ((__unused_webpack___webpack_module__, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   DateTimeFormat: () => (/* binding */ Sr),
-/* harmony export */   IntlExtended: () => (/* binding */ Tr),
-/* harmony export */   Temporal: () => (/* binding */ mr),
-/* harmony export */   toTemporalInstant: () => (/* binding */ toTemporalInstant)
-/* harmony export */ });
-/* harmony import */ var _internal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./internal.js */ "./node_modules/temporal-polyfill/chunks/internal.js");
-function createSlotClass(e, t, n, o, r) {
-  function Class(...e) {
-    if (!(this instanceof Class)) {
-      throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidCallingContext);
-    }
-    oo(this, t(...e));
-  }
-  function bindMethod(e, t) {
-    return Object.defineProperties((function(...t) {
-      return e.call(this, getSpecificSlots(this), ...t);
-    }), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNameDescriptors)(t));
-  }
-  function getSpecificSlots(t) {
-    const n = no(t);
-    if (!n || n.branding !== e) {
-      throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidCallingContext);
-    }
-    return n;
-  }
-  return Object.defineProperties(Class.prototype, {
-    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createGetterDescriptors)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapProps)(bindMethod, n)),
-    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapProps)(bindMethod, o)),
-    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createStringTagDescriptors)("Temporal." + e)
-  }), Object.defineProperties(Class, {
-    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)(r),
-    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNameDescriptors)(e)
-  }), [ Class, e => {
-    const t = Object.create(Class.prototype);
-    return oo(t, e), t;
-  }, getSpecificSlots ];
-}
-
-function createProtocolValidator(e) {
-  return e = e.concat("id").sort(), t => {
-    if (!(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.hasAllPropsByName)(t, e)) {
-      throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidProtocol);
-    }
-    return t;
-  };
-}
-
-function rejectInvalidBag(e) {
-  if (no(e) || void 0 !== e.calendar || void 0 !== e.timeZone) {
-    throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidBag);
-  }
-  return e;
-}
-
-function createCalendarFieldMethods(e, t) {
-  const n = {};
-  for (const o in e) {
-    n[o] = ({o: e}, n) => {
-      const r = no(n) || {}, {branding: a} = r, i = a === _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding || t.includes(a) ? r : toPlainDateSlots(n);
-      return e[o](i);
-    };
-  }
-  return n;
-}
-
-function createCalendarGetters(e) {
-  const t = {};
-  for (const n in e) {
-    t[n] = e => {
-      const {calendar: t} = e;
-      return (o = t, "string" == typeof o ? (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps)(o) : (r = o, Object.assign(Object.create(co), {
-        i: r
-      })))[n](e);
-      // removed by dead control flow
- // removed by dead control flow
- var o, r;  
-    };
-  }
-  return t;
-}
-
-function neverValueOf() {
-  throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.forbiddenValueOf);
-}
-
-function createCalendarFromSlots({calendar: e}) {
-  return "string" == typeof e ? new lr(e) : e;
-}
-
-function toPlainMonthDaySlots(e, t) {
-  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
-    const n = no(e);
-    if (n && n.branding === _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainMonthDayBranding) {
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
-    }
-    const o = extractCalendarSlotFromBag(e);
-    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainMonthDayBag)(Qo(o || _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId), !o, e, t);
-  }
-  const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainMonthDay)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps, e);
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
-}
-
-function getOffsetNanosecondsForAdapter(e, t, n) {
-  return o = t.call(e, Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)(n))), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.validateTimeZoneOffset)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireInteger)(o));
-  // removed by dead control flow
- // removed by dead control flow
- var o;  
-}
-
-function createAdapterOps(e, t = ho) {
-  const n = Object.keys(t).sort(), o = {};
-  for (const r of n) {
-    o[r] = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(t[r], e, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireFunction)(e[r]));
-  }
-  return o;
-}
-
-function createTimeZoneOps(e, t) {
-  return "string" == typeof e ? (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.queryNativeTimeZone)(e) : createAdapterOps(e, t);
-}
-
-function createTimeZoneOffsetOps(e) {
-  return createTimeZoneOps(e, Do);
-}
-
-function toInstantSlots(e) {
-  if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
-    const t = no(e);
-    if (t) {
-      switch (t.branding) {
-       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.InstantBranding:
-        return t;
-
-       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
-        return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)(t.epochNanoseconds);
-      }
-    }
-  }
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseInstant)(e);
-}
-
-function toTemporalInstant() {
-  return Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.numberToBigNano)(this.valueOf(), _internal_js__WEBPACK_IMPORTED_MODULE_0__.nanoInMilli)));
-}
-
-function getImplTransition(e, t, n) {
-  const o = t.l(toInstantSlots(n).epochNanoseconds, e);
-  return o ? Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)(o)) : null;
-}
-
-function refineTimeZoneSlot(e) {
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e) ? (no(e) || {}).timeZone || Fo(e) : (e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.resolveTimeZoneId)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseTimeZoneId)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireString)(e))))(e);
-}
-
-function toPlainTimeSlots(e, t) {
-  if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
-    const n = no(e) || {};
-    switch (n.branding) {
-     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainTimeBranding:
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
-
-     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding:
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainTimeSlots)(n);
-
-     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainTime)(createTimeZoneOffsetOps, n);
-    }
-    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainTimeBag)(e, t);
-  }
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainTime)(e);
-}
-
-function optionalToPlainTimeFields(e) {
-  return void 0 === e ? void 0 : toPlainTimeSlots(e);
-}
-
-function toPlainYearMonthSlots(e, t) {
-  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
-    const n = no(e);
-    return n && n.branding === _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainYearMonthBranding ? ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n) : (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainYearMonthBag)(Ho(getCalendarSlotFromBag(e)), e, t);
-  }
-  const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainYearMonth)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps, e);
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
-}
-
-function toPlainDateTimeSlots(e, t) {
-  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
-    const n = no(e) || {};
-    switch (n.branding) {
-     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding:
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
-
-     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding:
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)({
-        ...n,
-        ..._internal_js__WEBPACK_IMPORTED_MODULE_0__.isoTimeFieldDefaults
-      });
-
-     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainDateTime)(createTimeZoneOffsetOps, n);
-    }
-    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainDateTimeBag)(Ko(getCalendarSlotFromBag(e)), e, t);
-  }
-  const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainDateTime)(e);
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
-}
-
-function toPlainDateSlots(e, t) {
-  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
-    const n = no(e) || {};
-    switch (n.branding) {
-     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding:
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
-
-     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding:
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n);
-
-     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainDate)(createTimeZoneOffsetOps, n);
-    }
-    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainDateBag)(Ko(getCalendarSlotFromBag(e)), e, t);
-  }
-  const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainDate)(e);
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
-}
-
-function dayAdapter(e, t, n) {
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger)(t.call(e, Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n, e))));
-}
-
-function createCompoundOpsCreator(e) {
-  return t => "string" == typeof t ? (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps)(t) : ((e, t) => {
-    const n = Object.keys(t).sort(), o = {};
-    for (const r of n) {
-      o[r] = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(t[r], e, e[r]);
-    }
-    return o;
-  })(t, e);
-}
-
-function toDurationSlots(e) {
-  if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
-    const t = no(e);
-    return t && t.branding === _internal_js__WEBPACK_IMPORTED_MODULE_0__.DurationBranding ? t : (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineDurationBag)(e);
-  }
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseDuration)(e);
-}
-
-function refinePublicRelativeTo(e) {
-  if (void 0 !== e) {
-    if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
-      const t = no(e) || {};
-      switch (t.branding) {
-       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
-       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding:
-        return t;
-
-       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding:
-        return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(t);
-      }
-      const n = getCalendarSlotFromBag(e);
-      return {
-        ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineMaybeZonedDateTimeBag)(refineTimeZoneSlot, createTimeZoneOps, Ko(n), e),
-        calendar: n
-      };
-    }
-    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseRelativeToSlots)(e);
-  }
-}
-
-function getCalendarSlotFromBag(e) {
-  return extractCalendarSlotFromBag(e) || _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId;
-}
-
-function extractCalendarSlotFromBag(e) {
-  const {calendar: t} = e;
-  if (void 0 !== t) {
-    return refineCalendarSlot(t);
-  }
-}
-
-function refineCalendarSlot(e) {
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e) ? (no(e) || {}).calendar || cr(e) : (e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.resolveCalendarId)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseCalendarId)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireString)(e))))(e);
-}
-
-function toZonedDateTimeSlots(e, t) {
-  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
-    const n = no(e);
-    if (n && n.branding === _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding) {
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineZonedFieldOptions)(t), n;
-    }
-    const o = getCalendarSlotFromBag(e);
-    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineZonedDateTimeBag)(refineTimeZoneSlot, createTimeZoneOps, Ko(o), o, e, t);
-  }
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseZonedDateTime)(e, t);
-}
-
-function adaptDateMethods(e) {
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapProps)((e => t => e(slotsToIso(t))), e);
-}
-
-function slotsToIso(e) {
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedEpochSlotsToIso)(e, createTimeZoneOffsetOps);
-}
-
-function createDateTimeFormatClass() {
-  const e = _internal_js__WEBPACK_IMPORTED_MODULE_0__.RawDateTimeFormat.prototype, t = Object.getOwnPropertyDescriptors(e), n = Object.getOwnPropertyDescriptors(_internal_js__WEBPACK_IMPORTED_MODULE_0__.RawDateTimeFormat), DateTimeFormat = function(e, t = {}) {
-    if (!(this instanceof DateTimeFormat)) {
-      return new DateTimeFormat(e, t);
-    }
-    Or.set(this, ((e, t = {}) => {
-      const n = new _internal_js__WEBPACK_IMPORTED_MODULE_0__.RawDateTimeFormat(e, t), o = n.resolvedOptions(), r = o.locale, a = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.pluckProps)(Object.keys(t), o), i = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.memoize)(createFormatPrepperForBranding), prepFormat = (...e) => {
-        let t;
-        const o = e.map(((e, n) => {
-          const o = no(e), r = (o || {}).branding;
-          if (n && t && t !== r) {
-            throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.mismatchingFormatTypes);
-          }
-          return t = r, o;
-        }));
-        return t ? i(t)(r, a, ...o) : [ n, ...e ];
-      };
-      return prepFormat.u = n, prepFormat;
-    })(e, t));
-  };
-  for (const e in t) {
-    const n = t[e], o = e.startsWith("format") && createFormatMethod(e);
-    "function" == typeof n.value ? n.value = "constructor" === e ? DateTimeFormat : o || createProxiedMethod(e) : o && (n.get = function() {
-      return o.bind(this);
-    });
-  }
-  return n.prototype.value = Object.create(e, t), Object.defineProperties(DateTimeFormat, n), 
-  DateTimeFormat;
-}
-
-function createFormatMethod(e) {
-  return function(...t) {
-    const n = Or.get(this), [o, ...r] = n(...t);
-    return o[e](...r);
-  };
-}
-
-function createProxiedMethod(e) {
-  return function(...t) {
-    return Or.get(this).u[e](...t);
-  };
-}
-
-function createFormatPrepperForBranding(t) {
-  const n = xn[t];
-  if (!n) {
-    throw new TypeError((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidFormatType)(t));
-  }
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(n, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.memoize)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatForPrep));
-}
-
-
-
-const xn = {
-  Instant: _internal_js__WEBPACK_IMPORTED_MODULE_0__.instantConfig,
-  PlainDateTime: _internal_js__WEBPACK_IMPORTED_MODULE_0__.dateTimeConfig,
-  PlainDate: _internal_js__WEBPACK_IMPORTED_MODULE_0__.dateConfig,
-  PlainTime: _internal_js__WEBPACK_IMPORTED_MODULE_0__.timeConfig,
-  PlainYearMonth: _internal_js__WEBPACK_IMPORTED_MODULE_0__.yearMonthConfig,
-  PlainMonthDay: _internal_js__WEBPACK_IMPORTED_MODULE_0__.monthDayConfig
-}, Rn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.instantConfig), Wn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedConfig), Gn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.dateTimeConfig), Un = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.dateConfig), zn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.timeConfig), Hn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.yearMonthConfig), Kn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.monthDayConfig), Qn = {
-  era: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireStringOrUndefined,
-  eraYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireIntegerOrUndefined,
-  year: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireInteger,
-  month: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
-  daysInMonth: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
-  daysInYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
-  inLeapYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireBoolean,
-  monthsInYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger
-}, Xn = {
-  monthCode: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireString
-}, $n = {
-  day: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger
-}, _n = {
-  dayOfWeek: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
-  dayOfYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
-  weekOfYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveIntegerOrUndefined,
-  yearOfWeek: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireIntegerOrUndefined,
-  daysInWeek: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger
-}, eo = /*@__PURE__*/ Object.assign({}, Qn, Xn, $n, _n), to = /*@__PURE__*/ new WeakMap, no = /*@__PURE__*/ to.get.bind(to), oo = /*@__PURE__*/ to.set.bind(to), ro = {
-  ...createCalendarFieldMethods(Qn, [ _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainYearMonthBranding ]),
-  ...createCalendarFieldMethods(_n, []),
-  ...createCalendarFieldMethods(Xn, [ _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainYearMonthBranding, _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainMonthDayBranding ]),
-  ...createCalendarFieldMethods($n, [ _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainMonthDayBranding ])
-}, ao = /*@__PURE__*/ createCalendarGetters(eo), io = /*@__PURE__*/ createCalendarGetters({
-  ...Qn,
-  ...Xn
-}), so = /*@__PURE__*/ createCalendarGetters({
-  ...Xn,
-  ...$n
-}), lo = {
-  calendarId: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getId)(e.calendar)
-}, co = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapProps)(((e, t) => function(n) {
-  const {i: o} = this;
-  return e(o[t](Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n, o))));
-}), eo), uo = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapPropNames)((e => t => t[e]), _internal_js__WEBPACK_IMPORTED_MODULE_0__.durationFieldNamesAsc.concat("sign")), fo = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapPropNames)(((e, t) => e => e[_internal_js__WEBPACK_IMPORTED_MODULE_0__.isoTimeFieldNamesAsc[t]]), _internal_js__WEBPACK_IMPORTED_MODULE_0__.timeFieldNamesAsc), mo = {
-  epochSeconds: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getEpochSec,
-  epochMilliseconds: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getEpochMilli,
-  epochMicroseconds: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getEpochMicro,
-  epochNanoseconds: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getEpochNano
-}, So = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.excludePropsByName, new Set([ "branding" ])), [Oo, To, po] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainMonthDayBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainMonthDaySlots, refineCalendarSlot), {
-  ...lo,
-  ...so
-}, {
-  getISOFields: So,
-  getCalendar: createCalendarFromSlots,
-  with(e, t, n) {
-    return To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainMonthDayWithFields)(_o, e, this, rejectInvalidBag(t), n));
-  },
-  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainMonthDaysEqual)(e, toPlainMonthDaySlots(t)),
-  toPlainDate(e, t) {
-    return Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainMonthDayToPlainDate)($o, e, this, t));
-  },
-  toLocaleString(e, t, n) {
-    const [o, r] = Kn(t, n, e);
-    return o.format(r);
-  },
-  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainMonthDayIso,
-  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainMonthDayIso)(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => To(toPlainMonthDaySlots(e, t))
-}), ho = {
-  getOffsetNanosecondsFor: getOffsetNanosecondsForAdapter,
-  getPossibleInstantsFor(e, t, n) {
-    const o = [ ...t.call(e, No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)(n, _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId))) ].map((e => go(e).epochNanoseconds)), r = o.length;
-    return r > 1 && (o.sort(_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareBigNanos), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.validateTimeZoneGap)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bigNanoToNumber)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffBigNanos)(o[0], o[r - 1])))), o;
-  }
-}, Do = {
-  getOffsetNanosecondsFor: getOffsetNanosecondsForAdapter
-}, [Po, Co, go] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.InstantBranding, _internal_js__WEBPACK_IMPORTED_MODULE_0__.constructInstantSlots, mo, {
-  add: (e, t) => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.moveInstant)(0, e, toDurationSlots(t))),
-  subtract: (e, t) => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.moveInstant)(1, e, toDurationSlots(t))),
-  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffInstants)(0, e, toInstantSlots(t), n)),
-  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffInstants)(1, e, toInstantSlots(t), n)),
-  round: (e, t) => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundInstant)(e, t)),
-  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.instantsEqual)(e, toInstantSlots(t)),
-  toZonedDateTime(e, t) {
-    const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireObjectLike)(t);
-    return dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.instantToZonedDateTime)(e, refineTimeZoneSlot(n.timeZone), refineCalendarSlot(n.calendar)));
-  },
-  toZonedDateTimeISO: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.instantToZonedDateTime)(e, refineTimeZoneSlot(t))),
-  toLocaleString(e, t, n) {
-    const [o, r] = Rn(t, n, e);
-    return o.format(r);
-  },
-  toString: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatInstantIso)(refineTimeZoneSlot, createTimeZoneOffsetOps, e, t),
-  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatInstantIso)(refineTimeZoneSlot, createTimeZoneOffsetOps, e),
-  valueOf: neverValueOf
-}, {
-  from: e => Co(toInstantSlots(e)),
-  fromEpochSeconds: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochSecToInstant)(e)),
-  fromEpochMilliseconds: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochMilliToInstant)(e)),
-  fromEpochMicroseconds: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochMicroToInstant)(e)),
-  fromEpochNanoseconds: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochNanoToInstant)(e)),
-  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareInstants)(toInstantSlots(e), toInstantSlots(t))
-}), [Zo, bo] = createSlotClass("TimeZone", (e => {
-  const t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineTimeZoneId)(e);
-  return {
-    branding: "TimeZone",
-    id: t,
-    o: (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.queryNativeTimeZone)(t)
-  };
-}), {
-  id: e => e.id
-}, {
-  getPossibleInstantsFor: ({o: e}, t) => e.getPossibleInstantsFor(toPlainDateTimeSlots(t)).map((e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)(e)))),
-  getOffsetNanosecondsFor: ({o: e}, t) => e.getOffsetNanosecondsFor(toInstantSlots(t).epochNanoseconds),
-  getOffsetStringFor(e, t) {
-    const n = toInstantSlots(t).epochNanoseconds, o = createAdapterOps(this, Do).getOffsetNanosecondsFor(n);
-    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatOffsetNano)(o);
-  },
-  getPlainDateTimeFor(e, t, n = _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId) {
-    const o = toInstantSlots(t).epochNanoseconds, r = createAdapterOps(this, Do).getOffsetNanosecondsFor(o);
-    return No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochNanoToIso)(o, r), refineCalendarSlot(n)));
-  },
-  getInstantFor(e, t, n) {
-    const o = toPlainDateTimeSlots(t), r = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineEpochDisambigOptions)(n), a = createAdapterOps(this);
-    return Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getSingleInstantFor)(a, o, r)));
-  },
-  getNextTransition: ({o: e}, t) => getImplTransition(1, e, t),
-  getPreviousTransition: ({o: e}, t) => getImplTransition(-1, e, t),
-  equals(e, t) {
-    return !!(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isTimeZoneSlotsEqual)(this, refineTimeZoneSlot(t));
-  },
-  toString: e => e.id,
-  toJSON: e => e.id
-}, {
-  from(e) {
-    const t = refineTimeZoneSlot(e);
-    return "string" == typeof t ? new Zo(t) : t;
-  }
-}), Fo = /*@__PURE__*/ createProtocolValidator(Object.keys(ho)), [Io, vo] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainTimeBranding, _internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainTimeSlots, fo, {
-  getISOFields: So,
-  with(e, t, n) {
-    return vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainTimeWithFields)(this, rejectInvalidBag(t), n));
-  },
-  add: (e, t) => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainTime)(0, e, toDurationSlots(t))),
-  subtract: (e, t) => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainTime)(1, e, toDurationSlots(t))),
-  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainTimes)(0, e, toPlainTimeSlots(t), n)),
-  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainTimes)(1, e, toPlainTimeSlots(t), n)),
-  round: (e, t) => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundPlainTime)(e, t)),
-  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainTimesEqual)(e, toPlainTimeSlots(t)),
-  toZonedDateTime: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainTimeToZonedDateTime)(refineTimeZoneSlot, toPlainDateSlots, createTimeZoneOps, e, t)),
-  toPlainDateTime: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainTimeToPlainDateTime)(e, toPlainDateSlots(t))),
-  toLocaleString(e, t, n) {
-    const [o, r] = zn(t, n, e);
-    return o.format(r);
-  },
-  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainTimeIso,
-  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainTimeIso)(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => vo(toPlainTimeSlots(e, t)),
-  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareIsoTimeFields)(toPlainTimeSlots(e), toPlainTimeSlots(t))
-}), [wo, jo, Mo] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainYearMonthBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainYearMonthSlots, refineCalendarSlot), {
-  ...lo,
-  ...io
-}, {
-  getISOFields: So,
-  getCalendar: createCalendarFromSlots,
-  with(e, t, n) {
-    return jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainYearMonthWithFields)(Xo, e, this, rejectInvalidBag(t), n));
-  },
-  add: (e, t, n) => jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainYearMonth)(nr, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainYearMonth)(nr, 1, e, toDurationSlots(t), n)),
-  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainYearMonth)(or, 0, e, toPlainYearMonthSlots(t), n)),
-  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainYearMonth)(or, 1, e, toPlainYearMonthSlots(t), n)),
-  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainYearMonthsEqual)(e, toPlainYearMonthSlots(t)),
-  toPlainDate(e, t) {
-    return Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainYearMonthToPlainDate)($o, e, this, t));
-  },
-  toLocaleString(e, t, n) {
-    const [o, r] = Hn(t, n, e);
-    return o.format(r);
-  },
-  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainYearMonthIso,
-  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainYearMonthIso)(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => jo(toPlainYearMonthSlots(e, t)),
-  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareIsoDateFields)(toPlainYearMonthSlots(e), toPlainYearMonthSlots(t))
-}), [yo, No] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainDateTimeSlots, refineCalendarSlot), {
-  ...lo,
-  ...ao,
-  ...fo
-}, {
-  getISOFields: So,
-  getCalendar: createCalendarFromSlots,
-  with(e, t, n) {
-    return No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeWithFields)($o, e, this, rejectInvalidBag(t), n));
-  },
-  withCalendar: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.slotsWithCalendar)(e, refineCalendarSlot(t))),
-  withPlainDate: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeWithPlainDate)(e, toPlainDateSlots(t))),
-  withPlainTime: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeWithPlainTime)(e, optionalToPlainTimeFields(t))),
-  add: (e, t, n) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainDateTime)(er, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainDateTime)(er, 1, e, toDurationSlots(t), n)),
-  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainDateTimes)(tr, 0, e, toPlainDateTimeSlots(t), n)),
-  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainDateTimes)(tr, 1, e, toPlainDateTimeSlots(t), n)),
-  round: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundPlainDateTime)(e, t)),
-  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimesEqual)(e, toPlainDateTimeSlots(t)),
-  toZonedDateTime: (e, t, n) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeToZonedDateTime)(createTimeZoneOps, e, refineTimeZoneSlot(t), n)),
-  toPlainDate: e => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(e)),
-  toPlainTime: e => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainTimeSlots)(e)),
-  toPlainYearMonth(e) {
-    return jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeToPlainYearMonth)(Ho, e, this));
-  },
-  toPlainMonthDay(e) {
-    return To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeToPlainMonthDay)(Qo, e, this));
-  },
-  toLocaleString(e, t, n) {
-    const [o, r] = Gn(t, n, e);
-    return o.format(r);
-  },
-  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainDateTimeIso,
-  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainDateTimeIso)(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => No(toPlainDateTimeSlots(e, t)),
-  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareIsoDateTimeFields)(toPlainDateTimeSlots(e), toPlainDateTimeSlots(t))
-}), [Bo, Yo, Ao] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainDateSlots, refineCalendarSlot), {
-  ...lo,
-  ...ao
-}, {
-  getISOFields: So,
-  getCalendar: createCalendarFromSlots,
-  with(e, t, n) {
-    return Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateWithFields)($o, e, this, rejectInvalidBag(t), n));
-  },
-  withCalendar: (e, t) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.slotsWithCalendar)(e, refineCalendarSlot(t))),
-  add: (e, t, n) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainDate)(er, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainDate)(er, 1, e, toDurationSlots(t), n)),
-  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainDates)(tr, 0, e, toPlainDateSlots(t), n)),
-  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainDates)(tr, 1, e, toPlainDateSlots(t), n)),
-  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDatesEqual)(e, toPlainDateSlots(t)),
-  toZonedDateTime(e, t) {
-    const n = !(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(t) || t instanceof Zo ? {
-      timeZone: t
-    } : t;
-    return dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateToZonedDateTime)(refineTimeZoneSlot, toPlainTimeSlots, createTimeZoneOps, e, n));
-  },
-  toPlainDateTime: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateToPlainDateTime)(e, optionalToPlainTimeFields(t))),
-  toPlainYearMonth(e) {
-    return jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateToPlainYearMonth)(Ho, e, this));
-  },
-  toPlainMonthDay(e) {
-    return To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateToPlainMonthDay)(Qo, e, this));
-  },
-  toLocaleString(e, t, n) {
-    const [o, r] = Un(t, n, e);
-    return o.format(r);
-  },
-  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainDateIso,
-  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainDateIso)(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => Yo(toPlainDateSlots(e, t)),
-  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareIsoDateFields)(toPlainDateSlots(e), toPlainDateSlots(t))
-}), Eo = {
-  fields(e, t, n) {
-    return [ ...t.call(e, n) ];
-  }
-}, Vo = /*@__PURE__*/ Object.assign({
-  dateFromFields(e, t, n, o) {
-    return Ao(t.call(e, Object.assign(Object.create(null), n), o));
-  }
-}, Eo), Jo = /*@__PURE__*/ Object.assign({
-  yearMonthFromFields(e, t, n, o) {
-    return Mo(t.call(e, Object.assign(Object.create(null), n), o));
-  }
-}, Eo), Lo = /*@__PURE__*/ Object.assign({
-  monthDayFromFields(e, t, n, o) {
-    return po(t.call(e, Object.assign(Object.create(null), n), o));
-  }
-}, Eo), qo = {
-  mergeFields(e, t, n, o) {
-    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireObjectLike)(t.call(e, Object.assign(Object.create(null), n), Object.assign(Object.create(null), o)));
-  }
-}, ko = /*@__PURE__*/ Object.assign({}, Vo, qo), xo = /*@__PURE__*/ Object.assign({}, Jo, qo), Ro = /*@__PURE__*/ Object.assign({}, Lo, qo), Wo = {
-  dateAdd(e, t, n, o, r) {
-    return Ao(t.call(e, Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n, e)), ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createDurationSlots)(o)), r));
-  }
-}, Go = /*@__PURE__*/ Object.assign({}, Wo, {
-  dateUntil(e, t, n, o, r, a) {
-    return ir(t.call(e, Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n, e)), Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(o, e)), Object.assign(Object.create(null), a, {
-      largestUnit: _internal_js__WEBPACK_IMPORTED_MODULE_0__.unitNamesAsc[r]
-    })));
-  }
-}), Uo = /*@__PURE__*/ Object.assign({}, Wo, {
-  day: dayAdapter
-}), zo = /*@__PURE__*/ Object.assign({}, Go, {
-  day: dayAdapter
-}), Ho = /*@__PURE__*/ createCompoundOpsCreator(Jo), Ko = /*@__PURE__*/ createCompoundOpsCreator(Vo), Qo = /*@__PURE__*/ createCompoundOpsCreator(Lo), Xo = /*@__PURE__*/ createCompoundOpsCreator(xo), $o = /*@__PURE__*/ createCompoundOpsCreator(ko), _o = /*@__PURE__*/ createCompoundOpsCreator(Ro), er = /*@__PURE__*/ createCompoundOpsCreator(Wo), tr = /*@__PURE__*/ createCompoundOpsCreator(Go), nr = /*@__PURE__*/ createCompoundOpsCreator(Uo), or = /*@__PURE__*/ createCompoundOpsCreator(zo), [rr, ar, ir] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.DurationBranding, _internal_js__WEBPACK_IMPORTED_MODULE_0__.constructDurationSlots, {
-  ...uo,
-  blank: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getDurationBlank
-}, {
-  with: (e, t) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.durationWithFields)(e, t)),
-  negated: e => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.negateDuration)(e)),
-  abs: e => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.absDuration)(e)),
-  add: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.addDurations)(refinePublicRelativeTo, tr, createTimeZoneOps, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.addDurations)(refinePublicRelativeTo, tr, createTimeZoneOps, 1, e, toDurationSlots(t), n)),
-  round: (e, t) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundDuration)(refinePublicRelativeTo, tr, createTimeZoneOps, e, t)),
-  total: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.totalDuration)(refinePublicRelativeTo, tr, createTimeZoneOps, e, t),
-  toLocaleString(e, t, n) {
-    return Intl.DurationFormat ? new Intl.DurationFormat(t, n).format(this) : (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatDurationIso)(e);
-  },
-  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatDurationIso,
-  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatDurationIso)(e),
-  valueOf: neverValueOf
-}, {
-  from: e => ar(toDurationSlots(e)),
-  compare: (e, t, n) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareDurations)(refinePublicRelativeTo, er, createTimeZoneOps, toDurationSlots(e), toDurationSlots(t), n)
-}), sr = {
-  toString: e => e.id,
-  toJSON: e => e.id,
-  ...ro,
-  dateAdd: ({id: e, o: t}, n, o, r) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(t.dateAdd(toPlainDateSlots(n), toDurationSlots(o), r), e)),
-  dateUntil: ({o: e}, t, n, o) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createDurationSlots)(e.dateUntil(toPlainDateSlots(t), toPlainDateSlots(n), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineDateDiffOptions)(o)))),
-  dateFromFields: ({id: e, o: t}, n, o) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainDateBag)(t, n, o, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getRequiredDateFields)(e))),
-  yearMonthFromFields: ({id: e, o: t}, n, o) => jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainYearMonthBag)(t, n, o, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getRequiredYearMonthFields)(e))),
-  monthDayFromFields: ({id: e, o: t}, n, o) => To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainMonthDayBag)(t, 0, n, o, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getRequiredMonthDayFields)(e))),
-  fields({o: e}, t) {
-    const n = new Set(_internal_js__WEBPACK_IMPORTED_MODULE_0__.dateFieldNamesAlpha), o = [];
-    for (const e of t) {
-      if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireString)(e), !n.has(e)) {
-        throw new RangeError((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.forbiddenField)(e));
-      }
-      n.delete(e), o.push(e);
-    }
-    return e.fields(o);
-  },
-  mergeFields: ({o: e}, t, n) => e.mergeFields((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.excludeUndefinedProps)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireNonNullish)(t)), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.excludeUndefinedProps)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireNonNullish)(n)))
-}, [lr] = createSlotClass("Calendar", (e => {
-  const t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineCalendarId)(e);
-  return {
-    branding: "Calendar",
-    id: t,
-    o: (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps)(t)
-  };
-}), {
-  id: e => e.id
-}, sr, {
-  from(e) {
-    const t = refineCalendarSlot(e);
-    return "string" == typeof t ? new lr(t) : t;
-  }
-}), cr = /*@__PURE__*/ createProtocolValidator(Object.keys(sr).slice(4)), [ur, dr] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructZonedDateTimeSlots, refineCalendarSlot, refineTimeZoneSlot), {
-  ...mo,
-  ...lo,
-  ...adaptDateMethods(ao),
-  ...adaptDateMethods(fo),
-  offset: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatOffsetNano)(slotsToIso(e).offsetNanoseconds),
-  offsetNanoseconds: e => slotsToIso(e).offsetNanoseconds,
-  timeZoneId: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getId)(e.timeZone),
-  hoursInDay: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.computeZonedHoursInDay)(createTimeZoneOps, e)
-}, {
-  getISOFields: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.buildZonedIsoFields)(createTimeZoneOffsetOps, e),
-  getCalendar: createCalendarFromSlots,
-  getTimeZone: ({timeZone: e}) => "string" == typeof e ? new Zo(e) : e,
-  with(e, t, n) {
-    return dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeWithFields)($o, createTimeZoneOps, e, this, rejectInvalidBag(t), n));
-  },
-  withCalendar: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.slotsWithCalendar)(e, refineCalendarSlot(t))),
-  withTimeZone: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.slotsWithTimeZone)(e, refineTimeZoneSlot(t))),
-  withPlainDate: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeWithPlainDate)(createTimeZoneOps, e, toPlainDateSlots(t))),
-  withPlainTime: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeWithPlainTime)(createTimeZoneOps, e, optionalToPlainTimeFields(t))),
-  add: (e, t, n) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.moveZonedDateTime)(er, createTimeZoneOps, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.moveZonedDateTime)(er, createTimeZoneOps, 1, e, toDurationSlots(t), n)),
-  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createDurationSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffZonedDateTimes)(tr, createTimeZoneOps, 0, e, toZonedDateTimeSlots(t), n))),
-  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createDurationSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffZonedDateTimes)(tr, createTimeZoneOps, 1, e, toZonedDateTimeSlots(t), n))),
-  round: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundZonedDateTime)(createTimeZoneOps, e, t)),
-  startOfDay: e => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.computeZonedStartOfDay)(createTimeZoneOps, e)),
-  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimesEqual)(e, toZonedDateTimeSlots(t)),
-  toInstant: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToInstant)(e)),
-  toPlainDateTime: e => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainDateTime)(createTimeZoneOffsetOps, e)),
-  toPlainDate: e => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainDate)(createTimeZoneOffsetOps, e)),
-  toPlainTime: e => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainTime)(createTimeZoneOffsetOps, e)),
-  toPlainYearMonth(e) {
-    return jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainYearMonth)(Ho, e, this));
-  },
-  toPlainMonthDay(e) {
-    return To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainMonthDay)(Qo, e, this));
-  },
-  toLocaleString(e, t, n = {}) {
-    const [o, r] = Wn(t, n, e);
-    return o.format(r);
-  },
-  toString: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatZonedDateTimeIso)(createTimeZoneOffsetOps, e, t),
-  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatZonedDateTimeIso)(createTimeZoneOffsetOps, e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => dr(toZonedDateTimeSlots(e, t)),
-  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareZonedDateTimes)(toZonedDateTimeSlots(e), toZonedDateTimeSlots(t))
-}), fr = /*@__PURE__*/ Object.defineProperties({}, {
-  ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createStringTagDescriptors)("Temporal.Now"),
-  ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)({
-    timeZoneId: () => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)(),
-    instant: () => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentEpochNano)())),
-    zonedDateTime: (e, t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createZonedDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentEpochNano)(), refineTimeZoneSlot(t), refineCalendarSlot(e))),
-    zonedDateTimeISO: (e = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createZonedDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentEpochNano)(), refineTimeZoneSlot(e), _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId)),
-    plainDateTime: (e, t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(t))), refineCalendarSlot(e))),
-    plainDateTimeISO: (e = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(e))), _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId)),
-    plainDate: (e, t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(t))), refineCalendarSlot(e))),
-    plainDateISO: (e = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(e))), _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId)),
-    plainTimeISO: (e = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(e)))))
-  })
-}), mr = /*@__PURE__*/ Object.defineProperties({}, {
-  ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createStringTagDescriptors)("Temporal"),
-  ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)({
-    PlainYearMonth: wo,
-    PlainMonthDay: Oo,
-    PlainDate: Bo,
-    PlainTime: Io,
-    PlainDateTime: yo,
-    ZonedDateTime: ur,
-    Instant: Po,
-    Calendar: lr,
-    TimeZone: Zo,
-    Duration: rr,
-    Now: fr
-  })
-}), Sr = /*@__PURE__*/ createDateTimeFormatClass(), Or = /*@__PURE__*/ new WeakMap, Tr = /*@__PURE__*/ Object.defineProperties(Object.create(Intl), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)({
-  DateTimeFormat: Sr
-}));
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/temporal-polyfill/chunks/internal.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/temporal-polyfill/chunks/internal.js ***!
-  \***********************************************************/
-/***/ ((__unused_webpack___webpack_module__, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   DurationBranding: () => (/* binding */ qt),
-/* harmony export */   InstantBranding: () => (/* binding */ Oe),
-/* harmony export */   PlainDateBranding: () => (/* binding */ J),
-/* harmony export */   PlainDateTimeBranding: () => (/* binding */ We),
-/* harmony export */   PlainMonthDayBranding: () => (/* binding */ q),
-/* harmony export */   PlainTimeBranding: () => (/* binding */ xe),
-/* harmony export */   PlainYearMonthBranding: () => (/* binding */ L),
-/* harmony export */   RawDateTimeFormat: () => (/* binding */ En),
-/* harmony export */   ZonedDateTimeBranding: () => (/* binding */ Te),
-/* harmony export */   absDuration: () => (/* binding */ Rt),
-/* harmony export */   addDurations: () => (/* binding */ Wt),
-/* harmony export */   bigNanoToNumber: () => (/* binding */ oe),
-/* harmony export */   bindArgs: () => (/* binding */ E),
-/* harmony export */   buildZonedIsoFields: () => (/* binding */ mn),
-/* harmony export */   compareBigNanos: () => (/* binding */ te),
-/* harmony export */   compareDurations: () => (/* binding */ $t),
-/* harmony export */   compareInstants: () => (/* binding */ Ze),
-/* harmony export */   compareIsoDateFields: () => (/* binding */ rt),
-/* harmony export */   compareIsoDateTimeFields: () => (/* binding */ gt),
-/* harmony export */   compareIsoTimeFields: () => (/* binding */ He),
-/* harmony export */   compareZonedDateTimes: () => (/* binding */ yn),
-/* harmony export */   computeZonedHoursInDay: () => (/* binding */ dn),
-/* harmony export */   computeZonedStartOfDay: () => (/* binding */ Cn),
-/* harmony export */   constructDurationSlots: () => (/* binding */ Lt),
-/* harmony export */   constructInstantSlots: () => (/* binding */ Se),
-/* harmony export */   constructPlainDateSlots: () => (/* binding */ Nt),
-/* harmony export */   constructPlainDateTimeSlots: () => (/* binding */ pt),
-/* harmony export */   constructPlainMonthDaySlots: () => (/* binding */ G),
-/* harmony export */   constructPlainTimeSlots: () => (/* binding */ ke),
-/* harmony export */   constructPlainYearMonthSlots: () => (/* binding */ tt),
-/* harmony export */   constructZonedDateTimeSlots: () => (/* binding */ vn),
-/* harmony export */   copyOptions: () => (/* binding */ U),
-/* harmony export */   createDurationSlots: () => (/* binding */ Vt),
-/* harmony export */   createFormatForPrep: () => (/* binding */ qn),
-/* harmony export */   createFormatPrepper: () => (/* binding */ e),
-/* harmony export */   createGetterDescriptors: () => (/* binding */ O),
-/* harmony export */   createInstantSlots: () => (/* binding */ _),
-/* harmony export */   createNameDescriptors: () => (/* binding */ D),
-/* harmony export */   createNativeStandardOps: () => (/* binding */ Y),
-/* harmony export */   createPlainDateSlots: () => (/* binding */ v),
-/* harmony export */   createPlainDateTimeSlots: () => (/* binding */ ee),
-/* harmony export */   createPlainTimeSlots: () => (/* binding */ Ge),
-/* harmony export */   createPropDescriptors: () => (/* binding */ p),
-/* harmony export */   createStringTagDescriptors: () => (/* binding */ h),
-/* harmony export */   createZonedDateTimeSlots: () => (/* binding */ Yn),
-/* harmony export */   dateConfig: () => (/* binding */ o),
-/* harmony export */   dateFieldNamesAlpha: () => (/* binding */ en),
-/* harmony export */   dateTimeConfig: () => (/* binding */ n),
-/* harmony export */   diffBigNanos: () => (/* binding */ re),
-/* harmony export */   diffInstants: () => (/* binding */ le),
-/* harmony export */   diffPlainDateTimes: () => (/* binding */ ut),
-/* harmony export */   diffPlainDates: () => (/* binding */ Ft),
-/* harmony export */   diffPlainTimes: () => (/* binding */ Ae),
-/* harmony export */   diffPlainYearMonth: () => (/* binding */ Xe),
-/* harmony export */   diffZonedDateTimes: () => (/* binding */ Dn),
-/* harmony export */   durationFieldNamesAsc: () => (/* binding */ F),
-/* harmony export */   durationWithFields: () => (/* binding */ kt),
-/* harmony export */   epochMicroToInstant: () => (/* binding */ Ce),
-/* harmony export */   epochMilliToInstant: () => (/* binding */ Pe),
-/* harmony export */   epochNanoToInstant: () => (/* binding */ ge),
-/* harmony export */   epochNanoToIso: () => (/* binding */ Ie),
-/* harmony export */   epochSecToInstant: () => (/* binding */ De),
-/* harmony export */   excludePropsByName: () => (/* binding */ V),
-/* harmony export */   excludeUndefinedProps: () => (/* binding */ nn),
-/* harmony export */   forbiddenField: () => (/* binding */ tn),
-/* harmony export */   forbiddenValueOf: () => (/* binding */ A),
-/* harmony export */   formatDurationIso: () => (/* binding */ zt),
-/* harmony export */   formatInstantIso: () => (/* binding */ me),
-/* harmony export */   formatOffsetNano: () => (/* binding */ Fe),
-/* harmony export */   formatPlainDateIso: () => (/* binding */ yt),
-/* harmony export */   formatPlainDateTimeIso: () => (/* binding */ Tt),
-/* harmony export */   formatPlainMonthDayIso: () => (/* binding */ W),
-/* harmony export */   formatPlainTimeIso: () => (/* binding */ qe),
-/* harmony export */   formatPlainYearMonthIso: () => (/* binding */ et),
-/* harmony export */   formatZonedDateTimeIso: () => (/* binding */ In),
-/* harmony export */   getCurrentEpochNano: () => (/* binding */ Bn),
-/* harmony export */   getCurrentIsoDateTime: () => (/* binding */ An),
-/* harmony export */   getCurrentTimeZoneId: () => (/* binding */ Nn),
-/* harmony export */   getDurationBlank: () => (/* binding */ Jt),
-/* harmony export */   getEpochMicro: () => (/* binding */ N),
-/* harmony export */   getEpochMilli: () => (/* binding */ y),
-/* harmony export */   getEpochNano: () => (/* binding */ B),
-/* harmony export */   getEpochSec: () => (/* binding */ M),
-/* harmony export */   getId: () => (/* binding */ I),
-/* harmony export */   getRequiredDateFields: () => (/* binding */ ln),
-/* harmony export */   getRequiredMonthDayFields: () => (/* binding */ cn),
-/* harmony export */   getRequiredYearMonthFields: () => (/* binding */ un),
-/* harmony export */   getSingleInstantFor: () => (/* binding */ we),
-/* harmony export */   hasAllPropsByName: () => (/* binding */ C),
-/* harmony export */   instantConfig: () => (/* binding */ t),
-/* harmony export */   instantToZonedDateTime: () => (/* binding */ fe),
-/* harmony export */   instantsEqual: () => (/* binding */ ue),
-/* harmony export */   invalidBag: () => (/* binding */ Z),
-/* harmony export */   invalidCallingContext: () => (/* binding */ P),
-/* harmony export */   invalidFormatType: () => (/* binding */ Ln),
-/* harmony export */   invalidProtocol: () => (/* binding */ g),
-/* harmony export */   isObjectLike: () => (/* binding */ z),
-/* harmony export */   isTimeZoneSlotsEqual: () => (/* binding */ je),
-/* harmony export */   isoCalendarId: () => (/* binding */ X),
-/* harmony export */   isoTimeFieldDefaults: () => (/* binding */ Dt),
-/* harmony export */   isoTimeFieldNamesAsc: () => (/* binding */ j),
-/* harmony export */   mapPropNames: () => (/* binding */ b),
-/* harmony export */   mapProps: () => (/* binding */ T),
-/* harmony export */   memoize: () => (/* binding */ Jn),
-/* harmony export */   mismatchingFormatTypes: () => (/* binding */ kn),
-/* harmony export */   monthDayConfig: () => (/* binding */ i),
-/* harmony export */   moveInstant: () => (/* binding */ se),
-/* harmony export */   movePlainDate: () => (/* binding */ bt),
-/* harmony export */   movePlainDateTime: () => (/* binding */ ct),
-/* harmony export */   movePlainTime: () => (/* binding */ Ye),
-/* harmony export */   movePlainYearMonth: () => (/* binding */ Qe),
-/* harmony export */   moveZonedDateTime: () => (/* binding */ hn),
-/* harmony export */   nanoInMilli: () => (/* binding */ be),
-/* harmony export */   negateDuration: () => (/* binding */ xt),
-/* harmony export */   numberToBigNano: () => (/* binding */ he),
-/* harmony export */   parseCalendarId: () => (/* binding */ sn),
-/* harmony export */   parseDuration: () => (/* binding */ Kt),
-/* harmony export */   parseInstant: () => (/* binding */ pe),
-/* harmony export */   parsePlainDate: () => (/* binding */ At),
-/* harmony export */   parsePlainDateTime: () => (/* binding */ Ct),
-/* harmony export */   parsePlainMonthDay: () => (/* binding */ Q),
-/* harmony export */   parsePlainTime: () => (/* binding */ ze),
-/* harmony export */   parsePlainYearMonth: () => (/* binding */ ot),
-/* harmony export */   parseRelativeToSlots: () => (/* binding */ Xt),
-/* harmony export */   parseTimeZoneId: () => (/* binding */ Ne),
-/* harmony export */   parseZonedDateTime: () => (/* binding */ Mn),
-/* harmony export */   plainDateTimeToPlainMonthDay: () => (/* binding */ Ot),
-/* harmony export */   plainDateTimeToPlainYearMonth: () => (/* binding */ St),
-/* harmony export */   plainDateTimeToZonedDateTime: () => (/* binding */ mt),
-/* harmony export */   plainDateTimeWithFields: () => (/* binding */ at),
-/* harmony export */   plainDateTimeWithPlainDate: () => (/* binding */ st),
-/* harmony export */   plainDateTimeWithPlainTime: () => (/* binding */ lt),
-/* harmony export */   plainDateTimesEqual: () => (/* binding */ ft),
-/* harmony export */   plainDateToPlainDateTime: () => (/* binding */ wt),
-/* harmony export */   plainDateToPlainMonthDay: () => (/* binding */ Mt),
-/* harmony export */   plainDateToPlainYearMonth: () => (/* binding */ jt),
-/* harmony export */   plainDateToZonedDateTime: () => (/* binding */ vt),
-/* harmony export */   plainDateWithFields: () => (/* binding */ Zt),
-/* harmony export */   plainDatesEqual: () => (/* binding */ It),
-/* harmony export */   plainMonthDayToPlainDate: () => (/* binding */ R),
-/* harmony export */   plainMonthDayWithFields: () => (/* binding */ k),
-/* harmony export */   plainMonthDaysEqual: () => (/* binding */ x),
-/* harmony export */   plainTimeToPlainDateTime: () => (/* binding */ Le),
-/* harmony export */   plainTimeToZonedDateTime: () => (/* binding */ Je),
-/* harmony export */   plainTimeWithFields: () => (/* binding */ Be),
-/* harmony export */   plainTimesEqual: () => (/* binding */ Ve),
-/* harmony export */   plainYearMonthToPlainDate: () => (/* binding */ _e),
-/* harmony export */   plainYearMonthWithFields: () => (/* binding */ Ke),
-/* harmony export */   plainYearMonthsEqual: () => (/* binding */ $e),
-/* harmony export */   pluckProps: () => (/* binding */ Vn),
-/* harmony export */   queryNativeTimeZone: () => (/* binding */ ie),
-/* harmony export */   refineCalendarId: () => (/* binding */ rn),
-/* harmony export */   refineDateDiffOptions: () => (/* binding */ _t),
-/* harmony export */   refineDurationBag: () => (/* binding */ Ht),
-/* harmony export */   refineEpochDisambigOptions: () => (/* binding */ ve),
-/* harmony export */   refineMaybeZonedDateTimeBag: () => (/* binding */ Qt),
-/* harmony export */   refineOverflowOptions: () => (/* binding */ H),
-/* harmony export */   refinePlainDateBag: () => (/* binding */ Yt),
-/* harmony export */   refinePlainDateTimeBag: () => (/* binding */ Pt),
-/* harmony export */   refinePlainMonthDayBag: () => (/* binding */ K),
-/* harmony export */   refinePlainTimeBag: () => (/* binding */ Ue),
-/* harmony export */   refinePlainYearMonthBag: () => (/* binding */ nt),
-/* harmony export */   refineTimeZoneId: () => (/* binding */ Me),
-/* harmony export */   refineZonedDateTimeBag: () => (/* binding */ jn),
-/* harmony export */   refineZonedFieldOptions: () => (/* binding */ wn),
-/* harmony export */   requireBoolean: () => (/* binding */ f),
-/* harmony export */   requireFunction: () => (/* binding */ $),
-/* harmony export */   requireInteger: () => (/* binding */ u),
-/* harmony export */   requireIntegerOrUndefined: () => (/* binding */ c),
-/* harmony export */   requireNonNullish: () => (/* binding */ on),
-/* harmony export */   requireObjectLike: () => (/* binding */ de),
-/* harmony export */   requirePositiveInteger: () => (/* binding */ d),
-/* harmony export */   requirePositiveIntegerOrUndefined: () => (/* binding */ S),
-/* harmony export */   requireString: () => (/* binding */ m),
-/* harmony export */   requireStringOrUndefined: () => (/* binding */ l),
-/* harmony export */   resolveCalendarId: () => (/* binding */ an),
-/* harmony export */   resolveTimeZoneId: () => (/* binding */ ye),
-/* harmony export */   roundDuration: () => (/* binding */ Gt),
-/* harmony export */   roundInstant: () => (/* binding */ ce),
-/* harmony export */   roundPlainDateTime: () => (/* binding */ dt),
-/* harmony export */   roundPlainTime: () => (/* binding */ Ee),
-/* harmony export */   roundZonedDateTime: () => (/* binding */ Pn),
-/* harmony export */   slotsWithCalendar: () => (/* binding */ it),
-/* harmony export */   slotsWithTimeZone: () => (/* binding */ On),
-/* harmony export */   timeConfig: () => (/* binding */ r),
-/* harmony export */   timeFieldNamesAsc: () => (/* binding */ w),
-/* harmony export */   totalDuration: () => (/* binding */ Ut),
-/* harmony export */   unitNamesAsc: () => (/* binding */ Et),
-/* harmony export */   validateTimeZoneGap: () => (/* binding */ ne),
-/* harmony export */   validateTimeZoneOffset: () => (/* binding */ ae),
-/* harmony export */   yearMonthConfig: () => (/* binding */ a),
-/* harmony export */   zonedConfig: () => (/* binding */ s),
-/* harmony export */   zonedDateTimeToInstant: () => (/* binding */ Zn),
-/* harmony export */   zonedDateTimeToPlainDate: () => (/* binding */ Bt),
-/* harmony export */   zonedDateTimeToPlainDateTime: () => (/* binding */ ht),
-/* harmony export */   zonedDateTimeToPlainMonthDay: () => (/* binding */ Fn),
-/* harmony export */   zonedDateTimeToPlainTime: () => (/* binding */ Re),
-/* harmony export */   zonedDateTimeToPlainYearMonth: () => (/* binding */ bn),
-/* harmony export */   zonedDateTimeWithFields: () => (/* binding */ Sn),
-/* harmony export */   zonedDateTimeWithPlainDate: () => (/* binding */ Tn),
-/* harmony export */   zonedDateTimeWithPlainTime: () => (/* binding */ pn),
-/* harmony export */   zonedDateTimesEqual: () => (/* binding */ gn),
-/* harmony export */   zonedEpochSlotsToIso: () => (/* binding */ fn)
-/* harmony export */ });
-function clampProp(e, n, t, o, r) {
-  return clampEntity(n, getDefinedProp(e, n), t, o, r);
-}
-
-function clampEntity(e, n, t, o, r, i) {
-  const a = clampNumber(n, t, o);
-  if (r && n !== a) {
-    throw new RangeError(numberOutOfRange(e, n, t, o, i));
-  }
-  return a;
-}
-
-function getDefinedProp(e, n) {
-  const t = e[n];
-  if (void 0 === t) {
-    throw new TypeError(missingField(n));
-  }
-  return t;
-}
-
-function z(e) {
-  return null !== e && /object|function/.test(typeof e);
-}
-
-function Jn(e, n = Map) {
-  const t = new n;
-  return (n, ...o) => {
-    if (t.has(n)) {
-      return t.get(n);
-    }
-    const r = e(n, ...o);
-    return t.set(n, r), r;
-  };
-}
-
-function D(e) {
-  return p({
-    name: e
-  }, 1);
-}
-
-function p(e, n) {
-  return T((e => ({
-    value: e,
-    configurable: 1,
-    writable: !n
-  })), e);
-}
-
-function O(e) {
-  return T((e => ({
-    get: e,
-    configurable: 1
-  })), e);
-}
-
-function h(e) {
-  return {
-    [Symbol.toStringTag]: {
-      value: e,
-      configurable: 1
-    }
-  };
-}
-
-function zipProps(e, n) {
-  const t = {};
-  let o = e.length;
-  for (const r of n) {
-    t[e[--o]] = r;
-  }
-  return t;
-}
-
-function T(e, n, t) {
-  const o = {};
-  for (const r in n) {
-    o[r] = e(n[r], r, t);
-  }
-  return o;
-}
-
-function b(e, n, t) {
-  const o = {};
-  for (let r = 0; r < n.length; r++) {
-    const i = n[r];
-    o[i] = e(i, r, t);
-  }
-  return o;
-}
-
-function remapProps(e, n, t) {
-  const o = {};
-  for (let r = 0; r < e.length; r++) {
-    o[n[r]] = t[e[r]];
-  }
-  return o;
-}
-
-function Vn(e, n) {
-  const t = {};
-  for (const o of e) {
-    t[o] = n[o];
-  }
-  return t;
-}
-
-function V(e, n) {
-  const t = {};
-  for (const o in n) {
-    e.has(o) || (t[o] = n[o]);
-  }
-  return t;
-}
-
-function nn(e) {
-  e = {
-    ...e
-  };
-  const n = Object.keys(e);
-  for (const t of n) {
-    void 0 === e[t] && delete e[t];
-  }
-  return e;
-}
-
-function C(e, n) {
-  for (const t of n) {
-    if (!(t in e)) {
-      return 0;
-    }
-  }
-  return 1;
-}
-
-function allPropsEqual(e, n, t) {
-  for (const o of e) {
-    if (n[o] !== t[o]) {
-      return 0;
-    }
-  }
-  return 1;
-}
-
-function zeroOutProps(e, n, t) {
-  const o = {
-    ...t
-  };
-  for (let t = 0; t < n; t++) {
-    o[e[t]] = 0;
-  }
-  return o;
-}
-
-function E(e, ...n) {
-  return (...t) => e(...n, ...t);
-}
-
-function capitalize(e) {
-  return e[0].toUpperCase() + e.substring(1);
-}
-
-function sortStrings(e) {
-  return e.slice().sort();
-}
-
-function padNumber(e, n) {
-  return String(n).padStart(e, "0");
-}
-
-function compareNumbers(e, n) {
-  return Math.sign(e - n);
-}
-
-function clampNumber(e, n, t) {
-  return Math.min(Math.max(e, n), t);
-}
-
-function divModFloor(e, n) {
-  return [ Math.floor(e / n), modFloor(e, n) ];
-}
-
-function modFloor(e, n) {
-  return (e % n + n) % n;
-}
-
-function divModTrunc(e, n) {
-  return [ divTrunc(e, n), modTrunc(e, n) ];
-}
-
-function divTrunc(e, n) {
-  return Math.trunc(e / n) || 0;
-}
-
-function modTrunc(e, n) {
-  return e % n || 0;
-}
-
-function hasHalf(e) {
-  return .5 === Math.abs(e % 1);
-}
-
-function givenFieldsToBigNano(e, n, t) {
-  let o = 0, r = 0;
-  for (let i = 0; i <= n; i++) {
-    const n = e[t[i]], a = Xr[i], s = Qr / a, [c, u] = divModTrunc(n, s);
-    o += u * a, r += c;
-  }
-  const [i, a] = divModTrunc(o, Qr);
-  return [ r + i, a ];
-}
-
-function nanoToGivenFields(e, n, t) {
-  const o = {};
-  for (let r = n; r >= 0; r--) {
-    const n = Xr[r];
-    o[t[r]] = divTrunc(e, n), e = modTrunc(e, n);
-  }
-  return o;
-}
-
-function un(e) {
-  return e === X ? si : [];
-}
-
-function cn(e) {
-  return e === X ? li : [];
-}
-
-function ln(e) {
-  return e === X ? [ "year", "day" ] : [];
-}
-
-function l(e) {
-  if (void 0 !== e) {
-    return m(e);
-  }
-}
-
-function S(e) {
-  if (void 0 !== e) {
-    return d(e);
-  }
-}
-
-function c(e) {
-  if (void 0 !== e) {
-    return u(e);
-  }
-}
-
-function d(e) {
-  return requireNumberIsPositive(u(e));
-}
-
-function u(e) {
-  return requireNumberIsInteger(Mi(e));
-}
-
-function on(e) {
-  if (null == e) {
-    throw new TypeError("Cannot be null or undefined");
-  }
-  return e;
-}
-
-function requirePropDefined(e, n) {
-  if (null == n) {
-    throw new RangeError(missingField(e));
-  }
-  return n;
-}
-
-function de(e) {
-  if (!z(e)) {
-    throw new TypeError(hr);
-  }
-  return e;
-}
-
-function requireType(e, n, t = e) {
-  if (typeof n !== e) {
-    throw new TypeError(invalidEntity(t, n));
-  }
-  return n;
-}
-
-function requireNumberIsInteger(e, n = "number") {
-  if (!Number.isInteger(e)) {
-    throw new RangeError(expectedInteger(n, e));
-  }
-  return e || 0;
-}
-
-function requireNumberIsPositive(e, n = "number") {
-  if (e <= 0) {
-    throw new RangeError(expectedPositive(n, e));
-  }
-  return e;
-}
-
-function toString(e) {
-  if ("symbol" == typeof e) {
-    throw new TypeError(pr);
-  }
-  return String(e);
-}
-
-function toStringViaPrimitive(e, n) {
-  return z(e) ? String(e) : m(e, n);
-}
-
-function toBigInt(e) {
-  if ("string" == typeof e) {
-    return BigInt(e);
-  }
-  if ("bigint" != typeof e) {
-    throw new TypeError(invalidBigInt(e));
-  }
-  return e;
-}
-
-function toNumber(e, n = "number") {
-  if ("bigint" == typeof e) {
-    throw new TypeError(forbiddenBigIntToNumber(n));
-  }
-  if (e = Number(e), !Number.isFinite(e)) {
-    throw new RangeError(expectedFinite(n, e));
-  }
-  return e;
-}
-
-function toInteger(e, n) {
-  return Math.trunc(toNumber(e, n)) || 0;
-}
-
-function toStrictInteger(e, n) {
-  return requireNumberIsInteger(toNumber(e, n), n);
-}
-
-function toPositiveInteger(e, n) {
-  return requireNumberIsPositive(toInteger(e, n), n);
-}
-
-function createBigNano(e, n) {
-  let [t, o] = divModTrunc(n, Qr), r = e + t;
-  const i = Math.sign(r);
-  return i && i === -Math.sign(o) && (r -= i, o += i * Qr), [ r, o ];
-}
-
-function addBigNanos(e, n, t = 1) {
-  return createBigNano(e[0] + n[0] * t, e[1] + n[1] * t);
-}
-
-function moveBigNano(e, n) {
-  return createBigNano(e[0], e[1] + n);
-}
-
-function re(e, n) {
-  return addBigNanos(n, e, -1);
-}
-
-function te(e, n) {
-  return compareNumbers(e[0], n[0]) || compareNumbers(e[1], n[1]);
-}
-
-function bigNanoOutside(e, n, t) {
-  return -1 === te(e, n) || 1 === te(e, t);
-}
-
-function bigIntToBigNano(e, n = 1) {
-  const t = BigInt(Qr / n);
-  return [ Number(e / t), Number(e % t) * n ];
-}
-
-function he(e, n = 1) {
-  const t = Qr / n, [o, r] = divModTrunc(e, t);
-  return [ o, r * n ];
-}
-
-function bigNanoToBigInt(e, n = 1) {
-  const [t, o] = e, r = Math.floor(o / n), i = Qr / n;
-  return BigInt(t) * BigInt(i) + BigInt(r);
-}
-
-function oe(e, n = 1, t) {
-  const [o, r] = e, [i, a] = divModTrunc(r, n);
-  return o * (Qr / n) + (i + (t ? a / n : 0));
-}
-
-function divModBigNano(e, n, t = divModFloor) {
-  const [o, r] = e, [i, a] = t(r, n);
-  return [ o * (Qr / n) + i, a ];
-}
-
-function hashIntlFormatParts(e, n) {
-  const t = e.formatToParts(n), o = {};
-  for (const e of t) {
-    o[e.type] = e.value;
-  }
-  return o;
-}
-
-function checkIsoYearMonthInBounds(e) {
-  return clampProp(e, "isoYear", Li, Ai, 1), e.isoYear === Li ? clampProp(e, "isoMonth", 4, 12, 1) : e.isoYear === Ai && clampProp(e, "isoMonth", 1, 9, 1), 
-  e;
-}
-
-function checkIsoDateInBounds(e) {
-  return checkIsoDateTimeInBounds({
-    ...e,
-    ...Dt,
-    isoHour: 12
-  }), e;
-}
-
-function checkIsoDateTimeInBounds(e) {
-  const n = clampProp(e, "isoYear", Li, Ai, 1), t = n === Li ? 1 : n === Ai ? -1 : 0;
-  return t && checkEpochNanoInBounds(isoToEpochNano({
-    ...e,
-    isoDay: e.isoDay + t,
-    isoNanosecond: e.isoNanosecond - t
-  })), e;
-}
-
-function checkEpochNanoInBounds(e) {
-  if (!e || bigNanoOutside(e, Ui, qi)) {
-    throw new RangeError(Cr);
-  }
-  return e;
-}
-
-function isoTimeFieldsToNano(e) {
-  return givenFieldsToBigNano(e, 5, j)[1];
-}
-
-function nanoToIsoTimeAndDay(e) {
-  const [n, t] = divModFloor(e, Qr);
-  return [ nanoToGivenFields(t, 5, j), n ];
-}
-
-function epochNanoToSec(e) {
-  return epochNanoToSecMod(e)[0];
-}
-
-function epochNanoToSecMod(e) {
-  return divModBigNano(e, _r);
-}
-
-function isoToEpochMilli(e) {
-  return isoArgsToEpochMilli(e.isoYear, e.isoMonth, e.isoDay, e.isoHour, e.isoMinute, e.isoSecond, e.isoMillisecond);
-}
-
-function isoToEpochNano(e) {
-  const n = isoToEpochMilli(e);
-  if (void 0 !== n) {
-    const [t, o] = divModTrunc(n, Gr);
-    return [ t, o * be + (e.isoMicrosecond || 0) * Vr + (e.isoNanosecond || 0) ];
-  }
-}
-
-function isoToEpochNanoWithOffset(e, n) {
-  const [t, o] = nanoToIsoTimeAndDay(isoTimeFieldsToNano(e) - n);
-  return checkEpochNanoInBounds(isoToEpochNano({
-    ...e,
-    isoDay: e.isoDay + o,
-    ...t
-  }));
-}
-
-function isoArgsToEpochSec(...e) {
-  return isoArgsToEpochMilli(...e) / Hr;
-}
-
-function isoArgsToEpochMilli(...e) {
-  const [n, t] = isoToLegacyDate(...e), o = n.valueOf();
-  if (!isNaN(o)) {
-    return o - t * Gr;
-  }
-}
-
-function isoToLegacyDate(e, n = 1, t = 1, o = 0, r = 0, i = 0, a = 0) {
-  const s = e === Li ? 1 : e === Ai ? -1 : 0, c = new Date;
-  return c.setUTCHours(o, r, i, a), c.setUTCFullYear(e, n - 1, t + s), [ c, s ];
-}
-
-function Ie(e, n) {
-  let [t, o] = moveBigNano(e, n);
-  o < 0 && (o += Qr, t -= 1);
-  const [r, i] = divModFloor(o, be), [a, s] = divModFloor(i, Vr);
-  return epochMilliToIso(t * Gr + r, a, s);
-}
-
-function epochMilliToIso(e, n = 0, t = 0) {
-  const o = Math.ceil(Math.max(0, Math.abs(e) - zi) / Gr) * Math.sign(e), r = new Date(e - o * Gr);
-  return zipProps(wi, [ r.getUTCFullYear(), r.getUTCMonth() + 1, r.getUTCDate() + o, r.getUTCHours(), r.getUTCMinutes(), r.getUTCSeconds(), r.getUTCMilliseconds(), n, t ]);
-}
-
-function computeIsoDateParts(e) {
-  return [ e.isoYear, e.isoMonth, e.isoDay ];
-}
-
-function computeIsoMonthsInYear() {
-  return xi;
-}
-
-function computeIsoDaysInMonth(e, n) {
-  switch (n) {
-   case 2:
-    return computeIsoInLeapYear(e) ? 29 : 28;
-
-   case 4:
-   case 6:
-   case 9:
-   case 11:
-    return 30;
-  }
-  return 31;
-}
-
-function computeIsoDaysInYear(e) {
-  return computeIsoInLeapYear(e) ? 366 : 365;
-}
-
-function computeIsoInLeapYear(e) {
-  return e % 4 == 0 && (e % 100 != 0 || e % 400 == 0);
-}
-
-function computeIsoDayOfWeek(e) {
-  const [n, t] = isoToLegacyDate(e.isoYear, e.isoMonth, e.isoDay);
-  return modFloor(n.getUTCDay() - t, 7) || 7;
-}
-
-function computeGregoryEraParts({isoYear: e}) {
-  return e < 1 ? [ "bce", 1 - e ] : [ "ce", e ];
-}
-
-function computeJapaneseEraParts(e) {
-  const n = isoToEpochMilli(e);
-  if (n < $i) {
-    return computeGregoryEraParts(e);
-  }
-  const t = hashIntlFormatParts(La(Ti), n), {era: o, eraYear: r} = parseIntlYear(t, Ti);
-  return [ o, r ];
-}
-
-function checkIsoDateTimeFields(e) {
-  return checkIsoDateFields(e), constrainIsoTimeFields(e, 1), e;
-}
-
-function checkIsoDateFields(e) {
-  return constrainIsoDateFields(e, 1), e;
-}
-
-function isIsoDateFieldsValid(e) {
-  return allPropsEqual(Oi, e, constrainIsoDateFields(e));
-}
-
-function constrainIsoDateFields(e, n) {
-  const {isoYear: t} = e, o = clampProp(e, "isoMonth", 1, computeIsoMonthsInYear(), n);
-  return {
-    isoYear: t,
-    isoMonth: o,
-    isoDay: clampProp(e, "isoDay", 1, computeIsoDaysInMonth(t, o), n)
-  };
-}
-
-function constrainIsoTimeFields(e, n) {
-  return zipProps(j, [ clampProp(e, "isoHour", 0, 23, n), clampProp(e, "isoMinute", 0, 59, n), clampProp(e, "isoSecond", 0, 59, n), clampProp(e, "isoMillisecond", 0, 999, n), clampProp(e, "isoMicrosecond", 0, 999, n), clampProp(e, "isoNanosecond", 0, 999, n) ]);
-}
-
-function H(e) {
-  return void 0 === e ? 0 : ua(de(e));
-}
-
-function wn(e, n = 0) {
-  e = normalizeOptions(e);
-  const t = la(e), o = fa(e, n);
-  return [ ua(e), o, t ];
-}
-
-function ve(e) {
-  return la(normalizeOptions(e));
-}
-
-function _t(e) {
-  return e = normalizeOptions(e), sa(e, 9, 6, 1);
-}
-
-function refineDiffOptions(e, n, t, o = 9, r = 0, i = 4) {
-  n = normalizeOptions(n);
-  let a = sa(n, o, r), s = parseRoundingIncInteger(n), c = ha(n, i);
-  const u = aa(n, o, r, 1);
-  return null == a ? a = Math.max(t, u) : checkLargestSmallestUnit(a, u), s = refineRoundingInc(s, u, 1), 
-  e && (c = (e => e < 4 ? (e + 2) % 4 : e)(c)), [ a, u, s, c ];
-}
-
-function refineRoundingOptions(e, n = 6, t) {
-  let o = parseRoundingIncInteger(e = normalizeOptionsOrString(e, Hi));
-  const r = ha(e, 7);
-  let i = aa(e, n);
-  return i = requirePropDefined(Hi, i), o = refineRoundingInc(o, i, void 0, t), [ i, o, r ];
-}
-
-function refineDateDisplayOptions(e) {
-  return da(normalizeOptions(e));
-}
-
-function refineTimeDisplayOptions(e, n) {
-  return refineTimeDisplayTuple(normalizeOptions(e), n);
-}
-
-function refineTimeDisplayTuple(e, n = 4) {
-  const t = refineSubsecDigits(e);
-  return [ ha(e, 4), ...refineSmallestUnitAndSubsecDigits(aa(e, n), t) ];
-}
-
-function refineSmallestUnitAndSubsecDigits(e, n) {
-  return null != e ? [ Xr[e], e < 4 ? 9 - 3 * e : -1 ] : [ void 0 === n ? 1 : 10 ** (9 - n), n ];
-}
-
-function parseRoundingIncInteger(e) {
-  const n = e[_i];
-  return void 0 === n ? 1 : toInteger(n, _i);
-}
-
-function refineRoundingInc(e, n, t, o) {
-  const r = o ? Qr : Xr[n + 1];
-  if (r) {
-    const t = Xr[n];
-    if (r % ((e = clampEntity(_i, e, 1, r / t - (o ? 0 : 1), 1)) * t)) {
-      throw new RangeError(invalidEntity(_i, e));
-    }
-  } else {
-    e = clampEntity(_i, e, 1, t ? 10 ** 9 : 1, 1);
-  }
-  return e;
-}
-
-function refineSubsecDigits(e) {
-  let n = e[Ji];
-  if (void 0 !== n) {
-    if ("number" != typeof n) {
-      if ("auto" === toString(n)) {
-        return;
-      }
-      throw new RangeError(invalidEntity(Ji, n));
-    }
-    n = clampEntity(Ji, Math.floor(n), 0, 9, 1);
-  }
-  return n;
-}
-
-function normalizeOptions(e) {
-  return void 0 === e ? {} : de(e);
-}
-
-function normalizeOptionsOrString(e, n) {
-  return "string" == typeof e ? {
-    [n]: e
-  } : de(e);
-}
-
-function U(e) {
-  if (void 0 !== e) {
-    if (z(e)) {
-      return Object.assign(Object.create(null), e);
-    }
-    throw new TypeError(hr);
-  }
-}
-
-function overrideOverflowOptions(e, n) {
-  return e && Object.assign(Object.create(null), e, {
-    overflow: Xi[n]
-  });
-}
-
-function refineUnitOption(e, n, t = 9, o = 0, r) {
-  let i = n[e];
-  if (void 0 === i) {
-    return r ? o : void 0;
-  }
-  if (i = toString(i), "auto" === i) {
-    return r ? o : null;
-  }
-  let a = $r[i];
-  if (void 0 === a && (a = Ei[i]), void 0 === a) {
-    throw new RangeError(invalidChoice(e, i, $r));
-  }
-  return clampEntity(e, a, o, t, 1, Et), a;
-}
-
-function refineChoiceOption(e, n, t, o = 0) {
-  const r = t[e];
-  if (void 0 === r) {
-    return o;
-  }
-  const i = toString(r), a = n[i];
-  if (void 0 === a) {
-    throw new RangeError(invalidChoice(e, i, n));
-  }
-  return a;
-}
-
-function checkLargestSmallestUnit(e, n) {
-  if (n > e) {
-    throw new RangeError(Ar);
-  }
-}
-
-function _(e) {
-  return {
-    branding: Oe,
-    epochNanoseconds: e
-  };
-}
-
-function Yn(e, n, t) {
-  return {
-    branding: Te,
-    calendar: t,
-    timeZone: n,
-    epochNanoseconds: e
-  };
-}
-
-function ee(e, n = e.calendar) {
-  return {
-    branding: We,
-    calendar: n,
-    ...Vn(Yi, e)
-  };
-}
-
-function v(e, n = e.calendar) {
-  return {
-    branding: J,
-    calendar: n,
-    ...Vn(Bi, e)
-  };
-}
-
-function createPlainYearMonthSlots(e, n = e.calendar) {
-  return {
-    branding: L,
-    calendar: n,
-    ...Vn(Bi, e)
-  };
-}
-
-function createPlainMonthDaySlots(e, n = e.calendar) {
-  return {
-    branding: q,
-    calendar: n,
-    ...Vn(Bi, e)
-  };
-}
-
-function Ge(e) {
-  return {
-    branding: xe,
-    ...Vn(ki, e)
-  };
-}
-
-function Vt(e) {
-  return {
-    branding: qt,
-    sign: computeDurationSign(e),
-    ...Vn(Ni, e)
-  };
-}
-
-function M(e) {
-  return epochNanoToSec(e.epochNanoseconds);
-}
-
-function y(e) {
-  return divModBigNano(e.epochNanoseconds, be)[0];
-}
-
-function N(e) {
-  return bigNanoToBigInt(e.epochNanoseconds, Vr);
-}
-
-function B(e) {
-  return bigNanoToBigInt(e.epochNanoseconds);
-}
-
-function extractEpochNano(e) {
-  return e.epochNanoseconds;
-}
-
-function I(e) {
-  return "string" == typeof e ? e : m(e.id);
-}
-
-function isIdLikeEqual(e, n) {
-  return e === n || I(e) === I(n);
-}
-
-function Ut(e, n, t, o, r) {
-  const i = getMaxDurationUnit(o), [a, s] = ((e, n) => {
-    const t = n((e = normalizeOptionsOrString(e, Vi))[Ki]);
-    let o = ca(e);
-    return o = requirePropDefined(Vi, o), [ o, t ];
-  })(r, e);
-  if (isUniformUnit(Math.max(a, i), s)) {
-    return totalDayTimeDuration(o, a);
-  }
-  if (!s) {
-    throw new RangeError(zr);
-  }
-  const [c, u, l] = createMarkerSystem(n, t, s), f = createMarkerToEpochNano(l), d = createMoveMarker(l), m = createDiffMarkers(l), p = d(u, c, o), h = m(u, c, p, a);
-  return isUniformUnit(a, s) ? totalDayTimeDuration(h, a) : ((e, n, t, o, r, i, a) => {
-    const s = computeDurationSign(e), [c, u] = clampRelativeDuration(o, bi(t, e), t, s, r, i, a), l = computeEpochNanoFrac(n, c, u);
-    return e[F[t]] + l * s;
-  })(h, f(p), a, u, c, f, d);
-}
-
-function totalDayTimeDuration(e, n) {
-  return oe(durationFieldsToBigNano(e), Xr[n], 1);
-}
-
-function clampRelativeDuration(e, n, t, o, r, i, a) {
-  const s = F[t], c = {
-    ...n,
-    [s]: n[s] + o
-  }, u = a(e, r, n), l = a(e, r, c);
-  return [ i(u), i(l) ];
-}
-
-function computeEpochNanoFrac(e, n, t) {
-  const o = oe(re(n, t));
-  if (!o) {
-    throw new RangeError(vr);
-  }
-  return oe(re(n, e)) / o;
-}
-
-function ce(e, n) {
-  const [t, o, r] = refineRoundingOptions(n, 5, 1);
-  return _(roundBigNano(e.epochNanoseconds, t, o, r, 1));
-}
-
-function Pn(e, n, t) {
-  let {epochNanoseconds: o, timeZone: r, calendar: i} = n;
-  const [a, s, c] = refineRoundingOptions(t);
-  if (0 === a && 1 === s) {
-    return n;
-  }
-  const u = e(r);
-  if (6 === a) {
-    o = ((e, n, t, o) => {
-      const r = fn(t, n), [i, a] = e(r), s = t.epochNanoseconds, c = we(n, i), u = we(n, a);
-      if (bigNanoOutside(s, c, u)) {
-        throw new RangeError(vr);
-      }
-      return roundWithMode(computeEpochNanoFrac(s, c, u), o) ? u : c;
-    })(computeDayInterval, u, n, c);
-  } else {
-    const e = u.getOffsetNanosecondsFor(o);
-    o = getMatchingInstantFor(u, roundDateTime(Ie(o, e), a, s, c), e, 2, 0, 1);
-  }
-  return Yn(o, r, i);
-}
-
-function dt(e, n) {
-  return ee(roundDateTime(e, ...refineRoundingOptions(n)), e.calendar);
-}
-
-function Ee(e, n) {
-  const [t, o, r] = refineRoundingOptions(n, 5);
-  var i;
-  return Ge((i = r, roundTimeToNano(e, computeNanoInc(t, o), i)[0]));
-}
-
-function dn(e, n) {
-  const t = e(n.timeZone), o = fn(n, t), [r, i] = computeDayInterval(o), a = oe(re(we(t, r), we(t, i)), Kr, 1);
-  if (a <= 0) {
-    throw new RangeError(vr);
-  }
-  return a;
-}
-
-function Cn(e, n) {
-  const {timeZone: t, calendar: o} = n, r = ((e, n, t) => we(n, e(fn(t, n))))(computeDayFloor, e(t), n);
-  return Yn(r, t, o);
-}
-
-function roundDateTime(e, n, t, o) {
-  return roundDateTimeToNano(e, computeNanoInc(n, t), o);
-}
-
-function roundDateTimeToNano(e, n, t) {
-  const [o, r] = roundTimeToNano(e, n, t);
-  return checkIsoDateTimeInBounds({
-    ...moveByDays(e, r),
-    ...o
-  });
-}
-
-function roundTimeToNano(e, n, t) {
-  return nanoToIsoTimeAndDay(roundByInc(isoTimeFieldsToNano(e), n, t));
-}
-
-function roundToMinute(e) {
-  return roundByInc(e, Jr, 7);
-}
-
-function computeNanoInc(e, n) {
-  return Xr[e] * n;
-}
-
-function computeDayInterval(e) {
-  const n = computeDayFloor(e);
-  return [ n, moveByDays(n, 1) ];
-}
-
-function computeDayFloor(e) {
-  return Ci(6, e);
-}
-
-function roundDayTimeDurationByInc(e, n, t) {
-  const o = Math.min(getMaxDurationUnit(e), 6);
-  return nanoToDurationDayTimeFields(roundBigNanoByInc(durationFieldsToBigNano(e, o), n, t), o);
-}
-
-function roundRelativeDuration(e, n, t, o, r, i, a, s, c, u) {
-  if (0 === o && 1 === r) {
-    return e;
-  }
-  const l = isUniformUnit(o, s) ? isZonedEpochSlots(s) && o < 6 && t >= 6 ? nudgeZonedTimeDuration : nudgeDayTimeDuration : nudgeRelativeDuration;
-  let [f, d, m] = l(e, n, t, o, r, i, a, s, c, u);
-  return m && 7 !== o && (f = ((e, n, t, o, r, i, a, s) => {
-    const c = computeDurationSign(e);
-    for (let u = o + 1; u <= t; u++) {
-      if (7 === u && 7 !== t) {
-        continue;
-      }
-      const o = bi(u, e);
-      o[F[u]] += c;
-      const l = oe(re(a(s(r, i, o)), n));
-      if (l && Math.sign(l) !== c) {
-        break;
-      }
-      e = o;
-    }
-    return e;
-  })(f, d, t, Math.max(6, o), a, s, c, u)), f;
-}
-
-function roundBigNano(e, n, t, o, r) {
-  if (6 === n) {
-    const n = (e => e[0] + e[1] / Qr)(e);
-    return [ roundByInc(n, t, o), 0 ];
-  }
-  return roundBigNanoByInc(e, computeNanoInc(n, t), o, r);
-}
-
-function roundBigNanoByInc(e, n, t, o) {
-  let [r, i] = e;
-  o && i < 0 && (i += Qr, r -= 1);
-  const [a, s] = divModFloor(roundByInc(i, n, t), Qr);
-  return createBigNano(r + a, s);
-}
-
-function roundByInc(e, n, t) {
-  return roundWithMode(e / n, t) * n;
-}
-
-function roundWithMode(e, n) {
-  return ga[n](e);
-}
-
-function nudgeDayTimeDuration(e, n, t, o, r, i) {
-  const a = computeDurationSign(e), s = durationFieldsToBigNano(e), c = roundBigNano(s, o, r, i), u = re(s, c), l = Math.sign(c[0] - s[0]) === a, f = nanoToDurationDayTimeFields(c, Math.min(t, 6));
-  return [ {
-    ...e,
-    ...f
-  }, addBigNanos(n, u), l ];
-}
-
-function nudgeZonedTimeDuration(e, n, t, o, r, i, a, s, c, u) {
-  const l = computeDurationSign(e), f = oe(durationFieldsToBigNano(e, 5)), d = computeNanoInc(o, r);
-  let m = roundByInc(f, d, i);
-  const [p, h] = clampRelativeDuration(a, {
-    ...e,
-    ...Fi
-  }, 6, l, s, c, u), g = m - oe(re(p, h));
-  let T = 0;
-  g && Math.sign(g) !== l ? n = moveBigNano(p, m) : (T += l, m = roundByInc(g, d, i), 
-  n = moveBigNano(h, m));
-  const D = nanoToDurationTimeFields(m);
-  return [ {
-    ...e,
-    ...D,
-    days: e.days + T
-  }, n, Boolean(T) ];
-}
-
-function nudgeRelativeDuration(e, n, t, o, r, i, a, s, c, u) {
-  const l = computeDurationSign(e), f = F[o], d = bi(o, e);
-  7 === o && (e = {
-    ...e,
-    weeks: e.weeks + Math.trunc(e.days / 7)
-  });
-  const m = divTrunc(e[f], r) * r;
-  d[f] = m;
-  const [p, h] = clampRelativeDuration(a, d, o, r * l, s, c, u), g = m + computeEpochNanoFrac(n, p, h) * l * r, T = roundByInc(g, r, i), D = Math.sign(T - g) === l;
-  return d[f] = T, [ d, D ? h : p, D ];
-}
-
-function me(e, n, t, o) {
-  const [r, i, a, s] = (e => {
-    const n = refineTimeDisplayTuple(e = normalizeOptions(e));
-    return [ e.timeZone, ...n ];
-  })(o), c = void 0 !== r;
-  return ((e, n, t, o, r, i) => {
-    t = roundBigNanoByInc(t, r, o, 1);
-    const a = n.getOffsetNanosecondsFor(t);
-    return formatIsoDateTimeFields(Ie(t, a), i) + (e ? Fe(roundToMinute(a)) : "Z");
-  })(c, n(c ? e(r) : Ta), t.epochNanoseconds, i, a, s);
-}
-
-function In(e, n, t) {
-  const [o, r, i, a, s, c] = (e => {
-    e = normalizeOptions(e);
-    const n = da(e), t = refineSubsecDigits(e), o = pa(e), r = ha(e, 4), i = aa(e, 4);
-    return [ n, ma(e), o, r, ...refineSmallestUnitAndSubsecDigits(i, t) ];
-  })(t);
-  return ((e, n, t, o, r, i, a, s, c, u) => {
-    o = roundBigNanoByInc(o, c, s, 1);
-    const l = e(t).getOffsetNanosecondsFor(o);
-    return formatIsoDateTimeFields(Ie(o, l), u) + Fe(roundToMinute(l), a) + ((e, n) => 1 !== n ? "[" + (2 === n ? "!" : "") + I(e) + "]" : "")(t, i) + formatCalendar(n, r);
-  })(e, n.calendar, n.timeZone, n.epochNanoseconds, o, r, i, a, s, c);
-}
-
-function Tt(e, n) {
-  const [t, o, r, i] = (e => (e = normalizeOptions(e), [ da(e), ...refineTimeDisplayTuple(e) ]))(n);
-  return a = e.calendar, s = t, c = i, formatIsoDateTimeFields(roundDateTimeToNano(e, r, o), c) + formatCalendar(a, s);
-  // removed by dead control flow
- // removed by dead control flow
- var a, s, c;  
-}
-
-function yt(e, n) {
-  return t = e.calendar, o = e, r = refineDateDisplayOptions(n), formatIsoDateFields(o) + formatCalendar(t, r);
-  // removed by dead control flow
- // removed by dead control flow
- var t, o, r;  
-}
-
-function et(e, n) {
-  return formatDateLikeIso(e.calendar, formatIsoYearMonthFields, e, refineDateDisplayOptions(n));
-}
-
-function W(e, n) {
-  return formatDateLikeIso(e.calendar, formatIsoMonthDayFields, e, refineDateDisplayOptions(n));
-}
-
-function qe(e, n) {
-  const [t, o, r] = refineTimeDisplayOptions(n);
-  return i = r, formatIsoTimeFields(roundTimeToNano(e, o, t)[0], i);
-  // removed by dead control flow
- // removed by dead control flow
- var i;  
-}
-
-function zt(e, n) {
-  const [t, o, r] = refineTimeDisplayOptions(n, 3);
-  return o > 1 && (e = {
-    ...e,
-    ...roundDayTimeDurationByInc(e, o, t)
-  }), ((e, n) => {
-    const {sign: t} = e, o = -1 === t ? negateDurationFields(e) : e, {hours: r, minutes: i} = o, [a, s] = divModBigNano(durationFieldsToBigNano(o, 3), _r, divModTrunc);
-    checkDurationTimeUnit(a);
-    const c = formatSubsecNano(s, n), u = n >= 0 || !t || c;
-    return (t < 0 ? "-" : "") + "P" + formatDurationFragments({
-      Y: formatDurationNumber(o.years),
-      M: formatDurationNumber(o.months),
-      W: formatDurationNumber(o.weeks),
-      D: formatDurationNumber(o.days)
-    }) + (r || i || a || u ? "T" + formatDurationFragments({
-      H: formatDurationNumber(r),
-      M: formatDurationNumber(i),
-      S: formatDurationNumber(a, u) + c
-    }) : "");
-  })(e, r);
-}
-
-function formatDateLikeIso(e, n, t, o) {
-  const r = I(e), i = o > 1 || 0 === o && r !== X;
-  return 1 === o ? r === X ? n(t) : formatIsoDateFields(t) : i ? formatIsoDateFields(t) + formatCalendarId(r, 2 === o) : n(t);
-}
-
-function formatDurationFragments(e) {
-  const n = [];
-  for (const t in e) {
-    const o = e[t];
-    o && n.push(o, t);
-  }
-  return n.join("");
-}
-
-function formatIsoDateTimeFields(e, n) {
-  return formatIsoDateFields(e) + "T" + formatIsoTimeFields(e, n);
-}
-
-function formatIsoDateFields(e) {
-  return formatIsoYearMonthFields(e) + "-" + xr(e.isoDay);
-}
-
-function formatIsoYearMonthFields(e) {
-  const {isoYear: n} = e;
-  return (n < 0 || n > 9999 ? getSignStr(n) + padNumber(6, Math.abs(n)) : padNumber(4, n)) + "-" + xr(e.isoMonth);
-}
-
-function formatIsoMonthDayFields(e) {
-  return xr(e.isoMonth) + "-" + xr(e.isoDay);
-}
-
-function formatIsoTimeFields(e, n) {
-  const t = [ xr(e.isoHour), xr(e.isoMinute) ];
-  return -1 !== n && t.push(xr(e.isoSecond) + ((e, n, t, o) => formatSubsecNano(e * be + n * Vr + t, o))(e.isoMillisecond, e.isoMicrosecond, e.isoNanosecond, n)), 
-  t.join(":");
-}
-
-function Fe(e, n = 0) {
-  if (1 === n) {
-    return "";
-  }
-  const [t, o] = divModFloor(Math.abs(e), Kr), [r, i] = divModFloor(o, Jr), [a, s] = divModFloor(i, _r);
-  return getSignStr(e) + xr(t) + ":" + xr(r) + (a || s ? ":" + xr(a) + formatSubsecNano(s) : "");
-}
-
-function formatCalendar(e, n) {
-  if (1 !== n) {
-    const t = I(e);
-    if (n > 1 || 0 === n && t !== X) {
-      return formatCalendarId(t, 2 === n);
-    }
-  }
-  return "";
-}
-
-function formatCalendarId(e, n) {
-  return "[" + (n ? "!" : "") + "u-ca=" + e + "]";
-}
-
-function formatSubsecNano(e, n) {
-  let t = padNumber(9, e);
-  return t = void 0 === n ? t.replace(Na, "") : t.slice(0, n), t ? "." + t : "";
-}
-
-function getSignStr(e) {
-  return e < 0 ? "-" : "+";
-}
-
-function formatDurationNumber(e, n) {
-  return e || n ? e.toLocaleString("fullwide", {
-    useGrouping: 0
-  }) : "";
-}
-
-function _zonedEpochSlotsToIso(e, n) {
-  const {epochNanoseconds: t} = e, o = (n.getOffsetNanosecondsFor ? n : n(e.timeZone)).getOffsetNanosecondsFor(t), r = Ie(t, o);
-  return {
-    calendar: e.calendar,
-    ...r,
-    offsetNanoseconds: o
-  };
-}
-
-function mn(e, n) {
-  const t = fn(n, e);
-  return {
-    calendar: n.calendar,
-    ...Vn(Yi, t),
-    offset: Fe(t.offsetNanoseconds),
-    timeZone: n.timeZone
-  };
-}
-
-function getMatchingInstantFor(e, n, t, o = 0, r = 0, i, a) {
-  if (void 0 !== t && 1 === o && (1 === o || a)) {
-    return isoToEpochNanoWithOffset(n, t);
-  }
-  const s = e.getPossibleInstantsFor(n);
-  if (void 0 !== t && 3 !== o) {
-    const e = ((e, n, t, o) => {
-      const r = isoToEpochNano(n);
-      o && (t = roundToMinute(t));
-      for (const n of e) {
-        let e = oe(re(n, r));
-        if (o && (e = roundToMinute(e)), e === t) {
-          return n;
-        }
-      }
-    })(s, n, t, i);
-    if (void 0 !== e) {
-      return e;
-    }
-    if (0 === o) {
-      throw new RangeError(kr);
-    }
-  }
-  return a ? isoToEpochNano(n) : we(e, n, r, s);
-}
-
-function we(e, n, t = 0, o = e.getPossibleInstantsFor(n)) {
-  if (1 === o.length) {
-    return o[0];
-  }
-  if (1 === t) {
-    throw new RangeError(Yr);
-  }
-  if (o.length) {
-    return o[3 === t ? 1 : 0];
-  }
-  const r = isoToEpochNano(n), i = ((e, n) => {
-    const t = e.getOffsetNanosecondsFor(moveBigNano(n, -Qr));
-    return ne(e.getOffsetNanosecondsFor(moveBigNano(n, Qr)) - t);
-  })(e, r), a = i * (2 === t ? -1 : 1);
-  return (o = e.getPossibleInstantsFor(Ie(r, a)))[2 === t ? 0 : o.length - 1];
-}
-
-function ae(e) {
-  if (Math.abs(e) >= Qr) {
-    throw new RangeError(wr);
-  }
-  return e;
-}
-
-function ne(e) {
-  if (e > Qr) {
-    throw new RangeError(Br);
-  }
-  return e;
-}
-
-function se(e, n, t) {
-  return _(checkEpochNanoInBounds(addBigNanos(n.epochNanoseconds, (e => {
-    if (durationHasDateParts(e)) {
-      throw new RangeError(qr);
-    }
-    return durationFieldsToBigNano(e, 5);
-  })(e ? negateDurationFields(t) : t))));
-}
-
-function hn(e, n, t, o, r, i = Object.create(null)) {
-  const a = n(o.timeZone), s = e(o.calendar);
-  return {
-    ...o,
-    ...moveZonedEpochs(a, s, o, t ? negateDurationFields(r) : r, i)
-  };
-}
-
-function ct(e, n, t, o, r = Object.create(null)) {
-  const {calendar: i} = t;
-  return ee(moveDateTime(e(i), t, n ? negateDurationFields(o) : o, r), i);
-}
-
-function bt(e, n, t, o, r) {
-  const {calendar: i} = t;
-  return v(moveDate(e(i), t, n ? negateDurationFields(o) : o, r), i);
-}
-
-function Qe(e, n, t, o, r = Object.create(null)) {
-  const i = t.calendar, a = e(i);
-  let s = moveToDayOfMonthUnsafe(a, t);
-  n && (o = xt(o)), o.sign < 0 && (s = a.dateAdd(s, {
-    ...Si,
-    months: 1
-  }), s = moveByDays(s, -1));
-  const c = a.dateAdd(s, o, r);
-  return createPlainYearMonthSlots(moveToDayOfMonthUnsafe(a, c), i);
-}
-
-function Ye(e, n, t) {
-  return Ge(moveTime(n, e ? negateDurationFields(t) : t)[0]);
-}
-
-function moveZonedEpochs(e, n, t, o, r) {
-  const i = durationFieldsToBigNano(o, 5);
-  let a = t.epochNanoseconds;
-  if (durationHasDateParts(o)) {
-    const s = fn(t, e);
-    a = addBigNanos(we(e, {
-      ...moveDate(n, s, {
-        ...o,
-        ...Fi
-      }, r),
-      ...Vn(j, s)
-    }), i);
-  } else {
-    a = addBigNanos(a, i), H(r);
-  }
-  return {
-    epochNanoseconds: checkEpochNanoInBounds(a)
-  };
-}
-
-function moveDateTime(e, n, t, o) {
-  const [r, i] = moveTime(n, t);
-  return checkIsoDateTimeInBounds({
-    ...moveDate(e, n, {
-      ...t,
-      ...Fi,
-      days: t.days + i
-    }, o),
-    ...r
-  });
-}
-
-function moveDate(e, n, t, o) {
-  if (t.years || t.months || t.weeks) {
-    return e.dateAdd(n, t, o);
-  }
-  H(o);
-  const r = t.days + durationFieldsToBigNano(t, 5)[0];
-  return r ? checkIsoDateInBounds(moveByDays(n, r)) : n;
-}
-
-function moveToDayOfMonthUnsafe(e, n, t = 1) {
-  return moveByDays(n, t - e.day(n));
-}
-
-function moveTime(e, n) {
-  const [t, o] = durationFieldsToBigNano(n, 5), [r, i] = nanoToIsoTimeAndDay(isoTimeFieldsToNano(e) + o);
-  return [ r, t + i ];
-}
-
-function moveByDays(e, n) {
-  return n ? {
-    ...e,
-    ...epochMilliToIso(isoToEpochMilli(e) + n * Gr)
-  } : e;
-}
-
-function createMarkerSystem(e, n, t) {
-  const o = e(t.calendar);
-  return isZonedEpochSlots(t) ? [ t, o, n(t.timeZone) ] : [ {
-    ...t,
-    ...Dt
-  }, o ];
-}
-
-function createMarkerToEpochNano(e) {
-  return e ? extractEpochNano : isoToEpochNano;
-}
-
-function createMoveMarker(e) {
-  return e ? E(moveZonedEpochs, e) : moveDateTime;
-}
-
-function createDiffMarkers(e) {
-  return e ? E(diffZonedEpochsExact, e) : diffDateTimesExact;
-}
-
-function isZonedEpochSlots(e) {
-  return e && e.epochNanoseconds;
-}
-
-function isUniformUnit(e, n) {
-  return e <= 6 - (isZonedEpochSlots(n) ? 1 : 0);
-}
-
-function Wt(e, n, t, o, r, i, a) {
-  const s = e(normalizeOptions(a).relativeTo), c = Math.max(getMaxDurationUnit(r), getMaxDurationUnit(i));
-  if (isUniformUnit(c, s)) {
-    return Vt(checkDurationUnits(((e, n, t, o) => {
-      const r = addBigNanos(durationFieldsToBigNano(e), durationFieldsToBigNano(n), o ? -1 : 1);
-      if (!Number.isFinite(r[0])) {
-        throw new RangeError(Cr);
-      }
-      return {
-        ...Si,
-        ...nanoToDurationDayTimeFields(r, t)
-      };
-    })(r, i, c, o)));
-  }
-  if (!s) {
-    throw new RangeError(zr);
-  }
-  o && (i = negateDurationFields(i));
-  const [u, l, f] = createMarkerSystem(n, t, s), d = createMoveMarker(f), m = createDiffMarkers(f), p = d(l, u, r);
-  return Vt(m(l, u, d(l, p, i), c));
-}
-
-function Gt(e, n, t, o, r) {
-  const i = getMaxDurationUnit(o), [a, s, c, u, l] = ((e, n, t) => {
-    e = normalizeOptionsOrString(e, Hi);
-    let o = sa(e);
-    const r = t(e[Ki]);
-    let i = parseRoundingIncInteger(e);
-    const a = ha(e, 7);
-    let s = aa(e);
-    if (void 0 === o && void 0 === s) {
-      throw new RangeError(Ur);
-    }
-    return null == s && (s = 0), null == o && (o = Math.max(s, n)), checkLargestSmallestUnit(o, s), 
-    i = refineRoundingInc(i, s, 1), [ o, s, i, a, r ];
-  })(r, i, e), f = Math.max(i, a);
-  if (!isZonedEpochSlots(l) && f <= 6) {
-    return Vt(checkDurationUnits(((e, n, t, o, r) => {
-      const i = roundBigNano(durationFieldsToBigNano(e), t, o, r);
-      return {
-        ...Si,
-        ...nanoToDurationDayTimeFields(i, n)
-      };
-    })(o, a, s, c, u)));
-  }
-  if (!l) {
-    throw new RangeError(zr);
-  }
-  const [d, m, p] = createMarkerSystem(n, t, l), h = createMarkerToEpochNano(p), g = createMoveMarker(p), T = createDiffMarkers(p), D = g(m, d, o);
-  let I = T(m, d, D, a);
-  const M = o.sign, N = computeDurationSign(I);
-  if (M && N && M !== N) {
-    throw new RangeError(vr);
-  }
-  return N && (I = roundRelativeDuration(I, h(D), a, s, c, u, m, d, h, g)), Vt(I);
-}
-
-function Rt(e) {
-  return -1 === e.sign ? xt(e) : e;
-}
-
-function xt(e) {
-  return Vt(negateDurationFields(e));
-}
-
-function negateDurationFields(e) {
-  const n = {};
-  for (const t of F) {
-    n[t] = -1 * e[t] || 0;
-  }
-  return n;
-}
-
-function Jt(e) {
-  return !e.sign;
-}
-
-function computeDurationSign(e, n = F) {
-  let t = 0;
-  for (const o of n) {
-    const n = Math.sign(e[o]);
-    if (n) {
-      if (t && t !== n) {
-        throw new RangeError(Rr);
-      }
-      t = n;
-    }
-  }
-  return t;
-}
-
-function checkDurationUnits(e) {
-  for (const n of vi) {
-    clampEntity(n, e[n], -ya, ya, 1);
-  }
-  return checkDurationTimeUnit(oe(durationFieldsToBigNano(e), _r)), e;
-}
-
-function checkDurationTimeUnit(e) {
-  if (!Number.isSafeInteger(e)) {
-    throw new RangeError(Zr);
-  }
-}
-
-function durationFieldsToBigNano(e, n = 6) {
-  return givenFieldsToBigNano(e, n, F);
-}
-
-function nanoToDurationDayTimeFields(e, n = 6) {
-  const [t, o] = e, r = nanoToGivenFields(o, n, F);
-  if (r[F[n]] += t * (Qr / Xr[n]), !Number.isFinite(r[F[n]])) {
-    throw new RangeError(Cr);
-  }
-  return r;
-}
-
-function nanoToDurationTimeFields(e, n = 5) {
-  return nanoToGivenFields(e, n, F);
-}
-
-function durationHasDateParts(e) {
-  return Boolean(computeDurationSign(e, Pi));
-}
-
-function getMaxDurationUnit(e) {
-  let n = 9;
-  for (;n > 0 && !e[F[n]]; n--) {}
-  return n;
-}
-
-function createSplitTuple(e, n) {
-  return [ e, n ];
-}
-
-function computePeriod(e) {
-  const n = Math.floor(e / Da) * Da;
-  return [ n, n + Da ];
-}
-
-function pe(e) {
-  const n = parseDateTimeLike(e = toStringViaPrimitive(e));
-  if (!n) {
-    throw new RangeError(failedParse(e));
-  }
-  let t;
-  if (n.m) {
-    t = 0;
-  } else {
-    if (!n.offset) {
-      throw new RangeError(failedParse(e));
-    }
-    t = parseOffsetNano(n.offset);
-  }
-  return n.timeZone && parseOffsetNanoMaybe(n.timeZone, 1), _(isoToEpochNanoWithOffset(checkIsoDateTimeFields(n), t));
-}
-
-function Xt(e) {
-  const n = parseDateTimeLike(m(e));
-  if (!n) {
-    throw new RangeError(failedParse(e));
-  }
-  if (n.timeZone) {
-    return finalizeZonedDateTime(n, n.offset ? parseOffsetNano(n.offset) : void 0);
-  }
-  if (n.m) {
-    throw new RangeError(failedParse(e));
-  }
-  return finalizeDate(n);
-}
-
-function Mn(e, n) {
-  const t = parseDateTimeLike(m(e));
-  if (!t || !t.timeZone) {
-    throw new RangeError(failedParse(e));
-  }
-  const {offset: o} = t, r = o ? parseOffsetNano(o) : void 0, [, i, a] = wn(n);
-  return finalizeZonedDateTime(t, r, i, a);
-}
-
-function parseOffsetNano(e) {
-  const n = parseOffsetNanoMaybe(e);
-  if (void 0 === n) {
-    throw new RangeError(failedParse(e));
-  }
-  return n;
-}
-
-function Ct(e) {
-  const n = parseDateTimeLike(m(e));
-  if (!n || n.m) {
-    throw new RangeError(failedParse(e));
-  }
-  return ee(finalizeDateTime(n));
-}
-
-function At(e) {
-  const n = parseDateTimeLike(m(e));
-  if (!n || n.m) {
-    throw new RangeError(failedParse(e));
-  }
-  return v(n.p ? finalizeDateTime(n) : finalizeDate(n));
-}
-
-function ot(e, n) {
-  const t = parseYearMonthOnly(m(n));
-  if (t) {
-    return requireIsoCalendar(t), createPlainYearMonthSlots(checkIsoYearMonthInBounds(checkIsoDateFields(t)));
-  }
-  const o = At(n);
-  return createPlainYearMonthSlots(moveToDayOfMonthUnsafe(e(o.calendar), o));
-}
-
-function requireIsoCalendar(e) {
-  if (e.calendar !== X) {
-    throw new RangeError(invalidSubstring(e.calendar));
-  }
-}
-
-function Q(e, n) {
-  const t = parseMonthDayOnly(m(n));
-  if (t) {
-    return requireIsoCalendar(t), createPlainMonthDaySlots(checkIsoDateFields(t));
-  }
-  const o = At(n), {calendar: r} = o, i = e(r), [a, s, c] = i.h(o), [u, l] = i.I(a, s), [f, d] = i.N(u, l, c);
-  return createPlainMonthDaySlots(checkIsoDateInBounds(i.P(f, d, c)), r);
-}
-
-function ze(e) {
-  let n, t = (e => {
-    const n = Ca.exec(e);
-    return n ? (organizeAnnotationParts(n[10]), organizeTimeParts(n)) : void 0;
-  })(m(e));
-  if (!t) {
-    if (t = parseDateTimeLike(e), !t) {
-      throw new RangeError(failedParse(e));
-    }
-    if (!t.p) {
-      throw new RangeError(failedParse(e));
-    }
-    if (t.m) {
-      throw new RangeError(invalidSubstring("Z"));
-    }
-    requireIsoCalendar(t);
-  }
-  if ((n = parseYearMonthOnly(e)) && isIsoDateFieldsValid(n)) {
-    throw new RangeError(failedParse(e));
-  }
-  if ((n = parseMonthDayOnly(e)) && isIsoDateFieldsValid(n)) {
-    throw new RangeError(failedParse(e));
-  }
-  return Ge(constrainIsoTimeFields(t, 1));
-}
-
-function Kt(e) {
-  const n = (e => {
-    const n = za.exec(e);
-    return n ? (e => {
-      function parseUnit(e, r, i) {
-        let a = 0, s = 0;
-        if (i && ([a, o] = divModFloor(o, Xr[i])), void 0 !== e) {
-          if (t) {
-            throw new RangeError(invalidSubstring(e));
-          }
-          s = (e => {
-            const n = parseInt(e);
-            if (!Number.isFinite(n)) {
-              throw new RangeError(invalidSubstring(e));
-            }
-            return n;
-          })(e), n = 1, r && (o = parseSubsecNano(r) * (Xr[i] / _r), t = 1);
-        }
-        return a + s;
-      }
-      let n = 0, t = 0, o = 0, r = {
-        ...zipProps(F, [ parseUnit(e[2]), parseUnit(e[3]), parseUnit(e[4]), parseUnit(e[5]), parseUnit(e[6], e[7], 5), parseUnit(e[8], e[9], 4), parseUnit(e[10], e[11], 3) ]),
-        ...nanoToGivenFields(o, 2, F)
-      };
-      if (!n) {
-        throw new RangeError(noValidFields(F));
-      }
-      return parseSign(e[1]) < 0 && (r = negateDurationFields(r)), r;
-    })(n) : void 0;
-  })(m(e));
-  if (!n) {
-    throw new RangeError(failedParse(e));
-  }
-  return Vt(checkDurationUnits(n));
-}
-
-function sn(e) {
-  const n = parseDateTimeLike(e) || parseYearMonthOnly(e) || parseMonthDayOnly(e);
-  return n ? n.calendar : e;
-}
-
-function Ne(e) {
-  const n = parseDateTimeLike(e);
-  return n && (n.timeZone || n.m && Ta || n.offset) || e;
-}
-
-function finalizeZonedDateTime(e, n, t = 0, o = 0) {
-  const r = ye(e.timeZone), i = ie(r);
-  return Yn(getMatchingInstantFor(i, checkIsoDateTimeFields(e), n, t, o, !i.v, e.m), r, an(e.calendar));
-}
-
-function finalizeDateTime(e) {
-  return resolveSlotsCalendar(checkIsoDateTimeInBounds(checkIsoDateTimeFields(e)));
-}
-
-function finalizeDate(e) {
-  return resolveSlotsCalendar(checkIsoDateInBounds(checkIsoDateFields(e)));
-}
-
-function resolveSlotsCalendar(e) {
-  return {
-    ...e,
-    calendar: an(e.calendar)
-  };
-}
-
-function parseDateTimeLike(e) {
-  const n = Ya.exec(e);
-  return n ? (e => {
-    const n = e[10], t = "Z" === (n || "").toUpperCase();
-    return {
-      isoYear: organizeIsoYearParts(e),
-      isoMonth: parseInt(e[4]),
-      isoDay: parseInt(e[5]),
-      ...organizeTimeParts(e.slice(5)),
-      ...organizeAnnotationParts(e[16]),
-      p: Boolean(e[6]),
-      m: t,
-      offset: t ? void 0 : n
-    };
-  })(n) : void 0;
-}
-
-function parseYearMonthOnly(e) {
-  const n = Ba.exec(e);
-  return n ? (e => ({
-    isoYear: organizeIsoYearParts(e),
-    isoMonth: parseInt(e[4]),
-    isoDay: 1,
-    ...organizeAnnotationParts(e[5])
-  }))(n) : void 0;
-}
-
-function parseMonthDayOnly(e) {
-  const n = ka.exec(e);
-  return n ? (e => ({
-    isoYear: ji,
-    isoMonth: parseInt(e[1]),
-    isoDay: parseInt(e[2]),
-    ...organizeAnnotationParts(e[3])
-  }))(n) : void 0;
-}
-
-function parseOffsetNanoMaybe(e, n) {
-  const t = Za.exec(e);
-  return t ? ((e, n) => {
-    const t = e[4] || e[5];
-    if (n && t) {
-      throw new RangeError(invalidSubstring(t));
-    }
-    return ae((parseInt0(e[2]) * Kr + parseInt0(e[3]) * Jr + parseInt0(e[4]) * _r + parseSubsecNano(e[5] || "")) * parseSign(e[1]));
-  })(t, n) : void 0;
-}
-
-function organizeIsoYearParts(e) {
-  const n = parseSign(e[1]), t = parseInt(e[2] || e[3]);
-  if (n < 0 && !t) {
-    throw new RangeError(invalidSubstring(-0));
-  }
-  return n * t;
-}
-
-function organizeTimeParts(e) {
-  const n = parseInt0(e[3]);
-  return {
-    ...nanoToIsoTimeAndDay(parseSubsecNano(e[4] || ""))[0],
-    isoHour: parseInt0(e[1]),
-    isoMinute: parseInt0(e[2]),
-    isoSecond: 60 === n ? 59 : n
-  };
-}
-
-function organizeAnnotationParts(e) {
-  let n, t;
-  const o = [];
-  if (e.replace(Ra, ((e, r, i) => {
-    const a = Boolean(r), [s, c] = i.split("=").reverse();
-    if (c) {
-      if ("u-ca" === c) {
-        o.push(s), n || (n = a);
-      } else if (a || /[A-Z]/.test(c)) {
-        throw new RangeError(invalidSubstring(e));
-      }
-    } else {
-      if (t) {
-        throw new RangeError(invalidSubstring(e));
-      }
-      t = s;
-    }
-    return "";
-  })), o.length > 1 && n) {
-    throw new RangeError(invalidSubstring(e));
-  }
-  return {
-    timeZone: t,
-    calendar: o[0] || X
-  };
-}
-
-function parseSubsecNano(e) {
-  return parseInt(e.padEnd(9, "0"));
-}
-
-function createRegExp(e) {
-  return new RegExp(`^${e}$`, "i");
-}
-
-function parseSign(e) {
-  return e && "+" !== e ? -1 : 1;
-}
-
-function parseInt0(e) {
-  return void 0 === e ? 0 : parseInt(e);
-}
-
-function Me(e) {
-  return ye(m(e));
-}
-
-function ye(e) {
-  const n = getTimeZoneEssence(e);
-  return "number" == typeof n ? Fe(n) : n ? (e => {
-    if (Ua.test(e)) {
-      throw new RangeError(br);
-    }
-    return e.toLowerCase().split("/").map(((e, n) => (e.length <= 3 || /\d/.test(e)) && !/etc|yap/.test(e) ? e.toUpperCase() : e.replace(/baja|dumont|[a-z]+/g, ((e, t) => e.length <= 2 && !n || "in" === e || "chat" === e ? e.toUpperCase() : e.length > 2 || !t ? capitalize(e).replace(/island|noronha|murdo|rivadavia|urville/, capitalize) : e)))).join("/");
-  })(e) : Ta;
-}
-
-function getTimeZoneAtomic(e) {
-  const n = getTimeZoneEssence(e);
-  return "number" == typeof n ? n : n ? n.resolvedOptions().timeZone : Ta;
-}
-
-function getTimeZoneEssence(e) {
-  const n = parseOffsetNanoMaybe(e = e.toUpperCase(), 1);
-  return void 0 !== n ? n : e !== Ta ? qa(e) : void 0;
-}
-
-function Ze(e, n) {
-  return te(e.epochNanoseconds, n.epochNanoseconds);
-}
-
-function yn(e, n) {
-  return te(e.epochNanoseconds, n.epochNanoseconds);
-}
-
-function $t(e, n, t, o, r, i) {
-  const a = e(normalizeOptions(i).relativeTo), s = Math.max(getMaxDurationUnit(o), getMaxDurationUnit(r));
-  if (allPropsEqual(F, o, r)) {
-    return 0;
-  }
-  if (isUniformUnit(s, a)) {
-    return te(durationFieldsToBigNano(o), durationFieldsToBigNano(r));
-  }
-  if (!a) {
-    throw new RangeError(zr);
-  }
-  const [c, u, l] = createMarkerSystem(n, t, a), f = createMarkerToEpochNano(l), d = createMoveMarker(l);
-  return te(f(d(u, c, o)), f(d(u, c, r)));
-}
-
-function gt(e, n) {
-  return rt(e, n) || He(e, n);
-}
-
-function rt(e, n) {
-  return compareNumbers(isoToEpochMilli(e), isoToEpochMilli(n));
-}
-
-function He(e, n) {
-  return compareNumbers(isoTimeFieldsToNano(e), isoTimeFieldsToNano(n));
-}
-
-function ue(e, n) {
-  return !Ze(e, n);
-}
-
-function gn(e, n) {
-  return !yn(e, n) && !!je(e.timeZone, n.timeZone) && isIdLikeEqual(e.calendar, n.calendar);
-}
-
-function ft(e, n) {
-  return !gt(e, n) && isIdLikeEqual(e.calendar, n.calendar);
-}
-
-function It(e, n) {
-  return !rt(e, n) && isIdLikeEqual(e.calendar, n.calendar);
-}
-
-function $e(e, n) {
-  return !rt(e, n) && isIdLikeEqual(e.calendar, n.calendar);
-}
-
-function x(e, n) {
-  return !rt(e, n) && isIdLikeEqual(e.calendar, n.calendar);
-}
-
-function Ve(e, n) {
-  return !He(e, n);
-}
-
-function je(e, n) {
-  if (e === n) {
-    return 1;
-  }
-  const t = I(e), o = I(n);
-  if (t === o) {
-    return 1;
-  }
-  try {
-    return getTimeZoneAtomic(t) === getTimeZoneAtomic(o);
-  } catch (e) {}
-}
-
-function le(e, n, t, o) {
-  const r = refineDiffOptions(e, U(o), 3, 5), i = diffEpochNanos(n.epochNanoseconds, t.epochNanoseconds, ...r);
-  return Vt(e ? negateDurationFields(i) : i);
-}
-
-function Dn(e, n, t, o, r, i) {
-  const a = getCommonCalendarSlot(o.calendar, r.calendar), s = U(i), [c, u, l, f] = refineDiffOptions(t, s, 5), d = o.epochNanoseconds, m = r.epochNanoseconds, p = te(m, d);
-  let h;
-  if (p) {
-    if (c < 6) {
-      h = diffEpochNanos(d, m, c, u, l, f);
-    } else {
-      const t = n(((e, n) => {
-        if (!je(e, n)) {
-          throw new RangeError(Fr);
-        }
-        return e;
-      })(o.timeZone, r.timeZone)), i = e(a);
-      h = diffZonedEpochsBig(i, t, o, r, p, c, s), h = roundRelativeDuration(h, m, c, u, l, f, i, o, extractEpochNano, E(moveZonedEpochs, t));
-    }
-  } else {
-    h = Si;
-  }
-  return Vt(t ? negateDurationFields(h) : h);
-}
-
-function ut(e, n, t, o, r) {
-  const i = getCommonCalendarSlot(t.calendar, o.calendar), a = U(r), [s, c, u, l] = refineDiffOptions(n, a, 6), f = isoToEpochNano(t), d = isoToEpochNano(o), m = te(d, f);
-  let p;
-  if (m) {
-    if (s <= 6) {
-      p = diffEpochNanos(f, d, s, c, u, l);
-    } else {
-      const n = e(i);
-      p = diffDateTimesBig(n, t, o, m, s, a), p = roundRelativeDuration(p, d, s, c, u, l, n, t, isoToEpochNano, moveDateTime);
-    }
-  } else {
-    p = Si;
-  }
-  return Vt(n ? negateDurationFields(p) : p);
-}
-
-function Ft(e, n, t, o, r) {
-  const i = getCommonCalendarSlot(t.calendar, o.calendar), a = U(r);
-  return diffDateLike(n, (() => e(i)), t, o, ...refineDiffOptions(n, a, 6, 9, 6), a);
-}
-
-function Xe(e, n, t, o, r) {
-  const i = getCommonCalendarSlot(t.calendar, o.calendar), a = U(r), s = refineDiffOptions(n, a, 9, 9, 8), c = e(i);
-  return diffDateLike(n, (() => c), moveToDayOfMonthUnsafe(c, t), moveToDayOfMonthUnsafe(c, o), ...s, a);
-}
-
-function diffDateLike(e, n, t, o, r, i, a, s, c) {
-  const u = isoToEpochNano(t), l = isoToEpochNano(o);
-  let f;
-  if (te(l, u)) {
-    if (6 === r) {
-      f = diffEpochNanos(u, l, r, i, a, s);
-    } else {
-      const e = n();
-      f = e.dateUntil(t, o, r, c), 6 === i && 1 === a || (f = roundRelativeDuration(f, l, r, i, a, s, e, t, isoToEpochNano, moveDate));
-    }
-  } else {
-    f = Si;
-  }
-  return Vt(e ? negateDurationFields(f) : f);
-}
-
-function Ae(e, n, t, o) {
-  const r = U(o), [i, a, s, c] = refineDiffOptions(e, r, 5, 5), u = roundByInc(diffTimes(n, t), computeNanoInc(a, s), c), l = {
-    ...Si,
-    ...nanoToDurationTimeFields(u, i)
-  };
-  return Vt(e ? negateDurationFields(l) : l);
-}
-
-function diffZonedEpochsExact(e, n, t, o, r, i) {
-  const a = te(o.epochNanoseconds, t.epochNanoseconds);
-  return a ? r < 6 ? diffEpochNanosExact(t.epochNanoseconds, o.epochNanoseconds, r) : diffZonedEpochsBig(n, e, t, o, a, r, i) : Si;
-}
-
-function diffDateTimesExact(e, n, t, o, r) {
-  const i = isoToEpochNano(n), a = isoToEpochNano(t), s = te(a, i);
-  return s ? o <= 6 ? diffEpochNanosExact(i, a, o) : diffDateTimesBig(e, n, t, s, o, r) : Si;
-}
-
-function diffZonedEpochsBig(e, n, t, o, r, i, a) {
-  const [s, c, u] = ((e, n, t, o) => {
-    function updateMid() {
-      return l = {
-        ...moveByDays(a, c++ * -o),
-        ...i
-      }, f = we(e, l), te(s, f) === -o;
-    }
-    const r = fn(n, e), i = Vn(j, r), a = fn(t, e), s = t.epochNanoseconds;
-    let c = 0;
-    const u = diffTimes(r, a);
-    let l, f;
-    if (Math.sign(u) === -o && c++, updateMid() && (-1 === o || updateMid())) {
-      throw new RangeError(vr);
-    }
-    const d = oe(re(f, s));
-    return [ r, l, d ];
-  })(n, t, o, r);
-  var l, f;
-  return {
-    ...6 === i ? (l = s, f = c, {
-      ...Si,
-      days: diffDays(l, f)
-    }) : e.dateUntil(s, c, i, a),
-    ...nanoToDurationTimeFields(u)
-  };
-}
-
-function diffDateTimesBig(e, n, t, o, r, i) {
-  const [a, s, c] = ((e, n, t) => {
-    let o = n, r = diffTimes(e, n);
-    return Math.sign(r) === -t && (o = moveByDays(n, -t), r += Qr * t), [ e, o, r ];
-  })(n, t, o);
-  return {
-    ...e.dateUntil(a, s, r, i),
-    ...nanoToDurationTimeFields(c)
-  };
-}
-
-function diffEpochNanos(e, n, t, o, r, i) {
-  return {
-    ...Si,
-    ...nanoToDurationDayTimeFields(roundBigNano(re(e, n), o, r, i), t)
-  };
-}
-
-function diffEpochNanosExact(e, n, t) {
-  return {
-    ...Si,
-    ...nanoToDurationDayTimeFields(re(e, n), t)
-  };
-}
-
-function diffDays(e, n) {
-  return diffEpochMilliByDay(isoToEpochMilli(e), isoToEpochMilli(n));
-}
-
-function diffEpochMilliByDay(e, n) {
-  return Math.trunc((n - e) / Gr);
-}
-
-function diffTimes(e, n) {
-  return isoTimeFieldsToNano(n) - isoTimeFieldsToNano(e);
-}
-
-function getCommonCalendarSlot(e, n) {
-  if (!isIdLikeEqual(e, n)) {
-    throw new RangeError(Er);
-  }
-  return e;
-}
-
-function createIntlCalendar(e) {
-  function epochMilliToIntlFields(e) {
-    return ((e, n) => ({
-      ...parseIntlYear(e, n),
-      F: e.month,
-      day: parseInt(e.day)
-    }))(hashIntlFormatParts(n, e), t);
-  }
-  const n = La(e), t = computeCalendarIdBase(e);
-  return {
-    id: e,
-    O: createIntlFieldCache(epochMilliToIntlFields),
-    B: createIntlYearDataCache(epochMilliToIntlFields)
-  };
-}
-
-function createIntlFieldCache(e) {
-  return Jn((n => {
-    const t = isoToEpochMilli(n);
-    return e(t);
-  }), WeakMap);
-}
-
-function createIntlYearDataCache(e) {
-  const n = e(0).year - Wi;
-  return Jn((t => {
-    let o, r = isoArgsToEpochMilli(t - n);
-    const i = [], a = [];
-    do {
-      r += 400 * Gr;
-    } while ((o = e(r)).year <= t);
-    do {
-      r += (1 - o.day) * Gr, o.year === t && (i.push(r), a.push(o.F)), r -= Gr;
-    } while ((o = e(r)).year >= t);
-    return {
-      k: i.reverse(),
-      C: Wr(a.reverse())
-    };
-  }));
-}
-
-function parseIntlYear(e, n) {
-  let t, o, r = parseIntlPartsYear(e);
-  if (e.era) {
-    const i = Di[n];
-    void 0 !== i && (t = "islamic" === n ? "ah" : e.era.normalize("NFD").toLowerCase().replace(/[^a-z0-9]/g, ""), 
-    "bc" === t || "b" === t ? t = "bce" : "ad" !== t && "a" !== t || (t = "ce"), o = r, 
-    r = eraYearToYear(o, i[t] || 0));
-  }
-  return {
-    era: t,
-    eraYear: o,
-    year: r
-  };
-}
-
-function parseIntlPartsYear(e) {
-  return parseInt(e.relatedYear || e.year);
-}
-
-function computeIntlDateParts(e) {
-  const {year: n, F: t, day: o} = this.O(e), {C: r} = this.B(n);
-  return [ n, r[t] + 1, o ];
-}
-
-function computeIntlEpochMilli(e, n = 1, t = 1) {
-  return this.B(e).k[n - 1] + (t - 1) * Gr;
-}
-
-function computeIntlLeapMonth(e) {
-  const n = queryMonthStrings(this, e), t = queryMonthStrings(this, e - 1), o = n.length;
-  if (o > t.length) {
-    const e = getCalendarLeapMonthMeta(this);
-    if (e < 0) {
-      return -e;
-    }
-    for (let e = 0; e < o; e++) {
-      if (n[e] !== t[e]) {
-        return e + 1;
-      }
-    }
-  }
-}
-
-function computeIntlDaysInYear(e) {
-  return diffEpochMilliByDay(computeIntlEpochMilli.call(this, e), computeIntlEpochMilli.call(this, e + 1));
-}
-
-function computeIntlDaysInMonth(e, n) {
-  const {k: t} = this.B(e);
-  let o = n + 1, r = t;
-  return o > t.length && (o = 1, r = this.B(e + 1).k), diffEpochMilliByDay(t[n - 1], r[o - 1]);
-}
-
-function computeIntlMonthsInYear(e) {
-  return this.B(e).k.length;
-}
-
-function queryMonthStrings(e, n) {
-  return Object.keys(e.B(n).C);
-}
-
-function rn(e) {
-  return an(m(e));
-}
-
-function an(e) {
-  if ((e = e.toLowerCase()) !== X && e !== gi && computeCalendarIdBase(e) !== computeCalendarIdBase(La(e).resolvedOptions().calendar)) {
-    throw new RangeError(invalidCalendar(e));
-  }
-  return e;
-}
-
-function computeCalendarIdBase(e) {
-  return "islamicc" === e && (e = "islamic"), e.split("-")[0];
-}
-
-function computeNativeWeekOfYear(e) {
-  return this.R(e)[0];
-}
-
-function computeNativeYearOfWeek(e) {
-  return this.R(e)[1];
-}
-
-function computeNativeDayOfYear(e) {
-  const [n] = this.h(e);
-  return diffEpochMilliByDay(this.q(n), isoToEpochMilli(e)) + 1;
-}
-
-function parseMonthCode(e) {
-  const n = Wa.exec(e);
-  if (!n) {
-    throw new RangeError(invalidMonthCode(e));
-  }
-  return [ parseInt(n[1]), Boolean(n[2]) ];
-}
-
-function monthCodeNumberToMonth(e, n, t) {
-  return e + (n || t && e >= t ? 1 : 0);
-}
-
-function monthToMonthCodeNumber(e, n) {
-  return e - (n && e >= n ? 1 : 0);
-}
-
-function eraYearToYear(e, n) {
-  return (n + e) * (Math.sign(n) || 1) || 0;
-}
-
-function getCalendarEraOrigins(e) {
-  return Di[getCalendarIdBase(e)];
-}
-
-function getCalendarLeapMonthMeta(e) {
-  return Ii[getCalendarIdBase(e)];
-}
-
-function getCalendarIdBase(e) {
-  return computeCalendarIdBase(e.id || X);
-}
-
-function Qt(e, n, t, o) {
-  const r = refineCalendarFields(t, o, en, [], ri);
-  if (void 0 !== r.timeZone) {
-    const o = t.dateFromFields(r), i = refineTimeBag(r), a = e(r.timeZone);
-    return {
-      epochNanoseconds: getMatchingInstantFor(n(a), {
-        ...o,
-        ...i
-      }, void 0 !== r.offset ? parseOffsetNano(r.offset) : void 0),
-      timeZone: a
-    };
-  }
-  return {
-    ...t.dateFromFields(r),
-    ...Dt
-  };
-}
-
-function jn(e, n, t, o, r, i) {
-  const a = refineCalendarFields(t, r, en, ti, ri), s = e(a.timeZone), [c, u, l] = wn(i), f = t.dateFromFields(a, overrideOverflowOptions(i, c)), d = refineTimeBag(a, c);
-  return Yn(getMatchingInstantFor(n(s), {
-    ...f,
-    ...d
-  }, void 0 !== a.offset ? parseOffsetNano(a.offset) : void 0, u, l), s, o);
-}
-
-function Pt(e, n, t) {
-  const o = refineCalendarFields(e, n, en, [], w), r = H(t);
-  return ee(checkIsoDateTimeInBounds({
-    ...e.dateFromFields(o, overrideOverflowOptions(t, r)),
-    ...refineTimeBag(o, r)
-  }));
-}
-
-function Yt(e, n, t, o = []) {
-  const r = refineCalendarFields(e, n, en, o);
-  return e.dateFromFields(r, t);
-}
-
-function nt(e, n, t, o) {
-  const r = refineCalendarFields(e, n, fi, o);
-  return e.yearMonthFromFields(r, t);
-}
-
-function K(e, n, t, o, r = []) {
-  const i = refineCalendarFields(e, t, en, r);
-  return n && void 0 !== i.month && void 0 === i.monthCode && void 0 === i.year && (i.year = ji), 
-  e.monthDayFromFields(i, o);
-}
-
-function Ue(e, n) {
-  const t = H(n);
-  return Ge(refineTimeBag(refineFields(e, ei, [], 1), t));
-}
-
-function Ht(e) {
-  const n = refineFields(e, Ni);
-  return Vt(checkDurationUnits({
-    ...Si,
-    ...n
-  }));
-}
-
-function refineCalendarFields(e, n, t, o = [], r = []) {
-  return refineFields(n, [ ...e.fields(t), ...r ].sort(), o);
-}
-
-function refineFields(e, n, t, o = !t) {
-  const r = {};
-  let i, a = 0;
-  for (const o of n) {
-    if (o === i) {
-      throw new RangeError(duplicateFields(o));
-    }
-    if ("constructor" === o || "__proto__" === o) {
-      throw new RangeError(tn(o));
-    }
-    let n = e[o];
-    if (void 0 !== n) {
-      a = 1, Ga[o] && (n = Ga[o](n, o)), r[o] = n;
-    } else if (t) {
-      if (t.includes(o)) {
-        throw new TypeError(missingField(o));
-      }
-      r[o] = hi[o];
-    }
-    i = o;
-  }
-  if (o && !a) {
-    throw new TypeError(noValidFields(n));
-  }
-  return r;
-}
-
-function refineTimeBag(e, n) {
-  return constrainIsoTimeFields(Ha({
-    ...hi,
-    ...e
-  }), n);
-}
-
-function Sn(e, n, t, o, r, i) {
-  const a = U(i), {calendar: s, timeZone: c} = t;
-  return Yn(((e, n, t, o, r) => {
-    const i = mergeCalendarFields(e, t, o, en, oi, ni), [a, s, c] = wn(r, 2);
-    return getMatchingInstantFor(n, {
-      ...e.dateFromFields(i, overrideOverflowOptions(r, a)),
-      ...refineTimeBag(i, a)
-    }, parseOffsetNano(i.offset), s, c);
-  })(e(s), n(c), o, r, a), c, s);
-}
-
-function at(e, n, t, o, r) {
-  const i = U(r);
-  return ee(((e, n, t, o) => {
-    const r = mergeCalendarFields(e, n, t, en, w), i = H(o);
-    return checkIsoDateTimeInBounds({
-      ...e.dateFromFields(r, overrideOverflowOptions(o, i)),
-      ...refineTimeBag(r, i)
-    });
-  })(e(n.calendar), t, o, i));
-}
-
-function Zt(e, n, t, o, r) {
-  const i = U(r);
-  return ((e, n, t, o) => {
-    const r = mergeCalendarFields(e, n, t, en);
-    return e.dateFromFields(r, o);
-  })(e(n.calendar), t, o, i);
-}
-
-function Ke(e, n, t, o, r) {
-  const i = U(r);
-  return createPlainYearMonthSlots(((e, n, t, o) => {
-    const r = mergeCalendarFields(e, n, t, fi);
-    return e.yearMonthFromFields(r, o);
-  })(e(n.calendar), t, o, i));
-}
-
-function k(e, n, t, o, r) {
-  const i = U(r);
-  return ((e, n, t, o) => {
-    const r = mergeCalendarFields(e, n, t, en);
-    return e.monthDayFromFields(r, o);
-  })(e(n.calendar), t, o, i);
-}
-
-function Be(e, n, t) {
-  return Ge(((e, n, t) => {
-    const o = H(t);
-    return refineTimeBag({
-      ...Vn(ei, e),
-      ...refineFields(n, ei)
-    }, o);
-  })(e, n, t));
-}
-
-function kt(e, n) {
-  return Vt((t = e, o = n, checkDurationUnits({
-    ...t,
-    ...refineFields(o, Ni)
-  })));
-  // removed by dead control flow
- // removed by dead control flow
- var t, o;  
-}
-
-function mergeCalendarFields(e, n, t, o, r = [], i = []) {
-  const a = [ ...e.fields(o), ...r ].sort();
-  let s = refineFields(n, a, i);
-  const c = refineFields(t, a);
-  return s = e.mergeFields(s, c), refineFields(s, a, []);
-}
-
-function convertToPlainMonthDay(e, n) {
-  const t = refineCalendarFields(e, n, pi);
-  return e.monthDayFromFields(t);
-}
-
-function convertToPlainYearMonth(e, n, t) {
-  const o = refineCalendarFields(e, n, di);
-  return e.yearMonthFromFields(o, t);
-}
-
-function convertToIso(e, n, t, o, r) {
-  n = Vn(t = e.fields(t), n), o = refineFields(o, r = e.fields(r), []);
-  let i = e.mergeFields(n, o);
-  return i = refineFields(i, [ ...t, ...r ].sort(), []), e.dateFromFields(i);
-}
-
-function refineYear(e, n) {
-  let {era: t, eraYear: o, year: r} = n;
-  const i = getCalendarEraOrigins(e);
-  if (void 0 !== t || void 0 !== o) {
-    if (void 0 === t || void 0 === o) {
-      throw new TypeError(Dr);
-    }
-    if (!i) {
-      throw new RangeError(gr);
-    }
-    const e = i[t];
-    if (void 0 === e) {
-      throw new RangeError(invalidEra(t));
-    }
-    const n = eraYearToYear(o, e);
-    if (void 0 !== r && r !== n) {
-      throw new RangeError(Ir);
-    }
-    r = n;
-  } else if (void 0 === r) {
-    throw new TypeError(missingYear(i));
-  }
-  return r;
-}
-
-function refineMonth(e, n, t, o) {
-  let {month: r, monthCode: i} = n;
-  if (void 0 !== i) {
-    const n = ((e, n, t, o) => {
-      const r = e.U(t), [i, a] = parseMonthCode(n);
-      let s = monthCodeNumberToMonth(i, a, r);
-      if (a) {
-        const n = getCalendarLeapMonthMeta(e);
-        if (void 0 === n) {
-          throw new RangeError(Pr);
-        }
-        if (n > 0) {
-          if (s > n) {
-            throw new RangeError(Pr);
-          }
-          if (void 0 === r) {
-            if (1 === o) {
-              throw new RangeError(Pr);
-            }
-            s--;
-          }
-        } else {
-          if (s !== -n) {
-            throw new RangeError(Pr);
-          }
-          if (void 0 === r && 1 === o) {
-            throw new RangeError(Pr);
-          }
-        }
-      }
-      return s;
-    })(e, i, t, o);
-    if (void 0 !== r && r !== n) {
-      throw new RangeError(Mr);
-    }
-    r = n, o = 1;
-  } else if (void 0 === r) {
-    throw new TypeError(Nr);
-  }
-  return clampEntity("month", r, 1, e.L(t), o);
-}
-
-function refineDay(e, n, t, o, r) {
-  return clampProp(n, "day", 1, e.j(o, t), r);
-}
-
-function spliceFields(e, n, t, o) {
-  let r = 0;
-  const i = [];
-  for (const e of t) {
-    void 0 !== n[e] ? r = 1 : i.push(e);
-  }
-  if (Object.assign(e, n), r) {
-    for (const n of o || i) {
-      delete e[n];
-    }
-  }
-}
-
-function Se(e) {
-  return _(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(e))));
-}
-
-function vn(e, n, t, o, r = X) {
-  return Yn(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(t))), n(o), e(r));
-}
-
-function pt(e, n, t, o, r = 0, i = 0, a = 0, s = 0, c = 0, u = 0, l = X) {
-  return ee(checkIsoDateTimeInBounds(checkIsoDateTimeFields(T(toInteger, zipProps(wi, [ n, t, o, r, i, a, s, c, u ])))), e(l));
-}
-
-function Nt(e, n, t, o, r = X) {
-  return v(checkIsoDateInBounds(checkIsoDateFields(T(toInteger, {
-    isoYear: n,
-    isoMonth: t,
-    isoDay: o
-  }))), e(r));
-}
-
-function tt(e, n, t, o = X, r = 1) {
-  const i = toInteger(n), a = toInteger(t), s = e(o);
-  return createPlainYearMonthSlots(checkIsoYearMonthInBounds(checkIsoDateFields({
-    isoYear: i,
-    isoMonth: a,
-    isoDay: toInteger(r)
-  })), s);
-}
-
-function G(e, n, t, o = X, r = ji) {
-  const i = toInteger(n), a = toInteger(t), s = e(o);
-  return createPlainMonthDaySlots(checkIsoDateInBounds(checkIsoDateFields({
-    isoYear: toInteger(r),
-    isoMonth: i,
-    isoDay: a
-  })), s);
-}
-
-function ke(e = 0, n = 0, t = 0, o = 0, r = 0, i = 0) {
-  return Ge(constrainIsoTimeFields(T(toInteger, zipProps(j, [ e, n, t, o, r, i ])), 1));
-}
-
-function Lt(e = 0, n = 0, t = 0, o = 0, r = 0, i = 0, a = 0, s = 0, c = 0, u = 0) {
-  return Vt(checkDurationUnits(T(toStrictInteger, zipProps(F, [ e, n, t, o, r, i, a, s, c, u ]))));
-}
-
-function fe(e, n, t = X) {
-  return Yn(e.epochNanoseconds, n, t);
-}
-
-function Zn(e) {
-  return _(e.epochNanoseconds);
-}
-
-function ht(e, n) {
-  return ee(fn(n, e));
-}
-
-function Bt(e, n) {
-  return v(fn(n, e));
-}
-
-function bn(e, n, t) {
-  return convertToPlainYearMonth(e(n.calendar), t);
-}
-
-function Fn(e, n, t) {
-  return convertToPlainMonthDay(e(n.calendar), t);
-}
-
-function Re(e, n) {
-  return Ge(fn(n, e));
-}
-
-function mt(e, n, t, o) {
-  const r = ((e, n, t, o) => {
-    const r = ve(o);
-    return we(e(n), t, r);
-  })(e, t, n, o);
-  return Yn(checkEpochNanoInBounds(r), t, n.calendar);
-}
-
-function St(e, n, t) {
-  const o = e(n.calendar);
-  return createPlainYearMonthSlots({
-    ...n,
-    ...convertToPlainYearMonth(o, t)
-  });
-}
-
-function Ot(e, n, t) {
-  return convertToPlainMonthDay(e(n.calendar), t);
-}
-
-function vt(e, n, t, o, r) {
-  const i = e(r.timeZone), a = r.plainTime, s = void 0 !== a ? n(a) : Dt;
-  return Yn(we(t(i), {
-    ...o,
-    ...s
-  }), i, o.calendar);
-}
-
-function wt(e, n = Dt) {
-  return ee(checkIsoDateTimeInBounds({
-    ...e,
-    ...n
-  }));
-}
-
-function jt(e, n, t) {
-  return convertToPlainYearMonth(e(n.calendar), t);
-}
-
-function Mt(e, n, t) {
-  return convertToPlainMonthDay(e(n.calendar), t);
-}
-
-function _e(e, n, t, o) {
-  return ((e, n, t) => convertToIso(e, n, di, de(t), li))(e(n.calendar), t, o);
-}
-
-function R(e, n, t, o) {
-  return ((e, n, t) => convertToIso(e, n, pi, de(t), si))(e(n.calendar), t, o);
-}
-
-function Je(e, n, t, o, r) {
-  const i = de(r), a = n(i.plainDate), s = e(i.timeZone);
-  return Yn(we(t(s), {
-    ...a,
-    ...o
-  }), s, a.calendar);
-}
-
-function Le(e, n) {
-  return ee(checkIsoDateTimeInBounds({
-    ...e,
-    ...n
-  }));
-}
-
-function De(e) {
-  return _(checkEpochNanoInBounds(he(e, _r)));
-}
-
-function Pe(e) {
-  return _(checkEpochNanoInBounds(he(e, be)));
-}
-
-function Ce(e) {
-  return _(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(e), Vr)));
-}
-
-function ge(e) {
-  return _(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(e))));
-}
-
-function pn(e, n, t = Dt) {
-  const o = n.timeZone, r = e(o), i = {
-    ...fn(n, r),
-    ...t
-  };
-  return Yn(getMatchingInstantFor(r, i, i.offsetNanoseconds, 2), o, n.calendar);
-}
-
-function Tn(e, n, t) {
-  const o = n.timeZone, r = e(o), i = {
-    ...fn(n, r),
-    ...t
-  }, a = getPreferredCalendarSlot(n.calendar, t.calendar);
-  return Yn(getMatchingInstantFor(r, i, i.offsetNanoseconds, 2), o, a);
-}
-
-function lt(e, n = Dt) {
-  return ee({
-    ...e,
-    ...n
-  });
-}
-
-function st(e, n) {
-  return ee({
-    ...e,
-    ...n
-  }, getPreferredCalendarSlot(e.calendar, n.calendar));
-}
-
-function it(e, n) {
-  return {
-    ...e,
-    calendar: n
-  };
-}
-
-function On(e, n) {
-  return {
-    ...e,
-    timeZone: n
-  };
-}
-
-function getPreferredCalendarSlot(e, n) {
-  if (e === n) {
-    return e;
-  }
-  const t = I(e), o = I(n);
-  if (t === o || t === X) {
-    return n;
-  }
-  if (o === X) {
-    return e;
-  }
-  throw new RangeError(Er);
-}
-
-function createNativeOpsCreator(e, n) {
-  return t => t === X ? e : t === gi || t === Ti ? Object.assign(Object.create(e), {
-    id: t
-  }) : Object.assign(Object.create(n), Aa(t));
-}
-
-function createOptionsTransformer(e, n, t) {
-  const o = new Set(t);
-  return r => (((e, n) => {
-    for (const t of n) {
-      if (t in e) {
-        return 1;
-      }
-    }
-    return 0;
-  })(r = V(o, r), e) || Object.assign(r, n), t && (r.timeZone = Ta, [ "full", "long" ].includes(r.timeStyle) && (r.timeStyle = "medium")), 
-  r);
-}
-
-function e(e, n = qn) {
-  const [t, , , o] = e;
-  return (r, i = Ns, ...a) => {
-    const s = n(o && o(...a), r, i, t), c = s.resolvedOptions();
-    return [ s, ...toEpochMillis(e, c, a) ];
-  };
-}
-
-function qn(e, n, t, o) {
-  if (t = o(t), e) {
-    if (void 0 !== t.timeZone) {
-      throw new TypeError(Lr);
-    }
-    t.timeZone = e;
-  }
-  return new En(n, t);
-}
-
-function toEpochMillis(e, n, t) {
-  const [, o, r] = e;
-  return t.map((e => (e.calendar && ((e, n, t) => {
-    if ((t || e !== X) && e !== n) {
-      throw new RangeError(Er);
-    }
-  })(I(e.calendar), n.calendar, r), o(e, n))));
-}
-
-function An(e) {
-  const n = Bn();
-  return Ie(n, e.getOffsetNanosecondsFor(n));
-}
-
-function Bn() {
-  return he(Date.now(), be);
-}
-
-function Nn() {
-  return ys || (ys = (new En).resolvedOptions().timeZone);
-}
-
-const expectedInteger = (e, n) => `Non-integer ${e}: ${n}`, expectedPositive = (e, n) => `Non-positive ${e}: ${n}`, expectedFinite = (e, n) => `Non-finite ${e}: ${n}`, forbiddenBigIntToNumber = e => `Cannot convert bigint to ${e}`, invalidBigInt = e => `Invalid bigint: ${e}`, pr = "Cannot convert Symbol to string", hr = "Invalid object", numberOutOfRange = (e, n, t, o, r) => r ? numberOutOfRange(e, r[n], r[t], r[o]) : invalidEntity(e, n) + `; must be between ${t}-${o}`, invalidEntity = (e, n) => `Invalid ${e}: ${n}`, missingField = e => `Missing ${e}`, tn = e => `Invalid field ${e}`, duplicateFields = e => `Duplicate field ${e}`, noValidFields = e => "No valid fields: " + e.join(), Z = "Invalid bag", invalidChoice = (e, n, t) => invalidEntity(e, n) + "; must be " + Object.keys(t).join(), A = "Cannot use valueOf", P = "Invalid calling context", gr = "Forbidden era/eraYear", Dr = "Mismatching era/eraYear", Ir = "Mismatching year/eraYear", invalidEra = e => `Invalid era: ${e}`, missingYear = e => "Missing year" + (e ? "/era/eraYear" : ""), invalidMonthCode = e => `Invalid monthCode: ${e}`, Mr = "Mismatching month/monthCode", Nr = "Missing month/monthCode", yr = "Cannot guess year", Pr = "Invalid leap month", g = "Invalid protocol", vr = "Invalid protocol results", Er = "Mismatching Calendars", invalidCalendar = e => `Invalid Calendar: ${e}`, Fr = "Mismatching TimeZones", br = "Forbidden ICU TimeZone", wr = "Out-of-bounds offset", Br = "Out-of-bounds TimeZone gap", kr = "Invalid TimeZone offset", Yr = "Ambiguous offset", Cr = "Out-of-bounds date", Zr = "Out-of-bounds duration", Rr = "Cannot mix duration signs", zr = "Missing relativeTo", qr = "Cannot use large units", Ur = "Required smallestUnit or largestUnit", Ar = "smallestUnit > largestUnit", failedParse = e => `Cannot parse: ${e}`, invalidSubstring = e => `Invalid substring: ${e}`, Ln = e => `Cannot format ${e}`, kn = "Mismatching types for formatting", Lr = "Cannot specify TimeZone", Wr = /*@__PURE__*/ E(b, ((e, n) => n)), jr = /*@__PURE__*/ E(b, ((e, n, t) => t)), xr = /*@__PURE__*/ E(padNumber, 2), $r = {
-  nanosecond: 0,
-  microsecond: 1,
-  millisecond: 2,
-  second: 3,
-  minute: 4,
-  hour: 5,
-  day: 6,
-  week: 7,
-  month: 8,
-  year: 9
-}, Et = /*@__PURE__*/ Object.keys($r), Gr = 864e5, Hr = 1e3, Vr = 1e3, be = 1e6, _r = 1e9, Jr = 6e10, Kr = 36e11, Qr = 864e11, Xr = [ 1, Vr, be, _r, Jr, Kr, Qr ], w = /*@__PURE__*/ Et.slice(0, 6), ei = /*@__PURE__*/ sortStrings(w), ni = [ "offset" ], ti = [ "timeZone" ], oi = /*@__PURE__*/ w.concat(ni), ri = /*@__PURE__*/ oi.concat(ti), ii = [ "era", "eraYear" ], ai = /*@__PURE__*/ ii.concat([ "year" ]), si = [ "year" ], ci = [ "monthCode" ], ui = /*@__PURE__*/ [ "month" ].concat(ci), li = [ "day" ], fi = /*@__PURE__*/ ui.concat(si), di = /*@__PURE__*/ ci.concat(si), en = /*@__PURE__*/ li.concat(fi), mi = /*@__PURE__*/ li.concat(ui), pi = /*@__PURE__*/ li.concat(ci), hi = /*@__PURE__*/ jr(w, 0), X = "iso8601", gi = "gregory", Ti = "japanese", Di = {
-  [gi]: {
-    bce: -1,
-    ce: 0
-  },
-  [Ti]: {
-    bce: -1,
-    ce: 0,
-    meiji: 1867,
-    taisho: 1911,
-    showa: 1925,
-    heisei: 1988,
-    reiwa: 2018
-  },
-  ethioaa: {
-    era0: 0
-  },
-  ethiopic: {
-    era0: 0,
-    era1: 5500
-  },
-  coptic: {
-    era0: -1,
-    era1: 0
-  },
-  roc: {
-    beforeroc: -1,
-    minguo: 0
-  },
-  buddhist: {
-    be: 0
-  },
-  islamic: {
-    ah: 0
-  },
-  indian: {
-    saka: 0
-  },
-  persian: {
-    ap: 0
-  }
-}, Ii = {
-  chinese: 13,
-  dangi: 13,
-  hebrew: -6
-}, m = /*@__PURE__*/ E(requireType, "string"), f = /*@__PURE__*/ E(requireType, "boolean"), Mi = /*@__PURE__*/ E(requireType, "number"), $ = /*@__PURE__*/ E(requireType, "function"), F = /*@__PURE__*/ Et.map((e => e + "s")), Ni = /*@__PURE__*/ sortStrings(F), yi = /*@__PURE__*/ F.slice(0, 6), Pi = /*@__PURE__*/ F.slice(6), vi = /*@__PURE__*/ Pi.slice(1), Ei = /*@__PURE__*/ Wr(F), Si = /*@__PURE__*/ jr(F, 0), Fi = /*@__PURE__*/ jr(yi, 0), bi = /*@__PURE__*/ E(zeroOutProps, F), j = [ "isoNanosecond", "isoMicrosecond", "isoMillisecond", "isoSecond", "isoMinute", "isoHour" ], Oi = [ "isoDay", "isoMonth", "isoYear" ], wi = /*@__PURE__*/ j.concat(Oi), Bi = /*@__PURE__*/ sortStrings(Oi), ki = /*@__PURE__*/ sortStrings(j), Yi = /*@__PURE__*/ sortStrings(wi), Dt = /*@__PURE__*/ jr(ki, 0), Ci = /*@__PURE__*/ E(zeroOutProps, wi), En = Intl.DateTimeFormat, Zi = "en-GB", Ri = 1e8, zi = Ri * Gr, qi = [ Ri, 0 ], Ui = [ -Ri, 0 ], Ai = 275760, Li = -271821, Wi = 1970, ji = 1972, xi = 12, $i = /*@__PURE__*/ isoArgsToEpochMilli(1868, 9, 8), Gi = /*@__PURE__*/ Jn(computeJapaneseEraParts, WeakMap), Hi = "smallestUnit", Vi = "unit", _i = "roundingIncrement", Ji = "fractionalSecondDigits", Ki = "relativeTo", Qi = {
-  constrain: 0,
-  reject: 1
-}, Xi = /*@__PURE__*/ Object.keys(Qi), ea = {
-  compatible: 0,
-  reject: 1,
-  earlier: 2,
-  later: 3
-}, na = {
-  reject: 0,
-  use: 1,
-  prefer: 2,
-  ignore: 3
-}, ta = {
-  auto: 0,
-  never: 1,
-  critical: 2,
-  always: 3
-}, oa = {
-  auto: 0,
-  never: 1,
-  critical: 2
-}, ra = {
-  auto: 0,
-  never: 1
-}, ia = {
-  floor: 0,
-  halfFloor: 1,
-  ceil: 2,
-  halfCeil: 3,
-  trunc: 4,
-  halfTrunc: 5,
-  expand: 6,
-  halfExpand: 7,
-  halfEven: 8
-}, aa = /*@__PURE__*/ E(refineUnitOption, Hi), sa = /*@__PURE__*/ E(refineUnitOption, "largestUnit"), ca = /*@__PURE__*/ E(refineUnitOption, Vi), ua = /*@__PURE__*/ E(refineChoiceOption, "overflow", Qi), la = /*@__PURE__*/ E(refineChoiceOption, "disambiguation", ea), fa = /*@__PURE__*/ E(refineChoiceOption, "offset", na), da = /*@__PURE__*/ E(refineChoiceOption, "calendarName", ta), ma = /*@__PURE__*/ E(refineChoiceOption, "timeZoneName", oa), pa = /*@__PURE__*/ E(refineChoiceOption, "offset", ra), ha = /*@__PURE__*/ E(refineChoiceOption, "roundingMode", ia), L = "PlainYearMonth", q = "PlainMonthDay", J = "PlainDate", We = "PlainDateTime", xe = "PlainTime", Te = "ZonedDateTime", Oe = "Instant", qt = "Duration", ga = [ Math.floor, e => hasHalf(e) ? Math.floor(e) : Math.round(e), Math.ceil, e => hasHalf(e) ? Math.ceil(e) : Math.round(e), Math.trunc, e => hasHalf(e) ? Math.trunc(e) || 0 : Math.round(e), e => e < 0 ? Math.floor(e) : Math.ceil(e), e => Math.sign(e) * Math.round(Math.abs(e)) || 0, e => hasHalf(e) ? (e = Math.trunc(e) || 0) + e % 2 : Math.round(e) ], Ta = "UTC", Da = 5184e3, Ia = /*@__PURE__*/ isoArgsToEpochSec(1847), Ma = /*@__PURE__*/ isoArgsToEpochSec(/*@__PURE__*/ (/*@__PURE__*/ new Date).getUTCFullYear() + 10), Na = /0+$/, fn = /*@__PURE__*/ Jn(_zonedEpochSlotsToIso, WeakMap), ya = 2 ** 32 - 1, ie = /*@__PURE__*/ Jn((e => {
-  const n = getTimeZoneEssence(e);
-  return "object" == typeof n ? new IntlTimeZone(n) : new FixedTimeZone(n || 0);
-}));
-
-class FixedTimeZone {
-  constructor(e) {
-    this.v = e;
-  }
-  getOffsetNanosecondsFor() {
-    return this.v;
-  }
-  getPossibleInstantsFor(e) {
-    return [ isoToEpochNanoWithOffset(e, this.v) ];
-  }
-  l() {}
-}
-
-class IntlTimeZone {
-  constructor(e) {
-    this.$ = (e => {
-      function getOffsetSec(e) {
-        const i = clampNumber(e, o, r), [a, s] = computePeriod(i), c = n(a), u = n(s);
-        return c === u ? c : pinch(t(a, s), c, u, e);
-      }
-      function pinch(n, t, o, r) {
-        let i, a;
-        for (;(void 0 === r || void 0 === (i = r < n[0] ? t : r >= n[1] ? o : void 0)) && (a = n[1] - n[0]); ) {
-          const t = n[0] + Math.floor(a / 2);
-          e(t) === o ? n[1] = t : n[0] = t + 1;
-        }
-        return i;
-      }
-      const n = Jn(e), t = Jn(createSplitTuple);
-      let o = Ia, r = Ma;
-      return {
-        G(e) {
-          const n = getOffsetSec(e - 86400), t = getOffsetSec(e + 86400), o = e - n, r = e - t;
-          if (n === t) {
-            return [ o ];
-          }
-          const i = getOffsetSec(o);
-          return i === getOffsetSec(r) ? [ e - i ] : n > t ? [ o, r ] : [];
-        },
-        V: getOffsetSec,
-        l(e, i) {
-          const a = clampNumber(e, o, r);
-          let [s, c] = computePeriod(a);
-          const u = Da * i, l = i < 0 ? () => c > o || (o = a, 0) : () => s < r || (r = a, 
-          0);
-          for (;l(); ) {
-            const o = n(s), r = n(c);
-            if (o !== r) {
-              const n = t(s, c);
-              pinch(n, o, r);
-              const a = n[0];
-              if ((compareNumbers(a, e) || 1) === i) {
-                return a;
-              }
-            }
-            s += u, c += u;
-          }
-        }
-      };
-    })((e => n => {
-      const t = hashIntlFormatParts(e, n * Hr);
-      return isoArgsToEpochSec(parseIntlPartsYear(t), parseInt(t.month), parseInt(t.day), parseInt(t.hour), parseInt(t.minute), parseInt(t.second)) - n;
-    })(e));
-  }
-  getOffsetNanosecondsFor(e) {
-    return this.$.V(epochNanoToSec(e)) * _r;
-  }
-  getPossibleInstantsFor(e) {
-    const [n, t] = [ isoArgsToEpochSec((o = e).isoYear, o.isoMonth, o.isoDay, o.isoHour, o.isoMinute, o.isoSecond), o.isoMillisecond * be + o.isoMicrosecond * Vr + o.isoNanosecond ];
-    var o;
-    return this.$.G(n).map((e => checkEpochNanoInBounds(moveBigNano(he(e, _r), t))));
-  }
-  l(e, n) {
-    const [t, o] = epochNanoToSecMod(e), r = this.$.l(t + (n > 0 || o ? 1 : 0), n);
-    if (void 0 !== r) {
-      return he(r, _r);
-    }
-  }
-}
-
-const Pa = "([+−-])", va = "(?:[.,](\\d{1,9}))?", Ea = `(?:(?:${Pa}(\\d{6}))|(\\d{4}))-?(\\d{2})`, Sa = "(\\d{2})(?::?(\\d{2})(?::?(\\d{2})" + va + ")?)?", Fa = Pa + Sa, ba = Ea + "-?(\\d{2})(?:[T ]" + Sa + "(Z|" + Fa + ")?)?", Oa = "\\[(!?)([^\\]]*)\\]", wa = `((?:${Oa}){0,9})`, Ba = /*@__PURE__*/ createRegExp(Ea + wa), ka = /*@__PURE__*/ createRegExp("(?:--)?(\\d{2})-?(\\d{2})" + wa), Ya = /*@__PURE__*/ createRegExp(ba + wa), Ca = /*@__PURE__*/ createRegExp("T?" + Sa + "(?:" + Fa + ")?" + wa), Za = /*@__PURE__*/ createRegExp(Fa), Ra = /*@__PURE__*/ new RegExp(Oa, "g"), za = /*@__PURE__*/ createRegExp(`${Pa}?P(\\d+Y)?(\\d+M)?(\\d+W)?(\\d+D)?(?:T(?:(\\d+)${va}H)?(?:(\\d+)${va}M)?(?:(\\d+)${va}S)?)?`), qa = /*@__PURE__*/ Jn((e => new En(Zi, {
-  timeZone: e,
-  era: "short",
-  year: "numeric",
-  month: "numeric",
-  day: "numeric",
-  hour: "numeric",
-  minute: "numeric",
-  second: "numeric"
-}))), Ua = /^(AC|AE|AG|AR|AS|BE|BS|CA|CN|CS|CT|EA|EC|IE|IS|JS|MI|NE|NS|PL|PN|PR|PS|SS|VS)T$/, Aa = /*@__PURE__*/ Jn(createIntlCalendar), La = /*@__PURE__*/ Jn((e => new En(Zi, {
-  calendar: e,
-  timeZone: Ta,
-  era: "short",
-  year: "numeric",
-  month: "short",
-  day: "numeric"
-}))), Wa = /^M(\d{2})(L?)$/, ja = {
-  era: toStringViaPrimitive,
-  eraYear: toInteger,
-  year: toInteger,
-  month: toPositiveInteger,
-  monthCode: toStringViaPrimitive,
-  day: toPositiveInteger
-}, xa = /*@__PURE__*/ jr(w, toInteger), $a = /*@__PURE__*/ jr(F, toStrictInteger), Ga = /*@__PURE__*/ Object.assign({}, ja, xa, $a, {
-  offset: toStringViaPrimitive
-}), Ha = /*@__PURE__*/ E(remapProps, w, j), Va = {
-  dateAdd(e, n, t) {
-    const o = H(t);
-    let r, {years: i, months: a, weeks: s, days: c} = n;
-    if (c += durationFieldsToBigNano(n, 5)[0], i || a) {
-      r = ((e, n, t, o, r) => {
-        let [i, a, s] = e.h(n);
-        if (t) {
-          const [n, o] = e.I(i, a);
-          i += t, a = monthCodeNumberToMonth(n, o, e.U(i)), a = clampEntity("month", a, 1, e.L(i), r);
-        }
-        return o && ([i, a] = e._(i, a, o)), s = clampEntity("day", s, 1, e.j(i, a), r), 
-        e.q(i, a, s);
-      })(this, e, i, a, o);
-    } else {
-      if (!s && !c) {
-        return e;
-      }
-      r = isoToEpochMilli(e);
-    }
-    return r += (7 * s + c) * Gr, checkIsoDateInBounds(epochMilliToIso(r));
-  },
-  dateUntil(e, n, t) {
-    if (t <= 7) {
-      let o = 0, r = diffDays({
-        ...e,
-        ...Dt
-      }, {
-        ...n,
-        ...Dt
-      });
-      return 7 === t && ([o, r] = divModTrunc(r, 7)), {
-        ...Si,
-        weeks: o,
-        days: r
-      };
-    }
-    const o = this.h(e), r = this.h(n);
-    let [i, a, s] = ((e, n, t, o, r, i, a) => {
-      let s = r - n, c = i - t, u = a - o;
-      if (s || c) {
-        const l = Math.sign(s || c);
-        let f = e.j(r, i), d = 0;
-        if (Math.sign(u) === -l) {
-          const o = f;
-          [r, i] = e._(r, i, -l), s = r - n, c = i - t, f = e.j(r, i), d = l < 0 ? -o : f;
-        }
-        if (u = a - Math.min(o, f) + d, s) {
-          const [o, a] = e.I(n, t), [u, f] = e.I(r, i);
-          if (c = u - o || Number(f) - Number(a), Math.sign(c) === -l) {
-            const t = l < 0 && -e.L(r);
-            s = (r -= l) - n, c = i - monthCodeNumberToMonth(o, a, e.U(r)) + (t || e.L(r));
-          }
-        }
-      }
-      return [ s, c, u ];
-    })(this, ...o, ...r);
-    return 8 === t && (a += this.J(i, o[0]), i = 0), {
-      ...Si,
-      years: i,
-      months: a,
-      days: s
-    };
-  },
-  dateFromFields(e, n) {
-    const t = H(n), o = refineYear(this, e), r = refineMonth(this, e, o, t), i = refineDay(this, e, r, o, t);
-    return v(checkIsoDateInBounds(this.P(o, r, i)), this.id || X);
-  },
-  yearMonthFromFields(e, n) {
-    const t = H(n), o = refineYear(this, e), r = refineMonth(this, e, o, t);
-    return createPlainYearMonthSlots(checkIsoYearMonthInBounds(this.P(o, r, 1)), this.id || X);
-  },
-  monthDayFromFields(e, n) {
-    const t = H(n), o = !this.id, {monthCode: r, year: i, month: a} = e;
-    let s, c, u, l, f;
-    if (void 0 !== r) {
-      [s, c] = parseMonthCode(r), f = getDefinedProp(e, "day");
-      const n = this.N(s, c, f);
-      if (!n) {
-        throw new RangeError(yr);
-      }
-      if ([u, l] = n, void 0 !== a && a !== l) {
-        throw new RangeError(Mr);
-      }
-      o && (l = clampEntity("month", l, 1, xi, 1), f = clampEntity("day", f, 1, computeIsoDaysInMonth(void 0 !== i ? i : u, l), t));
-    } else {
-      u = void 0 === i && o ? ji : refineYear(this, e), l = refineMonth(this, e, u, t), 
-      f = refineDay(this, e, l, u, t);
-      const n = this.U(u);
-      c = l === n, s = monthToMonthCodeNumber(l, n);
-      const r = this.N(s, c, f);
-      if (!r) {
-        throw new RangeError(yr);
-      }
-      [u, l] = r;
-    }
-    return createPlainMonthDaySlots(checkIsoDateInBounds(this.P(u, l, f)), this.id || X);
-  },
-  fields(e) {
-    return getCalendarEraOrigins(this) && e.includes("year") ? [ ...e, ...ii ] : e;
-  },
-  mergeFields(e, n) {
-    const t = Object.assign(Object.create(null), e);
-    return spliceFields(t, n, ui), getCalendarEraOrigins(this) && (spliceFields(t, n, ai), 
-    this.id === Ti && spliceFields(t, n, mi, ii)), t;
-  },
-  inLeapYear(e) {
-    const [n] = this.h(e);
-    return this.K(n);
-  },
-  monthsInYear(e) {
-    const [n] = this.h(e);
-    return this.L(n);
-  },
-  daysInMonth(e) {
-    const [n, t] = this.h(e);
-    return this.j(n, t);
-  },
-  daysInYear(e) {
-    const [n] = this.h(e);
-    return this.X(n);
-  },
-  dayOfYear: computeNativeDayOfYear,
-  era(e) {
-    return this.ee(e)[0];
-  },
-  eraYear(e) {
-    return this.ee(e)[1];
-  },
-  monthCode(e) {
-    const [n, t] = this.h(e), [o, r] = this.I(n, t);
-    return ((e, n) => "M" + xr(e) + (n ? "L" : ""))(o, r);
-  },
-  dayOfWeek: computeIsoDayOfWeek,
-  daysInWeek() {
-    return 7;
-  }
-}, _a = {
-  dayOfYear: computeNativeDayOfYear,
-  h: computeIsoDateParts,
-  q: isoArgsToEpochMilli
-}, Ja = /*@__PURE__*/ Object.assign({}, _a, {
-  weekOfYear: computeNativeWeekOfYear,
-  yearOfWeek: computeNativeYearOfWeek,
-  R(e) {
-    function computeWeekShift(e) {
-      return (7 - e < n ? 7 : 0) - e;
-    }
-    function computeWeeksInYear(e) {
-      const n = computeIsoDaysInYear(l + e), t = e || 1, o = computeWeekShift(modFloor(a + n * t, 7));
-      return c = (n + (o - s) * t) / 7;
-    }
-    const n = this.id ? 1 : 4, t = computeIsoDayOfWeek(e), o = this.dayOfYear(e), r = modFloor(t - 1, 7), i = o - 1, a = modFloor(r - i, 7), s = computeWeekShift(a);
-    let c, u = Math.floor((i - s) / 7) + 1, l = e.isoYear;
-    return u ? u > computeWeeksInYear(0) && (u = 1, l++) : (u = computeWeeksInYear(-1), 
-    l--), [ u, l, c ];
-  }
-}), Ka = {
-  dayOfYear: computeNativeDayOfYear,
-  h: computeIntlDateParts,
-  q: computeIntlEpochMilli,
-  weekOfYear: computeNativeWeekOfYear,
-  yearOfWeek: computeNativeYearOfWeek,
-  R() {
-    return [];
-  }
-}, Y = /*@__PURE__*/ createNativeOpsCreator(/*@__PURE__*/ Object.assign({}, Va, Ja, {
-  h: computeIsoDateParts,
-  ee(e) {
-    return this.id === gi ? computeGregoryEraParts(e) : this.id === Ti ? Gi(e) : [];
-  },
-  I: (e, n) => [ n, 0 ],
-  N(e, n) {
-    if (!n) {
-      return [ ji, e ];
-    }
-  },
-  K: computeIsoInLeapYear,
-  U() {},
-  L: computeIsoMonthsInYear,
-  J: e => e * xi,
-  j: computeIsoDaysInMonth,
-  X: computeIsoDaysInYear,
-  P: (e, n, t) => ({
-    isoYear: e,
-    isoMonth: n,
-    isoDay: t
-  }),
-  q: isoArgsToEpochMilli,
-  _: (e, n, t) => (e += divTrunc(t, xi), (n += modTrunc(t, xi)) < 1 ? (e--, n += xi) : n > xi && (e++, 
-  n -= xi), [ e, n ]),
-  year(e) {
-    return e.isoYear;
-  },
-  month(e) {
-    return e.isoMonth;
-  },
-  day: e => e.isoDay
-}), /*@__PURE__*/ Object.assign({}, Va, Ka, {
-  h: computeIntlDateParts,
-  ee(e) {
-    const n = this.O(e);
-    return [ n.era, n.eraYear ];
-  },
-  I(e, n) {
-    const t = computeIntlLeapMonth.call(this, e);
-    return [ monthToMonthCodeNumber(n, t), t === n ];
-  },
-  N(e, n, t) {
-    let [o, r, i] = computeIntlDateParts.call(this, {
-      isoYear: ji,
-      isoMonth: xi,
-      isoDay: 31
-    });
-    const a = computeIntlLeapMonth.call(this, o), s = r === a;
-    1 === (compareNumbers(e, monthToMonthCodeNumber(r, a)) || compareNumbers(Number(n), Number(s)) || compareNumbers(t, i)) && o--;
-    for (let r = 0; r < 100; r++) {
-      const i = o - r, a = computeIntlLeapMonth.call(this, i), s = monthCodeNumberToMonth(e, n, a);
-      if (n === (s === a) && t <= computeIntlDaysInMonth.call(this, i, s)) {
-        return [ i, s ];
-      }
-    }
-  },
-  K(e) {
-    const n = computeIntlDaysInYear.call(this, e);
-    return n > computeIntlDaysInYear.call(this, e - 1) && n > computeIntlDaysInYear.call(this, e + 1);
-  },
-  U: computeIntlLeapMonth,
-  L: computeIntlMonthsInYear,
-  J(e, n) {
-    const t = n + e, o = Math.sign(e), r = o < 0 ? -1 : 0;
-    let i = 0;
-    for (let e = n; e !== t; e += o) {
-      i += computeIntlMonthsInYear.call(this, e + r);
-    }
-    return i;
-  },
-  j: computeIntlDaysInMonth,
-  X: computeIntlDaysInYear,
-  P(e, n, t) {
-    return epochMilliToIso(computeIntlEpochMilli.call(this, e, n, t));
-  },
-  q: computeIntlEpochMilli,
-  _(e, n, t) {
-    if (t) {
-      if (n += t, !Number.isSafeInteger(n)) {
-        throw new RangeError(Cr);
-      }
-      if (t < 0) {
-        for (;n < 1; ) {
-          n += computeIntlMonthsInYear.call(this, --e);
-        }
-      } else {
-        let t;
-        for (;n > (t = computeIntlMonthsInYear.call(this, e)); ) {
-          n -= t, e++;
-        }
-      }
-    }
-    return [ e, n ];
-  },
-  year(e) {
-    return this.O(e).year;
-  },
-  month(e) {
-    const {year: n, F: t} = this.O(e), {C: o} = this.B(n);
-    return o[t] + 1;
-  },
-  day(e) {
-    return this.O(e).day;
-  }
-})), Qa = "numeric", Xa = [ "timeZoneName" ], es = {
-  month: Qa,
-  day: Qa
-}, ns = {
-  year: Qa,
-  month: Qa
-}, ts = /*@__PURE__*/ Object.assign({}, ns, {
-  day: Qa
-}), os = {
-  hour: Qa,
-  minute: Qa,
-  second: Qa
-}, rs = /*@__PURE__*/ Object.assign({}, ts, os), is = /*@__PURE__*/ Object.assign({}, rs, {
-  timeZoneName: "short"
-}), as = /*@__PURE__*/ Object.keys(ns), ss = /*@__PURE__*/ Object.keys(es), cs = /*@__PURE__*/ Object.keys(ts), us = /*@__PURE__*/ Object.keys(os), ls = [ "dateStyle" ], fs = /*@__PURE__*/ as.concat(ls), ds = /*@__PURE__*/ ss.concat(ls), ms = /*@__PURE__*/ cs.concat(ls, [ "weekday" ]), ps = /*@__PURE__*/ us.concat([ "dayPeriod", "timeStyle" ]), hs = /*@__PURE__*/ ms.concat(ps), gs = /*@__PURE__*/ hs.concat(Xa), Ts = /*@__PURE__*/ Xa.concat(ps), Ds = /*@__PURE__*/ Xa.concat(ms), Is = /*@__PURE__*/ Xa.concat([ "day", "weekday" ], ps), Ms = /*@__PURE__*/ Xa.concat([ "year", "weekday" ], ps), Ns = {}, t = [ /*@__PURE__*/ createOptionsTransformer(hs, rs), y ], s = [ /*@__PURE__*/ createOptionsTransformer(gs, is), y, 0, (e, n) => {
-  const t = I(e.timeZone);
-  if (n && I(n.timeZone) !== t) {
-    throw new RangeError(Fr);
-  }
-  return t;
-} ], n = [ /*@__PURE__*/ createOptionsTransformer(hs, rs, Xa), isoToEpochMilli ], o = [ /*@__PURE__*/ createOptionsTransformer(ms, ts, Ts), isoToEpochMilli ], r = [ /*@__PURE__*/ createOptionsTransformer(ps, os, Ds), e => isoTimeFieldsToNano(e) / be ], a = [ /*@__PURE__*/ createOptionsTransformer(fs, ns, Is), isoToEpochMilli, 1 ], i = [ /*@__PURE__*/ createOptionsTransformer(ds, es, Ms), isoToEpochMilli, 1 ];
-
-let ys;
-
-
-
-
-/***/ }),
-
-/***/ "./src/Account.ts":
-/*!************************!*\
-  !*** ./src/Account.ts ***!
-  \************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   Account: () => (/* binding */ Account),
-/* harmony export */   RootAccountNotFoundError: () => (/* binding */ RootAccountNotFoundError),
-/* harmony export */   getAccountIdFromUrl: () => (/* binding */ getAccountIdFromUrl)
-/* harmony export */ });
-/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./baseCanvasObject */ "./src/baseCanvasObject.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-
-
-
+/***/ "./node_modules/@ueu/ueu-canvas/dist/Account.js"
+/*!******************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/Account.js ***!
+  \******************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getAccountIdFromUrl = exports.RootAccountNotFoundError = exports.Account = void 0;
+const baseCanvasObject_1 = __webpack_require__(/*! ./baseCanvasObject */ "./node_modules/@ueu/ueu-canvas/dist/baseCanvasObject.js");
+const getPagedDataGenerator_1 = __webpack_require__(/*! ./fetch/getPagedDataGenerator */ "./node_modules/@ueu/ueu-canvas/dist/fetch/getPagedDataGenerator.js");
+const fetchJson_1 = __webpack_require__(/*! ./fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
 /**
  *  A base class for objects that interact with the Canvas API
  */
-class Account extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
+class Account extends baseCanvasObject_1.BaseCanvasObject {
     static nameProperty = 'name'; // The field name of the primary name of the canvas object type
     static contentUrlTemplate = '/api/v1/accounts/{content_id}'; // A templated url to get a single item
     static allContentUrlTemplate = '/api/v1/accounts'; // A templated url to get all items
@@ -4335,14 +34,14 @@ class Account extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasO
         return null;
     }
     static async getAccountById(accountId, config = undefined) {
-        const data = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__.fetchJson)(`/api/v1/accounts/${accountId}`, config);
+        const data = await (0, fetchJson_1.fetchJson)(`/api/v1/accounts/${accountId}`, config);
         return new Account(data);
     }
     static async getRootAccount(resetCache = false) {
         if (!resetCache && this.hasOwnProperty('account') && this.account) {
             return this.account;
         }
-        const accountGen = (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)('/api/v1/accounts');
+        const accountGen = (0, getPagedDataGenerator_1.getPagedDataGenerator)('/api/v1/accounts');
         for await (const account of accountGen) {
             if (account.root_account_id)
                 continue; //if there is a root_account_id, this is not the root account
@@ -4355,9 +54,11 @@ class Account extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasO
         return this.canvasData['root_account_id'];
     }
 }
+exports.Account = Account;
 class RootAccountNotFoundError extends Error {
     name = 'RootAccountNotFoundError';
 }
+exports.RootAccountNotFoundError = RootAccountNotFoundError;
 const getAccountIdFromUrl = (url = null) => {
     if (url === null) {
         url = document.documentURI;
@@ -4365,403 +66,47 @@ const getAccountIdFromUrl = (url = null) => {
     const match = /accounts\/(\d+)/.exec(url);
     return match ? parseInt(match[1]) : null;
 };
+exports.getAccountIdFromUrl = getAccountIdFromUrl;
+//# sourceMappingURL=Account.js.map
 
+/***/ },
 
+/***/ "./node_modules/@ueu/ueu-canvas/dist/NotImplementedException.js"
+/*!**********************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/NotImplementedException.js ***!
+  \**********************************************************************/
+(__unused_webpack_module, exports) {
 
-/***/ }),
+"use strict";
 
-/***/ "./src/NotImplementedException.ts":
-/*!****************************************!*\
-  !*** ./src/NotImplementedException.ts ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   NotImplementedException: () => (/* binding */ NotImplementedException)
-/* harmony export */ });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.NotImplementedException = void 0;
 class NotImplementedException extends Error {
     name = "NotImplementedException";
 }
+exports.NotImplementedException = NotImplementedException;
+//# sourceMappingURL=NotImplementedException.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/baseCanvasObject.js"
+/*!***************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/baseCanvasObject.js ***!
+  \***************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/__mocks__/Account.ts":
-/*!**********************************!*\
-  !*** ./src/__mocks__/Account.ts ***!
-  \**********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   MockAccount: () => (/* binding */ MockAccount)
-/* harmony export */ });
-/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/baseCanvasObject */ "./src/baseCanvasObject.ts");
-
-// Create a type alias for the original Account class
-class MockAccount extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
-    static nameProperty = 'name';
-    static contentUrlTemplate = '/api/v1/accounts/{content_id}';
-    static allContentUrlTemplate = '/api/v1/accounts';
-    static mockAccount;
-    static mockAccounts = [];
-    static mockDataById = {};
-    static resetMocks() {
-        this.mockAccounts = [];
-        this.mockDataById = {};
-        this.mockAccount = undefined;
-    }
-    static async getFromUrl(url = null) {
-        if (url === null) {
-            url = document.documentURI;
-        }
-        const match = /accounts\/(\d+)/.exec(url);
-        if (match) {
-            return await this.getAccountById(parseInt(match[1]));
-        }
-        return null;
-    }
-    static async getAccountById(accountId, _config = undefined) {
-        const data = this.mockDataById[accountId];
-        if (!data) {
-            throw new Error(`No mock data found for account ID: ${accountId}`);
-        }
-        return new MockAccount(data);
-    }
-    static async getRootAccount(resetCache = false) {
-        if (!resetCache && this.mockAccount) {
-            return this.mockAccount;
-        }
-        const root = this.mockAccounts.find((a) => a.rootAccountId === null);
-        if (!root) {
-            throw new Error('No root account found in mock data');
-        }
-        this.mockAccount = root;
-        return root;
-    }
-    get rootAccountId() {
-        return this.canvasData['root_account_id'];
-    }
-}
-
-
-/***/ }),
-
-/***/ "./src/__mocks__/index.ts":
-/*!********************************!*\
-  !*** ./src/__mocks__/index.ts ***!
-  \********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   MockAccount: () => (/* reexport safe */ _Account__WEBPACK_IMPORTED_MODULE_0__.MockAccount),
-/* harmony export */   mockAccountData: () => (/* reexport safe */ _mockAccountData__WEBPACK_IMPORTED_MODULE_1__.mockAccountData),
-/* harmony export */   mockAsyncGen: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_7__.mockAsyncGen),
-/* harmony export */   mockEnrollment: () => (/* reexport safe */ _mockEnrollment__WEBPACK_IMPORTED_MODULE_2__.mockEnrollment),
-/* harmony export */   mockRubric: () => (/* reexport safe */ _mockRubricData__WEBPACK_IMPORTED_MODULE_3__.mockRubric),
-/* harmony export */   mockRubricAssessment: () => (/* reexport safe */ _mockRubricData__WEBPACK_IMPORTED_MODULE_3__.mockRubricAssessment),
-/* harmony export */   mockRubricAssociation: () => (/* reexport safe */ _mockRubricData__WEBPACK_IMPORTED_MODULE_3__.mockRubricAssociation),
-/* harmony export */   mockRubricsForAssignments: () => (/* reexport safe */ _mockRubricData__WEBPACK_IMPORTED_MODULE_3__.mockRubricsForAssignments),
-/* harmony export */   mockTabData: () => (/* reexport safe */ _mockTabData__WEBPACK_IMPORTED_MODULE_4__.mockTabData),
-/* harmony export */   mockTermData: () => (/* reexport safe */ _mockTermData__WEBPACK_IMPORTED_MODULE_6__.mockTermData),
-/* harmony export */   mockUserData: () => (/* reexport safe */ _mockUserData__WEBPACK_IMPORTED_MODULE_5__.mockUserData),
-/* harmony export */   returnMockAsyncGen: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_7__.returnMockAsyncGen)
-/* harmony export */ });
-/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Account */ "./src/__mocks__/Account.ts");
-/* harmony import */ var _mockAccountData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mockAccountData */ "./src/__mocks__/mockAccountData.ts");
-/* harmony import */ var _mockEnrollment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mockEnrollment */ "./src/__mocks__/mockEnrollment.ts");
-/* harmony import */ var _mockRubricData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mockRubricData */ "./src/__mocks__/mockRubricData.ts");
-/* harmony import */ var _mockTabData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./mockTabData */ "./src/__mocks__/mockTabData.ts");
-/* harmony import */ var _mockUserData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./mockUserData */ "./src/__mocks__/mockUserData.ts");
-/* harmony import */ var _mockTermData__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./mockTermData */ "./src/__mocks__/mockTermData.ts");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./utils */ "./src/__mocks__/utils.ts");
-
-
-
-
-
-
-
-
-
-
-/***/ }),
-
-/***/ "./src/__mocks__/mockAccountData.ts":
-/*!******************************************!*\
-  !*** ./src/__mocks__/mockAccountData.ts ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   mockAccountData: () => (/* binding */ mockAccountData)
-/* harmony export */ });
-/**
- * From Canvas Api Docs - https://canvas.instructure.com/doc/api/accounts.html
- */
-const mockAccountData = {
-    // the ID of the Account object
-    "id": 2,
-    // The display name of the account
-    "name": "Canvas Account",
-    // The UUID of the account
-    "uuid": "WvAHhY5FINzq5IyRIJybGeiXyFkG3SqHUPb7jZY5",
-    // The account's parent ID, or null if this is the root account
-    "parent_account_id": 1,
-    // The ID of the root account, or null if this is the root account
-    "root_account_id": 1,
-    // The storage quota for the account in megabytes, if not otherwise specified
-    "default_storage_quota_mb": 500,
-    // The storage quota for a user in the account in megabytes, if not otherwise
-    // specified
-    "default_user_storage_quota_mb": 50,
-    // The storage quota for a group in the account in megabytes, if not otherwise
-    // specified
-    "default_group_storage_quota_mb": 50,
-    // The default time zone of the account. Allowed time zones are
-    // {http://www.iana.org/time-zones IANA time zones} or friendlier
-    // {http://api.rubyonrails.org/classes/ActiveSupport/TimeZone.html Ruby on Rails
-    // time zones}.
-    "default_time_zone": "America/Denver",
-    // The account's identifier in the Student Information System. Only included if
-    // the user has permission to view SIS information.
-    "sis_account_id": "123xyz",
-    // The account's identifier in the Student Information System. Only included if
-    // the user has permission to view SIS information.
-    "integration_id": "123xyz",
-    // The id of the SIS import if created through SIS. Only included if the user
-    // has permission to manage SIS information.
-    "sis_import_id": 12,
-    // The account's identifier that is sent as context_id in LTI launches.
-    "lti_guid": "123xyz",
-    // The state of the account. Can be 'active' or 'deleted'.
-    "workflow_state": "active"
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
-
-/***/ }),
-
-/***/ "./src/__mocks__/mockEnrollment.ts":
-/*!*****************************************!*\
-  !*** ./src/__mocks__/mockEnrollment.ts ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   mockEnrollment: () => (/* binding */ mockEnrollment)
-/* harmony export */ });
-/* harmony import */ var _mocks_mockUserData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/__mocks__/mockUserData */ "./src/__mocks__/mockUserData.ts");
-/* harmony import */ var _enrollments__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/enrollments */ "./src/enrollments/index.ts");
-
-
-const mockEnrollment = {
-    created_at: "",
-    end_at: "",
-    html_url: "",
-    role: (0,_enrollments__WEBPACK_IMPORTED_MODULE_1__.createEnrollmentRole)(""),
-    role_id: 0,
-    root_account_id: 0,
-    start_at: "",
-    total_activity_time: 0,
-    unposted_current_points: 0,
-    updated_at: "",
-    id: 1,
-    user_id: 1,
-    type: 'StudentEnrollment',
-    enrollment_state: 'active',
-    course_id: 1,
-    user: { ..._mocks_mockUserData__WEBPACK_IMPORTED_MODULE_0__.mockUserData, id: 1, name: 'Student Name', sis_user_id: '12345' }
-};
-
-
-/***/ }),
-
-/***/ "./src/__mocks__/mockRubricData.ts":
-/*!*****************************************!*\
-  !*** ./src/__mocks__/mockRubricData.ts ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   mockRubric: () => (/* binding */ mockRubric),
-/* harmony export */   mockRubricAssessment: () => (/* binding */ mockRubricAssessment),
-/* harmony export */   mockRubricAssociation: () => (/* binding */ mockRubricAssociation),
-/* harmony export */   mockRubricsForAssignments: () => (/* binding */ mockRubricsForAssignments)
-/* harmony export */ });
-const mockRubricAssociation = {
-    association_id: 0,
-    association_type: "Assignment",
-    hide_outcome_results: false,
-    hide_points: false,
-    hide_score_total: false,
-    id: 0,
-    purpose: 'grading',
-    rubric_id: 0,
-    use_for_grading: false
-};
-const mockRubricAssessment = {
-    artifact_attempt: 0,
-    artifact_id: 0,
-    artifact_type: "",
-    assessment_type: 'grading',
-    assessor_id: 0,
-    id: 0,
-    rubric_association_id: 0,
-    rubric_id: 0,
-    score: 0
-};
-const mockRubric = {
-    // the ID of the rubric
-    "id": 1,
-    // title of the rubric
-    "title": "some title",
-    // the context owning the rubric
-    "context_id": 1,
-    "context_type": "Course",
-    "points_possible": 10.0,
-    "reusable": false,
-    "read_only": true,
-    "free_form_criterion_comments": true,
-    "hide_score_total": true,
-    "data": null,
-    "assessments": [mockRubricAssessment],
-    "associations": [mockRubricAssociation]
-};
-function mockRubricsForAssignments(assignmentIds, rubricOverride, associationOverride) {
-    return assignmentIds.map((association_id, index) => {
-        const rubric_id = 1000 + index;
-        return {
-            ...mockRubric,
-            id: rubric_id,
-            associations: [{ ...mockRubricAssociation, rubric_id, association_id, ...associationOverride }],
-            ...rubricOverride
-        };
-    });
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (mockRubric);
-
-
-/***/ }),
-
-/***/ "./src/__mocks__/mockTabData.ts":
-/*!**************************************!*\
-  !*** ./src/__mocks__/mockTabData.ts ***!
-  \**************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   mockTabData: () => (/* binding */ mockTabData)
-/* harmony export */ });
-const mockTabData = {
-    full_url: "/api/v1/...",
-    html_url: "http://localhost",
-    id: "0",
-    label: "tab",
-    position: 0,
-    type: "",
-    visibility: ""
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (mockTabData);
-
-
-/***/ }),
-
-/***/ "./src/__mocks__/mockTermData.ts":
-/*!***************************************!*\
-  !*** ./src/__mocks__/mockTermData.ts ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   mockTermData: () => (/* binding */ mockTermData)
-/* harmony export */ });
-const mockTermData = {
-    id: 1,
-    course_count: 0, end_at: "", name: "", start_at: "", workflow_state: "active"
-};
-
-
-/***/ }),
-
-/***/ "./src/__mocks__/mockUserData.ts":
-/*!***************************************!*\
-  !*** ./src/__mocks__/mockUserData.ts ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   mockUserData: () => (/* binding */ mockUserData)
-/* harmony export */ });
-//Generated by ChatGPT-4o
-const mockUserData = {
-    id: 1,
-    name: 'John Doe',
-    sortable_name: 'Doe, John',
-    last_name: 'Doe',
-    first_name: 'John',
-    short_name: 'J. Doe',
-    email: 'john.doe@example.com',
-    bio: 'This is a bio for John Doe.',
-};
-
-
-/***/ }),
-
-/***/ "./src/__mocks__/utils.ts":
-/*!********************************!*\
-  !*** ./src/__mocks__/utils.ts ***!
-  \********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   mockAsyncGen: () => (/* binding */ mockAsyncGen),
-/* harmony export */   returnMockAsyncGen: () => (/* binding */ returnMockAsyncGen)
-/* harmony export */ });
-function returnMockAsyncGen(dataSet) {
-    return async function* () {
-        for (const value of dataSet)
-            yield value;
-    };
-}
-function mockAsyncGen(dataSet) {
-    return returnMockAsyncGen(dataSet)();
-}
-
-
-/***/ }),
-
-/***/ "./src/baseCanvasObject.ts":
-/*!*********************************!*\
-  !*** ./src/baseCanvasObject.ts ***!
-  \*********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   BaseCanvasObject: () => (/* binding */ BaseCanvasObject)
-/* harmony export */ });
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _fetch_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fetch/utils */ "./src/fetch/utils.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-
-
-
-
-
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.BaseCanvasObject = void 0;
+const assert_1 = __importDefault(__webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js"));
+const canvasUtils_1 = __webpack_require__(/*! ./canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
+const getPagedDataGenerator_1 = __webpack_require__(/*! ./fetch/getPagedDataGenerator */ "./node_modules/@ueu/ueu-canvas/dist/fetch/getPagedDataGenerator.js");
+const utils_1 = __webpack_require__(/*! ./fetch/utils */ "./node_modules/@ueu/ueu-canvas/dist/fetch/utils.js");
+const fetchJson_1 = __webpack_require__(/*! ./fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
 /**
  * DEPRECATED
  */
@@ -4788,7 +133,7 @@ class BaseCanvasObject {
         return this.constructor;
     }
     get nameKey() {
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(this.myClass.nameProperty);
+        (0, assert_1.default)(this.myClass.nameProperty);
         return this.myClass.nameProperty;
     }
     get rawData() {
@@ -4796,8 +141,8 @@ class BaseCanvasObject {
     }
     get contentUrlPath() {
         const constructor = this.constructor;
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.accountId === 'number');
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof constructor.contentUrlTemplate === 'string');
+        (0, assert_1.default)(typeof this.accountId === 'number');
+        (0, assert_1.default)(typeof constructor.contentUrlTemplate === 'string');
         return '/api/v1/' + constructor.contentUrlTemplate
             .replace('{content_id}', this.id.toString())
             .replace('{account_id}', this.accountId.toString());
@@ -4810,12 +155,12 @@ class BaseCanvasObject {
     }
     static async getDataById(contentId, courseId = null, config = null) {
         const url = this.getUrlPathFromIds(contentId, courseId);
-        const response = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(!Array.isArray(response));
+        const response = await (0, fetchJson_1.fetchJson)(url, config);
+        (0, assert_1.default)(!Array.isArray(response));
         return response;
     }
     static getUrlPathFromIds(contentId, courseId) {
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.contentUrlTemplate === 'string');
+        (0, assert_1.default)(typeof this.contentUrlTemplate === 'string');
         let url = this.contentUrlTemplate
             .replace('{content_id}', contentId.toString());
         if (courseId)
@@ -4827,7 +172,7 @@ class BaseCanvasObject {
      * @param accountId - The account ID to get elements within, if applicable
      */
     static getAllUrl(courseId = null, accountId = null) {
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.allContentUrlTemplate === 'string');
+        (0, assert_1.default)(typeof this.allContentUrlTemplate === 'string');
         let replaced = this.allContentUrlTemplate;
         if (courseId)
             replaced = replaced.replace('{course_id}', courseId.toString());
@@ -4837,7 +182,7 @@ class BaseCanvasObject {
     }
     static async getAll(config = null) {
         const url = this.getAllUrl();
-        return await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.renderAsyncGen)((0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.getPagedDataGenerator)(this.getAllUrl(), config));
+        return await (0, canvasUtils_1.renderAsyncGen)((0, getPagedDataGenerator_1.getPagedDataGenerator)(this.getAllUrl(), config));
     }
     get id() {
         const id = this.canvasData[this.constructor.idProperty];
@@ -4850,68 +195,57 @@ class BaseCanvasObject {
         return this.getItem(nameProperty);
     }
     async saveData(data, config) {
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(this.contentUrlPath);
-        config = (0,_fetch_utils__WEBPACK_IMPORTED_MODULE_3__.overrideConfig)({
+        (0, assert_1.default)(this.contentUrlPath);
+        config = (0, utils_1.overrideConfig)({
             fetchInit: {
                 method: 'PUT',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.formDataify)(data)
+                body: (0, canvasUtils_1.formDataify)(data)
             }
         }, config);
-        let results = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(this.contentUrlPath, config);
+        let results = await (0, fetchJson_1.fetchJson)(this.contentUrlPath, config);
         if (Array.isArray(results))
             results = results[0];
         this.canvasData = { ...this.canvasData, ...results };
         return this.canvasData;
     }
 }
+exports.BaseCanvasObject = BaseCanvasObject;
+//# sourceMappingURL=baseCanvasObject.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js"
+/*!**********************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js ***!
+  \**********************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/canvasDataDefs.ts":
-/*!*******************************!*\
-  !*** ./src/canvasDataDefs.ts ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "./src/canvasUtils.ts":
-/*!****************************!*\
-  !*** ./src/canvasUtils.ts ***!
-  \****************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   batchGen: () => (/* binding */ batchGen),
-/* harmony export */   batchify: () => (/* binding */ batchify),
-/* harmony export */   callAll: () => (/* binding */ callAll),
-/* harmony export */   courseNameSort: () => (/* binding */ courseNameSort),
-/* harmony export */   deFormDataify: () => (/* binding */ deFormDataify),
-/* harmony export */   deepObjectCopy: () => (/* binding */ deepObjectCopy),
-/* harmony export */   deepObjectMerge: () => (/* binding */ deepObjectMerge),
-/* harmony export */   filterUniqueFunc: () => (/* binding */ filterUniqueFunc),
-/* harmony export */   formDataify: () => (/* binding */ formDataify),
-/* harmony export */   generatorMap: () => (/* binding */ generatorMap),
-/* harmony export */   getItemTypeAndId: () => (/* binding */ getItemTypeAndId),
-/* harmony export */   getPlainTextFromHtml: () => (/* binding */ getPlainTextFromHtml),
-/* harmony export */   numbers: () => (/* binding */ numbers),
-/* harmony export */   parentElement: () => (/* binding */ parentElement),
-/* harmony export */   queryStringify: () => (/* binding */ queryStringify),
-/* harmony export */   range: () => (/* binding */ range),
-/* harmony export */   renderAsyncGen: () => (/* binding */ renderAsyncGen),
-/* harmony export */   searchParamsFromObject: () => (/* binding */ searchParamsFromObject)
-/* harmony export */ });
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-
-
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.callAll = callAll;
+exports.parentElement = parentElement;
+exports.formDataify = formDataify;
+exports.deepObjectCopy = deepObjectCopy;
+exports.deepObjectMerge = deepObjectMerge;
+exports.deFormDataify = deFormDataify;
+exports.queryStringify = queryStringify;
+exports.getItemTypeAndId = getItemTypeAndId;
+exports.searchParamsFromObject = searchParamsFromObject;
+exports.courseNameSort = courseNameSort;
+exports.range = range;
+exports.numbers = numbers;
+exports.getPlainTextFromHtml = getPlainTextFromHtml;
+exports.batchify = batchify;
+exports.filterUniqueFunc = filterUniqueFunc;
+exports.batchGen = batchGen;
+exports.renderAsyncGen = renderAsyncGen;
+exports.generatorMap = generatorMap;
+const assert_1 = __importDefault(__webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js"));
+const fetchJson_1 = __webpack_require__(/*! ./fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
 function isWithParamsFunc(func) {
     return typeof func === 'function' && func.length > 0;
 }
@@ -4935,7 +269,6 @@ function callAll(funcs, params) {
     }
     return output;
 }
-
 /**
  * Traverses up the DOM and finds a parent with a matching Tag
  * @param el
@@ -5007,7 +340,7 @@ function deepObjectMerge(a, b, overrideWithA = false, complexObjectsTracker = []
     if (Array.isArray(a)) {
         if (!b)
             return deepObjectCopy(a, complexObjectsTracker);
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(Array.isArray(b), "We should not get here if b is not an array");
+        (0, assert_1.default)(Array.isArray(b), "We should not get here if b is not an array");
         const mergedArray = [...a, ...b];
         const outputArray = mergedArray.map(value => {
             if (!value)
@@ -5027,13 +360,13 @@ function deepObjectMerge(a, b, overrideWithA = false, complexObjectsTracker = []
     if ((a && typeof a === 'object') || (b && typeof b === 'object')) {
         if (a instanceof File && b instanceof File) {
             if (!overrideWithA)
-                assert__WEBPACK_IMPORTED_MODULE_0___default()(a.size == b.size && a.name == b.name, `File value clash ${a.name} ${b.name}`);
+                (0, assert_1.default)(a.size == b.size && a.name == b.name, `File value clash ${a.name} ${b.name}`);
             return a;
         }
         if (a && Object.getPrototypeOf(a) != Object.prototype
             || b && Object.getPrototypeOf(b) != Object.prototype) {
             if (!overrideWithA)
-                assert__WEBPACK_IMPORTED_MODULE_0___default()(!a || !b || a === b, `Non-mergeable object clash ${a} ${b}`);
+                (0, assert_1.default)(!a || !b || a === b, `Non-mergeable object clash ${a} ${b}`);
             if (a)
                 return a;
             if (b)
@@ -5043,8 +376,8 @@ function deepObjectMerge(a, b, overrideWithA = false, complexObjectsTracker = []
             return deepObjectCopy(a, complexObjectsTracker);
         if (b && !a)
             return deepObjectCopy(b, complexObjectsTracker);
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(a && typeof a === 'object' && Object.getPrototypeOf(a) === Object.prototype, "a should always be defined here.");
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(b && typeof b === 'object' && Object.getPrototypeOf(b) === Object.prototype, "b should always be defined here.");
+        (0, assert_1.default)(a && typeof a === 'object' && Object.getPrototypeOf(a) === Object.prototype, "a should always be defined here.");
+        (0, assert_1.default)(b && typeof b === 'object' && Object.getPrototypeOf(b) === Object.prototype, "b should always be defined here.");
         const allKeys = [...Object.keys(a), ...Object.keys(b)].filter(filterUniqueFunc);
         const aRecord = a;
         const bRecord = b;
@@ -5067,7 +400,7 @@ function deepObjectMerge(a, b, overrideWithA = false, complexObjectsTracker = []
         return a;
     if (b === null)
         return b;
-    assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof a === 'undefined');
+    (0, assert_1.default)(typeof a === 'undefined');
     return a;
 }
 function deFormDataify(formData) {
@@ -5149,11 +482,11 @@ function addToQuery(searchParams, key, value) {
 async function getItemTypeAndId(item) {
     let id;
     let type;
-    assert__WEBPACK_IMPORTED_MODULE_0___default()(type_lut.hasOwnProperty(item.type), "Unexpected type " + item.type);
+    (0, assert_1.default)(type_lut.hasOwnProperty(item.type), "Unexpected type " + item.type);
     type = type_lut[item.type];
     if (type === "wiki_page") {
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(item.url); //wiki_page items always have a url param
-        const pageData = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(item.url);
+        (0, assert_1.default)(item.url); //wiki_page items always have a url param
+        const pageData = await (0, fetchJson_1.fetchJson)(item.url);
         id = pageData.page_id;
     }
     else {
@@ -5245,40 +578,35 @@ async function* generatorMap(generator, nextMapFunc) {
         i++;
     }
 }
+//# sourceMappingURL=canvasUtils.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/BaseContentItem.js"
+/*!**********************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/BaseContentItem.js ***!
+  \**********************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/content/BaseContentItem.ts":
-/*!****************************************!*\
-  !*** ./src/content/BaseContentItem.ts ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   BaseContentItem: () => (/* binding */ BaseContentItem),
-/* harmony export */   getBannerImage: () => (/* binding */ getBannerImage),
-/* harmony export */   postContentConfig: () => (/* binding */ postContentConfig),
-/* harmony export */   putContentConfig: () => (/* binding */ putContentConfig)
-/* harmony export */ });
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @canvas/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @canvas/baseCanvasObject */ "./src/baseCanvasObject.ts");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @canvas/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @canvas/course/getCourseIdFromUrl */ "./src/course/getCourseIdFromUrl.ts");
-/* harmony import */ var _canvas_NotImplementedException__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @canvas/NotImplementedException */ "./src/NotImplementedException.ts");
-
-
-
-
-
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.BaseContentItem = void 0;
+exports.getBannerImage = getBannerImage;
+exports.putContentConfig = putContentConfig;
+exports.postContentConfig = postContentConfig;
+const fetchJson_1 = __webpack_require__(/*! ../fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
+const baseCanvasObject_1 = __webpack_require__(/*! ../baseCanvasObject */ "./node_modules/@ueu/ueu-canvas/dist/baseCanvasObject.js");
+const assert_1 = __importDefault(__webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js"));
+const canvasUtils_1 = __webpack_require__(/*! ../canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
+const getPagedDataGenerator_1 = __webpack_require__(/*! ../fetch/getPagedDataGenerator */ "./node_modules/@ueu/ueu-canvas/dist/fetch/getPagedDataGenerator.js");
 //import {getResizedBlob} from "@/image";
-
-
-class BaseContentItem extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_1__.BaseCanvasObject {
+const getCourseIdFromUrl_1 = __importDefault(__webpack_require__(/*! ../course/getCourseIdFromUrl */ "./node_modules/@ueu/ueu-canvas/dist/course/getCourseIdFromUrl.js"));
+const NotImplementedException_1 = __webpack_require__(/*! ../NotImplementedException */ "./node_modules/@ueu/ueu-canvas/dist/NotImplementedException.js");
+class BaseContentItem extends baseCanvasObject_1.BaseCanvasObject {
     static bodyProperty;
     static nameProperty = 'name';
     kind = undefined;
@@ -5291,7 +619,7 @@ class BaseContentItem extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_
         return `${this.contentUrlPath}`.replace('/api/v1/', '/');
     }
     static get contentUrlPart() {
-        assert__WEBPACK_IMPORTED_MODULE_2___default()(this.allContentUrlTemplate, "Not a content url template");
+        (0, assert_1.default)(this.allContentUrlTemplate, "Not a content url template");
         const urlTermMatch = /\/([\w_]+)$/.exec(this.allContentUrlTemplate);
         if (!urlTermMatch)
             return null;
@@ -5299,7 +627,7 @@ class BaseContentItem extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_
     }
     static async getAllInCourse(courseId, config = null) {
         const url = this.getAllUrl(courseId);
-        const data = await (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_4__.getPagedData)(url, config);
+        const data = await (0, getPagedDataGenerator_1.getPagedData)(url, config);
         return data.map(item => new this(item, courseId));
     }
     static clearAddedContentTags(text) {
@@ -5314,16 +642,16 @@ class BaseContentItem extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_
             url = document.documentURI;
         }
         url = url.replace(/\.com/, '.com/api/v1');
-        const data = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url);
+        const data = await (0, fetchJson_1.fetchJson)(url);
         if (!courseId) {
-            courseId = (0,_canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_5__["default"])(url);
+            courseId = (0, getCourseIdFromUrl_1.default)(url);
             if (!courseId)
                 return null;
         }
         //If this is a collection of data, we can't process it as a Canvas Object
         if (Array.isArray(data))
             return null;
-        assert__WEBPACK_IMPORTED_MODULE_2___default()(!Array.isArray(data));
+        (0, assert_1.default)(!Array.isArray(data));
         if (data) {
             return new this(data, courseId);
         }
@@ -5349,7 +677,7 @@ class BaseContentItem extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_
         return new Date(this.canvasData.due_at);
     }
     async setDueAt(date) {
-        throw new _canvas_NotImplementedException__WEBPACK_IMPORTED_MODULE_6__.NotImplementedException();
+        throw new NotImplementedException_1.NotImplementedException();
     }
     async dueAtTimeDelta(timeDelta) {
         if (!this.dueAt)
@@ -5360,7 +688,7 @@ class BaseContentItem extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_
     }
     get contentUrlPath() {
         let url = this.constructor.contentUrlTemplate;
-        assert__WEBPACK_IMPORTED_MODULE_2___default()(url);
+        (0, assert_1.default)(url);
         url = url.replace('{course_id}', this.courseId.toString());
         url = url.replace('{content_id}', this.id.toString());
         return url;
@@ -5371,8 +699,8 @@ class BaseContentItem extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_
     async updateContent(text, name, config) {
         const data = {};
         const constructor = this.constructor;
-        assert__WEBPACK_IMPORTED_MODULE_2___default()(constructor.bodyProperty);
-        assert__WEBPACK_IMPORTED_MODULE_2___default()(constructor.nameProperty);
+        (0, assert_1.default)(constructor.bodyProperty);
+        (0, assert_1.default)(constructor.nameProperty);
         const nameProp = constructor.nameProperty;
         const bodyProp = constructor.bodyProperty;
         if (text && bodyProp) {
@@ -5399,12 +727,13 @@ class BaseContentItem extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_
         return urls;
     }
     get bodyAsElement() {
-        assert__WEBPACK_IMPORTED_MODULE_2___default()(this.body, "This content item has no body property");
+        (0, assert_1.default)(this.body, "This content item has no body property");
         const el = document.createElement('div');
         el.innerHTML = this.body;
         return el;
     }
 }
+exports.BaseContentItem = BaseContentItem;
 async function getFileDataFromUrl(url, courseId) {
     const match = /.*\/files\/(\d+)/.exec(url);
     if (!match)
@@ -5423,45 +752,43 @@ function getBannerImage(overviewPage) {
 }
 async function getFileData(fileId, courseId) {
     const url = `/api/v1/courses/${courseId}/files/${fileId}`;
-    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url);
+    return await (0, fetchJson_1.fetchJson)(url);
 }
 function putContentConfig(data, config) {
-    return (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.deepObjectMerge)(config, {
+    return (0, canvasUtils_1.deepObjectMerge)(config, {
         fetchInit: {
             method: 'PUT',
-            body: (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.formDataify)(data)
+            body: (0, canvasUtils_1.formDataify)(data)
         }
     }, true);
 }
 function postContentConfig(data, config) {
-    return (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.deepObjectMerge)(config, {
+    return (0, canvasUtils_1.deepObjectMerge)(config, {
         fetchInit: {
             method: 'POST',
-            body: (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_3__.formDataify)(data)
+            body: (0, canvasUtils_1.formDataify)(data)
         }
     }, true);
 }
+//# sourceMappingURL=BaseContentItem.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/ContentKind.js"
+/*!******************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/ContentKind.js ***!
+  \******************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/content/ContentKind.ts":
-/*!************************************!*\
-  !*** ./src/content/ContentKind.ts ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   contentUrlFuncs: () => (/* binding */ contentUrlFuncs),
-/* harmony export */   courseContentUrlFunc: () => (/* binding */ courseContentUrlFunc),
-/* harmony export */   postContentFunc: () => (/* binding */ postContentFunc),
-/* harmony export */   putContentFunc: () => (/* binding */ putContentFunc)
-/* harmony export */ });
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
-
-
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.contentUrlFuncs = contentUrlFuncs;
+exports.courseContentUrlFunc = courseContentUrlFunc;
+exports.putContentFunc = putContentFunc;
+exports.postContentFunc = postContentFunc;
+const fetchJson_1 = __webpack_require__(/*! ../fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
+const BaseContentItem_1 = __webpack_require__(/*! ../content/BaseContentItem */ "./node_modules/@ueu/ueu-canvas/dist/content/BaseContentItem.js");
 function contentUrlFuncs(contentUrlPart) {
     const urlRegex = new RegExp(`courses\/(\\d+)\/${contentUrlPart}/(\\d+)`, 'i');
     const getApiUrl = courseContentUrlFunc(`/api/v1/courses/{courseId}/${contentUrlPart}/{contentId}`);
@@ -5489,40 +816,38 @@ function courseContentUrlFunc(url) {
 function putContentFunc(getApiUrl) {
     return async function (courseId, contentId, content, config) {
         const url = getApiUrl(courseId, contentId);
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url, (0,_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__.putContentConfig)(content, config));
+        return await (0, fetchJson_1.fetchJson)(url, (0, BaseContentItem_1.putContentConfig)(content, config));
     };
 }
 function postContentFunc(getApiUrl) {
     return async function (courseId, content, config) {
         const url = getApiUrl(courseId);
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url, (0,_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__.postContentConfig)(content, config));
+        return await (0, fetchJson_1.fetchJson)(url, (0, BaseContentItem_1.postContentConfig)(content, config));
     };
 }
+//# sourceMappingURL=ContentKind.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/Assignment.js"
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/assignments/Assignment.js ***!
+  \*****************************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/content/assignments/Assignment.ts":
-/*!***********************************************!*\
-  !*** ./src/content/assignments/Assignment.ts ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   Assignment: () => (/* binding */ Assignment)
-/* harmony export */ });
-/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/content/assignments/AssignmentKind */ "./src/content/assignments/AssignmentKind.ts");
-
-
-
-
-class Assignment extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
-    static kind = _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_3__["default"];
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Assignment = void 0;
+const BaseContentItem_1 = __webpack_require__(/*! ../../content/BaseContentItem */ "./node_modules/@ueu/ueu-canvas/dist/content/BaseContentItem.js");
+const temporal_polyfill_1 = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/index.cjs");
+const assert_1 = __importDefault(__webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js"));
+const AssignmentKind_1 = __importDefault(__webpack_require__(/*! ../../content/assignments/AssignmentKind */ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/AssignmentKind.js"));
+class Assignment extends BaseContentItem_1.BaseContentItem {
+    static kind = AssignmentKind_1.default;
     static nameProperty = 'name';
     static bodyProperty = 'description';
     static contentUrlTemplate = "/api/v1/courses/{course_id}/assignments/{content_id}";
@@ -5531,16 +856,16 @@ class Assignment extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.B
         super(assignmentData, courseId);
     }
     async setDueAt(dueAt, config) {
-        const sourceDueAt = this.rawData.due_at ? temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(this.rawData.due_at) : null;
-        const targetDueAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(dueAt.toISOString());
+        const sourceDueAt = this.rawData.due_at ? temporal_polyfill_1.Temporal.Instant.from(this.rawData.due_at) : null;
+        const targetDueAt = temporal_polyfill_1.Temporal.Instant.from(dueAt.toISOString());
         const payload = {
             assignment: {
                 due_at: dueAt.toISOString(),
             }
         };
         if (this.rawData.peer_reviews && 'automatic_peer_reviews' in this.rawData) {
-            const peerReviewTime = this.rawData.peer_reviews_assign_at ? temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(this.rawData.peer_reviews_assign_at) : null;
-            assert__WEBPACK_IMPORTED_MODULE_2___default()(sourceDueAt, "Trying to set peer review date without a due date for the assignment.");
+            const peerReviewTime = this.rawData.peer_reviews_assign_at ? temporal_polyfill_1.Temporal.Instant.from(this.rawData.peer_reviews_assign_at) : null;
+            (0, assert_1.default)(sourceDueAt, "Trying to set peer review date without a due date for the assignment.");
             if (peerReviewTime) {
                 const peerReviewOffset = sourceDueAt.until(peerReviewTime);
                 const newPeerReviewTime = targetDueAt.add(peerReviewOffset);
@@ -5570,29 +895,26 @@ class Assignment extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.B
         }, config);
     }
 }
+exports.Assignment = Assignment;
+//# sourceMappingURL=Assignment.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/AssignmentKind.js"
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/assignments/AssignmentKind.js ***!
+  \*********************************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/content/assignments/AssignmentKind.ts":
-/*!***************************************************!*\
-  !*** ./src/content/assignments/AssignmentKind.ts ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   assignmentUrlFuncs: () => (/* binding */ assignmentUrlFuncs),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
-
-
-
-const assignmentUrlFuncs = (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('assignments');
-const AssignmentKind = {
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AssignmentKind = exports.assignmentUrlFuncs = void 0;
+const fetchJson_1 = __webpack_require__(/*! ../../fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
+const getPagedDataGenerator_1 = __webpack_require__(/*! ../../fetch/getPagedDataGenerator */ "./node_modules/@ueu/ueu-canvas/dist/fetch/getPagedDataGenerator.js");
+const ContentKind_1 = __webpack_require__(/*! ../../content/ContentKind */ "./node_modules/@ueu/ueu-canvas/dist/content/ContentKind.js");
+exports.assignmentUrlFuncs = (0, ContentKind_1.contentUrlFuncs)('assignments');
+exports.AssignmentKind = {
     getId: (data) => data.id,
     dataIsThisKind: (data) => {
         return 'submission_types' in data;
@@ -5600,36 +922,36 @@ const AssignmentKind = {
     getName: (data) => data.name,
     getBody: (data) => data.description,
     async get(courseId, contentId, config) {
-        const data = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(assignmentUrlFuncs.getApiUrl(courseId, contentId), config);
+        const data = await (0, fetchJson_1.fetchJson)(exports.assignmentUrlFuncs.getApiUrl(courseId, contentId), config);
         return data;
     },
-    ...assignmentUrlFuncs,
-    dataGenerator: (courseId, config) => (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(assignmentUrlFuncs.getAllApiUrl(courseId), config),
-    put: (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(assignmentUrlFuncs.getApiUrl),
+    ...exports.assignmentUrlFuncs,
+    dataGenerator: (courseId, config) => (0, getPagedDataGenerator_1.getPagedDataGenerator)(exports.assignmentUrlFuncs.getAllApiUrl(courseId), config),
+    put: (0, ContentKind_1.putContentFunc)(exports.assignmentUrlFuncs.getApiUrl),
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AssignmentKind);
+exports["default"] = exports.AssignmentKind;
+//# sourceMappingURL=AssignmentKind.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/index.js"
+/*!************************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/assignments/index.js ***!
+  \************************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/content/assignments/index.ts":
-/*!******************************************!*\
-  !*** ./src/content/assignments/index.ts ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   assignmentDataGen: () => (/* binding */ assignmentDataGen),
-/* harmony export */   updateAssignmentData: () => (/* binding */ updateAssignmentData),
-/* harmony export */   updateAssignmentDueDates: () => (/* binding */ updateAssignmentDueDates)
-/* harmony export */ });
-/* harmony import */ var _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/content/assignments/AssignmentKind */ "./src/content/assignments/AssignmentKind.ts");
-/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
-
-
-const assignmentDataGen = _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__["default"].dataGenerator;
-const updateAssignmentData = _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__["default"].put;
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.updateAssignmentData = exports.assignmentDataGen = void 0;
+exports.updateAssignmentDueDates = updateAssignmentDueDates;
+const AssignmentKind_1 = __importDefault(__webpack_require__(/*! ../../content/assignments/AssignmentKind */ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/AssignmentKind.js"));
+const Assignment_1 = __webpack_require__(/*! ../../content/assignments/Assignment */ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/Assignment.js");
+exports.assignmentDataGen = AssignmentKind_1.default.dataGenerator;
+exports.updateAssignmentData = AssignmentKind_1.default.put;
 async function updateAssignmentDueDates(offset, assignments, options) {
     const promises = [];
     const returnAssignments = [];
@@ -5639,56 +961,50 @@ async function updateAssignmentDueDates(offset, assignments, options) {
     }
     if (offset === 0 || offset) {
         for await (const data of assignments) {
-            const assignment = new _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__.Assignment(data, courseId);
+            const assignment = new Assignment_1.Assignment(data, courseId);
             returnAssignments.push(assignment);
             promises.push(assignment.dueAtTimeDelta(Number(offset)));
         }
     }
     return returnAssignments;
 }
+//# sourceMappingURL=index.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/determineContent.js"
+/*!***********************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/determineContent.js ***!
+  \***********************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/content/determineContent.ts":
-/*!*****************************************!*\
-  !*** ./src/content/determineContent.ts ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   CONTENT_KINDS: () => (/* binding */ CONTENT_KINDS),
-/* harmony export */   ContentKinds: () => (/* binding */ ContentKinds),
-/* harmony export */   getContentClassFromUrl: () => (/* binding */ getContentClassFromUrl),
-/* harmony export */   getContentDataFromUrl: () => (/* binding */ getContentDataFromUrl),
-/* harmony export */   getContentItemFromUrl: () => (/* binding */ getContentItemFromUrl),
-/* harmony export */   getContentKindFromContent: () => (/* binding */ getContentKindFromContent),
-/* harmony export */   getContentKindFromUrl: () => (/* binding */ getContentKindFromUrl)
-/* harmony export */ });
-/* harmony import */ var _content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/content/quizzes/Quiz */ "./src/content/quizzes/Quiz.ts");
-/* harmony import */ var _content_pages_Page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/content/pages/Page */ "./src/content/pages/Page.ts");
-/* harmony import */ var _content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/content/discussions/Discussion */ "./src/content/discussions/Discussion.ts");
-/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
-/* harmony import */ var _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/content/assignments/AssignmentKind */ "./src/content/assignments/AssignmentKind.ts");
-/* harmony import */ var _content_quizzes_QuizKind__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/content/quizzes/QuizKind */ "./src/content/quizzes/QuizKind.ts");
-/* harmony import */ var _content_pages_PageKind__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/content/pages/PageKind */ "./src/content/pages/PageKind.ts");
-/* harmony import */ var _content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/content/discussions/DiscussionKind */ "./src/content/discussions/DiscussionKind.ts");
-
-
-
-
-
-
-
-
-const CONTENT_KINDS = [
-    _content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_7__["default"],
-    _content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_4__["default"],
-    _content_pages_PageKind__WEBPACK_IMPORTED_MODULE_6__["default"],
-    _content_quizzes_QuizKind__WEBPACK_IMPORTED_MODULE_5__["default"],
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ContentKinds = exports.CONTENT_KINDS = void 0;
+exports.getContentClassFromUrl = getContentClassFromUrl;
+exports.getContentItemFromUrl = getContentItemFromUrl;
+exports.getContentKindFromUrl = getContentKindFromUrl;
+exports.getContentKindFromContent = getContentKindFromContent;
+exports.getContentDataFromUrl = getContentDataFromUrl;
+const Quiz_1 = __webpack_require__(/*! ../content/quizzes/Quiz */ "./node_modules/@ueu/ueu-canvas/dist/content/quizzes/Quiz.js");
+const Page_1 = __webpack_require__(/*! ../content/pages/Page */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/Page.js");
+const Discussion_1 = __webpack_require__(/*! ../content/discussions/Discussion */ "./node_modules/@ueu/ueu-canvas/dist/content/discussions/Discussion.js");
+const Assignment_1 = __webpack_require__(/*! ../content/assignments/Assignment */ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/Assignment.js");
+const AssignmentKind_1 = __importDefault(__webpack_require__(/*! ../content/assignments/AssignmentKind */ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/AssignmentKind.js"));
+const QuizKind_1 = __importDefault(__webpack_require__(/*! ../content/quizzes/QuizKind */ "./node_modules/@ueu/ueu-canvas/dist/content/quizzes/QuizKind.js"));
+const PageKind_1 = __importDefault(__webpack_require__(/*! ../content/pages/PageKind */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/PageKind.js"));
+const DiscussionKind_1 = __importDefault(__webpack_require__(/*! ../content/discussions/DiscussionKind */ "./node_modules/@ueu/ueu-canvas/dist/content/discussions/DiscussionKind.js"));
+exports.CONTENT_KINDS = [
+    DiscussionKind_1.default,
+    AssignmentKind_1.default,
+    PageKind_1.default,
+    QuizKind_1.default,
 ];
-const ContentKinds = {
+exports.ContentKinds = {
     fromUrl: getContentKindFromUrl,
     fromContent: getContentKindFromContent,
     getBody(contentData) {
@@ -5699,7 +1015,7 @@ const ContentKinds = {
 function getContentClassFromUrl(url = null) {
     if (!url)
         url = document.documentURI;
-    for (const class_ of [_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_3__.Assignment, _content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_0__.Quiz, _content_pages_Page__WEBPACK_IMPORTED_MODULE_1__.Page, _content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_2__.Discussion]) {
+    for (const class_ of [Assignment_1.Assignment, Quiz_1.Quiz, Page_1.Page, Discussion_1.Discussion]) {
         if (class_.contentUrlPart && url.includes(class_.contentUrlPart))
             return class_;
     }
@@ -5712,10 +1028,10 @@ async function getContentItemFromUrl(url = null) {
     return await ContentClass.getFromUrl(url);
 }
 function getContentKindFromUrl(url) {
-    return CONTENT_KINDS.find(a => a.isValidUrl(url));
+    return exports.CONTENT_KINDS.find(a => a.isValidUrl(url));
 }
 function getContentKindFromContent(contentData) {
-    const result = CONTENT_KINDS.find(a => a.dataIsThisKind(contentData));
+    const result = exports.CONTENT_KINDS.find(a => a.dataIsThisKind(contentData));
     function typeGuard(result) {
         return true;
     }
@@ -5732,28 +1048,28 @@ async function getContentDataFromUrl(url, config) {
         return;
     return await kind.get(courseId, id, config);
 }
+//# sourceMappingURL=determineContent.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/discussions/Discussion.js"
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/discussions/Discussion.js ***!
+  \*****************************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/content/discussions/Discussion.ts":
-/*!***********************************************!*\
-  !*** ./src/content/discussions/Discussion.ts ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   Discussion: () => (/* binding */ Discussion)
-/* harmony export */ });
-/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
-/* harmony import */ var _content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/content/discussions/DiscussionKind */ "./src/content/discussions/DiscussionKind.ts");
-
-
-
-class Discussion extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
-    static kindInfo = _content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_2__["default"];
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Discussion = void 0;
+const BaseContentItem_1 = __webpack_require__(/*! ../../content/BaseContentItem */ "./node_modules/@ueu/ueu-canvas/dist/content/BaseContentItem.js");
+const temporal_polyfill_1 = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/index.cjs");
+const DiscussionKind_1 = __importDefault(__webpack_require__(/*! ../../content/discussions/DiscussionKind */ "./node_modules/@ueu/ueu-canvas/dist/content/discussions/DiscussionKind.js"));
+class Discussion extends BaseContentItem_1.BaseContentItem {
+    static kindInfo = DiscussionKind_1.default;
     static nameProperty = 'title';
     static bodyProperty = 'message';
     static contentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics/{content_id}";
@@ -5762,7 +1078,7 @@ class Discussion extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.B
         const data = this.rawData;
         if (!this.rawData.delayed_post_at)
             return;
-        let delayedPostAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(this.rawData.delayed_post_at).toZonedDateTimeISO('UTC');
+        let delayedPostAt = temporal_polyfill_1.Temporal.Instant.from(this.rawData.delayed_post_at).toZonedDateTimeISO('UTC');
         delayedPostAt = delayedPostAt.add({ days });
         const payload = {
             delayed_post_at: new Date(delayedPostAt.epochMilliseconds).toISOString()
@@ -5773,30 +1089,27 @@ class Discussion extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.B
         return this.canvasData;
     }
 }
+exports.Discussion = Discussion;
+//# sourceMappingURL=Discussion.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/discussions/DiscussionKind.js"
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/discussions/DiscussionKind.js ***!
+  \*********************************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/content/discussions/DiscussionKind.ts":
-/*!***************************************************!*\
-  !*** ./src/content/discussions/DiscussionKind.ts ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   discussionUrlFuncs: () => (/* binding */ discussionUrlFuncs)
-/* harmony export */ });
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
-
-
-
-const discussionUrlFuncs = (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('discussion_topics');
-const DiscussionKind = {
-    ...discussionUrlFuncs,
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.DiscussionKind = exports.discussionUrlFuncs = void 0;
+const fetchJson_1 = __webpack_require__(/*! ../../fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
+const getPagedDataGenerator_1 = __webpack_require__(/*! ../../fetch/getPagedDataGenerator */ "./node_modules/@ueu/ueu-canvas/dist/fetch/getPagedDataGenerator.js");
+const ContentKind_1 = __webpack_require__(/*! ../../content/ContentKind */ "./node_modules/@ueu/ueu-canvas/dist/content/ContentKind.js");
+exports.discussionUrlFuncs = (0, ContentKind_1.contentUrlFuncs)('discussion_topics');
+exports.DiscussionKind = {
+    ...exports.discussionUrlFuncs,
     dataIsThisKind(data) {
         return data.hasOwnProperty('discussion_type');
     },
@@ -5804,46 +1117,56 @@ const DiscussionKind = {
     getName: (data) => data.title,
     getBody: (data) => data.message,
     async get(courseId, contentId, config) {
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(discussionUrlFuncs.getApiUrl(courseId, contentId), config);
+        return await (0, fetchJson_1.fetchJson)(exports.discussionUrlFuncs.getApiUrl(courseId, contentId), config);
     },
-    dataGenerator: (courseId, config) => (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(discussionUrlFuncs.getAllApiUrl(courseId), config),
-    put: (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(discussionUrlFuncs.getApiUrl),
+    dataGenerator: (courseId, config) => (0, getPagedDataGenerator_1.getPagedDataGenerator)(exports.discussionUrlFuncs.getAllApiUrl(courseId), config),
+    put: (0, ContentKind_1.putContentFunc)(exports.discussionUrlFuncs.getApiUrl),
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DiscussionKind);
+exports["default"] = exports.DiscussionKind;
+//# sourceMappingURL=DiscussionKind.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/discussions/index.js"
+/*!************************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/discussions/index.js ***!
+  \************************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/content/discussions/index.ts":
-/*!******************************************!*\
-  !*** ./src/content/discussions/index.ts ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   Discussion: () => (/* reexport safe */ _Discussion__WEBPACK_IMPORTED_MODULE_0__.Discussion),
-/* harmony export */   discussionUrlFuncs: () => (/* reexport safe */ _DiscussionKind__WEBPACK_IMPORTED_MODULE_1__.discussionUrlFuncs)
-/* harmony export */ });
-/* harmony import */ var _Discussion__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Discussion */ "./src/content/discussions/Discussion.ts");
-/* harmony import */ var _DiscussionKind__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DiscussionKind */ "./src/content/discussions/DiscussionKind.ts");
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(/*! ./Discussion */ "./node_modules/@ueu/ueu-canvas/dist/content/discussions/Discussion.js"), exports);
+__exportStar(__webpack_require__(/*! ./DiscussionKind */ "./node_modules/@ueu/ueu-canvas/dist/content/discussions/DiscussionKind.js"), exports);
+//# sourceMappingURL=index.js.map
 
+/***/ },
 
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/getContentFuncs.js"
+/*!**********************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/getContentFuncs.js ***!
+  \**********************************************************************/
+(__unused_webpack_module, exports) {
 
+"use strict";
 
-/***/ }),
-
-/***/ "./src/content/getContentFuncs.ts":
-/*!****************************************!*\
-  !*** ./src/content/getContentFuncs.ts ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   getExternalLinks: () => (/* binding */ getExternalLinks),
-/* harmony export */   getFileLinks: () => (/* binding */ getFileLinks)
-/* harmony export */ });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getFileLinks = getFileLinks;
+exports.getExternalLinks = getExternalLinks;
 function getAllLinks(body) {
     const el = bodyAsElement(body);
     const anchors = el.querySelectorAll('a');
@@ -5864,88 +1187,69 @@ function getExternalLinks(body, courseId) {
     // Correct regex to exclude unity.instructure.com links properly
     return getAllLinks(body).filter(a => !a.match(/:\/\/unity\.instructure\.com\//i));
 }
+//# sourceMappingURL=getContentFuncs.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/index.js"
+/*!************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/index.js ***!
+  \************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/content/index.ts":
-/*!******************************!*\
-  !*** ./src/content/index.ts ***!
-  \******************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   BaseContentItem: () => (/* reexport safe */ _BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem),
-/* harmony export */   CONTENT_KINDS: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.CONTENT_KINDS),
-/* harmony export */   ContentKinds: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.ContentKinds),
-/* harmony export */   Discussion: () => (/* reexport safe */ _discussions__WEBPACK_IMPORTED_MODULE_8__.Discussion),
-/* harmony export */   assignmentDataGen: () => (/* reexport safe */ _assignments__WEBPACK_IMPORTED_MODULE_9__.assignmentDataGen),
-/* harmony export */   contentUrlFuncs: () => (/* reexport safe */ _ContentKind__WEBPACK_IMPORTED_MODULE_4__.contentUrlFuncs),
-/* harmony export */   courseContentUrlFunc: () => (/* reexport safe */ _ContentKind__WEBPACK_IMPORTED_MODULE_4__.courseContentUrlFunc),
-/* harmony export */   discussionUrlFuncs: () => (/* reexport safe */ _discussions__WEBPACK_IMPORTED_MODULE_8__.discussionUrlFuncs),
-/* harmony export */   getBannerImage: () => (/* reexport safe */ _BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.getBannerImage),
-/* harmony export */   getContentClassFromUrl: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.getContentClassFromUrl),
-/* harmony export */   getContentDataFromUrl: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.getContentDataFromUrl),
-/* harmony export */   getContentItemFromUrl: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.getContentItemFromUrl),
-/* harmony export */   getContentKindFromContent: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.getContentKindFromContent),
-/* harmony export */   getContentKindFromUrl: () => (/* reexport safe */ _determineContent__WEBPACK_IMPORTED_MODULE_2__.getContentKindFromUrl),
-/* harmony export */   getExternalLinks: () => (/* reexport safe */ _getContentFuncs__WEBPACK_IMPORTED_MODULE_3__.getExternalLinks),
-/* harmony export */   getFileLinks: () => (/* reexport safe */ _getContentFuncs__WEBPACK_IMPORTED_MODULE_3__.getFileLinks),
-/* harmony export */   postContentConfig: () => (/* reexport safe */ _BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.postContentConfig),
-/* harmony export */   postContentFunc: () => (/* reexport safe */ _ContentKind__WEBPACK_IMPORTED_MODULE_4__.postContentFunc),
-/* harmony export */   putContentConfig: () => (/* reexport safe */ _BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.putContentConfig),
-/* harmony export */   putContentFunc: () => (/* reexport safe */ _ContentKind__WEBPACK_IMPORTED_MODULE_4__.putContentFunc),
-/* harmony export */   updateAssignmentData: () => (/* reexport safe */ _assignments__WEBPACK_IMPORTED_MODULE_9__.updateAssignmentData),
-/* harmony export */   updateAssignmentDueDates: () => (/* reexport safe */ _assignments__WEBPACK_IMPORTED_MODULE_9__.updateAssignmentDueDates)
-/* harmony export */ });
-/* harmony import */ var _BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BaseContentItem */ "./src/content/BaseContentItem.ts");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "./src/content/types.ts");
-/* harmony import */ var _determineContent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./determineContent */ "./src/content/determineContent.ts");
-/* harmony import */ var _getContentFuncs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getContentFuncs */ "./src/content/getContentFuncs.ts");
-/* harmony import */ var _ContentKind__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ContentKind */ "./src/content/ContentKind.ts");
-/* harmony import */ var _openThisContentInTarget__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./openThisContentInTarget */ "./src/content/openThisContentInTarget.ts");
-/* harmony import */ var _pages__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages */ "./src/content/pages/index.ts");
-/* harmony import */ var _quizzes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./quizzes */ "./src/content/quizzes/index.ts");
-/* harmony import */ var _discussions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./discussions */ "./src/content/discussions/index.ts");
-/* harmony import */ var _assignments__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./assignments */ "./src/content/assignments/index.ts");
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(/*! ./BaseContentItem */ "./node_modules/@ueu/ueu-canvas/dist/content/BaseContentItem.js"), exports);
+__exportStar(__webpack_require__(/*! ./types */ "./node_modules/@ueu/ueu-canvas/dist/content/types.js"), exports);
+__exportStar(__webpack_require__(/*! ./determineContent */ "./node_modules/@ueu/ueu-canvas/dist/content/determineContent.js"), exports);
+__exportStar(__webpack_require__(/*! ./getContentFuncs */ "./node_modules/@ueu/ueu-canvas/dist/content/getContentFuncs.js"), exports);
+__exportStar(__webpack_require__(/*! ./ContentKind */ "./node_modules/@ueu/ueu-canvas/dist/content/ContentKind.js"), exports);
+__exportStar(__webpack_require__(/*! ./openThisContentInTarget */ "./node_modules/@ueu/ueu-canvas/dist/content/openThisContentInTarget.js"), exports);
+__exportStar(__webpack_require__(/*! ./pages */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/index.js"), exports);
+__exportStar(__webpack_require__(/*! ./quizzes */ "./node_modules/@ueu/ueu-canvas/dist/content/quizzes/index.js"), exports);
+__exportStar(__webpack_require__(/*! ./discussions */ "./node_modules/@ueu/ueu-canvas/dist/content/discussions/index.js"), exports);
+__exportStar(__webpack_require__(/*! ./assignments */ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/index.js"), exports);
+//# sourceMappingURL=index.js.map
 
+/***/ },
 
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/openThisContentInTarget.js"
+/*!******************************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/openThisContentInTarget.js ***!
+  \******************************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
+"use strict";
 
-
-
-
-
-
-
-
-
-/***/ }),
-
-/***/ "./src/content/openThisContentInTarget.ts":
-/*!************************************************!*\
-  !*** ./src/content/openThisContentInTarget.ts ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ openThisContentInTarget)
-/* harmony export */ });
-/* harmony import */ var _content_determineContent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/content/determineContent */ "./src/content/determineContent.ts");
-
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.openThisContentInTarget = void 0;
+const determineContent_1 = __webpack_require__(/*! ../content/determineContent */ "./node_modules/@ueu/ueu-canvas/dist/content/determineContent.js");
 function getIdOrCourse(courseOrId) {
     if (typeof courseOrId === 'object')
         return courseOrId.id;
     return courseOrId;
 }
-async function openThisContentInTarget(currentCourse, target) {
+const openThisContentInTarget = async function (currentCourse, target) {
     if (!window)
         return;
     const currentCourseId = getIdOrCourse(currentCourse);
     const targetCourseIds = Array.isArray(target) ? target.map(getIdOrCourse) : [getIdOrCourse(target)];
-    const currentContentItem = await (0,_content_determineContent__WEBPACK_IMPORTED_MODULE_0__.getContentItemFromUrl)(document.documentURI);
+    const currentContentItem = await (0, determineContent_1.getContentItemFromUrl)(document.documentURI);
     const targetInfos = targetCourseIds.map((targetCourseId) => {
         return {
             courseId: targetCourseId,
@@ -5962,27 +1266,30 @@ async function openThisContentInTarget(currentCourse, target) {
             window.open(url);
         }
     }
-}
+};
+exports.openThisContentInTarget = openThisContentInTarget;
+exports["default"] = exports.openThisContentInTarget;
+//# sourceMappingURL=openThisContentInTarget.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/pages/Page.js"
+/*!*****************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/pages/Page.js ***!
+  \*****************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/content/pages/Page.ts":
-/*!***********************************!*\
-  !*** ./src/content/pages/Page.ts ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   Page: () => (/* binding */ Page)
-/* harmony export */ });
-/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
-/* harmony import */ var _content_pages_PageKind__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/content/pages/PageKind */ "./src/content/pages/PageKind.ts");
-
-
-class Page extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
-    static kindInfo = _content_pages_PageKind__WEBPACK_IMPORTED_MODULE_1__["default"];
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Page = void 0;
+const BaseContentItem_1 = __webpack_require__(/*! ../../content/BaseContentItem */ "./node_modules/@ueu/ueu-canvas/dist/content/BaseContentItem.js");
+const PageKind_1 = __importDefault(__webpack_require__(/*! ../../content/pages/PageKind */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/PageKind.js"));
+class Page extends BaseContentItem_1.BaseContentItem {
+    static kindInfo = PageKind_1.default;
     static idProperty = 'page_id';
     static nameProperty = 'title';
     static bodyProperty = 'body';
@@ -5993,6 +1300,9 @@ class Page extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseCon
     }
     get body() {
         return this.canvasData[this.bodyKey];
+    }
+    get title() {
+        return this.canvasData[this.nameKey];
     }
     async updateContent(text, name, config) {
         const data = {};
@@ -6007,140 +1317,174 @@ class Page extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseCon
         return this.saveData(data, config);
     }
 }
+exports.Page = Page;
+//# sourceMappingURL=Page.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/pages/PageKind.js"
+/*!*********************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/pages/PageKind.js ***!
+  \*********************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/content/pages/PageKind.ts":
-/*!***************************************!*\
-  !*** ./src/content/pages/PageKind.ts ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   PageUrlFuncs: () => (/* binding */ PageUrlFuncs),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
-
-
-
-const PageUrlFuncs = (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('pages');
-const getStringApiUrl = (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.courseContentUrlFunc)(`/api/v1/courses/{courseId}/pages/{contentId}`);
-const PageKind = {
-    ...PageUrlFuncs,
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.PageKind = exports.PageUrlFuncs = void 0;
+const fetchJson_1 = __webpack_require__(/*! ../../fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
+const getPagedDataGenerator_1 = __webpack_require__(/*! ../../fetch/getPagedDataGenerator */ "./node_modules/@ueu/ueu-canvas/dist/fetch/getPagedDataGenerator.js");
+const ContentKind_1 = __webpack_require__(/*! ../../content/ContentKind */ "./node_modules/@ueu/ueu-canvas/dist/content/ContentKind.js");
+exports.PageUrlFuncs = (0, ContentKind_1.contentUrlFuncs)('pages');
+const getStringApiUrl = (0, ContentKind_1.courseContentUrlFunc)(`/api/v1/courses/{courseId}/pages/{contentId}`);
+exports.PageKind = {
+    ...exports.PageUrlFuncs,
     dataIsThisKind: (data) => {
         return 'page_id' in data;
     },
     getName: page => page.title,
     getBody: page => page.body,
-    getId: page => page.id,
-    get: (id, courseId, config) => (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(PageUrlFuncs.getApiUrl(courseId, id), config),
-    getByString: (courseId, contentId, config) => (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(getStringApiUrl(courseId, contentId), config),
-    dataGenerator: (courseId, config = { queryParams: { include: ['body'] } }) => (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(PageUrlFuncs.getAllApiUrl(courseId), config),
-    put: (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(PageUrlFuncs.getApiUrl),
-    post: (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.postContentFunc)(PageUrlFuncs.getAllApiUrl),
+    getId: page => page.page_id,
+    get: (id, courseId, config) => (0, fetchJson_1.fetchJson)(exports.PageUrlFuncs.getApiUrl(courseId, id), config),
+    getByString: (courseId, contentId, config) => (0, fetchJson_1.fetchJson)(getStringApiUrl(courseId, contentId), config),
+    dataGenerator: (courseId, config = { queryParams: { include: ['body'] } }) => (0, getPagedDataGenerator_1.getPagedDataGenerator)(exports.PageUrlFuncs.getAllApiUrl(courseId), config),
+    put: (0, ContentKind_1.putContentFunc)(exports.PageUrlFuncs.getApiUrl),
+    post: (0, ContentKind_1.postContentFunc)(exports.PageUrlFuncs.getAllApiUrl),
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PageKind);
+exports["default"] = exports.PageKind;
+//# sourceMappingURL=PageKind.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/pages/index.js"
+/*!******************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/pages/index.js ***!
+  \******************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/content/pages/index.ts":
-/*!************************************!*\
-  !*** ./src/content/pages/index.ts ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _learningMaterialsForModule__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./learningMaterialsForModule */ "./src/content/pages/learningMaterialsForModule.ts");
-/* harmony import */ var _Page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Page */ "./src/content/pages/Page.ts");
-/* harmony import */ var _PageKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PageKind */ "./src/content/pages/PageKind.ts");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./types */ "./src/content/pages/types.ts");
-
-
-
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-    learningMaterialsForModule: _learningMaterialsForModule__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Page: _Page__WEBPACK_IMPORTED_MODULE_1__.Page,
-    PageKind: _PageKind__WEBPACK_IMPORTED_MODULE_2__["default"],
-    ..._types__WEBPACK_IMPORTED_MODULE_3__,
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
 });
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+const learningMaterialsForModule_1 = __importDefault(__webpack_require__(/*! ./learningMaterialsForModule */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/learningMaterialsForModule.js"));
+const Page_1 = __webpack_require__(/*! ./Page */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/Page.js");
+const PageKind_1 = __importDefault(__webpack_require__(/*! ./PageKind */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/PageKind.js"));
+const pageTypes = __importStar(__webpack_require__(/*! ./types */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/types.js"));
+__exportStar(__webpack_require__(/*! ./learningMaterialsForModule */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/learningMaterialsForModule.js"), exports);
+__exportStar(__webpack_require__(/*! ./Page */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/Page.js"), exports);
+__exportStar(__webpack_require__(/*! ./PageKind */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/PageKind.js"), exports);
+__exportStar(__webpack_require__(/*! ./types */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/types.js"), exports);
+exports["default"] = {
+    learningMaterialsForModule: learningMaterialsForModule_1.default,
+    Page: Page_1.Page,
+    PageKind: PageKind_1.default,
+    ...pageTypes,
+};
+//# sourceMappingURL=index.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/pages/learningMaterialsForModule.js"
+/*!***************************************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/pages/learningMaterialsForModule.js ***!
+  \***************************************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/content/pages/learningMaterialsForModule.ts":
-/*!*********************************************************!*\
-  !*** ./src/content/pages/learningMaterialsForModule.ts ***!
-  \*********************************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   learningMaterialsForModule: () => (/* binding */ learningMaterialsForModule)
-/* harmony export */ });
-/* harmony import */ var _canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @canvas/content/pages/PageKind */ "./src/content/pages/PageKind.ts");
-
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.learningMaterialsForModule = learningMaterialsForModule;
+const PageKind_1 = __importDefault(__webpack_require__(/*! ../../content/pages/PageKind */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/PageKind.js"));
 async function* learningMaterialsForModule(courseId, module) {
     const lmItems = module.items.filter(a => a.title.match(/learning materials/i));
     for await (const item of lmItems) {
-        const page = await _canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_0__["default"].get(courseId, item.content_id);
+        const page = await PageKind_1.default.get(courseId, item.content_id);
         yield { item, page };
     }
 }
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (learningMaterialsForModule);
+exports["default"] = learningMaterialsForModule;
+//# sourceMappingURL=learningMaterialsForModule.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/pages/types.js"
+/*!******************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/pages/types.js ***!
+  \******************************************************************/
+(__unused_webpack_module, exports) {
 
-/***/ "./src/content/pages/types.ts":
-/*!************************************!*\
-  !*** ./src/content/pages/types.ts ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+//# sourceMappingURL=types.js.map
 
+/***/ },
 
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/quizzes/Quiz.js"
+/*!*******************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/quizzes/Quiz.js ***!
+  \*******************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ }),
+"use strict";
 
-/***/ "./src/content/quizzes/Quiz.ts":
-/*!*************************************!*\
-  !*** ./src/content/quizzes/Quiz.ts ***!
-  \*************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   Quiz: () => (/* binding */ Quiz)
-/* harmony export */ });
-/* harmony import */ var _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/content/BaseContentItem */ "./src/content/BaseContentItem.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
-
-
-
-class Quiz extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Quiz = void 0;
+const BaseContentItem_1 = __webpack_require__(/*! ../../content/BaseContentItem */ "./node_modules/@ueu/ueu-canvas/dist/content/BaseContentItem.js");
+const fetchJson_1 = __webpack_require__(/*! ../../fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
+const canvasUtils_1 = __webpack_require__(/*! ../../canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
+class Quiz extends BaseContentItem_1.BaseContentItem {
     static nameProperty = 'title';
     static bodyProperty = 'description';
     static contentUrlTemplate = "/api/v1/courses/{course_id}/quizzes/{content_id}";
     static allContentUrlTemplate = "/api/v1/courses/{course_id}/quizzes";
     async setDueAt(date) {
         const url = `/api/v1/courses/${this.courseId}/quizzes/${this.id}`;
-        return (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url, {
+        return (0, fetchJson_1.fetchJson)(url, {
             fetchInit: {
                 method: 'PUT',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({
+                body: (0, canvasUtils_1.formDataify)({
                     quiz: {
                         due_at: date
                     }
@@ -6149,138 +1493,117 @@ class Quiz extends _content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseCon
         });
     }
 }
+exports.Quiz = Quiz;
+//# sourceMappingURL=Quiz.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/quizzes/QuizKind.js"
+/*!***********************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/quizzes/QuizKind.js ***!
+  \***********************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/content/quizzes/QuizKind.ts":
-/*!*****************************************!*\
-  !*** ./src/content/quizzes/QuizKind.ts ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   quizUrlFuncs: () => (/* binding */ quizUrlFuncs)
-/* harmony export */ });
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/content/ContentKind */ "./src/content/ContentKind.ts");
-
-
-
-const quizUrlFuncs = (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('quizzes');
-const QuizKind = {
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.QuizKind = exports.quizUrlFuncs = void 0;
+const fetchJson_1 = __webpack_require__(/*! ../../fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
+const getPagedDataGenerator_1 = __webpack_require__(/*! ../../fetch/getPagedDataGenerator */ "./node_modules/@ueu/ueu-canvas/dist/fetch/getPagedDataGenerator.js");
+const ContentKind_1 = __webpack_require__(/*! ../../content/ContentKind */ "./node_modules/@ueu/ueu-canvas/dist/content/ContentKind.js");
+exports.quizUrlFuncs = (0, ContentKind_1.contentUrlFuncs)('quizzes');
+exports.QuizKind = {
     getId: (data) => data.id,
     getName: (data) => data.title,
     dataIsThisKind: (data) => 'quiz_type' in data,
     getBody: (data) => data.description,
     async get(courseId, contentId, config) {
-        const data = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(quizUrlFuncs.getApiUrl(courseId, contentId), config);
+        const data = await (0, fetchJson_1.fetchJson)(exports.quizUrlFuncs.getApiUrl(courseId, contentId), config);
         return data;
     },
-    ...quizUrlFuncs,
-    dataGenerator: (courseId, config) => (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(quizUrlFuncs.getAllApiUrl(courseId), config),
-    put: (0,_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(quizUrlFuncs.getApiUrl),
+    ...exports.quizUrlFuncs,
+    dataGenerator: (courseId, config) => (0, getPagedDataGenerator_1.getPagedDataGenerator)(exports.quizUrlFuncs.getAllApiUrl(courseId), config),
+    put: (0, ContentKind_1.putContentFunc)(exports.quizUrlFuncs.getApiUrl),
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (QuizKind);
+exports["default"] = exports.QuizKind;
+//# sourceMappingURL=QuizKind.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/quizzes/index.js"
+/*!********************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/quizzes/index.js ***!
+  \********************************************************************/
+(__unused_webpack_module, exports) {
 
-/***/ "./src/content/quizzes/index.ts":
-/*!**************************************!*\
-  !*** ./src/content/quizzes/index.ts ***!
-  \**************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+//# sourceMappingURL=index.js.map
 
+/***/ },
 
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/types.js"
+/*!************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/types.js ***!
+  \************************************************************/
+(__unused_webpack_module, exports) {
 
-/***/ }),
+"use strict";
 
-/***/ "./src/content/types.ts":
-/*!******************************!*\
-  !*** ./src/content/types.ts ***!
-  \******************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+//# sourceMappingURL=types.js.map
 
-__webpack_require__.r(__nested_webpack_exports__);
+/***/ },
 
+/***/ "./node_modules/@ueu/ueu-canvas/dist/course/Course.js"
+/*!************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/course/Course.js ***!
+  \************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
+"use strict";
 
-/***/ }),
-
-/***/ "./src/course/Course.ts":
-/*!******************************!*\
-  !*** ./src/course/Course.ts ***!
-  \******************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   COURSE_CODE_REGEX: () => (/* binding */ COURSE_CODE_REGEX),
-/* harmony export */   Course: () => (/* binding */ Course)
-/* harmony export */ });
-/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../baseCanvasObject */ "./src/baseCanvasObject.ts");
-/* harmony import */ var _blueprint__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./blueprint */ "./src/course/blueprint.ts");
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _changeStartDate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./changeStartDate */ "./src/course/changeStartDate.ts");
-/* harmony import */ var _modules__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules */ "./src/course/modules.ts");
-/* harmony import */ var _profile__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../profile */ "./src/profile.ts");
-/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./toolbox */ "./src/course/toolbox.ts");
-/* harmony import */ var _content_assignments__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/content/assignments */ "./src/content/assignments/index.ts");
-/* harmony import */ var _course_code__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/course/code */ "./src/course/code.ts");
-/* harmony import */ var _term_Term__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/term/Term */ "./src/term/Term.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _fetch_utils__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/fetch/utils */ "./src/fetch/utils.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/course/getCourseIdFromUrl */ "./src/course/getCourseIdFromUrl.ts");
-/* harmony import */ var _content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/content/quizzes/Quiz */ "./src/content/quizzes/Quiz.ts");
-/* harmony import */ var _content_pages_Page__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/content/pages/Page */ "./src/content/pages/Page.ts");
-/* harmony import */ var _content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/content/discussions/Discussion */ "./src/content/discussions/Discussion.ts");
-/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
-/* harmony import */ var _fetch_apiGetConfig__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/fetch/apiGetConfig */ "./src/fetch/apiGetConfig.ts");
-/* harmony import */ var _canvas_course_cachedGetAssociatedCoursesFunc__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @canvas/course/cachedGetAssociatedCoursesFunc */ "./src/course/cachedGetAssociatedCoursesFunc.ts");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_20__);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Course = exports.COURSE_CODE_REGEX = void 0;
+const baseCanvasObject_1 = __webpack_require__(/*! ../baseCanvasObject */ "./node_modules/@ueu/ueu-canvas/dist/baseCanvasObject.js");
+const blueprint_1 = __webpack_require__(/*! ./blueprint */ "./node_modules/@ueu/ueu-canvas/dist/course/blueprint.js");
+const canvasUtils_1 = __webpack_require__(/*! ../canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
+const changeStartDate_1 = __webpack_require__(/*! ./changeStartDate */ "./node_modules/@ueu/ueu-canvas/dist/course/changeStartDate.js");
+const modules_1 = __webpack_require__(/*! ./modules */ "./node_modules/@ueu/ueu-canvas/dist/course/modules.js");
+const profile_1 = __webpack_require__(/*! ../profile */ "./node_modules/@ueu/ueu-canvas/dist/profile.js");
+const toolbox_1 = __webpack_require__(/*! ./toolbox */ "./node_modules/@ueu/ueu-canvas/dist/course/toolbox.js");
+const assignments_1 = __webpack_require__(/*! ../content/assignments */ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/index.js");
+const code_1 = __webpack_require__(/*! ../course/code */ "./node_modules/@ueu/ueu-canvas/dist/course/code.js");
+const Term_1 = __webpack_require__(/*! ../term/Term */ "./node_modules/@ueu/ueu-canvas/dist/term/Term.js");
+const getPagedDataGenerator_1 = __webpack_require__(/*! ../fetch/getPagedDataGenerator */ "./node_modules/@ueu/ueu-canvas/dist/fetch/getPagedDataGenerator.js");
+const utils_1 = __webpack_require__(/*! ../fetch/utils */ "./node_modules/@ueu/ueu-canvas/dist/fetch/utils.js");
+const fetchJson_1 = __webpack_require__(/*! ../fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
+const getCourseIdFromUrl_1 = __importDefault(__webpack_require__(/*! ../course/getCourseIdFromUrl */ "./node_modules/@ueu/ueu-canvas/dist/course/getCourseIdFromUrl.js"));
+const Quiz_1 = __webpack_require__(/*! ../content/quizzes/Quiz */ "./node_modules/@ueu/ueu-canvas/dist/content/quizzes/Quiz.js");
+const Page_1 = __webpack_require__(/*! ../content/pages/Page */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/Page.js");
+const Discussion_1 = __webpack_require__(/*! ../content/discussions/Discussion */ "./node_modules/@ueu/ueu-canvas/dist/content/discussions/Discussion.js");
+const Assignment_1 = __webpack_require__(/*! ../content/assignments/Assignment */ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/Assignment.js");
+const apiGetConfig_1 = __importDefault(__webpack_require__(/*! ../fetch/apiGetConfig */ "./node_modules/@ueu/ueu-canvas/dist/fetch/apiGetConfig.js"));
+const cachedGetAssociatedCoursesFunc_1 = __webpack_require__(/*! ../course/cachedGetAssociatedCoursesFunc */ "./node_modules/@ueu/ueu-canvas/dist/course/cachedGetAssociatedCoursesFunc.js");
+const assert_1 = __importDefault(__webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js"));
 const HOMETILE_WIDTH = 500;
-const COURSE_CODE_REGEX = /^(.+[^_])?_?(\w{4}\d{3})/i;
-class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
+exports.COURSE_CODE_REGEX = /^(.+[^_])?_?(\w{4}\d{3})/i;
+class Course extends baseCanvasObject_1.BaseCanvasObject {
     static nameProperty = 'name';
     _modules = undefined;
     modulesByWeekNumber = undefined;
-    static contentClasses = [_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_17__.Assignment, _content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_16__.Discussion, _content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_14__.Quiz, _content_pages_Page__WEBPACK_IMPORTED_MODULE_15__.Page];
+    static contentClasses = [Assignment_1.Assignment, Discussion_1.Discussion, Quiz_1.Quiz, Page_1.Page];
     isBlueprint;
     getAssociatedCourses;
     constructor(data) {
         console.warn("Course is being deprecated");
         super(data);
-        this.isBlueprint = (() => (0,_blueprint__WEBPACK_IMPORTED_MODULE_1__.isBlueprint)(data));
-        this.getAssociatedCourses = (0,_canvas_course_cachedGetAssociatedCoursesFunc__WEBPACK_IMPORTED_MODULE_19__.cachedGetAssociatedCoursesFunc)(this);
+        this.isBlueprint = (() => (0, blueprint_1.isBlueprint)(data));
+        this.getAssociatedCourses = (0, cachedGetAssociatedCoursesFunc_1.cachedGetAssociatedCoursesFunc)(this);
     }
     static async getFromUrl(url = null) {
         if (url === null) {
@@ -6288,15 +1611,15 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
         }
         const match = /courses\/(\d+)/.exec(url);
         if (match) {
-            const id = (0,_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_13__["default"])(url);
+            const id = (0, getCourseIdFromUrl_1.default)(url);
             if (!id)
                 return null;
-            return (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getCourseById)(id);
+            return (0, toolbox_1.getCourseById)(id);
         }
         return null;
     }
     static async getCourseById(courseId, config = undefined) {
-        const data = await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getCourseData)(courseId, config);
+        const data = await (0, toolbox_1.getCourseData)(courseId, config);
         return new Course(data);
     }
     static async publishAll(courses, accountId) {
@@ -6313,10 +1636,10 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
             'event': 'offer',
             'course_ids': courseIds,
         };
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(url, {
+        return await (0, fetchJson_1.fetchJson)(url, {
             fetchInit: {
                 method: 'PUT',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)(data),
+                body: (0, canvasUtils_1.formDataify)(data),
             }
         });
     }
@@ -6330,13 +1653,13 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
         return `/courses/${this.id}`;
     }
     get parsedCourseCode() {
-        return (0,_course_code__WEBPACK_IMPORTED_MODULE_8__.parseCourseCode)(this.canvasData.course_code);
+        return (0, code_1.parseCourseCode)(this.canvasData.course_code);
     }
     get courseCode() {
         return this.canvasData.course_code;
     }
     get baseCode() {
-        return (0,_course_code__WEBPACK_IMPORTED_MODULE_8__.baseCourseCode)(this.canvasData.course_code);
+        return (0, code_1.baseCourseCode)(this.canvasData.course_code);
     }
     get termId() {
         const id = this.canvasData.enrollment_term_id;
@@ -6346,9 +1669,9 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
             return id[0];
     }
     async getTerm() {
-        assert__WEBPACK_IMPORTED_MODULE_20___default()(typeof this.termId === 'number');
+        (0, assert_1.default)(typeof this.termId === 'number');
         if (this.termId)
-            return _term_Term__WEBPACK_IMPORTED_MODULE_9__.Term.getTermById(this.termId);
+            return Term_1.Term.getTermById(this.termId);
         else
             return null;
     }
@@ -6356,7 +1679,7 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
         return `/api/v1/courses/${this.id}/files`;
     }
     get codePrefix() {
-        const match = COURSE_CODE_REGEX.exec(this.rawData.course_code);
+        const match = exports.COURSE_CODE_REGEX.exec(this.rawData.course_code);
         return match ? match[1] : '';
     }
     get workflowState() {
@@ -6375,7 +1698,7 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
         if (this._modules) {
             return this._modules;
         }
-        const modules = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_modules__WEBPACK_IMPORTED_MODULE_4__.moduleGenerator)(this.id, {
+        const modules = await (0, canvasUtils_1.renderAsyncGen)((0, modules_1.moduleGenerator)(this.id, {
             queryParams: {
                 include: ['items', 'content_details']
             }
@@ -6383,14 +1706,42 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
         this._modules = modules;
         return modules;
     }
+    async updateModules(config) {
+        this._modules = undefined;
+        return this.getModules(config);
+    }
     async getStartDateFromModules() {
-        return (0,_changeStartDate__WEBPACK_IMPORTED_MODULE_3__.getModuleUnlockStartDate)(await this.getModules());
+        return (0, changeStartDate_1.getModuleUnlockStartDate)(await this.getModules());
+    }
+    isUndergrad() {
+        if (this.courseCode) {
+            const match = this.courseCode.match(/\d{3,4}/);
+            if (match)
+                return parseInt(match[0], 10) < 500;
+        }
+        return false;
+    }
+    isGrad() {
+        if (this.courseCode) {
+            const match = this.courseCode.match(/\d{3,4}/);
+            if (match)
+                return parseInt(match[0], 10) >= 500 && parseInt(match[0], 10) < 1000;
+        }
+        return false;
+    }
+    isCareerInstitute() {
+        if (this.courseCode) {
+            const match = this.courseCode.match(/\d{4}/);
+            if (match)
+                return true;
+        }
+        return false;
     }
     async getInstructors() {
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`/api/v1/courses/${this.id}/users?enrollment_type=teacher`);
+        return await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/users?enrollment_type=teacher`);
     }
     async getLatePolicy(config) {
-        const latePolicyResult = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`/api/v1/courses/${this.id}/late_policy`, config);
+        const latePolicyResult = await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/late_policy`, config);
         if ('late_policy' in latePolicyResult)
             return latePolicyResult.late_policy;
         return undefined;
@@ -6401,22 +1752,22 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
         const { id, account_id, root_account_id } = this.canvasData;
         try {
             if (id) {
-                const courseGradingStandards = await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getGradingStandards)(id, "course", config);
+                const courseGradingStandards = await (0, toolbox_1.getGradingStandards)(id, "course", config);
                 out = [...out, ...courseGradingStandards];
             }
             if (account_id) {
-                const accountGradingStandards = await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getGradingStandards)(account_id, 'account', config);
+                const accountGradingStandards = await (0, toolbox_1.getGradingStandards)(account_id, 'account', config);
                 out = [...out, ...accountGradingStandards];
             }
             if (root_account_id) {
-                const rootAccountGradingStandards = await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getGradingStandards)(root_account_id, 'account', config);
+                const rootAccountGradingStandards = await (0, toolbox_1.getGradingStandards)(root_account_id, 'account', config);
                 out = [...out, ...rootAccountGradingStandards];
             }
         }
         catch (e) {
             console.warn(e);
         }
-        return out.filter(_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.filterUniqueFunc);
+        return out.filter(canvasUtils_1.filterUniqueFunc);
     }
     async getCurrentGradingStandard(config) {
         const { grading_standard_id, account_id, root_account_id } = this.canvasData;
@@ -6437,7 +1788,7 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
         if (this.modulesByWeekNumber)
             return this.modulesByWeekNumber;
         const modules = await this.getModules(config);
-        this.modulesByWeekNumber = await (0,_modules__WEBPACK_IMPORTED_MODULE_4__.getModulesByWeekNumber)(modules);
+        this.modulesByWeekNumber = await (0, modules_1.getModulesByWeekNumber)(modules);
         return (this.modulesByWeekNumber);
     }
     /**
@@ -6451,7 +1802,7 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
      * if none is specified, return all matches
      */
     async getModuleItemLinks(moduleOrWeekNumber, target) {
-        assert__WEBPACK_IMPORTED_MODULE_20___default()(target.hasOwnProperty('type'));
+        (0, assert_1.default)(target.hasOwnProperty('type'));
         const targetType = target.type;
         const contentSearchString = target.hasOwnProperty('search') ? target.search : null;
         let targetIndex = isNaN(target.index) ? null : target.index;
@@ -6459,13 +1810,13 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
         let targetModule;
         if (typeof moduleOrWeekNumber === 'number') {
             const modules = await this.getModulesByWeekNumber();
-            assert__WEBPACK_IMPORTED_MODULE_20___default()(modules.hasOwnProperty(moduleOrWeekNumber));
+            (0, assert_1.default)(modules.hasOwnProperty(moduleOrWeekNumber));
             targetModuleWeekNumber = moduleOrWeekNumber;
             targetModule = modules[targetModuleWeekNumber];
         }
         else {
             targetModule = moduleOrWeekNumber;
-            targetModuleWeekNumber = (0,_modules__WEBPACK_IMPORTED_MODULE_4__.getModuleWeekNumber)(targetModule);
+            targetModuleWeekNumber = (0, modules_1.getModuleWeekNumber)(targetModule);
         }
         const urls = [];
         if (targetModule && typeof targetType !== 'undefined') {
@@ -6499,8 +1850,8 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
     async getSyllabus(config = { queryParams: {} }) {
         if (this.canvasData.syllabus_body)
             return this.canvasData.syllabus_body;
-        const data = await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getCourseData)(this.id, (0,_fetch_utils__WEBPACK_IMPORTED_MODULE_11__.fetchGetConfig)({ include: ['syllabus_body'] }, config));
-        assert__WEBPACK_IMPORTED_MODULE_20___default()(data.syllabus_body);
+        const data = await (0, toolbox_1.getCourseData)(this.id, (0, utils_1.fetchGetConfig)({ include: ['syllabus_body'] }, config));
+        (0, assert_1.default)(data.syllabus_body);
         this.canvasData.syllabus_body = data.syllabus_body;
         return this.canvasData.syllabus_body;
     }
@@ -6511,20 +1862,20 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
     //  */
     async getAssignments(config) {
         console.warn('deprecated, use assignmentDataGen instead');
-        config = (0,_fetch_utils__WEBPACK_IMPORTED_MODULE_11__.overrideConfig)(config, { queryParams: { include: ['due_at'] } });
-        const assignmentDatas = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_content_assignments__WEBPACK_IMPORTED_MODULE_7__.assignmentDataGen)(this.id, config));
-        return (assignmentDatas.map(data => new _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_17__.Assignment(data, this.id)));
+        config = (0, utils_1.overrideConfig)(config, { queryParams: { include: ['due_at'] } });
+        const assignmentDatas = await (0, canvasUtils_1.renderAsyncGen)((0, assignments_1.assignmentDataGen)(this.id, config));
+        return (assignmentDatas.map(data => new Assignment_1.Assignment(data, this.id)));
     }
     cachedContent = [];
     async getContent(config, refresh = false) {
         if (refresh || this.cachedContent.length == 0) {
             const discussions = await this.getDiscussions(config);
-            const assignments = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_content_assignments__WEBPACK_IMPORTED_MODULE_7__.assignmentDataGen)(this.id, config));
+            const assignments = await (0, canvasUtils_1.renderAsyncGen)((0, assignments_1.assignmentDataGen)(this.id, config));
             const quizzes = await this.getQuizzes(config);
             const pages = await this.getPages(config);
             this.cachedContent = [
                 ...discussions,
-                ...assignments.map(a => new _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_17__.Assignment(a, this.id)),
+                ...assignments.map(a => new Assignment_1.Assignment(a, this.id)),
                 ...quizzes,
                 ...pages
             ];
@@ -6532,32 +1883,32 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
         return this.cachedContent;
     }
     async getDiscussions(config) {
-        return await _content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_16__.Discussion.getAllInCourse(this.id, config);
+        return await Discussion_1.Discussion.getAllInCourse(this.id, config);
     }
     async getAssignmentGroups(config) {
-        return await (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_10__.getPagedData)(`/api/v1/courses/${this.id}/assignment_groups`, config);
+        return await (0, getPagedDataGenerator_1.getPagedData)(`/api/v1/courses/${this.id}/assignment_groups`, config);
     }
     async getQuizzes(config) {
-        return await _content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_14__.Quiz.getAllInCourse(this.id, config);
+        return await Quiz_1.Quiz.getAllInCourse(this.id, config);
     }
     async getSubsections() {
         const url = `/api/v1/courses/${this.id}/sections`;
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(url);
+        return await (0, fetchJson_1.fetchJson)(url);
     }
     async getTabs(config) {
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`/api/v1/courses/${this.id}/tabs`, config);
+        return await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/tabs`, config);
     }
     async getFrontPage() {
         try {
-            const data = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`${this.contentUrlPath}/front_page`);
-            return new _content_pages_Page__WEBPACK_IMPORTED_MODULE_15__.Page(data, this.id);
+            const data = await (0, fetchJson_1.fetchJson)(`${this.contentUrlPath}/front_page`);
+            return new Page_1.Page(data, this.id);
         }
         catch (error) {
             return null;
         }
     }
     getTab(label) {
-        return this.canvasData.tabs.find((tab) => tab.label === label) || null;
+        return this.canvasData.tabs?.find((tab) => tab.label === label) || null;
     }
     async reload() {
         const id = this.id;
@@ -6566,10 +1917,10 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
     }
     async changeSyllabus(newHtml) {
         this.canvasData['syllabus_body'] = newHtml;
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`/api/v1/courses/${this.id}`, {
+        return await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}`, {
             fetchInit: {
                 method: 'PUT',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({
+                body: (0, canvasUtils_1.formDataify)({
                     course: {
                         syllabus_body: newHtml
                     }
@@ -6579,10 +1930,10 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
     }
     async publish() {
         const url = `/api/v1/courses/${this.id}`;
-        const courseData = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(url, {
+        const courseData = await (0, fetchJson_1.fetchJson)(url, {
             fetchInit: {
                 method: 'PUT',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({ 'offer': true })
+                body: (0, canvasUtils_1.formDataify)({ 'offer': true })
             }
         });
         console.log(courseData);
@@ -6592,12 +1943,12 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
         return 'DEV_' + this.baseCode;
     }
     async getParentCourse(return_dev_search = false) {
-        const migrations = await (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_10__.getPagedData)(`/api/v1/courses/${this.id}/content_migrations`);
+        const migrations = await (0, getPagedDataGenerator_1.getPagedData)(`/api/v1/courses/${this.id}/content_migrations`);
         const parentCode = this.devCode;
         if (migrations.length < 1) {
             console.log('no migrations found');
             if (return_dev_search) {
-                return (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getSingleCourse)(parentCode, this.getAccountIds());
+                return (0, toolbox_1.getSingleCourse)(parentCode, this.getAccountIds());
             }
             else
                 return;
@@ -6611,9 +1962,9 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
             }
         }
         catch (e) {
-            return await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getSingleCourse)(parentCode, this.getAccountIds());
+            return await (0, toolbox_1.getSingleCourse)(parentCode, this.getAccountIds());
         }
-        return await (0,_toolbox__WEBPACK_IMPORTED_MODULE_6__.getSingleCourse)(parentCode, this.getAccountIds());
+        return await (0, toolbox_1.getSingleCourse)(parentCode, this.getAccountIds());
     }
     getAccountIds() {
         return [this.accountId, this.rootAccountId].filter(a => typeof a !== 'undefined' && a !== null);
@@ -6643,13 +1994,13 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
     //     return await uploadFile(file, 'Images/hometile', this.fileUploadUrl);
     // }
     getPages(config = null) {
-        return _content_pages_Page__WEBPACK_IMPORTED_MODULE_15__.Page.getAllInCourse(this.id, config);
+        return Page_1.Page.getAllInCourse(this.id, config);
     }
     async getFrontPageProfile() {
         const frontPage = await this.getFrontPage();
         try {
-            assert__WEBPACK_IMPORTED_MODULE_20___default()(frontPage && frontPage.body, "Course front page not found");
-            const frontPageProfile = (0,_profile__WEBPACK_IMPORTED_MODULE_5__.getCurioPageFrontPageProfile)(frontPage?.body);
+            (0, assert_1.default)(frontPage && frontPage.body, "Course front page not found");
+            const frontPageProfile = (0, profile_1.getCurioPageFrontPageProfile)(frontPage?.body);
             frontPageProfile.sourcePage = frontPage;
             return frontPageProfile;
         }
@@ -6667,7 +2018,7 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
             if (!instructors)
                 return profiles;
             for (const instructor of instructors) {
-                profiles = profiles.concat(await (0,_profile__WEBPACK_IMPORTED_MODULE_5__.getPotentialFacultyProfiles)(instructor));
+                profiles = profiles.concat(await (0, profile_1.getPotentialFacultyProfiles)(instructor));
             }
             return profiles;
         }
@@ -6676,190 +2027,45 @@ class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasOb
         }
     }
     async getSettings(config) {
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`/api/v1/courses/${this.id}/settings`, config);
+        return await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/settings`, config);
     }
     async updateSettings(newSettings, config) {
-        const configToUse = (0,_fetch_apiGetConfig__WEBPACK_IMPORTED_MODULE_18__["default"])(newSettings, config);
-        return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_12__.fetchJson)(`/api/v1/courses/${this.id}/settings`, configToUse);
+        const configToUse = (0, apiGetConfig_1.default)(newSettings, config);
+        return await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/settings`, configToUse);
     }
 }
+exports.Course = Course;
+//# sourceMappingURL=Course.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/course/blueprint.js"
+/*!***************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/course/blueprint.js ***!
+  \***************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/course/IBlueprintCourse.ts":
-/*!****************************************!*\
-  !*** ./src/course/IBlueprintCourse.ts ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "./src/course/__mocks__/mockCourseData.ts":
-/*!************************************************!*\
-  !*** ./src/course/__mocks__/mockCourseData.ts ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   mockCourseData: () => (/* binding */ mockCourseData)
-/* harmony export */ });
-/* harmony import */ var _mocks_mockTermData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/__mocks__/mockTermData */ "./src/__mocks__/mockTermData.ts");
-
-const mockCourseData = {
-    account_id: 0,
-    allow_student_assignment_edits: false,
-    allow_student_forum_attachments: false,
-    allow_wiki_comments: false,
-    apply_assignment_group_weights: false,
-    blueprint: false,
-    blueprint_restrictions: {
-        content: false,
-        points: false,
-        due_dates: false,
-        availability_dates: false
-    },
-    blueprint_restrictions_by_object_type: {},
-    calendar: {},
-    course_code: "BP_TEST000",
-    course_format: "",
-    course_progress: {},
-    created_at: "",
-    default_view: "wiki",
-    end_at: "",
-    enrollment_term_id: 0,
-    enrollments: 0,
-    grading_standard_id: 0,
-    hide_final_grades: false,
-    id: 0,
-    license: "",
-    locale: "",
-    name: "BP_TEST000",
-    open_enrollment: false,
-    original_name: "",
-    permissions: {},
-    public_description: "",
-    restrict_enrollments_to_course_dates: false,
-    root_account_id: 0,
-    self_enrollment: false,
-    start_at: "",
-    storage_quota_mb: 0,
-    storage_quota_used_mb: 0,
-    template: false,
-    term: _mocks_mockTermData__WEBPACK_IMPORTED_MODULE_0__.mockTermData,
-    time_zone: "",
-    uuid: "",
-    workflow_state: 'available'
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
-
-/***/ }),
-
-/***/ "./src/course/__mocks__/mockModuleData.ts":
-/*!************************************************!*\
-  !*** ./src/course/__mocks__/mockModuleData.ts ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   mockGradModules: () => (/* binding */ mockGradModules),
-/* harmony export */   mockModuleData: () => (/* binding */ mockModuleData),
-/* harmony export */   mockModuleItemData: () => (/* binding */ mockModuleItemData),
-/* harmony export */   mockUgModules: () => (/* binding */ mockUgModules)
-/* harmony export */ });
-const mockModuleData = {
-    id: 0,
-    items: [],
-    items_count: 0,
-    items_url: "",
-    name: "",
-    position: 0,
-    prerequisite_module_ids: [],
-    published: false,
-    require_sequential_progress: false,
-    state: "",
-    unlock_at: ""
-};
-const mockModuleItemData = {
-    id: 1,
-    module_id: 0,
-    position: 0,
-    title: "string",
-    indent: 0,
-    type: 'Assignment',
-    content_id: 0,
-    url: 'http://localhost:8080',
-    html_url: '',
-    page_url: "https://this.page",
-    new_tab: false,
-    completion_requirement: {
-        type: "must_submit",
-        min_score: 0
-    },
-};
-const mockUgModules = [];
-const mockGradModules = [];
-for (let i = 1; i <= 8; i++) {
-    const module = {
-        ...mockModuleData,
-        name: `Week ${i}`,
-    };
-    const moduleItem = { ...mockModuleItemData,
-        position: i - 1,
-        title: `Week ${i} Overview`
-    };
-    const gradModule = { ...module };
-    gradModule.items = [{ ...moduleItem }];
-    mockGradModules.push(gradModule);
-    if (i <= 5) {
-        const ugModule = { ...module };
-        ugModule.items = [{ ...moduleItem }];
-        mockUgModules.push(ugModule);
-    }
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (mockModuleData);
-
-
-/***/ }),
-
-/***/ "./src/course/blueprint.ts":
-/*!*********************************!*\
-  !*** ./src/course/blueprint.ts ***!
-  \*********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   beginBpSync: () => (/* binding */ beginBpSync),
-/* harmony export */   genBlueprintDataForCode: () => (/* binding */ genBlueprintDataForCode),
-/* harmony export */   getBlueprintsFromCode: () => (/* binding */ getBlueprintsFromCode),
-/* harmony export */   isBlueprint: () => (/* binding */ isBlueprint),
-/* harmony export */   lockBlueprint: () => (/* binding */ lockBlueprint),
-/* harmony export */   sectionDataGenerator: () => (/* binding */ sectionDataGenerator),
-/* harmony export */   setAsBlueprint: () => (/* binding */ setAsBlueprint),
-/* harmony export */   unSetAsBlueprint: () => (/* binding */ unSetAsBlueprint)
-/* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toolbox */ "./src/course/toolbox.ts");
-/* harmony import */ var _course_code__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/course/code */ "./src/course/code.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _fetch_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/fetch/utils */ "./src/fetch/utils.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/fetch/apiWriteConfig */ "./src/fetch/apiWriteConfig.ts");
-
-
-
-
-
-
-
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.isBlueprint = isBlueprint;
+exports.genBlueprintDataForCode = genBlueprintDataForCode;
+exports.sectionDataGenerator = sectionDataGenerator;
+exports.beginBpSync = beginBpSync;
+exports.getBlueprintsFromCode = getBlueprintsFromCode;
+exports.lockBlueprint = lockBlueprint;
+exports.setAsBlueprint = setAsBlueprint;
+exports.unSetAsBlueprint = unSetAsBlueprint;
+const canvasUtils_1 = __webpack_require__(/*! ../canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
+const toolbox_1 = __webpack_require__(/*! ./toolbox */ "./node_modules/@ueu/ueu-canvas/dist/course/toolbox.js");
+const code_1 = __webpack_require__(/*! ../course/code */ "./node_modules/@ueu/ueu-canvas/dist/course/code.js");
+const getPagedDataGenerator_1 = __webpack_require__(/*! ../fetch/getPagedDataGenerator */ "./node_modules/@ueu/ueu-canvas/dist/fetch/getPagedDataGenerator.js");
+const utils_1 = __webpack_require__(/*! ../fetch/utils */ "./node_modules/@ueu/ueu-canvas/dist/fetch/utils.js");
+const fetchJson_1 = __webpack_require__(/*! ../fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
+const apiWriteConfig_1 = __importDefault(__webpack_require__(/*! ../fetch/apiWriteConfig */ "./node_modules/@ueu/ueu-canvas/dist/fetch/apiWriteConfig.js"));
 function isBlueprint({ blueprint }) {
     return !!blueprint;
 }
@@ -6869,25 +2075,25 @@ function genBlueprintDataForCode(courseCode, accountIds, queryParams) {
         console.warn("Course code not present");
         return null;
     }
-    const baseCode = (0,_course_code__WEBPACK_IMPORTED_MODULE_2__.baseCourseCode)(courseCode);
+    const baseCode = (0, code_1.baseCourseCode)(courseCode);
     if (!baseCode) {
         console.warn(`Code ${courseCode} invalid`);
         return null;
     }
-    return (0,_toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseDataGenerator)(baseCode, accountIds, undefined, (0,_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.fetchGetConfig)({
+    return (0, toolbox_1.getCourseDataGenerator)(baseCode, accountIds, undefined, (0, utils_1.fetchGetConfig)({
         blueprint: true,
         include: ['concluded'],
     }, { queryParams }));
 }
 function sectionDataGenerator(courseId, config) {
     const url = `/api/v1/courses/${courseId}/blueprint_templates/default/associated_courses`;
-    return (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedDataGenerator)(url, config);
+    return (0, getPagedDataGenerator_1.getPagedDataGenerator)(url, config);
 }
 async function beginBpSync(courseId, { message, copy_settings, config }) {
     const url = `/api/v1/courses/${courseId}/blueprint_templates/default/migrations`;
     if (typeof copy_settings === 'undefined')
         copy_settings = true;
-    return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, (0,_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__["default"])('POST', {
+    return await (0, fetchJson_1.fetchJson)(url, (0, apiWriteConfig_1.default)('POST', {
         message,
         copy_settings
     }, config));
@@ -6896,15 +2102,15 @@ async function getBlueprintsFromCode(code, accountIds, config) {
     const [_, baseCode] = code.match(/_(\w{4}\d{3})$/) || [];
     if (!baseCode)
         return null;
-    const bps = (0,_toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseGenerator)(`BP_${baseCode}`, accountIds, undefined, config);
-    return (await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.renderAsyncGen)(bps)).toSorted((a, b) => b.name.length - a.name.length);
+    const bps = (0, toolbox_1.getCourseGenerator)(`BP_${baseCode}`, accountIds, undefined, config);
+    return (await (0, canvasUtils_1.renderAsyncGen)(bps)).toSorted((a, b) => b.name.length - a.name.length);
 }
 async function lockBlueprint(courseId, modules) {
     let items = [];
     items = items.concat(...modules.map(a => [].concat(...a.items)));
     const promises = items.map(async (item) => {
         const url = `/api/v1/courses/${courseId}/blueprint_templates/default/restrict_item`;
-        const { type, id } = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.getItemTypeAndId)(item);
+        const { type, id } = await (0, canvasUtils_1.getItemTypeAndId)(item);
         if (typeof id === 'undefined')
             return;
         const body = {
@@ -6913,10 +2119,10 @@ async function lockBlueprint(courseId, modules) {
             "restricted": true,
             "_method": 'PUT'
         };
-        await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, {
+        await (0, fetchJson_1.fetchJson)(url, {
             fetchInit: {
                 method: 'PUT',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(body)
+                body: (0, canvasUtils_1.formDataify)(body)
             }
         });
     });
@@ -6936,7 +2142,7 @@ async function setAsBlueprint(courseId, config) {
             }
         }
     };
-    return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, (0,_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__["default"])('PUT', payload, config));
+    return await (0, fetchJson_1.fetchJson)(url, (0, apiWriteConfig_1.default)('PUT', payload, config));
 }
 async function unSetAsBlueprint(courseId, config) {
     const url = `/api/v1/courses/${courseId}`;
@@ -6945,62 +2151,60 @@ async function unSetAsBlueprint(courseId, config) {
             blueprint: false
         }
     };
-    return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, (0,_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__["default"])("PUT", payload, config));
+    return await (0, fetchJson_1.fetchJson)(url, (0, apiWriteConfig_1.default)("PUT", payload, config));
 }
+//# sourceMappingURL=blueprint.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/course/cachedGetAssociatedCoursesFunc.js"
+/*!************************************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/course/cachedGetAssociatedCoursesFunc.js ***!
+  \************************************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/course/cachedGetAssociatedCoursesFunc.ts":
-/*!******************************************************!*\
-  !*** ./src/course/cachedGetAssociatedCoursesFunc.ts ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   cachedGetAssociatedCoursesFunc: () => (/* binding */ cachedGetAssociatedCoursesFunc)
-/* harmony export */ });
-/* harmony import */ var _canvas_course_getSections__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @canvas/course/getSections */ "./src/course/getSections.ts");
-
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.cachedGetAssociatedCoursesFunc = cachedGetAssociatedCoursesFunc;
+const getSections_1 = __webpack_require__(/*! ../course/getSections */ "./node_modules/@ueu/ueu-canvas/dist/course/getSections.js");
 function cachedGetAssociatedCoursesFunc(course) {
     let cache = null;
     return async (redownload = false) => {
         if (!redownload && cache)
             return cache;
-        cache = await (0,_canvas_course_getSections__WEBPACK_IMPORTED_MODULE_0__.getSections)(course.id);
+        cache = await (0, getSections_1.getSections)(course.id);
         return cache;
     };
 }
+//# sourceMappingURL=cachedGetAssociatedCoursesFunc.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/course/changeStartDate.js"
+/*!*********************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/course/changeStartDate.js ***!
+  \*********************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/course/changeStartDate.ts":
-/*!***************************************!*\
-  !*** ./src/course/changeStartDate.ts ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   MalformedSyllabusError: () => (/* binding */ MalformedSyllabusError),
-/* harmony export */   NoAssignmentsWithDueDatesError: () => (/* binding */ NoAssignmentsWithDueDatesError),
-/* harmony export */   NoOverviewModuleFoundError: () => (/* binding */ NoOverviewModuleFoundError),
-/* harmony export */   getModuleUnlockStartDate: () => (/* binding */ getModuleUnlockStartDate),
-/* harmony export */   getNewTermName: () => (/* binding */ getNewTermName),
-/* harmony export */   getOldUgTermName: () => (/* binding */ getOldUgTermName),
-/* harmony export */   getStartDateAssignments: () => (/* binding */ getStartDateAssignments),
-/* harmony export */   getUpdatedStyleTermName: () => (/* binding */ getUpdatedStyleTermName),
-/* harmony export */   sortAssignmentsByDueDate: () => (/* binding */ sortAssignmentsByDueDate),
-/* harmony export */   syllabusHeaderName: () => (/* binding */ syllabusHeaderName),
-/* harmony export */   updatedDateSyllabusHtml: () => (/* binding */ updatedDateSyllabusHtml)
-/* harmony export */ });
-/* harmony import */ var _date__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/date */ "./src/date.ts");
-/* harmony import */ var _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/content/assignments/Assignment */ "./src/content/assignments/Assignment.ts");
-
-
-const DEFAULT_LOCALE = 'en-US';
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.NoAssignmentsWithDueDatesError = exports.MalformedSyllabusError = exports.NoOverviewModuleFoundError = void 0;
+exports.getModuleUnlockStartDate = getModuleUnlockStartDate;
+exports.sortAssignmentsByDueDate = sortAssignmentsByDueDate;
+exports.getStartDateAssignments = getStartDateAssignments;
+exports.getStartDateFromSyllabus = getStartDateFromSyllabus;
+exports.getUpdatedStyleTermName = getUpdatedStyleTermName;
+exports.getOldUgTermName = getOldUgTermName;
+exports.getNewTermName = getNewTermName;
+exports.updatedDateSyllabusHtml = updatedDateSyllabusHtml;
+exports.syllabusHeaderName = syllabusHeaderName;
+const temporal_polyfill_1 = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/index.cjs");
+const date_1 = __webpack_require__(/*! ../date */ "./node_modules/@ueu/ueu-canvas/dist/date.js");
+const Assignment_1 = __webpack_require__(/*! ../content/assignments/Assignment */ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/Assignment.js");
+const content_1 = __webpack_require__(/*! ../content */ "./node_modules/@ueu/ueu-canvas/dist/content/index.js");
+const DEFAULT_LOCALE = "en-US";
 function getModuleUnlockStartDate(modules) {
     if (modules.length == 0)
         throw new NoOverviewModuleFoundError();
@@ -7009,15 +2213,15 @@ function getModuleUnlockStartDate(modules) {
     if (!unlockDateString)
         return null;
     const oldDate = new Date(unlockDateString);
-    return (0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(oldDate);
+    return (0, date_1.oldDateToPlainDate)(oldDate);
 }
+//This may be unnecessary, as the API call is now pulling by due_at date.
 function sortAssignmentsByDueDate(assignments) {
-    return assignments
-        .toSorted((a, b) => {
-        a = a instanceof _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__.Assignment ? a.rawData : a;
-        b = b instanceof _content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__.Assignment ? b.rawData : b;
+    return assignments.toSorted((a, b) => {
+        a = a instanceof Assignment_1.Assignment ? a.rawData : a;
+        b = b instanceof Assignment_1.Assignment ? b.rawData : b;
         if (a.due_at && b.due_at) {
-            return (0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(new Date(b.due_at)).until((0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(new Date(a.due_at))).days;
+            return (0, date_1.oldDateToPlainDate)(new Date(b.due_at)).until((0, date_1.oldDateToPlainDate)(new Date(a.due_at))).days;
         }
         if (a.due_at)
             return -1;
@@ -7026,106 +2230,165 @@ function sortAssignmentsByDueDate(assignments) {
         return 0;
     });
 }
-function getStartDateAssignments(assignments) {
-    const sorted = sortAssignmentsByDueDate(assignments).map(a => a.rawData ?? a).filter(a => a.due_at);
-    if (sorted.length == 0)
+async function getStartDateAssignments(courseId) {
+    const assignmentGen = (0, content_1.assignmentDataGen)(courseId, {
+        queryParams: {
+            order_by: "due_at",
+            per_page: 2,
+        },
+    });
+    let assignmentDueAt;
+    for await (const assignment of assignmentGen) {
+        if (assignment.due_at) {
+            assignmentDueAt = assignment.due_at;
+            break;
+        }
+    }
+    if (!assignmentDueAt)
         throw new NoAssignmentsWithDueDatesError();
-    const firstAssignmentDue = new Date(sorted[0].due_at);
     //Set to monday of that week.
-    const plainDateDue = (0,_date__WEBPACK_IMPORTED_MODULE_0__.oldDateToPlainDate)(firstAssignmentDue);
+    const firstAssignmentDue = new Date(assignmentDueAt);
+    const plainDateDue = (0, date_1.oldDateToPlainDate)(firstAssignmentDue);
     const dayOfWeekOffset = 1 - plainDateDue.dayOfWeek;
     return plainDateDue.add({ days: dayOfWeekOffset });
 }
+function getStartDateFromSyllabus(syllabusHtml, locale = DEFAULT_LOCALE) {
+    const syllabusBody = document.createElement("div");
+    syllabusBody.innerHTML = syllabusHtml;
+    const syllabusCalloutBox = syllabusBody.querySelector("div.cbt-callout-box");
+    if (!syllabusCalloutBox)
+        throw new MalformedSyllabusError("Can't find syllabus callout box");
+    const paras = Array.from(syllabusCalloutBox.querySelectorAll("p"));
+    const strongParas = paras.filter((para) => para.querySelector("strong"));
+    if (strongParas.length < 5)
+        throw new MalformedSyllabusError(`Missing syllabus headers\n${strongParas}`);
+    const termNameEl = strongParas[1];
+    const datesEl = strongParas[2];
+    let dateRange = (0, date_1.findDateRange)(datesEl.innerHTML, locale);
+    if (!dateRange)
+        throw new MalformedSyllabusError("Date range not found in syllabus");
+    const termName = termNameEl.textContent || "";
+    let yearToUse;
+    const yearMatchNew = termName.match(/\.(\d{2})$/);
+    if (yearMatchNew) {
+        yearToUse = 2000 + parseInt(yearMatchNew[1]);
+    }
+    else {
+        const yearMatchOld = termName.match(/DE-(\d{2})-/);
+        if (yearMatchOld) {
+            yearToUse = 2000 + parseInt(yearMatchOld[1]);
+        }
+    }
+    if (yearToUse) {
+        dateRange = {
+            start: temporal_polyfill_1.Temporal.PlainDate.from({
+                year: yearToUse,
+                month: dateRange.start.month,
+                day: dateRange.start.day,
+            }),
+            end: temporal_polyfill_1.Temporal.PlainDate.from({
+                year: yearToUse,
+                month: dateRange.end.month,
+                day: dateRange.end.day,
+            }),
+        };
+    }
+    return dateRange.start;
+}
 function getUpdatedStyleTermName(termStart, weekCount, locale = DEFAULT_LOCALE) {
-    const month = termStart.toLocaleString(locale, { month: '2-digit' });
-    const day = termStart.toLocaleString(locale, { day: '2-digit' });
-    const year = termStart.toLocaleString(locale, { year: '2-digit' });
+    const month = termStart.toLocaleString(locale, { month: "2-digit" });
+    const day = termStart.toLocaleString(locale, { day: "2-digit" });
+    const year = termStart.toLocaleString(locale, { year: "2-digit" });
     return `DE${weekCount}W${month}.${day}.${year}`;
 }
-function getOldUgTermName(termStart, locale = DEFAULT_LOCALE) {
-    const year = termStart.toLocaleString(DEFAULT_LOCALE, { year: '2-digit' });
-    const month = termStart.toLocaleString(DEFAULT_LOCALE, { month: 'short' });
+function getOldUgTermName(termStart) {
+    const year = termStart.toLocaleString(DEFAULT_LOCALE, { year: "2-digit" });
+    const month = termStart.toLocaleString(DEFAULT_LOCALE, { month: "short" });
     return `DE-${year}-${month}`;
 }
-function getNewTermName(oldTermName, newTermStart, locale = DEFAULT_LOCALE) {
+function getNewTermName(oldTermName, newTermStart, isGrad = undefined) {
     const [termName, weekCount] = oldTermName.match(/DE(\d)W\d\d\.\d\d\.\d\d/) || [];
     if (termName)
         return getUpdatedStyleTermName(newTermStart, weekCount);
     const termNameUg = oldTermName.match(/(DE(?:.HL|)-\d\d)-(\w+)\w{2}?/i);
+    const newWeekCount = isGrad ? 8 : 5;
     if (termNameUg)
-        return getUpdatedStyleTermName(newTermStart, 5);
+        return getUpdatedStyleTermName(newTermStart, newWeekCount);
     throw new MalformedSyllabusError(`Can't Recognize Term Name ${oldTermName}`);
 }
-function updatedDateSyllabusHtml(html, newStartDate, locale = DEFAULT_LOCALE) {
-    const syllabusBody = document.createElement('div');
+function updatedDateSyllabusHtml(html, newStartDate, isGrad = undefined, locale = DEFAULT_LOCALE) {
+    const syllabusBody = document.createElement("div");
     syllabusBody.innerHTML = html;
-    const syllabusCalloutBox = syllabusBody.querySelector('div.cbt-callout-box');
+    const syllabusCalloutBox = syllabusBody.querySelector("div.cbt-callout-box");
     if (!syllabusCalloutBox)
         throw new MalformedSyllabusError("Can't find syllabus callout box");
-    const paras = Array.from(syllabusCalloutBox.querySelectorAll('p'));
-    const strongParas = paras.filter((para) => para.querySelector('strong'));
+    const paras = Array.from(syllabusCalloutBox.querySelectorAll("p"));
+    const strongParas = paras.filter((para) => para.querySelector("strong"));
     if (strongParas.length < 5)
         throw new MalformedSyllabusError(`Missing syllabus headers\n${strongParas}`);
     const [_courseNameEl, termNameEl, datesEl, _instructorNameEl, _instructorContactInfoEl, _creditsEl] = strongParas;
     const changedText = [];
-    const oldTermName = termNameEl.textContent || '';
-    const oldDates = datesEl.textContent || '';
-    const dateRange = (0,_date__WEBPACK_IMPORTED_MODULE_0__.findDateRange)(datesEl.innerHTML, locale);
+    const oldTermName = termNameEl.textContent || "";
+    const oldDates = datesEl.textContent || "";
+    const dateRange = (0, date_1.findDateRange)(datesEl.innerHTML, locale);
     if (!dateRange)
         throw new MalformedSyllabusError("Date range not found in syllabus");
     const courseDuration = dateRange.start.until(dateRange.end);
     const newEndDate = newStartDate.add(courseDuration);
-    const newTermName = getNewTermName(oldTermName, newStartDate);
+    const newTermName = getNewTermName(oldTermName, newStartDate, isGrad);
     const dateRangeText = `${dateToSyllabusString(newStartDate)} - ${dateToSyllabusString(newEndDate)}`;
     termNameEl.innerHTML = `<strong>${syllabusHeaderName(termNameEl)}:</strong><span> ${newTermName}</span>`;
     datesEl.innerHTML = `<strong>${syllabusHeaderName(datesEl)}:</strong><span> ${dateRangeText}</span>`;
     changedText.push(`${oldTermName} -> ${termNameEl.textContent}`);
     changedText.push(`${oldDates} -> ${datesEl.textContent}`);
     const output = {
-        html: syllabusBody.innerHTML.replaceAll(/<p>\s*(&nbsp;)?<\/p>/ig, ''),
+        html: syllabusBody.innerHTML.replaceAll(/<p>\s*(&nbsp;)?<\/p>/gi, ""),
         changedText,
     };
     syllabusBody.remove();
     return output;
 }
 function dateToSyllabusString(date) {
-    return `${date.toLocaleString(DEFAULT_LOCALE, { month: 'long', day: 'numeric' })}`;
+    return `${date.toLocaleString(DEFAULT_LOCALE, { month: "long", day: "numeric" })}`;
 }
 function syllabusHeaderName(el) {
+    // eslint-disable-next-line prefer-const
     let [_, head] = /([^:]*):/.exec(el.innerHTML) ?? [];
-    head = head?.replaceAll(/<[^>]*>/g, '');
+    head = head?.replaceAll(/<[^>]*>/g, "");
     return head;
 }
 class NoOverviewModuleFoundError extends Error {
     name = "NoOverviewModuleFoundError";
 }
+exports.NoOverviewModuleFoundError = NoOverviewModuleFoundError;
 class MalformedSyllabusError extends Error {
     name = "MalformedSyllabusError";
 }
+exports.MalformedSyllabusError = MalformedSyllabusError;
 class NoAssignmentsWithDueDatesError extends Error {
     name = "NoAssignmentsWithDueDatesError";
 }
+exports.NoAssignmentsWithDueDatesError = NoAssignmentsWithDueDatesError;
+//# sourceMappingURL=changeStartDate.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/course/code.js"
+/*!**********************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/course/code.js ***!
+  \**********************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/course/code.ts":
-/*!****************************!*\
-  !*** ./src/course/code.ts ***!
-  \****************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   MalformedCourseCodeError: () => (/* binding */ MalformedCourseCodeError),
-/* harmony export */   baseCourseCode: () => (/* binding */ baseCourseCode),
-/* harmony export */   parseCourseCode: () => (/* binding */ parseCourseCode),
-/* harmony export */   stringIsCourseCode: () => (/* binding */ stringIsCourseCode)
-/* harmony export */ });
-/* harmony import */ var _course_Course__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/course/Course */ "./src/course/Course.ts");
-
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.MalformedCourseCodeError = void 0;
+exports.parseCourseCode = parseCourseCode;
+exports.baseCourseCode = baseCourseCode;
+exports.stringIsCourseCode = stringIsCourseCode;
+const Course_1 = __webpack_require__(/*! ../course/Course */ "./node_modules/@ueu/ueu-canvas/dist/course/Course.js");
 function parseCourseCode(code) {
-    const match = _course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
+    const match = Course_1.COURSE_CODE_REGEX.exec(code);
     if (!match)
         return null;
     const prefix = match[1] || "";
@@ -7136,13 +2399,13 @@ function parseCourseCode(code) {
     return courseCode;
 }
 function baseCourseCode(code) {
-    const match = _course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
+    const match = Course_1.COURSE_CODE_REGEX.exec(code);
     if (!match)
         return null;
     return match[2];
 }
 function stringIsCourseCode(code) {
-    return _course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
+    return Course_1.COURSE_CODE_REGEX.exec(code);
 }
 class MalformedCourseCodeError extends Error {
     name = "MalformedCourseCodeError";
@@ -7154,32 +2417,21 @@ class MalformedCourseCodeError extends Error {
         this.courseCode = courseCode;
     }
 }
+exports.MalformedCourseCodeError = MalformedCourseCodeError;
+//# sourceMappingURL=code.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/course/getCourseIdFromUrl.js"
+/*!************************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/course/getCourseIdFromUrl.js ***!
+  \************************************************************************/
+(__unused_webpack_module, exports) {
 
-/***/ "./src/course/courseTypes.ts":
-/*!***********************************!*\
-  !*** ./src/course/courseTypes.ts ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "./src/course/getCourseIdFromUrl.ts":
-/*!******************************************!*\
-  !*** ./src/course/getCourseIdFromUrl.ts ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ getCourseIdFromUrl)
-/* harmony export */ });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getCourseIdFromUrl = getCourseIdFromUrl;
 function getCourseIdFromUrl(url) {
     const match = /courses\/(\d+)/.exec(url);
     if (match) {
@@ -7187,163 +2439,61 @@ function getCourseIdFromUrl(url) {
     }
     return null;
 }
+exports["default"] = getCourseIdFromUrl;
+//# sourceMappingURL=getCourseIdFromUrl.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/course/getSections.js"
+/*!*****************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/course/getSections.js ***!
+  \*****************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/course/getSections.ts":
-/*!***********************************!*\
-  !*** ./src/course/getSections.ts ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   getSections: () => (/* binding */ getSections)
-/* harmony export */ });
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @canvas/course/Course */ "./src/course/Course.ts");
-/* harmony import */ var _canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @canvas/course/blueprint */ "./src/course/blueprint.ts");
-
-
-
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getSections = getSections;
+const canvasUtils_1 = __webpack_require__(/*! ../canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
+const Course_1 = __webpack_require__(/*! ../course/Course */ "./node_modules/@ueu/ueu-canvas/dist/course/Course.js");
+const blueprint_1 = __webpack_require__(/*! ../course/blueprint */ "./node_modules/@ueu/ueu-canvas/dist/course/blueprint.js");
 async function getSections(courseId, config) {
-    return (await (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.renderAsyncGen)((0,_canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_2__.sectionDataGenerator)(courseId, config))).map(section => new _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__.Course(section));
+    return (await (0, canvasUtils_1.renderAsyncGen)((0, blueprint_1.sectionDataGenerator)(courseId, config))).map(section => new Course_1.Course(section));
 }
+//# sourceMappingURL=getSections.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/course/modules.js"
+/*!*************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/course/modules.js ***!
+  \*************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/course/getTermNameFromSections.ts":
-/*!***********************************************!*\
-  !*** ./src/course/getTermNameFromSections.ts ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   getTermNameFromSections: () => (/* binding */ getTermNameFromSections)
-/* harmony export */ });
-async function getTermNameFromSections(sections) {
-    const [section] = sections;
-    if (!section)
-        throw new Error("Cannot determine term name by sections; there are no sections.");
-    const sectionTerm = await section.getTerm();
-    if (!sectionTerm)
-        throw new Error("Section does not have associated term: " + section.name);
-    return sectionTerm.name;
-}
-
-
-/***/ }),
-
-/***/ "./src/course/index.ts":
-/*!*****************************!*\
-  !*** ./src/course/index.ts ***!
-  \*****************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   COURSE_CODE_REGEX: () => (/* reexport safe */ _Course__WEBPACK_IMPORTED_MODULE_2__.COURSE_CODE_REGEX),
-/* harmony export */   Course: () => (/* reexport safe */ _Course__WEBPACK_IMPORTED_MODULE_2__.Course),
-/* harmony export */   CourseNotFoundException: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.CourseNotFoundException),
-/* harmony export */   NotABlueprintError: () => (/* reexport safe */ _notABlueprintError__WEBPACK_IMPORTED_MODULE_9__.NotABlueprintError),
-/* harmony export */   beginBpSync: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.beginBpSync),
-/* harmony export */   changeModuleLockDate: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.changeModuleLockDate),
-/* harmony export */   createNewCourse: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.createNewCourse),
-/* harmony export */   genBlueprintDataForCode: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.genBlueprintDataForCode),
-/* harmony export */   getBlueprintsFromCode: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.getBlueprintsFromCode),
-/* harmony export */   getCourseById: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseById),
-/* harmony export */   getCourseData: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseData),
-/* harmony export */   getCourseDataGenerator: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseDataGenerator),
-/* harmony export */   getCourseGenerator: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseGenerator),
-/* harmony export */   getCourseName: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getCourseName),
-/* harmony export */   getGradingStandards: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getGradingStandards),
-/* harmony export */   getModuleOverview: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.getModuleOverview),
-/* harmony export */   getModuleWeekNumber: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.getModuleWeekNumber),
-/* harmony export */   getModulesByWeekNumber: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.getModulesByWeekNumber),
-/* harmony export */   getSections: () => (/* reexport safe */ _getSections__WEBPACK_IMPORTED_MODULE_5__.getSections),
-/* harmony export */   getSingleCourse: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.getSingleCourse),
-/* harmony export */   getTermNameFromSections: () => (/* reexport safe */ _getTermNameFromSections__WEBPACK_IMPORTED_MODULE_6__.getTermNameFromSections),
-/* harmony export */   isAssignmentItemData: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.isAssignmentItemData),
-/* harmony export */   isBlueprint: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.isBlueprint),
-/* harmony export */   isDiscussionItemData: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.isDiscussionItemData),
-/* harmony export */   isPageItemData: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.isPageItemData),
-/* harmony export */   isQuizItemData: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.isQuizItemData),
-/* harmony export */   lockBlueprint: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.lockBlueprint),
-/* harmony export */   moduleGenerator: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.moduleGenerator),
-/* harmony export */   retireBlueprint: () => (/* reexport safe */ _retireBlueprint__WEBPACK_IMPORTED_MODULE_10__.retireBlueprint),
-/* harmony export */   saveCourseData: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.saveCourseData),
-/* harmony export */   saveModuleItem: () => (/* reexport safe */ _modules__WEBPACK_IMPORTED_MODULE_8__.saveModuleItem),
-/* harmony export */   sectionDataGenerator: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.sectionDataGenerator),
-/* harmony export */   setAsBlueprint: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.setAsBlueprint),
-/* harmony export */   setGradingStandardForCourse: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_1__.setGradingStandardForCourse),
-/* harmony export */   unSetAsBlueprint: () => (/* reexport safe */ _blueprint__WEBPACK_IMPORTED_MODULE_0__.unSetAsBlueprint)
-/* harmony export */ });
-/* harmony import */ var _blueprint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./blueprint */ "./src/course/blueprint.ts");
-/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toolbox */ "./src/course/toolbox.ts");
-/* harmony import */ var _Course__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Course */ "./src/course/Course.ts");
-/* harmony import */ var _courseTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./courseTypes */ "./src/course/courseTypes.ts");
-/* harmony import */ var _getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getCourseIdFromUrl */ "./src/course/getCourseIdFromUrl.ts");
-/* harmony import */ var _getSections__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./getSections */ "./src/course/getSections.ts");
-/* harmony import */ var _getTermNameFromSections__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./getTermNameFromSections */ "./src/course/getTermNameFromSections.ts");
-/* harmony import */ var _IBlueprintCourse__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./IBlueprintCourse */ "./src/course/IBlueprintCourse.ts");
-/* harmony import */ var _modules__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules */ "./src/course/modules.ts");
-/* harmony import */ var _notABlueprintError__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./notABlueprintError */ "./src/course/notABlueprintError.ts");
-/* harmony import */ var _retireBlueprint__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./retireBlueprint */ "./src/course/retireBlueprint.ts");
-
-
-
-
-
-
-
-
-
-
-
-
-
-/***/ }),
-
-/***/ "./src/course/modules.ts":
-/*!*******************************!*\
-  !*** ./src/course/modules.ts ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   changeModuleLockDate: () => (/* binding */ changeModuleLockDate),
-/* harmony export */   getModuleOverview: () => (/* binding */ getModuleOverview),
-/* harmony export */   getModuleWeekNumber: () => (/* binding */ getModuleWeekNumber),
-/* harmony export */   getModulesByWeekNumber: () => (/* binding */ getModulesByWeekNumber),
-/* harmony export */   isAssignmentItemData: () => (/* binding */ isAssignmentItemData),
-/* harmony export */   isDiscussionItemData: () => (/* binding */ isDiscussionItemData),
-/* harmony export */   isPageItemData: () => (/* binding */ isPageItemData),
-/* harmony export */   isQuizItemData: () => (/* binding */ isQuizItemData),
-/* harmony export */   moduleGenerator: () => (/* binding */ moduleGenerator),
-/* harmony export */   saveModuleItem: () => (/* binding */ saveModuleItem)
-/* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @canvas/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @canvas/content/pages/Page */ "./src/content/pages/Page.ts");
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @canvas/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-
-
-
-
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.isQuizItemData = exports.isDiscussionItemData = exports.isAssignmentItemData = exports.isPageItemData = void 0;
+exports.saveModuleItem = saveModuleItem;
+exports.moduleGenerator = moduleGenerator;
+exports.changeModuleLockDate = changeModuleLockDate;
+exports.getModuleOverview = getModuleOverview;
+exports.getModuleWeekNumber = getModuleWeekNumber;
+exports.getModulesByWeekNumber = getModulesByWeekNumber;
+const canvasUtils_1 = __webpack_require__(/*! ../canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
+const fetchJson_1 = __webpack_require__(/*! ../fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
+const Page_1 = __webpack_require__(/*! ../content/pages/Page */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/Page.js");
+const getPagedDataGenerator_1 = __webpack_require__(/*! ../fetch/getPagedDataGenerator */ "./node_modules/@ueu/ueu-canvas/dist/fetch/getPagedDataGenerator.js");
 async function saveModuleItem(courseId, moduleId, moduleItemId, moduleItem) {
-    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(`/api/v1/courses/${courseId}/modules/${moduleId}/modules/items/${moduleItemId}`, {
+    return await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${courseId}/modules/${moduleId}/modules/items/${moduleItemId}`, {
         fetchInit: {
             method: "PUT",
-            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)({ moduleItem: moduleItem }),
+            body: (0, canvasUtils_1.formDataify)({ moduleItem: moduleItem }),
         }
     });
 }
 function moduleGenerator(courseId, config) {
-    return (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedDataGenerator)(`/api/v1/courses/${courseId}/modules`, config);
+    return (0, getPagedDataGenerator_1.getPagedDataGenerator)(`/api/v1/courses/${courseId}/modules`, config);
 }
 async function changeModuleLockDate(courseId, module, targetDate) {
     const payload = {
@@ -7352,10 +2502,10 @@ async function changeModuleLockDate(courseId, module, targetDate) {
         }
     };
     const url = `/api/v1/courses/${courseId}/modules/${module.id}`;
-    const result = (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url, {
+    const result = (0, fetchJson_1.fetchJson)(url, {
         fetchInit: {
             method: 'PUT',
-            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(payload)
+            body: (0, canvasUtils_1.formDataify)(payload)
         }
     });
 }
@@ -7365,8 +2515,8 @@ async function getModuleOverview(module, courseId) {
     if (!overview?.url)
         return; //skip this if it's not an overview
     const url = overview.url.replace(/.*\/api\/v1/, '/api/v1');
-    const pageData = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url);
-    return new _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_2__.Page(pageData, courseId);
+    const pageData = await (0, fetchJson_1.fetchJson)(url);
+    return new Page_1.Page(pageData, courseId);
 }
 function getModuleWeekNumber(module) {
     const regex = /(week|module) (\d+)/i;
@@ -7398,102 +2548,46 @@ async function getModulesByWeekNumber(modules) {
 const isModuleItemTypeFunc = (typeString) => (item) => {
     return item.type === typeString;
 };
-const isPageItemData = isModuleItemTypeFunc("Page");
-const isAssignmentItemData = isModuleItemTypeFunc("Assignment");
-const isDiscussionItemData = isModuleItemTypeFunc("Discussion");
-const isQuizItemData = isModuleItemTypeFunc("Quiz");
+exports.isPageItemData = isModuleItemTypeFunc("Page");
+exports.isAssignmentItemData = isModuleItemTypeFunc("Assignment");
+exports.isDiscussionItemData = isModuleItemTypeFunc("Discussion");
+exports.isQuizItemData = isModuleItemTypeFunc("Quiz");
+//# sourceMappingURL=modules.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/course/toolbox.js"
+/*!*************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/course/toolbox.js ***!
+  \*************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/course/notABlueprintError.ts":
-/*!******************************************!*\
-  !*** ./src/course/notABlueprintError.ts ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   NotABlueprintError: () => (/* binding */ NotABlueprintError)
-/* harmony export */ });
-class NotABlueprintError extends Error {
-    name = "NotABlueprintError";
-}
-
-
-/***/ }),
-
-/***/ "./src/course/retireBlueprint.ts":
-/*!***************************************!*\
-  !*** ./src/course/retireBlueprint.ts ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   retireBlueprint: () => (/* binding */ retireBlueprint)
-/* harmony export */ });
-/* harmony import */ var _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @canvas/course/Course */ "./src/course/Course.ts");
-/* harmony import */ var _canvas_course_code__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @canvas/course/code */ "./src/course/code.ts");
-/* harmony import */ var _canvas_course_notABlueprintError__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @canvas/course/notABlueprintError */ "./src/course/notABlueprintError.ts");
-
-
-
-async function retireBlueprint(course, termName, config) {
-    if (!course.parsedCourseCode)
-        throw new _canvas_course_code__WEBPACK_IMPORTED_MODULE_1__.MalformedCourseCodeError(course.courseCode);
-    const isCurrentBlueprint = course.parsedCourseCode?.match('BP_');
-    if (!isCurrentBlueprint)
-        throw new _canvas_course_notABlueprintError__WEBPACK_IMPORTED_MODULE_2__.NotABlueprintError("This blueprint is not named BP_; are you trying to retire a retired blueprint?");
-    const newCode = `BP-${termName}_${course.baseCode}`;
-    const saveData = {};
-    saveData[_canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__.Course.nameProperty] = course.name.replace(course.parsedCourseCode, newCode);
-    saveData['course_code'] = newCode;
-    await course.saveData({
-        course: saveData
-    }, config);
-}
-
-
-/***/ }),
-
-/***/ "./src/course/toolbox.ts":
-/*!*******************************!*\
-  !*** ./src/course/toolbox.ts ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   CourseNotFoundException: () => (/* binding */ CourseNotFoundException),
-/* harmony export */   createNewCourse: () => (/* binding */ createNewCourse),
-/* harmony export */   getCourseById: () => (/* binding */ getCourseById),
-/* harmony export */   getCourseData: () => (/* binding */ getCourseData),
-/* harmony export */   getCourseDataGenerator: () => (/* binding */ getCourseDataGenerator),
-/* harmony export */   getCourseGenerator: () => (/* binding */ getCourseGenerator),
-/* harmony export */   getCourseName: () => (/* binding */ getCourseName),
-/* harmony export */   getGradingStandards: () => (/* binding */ getGradingStandards),
-/* harmony export */   getSingleCourse: () => (/* binding */ getSingleCourse),
-/* harmony export */   saveCourseData: () => (/* binding */ saveCourseData),
-/* harmony export */   setGradingStandardForCourse: () => (/* binding */ setGradingStandardForCourse)
-/* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _Course__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Course */ "./src/course/Course.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @canvas/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @canvas/fetch/utils */ "./src/fetch/utils.ts");
-
-
-
-
-
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CourseNotFoundException = void 0;
+exports.getGradingStandards = getGradingStandards;
+exports.getCourseData = getCourseData;
+exports.getCourseDataGenerator = getCourseDataGenerator;
+exports.getCourseGenerator = getCourseGenerator;
+exports.getSingleCourse = getSingleCourse;
+exports.getCourseById = getCourseById;
+exports.createNewCourse = createNewCourse;
+exports.saveCourseData = saveCourseData;
+exports.setGradingStandardForCourse = setGradingStandardForCourse;
+exports.getCourseName = getCourseName;
+const canvasUtils_1 = __webpack_require__(/*! ../canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
+const Course_1 = __webpack_require__(/*! ./Course */ "./node_modules/@ueu/ueu-canvas/dist/course/Course.js");
+const getPagedDataGenerator_1 = __webpack_require__(/*! ../fetch/getPagedDataGenerator */ "./node_modules/@ueu/ueu-canvas/dist/fetch/getPagedDataGenerator.js");
+const fetchJson_1 = __webpack_require__(/*! ../fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
+const utils_1 = __webpack_require__(/*! ../fetch/utils */ "./node_modules/@ueu/ueu-canvas/dist/fetch/utils.js");
 async function getGradingStandards(contextId, contextType, config) {
     const url = `/api/v1/${contextType}s/${contextId}/grading_standards`;
-    return await (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.getPagedData)(url, config);
+    return await (0, getPagedDataGenerator_1.getPagedData)(url, config);
 }
 function getCourseData(id, config) {
     const url = `/api/v1/courses/${id}`;
-    return (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(url, config);
+    return (0, fetchJson_1.fetchJson)(url, config);
 }
 function getCourseDataGenerator(queryString, accountIds, term, config) {
     if (!Array.isArray(accountIds))
@@ -7506,26 +2600,26 @@ function getCourseDataGenerator(queryString, accountIds, term, config) {
     const termId = typeof term === 'number' ? term : term?.id;
     if (termId && defaultConfig.queryParams)
         defaultConfig.queryParams.enrollment_term_id = termId;
-    config = (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.overrideConfig)(defaultConfig, config);
+    config = (0, utils_1.overrideConfig)(defaultConfig, config);
     const generators = accountIds.map(accountId => {
         const url = `/api/v1/accounts/${accountId}/courses`;
-        return (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.getPagedDataGenerator)(url, config);
+        return (0, getPagedDataGenerator_1.getPagedDataGenerator)(url, config);
     });
-    return (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.mergePagedDataGenerators)(generators);
+    return (0, getPagedDataGenerator_1.mergePagedDataGenerators)(generators);
 }
 function getCourseGenerator(queryString, accountIds, term, config) {
-    return (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.generatorMap)(getCourseDataGenerator(queryString, accountIds, term, config), courseData => new _Course__WEBPACK_IMPORTED_MODULE_1__.Course(courseData));
+    return (0, canvasUtils_1.generatorMap)(getCourseDataGenerator(queryString, accountIds, term, config), courseData => new Course_1.Course(courseData));
 }
 async function getSingleCourse(queryString, accountIds, term, config) {
     for (const accountId of accountIds) {
-        const courseDatas = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(`/api/v1/accounts/${accountId}/courses`, (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.overrideConfig)({ queryParams: { search_term: queryString } }, config));
+        const courseDatas = await (0, fetchJson_1.fetchJson)(`/api/v1/accounts/${accountId}/courses`, (0, utils_1.overrideConfig)({ queryParams: { search_term: queryString } }, config));
         if (courseDatas.length > 0)
-            return new _Course__WEBPACK_IMPORTED_MODULE_1__.Course(courseDatas[0]);
+            return new Course_1.Course(courseDatas[0]);
     }
     return undefined;
 }
 async function getCourseById(id, config) {
-    return new _Course__WEBPACK_IMPORTED_MODULE_1__.Course(await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(`/api/v1/courses/${id}`, config));
+    return new Course_1.Course(await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${id}`, config));
 }
 async function createNewCourse(courseCode, accountId, name, config) {
     name ??= courseCode;
@@ -7533,7 +2627,7 @@ async function createNewCourse(courseCode, accountId, name, config) {
     const createConfig = {
         fetchInit: {
             method: 'POST',
-            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)({
+            body: (0, canvasUtils_1.formDataify)({
                 course: {
                     name,
                     course_code: courseCode
@@ -7541,16 +2635,17 @@ async function createNewCourse(courseCode, accountId, name, config) {
             })
         }
     };
-    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(createUrl, (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(createConfig, config, true));
+    return await (0, fetchJson_1.fetchJson)(createUrl, (0, canvasUtils_1.deepObjectMerge)(createConfig, config, true));
 }
 class CourseNotFoundException extends Error {
 }
+exports.CourseNotFoundException = CourseNotFoundException;
 async function saveCourseData(courseId, data, config) {
     const url = `/api/v1/courses/${courseId}`;
-    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(url, (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.overrideConfig)(config, {
+    return await (0, fetchJson_1.fetchJson)(url, (0, utils_1.overrideConfig)(config, {
         fetchInit: {
             method: 'PUT',
-            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)({ course: data })
+            body: (0, canvasUtils_1.formDataify)({ course: data })
         }
     }));
 }
@@ -7563,36 +2658,34 @@ function getCourseName(data) {
         return withoutCode;
     return data.name;
 }
+//# sourceMappingURL=toolbox.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/date.js"
+/*!***************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/date.js ***!
+  \***************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/date.ts":
-/*!*********************!*\
-  !*** ./src/date.ts ***!
-  \*********************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   MalformedDateError: () => (/* binding */ MalformedDateError),
-/* harmony export */   StringNotAMonthDateError: () => (/* binding */ StringNotAMonthDateError),
-/* harmony export */   findDateRange: () => (/* binding */ findDateRange),
-/* harmony export */   oldDateToPlainDate: () => (/* binding */ oldDateToPlainDate)
-/* harmony export */ });
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
-
-
-
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.MalformedDateError = exports.StringNotAMonthDateError = void 0;
+exports.findDateRange = findDateRange;
+exports.oldDateToPlainDate = oldDateToPlainDate;
+const assert_1 = __importDefault(__webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js"));
+const canvasUtils_1 = __webpack_require__(/*! ./canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
+const temporal_polyfill_1 = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/index.cjs");
 function getMonthNames(style = "long", locale = 'en-US') {
-    return Array.from((0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.range)(1, 12)).map((monthInt) => {
-        return temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from({
+    return Array.from((0, canvasUtils_1.range)(1, 12)).map((monthInt) => {
+        return temporal_polyfill_1.Temporal.PlainDate.from({
             day: 1,
             month: monthInt,
-            year: temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.Now.plainDateISO().year
+            year: temporal_polyfill_1.Temporal.Now.plainDateISO().year
         }).toLocaleString(locale, {
             month: style
         });
@@ -7605,12 +2698,12 @@ function getMonthNames(style = "long", locale = 'en-US') {
  * @param year the year to give the date object. If not provided defaults to current year.
  */
 function plainDateFromMonthDayString(value, locale, year) {
-    year ??= temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.Now.plainDateISO().year;
+    year ??= temporal_polyfill_1.Temporal.Now.plainDateISO().year;
     const match = value.match(getDateRegexString(locale));
     if (!match)
         throw new MalformedDateError(value);
     const fullDate = match[1];
-    return temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from({
+    return temporal_polyfill_1.Temporal.PlainDate.from({
         month: getMonthNumberLut(locale)[match[2]],
         day: parseInt(match[3]),
         year
@@ -7627,7 +2720,7 @@ function getMonthNumberLut(locale) {
     const monthNames = getMonthNames('long', locale);
     const shortMonthNames = getMonthNames('short', locale);
     const monthNumberLut = {};
-    assert__WEBPACK_IMPORTED_MODULE_0___default()(monthNames.length === shortMonthNames.length);
+    (0, assert_1.default)(monthNames.length === shortMonthNames.length);
     for (let i = 0; i < monthNames.length; i++) {
         monthNumberLut[monthNames[i]] = i + 1;
         monthNumberLut[shortMonthNames[i]] = i + 1;
@@ -7684,165 +2777,77 @@ function oldDateToPlainDate(date) {
         month: date.getMonth() + 1,
         year: date.getFullYear(),
     };
-    return temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from(data);
+    return temporal_polyfill_1.Temporal.PlainDate.from(data);
 }
 class StringNotAMonthDateError extends Error {
     name = "StringNotAMonthDateError";
 }
+exports.StringNotAMonthDateError = StringNotAMonthDateError;
 class MalformedDateError extends Error {
     name = "MalformedDateError";
 }
+exports.MalformedDateError = MalformedDateError;
+//# sourceMappingURL=date.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/fetch/apiGetConfig.js"
+/*!*****************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/fetch/apiGetConfig.js ***!
+  \*****************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/enrollments/EnrollmentTypes.ts":
-/*!********************************************!*\
-  !*** ./src/enrollments/EnrollmentTypes.ts ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "./src/enrollments/enrollmentRole.ts":
-/*!*******************************************!*\
-  !*** ./src/enrollments/enrollmentRole.ts ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   createEnrollmentRole: () => (/* binding */ createEnrollmentRole)
-/* harmony export */ });
-function createEnrollmentRole(role) {
-    return role;
-}
-
-
-/***/ }),
-
-/***/ "./src/enrollments/getEnrollmentGenerator.ts":
-/*!***************************************************!*\
-  !*** ./src/enrollments/getEnrollmentGenerator.ts ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   getEnrollmentGenerator: () => (/* binding */ getEnrollmentGenerator)
-/* harmony export */ });
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-
-const getEnrollmentGenerator = (config) => {
-    let url;
-    const { queryParams, ...internalParams } = config;
-    if ('userId' in config) {
-        url = `/api/v1/users/${config.userId}/enrollments`;
-    }
-    else if ('courseId' in config) {
-        url = `/api/v1/courses/${config.courseId}/enrollments`;
-    }
-    else if ('sectionId' in config) {
-        url = `/api/v1/sections/${config.sectionId}/enrollments`;
-    }
-    else {
-        throw new Error('config type not recognized');
-    }
-    return (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__.getPagedDataGenerator)(url, {
-        queryParams,
-    });
-};
-
-
-/***/ }),
-
-/***/ "./src/enrollments/index.ts":
-/*!**********************************!*\
-  !*** ./src/enrollments/index.ts ***!
-  \**********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   createEnrollmentRole: () => (/* reexport safe */ _enrollmentRole__WEBPACK_IMPORTED_MODULE_0__.createEnrollmentRole),
-/* harmony export */   getEnrollmentGenerator: () => (/* reexport safe */ _getEnrollmentGenerator__WEBPACK_IMPORTED_MODULE_1__.getEnrollmentGenerator)
-/* harmony export */ });
-/* harmony import */ var _enrollmentRole__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./enrollmentRole */ "./src/enrollments/enrollmentRole.ts");
-/* harmony import */ var _getEnrollmentGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getEnrollmentGenerator */ "./src/enrollments/getEnrollmentGenerator.ts");
-/* harmony import */ var _EnrollmentTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./EnrollmentTypes */ "./src/enrollments/EnrollmentTypes.ts");
-
-
-
-
-
-/***/ }),
-
-/***/ "./src/fetch/apiGetConfig.ts":
-/*!***********************************!*\
-  !*** ./src/fetch/apiGetConfig.ts ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   apiGetConfig: () => (/* binding */ apiGetConfig),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @canvas/fetch/utils */ "./src/fetch/utils.ts");
-
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.apiGetConfig = apiGetConfig;
+const utils_1 = __webpack_require__(/*! ../fetch/utils */ "./node_modules/@ueu/ueu-canvas/dist/fetch/utils.js");
 function apiGetConfig(queryParams, baseConfig) {
-    return (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_0__.overrideConfig)({
+    return (0, utils_1.overrideConfig)({
         queryParams,
     }, baseConfig);
 }
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (apiGetConfig);
+exports["default"] = apiGetConfig;
+//# sourceMappingURL=apiGetConfig.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/fetch/apiWriteConfig.js"
+/*!*******************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/fetch/apiWriteConfig.js ***!
+  \*******************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/fetch/apiWriteConfig.ts":
-/*!*************************************!*\
-  !*** ./src/fetch/apiWriteConfig.ts ***!
-  \*************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   apiWriteConfig: () => (/* binding */ apiWriteConfig),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @canvas/canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @canvas/fetch/utils */ "./src/fetch/utils.ts");
-
-
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.apiWriteConfig = apiWriteConfig;
+const canvasUtils_1 = __webpack_require__(/*! ../canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
+const utils_1 = __webpack_require__(/*! ../fetch/utils */ "./node_modules/@ueu/ueu-canvas/dist/fetch/utils.js");
 function apiWriteConfig(method, data, baseConfig) {
-    const body = (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(data);
-    return (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_1__.overrideConfig)({
+    const body = (0, canvasUtils_1.formDataify)(data);
+    return (0, utils_1.overrideConfig)({
         fetchInit: {
             method,
             body,
         }
     }, baseConfig);
 }
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (apiWriteConfig);
+exports["default"] = apiWriteConfig;
+//# sourceMappingURL=apiWriteConfig.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js"
+/*!**************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js ***!
+  \**************************************************************/
+(__unused_webpack_module, exports) {
 
-/***/ "./src/fetch/fetchJson.ts":
-/*!********************************!*\
-  !*** ./src/fetch/fetchJson.ts ***!
-  \********************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   fetchJson: () => (/* binding */ fetchJson)
-/* harmony export */ });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.fetchJson = fetchJson;
 async function fetchJson(url, config = null) {
     const match = url.search(/^(\/|\w+:\/\/)/);
     if (match < 0)
@@ -7858,24 +2863,23 @@ async function fetchJson(url, config = null) {
     responseJson.retrieved_at = new Date().toISOString();
     return responseJson;
 }
+//# sourceMappingURL=fetchJson.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/fetch/getPagedDataGenerator.js"
+/*!**************************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/fetch/getPagedDataGenerator.js ***!
+  \**************************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/fetch/getPagedDataGenerator.ts":
-/*!********************************************!*\
-  !*** ./src/fetch/getPagedDataGenerator.ts ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   getPagedData: () => (/* binding */ getPagedData),
-/* harmony export */   getPagedDataGenerator: () => (/* binding */ getPagedDataGenerator),
-/* harmony export */   mergePagedDataGenerators: () => (/* binding */ mergePagedDataGenerators)
-/* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
-
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getPagedData = getPagedData;
+exports.mergePagedDataGenerators = mergePagedDataGenerators;
+exports.getPagedDataGenerator = getPagedDataGenerator;
+const canvasUtils_1 = __webpack_require__(/*! ../canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
 /**
  * @param url The entire path of the url
  * @param config a configuration object of type ICanvasCallConfig
@@ -7979,7 +2983,7 @@ function handleResponseData(data, url) {
  */
 async function* getPagedDataGenerator(url, config = null) {
     if (config?.queryParams) {
-        url += '?' + (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.searchParamsFromObject)(config.queryParams);
+        url += '?' + (0, canvasUtils_1.searchParamsFromObject)(config.queryParams);
     }
     if (url.includes('undefined')) {
         console.warn(url);
@@ -8014,139 +3018,62 @@ function getNextLink(response) {
     const paginationLinks = link.split(",");
     return paginationLinks.find((link) => link.includes('next'));
 }
+//# sourceMappingURL=getPagedDataGenerator.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/fetch/utils.js"
+/*!**********************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/fetch/utils.js ***!
+  \**********************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/fetch/index.ts":
-/*!****************************!*\
-  !*** ./src/fetch/index.ts ***!
-  \****************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   apiGetConfig: () => (/* reexport safe */ _apiGetConfig__WEBPACK_IMPORTED_MODULE_3__.apiGetConfig),
-/* harmony export */   apiWriteConfig: () => (/* reexport safe */ _apiWriteConfig__WEBPACK_IMPORTED_MODULE_2__.apiWriteConfig),
-/* harmony export */   fetchGetConfig: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_0__.fetchGetConfig),
-/* harmony export */   fetchJson: () => (/* reexport safe */ _fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson),
-/* harmony export */   getPagedData: () => (/* reexport safe */ _getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedData),
-/* harmony export */   getPagedDataGenerator: () => (/* reexport safe */ _getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator),
-/* harmony export */   mergePagedDataGenerators: () => (/* reexport safe */ _getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.mergePagedDataGenerators),
-/* harmony export */   overrideConfig: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_0__.overrideConfig)
-/* harmony export */ });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./src/fetch/utils.ts");
-/* harmony import */ var _getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _apiWriteConfig__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./apiWriteConfig */ "./src/fetch/apiWriteConfig.ts");
-/* harmony import */ var _apiGetConfig__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./apiGetConfig */ "./src/fetch/apiGetConfig.ts");
-/* harmony import */ var _fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./fetchJson */ "./src/fetch/fetchJson.ts");
-
-
-
-
-
-
-
-/***/ }),
-
-/***/ "./src/fetch/utils.ts":
-/*!****************************!*\
-  !*** ./src/fetch/utils.ts ***!
-  \****************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   fetchGetConfig: () => (/* binding */ fetchGetConfig),
-/* harmony export */   overrideConfig: () => (/* binding */ overrideConfig)
-/* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvasUtils */ "./src/canvasUtils.ts");
-
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.overrideConfig = overrideConfig;
+exports.fetchGetConfig = fetchGetConfig;
+const canvasUtils_1 = __webpack_require__(/*! ../canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
 function overrideConfig(source, override) {
-    return (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(source, override) ?? {};
+    return (0, canvasUtils_1.deepObjectMerge)(source, override) ?? {};
 }
 function fetchGetConfig(options, baseConfig) {
     return overrideConfig(baseConfig, {
         queryParams: options,
     });
 }
+//# sourceMappingURL=utils.js.map
 
+/***/ },
 
-/***/ }),
+/***/ "./node_modules/@ueu/ueu-canvas/dist/profile.js"
+/*!******************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/profile.js ***!
+  \******************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ "./src/files.ts":
-/*!**********************!*\
-  !*** ./src/files.ts ***!
-  \**********************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
+"use strict";
 
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   uploadFile: () => (/* binding */ uploadFile)
-/* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
-
-
-async function uploadFile(file, folder, url) {
-    const initialParams = {
-        name: file.name,
-        no_redirect: true,
-        on_duplicate: 'overwrite'
-    };
-    if (typeof folder === 'number')
-        initialParams.parent_folder_id = folder;
-    else
-        initialParams.parent_folder_path = folder;
-    let response = await fetch(url, {
-        body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(initialParams),
-        method: 'POST'
-    });
-    const data = await response.json();
-    const uploadParams = data.upload_params;
-    const uploadFormData = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(uploadParams);
-    uploadFormData.append('file', file);
-    response = await fetch(data.upload_url, {
-        method: 'POST',
-        body: uploadFormData,
-    });
-    assert__WEBPACK_IMPORTED_MODULE_1___default()(response.ok);
-}
-
-
-/***/ }),
-
-/***/ "./src/profile.ts":
-/*!************************!*\
-  !*** ./src/profile.ts ***!
-  \************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   frontPageBio: () => (/* binding */ frontPageBio),
-/* harmony export */   getCurioPageFrontPageProfile: () => (/* binding */ getCurioPageFrontPageProfile),
-/* harmony export */   getFacultyPages: () => (/* binding */ getFacultyPages),
-/* harmony export */   getPotentialFacultyProfiles: () => (/* binding */ getPotentialFacultyProfiles),
-/* harmony export */   getProfileFromPage: () => (/* binding */ getProfileFromPage),
-/* harmony export */   renderProfileIntoCurioFrontPage: () => (/* binding */ renderProfileIntoCurioFrontPage),
-/* harmony export */   winnow: () => (/* binding */ winnow)
-/* harmony export */ });
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Account */ "./src/Account.ts");
-/* harmony import */ var _course_toolbox__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/course/toolbox */ "./src/course/toolbox.ts");
-
-
-
-
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getFacultyPages = getFacultyPages;
+exports.getProfileFromPage = getProfileFromPage;
+exports.frontPageBio = frontPageBio;
+exports.renderProfileIntoCurioFrontPage = renderProfileIntoCurioFrontPage;
+exports.getPotentialFacultyProfiles = getPotentialFacultyProfiles;
+exports.getCurioPageFrontPageProfile = getCurioPageFrontPageProfile;
+exports.winnow = winnow;
+const assert_1 = __importDefault(__webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js"));
+const canvasUtils_1 = __webpack_require__(/*! ./canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
+const Account_1 = __webpack_require__(/*! ./Account */ "./node_modules/@ueu/ueu-canvas/dist/Account.js");
+const toolbox_1 = __webpack_require__(/*! ./course/toolbox */ "./node_modules/@ueu/ueu-canvas/dist/course/toolbox.js");
 let facultyCourseCached;
 async function getFacultyCourse() {
-    const facultyCourse = facultyCourseCached ?? await (0,_course_toolbox__WEBPACK_IMPORTED_MODULE_3__.getSingleCourse)('Faculty Bios', (await _Account__WEBPACK_IMPORTED_MODULE_2__.Account.getAll()).map(a => a.id));
+    const facultyCourse = facultyCourseCached ?? await (0, toolbox_1.getSingleCourse)('Faculty Bios', (await Account_1.Account.getAll()).map(a => a.id));
     facultyCourseCached = facultyCourse;
-    assert__WEBPACK_IMPORTED_MODULE_0___default()(facultyCourse);
+    (0, assert_1.default)(facultyCourse);
     return facultyCourse;
 }
 async function getFacultyPages(searchTerm) {
@@ -8224,7 +3151,7 @@ function getDisplayName(el) {
     let titles = Array.from(el.querySelectorAll('strong em'));
     if (titles.length === 0) {
         const enclosedImages = Array.from(el.querySelectorAll('p img'));
-        titles = enclosedImages.map((el) => (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.parentElement)(el, 'p')?.nextElementSibling)
+        titles = enclosedImages.map((el) => (0, canvasUtils_1.parentElement)(el, 'p')?.nextElementSibling)
             .filter((el) => el instanceof Element);
     }
     if (titles.length === 0) {
@@ -8340,7 +3267,7 @@ function getCurioHeader(el) {
 function getCurioProfileDiv(el) {
     const header = getCurioHeader(el);
     const sectionEl = header.nextElementSibling;
-    assert__WEBPACK_IMPORTED_MODULE_0___default()(sectionEl, "Body element of bio not found on page.");
+    (0, assert_1.default)(sectionEl, "Body element of bio not found on page.");
     return sectionEl;
 }
 function getCurioBio(el) {
@@ -8355,104 +3282,29 @@ function getCurioBio(el) {
 function getCurioProfileImage(el) {
     return getCurioProfileDiv(el).querySelector('img');
 }
+//# sourceMappingURL=profile.js.map
 
+/***/ },
 
+/***/ "./node_modules/@ueu/ueu-canvas/dist/term/Term.js"
+/*!********************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/term/Term.js ***!
+  \********************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
-/***/ }),
+"use strict";
 
-/***/ "./src/rubricTypes.ts":
-/*!****************************!*\
-  !*** ./src/rubricTypes.ts ***!
-  \****************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "./src/rubrics.ts":
-/*!************************!*\
-  !*** ./src/rubrics.ts ***!
-  \************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   getRubric: () => (/* binding */ getRubric),
-/* harmony export */   getRubricsFetchUrl: () => (/* binding */ getRubricsFetchUrl),
-/* harmony export */   rubricApiUrl: () => (/* binding */ rubricApiUrl),
-/* harmony export */   rubricAssociationUrl: () => (/* binding */ rubricAssociationUrl),
-/* harmony export */   rubricsForCourseGen: () => (/* binding */ rubricsForCourseGen),
-/* harmony export */   updateRubricAssociation: () => (/* binding */ updateRubricAssociation)
-/* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-
-
-
-function getRubricsFetchUrl(courseId) { return `/api/v1/courses/${courseId}/rubrics`; }
-function rubricApiUrl(courseId, rubricId) { return `/api/v1/courses/${courseId}/rubrics/${rubricId}`; }
-function rubricsForCourseGen(courseId, options, config) {
-    const url = getRubricsFetchUrl(courseId);
-    const dataGenerator = (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(url, config);
-    if (options?.include) {
-        return async function* () {
-            for await (const rubric of dataGenerator) {
-                yield await getRubric(rubric.context_id, rubric.id, options, config);
-            }
-        }();
-    }
-    return dataGenerator;
-}
-async function getRubric(courseId, rubricId, options, config) {
-    const url = rubricApiUrl(courseId, rubricId);
-    if (options?.include) {
-        config ??= {};
-        config.queryParams = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(config?.queryParams, { include: options.include });
-    }
-    return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__.fetchJson)(url, config);
-}
-function rubricAssociationUrl(courseId, rubricAssociationId) {
-    return `/api/v1/courses/${courseId}/rubric_associations/${rubricAssociationId}`;
-}
-async function updateRubricAssociation(courseId, rubricAssociationId, data, config) {
-    const url = rubricAssociationUrl(courseId, rubricAssociationId);
-    return await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__.fetchJson)(url, (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(config, {
-        fetchInit: {
-            method: 'PUT',
-            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(data)
-        },
-    }, true));
-}
-
-
-/***/ }),
-
-/***/ "./src/term/Term.ts":
-/*!**************************!*\
-  !*** ./src/term/Term.ts ***!
-  \**************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   Term: () => (/* binding */ Term)
-/* harmony export */ });
-/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/baseCanvasObject */ "./src/baseCanvasObject.ts");
-/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Account */ "./src/Account.ts");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! assert */ "assert");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/fetch/fetchJson */ "./src/fetch/fetchJson.ts");
-
-
-
-
-
-class Term extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Term = void 0;
+const baseCanvasObject_1 = __webpack_require__(/*! ../baseCanvasObject */ "./node_modules/@ueu/ueu-canvas/dist/baseCanvasObject.js");
+const Account_1 = __webpack_require__(/*! ../Account */ "./node_modules/@ueu/ueu-canvas/dist/Account.js");
+const assert_1 = __importDefault(__webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js"));
+const getPagedDataGenerator_1 = __webpack_require__(/*! ../fetch/getPagedDataGenerator */ "./node_modules/@ueu/ueu-canvas/dist/fetch/getPagedDataGenerator.js");
+const fetchJson_1 = __webpack_require__(/*! ../fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
+class Term extends baseCanvasObject_1.BaseCanvasObject {
     static nameProperty = "name";
     static async getTerm(code, workflowState = 'all', config = undefined) {
         const terms = await this.searchTerms(code, workflowState, config);
@@ -8462,11 +3314,11 @@ class Term extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObje
         return terms[0];
     }
     static async getTermById(termId, config = null) {
-        const account = await _Account__WEBPACK_IMPORTED_MODULE_1__.Account.getRootAccount();
+        const account = await Account_1.Account.getRootAccount();
         if (!account)
-            throw new _Account__WEBPACK_IMPORTED_MODULE_1__.RootAccountNotFoundError();
+            throw new Account_1.RootAccountNotFoundError();
         const url = `/api/v1/accounts/${account.id}/terms/${termId}`;
-        const termData = await (0,_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
+        const termData = await (0, fetchJson_1.fetchJson)(url, config);
         if (termData)
             return new Term(termData);
         return null;
@@ -8482,10 +3334,10 @@ class Term extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObje
             queryParams['workflow_state'] = workflowState;
         if (code)
             queryParams['term_name'] = code;
-        const rootAccount = await _Account__WEBPACK_IMPORTED_MODULE_1__.Account.getRootAccount();
-        assert__WEBPACK_IMPORTED_MODULE_2___default()(rootAccount);
+        const rootAccount = await Account_1.Account.getRootAccount();
+        (0, assert_1.default)(rootAccount);
         const url = `/api/v1/accounts/${rootAccount.id}/terms`;
-        const data = await (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedData)(url, config);
+        const data = await (0, getPagedDataGenerator_1.getPagedData)(url, config);
         const terms = [];
         for (const datum of data) {
             if (datum.hasOwnProperty('enrollment_terms')) {
@@ -8503,449 +3355,16 @@ class Term extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObje
         return terms.map(term => new Term(term));
     }
 }
+exports.Term = Term;
+//# sourceMappingURL=Term.js.map
 
+/***/ },
 
-/***/ }),
-
-/***/ "./src/term/dateFromTermName.ts":
-/*!**************************************!*\
-  !*** ./src/term/dateFromTermName.ts ***!
-  \**************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   dateFromTermName: () => (/* binding */ dateFromTermName),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
-
-function dateFromTermName(termName) {
-    const [newCode, month, day, year] = /DE\dW(\d+)\.(\d+)\.(\d+)/i.exec(termName) ?? [];
-    if (newCode) {
-        const yearInt = parseInt(year);
-        return temporal_polyfill__WEBPACK_IMPORTED_MODULE_0__.Temporal.PlainDate.from({
-            month: parseInt(month),
-            day: parseInt(day),
-            year: yearInt < 100 ? 2000 + yearInt : yearInt
-        });
-    }
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (dateFromTermName);
-
-
-/***/ }),
-
-/***/ "./src/term/getTermsGenerator.ts":
-/*!***************************************!*\
-  !*** ./src/term/getTermsGenerator.ts ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   getTermsGenerator: () => (/* binding */ getTermsGenerator)
-/* harmony export */ });
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-
-const defaultTermQueryParams = {
-    workflow_state: 'active',
-};
-const getTermsGenerator = (rootAccountId, queryParams) => {
-    const generator = (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__.getPagedDataGenerator)(`/api/v1/accounts/${rootAccountId}/terms`, {
-        queryParams: { ...defaultTermQueryParams, ...queryParams ?? {} },
-    });
-    return generator;
-};
-
-
-/***/ }),
-
-/***/ "./src/term/index.ts":
-/*!***************************!*\
-  !*** ./src/term/index.ts ***!
-  \***************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   Term: () => (/* reexport safe */ _Term__WEBPACK_IMPORTED_MODULE_1__.Term),
-/* harmony export */   dateFromTermName: () => (/* reexport safe */ _dateFromTermName__WEBPACK_IMPORTED_MODULE_0__.dateFromTermName),
-/* harmony export */   getTermsGenerator: () => (/* reexport safe */ _getTermsGenerator__WEBPACK_IMPORTED_MODULE_2__.getTermsGenerator)
-/* harmony export */ });
-/* harmony import */ var _dateFromTermName__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dateFromTermName */ "./src/term/dateFromTermName.ts");
-/* harmony import */ var _Term__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Term */ "./src/term/Term.ts");
-/* harmony import */ var _getTermsGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getTermsGenerator */ "./src/term/getTermsGenerator.ts");
-
-
-
-
-
-/***/ }),
-
-/***/ "./src/toolbox.ts":
-/*!************************!*\
-  !*** ./src/toolbox.ts ***!
-  \************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   aMinusBSortFn: () => (/* binding */ aMinusBSortFn),
-/* harmony export */   bMinusASortFn: () => (/* binding */ bMinusASortFn),
-/* harmony export */   isNotNullOrUndefined: () => (/* binding */ isNotNullOrUndefined),
-/* harmony export */   sleep: () => (/* binding */ sleep)
-/* harmony export */ });
-function sleep(milliseconds) {
-    return new Promise((resolve, reject) => {
-        setTimeout(resolve, milliseconds);
-    });
-}
-function isNotNullOrUndefined(value) {
-    if (value === null)
-        return false;
-    if (typeof value === 'undefined')
-        return false;
-    return true;
-}
-function aMinusBSortFn(func) {
-    return (a, b) => func(a) - func(b);
-}
-function bMinusASortFn(func) {
-    return (a, b) => func(b) - func(a);
-}
-
-
-/***/ }),
-
-/***/ "./src/types.ts":
-/*!**********************!*\
-  !*** ./src/types.ts ***!
-  \**********************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "./src/users/getUserGenerator.ts":
-/*!***************************************!*\
-  !*** ./src/users/getUserGenerator.ts ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   getUserGenerator: () => (/* binding */ getUserGenerator)
-/* harmony export */ });
-/* harmony import */ var _fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/fetch/getPagedDataGenerator */ "./src/fetch/getPagedDataGenerator.ts");
-
-const getUserGenerator = (config) => {
-    let url;
-    if ('accountId' in config) {
-        url = `/api/v1/accounts/${config.accountId}/users`;
-    }
-    else if ('courseId' in config) {
-        url = `/api/v1/courses/${config.courseId}/users`;
-    }
-    else {
-        throw new Error('config type not recognized');
-    }
-    return (0,_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_0__.getPagedDataGenerator)(url, {
-        queryParams: config,
-    });
-};
-
-
-/***/ }),
-
-/***/ "./src/users/index.ts":
-/*!****************************!*\
-  !*** ./src/users/index.ts ***!
-  \****************************/
-/***/ ((__unused_webpack_module, __nested_webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__nested_webpack_exports__);
-/* harmony export */ __webpack_require__.d(__nested_webpack_exports__, {
-/* harmony export */   getUserGenerator: () => (/* reexport safe */ _getUserGenerator__WEBPACK_IMPORTED_MODULE_0__.getUserGenerator)
-/* harmony export */ });
-/* harmony import */ var _getUserGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getUserGenerator */ "./src/users/getUserGenerator.ts");
-
-
-
-/***/ }),
-
-/***/ "assert":
-/*!*************************!*\
-  !*** external "assert" ***!
-  \*************************/
-/***/ ((module) => {
-
-module.exports = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-
-/***/ })
-
-/******/ 	});
-/************************************************************************/
-/******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
-/******/ 	
-/******/ 	// The require function
-/******/ 	function __nested_webpack_require_344892__(moduleId) {
-/******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
-/******/ 		if (cachedModule !== undefined) {
-/******/ 			return cachedModule.exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
-/******/ 			exports: {}
-/******/ 		};
-/******/ 	
-/******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __nested_webpack_require_344892__);
-/******/ 	
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/ 	
-/************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__nested_webpack_require_344892__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__nested_webpack_require_344892__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__nested_webpack_require_344892__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__nested_webpack_require_344892__.o(definition, key) && !__nested_webpack_require_344892__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__nested_webpack_require_344892__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__nested_webpack_require_344892__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/************************************************************************/
-var __nested_webpack_exports__ = {};
-// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
-(() => {
-/*!**********************!*\
-  !*** ./src/index.ts ***!
-  \**********************/
-__nested_webpack_require_344892__.r(__nested_webpack_exports__);
-/* harmony export */ __nested_webpack_require_344892__.d(__nested_webpack_exports__, {
-/* harmony export */   Account: () => (/* reexport safe */ _Account__WEBPACK_IMPORTED_MODULE_14__.Account),
-/* harmony export */   BaseCanvasObject: () => (/* reexport safe */ _baseCanvasObject__WEBPACK_IMPORTED_MODULE_3__.BaseCanvasObject),
-/* harmony export */   BaseContentItem: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.BaseContentItem),
-/* harmony export */   CONTENT_KINDS: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.CONTENT_KINDS),
-/* harmony export */   COURSE_CODE_REGEX: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.COURSE_CODE_REGEX),
-/* harmony export */   ContentKinds: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.ContentKinds),
-/* harmony export */   Course: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.Course),
-/* harmony export */   CourseNotFoundException: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.CourseNotFoundException),
-/* harmony export */   Discussion: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.Discussion),
-/* harmony export */   MalformedDateError: () => (/* reexport safe */ _date__WEBPACK_IMPORTED_MODULE_17__.MalformedDateError),
-/* harmony export */   NotABlueprintError: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.NotABlueprintError),
-/* harmony export */   NotImplementedException: () => (/* reexport safe */ _NotImplementedException__WEBPACK_IMPORTED_MODULE_4__.NotImplementedException),
-/* harmony export */   RootAccountNotFoundError: () => (/* reexport safe */ _Account__WEBPACK_IMPORTED_MODULE_14__.RootAccountNotFoundError),
-/* harmony export */   StringNotAMonthDateError: () => (/* reexport safe */ _date__WEBPACK_IMPORTED_MODULE_17__.StringNotAMonthDateError),
-/* harmony export */   Term: () => (/* reexport safe */ _term__WEBPACK_IMPORTED_MODULE_9__.Term),
-/* harmony export */   aMinusBSortFn: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_13__.aMinusBSortFn),
-/* harmony export */   apiGetConfig: () => (/* reexport safe */ _fetch__WEBPACK_IMPORTED_MODULE_19__.apiGetConfig),
-/* harmony export */   apiWriteConfig: () => (/* reexport safe */ _fetch__WEBPACK_IMPORTED_MODULE_19__.apiWriteConfig),
-/* harmony export */   assignmentDataGen: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.assignmentDataGen),
-/* harmony export */   bMinusASortFn: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_13__.bMinusASortFn),
-/* harmony export */   batchGen: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_20__.batchGen),
-/* harmony export */   batchify: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_20__.batchify),
-/* harmony export */   beginBpSync: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.beginBpSync),
-/* harmony export */   callAll: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_20__.callAll),
-/* harmony export */   changeModuleLockDate: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.changeModuleLockDate),
-/* harmony export */   contentUrlFuncs: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.contentUrlFuncs),
-/* harmony export */   courseContentUrlFunc: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.courseContentUrlFunc),
-/* harmony export */   courseNameSort: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_20__.courseNameSort),
-/* harmony export */   createEnrollmentRole: () => (/* reexport safe */ _enrollments__WEBPACK_IMPORTED_MODULE_8__.createEnrollmentRole),
-/* harmony export */   createNewCourse: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.createNewCourse),
-/* harmony export */   dateFromTermName: () => (/* reexport safe */ _term__WEBPACK_IMPORTED_MODULE_9__.dateFromTermName),
-/* harmony export */   deFormDataify: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_20__.deFormDataify),
-/* harmony export */   deepObjectCopy: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_20__.deepObjectCopy),
-/* harmony export */   deepObjectMerge: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_20__.deepObjectMerge),
-/* harmony export */   discussionUrlFuncs: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.discussionUrlFuncs),
-/* harmony export */   fetchGetConfig: () => (/* reexport safe */ _fetch__WEBPACK_IMPORTED_MODULE_19__.fetchGetConfig),
-/* harmony export */   fetchJson: () => (/* reexport safe */ _fetch__WEBPACK_IMPORTED_MODULE_19__.fetchJson),
-/* harmony export */   filterUniqueFunc: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_20__.filterUniqueFunc),
-/* harmony export */   findDateRange: () => (/* reexport safe */ _date__WEBPACK_IMPORTED_MODULE_17__.findDateRange),
-/* harmony export */   formDataify: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_20__.formDataify),
-/* harmony export */   frontPageBio: () => (/* reexport safe */ _profile__WEBPACK_IMPORTED_MODULE_16__.frontPageBio),
-/* harmony export */   genBlueprintDataForCode: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.genBlueprintDataForCode),
-/* harmony export */   generatorMap: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_20__.generatorMap),
-/* harmony export */   getAccountIdFromUrl: () => (/* reexport safe */ _Account__WEBPACK_IMPORTED_MODULE_14__.getAccountIdFromUrl),
-/* harmony export */   getBannerImage: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.getBannerImage),
-/* harmony export */   getBlueprintsFromCode: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.getBlueprintsFromCode),
-/* harmony export */   getContentClassFromUrl: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.getContentClassFromUrl),
-/* harmony export */   getContentDataFromUrl: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.getContentDataFromUrl),
-/* harmony export */   getContentItemFromUrl: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.getContentItemFromUrl),
-/* harmony export */   getContentKindFromContent: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.getContentKindFromContent),
-/* harmony export */   getContentKindFromUrl: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.getContentKindFromUrl),
-/* harmony export */   getCourseById: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.getCourseById),
-/* harmony export */   getCourseData: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.getCourseData),
-/* harmony export */   getCourseDataGenerator: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.getCourseDataGenerator),
-/* harmony export */   getCourseGenerator: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.getCourseGenerator),
-/* harmony export */   getCourseName: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.getCourseName),
-/* harmony export */   getCurioPageFrontPageProfile: () => (/* reexport safe */ _profile__WEBPACK_IMPORTED_MODULE_16__.getCurioPageFrontPageProfile),
-/* harmony export */   getEnrollmentGenerator: () => (/* reexport safe */ _enrollments__WEBPACK_IMPORTED_MODULE_8__.getEnrollmentGenerator),
-/* harmony export */   getExternalLinks: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.getExternalLinks),
-/* harmony export */   getFacultyPages: () => (/* reexport safe */ _profile__WEBPACK_IMPORTED_MODULE_16__.getFacultyPages),
-/* harmony export */   getFileLinks: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.getFileLinks),
-/* harmony export */   getGradingStandards: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.getGradingStandards),
-/* harmony export */   getItemTypeAndId: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_20__.getItemTypeAndId),
-/* harmony export */   getModuleOverview: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.getModuleOverview),
-/* harmony export */   getModuleWeekNumber: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.getModuleWeekNumber),
-/* harmony export */   getModulesByWeekNumber: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.getModulesByWeekNumber),
-/* harmony export */   getPagedData: () => (/* reexport safe */ _fetch__WEBPACK_IMPORTED_MODULE_19__.getPagedData),
-/* harmony export */   getPagedDataGenerator: () => (/* reexport safe */ _fetch__WEBPACK_IMPORTED_MODULE_19__.getPagedDataGenerator),
-/* harmony export */   getPlainTextFromHtml: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_20__.getPlainTextFromHtml),
-/* harmony export */   getPotentialFacultyProfiles: () => (/* reexport safe */ _profile__WEBPACK_IMPORTED_MODULE_16__.getPotentialFacultyProfiles),
-/* harmony export */   getProfileFromPage: () => (/* reexport safe */ _profile__WEBPACK_IMPORTED_MODULE_16__.getProfileFromPage),
-/* harmony export */   getRubric: () => (/* reexport safe */ _rubrics__WEBPACK_IMPORTED_MODULE_5__.getRubric),
-/* harmony export */   getRubricsFetchUrl: () => (/* reexport safe */ _rubrics__WEBPACK_IMPORTED_MODULE_5__.getRubricsFetchUrl),
-/* harmony export */   getSections: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.getSections),
-/* harmony export */   getSingleCourse: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.getSingleCourse),
-/* harmony export */   getTermNameFromSections: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.getTermNameFromSections),
-/* harmony export */   getTermsGenerator: () => (/* reexport safe */ _term_getTermsGenerator__WEBPACK_IMPORTED_MODULE_0__.getTermsGenerator),
-/* harmony export */   getUserGenerator: () => (/* reexport safe */ _users__WEBPACK_IMPORTED_MODULE_12__.getUserGenerator),
-/* harmony export */   isAssignmentItemData: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.isAssignmentItemData),
-/* harmony export */   isBlueprint: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.isBlueprint),
-/* harmony export */   isDiscussionItemData: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.isDiscussionItemData),
-/* harmony export */   isNotNullOrUndefined: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_13__.isNotNullOrUndefined),
-/* harmony export */   isPageItemData: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.isPageItemData),
-/* harmony export */   isQuizItemData: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.isQuizItemData),
-/* harmony export */   lockBlueprint: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.lockBlueprint),
-/* harmony export */   mergePagedDataGenerators: () => (/* reexport safe */ _fetch__WEBPACK_IMPORTED_MODULE_19__.mergePagedDataGenerators),
-/* harmony export */   mockCourseData: () => (/* reexport safe */ _course_mocks_mockCourseData__WEBPACK_IMPORTED_MODULE_1__.mockCourseData),
-/* harmony export */   mockGradModules: () => (/* reexport safe */ _course_mocks_mockModuleData__WEBPACK_IMPORTED_MODULE_2__.mockGradModules),
-/* harmony export */   mockModuleData: () => (/* reexport safe */ _course_mocks_mockModuleData__WEBPACK_IMPORTED_MODULE_2__.mockModuleData),
-/* harmony export */   mockModuleItemData: () => (/* reexport safe */ _course_mocks_mockModuleData__WEBPACK_IMPORTED_MODULE_2__.mockModuleItemData),
-/* harmony export */   mockUgModules: () => (/* reexport safe */ _course_mocks_mockModuleData__WEBPACK_IMPORTED_MODULE_2__.mockUgModules),
-/* harmony export */   mocks: () => (/* reexport module object */ _mocks___WEBPACK_IMPORTED_MODULE_21__),
-/* harmony export */   moduleGenerator: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.moduleGenerator),
-/* harmony export */   numbers: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_20__.numbers),
-/* harmony export */   oldDateToPlainDate: () => (/* reexport safe */ _date__WEBPACK_IMPORTED_MODULE_17__.oldDateToPlainDate),
-/* harmony export */   overrideConfig: () => (/* reexport safe */ _fetch__WEBPACK_IMPORTED_MODULE_19__.overrideConfig),
-/* harmony export */   parentElement: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_20__.parentElement),
-/* harmony export */   postContentConfig: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.postContentConfig),
-/* harmony export */   postContentFunc: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.postContentFunc),
-/* harmony export */   putContentConfig: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.putContentConfig),
-/* harmony export */   putContentFunc: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.putContentFunc),
-/* harmony export */   queryStringify: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_20__.queryStringify),
-/* harmony export */   range: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_20__.range),
-/* harmony export */   renderAsyncGen: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_20__.renderAsyncGen),
-/* harmony export */   renderProfileIntoCurioFrontPage: () => (/* reexport safe */ _profile__WEBPACK_IMPORTED_MODULE_16__.renderProfileIntoCurioFrontPage),
-/* harmony export */   retireBlueprint: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.retireBlueprint),
-/* harmony export */   rubricApiUrl: () => (/* reexport safe */ _rubrics__WEBPACK_IMPORTED_MODULE_5__.rubricApiUrl),
-/* harmony export */   rubricAssociationUrl: () => (/* reexport safe */ _rubrics__WEBPACK_IMPORTED_MODULE_5__.rubricAssociationUrl),
-/* harmony export */   rubricsForCourseGen: () => (/* reexport safe */ _rubrics__WEBPACK_IMPORTED_MODULE_5__.rubricsForCourseGen),
-/* harmony export */   saveCourseData: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.saveCourseData),
-/* harmony export */   saveModuleItem: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.saveModuleItem),
-/* harmony export */   searchParamsFromObject: () => (/* reexport safe */ _canvasUtils__WEBPACK_IMPORTED_MODULE_20__.searchParamsFromObject),
-/* harmony export */   sectionDataGenerator: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.sectionDataGenerator),
-/* harmony export */   setAsBlueprint: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.setAsBlueprint),
-/* harmony export */   setGradingStandardForCourse: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.setGradingStandardForCourse),
-/* harmony export */   sleep: () => (/* reexport safe */ _toolbox__WEBPACK_IMPORTED_MODULE_13__.sleep),
-/* harmony export */   unSetAsBlueprint: () => (/* reexport safe */ _course__WEBPACK_IMPORTED_MODULE_11__.unSetAsBlueprint),
-/* harmony export */   updateAssignmentData: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.updateAssignmentData),
-/* harmony export */   updateAssignmentDueDates: () => (/* reexport safe */ _content__WEBPACK_IMPORTED_MODULE_10__.updateAssignmentDueDates),
-/* harmony export */   updateRubricAssociation: () => (/* reexport safe */ _rubrics__WEBPACK_IMPORTED_MODULE_5__.updateRubricAssociation),
-/* harmony export */   uploadFile: () => (/* reexport safe */ _files__WEBPACK_IMPORTED_MODULE_15__.uploadFile),
-/* harmony export */   winnow: () => (/* reexport safe */ _profile__WEBPACK_IMPORTED_MODULE_16__.winnow)
-/* harmony export */ });
-/* harmony import */ var _term_getTermsGenerator__WEBPACK_IMPORTED_MODULE_0__ = __nested_webpack_require_344892__(/*! @/term/getTermsGenerator */ "./src/term/getTermsGenerator.ts");
-/* harmony import */ var _course_mocks_mockCourseData__WEBPACK_IMPORTED_MODULE_1__ = __nested_webpack_require_344892__(/*! @/course/__mocks__/mockCourseData */ "./src/course/__mocks__/mockCourseData.ts");
-/* harmony import */ var _course_mocks_mockModuleData__WEBPACK_IMPORTED_MODULE_2__ = __nested_webpack_require_344892__(/*! @/course/__mocks__/mockModuleData */ "./src/course/__mocks__/mockModuleData.ts");
-/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_3__ = __nested_webpack_require_344892__(/*! ./baseCanvasObject */ "./src/baseCanvasObject.ts");
-/* harmony import */ var _NotImplementedException__WEBPACK_IMPORTED_MODULE_4__ = __nested_webpack_require_344892__(/*! ./NotImplementedException */ "./src/NotImplementedException.ts");
-/* harmony import */ var _rubrics__WEBPACK_IMPORTED_MODULE_5__ = __nested_webpack_require_344892__(/*! ./rubrics */ "./src/rubrics.ts");
-/* harmony import */ var _rubricTypes__WEBPACK_IMPORTED_MODULE_6__ = __nested_webpack_require_344892__(/*! ./rubricTypes */ "./src/rubricTypes.ts");
-/* harmony import */ var _canvasDataDefs__WEBPACK_IMPORTED_MODULE_7__ = __nested_webpack_require_344892__(/*! ./canvasDataDefs */ "./src/canvasDataDefs.ts");
-/* harmony import */ var _enrollments__WEBPACK_IMPORTED_MODULE_8__ = __nested_webpack_require_344892__(/*! ./enrollments */ "./src/enrollments/index.ts");
-/* harmony import */ var _term__WEBPACK_IMPORTED_MODULE_9__ = __nested_webpack_require_344892__(/*! ./term */ "./src/term/index.ts");
-/* harmony import */ var _content__WEBPACK_IMPORTED_MODULE_10__ = __nested_webpack_require_344892__(/*! ./content */ "./src/content/index.ts");
-/* harmony import */ var _course__WEBPACK_IMPORTED_MODULE_11__ = __nested_webpack_require_344892__(/*! ./course */ "./src/course/index.ts");
-/* harmony import */ var _users__WEBPACK_IMPORTED_MODULE_12__ = __nested_webpack_require_344892__(/*! ./users */ "./src/users/index.ts");
-/* harmony import */ var _toolbox__WEBPACK_IMPORTED_MODULE_13__ = __nested_webpack_require_344892__(/*! ./toolbox */ "./src/toolbox.ts");
-/* harmony import */ var _Account__WEBPACK_IMPORTED_MODULE_14__ = __nested_webpack_require_344892__(/*! ./Account */ "./src/Account.ts");
-/* harmony import */ var _files__WEBPACK_IMPORTED_MODULE_15__ = __nested_webpack_require_344892__(/*! ./files */ "./src/files.ts");
-/* harmony import */ var _profile__WEBPACK_IMPORTED_MODULE_16__ = __nested_webpack_require_344892__(/*! ./profile */ "./src/profile.ts");
-/* harmony import */ var _date__WEBPACK_IMPORTED_MODULE_17__ = __nested_webpack_require_344892__(/*! ./date */ "./src/date.ts");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_18__ = __nested_webpack_require_344892__(/*! ./types */ "./src/types.ts");
-/* harmony import */ var _fetch__WEBPACK_IMPORTED_MODULE_19__ = __nested_webpack_require_344892__(/*! ./fetch */ "./src/fetch/index.ts");
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_20__ = __nested_webpack_require_344892__(/*! ./canvasUtils */ "./src/canvasUtils.ts");
-/* harmony import */ var _mocks___WEBPACK_IMPORTED_MODULE_21__ = __nested_webpack_require_344892__(/*! ./__mocks__ */ "./src/__mocks__/index.ts");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-})();
-
-/******/ 	return __nested_webpack_exports__;
-/******/ })()
-;
-});
-
-/***/ }),
-
-/***/ "./node_modules/assert/build/assert.js":
+/***/ "./node_modules/assert/build/assert.js"
 /*!*********************************************!*\
   !*** ./node_modules/assert/build/assert.js ***!
   \*********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 /* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
@@ -9540,13 +3959,13 @@ assert.strict = objectAssign(strict, assert, {
 });
 assert.strict.strict = assert.strict;
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/assert/build/internal/assert/assertion_error.js":
+/***/ "./node_modules/assert/build/internal/assert/assertion_error.js"
 /*!**********************************************************************!*\
   !*** ./node_modules/assert/build/internal/assert/assertion_error.js ***!
   \**********************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 /* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
@@ -9996,13 +4415,13 @@ var AssertionError = /*#__PURE__*/function (_Error, _inspect$custom) {
 }( /*#__PURE__*/_wrapNativeSuper(Error), inspect.custom);
 module.exports = AssertionError;
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/assert/build/internal/errors.js":
+/***/ "./node_modules/assert/build/internal/errors.js"
 /*!******************************************************!*\
   !*** ./node_modules/assert/build/internal/errors.js ***!
   \******************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 // Currently in sync with Node.js lib/internal/errors.js
@@ -10177,13 +4596,13 @@ createErrorType('ERR_MISSING_ARGS', function () {
 }, TypeError);
 module.exports.codes = codes;
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/assert/build/internal/util/comparisons.js":
+/***/ "./node_modules/assert/build/internal/util/comparisons.js"
 /*!****************************************************************!*\
   !*** ./node_modules/assert/build/internal/util/comparisons.js ***!
   \****************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 // Currently in sync with Node.js lib/internal/util/comparisons.js
@@ -10762,41 +5181,13 @@ module.exports = {
   isDeepStrictEqual: isDeepStrictEqual
 };
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/available-typed-arrays/index.js":
-/*!******************************************************!*\
-  !*** ./node_modules/available-typed-arrays/index.js ***!
-  \******************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-var possibleNames = __webpack_require__(/*! possible-typed-array-names */ "./node_modules/possible-typed-array-names/index.js");
-
-var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
-
-/** @type {import('.')} */
-module.exports = function availableTypedArrays() {
-	var /** @type {ReturnType<typeof availableTypedArrays>} */ out = [];
-	for (var i = 0; i < possibleNames.length; i++) {
-		if (typeof g[possibleNames[i]] === 'function') {
-			// @ts-expect-error
-			out[out.length] = possibleNames[i];
-		}
-	}
-	return out;
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/call-bind-apply-helpers/actualApply.js":
+/***/ "./node_modules/call-bind-apply-helpers/actualApply.js"
 /*!*************************************************************!*\
   !*** ./node_modules/call-bind-apply-helpers/actualApply.js ***!
   \*************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -10811,13 +5202,13 @@ var $reflectApply = __webpack_require__(/*! ./reflectApply */ "./node_modules/ca
 module.exports = $reflectApply || bind.call($call, $apply);
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/call-bind-apply-helpers/applyBind.js":
+/***/ "./node_modules/call-bind-apply-helpers/applyBind.js"
 /*!***********************************************************!*\
   !*** ./node_modules/call-bind-apply-helpers/applyBind.js ***!
   \***********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -10832,13 +5223,13 @@ module.exports = function applyBind() {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/call-bind-apply-helpers/functionApply.js":
+/***/ "./node_modules/call-bind-apply-helpers/functionApply.js"
 /*!***************************************************************!*\
   !*** ./node_modules/call-bind-apply-helpers/functionApply.js ***!
   \***************************************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -10847,13 +5238,13 @@ module.exports = function applyBind() {
 module.exports = Function.prototype.apply;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/call-bind-apply-helpers/functionCall.js":
+/***/ "./node_modules/call-bind-apply-helpers/functionCall.js"
 /*!**************************************************************!*\
   !*** ./node_modules/call-bind-apply-helpers/functionCall.js ***!
   \**************************************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -10862,13 +5253,13 @@ module.exports = Function.prototype.apply;
 module.exports = Function.prototype.call;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/call-bind-apply-helpers/index.js":
+/***/ "./node_modules/call-bind-apply-helpers/index.js"
 /*!*******************************************************!*\
   !*** ./node_modules/call-bind-apply-helpers/index.js ***!
   \*******************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -10888,13 +5279,13 @@ module.exports = function callBindBasic(args) {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/call-bind-apply-helpers/reflectApply.js":
+/***/ "./node_modules/call-bind-apply-helpers/reflectApply.js"
 /*!**************************************************************!*\
   !*** ./node_modules/call-bind-apply-helpers/reflectApply.js ***!
   \**************************************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -10903,13 +5294,13 @@ module.exports = function callBindBasic(args) {
 module.exports = typeof Reflect !== 'undefined' && Reflect && Reflect.apply;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/call-bind/callBound.js":
+/***/ "./node_modules/call-bind/callBound.js"
 /*!*********************************************!*\
   !*** ./node_modules/call-bind/callBound.js ***!
   \*********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -10929,13 +5320,13 @@ module.exports = function callBoundIntrinsic(name, allowMissing) {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/call-bind/index.js":
+/***/ "./node_modules/call-bind/index.js"
 /*!*****************************************!*\
   !*** ./node_modules/call-bind/index.js ***!
   \*****************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -10964,13 +5355,13 @@ if ($defineProperty) {
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/call-bound/index.js":
+/***/ "./node_modules/call-bound/index.js"
 /*!******************************************!*\
   !*** ./node_modules/call-bound/index.js ***!
   \******************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -10994,13 +5385,13 @@ module.exports = function callBoundIntrinsic(name, allowMissing) {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/define-data-property/index.js":
+/***/ "./node_modules/define-data-property/index.js"
 /*!****************************************************!*\
   !*** ./node_modules/define-data-property/index.js ***!
   \****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -11061,13 +5452,13 @@ module.exports = function defineDataProperty(
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/define-properties/index.js":
+/***/ "./node_modules/define-properties/index.js"
 /*!*************************************************!*\
   !*** ./node_modules/define-properties/index.js ***!
   \*************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -11119,13 +5510,13 @@ defineProperties.supportsDescriptors = !!supportsDescriptors;
 module.exports = defineProperties;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/dunder-proto/get.js":
+/***/ "./node_modules/dunder-proto/get.js"
 /*!******************************************!*\
   !*** ./node_modules/dunder-proto/get.js ***!
   \******************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -11160,13 +5551,13 @@ module.exports = desc && typeof desc.get === 'function'
 		: false;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/es-define-property/index.js":
+/***/ "./node_modules/es-define-property/index.js"
 /*!**************************************************!*\
   !*** ./node_modules/es-define-property/index.js ***!
   \**************************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -11185,13 +5576,13 @@ if ($defineProperty) {
 module.exports = $defineProperty;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/es-errors/eval.js":
+/***/ "./node_modules/es-errors/eval.js"
 /*!****************************************!*\
   !*** ./node_modules/es-errors/eval.js ***!
   \****************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -11200,13 +5591,13 @@ module.exports = $defineProperty;
 module.exports = EvalError;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/es-errors/index.js":
+/***/ "./node_modules/es-errors/index.js"
 /*!*****************************************!*\
   !*** ./node_modules/es-errors/index.js ***!
   \*****************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -11215,13 +5606,13 @@ module.exports = EvalError;
 module.exports = Error;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/es-errors/range.js":
+/***/ "./node_modules/es-errors/range.js"
 /*!*****************************************!*\
   !*** ./node_modules/es-errors/range.js ***!
   \*****************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -11230,13 +5621,13 @@ module.exports = Error;
 module.exports = RangeError;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/es-errors/ref.js":
+/***/ "./node_modules/es-errors/ref.js"
 /*!***************************************!*\
   !*** ./node_modules/es-errors/ref.js ***!
   \***************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -11245,13 +5636,13 @@ module.exports = RangeError;
 module.exports = ReferenceError;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/es-errors/syntax.js":
+/***/ "./node_modules/es-errors/syntax.js"
 /*!******************************************!*\
   !*** ./node_modules/es-errors/syntax.js ***!
   \******************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -11260,13 +5651,13 @@ module.exports = ReferenceError;
 module.exports = SyntaxError;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/es-errors/type.js":
+/***/ "./node_modules/es-errors/type.js"
 /*!****************************************!*\
   !*** ./node_modules/es-errors/type.js ***!
   \****************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -11275,13 +5666,13 @@ module.exports = SyntaxError;
 module.exports = TypeError;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/es-errors/uri.js":
+/***/ "./node_modules/es-errors/uri.js"
 /*!***************************************!*\
   !*** ./node_modules/es-errors/uri.js ***!
   \***************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -11290,13 +5681,13 @@ module.exports = TypeError;
 module.exports = URIError;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/es-object-atoms/index.js":
+/***/ "./node_modules/es-object-atoms/index.js"
 /*!***********************************************!*\
   !*** ./node_modules/es-object-atoms/index.js ***!
   \***********************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -11305,13 +5696,13 @@ module.exports = URIError;
 module.exports = Object;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/for-each/index.js":
+/***/ "./node_modules/for-each/index.js"
 /*!****************************************!*\
   !*** ./node_modules/for-each/index.js ***!
   \****************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -11385,13 +5776,13 @@ module.exports = function forEach(list, iterator, thisArg) {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/function-bind/implementation.js":
+/***/ "./node_modules/function-bind/implementation.js"
 /*!******************************************************!*\
   !*** ./node_modules/function-bind/implementation.js ***!
   \******************************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -11480,13 +5871,13 @@ module.exports = function bind(that) {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/function-bind/index.js":
+/***/ "./node_modules/function-bind/index.js"
 /*!*********************************************!*\
   !*** ./node_modules/function-bind/index.js ***!
   \*********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -11496,13 +5887,13 @@ var implementation = __webpack_require__(/*! ./implementation */ "./node_modules
 module.exports = Function.prototype.bind || implementation;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/generator-function/index.js":
+/***/ "./node_modules/generator-function/index.js"
 /*!**************************************************!*\
   !*** ./node_modules/generator-function/index.js ***!
   \**************************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -11515,13 +5906,13 @@ module.exports = () => cached;
 
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/get-intrinsic/index.js":
+/***/ "./node_modules/get-intrinsic/index.js"
 /*!*********************************************!*\
   !*** ./node_modules/get-intrinsic/index.js ***!
   \*********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -11904,13 +6295,13 @@ module.exports = function GetIntrinsic(name, allowMissing) {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/get-proto/Object.getPrototypeOf.js":
+/***/ "./node_modules/get-proto/Object.getPrototypeOf.js"
 /*!*********************************************************!*\
   !*** ./node_modules/get-proto/Object.getPrototypeOf.js ***!
   \*********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -11921,13 +6312,13 @@ var $Object = __webpack_require__(/*! es-object-atoms */ "./node_modules/es-obje
 module.exports = $Object.getPrototypeOf || null;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/get-proto/Reflect.getPrototypeOf.js":
+/***/ "./node_modules/get-proto/Reflect.getPrototypeOf.js"
 /*!**********************************************************!*\
   !*** ./node_modules/get-proto/Reflect.getPrototypeOf.js ***!
   \**********************************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -11936,13 +6327,13 @@ module.exports = $Object.getPrototypeOf || null;
 module.exports = (typeof Reflect !== 'undefined' && Reflect.getPrototypeOf) || null;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/get-proto/index.js":
+/***/ "./node_modules/get-proto/index.js"
 /*!*****************************************!*\
   !*** ./node_modules/get-proto/index.js ***!
   \*****************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -11974,13 +6365,13 @@ module.exports = reflectGetProto
 			: null;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/gopd/gOPD.js":
+/***/ "./node_modules/gopd/gOPD.js"
 /*!***********************************!*\
   !*** ./node_modules/gopd/gOPD.js ***!
   \***********************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -11989,13 +6380,13 @@ module.exports = reflectGetProto
 module.exports = Object.getOwnPropertyDescriptor;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/gopd/index.js":
+/***/ "./node_modules/gopd/index.js"
 /*!************************************!*\
   !*** ./node_modules/gopd/index.js ***!
   \************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -12015,13 +6406,13 @@ if ($gOPD) {
 module.exports = $gOPD;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/has-property-descriptors/index.js":
+/***/ "./node_modules/has-property-descriptors/index.js"
 /*!********************************************************!*\
   !*** ./node_modules/has-property-descriptors/index.js ***!
   \********************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -12048,13 +6439,13 @@ hasPropertyDescriptors.hasArrayLengthDefineBug = function hasArrayLengthDefineBu
 module.exports = hasPropertyDescriptors;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/has-symbols/index.js":
+/***/ "./node_modules/has-symbols/index.js"
 /*!*******************************************!*\
   !*** ./node_modules/has-symbols/index.js ***!
   \*******************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -12073,13 +6464,13 @@ module.exports = function hasNativeSymbols() {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/has-symbols/shams.js":
+/***/ "./node_modules/has-symbols/shams.js"
 /*!*******************************************!*\
   !*** ./node_modules/has-symbols/shams.js ***!
   \*******************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -12129,13 +6520,13 @@ module.exports = function hasSymbols() {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/has-tostringtag/shams.js":
+/***/ "./node_modules/has-tostringtag/shams.js"
 /*!***********************************************!*\
   !*** ./node_modules/has-tostringtag/shams.js ***!
   \***********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -12148,13 +6539,13 @@ module.exports = function hasToStringTagShams() {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/hasown/index.js":
+/***/ "./node_modules/hasown/index.js"
 /*!**************************************!*\
   !*** ./node_modules/hasown/index.js ***!
   \**************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -12167,13 +6558,13 @@ var bind = __webpack_require__(/*! function-bind */ "./node_modules/function-bin
 module.exports = bind.call(call, $hasOwn);
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/inherits/inherits_browser.js":
+/***/ "./node_modules/inherits/inherits_browser.js"
 /*!***************************************************!*\
   !*** ./node_modules/inherits/inherits_browser.js ***!
   \***************************************************/
-/***/ ((module) => {
+(module) {
 
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
@@ -12204,13 +6595,13 @@ if (typeof Object.create === 'function') {
 }
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/is-arguments/index.js":
+/***/ "./node_modules/is-arguments/index.js"
 /*!********************************************!*\
   !*** ./node_modules/is-arguments/index.js ***!
   \********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -12259,13 +6650,13 @@ isStandardArguments.isLegacyArguments = isLegacyArguments; // for tests
 module.exports = supportsStandardArguments ? isStandardArguments : isLegacyArguments;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/is-callable/index.js":
+/***/ "./node_modules/is-callable/index.js"
 /*!*******************************************!*\
   !*** ./node_modules/is-callable/index.js ***!
   \*******************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -12371,13 +6762,13 @@ module.exports = reflectApply
 	};
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/is-generator-function/index.js":
+/***/ "./node_modules/is-generator-function/index.js"
 /*!*****************************************************!*\
   !*** ./node_modules/is-generator-function/index.js ***!
   \*****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -12413,13 +6804,13 @@ module.exports = function isGeneratorFunction(fn) {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/is-nan/implementation.js":
+/***/ "./node_modules/is-nan/implementation.js"
 /*!***********************************************!*\
   !*** ./node_modules/is-nan/implementation.js ***!
   \***********************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -12431,13 +6822,13 @@ module.exports = function isNaN(value) {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/is-nan/index.js":
+/***/ "./node_modules/is-nan/index.js"
 /*!**************************************!*\
   !*** ./node_modules/is-nan/index.js ***!
   \**************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -12462,13 +6853,13 @@ define(polyfill, {
 module.exports = polyfill;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/is-nan/polyfill.js":
+/***/ "./node_modules/is-nan/polyfill.js"
 /*!*****************************************!*\
   !*** ./node_modules/is-nan/polyfill.js ***!
   \*****************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -12483,13 +6874,13 @@ module.exports = function getPolyfill() {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/is-nan/shim.js":
+/***/ "./node_modules/is-nan/shim.js"
 /*!*************************************!*\
   !*** ./node_modules/is-nan/shim.js ***!
   \*************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -12510,13 +6901,13 @@ module.exports = function shimNumberIsNaN() {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/is-regex/index.js":
+/***/ "./node_modules/is-regex/index.js"
 /*!****************************************!*\
   !*** ./node_modules/is-regex/index.js ***!
   \****************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -12590,13 +6981,13 @@ if (hasToStringTag) {
 module.exports = fn;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/is-typed-array/index.js":
+/***/ "./node_modules/is-typed-array/index.js"
 /*!**********************************************!*\
   !*** ./node_modules/is-typed-array/index.js ***!
   \**********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -12609,13 +7000,13 @@ module.exports = function isTypedArray(value) {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/math-intrinsics/abs.js":
+/***/ "./node_modules/math-intrinsics/abs.js"
 /*!*********************************************!*\
   !*** ./node_modules/math-intrinsics/abs.js ***!
   \*********************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -12624,13 +7015,13 @@ module.exports = function isTypedArray(value) {
 module.exports = Math.abs;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/math-intrinsics/floor.js":
+/***/ "./node_modules/math-intrinsics/floor.js"
 /*!***********************************************!*\
   !*** ./node_modules/math-intrinsics/floor.js ***!
   \***********************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -12639,13 +7030,13 @@ module.exports = Math.abs;
 module.exports = Math.floor;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/math-intrinsics/isNaN.js":
+/***/ "./node_modules/math-intrinsics/isNaN.js"
 /*!***********************************************!*\
   !*** ./node_modules/math-intrinsics/isNaN.js ***!
   \***********************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -12656,13 +7047,13 @@ module.exports = Number.isNaN || function isNaN(a) {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/math-intrinsics/max.js":
+/***/ "./node_modules/math-intrinsics/max.js"
 /*!*********************************************!*\
   !*** ./node_modules/math-intrinsics/max.js ***!
   \*********************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -12671,13 +7062,13 @@ module.exports = Number.isNaN || function isNaN(a) {
 module.exports = Math.max;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/math-intrinsics/min.js":
+/***/ "./node_modules/math-intrinsics/min.js"
 /*!*********************************************!*\
   !*** ./node_modules/math-intrinsics/min.js ***!
   \*********************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -12686,13 +7077,13 @@ module.exports = Math.max;
 module.exports = Math.min;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/math-intrinsics/pow.js":
+/***/ "./node_modules/math-intrinsics/pow.js"
 /*!*********************************************!*\
   !*** ./node_modules/math-intrinsics/pow.js ***!
   \*********************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -12701,13 +7092,13 @@ module.exports = Math.min;
 module.exports = Math.pow;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/math-intrinsics/round.js":
+/***/ "./node_modules/math-intrinsics/round.js"
 /*!***********************************************!*\
   !*** ./node_modules/math-intrinsics/round.js ***!
   \***********************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -12716,13 +7107,13 @@ module.exports = Math.pow;
 module.exports = Math.round;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/math-intrinsics/sign.js":
+/***/ "./node_modules/math-intrinsics/sign.js"
 /*!**********************************************!*\
   !*** ./node_modules/math-intrinsics/sign.js ***!
   \**********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -12738,13 +7129,13 @@ module.exports = function sign(number) {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/object-is/implementation.js":
+/***/ "./node_modules/object-is/implementation.js"
 /*!**************************************************!*\
   !*** ./node_modules/object-is/implementation.js ***!
   \**************************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -12768,13 +7159,13 @@ module.exports = function is(a, b) {
 
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/object-is/index.js":
+/***/ "./node_modules/object-is/index.js"
 /*!*****************************************!*\
   !*** ./node_modules/object-is/index.js ***!
   \*****************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -12797,13 +7188,13 @@ define(polyfill, {
 module.exports = polyfill;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/object-is/polyfill.js":
+/***/ "./node_modules/object-is/polyfill.js"
 /*!********************************************!*\
   !*** ./node_modules/object-is/polyfill.js ***!
   \********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -12815,13 +7206,13 @@ module.exports = function getPolyfill() {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/object-is/shim.js":
+/***/ "./node_modules/object-is/shim.js"
 /*!****************************************!*\
   !*** ./node_modules/object-is/shim.js ***!
   \****************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -12840,13 +7231,13 @@ module.exports = function shimObjectIs() {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/object-keys/implementation.js":
+/***/ "./node_modules/object-keys/implementation.js"
 /*!****************************************************!*\
   !*** ./node_modules/object-keys/implementation.js ***!
   \****************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -12973,13 +7364,13 @@ if (!Object.keys) {
 module.exports = keysShim;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/object-keys/index.js":
+/***/ "./node_modules/object-keys/index.js"
 /*!*******************************************!*\
   !*** ./node_modules/object-keys/index.js ***!
   \*******************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -13016,13 +7407,13 @@ keysShim.shim = function shimObjectKeys() {
 module.exports = keysShim;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/object-keys/isArguments.js":
+/***/ "./node_modules/object-keys/isArguments.js"
 /*!*************************************************!*\
   !*** ./node_modules/object-keys/isArguments.js ***!
   \*************************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -13044,13 +7435,13 @@ module.exports = function isArguments(value) {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/object.assign/implementation.js":
+/***/ "./node_modules/object.assign/implementation.js"
 /*!******************************************************!*\
   !*** ./node_modules/object.assign/implementation.js ***!
   \******************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -13101,13 +7492,13 @@ module.exports = function assign(target, source1) {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/object.assign/polyfill.js":
+/***/ "./node_modules/object.assign/polyfill.js"
 /*!************************************************!*\
   !*** ./node_modules/object.assign/polyfill.js ***!
   \************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -13167,13 +7558,13 @@ module.exports = function getPolyfill() {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/possible-typed-array-names/index.js":
+/***/ "./node_modules/possible-typed-array-names/index.js"
 /*!**********************************************************!*\
   !*** ./node_modules/possible-typed-array-names/index.js ***!
   \**********************************************************/
-/***/ ((module) => {
+(module) {
 
 "use strict";
 
@@ -13195,13 +7586,13 @@ module.exports = [
 ];
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/process/browser.js":
+/***/ "./node_modules/process/browser.js"
 /*!*****************************************!*\
   !*** ./node_modules/process/browser.js ***!
   \*****************************************/
-/***/ ((module) => {
+(module) {
 
 // shim for using process in browser
 var process = module.exports = {};
@@ -13389,13 +7780,13 @@ process.chdir = function (dir) {
 process.umask = function() { return 0; };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/safe-regex-test/index.js":
+/***/ "./node_modules/safe-regex-test/index.js"
 /*!***********************************************!*\
   !*** ./node_modules/safe-regex-test/index.js ***!
   \***********************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -13417,13 +7808,13 @@ module.exports = function regexTester(regex) {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/set-function-length/index.js":
+/***/ "./node_modules/set-function-length/index.js"
 /*!***************************************************!*\
   !*** ./node_modules/set-function-length/index.js ***!
   \***************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -13470,4289 +7861,13 @@ module.exports = function setFunctionLength(fn, length) {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/temporal-polyfill/chunks/classApi.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/temporal-polyfill/chunks/classApi.js ***!
-  \***********************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DateTimeFormat: () => (/* binding */ Sr),
-/* harmony export */   IntlExtended: () => (/* binding */ Tr),
-/* harmony export */   Temporal: () => (/* binding */ mr),
-/* harmony export */   toTemporalInstant: () => (/* binding */ toTemporalInstant)
-/* harmony export */ });
-/* harmony import */ var _internal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./internal.js */ "./node_modules/temporal-polyfill/chunks/internal.js");
-function createSlotClass(e, t, n, o, r) {
-  function Class(...e) {
-    if (!(this instanceof Class)) {
-      throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidCallingContext);
-    }
-    oo(this, t(...e));
-  }
-  function bindMethod(e, t) {
-    return Object.defineProperties((function(...t) {
-      return e.call(this, getSpecificSlots(this), ...t);
-    }), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNameDescriptors)(t));
-  }
-  function getSpecificSlots(t) {
-    const n = no(t);
-    if (!n || n.branding !== e) {
-      throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidCallingContext);
-    }
-    return n;
-  }
-  return Object.defineProperties(Class.prototype, {
-    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createGetterDescriptors)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapProps)(bindMethod, n)),
-    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapProps)(bindMethod, o)),
-    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createStringTagDescriptors)("Temporal." + e)
-  }), Object.defineProperties(Class, {
-    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)(r),
-    ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNameDescriptors)(e)
-  }), [ Class, e => {
-    const t = Object.create(Class.prototype);
-    return oo(t, e), t;
-  }, getSpecificSlots ];
-}
-
-function createProtocolValidator(e) {
-  return e = e.concat("id").sort(), t => {
-    if (!(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.hasAllPropsByName)(t, e)) {
-      throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidProtocol);
-    }
-    return t;
-  };
-}
-
-function rejectInvalidBag(e) {
-  if (no(e) || void 0 !== e.calendar || void 0 !== e.timeZone) {
-    throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidBag);
-  }
-  return e;
-}
-
-function createCalendarFieldMethods(e, t) {
-  const n = {};
-  for (const o in e) {
-    n[o] = ({o: e}, n) => {
-      const r = no(n) || {}, {branding: a} = r, i = a === _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding || t.includes(a) ? r : toPlainDateSlots(n);
-      return e[o](i);
-    };
-  }
-  return n;
-}
-
-function createCalendarGetters(e) {
-  const t = {};
-  for (const n in e) {
-    t[n] = e => {
-      const {calendar: t} = e;
-      return (o = t, "string" == typeof o ? (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps)(o) : (r = o, Object.assign(Object.create(co), {
-        i: r
-      })))[n](e);
-      // removed by dead control flow
- var o, r; 
-    };
-  }
-  return t;
-}
-
-function neverValueOf() {
-  throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.forbiddenValueOf);
-}
-
-function createCalendarFromSlots({calendar: e}) {
-  return "string" == typeof e ? new lr(e) : e;
-}
-
-function toPlainMonthDaySlots(e, t) {
-  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
-    const n = no(e);
-    if (n && n.branding === _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainMonthDayBranding) {
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
-    }
-    const o = extractCalendarSlotFromBag(e);
-    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainMonthDayBag)(Qo(o || _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId), !o, e, t);
-  }
-  const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainMonthDay)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps, e);
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
-}
-
-function getOffsetNanosecondsForAdapter(e, t, n) {
-  return o = t.call(e, Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)(n))), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.validateTimeZoneOffset)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireInteger)(o));
-  // removed by dead control flow
- var o; 
-}
-
-function createAdapterOps(e, t = ho) {
-  const n = Object.keys(t).sort(), o = {};
-  for (const r of n) {
-    o[r] = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(t[r], e, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireFunction)(e[r]));
-  }
-  return o;
-}
-
-function createTimeZoneOps(e, t) {
-  return "string" == typeof e ? (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.queryNativeTimeZone)(e) : createAdapterOps(e, t);
-}
-
-function createTimeZoneOffsetOps(e) {
-  return createTimeZoneOps(e, Do);
-}
-
-function toInstantSlots(e) {
-  if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
-    const t = no(e);
-    if (t) {
-      switch (t.branding) {
-       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.InstantBranding:
-        return t;
-
-       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
-        return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)(t.epochNanoseconds);
-      }
-    }
-  }
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseInstant)(e);
-}
-
-function toTemporalInstant() {
-  return Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.numberToBigNano)(this.valueOf(), _internal_js__WEBPACK_IMPORTED_MODULE_0__.nanoInMilli)));
-}
-
-function getImplTransition(e, t, n) {
-  const o = t.l(toInstantSlots(n).epochNanoseconds, e);
-  return o ? Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)(o)) : null;
-}
-
-function refineTimeZoneSlot(e) {
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e) ? (no(e) || {}).timeZone || Fo(e) : (e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.resolveTimeZoneId)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseTimeZoneId)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireString)(e))))(e);
-}
-
-function toPlainTimeSlots(e, t) {
-  if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
-    const n = no(e) || {};
-    switch (n.branding) {
-     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainTimeBranding:
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
-
-     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding:
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainTimeSlots)(n);
-
-     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainTime)(createTimeZoneOffsetOps, n);
-    }
-    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainTimeBag)(e, t);
-  }
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainTime)(e);
-}
-
-function optionalToPlainTimeFields(e) {
-  return void 0 === e ? void 0 : toPlainTimeSlots(e);
-}
-
-function toPlainYearMonthSlots(e, t) {
-  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
-    const n = no(e);
-    return n && n.branding === _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainYearMonthBranding ? ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n) : (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainYearMonthBag)(Ho(getCalendarSlotFromBag(e)), e, t);
-  }
-  const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainYearMonth)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps, e);
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
-}
-
-function toPlainDateTimeSlots(e, t) {
-  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
-    const n = no(e) || {};
-    switch (n.branding) {
-     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding:
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
-
-     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding:
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)({
-        ...n,
-        ..._internal_js__WEBPACK_IMPORTED_MODULE_0__.isoTimeFieldDefaults
-      });
-
-     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainDateTime)(createTimeZoneOffsetOps, n);
-    }
-    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainDateTimeBag)(Ko(getCalendarSlotFromBag(e)), e, t);
-  }
-  const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainDateTime)(e);
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
-}
-
-function toPlainDateSlots(e, t) {
-  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
-    const n = no(e) || {};
-    switch (n.branding) {
-     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding:
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
-
-     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding:
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n);
-
-     case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainDate)(createTimeZoneOffsetOps, n);
-    }
-    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainDateBag)(Ko(getCalendarSlotFromBag(e)), e, t);
-  }
-  const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parsePlainDate)(e);
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineOverflowOptions)(t), n;
-}
-
-function dayAdapter(e, t, n) {
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger)(t.call(e, Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n, e))));
-}
-
-function createCompoundOpsCreator(e) {
-  return t => "string" == typeof t ? (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps)(t) : ((e, t) => {
-    const n = Object.keys(t).sort(), o = {};
-    for (const r of n) {
-      o[r] = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(t[r], e, e[r]);
-    }
-    return o;
-  })(t, e);
-}
-
-function toDurationSlots(e) {
-  if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
-    const t = no(e);
-    return t && t.branding === _internal_js__WEBPACK_IMPORTED_MODULE_0__.DurationBranding ? t : (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineDurationBag)(e);
-  }
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseDuration)(e);
-}
-
-function refinePublicRelativeTo(e) {
-  if (void 0 !== e) {
-    if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
-      const t = no(e) || {};
-      switch (t.branding) {
-       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding:
-       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding:
-        return t;
-
-       case _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding:
-        return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(t);
-      }
-      const n = getCalendarSlotFromBag(e);
-      return {
-        ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineMaybeZonedDateTimeBag)(refineTimeZoneSlot, createTimeZoneOps, Ko(n), e),
-        calendar: n
-      };
-    }
-    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseRelativeToSlots)(e);
-  }
-}
-
-function getCalendarSlotFromBag(e) {
-  return extractCalendarSlotFromBag(e) || _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId;
-}
-
-function extractCalendarSlotFromBag(e) {
-  const {calendar: t} = e;
-  if (void 0 !== t) {
-    return refineCalendarSlot(t);
-  }
-}
-
-function refineCalendarSlot(e) {
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e) ? (no(e) || {}).calendar || cr(e) : (e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.resolveCalendarId)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseCalendarId)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireString)(e))))(e);
-}
-
-function toZonedDateTimeSlots(e, t) {
-  if (t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.copyOptions)(t), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(e)) {
-    const n = no(e);
-    if (n && n.branding === _internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding) {
-      return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineZonedFieldOptions)(t), n;
-    }
-    const o = getCalendarSlotFromBag(e);
-    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineZonedDateTimeBag)(refineTimeZoneSlot, createTimeZoneOps, Ko(o), o, e, t);
-  }
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.parseZonedDateTime)(e, t);
-}
-
-function adaptDateMethods(e) {
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapProps)((e => t => e(slotsToIso(t))), e);
-}
-
-function slotsToIso(e) {
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedEpochSlotsToIso)(e, createTimeZoneOffsetOps);
-}
-
-function createDateTimeFormatClass() {
-  const e = _internal_js__WEBPACK_IMPORTED_MODULE_0__.RawDateTimeFormat.prototype, t = Object.getOwnPropertyDescriptors(e), n = Object.getOwnPropertyDescriptors(_internal_js__WEBPACK_IMPORTED_MODULE_0__.RawDateTimeFormat), DateTimeFormat = function(e, t = {}) {
-    if (!(this instanceof DateTimeFormat)) {
-      return new DateTimeFormat(e, t);
-    }
-    Or.set(this, ((e, t = {}) => {
-      const n = new _internal_js__WEBPACK_IMPORTED_MODULE_0__.RawDateTimeFormat(e, t), o = n.resolvedOptions(), r = o.locale, a = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.pluckProps)(Object.keys(t), o), i = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.memoize)(createFormatPrepperForBranding), prepFormat = (...e) => {
-        let t;
-        const o = e.map(((e, n) => {
-          const o = no(e), r = (o || {}).branding;
-          if (n && t && t !== r) {
-            throw new TypeError(_internal_js__WEBPACK_IMPORTED_MODULE_0__.mismatchingFormatTypes);
-          }
-          return t = r, o;
-        }));
-        return t ? i(t)(r, a, ...o) : [ n, ...e ];
-      };
-      return prepFormat.u = n, prepFormat;
-    })(e, t));
-  };
-  for (const e in t) {
-    const n = t[e], o = e.startsWith("format") && createFormatMethod(e);
-    "function" == typeof n.value ? n.value = "constructor" === e ? DateTimeFormat : o || createProxiedMethod(e) : o && (n.get = function() {
-      return o.bind(this);
-    });
-  }
-  return n.prototype.value = Object.create(e, t), Object.defineProperties(DateTimeFormat, n), 
-  DateTimeFormat;
-}
-
-function createFormatMethod(e) {
-  return function(...t) {
-    const n = Or.get(this), [o, ...r] = n(...t);
-    return o[e](...r);
-  };
-}
-
-function createProxiedMethod(e) {
-  return function(...t) {
-    return Or.get(this).u[e](...t);
-  };
-}
-
-function createFormatPrepperForBranding(t) {
-  const n = xn[t];
-  if (!n) {
-    throw new TypeError((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.invalidFormatType)(t));
-  }
-  return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(n, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.memoize)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatForPrep));
-}
-
-
-
-const xn = {
-  Instant: _internal_js__WEBPACK_IMPORTED_MODULE_0__.instantConfig,
-  PlainDateTime: _internal_js__WEBPACK_IMPORTED_MODULE_0__.dateTimeConfig,
-  PlainDate: _internal_js__WEBPACK_IMPORTED_MODULE_0__.dateConfig,
-  PlainTime: _internal_js__WEBPACK_IMPORTED_MODULE_0__.timeConfig,
-  PlainYearMonth: _internal_js__WEBPACK_IMPORTED_MODULE_0__.yearMonthConfig,
-  PlainMonthDay: _internal_js__WEBPACK_IMPORTED_MODULE_0__.monthDayConfig
-}, Rn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.instantConfig), Wn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedConfig), Gn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.dateTimeConfig), Un = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.dateConfig), zn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.timeConfig), Hn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.yearMonthConfig), Kn = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.monthDayConfig), Qn = {
-  era: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireStringOrUndefined,
-  eraYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireIntegerOrUndefined,
-  year: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireInteger,
-  month: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
-  daysInMonth: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
-  daysInYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
-  inLeapYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireBoolean,
-  monthsInYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger
-}, Xn = {
-  monthCode: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireString
-}, $n = {
-  day: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger
-}, _n = {
-  dayOfWeek: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
-  dayOfYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger,
-  weekOfYear: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveIntegerOrUndefined,
-  yearOfWeek: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requireIntegerOrUndefined,
-  daysInWeek: _internal_js__WEBPACK_IMPORTED_MODULE_0__.requirePositiveInteger
-}, eo = /*@__PURE__*/ Object.assign({}, Qn, Xn, $n, _n), to = /*@__PURE__*/ new WeakMap, no = /*@__PURE__*/ to.get.bind(to), oo = /*@__PURE__*/ to.set.bind(to), ro = {
-  ...createCalendarFieldMethods(Qn, [ _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainYearMonthBranding ]),
-  ...createCalendarFieldMethods(_n, []),
-  ...createCalendarFieldMethods(Xn, [ _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainYearMonthBranding, _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainMonthDayBranding ]),
-  ...createCalendarFieldMethods($n, [ _internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainMonthDayBranding ])
-}, ao = /*@__PURE__*/ createCalendarGetters(eo), io = /*@__PURE__*/ createCalendarGetters({
-  ...Qn,
-  ...Xn
-}), so = /*@__PURE__*/ createCalendarGetters({
-  ...Xn,
-  ...$n
-}), lo = {
-  calendarId: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getId)(e.calendar)
-}, co = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapProps)(((e, t) => function(n) {
-  const {i: o} = this;
-  return e(o[t](Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n, o))));
-}), eo), uo = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapPropNames)((e => t => t[e]), _internal_js__WEBPACK_IMPORTED_MODULE_0__.durationFieldNamesAsc.concat("sign")), fo = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.mapPropNames)(((e, t) => e => e[_internal_js__WEBPACK_IMPORTED_MODULE_0__.isoTimeFieldNamesAsc[t]]), _internal_js__WEBPACK_IMPORTED_MODULE_0__.timeFieldNamesAsc), mo = {
-  epochSeconds: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getEpochSec,
-  epochMilliseconds: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getEpochMilli,
-  epochMicroseconds: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getEpochMicro,
-  epochNanoseconds: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getEpochNano
-}, So = /*@__PURE__*/ (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.excludePropsByName, new Set([ "branding" ])), [Oo, To, po] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainMonthDayBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainMonthDaySlots, refineCalendarSlot), {
-  ...lo,
-  ...so
-}, {
-  getISOFields: So,
-  getCalendar: createCalendarFromSlots,
-  with(e, t, n) {
-    return To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainMonthDayWithFields)(_o, e, this, rejectInvalidBag(t), n));
-  },
-  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainMonthDaysEqual)(e, toPlainMonthDaySlots(t)),
-  toPlainDate(e, t) {
-    return Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainMonthDayToPlainDate)($o, e, this, t));
-  },
-  toLocaleString(e, t, n) {
-    const [o, r] = Kn(t, n, e);
-    return o.format(r);
-  },
-  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainMonthDayIso,
-  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainMonthDayIso)(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => To(toPlainMonthDaySlots(e, t))
-}), ho = {
-  getOffsetNanosecondsFor: getOffsetNanosecondsForAdapter,
-  getPossibleInstantsFor(e, t, n) {
-    const o = [ ...t.call(e, No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)(n, _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId))) ].map((e => go(e).epochNanoseconds)), r = o.length;
-    return r > 1 && (o.sort(_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareBigNanos), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.validateTimeZoneGap)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bigNanoToNumber)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffBigNanos)(o[0], o[r - 1])))), o;
-  }
-}, Do = {
-  getOffsetNanosecondsFor: getOffsetNanosecondsForAdapter
-}, [Po, Co, go] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.InstantBranding, _internal_js__WEBPACK_IMPORTED_MODULE_0__.constructInstantSlots, mo, {
-  add: (e, t) => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.moveInstant)(0, e, toDurationSlots(t))),
-  subtract: (e, t) => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.moveInstant)(1, e, toDurationSlots(t))),
-  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffInstants)(0, e, toInstantSlots(t), n)),
-  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffInstants)(1, e, toInstantSlots(t), n)),
-  round: (e, t) => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundInstant)(e, t)),
-  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.instantsEqual)(e, toInstantSlots(t)),
-  toZonedDateTime(e, t) {
-    const n = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireObjectLike)(t);
-    return dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.instantToZonedDateTime)(e, refineTimeZoneSlot(n.timeZone), refineCalendarSlot(n.calendar)));
-  },
-  toZonedDateTimeISO: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.instantToZonedDateTime)(e, refineTimeZoneSlot(t))),
-  toLocaleString(e, t, n) {
-    const [o, r] = Rn(t, n, e);
-    return o.format(r);
-  },
-  toString: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatInstantIso)(refineTimeZoneSlot, createTimeZoneOffsetOps, e, t),
-  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatInstantIso)(refineTimeZoneSlot, createTimeZoneOffsetOps, e),
-  valueOf: neverValueOf
-}, {
-  from: e => Co(toInstantSlots(e)),
-  fromEpochSeconds: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochSecToInstant)(e)),
-  fromEpochMilliseconds: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochMilliToInstant)(e)),
-  fromEpochMicroseconds: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochMicroToInstant)(e)),
-  fromEpochNanoseconds: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochNanoToInstant)(e)),
-  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareInstants)(toInstantSlots(e), toInstantSlots(t))
-}), [Zo, bo] = createSlotClass("TimeZone", (e => {
-  const t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineTimeZoneId)(e);
-  return {
-    branding: "TimeZone",
-    id: t,
-    o: (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.queryNativeTimeZone)(t)
-  };
-}), {
-  id: e => e.id
-}, {
-  getPossibleInstantsFor: ({o: e}, t) => e.getPossibleInstantsFor(toPlainDateTimeSlots(t)).map((e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)(e)))),
-  getOffsetNanosecondsFor: ({o: e}, t) => e.getOffsetNanosecondsFor(toInstantSlots(t).epochNanoseconds),
-  getOffsetStringFor(e, t) {
-    const n = toInstantSlots(t).epochNanoseconds, o = createAdapterOps(this, Do).getOffsetNanosecondsFor(n);
-    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatOffsetNano)(o);
-  },
-  getPlainDateTimeFor(e, t, n = _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId) {
-    const o = toInstantSlots(t).epochNanoseconds, r = createAdapterOps(this, Do).getOffsetNanosecondsFor(o);
-    return No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.epochNanoToIso)(o, r), refineCalendarSlot(n)));
-  },
-  getInstantFor(e, t, n) {
-    const o = toPlainDateTimeSlots(t), r = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineEpochDisambigOptions)(n), a = createAdapterOps(this);
-    return Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getSingleInstantFor)(a, o, r)));
-  },
-  getNextTransition: ({o: e}, t) => getImplTransition(1, e, t),
-  getPreviousTransition: ({o: e}, t) => getImplTransition(-1, e, t),
-  equals(e, t) {
-    return !!(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isTimeZoneSlotsEqual)(this, refineTimeZoneSlot(t));
-  },
-  toString: e => e.id,
-  toJSON: e => e.id
-}, {
-  from(e) {
-    const t = refineTimeZoneSlot(e);
-    return "string" == typeof t ? new Zo(t) : t;
-  }
-}), Fo = /*@__PURE__*/ createProtocolValidator(Object.keys(ho)), [Io, vo] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainTimeBranding, _internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainTimeSlots, fo, {
-  getISOFields: So,
-  with(e, t, n) {
-    return vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainTimeWithFields)(this, rejectInvalidBag(t), n));
-  },
-  add: (e, t) => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainTime)(0, e, toDurationSlots(t))),
-  subtract: (e, t) => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainTime)(1, e, toDurationSlots(t))),
-  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainTimes)(0, e, toPlainTimeSlots(t), n)),
-  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainTimes)(1, e, toPlainTimeSlots(t), n)),
-  round: (e, t) => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundPlainTime)(e, t)),
-  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainTimesEqual)(e, toPlainTimeSlots(t)),
-  toZonedDateTime: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainTimeToZonedDateTime)(refineTimeZoneSlot, toPlainDateSlots, createTimeZoneOps, e, t)),
-  toPlainDateTime: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainTimeToPlainDateTime)(e, toPlainDateSlots(t))),
-  toLocaleString(e, t, n) {
-    const [o, r] = zn(t, n, e);
-    return o.format(r);
-  },
-  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainTimeIso,
-  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainTimeIso)(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => vo(toPlainTimeSlots(e, t)),
-  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareIsoTimeFields)(toPlainTimeSlots(e), toPlainTimeSlots(t))
-}), [wo, jo, Mo] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainYearMonthBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainYearMonthSlots, refineCalendarSlot), {
-  ...lo,
-  ...io
-}, {
-  getISOFields: So,
-  getCalendar: createCalendarFromSlots,
-  with(e, t, n) {
-    return jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainYearMonthWithFields)(Xo, e, this, rejectInvalidBag(t), n));
-  },
-  add: (e, t, n) => jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainYearMonth)(nr, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainYearMonth)(nr, 1, e, toDurationSlots(t), n)),
-  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainYearMonth)(or, 0, e, toPlainYearMonthSlots(t), n)),
-  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainYearMonth)(or, 1, e, toPlainYearMonthSlots(t), n)),
-  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainYearMonthsEqual)(e, toPlainYearMonthSlots(t)),
-  toPlainDate(e, t) {
-    return Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainYearMonthToPlainDate)($o, e, this, t));
-  },
-  toLocaleString(e, t, n) {
-    const [o, r] = Hn(t, n, e);
-    return o.format(r);
-  },
-  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainYearMonthIso,
-  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainYearMonthIso)(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => jo(toPlainYearMonthSlots(e, t)),
-  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareIsoDateFields)(toPlainYearMonthSlots(e), toPlainYearMonthSlots(t))
-}), [yo, No] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateTimeBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainDateTimeSlots, refineCalendarSlot), {
-  ...lo,
-  ...ao,
-  ...fo
-}, {
-  getISOFields: So,
-  getCalendar: createCalendarFromSlots,
-  with(e, t, n) {
-    return No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeWithFields)($o, e, this, rejectInvalidBag(t), n));
-  },
-  withCalendar: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.slotsWithCalendar)(e, refineCalendarSlot(t))),
-  withPlainDate: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeWithPlainDate)(e, toPlainDateSlots(t))),
-  withPlainTime: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeWithPlainTime)(e, optionalToPlainTimeFields(t))),
-  add: (e, t, n) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainDateTime)(er, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainDateTime)(er, 1, e, toDurationSlots(t), n)),
-  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainDateTimes)(tr, 0, e, toPlainDateTimeSlots(t), n)),
-  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainDateTimes)(tr, 1, e, toPlainDateTimeSlots(t), n)),
-  round: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundPlainDateTime)(e, t)),
-  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimesEqual)(e, toPlainDateTimeSlots(t)),
-  toZonedDateTime: (e, t, n) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeToZonedDateTime)(createTimeZoneOps, e, refineTimeZoneSlot(t), n)),
-  toPlainDate: e => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(e)),
-  toPlainTime: e => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainTimeSlots)(e)),
-  toPlainYearMonth(e) {
-    return jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeToPlainYearMonth)(Ho, e, this));
-  },
-  toPlainMonthDay(e) {
-    return To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateTimeToPlainMonthDay)(Qo, e, this));
-  },
-  toLocaleString(e, t, n) {
-    const [o, r] = Gn(t, n, e);
-    return o.format(r);
-  },
-  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainDateTimeIso,
-  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainDateTimeIso)(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => No(toPlainDateTimeSlots(e, t)),
-  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareIsoDateTimeFields)(toPlainDateTimeSlots(e), toPlainDateTimeSlots(t))
-}), [Bo, Yo, Ao] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.PlainDateBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructPlainDateSlots, refineCalendarSlot), {
-  ...lo,
-  ...ao
-}, {
-  getISOFields: So,
-  getCalendar: createCalendarFromSlots,
-  with(e, t, n) {
-    return Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateWithFields)($o, e, this, rejectInvalidBag(t), n));
-  },
-  withCalendar: (e, t) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.slotsWithCalendar)(e, refineCalendarSlot(t))),
-  add: (e, t, n) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainDate)(er, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.movePlainDate)(er, 1, e, toDurationSlots(t), n)),
-  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainDates)(tr, 0, e, toPlainDateSlots(t), n)),
-  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffPlainDates)(tr, 1, e, toPlainDateSlots(t), n)),
-  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDatesEqual)(e, toPlainDateSlots(t)),
-  toZonedDateTime(e, t) {
-    const n = !(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.isObjectLike)(t) || t instanceof Zo ? {
-      timeZone: t
-    } : t;
-    return dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateToZonedDateTime)(refineTimeZoneSlot, toPlainTimeSlots, createTimeZoneOps, e, n));
-  },
-  toPlainDateTime: (e, t) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateToPlainDateTime)(e, optionalToPlainTimeFields(t))),
-  toPlainYearMonth(e) {
-    return jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateToPlainYearMonth)(Ho, e, this));
-  },
-  toPlainMonthDay(e) {
-    return To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.plainDateToPlainMonthDay)(Qo, e, this));
-  },
-  toLocaleString(e, t, n) {
-    const [o, r] = Un(t, n, e);
-    return o.format(r);
-  },
-  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainDateIso,
-  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatPlainDateIso)(e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => Yo(toPlainDateSlots(e, t)),
-  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareIsoDateFields)(toPlainDateSlots(e), toPlainDateSlots(t))
-}), Eo = {
-  fields(e, t, n) {
-    return [ ...t.call(e, n) ];
-  }
-}, Vo = /*@__PURE__*/ Object.assign({
-  dateFromFields(e, t, n, o) {
-    return Ao(t.call(e, Object.assign(Object.create(null), n), o));
-  }
-}, Eo), Jo = /*@__PURE__*/ Object.assign({
-  yearMonthFromFields(e, t, n, o) {
-    return Mo(t.call(e, Object.assign(Object.create(null), n), o));
-  }
-}, Eo), Lo = /*@__PURE__*/ Object.assign({
-  monthDayFromFields(e, t, n, o) {
-    return po(t.call(e, Object.assign(Object.create(null), n), o));
-  }
-}, Eo), qo = {
-  mergeFields(e, t, n, o) {
-    return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireObjectLike)(t.call(e, Object.assign(Object.create(null), n), Object.assign(Object.create(null), o)));
-  }
-}, ko = /*@__PURE__*/ Object.assign({}, Vo, qo), xo = /*@__PURE__*/ Object.assign({}, Jo, qo), Ro = /*@__PURE__*/ Object.assign({}, Lo, qo), Wo = {
-  dateAdd(e, t, n, o, r) {
-    return Ao(t.call(e, Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n, e)), ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createDurationSlots)(o)), r));
-  }
-}, Go = /*@__PURE__*/ Object.assign({}, Wo, {
-  dateUntil(e, t, n, o, r, a) {
-    return ir(t.call(e, Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(n, e)), Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(o, e)), Object.assign(Object.create(null), a, {
-      largestUnit: _internal_js__WEBPACK_IMPORTED_MODULE_0__.unitNamesAsc[r]
-    })));
-  }
-}), Uo = /*@__PURE__*/ Object.assign({}, Wo, {
-  day: dayAdapter
-}), zo = /*@__PURE__*/ Object.assign({}, Go, {
-  day: dayAdapter
-}), Ho = /*@__PURE__*/ createCompoundOpsCreator(Jo), Ko = /*@__PURE__*/ createCompoundOpsCreator(Vo), Qo = /*@__PURE__*/ createCompoundOpsCreator(Lo), Xo = /*@__PURE__*/ createCompoundOpsCreator(xo), $o = /*@__PURE__*/ createCompoundOpsCreator(ko), _o = /*@__PURE__*/ createCompoundOpsCreator(Ro), er = /*@__PURE__*/ createCompoundOpsCreator(Wo), tr = /*@__PURE__*/ createCompoundOpsCreator(Go), nr = /*@__PURE__*/ createCompoundOpsCreator(Uo), or = /*@__PURE__*/ createCompoundOpsCreator(zo), [rr, ar, ir] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.DurationBranding, _internal_js__WEBPACK_IMPORTED_MODULE_0__.constructDurationSlots, {
-  ...uo,
-  blank: _internal_js__WEBPACK_IMPORTED_MODULE_0__.getDurationBlank
-}, {
-  with: (e, t) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.durationWithFields)(e, t)),
-  negated: e => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.negateDuration)(e)),
-  abs: e => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.absDuration)(e)),
-  add: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.addDurations)(refinePublicRelativeTo, tr, createTimeZoneOps, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.addDurations)(refinePublicRelativeTo, tr, createTimeZoneOps, 1, e, toDurationSlots(t), n)),
-  round: (e, t) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundDuration)(refinePublicRelativeTo, tr, createTimeZoneOps, e, t)),
-  total: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.totalDuration)(refinePublicRelativeTo, tr, createTimeZoneOps, e, t),
-  toLocaleString(e, t, n) {
-    return Intl.DurationFormat ? new Intl.DurationFormat(t, n).format(this) : (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatDurationIso)(e);
-  },
-  toString: _internal_js__WEBPACK_IMPORTED_MODULE_0__.formatDurationIso,
-  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatDurationIso)(e),
-  valueOf: neverValueOf
-}, {
-  from: e => ar(toDurationSlots(e)),
-  compare: (e, t, n) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareDurations)(refinePublicRelativeTo, er, createTimeZoneOps, toDurationSlots(e), toDurationSlots(t), n)
-}), sr = {
-  toString: e => e.id,
-  toJSON: e => e.id,
-  ...ro,
-  dateAdd: ({id: e, o: t}, n, o, r) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)(t.dateAdd(toPlainDateSlots(n), toDurationSlots(o), r), e)),
-  dateUntil: ({o: e}, t, n, o) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createDurationSlots)(e.dateUntil(toPlainDateSlots(t), toPlainDateSlots(n), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineDateDiffOptions)(o)))),
-  dateFromFields: ({id: e, o: t}, n, o) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainDateBag)(t, n, o, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getRequiredDateFields)(e))),
-  yearMonthFromFields: ({id: e, o: t}, n, o) => jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainYearMonthBag)(t, n, o, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getRequiredYearMonthFields)(e))),
-  monthDayFromFields: ({id: e, o: t}, n, o) => To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refinePlainMonthDayBag)(t, 0, n, o, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getRequiredMonthDayFields)(e))),
-  fields({o: e}, t) {
-    const n = new Set(_internal_js__WEBPACK_IMPORTED_MODULE_0__.dateFieldNamesAlpha), o = [];
-    for (const e of t) {
-      if ((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireString)(e), !n.has(e)) {
-        throw new RangeError((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.forbiddenField)(e));
-      }
-      n.delete(e), o.push(e);
-    }
-    return e.fields(o);
-  },
-  mergeFields: ({o: e}, t, n) => e.mergeFields((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.excludeUndefinedProps)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireNonNullish)(t)), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.excludeUndefinedProps)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.requireNonNullish)(n)))
-}, [lr] = createSlotClass("Calendar", (e => {
-  const t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.refineCalendarId)(e);
-  return {
-    branding: "Calendar",
-    id: t,
-    o: (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createNativeStandardOps)(t)
-  };
-}), {
-  id: e => e.id
-}, sr, {
-  from(e) {
-    const t = refineCalendarSlot(e);
-    return "string" == typeof t ? new lr(t) : t;
-  }
-}), cr = /*@__PURE__*/ createProtocolValidator(Object.keys(sr).slice(4)), [ur, dr] = createSlotClass(_internal_js__WEBPACK_IMPORTED_MODULE_0__.ZonedDateTimeBranding, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.bindArgs)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.constructZonedDateTimeSlots, refineCalendarSlot, refineTimeZoneSlot), {
-  ...mo,
-  ...lo,
-  ...adaptDateMethods(ao),
-  ...adaptDateMethods(fo),
-  offset: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatOffsetNano)(slotsToIso(e).offsetNanoseconds),
-  offsetNanoseconds: e => slotsToIso(e).offsetNanoseconds,
-  timeZoneId: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getId)(e.timeZone),
-  hoursInDay: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.computeZonedHoursInDay)(createTimeZoneOps, e)
-}, {
-  getISOFields: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.buildZonedIsoFields)(createTimeZoneOffsetOps, e),
-  getCalendar: createCalendarFromSlots,
-  getTimeZone: ({timeZone: e}) => "string" == typeof e ? new Zo(e) : e,
-  with(e, t, n) {
-    return dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeWithFields)($o, createTimeZoneOps, e, this, rejectInvalidBag(t), n));
-  },
-  withCalendar: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.slotsWithCalendar)(e, refineCalendarSlot(t))),
-  withTimeZone: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.slotsWithTimeZone)(e, refineTimeZoneSlot(t))),
-  withPlainDate: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeWithPlainDate)(createTimeZoneOps, e, toPlainDateSlots(t))),
-  withPlainTime: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeWithPlainTime)(createTimeZoneOps, e, optionalToPlainTimeFields(t))),
-  add: (e, t, n) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.moveZonedDateTime)(er, createTimeZoneOps, 0, e, toDurationSlots(t), n)),
-  subtract: (e, t, n) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.moveZonedDateTime)(er, createTimeZoneOps, 1, e, toDurationSlots(t), n)),
-  until: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createDurationSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffZonedDateTimes)(tr, createTimeZoneOps, 0, e, toZonedDateTimeSlots(t), n))),
-  since: (e, t, n) => ar((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createDurationSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.diffZonedDateTimes)(tr, createTimeZoneOps, 1, e, toZonedDateTimeSlots(t), n))),
-  round: (e, t) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.roundZonedDateTime)(createTimeZoneOps, e, t)),
-  startOfDay: e => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.computeZonedStartOfDay)(createTimeZoneOps, e)),
-  equals: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimesEqual)(e, toZonedDateTimeSlots(t)),
-  toInstant: e => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToInstant)(e)),
-  toPlainDateTime: e => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainDateTime)(createTimeZoneOffsetOps, e)),
-  toPlainDate: e => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainDate)(createTimeZoneOffsetOps, e)),
-  toPlainTime: e => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainTime)(createTimeZoneOffsetOps, e)),
-  toPlainYearMonth(e) {
-    return jo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainYearMonth)(Ho, e, this));
-  },
-  toPlainMonthDay(e) {
-    return To((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.zonedDateTimeToPlainMonthDay)(Qo, e, this));
-  },
-  toLocaleString(e, t, n = {}) {
-    const [o, r] = Wn(t, n, e);
-    return o.format(r);
-  },
-  toString: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatZonedDateTimeIso)(createTimeZoneOffsetOps, e, t),
-  toJSON: e => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.formatZonedDateTimeIso)(createTimeZoneOffsetOps, e),
-  valueOf: neverValueOf
-}, {
-  from: (e, t) => dr(toZonedDateTimeSlots(e, t)),
-  compare: (e, t) => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.compareZonedDateTimes)(toZonedDateTimeSlots(e), toZonedDateTimeSlots(t))
-}), fr = /*@__PURE__*/ Object.defineProperties({}, {
-  ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createStringTagDescriptors)("Temporal.Now"),
-  ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)({
-    timeZoneId: () => (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)(),
-    instant: () => Co((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createInstantSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentEpochNano)())),
-    zonedDateTime: (e, t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createZonedDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentEpochNano)(), refineTimeZoneSlot(t), refineCalendarSlot(e))),
-    zonedDateTimeISO: (e = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => dr((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createZonedDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentEpochNano)(), refineTimeZoneSlot(e), _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId)),
-    plainDateTime: (e, t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(t))), refineCalendarSlot(e))),
-    plainDateTimeISO: (e = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => No((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(e))), _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId)),
-    plainDate: (e, t = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(t))), refineCalendarSlot(e))),
-    plainDateISO: (e = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => Yo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainDateSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(e))), _internal_js__WEBPACK_IMPORTED_MODULE_0__.isoCalendarId)),
-    plainTimeISO: (e = (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentTimeZoneId)()) => vo((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPlainTimeSlots)((0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.getCurrentIsoDateTime)(createTimeZoneOffsetOps(refineTimeZoneSlot(e)))))
-  })
-}), mr = /*@__PURE__*/ Object.defineProperties({}, {
-  ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createStringTagDescriptors)("Temporal"),
-  ...(0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)({
-    PlainYearMonth: wo,
-    PlainMonthDay: Oo,
-    PlainDate: Bo,
-    PlainTime: Io,
-    PlainDateTime: yo,
-    ZonedDateTime: ur,
-    Instant: Po,
-    Calendar: lr,
-    TimeZone: Zo,
-    Duration: rr,
-    Now: fr
-  })
-}), Sr = /*@__PURE__*/ createDateTimeFormatClass(), Or = /*@__PURE__*/ new WeakMap, Tr = /*@__PURE__*/ Object.defineProperties(Object.create(Intl), (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createPropDescriptors)({
-  DateTimeFormat: Sr
-}));
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/temporal-polyfill/chunks/internal.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/temporal-polyfill/chunks/internal.js ***!
-  \***********************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DurationBranding: () => (/* binding */ qt),
-/* harmony export */   InstantBranding: () => (/* binding */ Oe),
-/* harmony export */   PlainDateBranding: () => (/* binding */ J),
-/* harmony export */   PlainDateTimeBranding: () => (/* binding */ We),
-/* harmony export */   PlainMonthDayBranding: () => (/* binding */ q),
-/* harmony export */   PlainTimeBranding: () => (/* binding */ xe),
-/* harmony export */   PlainYearMonthBranding: () => (/* binding */ L),
-/* harmony export */   RawDateTimeFormat: () => (/* binding */ En),
-/* harmony export */   ZonedDateTimeBranding: () => (/* binding */ Te),
-/* harmony export */   absDuration: () => (/* binding */ Rt),
-/* harmony export */   addDurations: () => (/* binding */ Wt),
-/* harmony export */   bigNanoToNumber: () => (/* binding */ oe),
-/* harmony export */   bindArgs: () => (/* binding */ E),
-/* harmony export */   buildZonedIsoFields: () => (/* binding */ mn),
-/* harmony export */   compareBigNanos: () => (/* binding */ te),
-/* harmony export */   compareDurations: () => (/* binding */ $t),
-/* harmony export */   compareInstants: () => (/* binding */ Ze),
-/* harmony export */   compareIsoDateFields: () => (/* binding */ rt),
-/* harmony export */   compareIsoDateTimeFields: () => (/* binding */ gt),
-/* harmony export */   compareIsoTimeFields: () => (/* binding */ He),
-/* harmony export */   compareZonedDateTimes: () => (/* binding */ yn),
-/* harmony export */   computeZonedHoursInDay: () => (/* binding */ dn),
-/* harmony export */   computeZonedStartOfDay: () => (/* binding */ Cn),
-/* harmony export */   constructDurationSlots: () => (/* binding */ Lt),
-/* harmony export */   constructInstantSlots: () => (/* binding */ Se),
-/* harmony export */   constructPlainDateSlots: () => (/* binding */ Nt),
-/* harmony export */   constructPlainDateTimeSlots: () => (/* binding */ pt),
-/* harmony export */   constructPlainMonthDaySlots: () => (/* binding */ G),
-/* harmony export */   constructPlainTimeSlots: () => (/* binding */ ke),
-/* harmony export */   constructPlainYearMonthSlots: () => (/* binding */ tt),
-/* harmony export */   constructZonedDateTimeSlots: () => (/* binding */ vn),
-/* harmony export */   copyOptions: () => (/* binding */ U),
-/* harmony export */   createDurationSlots: () => (/* binding */ Vt),
-/* harmony export */   createFormatForPrep: () => (/* binding */ qn),
-/* harmony export */   createFormatPrepper: () => (/* binding */ e),
-/* harmony export */   createGetterDescriptors: () => (/* binding */ O),
-/* harmony export */   createInstantSlots: () => (/* binding */ _),
-/* harmony export */   createNameDescriptors: () => (/* binding */ D),
-/* harmony export */   createNativeStandardOps: () => (/* binding */ Y),
-/* harmony export */   createPlainDateSlots: () => (/* binding */ v),
-/* harmony export */   createPlainDateTimeSlots: () => (/* binding */ ee),
-/* harmony export */   createPlainTimeSlots: () => (/* binding */ Ge),
-/* harmony export */   createPropDescriptors: () => (/* binding */ p),
-/* harmony export */   createStringTagDescriptors: () => (/* binding */ h),
-/* harmony export */   createZonedDateTimeSlots: () => (/* binding */ Yn),
-/* harmony export */   dateConfig: () => (/* binding */ o),
-/* harmony export */   dateFieldNamesAlpha: () => (/* binding */ en),
-/* harmony export */   dateTimeConfig: () => (/* binding */ n),
-/* harmony export */   diffBigNanos: () => (/* binding */ re),
-/* harmony export */   diffInstants: () => (/* binding */ le),
-/* harmony export */   diffPlainDateTimes: () => (/* binding */ ut),
-/* harmony export */   diffPlainDates: () => (/* binding */ Ft),
-/* harmony export */   diffPlainTimes: () => (/* binding */ Ae),
-/* harmony export */   diffPlainYearMonth: () => (/* binding */ Xe),
-/* harmony export */   diffZonedDateTimes: () => (/* binding */ Dn),
-/* harmony export */   durationFieldNamesAsc: () => (/* binding */ F),
-/* harmony export */   durationWithFields: () => (/* binding */ kt),
-/* harmony export */   epochMicroToInstant: () => (/* binding */ Ce),
-/* harmony export */   epochMilliToInstant: () => (/* binding */ Pe),
-/* harmony export */   epochNanoToInstant: () => (/* binding */ ge),
-/* harmony export */   epochNanoToIso: () => (/* binding */ Ie),
-/* harmony export */   epochSecToInstant: () => (/* binding */ De),
-/* harmony export */   excludePropsByName: () => (/* binding */ V),
-/* harmony export */   excludeUndefinedProps: () => (/* binding */ nn),
-/* harmony export */   forbiddenField: () => (/* binding */ tn),
-/* harmony export */   forbiddenValueOf: () => (/* binding */ A),
-/* harmony export */   formatDurationIso: () => (/* binding */ zt),
-/* harmony export */   formatInstantIso: () => (/* binding */ me),
-/* harmony export */   formatOffsetNano: () => (/* binding */ Fe),
-/* harmony export */   formatPlainDateIso: () => (/* binding */ yt),
-/* harmony export */   formatPlainDateTimeIso: () => (/* binding */ Tt),
-/* harmony export */   formatPlainMonthDayIso: () => (/* binding */ W),
-/* harmony export */   formatPlainTimeIso: () => (/* binding */ qe),
-/* harmony export */   formatPlainYearMonthIso: () => (/* binding */ et),
-/* harmony export */   formatZonedDateTimeIso: () => (/* binding */ In),
-/* harmony export */   getCurrentEpochNano: () => (/* binding */ Bn),
-/* harmony export */   getCurrentIsoDateTime: () => (/* binding */ An),
-/* harmony export */   getCurrentTimeZoneId: () => (/* binding */ Nn),
-/* harmony export */   getDurationBlank: () => (/* binding */ Jt),
-/* harmony export */   getEpochMicro: () => (/* binding */ N),
-/* harmony export */   getEpochMilli: () => (/* binding */ y),
-/* harmony export */   getEpochNano: () => (/* binding */ B),
-/* harmony export */   getEpochSec: () => (/* binding */ M),
-/* harmony export */   getId: () => (/* binding */ I),
-/* harmony export */   getRequiredDateFields: () => (/* binding */ ln),
-/* harmony export */   getRequiredMonthDayFields: () => (/* binding */ cn),
-/* harmony export */   getRequiredYearMonthFields: () => (/* binding */ un),
-/* harmony export */   getSingleInstantFor: () => (/* binding */ we),
-/* harmony export */   hasAllPropsByName: () => (/* binding */ C),
-/* harmony export */   instantConfig: () => (/* binding */ t),
-/* harmony export */   instantToZonedDateTime: () => (/* binding */ fe),
-/* harmony export */   instantsEqual: () => (/* binding */ ue),
-/* harmony export */   invalidBag: () => (/* binding */ Z),
-/* harmony export */   invalidCallingContext: () => (/* binding */ P),
-/* harmony export */   invalidFormatType: () => (/* binding */ Ln),
-/* harmony export */   invalidProtocol: () => (/* binding */ g),
-/* harmony export */   isObjectLike: () => (/* binding */ z),
-/* harmony export */   isTimeZoneSlotsEqual: () => (/* binding */ je),
-/* harmony export */   isoCalendarId: () => (/* binding */ X),
-/* harmony export */   isoTimeFieldDefaults: () => (/* binding */ Dt),
-/* harmony export */   isoTimeFieldNamesAsc: () => (/* binding */ j),
-/* harmony export */   mapPropNames: () => (/* binding */ b),
-/* harmony export */   mapProps: () => (/* binding */ T),
-/* harmony export */   memoize: () => (/* binding */ Jn),
-/* harmony export */   mismatchingFormatTypes: () => (/* binding */ kn),
-/* harmony export */   monthDayConfig: () => (/* binding */ i),
-/* harmony export */   moveInstant: () => (/* binding */ se),
-/* harmony export */   movePlainDate: () => (/* binding */ bt),
-/* harmony export */   movePlainDateTime: () => (/* binding */ ct),
-/* harmony export */   movePlainTime: () => (/* binding */ Ye),
-/* harmony export */   movePlainYearMonth: () => (/* binding */ Qe),
-/* harmony export */   moveZonedDateTime: () => (/* binding */ hn),
-/* harmony export */   nanoInMilli: () => (/* binding */ be),
-/* harmony export */   negateDuration: () => (/* binding */ xt),
-/* harmony export */   numberToBigNano: () => (/* binding */ he),
-/* harmony export */   parseCalendarId: () => (/* binding */ sn),
-/* harmony export */   parseDuration: () => (/* binding */ Kt),
-/* harmony export */   parseInstant: () => (/* binding */ pe),
-/* harmony export */   parsePlainDate: () => (/* binding */ At),
-/* harmony export */   parsePlainDateTime: () => (/* binding */ Ct),
-/* harmony export */   parsePlainMonthDay: () => (/* binding */ Q),
-/* harmony export */   parsePlainTime: () => (/* binding */ ze),
-/* harmony export */   parsePlainYearMonth: () => (/* binding */ ot),
-/* harmony export */   parseRelativeToSlots: () => (/* binding */ Xt),
-/* harmony export */   parseTimeZoneId: () => (/* binding */ Ne),
-/* harmony export */   parseZonedDateTime: () => (/* binding */ Mn),
-/* harmony export */   plainDateTimeToPlainMonthDay: () => (/* binding */ Ot),
-/* harmony export */   plainDateTimeToPlainYearMonth: () => (/* binding */ St),
-/* harmony export */   plainDateTimeToZonedDateTime: () => (/* binding */ mt),
-/* harmony export */   plainDateTimeWithFields: () => (/* binding */ at),
-/* harmony export */   plainDateTimeWithPlainDate: () => (/* binding */ st),
-/* harmony export */   plainDateTimeWithPlainTime: () => (/* binding */ lt),
-/* harmony export */   plainDateTimesEqual: () => (/* binding */ ft),
-/* harmony export */   plainDateToPlainDateTime: () => (/* binding */ wt),
-/* harmony export */   plainDateToPlainMonthDay: () => (/* binding */ Mt),
-/* harmony export */   plainDateToPlainYearMonth: () => (/* binding */ jt),
-/* harmony export */   plainDateToZonedDateTime: () => (/* binding */ vt),
-/* harmony export */   plainDateWithFields: () => (/* binding */ Zt),
-/* harmony export */   plainDatesEqual: () => (/* binding */ It),
-/* harmony export */   plainMonthDayToPlainDate: () => (/* binding */ R),
-/* harmony export */   plainMonthDayWithFields: () => (/* binding */ k),
-/* harmony export */   plainMonthDaysEqual: () => (/* binding */ x),
-/* harmony export */   plainTimeToPlainDateTime: () => (/* binding */ Le),
-/* harmony export */   plainTimeToZonedDateTime: () => (/* binding */ Je),
-/* harmony export */   plainTimeWithFields: () => (/* binding */ Be),
-/* harmony export */   plainTimesEqual: () => (/* binding */ Ve),
-/* harmony export */   plainYearMonthToPlainDate: () => (/* binding */ _e),
-/* harmony export */   plainYearMonthWithFields: () => (/* binding */ Ke),
-/* harmony export */   plainYearMonthsEqual: () => (/* binding */ $e),
-/* harmony export */   pluckProps: () => (/* binding */ Vn),
-/* harmony export */   queryNativeTimeZone: () => (/* binding */ ie),
-/* harmony export */   refineCalendarId: () => (/* binding */ rn),
-/* harmony export */   refineDateDiffOptions: () => (/* binding */ _t),
-/* harmony export */   refineDurationBag: () => (/* binding */ Ht),
-/* harmony export */   refineEpochDisambigOptions: () => (/* binding */ ve),
-/* harmony export */   refineMaybeZonedDateTimeBag: () => (/* binding */ Qt),
-/* harmony export */   refineOverflowOptions: () => (/* binding */ H),
-/* harmony export */   refinePlainDateBag: () => (/* binding */ Yt),
-/* harmony export */   refinePlainDateTimeBag: () => (/* binding */ Pt),
-/* harmony export */   refinePlainMonthDayBag: () => (/* binding */ K),
-/* harmony export */   refinePlainTimeBag: () => (/* binding */ Ue),
-/* harmony export */   refinePlainYearMonthBag: () => (/* binding */ nt),
-/* harmony export */   refineTimeZoneId: () => (/* binding */ Me),
-/* harmony export */   refineZonedDateTimeBag: () => (/* binding */ jn),
-/* harmony export */   refineZonedFieldOptions: () => (/* binding */ wn),
-/* harmony export */   requireBoolean: () => (/* binding */ f),
-/* harmony export */   requireFunction: () => (/* binding */ $),
-/* harmony export */   requireInteger: () => (/* binding */ u),
-/* harmony export */   requireIntegerOrUndefined: () => (/* binding */ c),
-/* harmony export */   requireNonNullish: () => (/* binding */ on),
-/* harmony export */   requireObjectLike: () => (/* binding */ de),
-/* harmony export */   requirePositiveInteger: () => (/* binding */ d),
-/* harmony export */   requirePositiveIntegerOrUndefined: () => (/* binding */ S),
-/* harmony export */   requireString: () => (/* binding */ m),
-/* harmony export */   requireStringOrUndefined: () => (/* binding */ l),
-/* harmony export */   resolveCalendarId: () => (/* binding */ an),
-/* harmony export */   resolveTimeZoneId: () => (/* binding */ ye),
-/* harmony export */   roundDuration: () => (/* binding */ Gt),
-/* harmony export */   roundInstant: () => (/* binding */ ce),
-/* harmony export */   roundPlainDateTime: () => (/* binding */ dt),
-/* harmony export */   roundPlainTime: () => (/* binding */ Ee),
-/* harmony export */   roundZonedDateTime: () => (/* binding */ Pn),
-/* harmony export */   slotsWithCalendar: () => (/* binding */ it),
-/* harmony export */   slotsWithTimeZone: () => (/* binding */ On),
-/* harmony export */   timeConfig: () => (/* binding */ r),
-/* harmony export */   timeFieldNamesAsc: () => (/* binding */ w),
-/* harmony export */   totalDuration: () => (/* binding */ Ut),
-/* harmony export */   unitNamesAsc: () => (/* binding */ Et),
-/* harmony export */   validateTimeZoneGap: () => (/* binding */ ne),
-/* harmony export */   validateTimeZoneOffset: () => (/* binding */ ae),
-/* harmony export */   yearMonthConfig: () => (/* binding */ a),
-/* harmony export */   zonedConfig: () => (/* binding */ s),
-/* harmony export */   zonedDateTimeToInstant: () => (/* binding */ Zn),
-/* harmony export */   zonedDateTimeToPlainDate: () => (/* binding */ Bt),
-/* harmony export */   zonedDateTimeToPlainDateTime: () => (/* binding */ ht),
-/* harmony export */   zonedDateTimeToPlainMonthDay: () => (/* binding */ Fn),
-/* harmony export */   zonedDateTimeToPlainTime: () => (/* binding */ Re),
-/* harmony export */   zonedDateTimeToPlainYearMonth: () => (/* binding */ bn),
-/* harmony export */   zonedDateTimeWithFields: () => (/* binding */ Sn),
-/* harmony export */   zonedDateTimeWithPlainDate: () => (/* binding */ Tn),
-/* harmony export */   zonedDateTimeWithPlainTime: () => (/* binding */ pn),
-/* harmony export */   zonedDateTimesEqual: () => (/* binding */ gn),
-/* harmony export */   zonedEpochSlotsToIso: () => (/* binding */ fn)
-/* harmony export */ });
-function clampProp(e, n, t, o, r) {
-  return clampEntity(n, getDefinedProp(e, n), t, o, r);
-}
-
-function clampEntity(e, n, t, o, r, i) {
-  const a = clampNumber(n, t, o);
-  if (r && n !== a) {
-    throw new RangeError(numberOutOfRange(e, n, t, o, i));
-  }
-  return a;
-}
-
-function getDefinedProp(e, n) {
-  const t = e[n];
-  if (void 0 === t) {
-    throw new TypeError(missingField(n));
-  }
-  return t;
-}
-
-function z(e) {
-  return null !== e && /object|function/.test(typeof e);
-}
-
-function Jn(e, n = Map) {
-  const t = new n;
-  return (n, ...o) => {
-    if (t.has(n)) {
-      return t.get(n);
-    }
-    const r = e(n, ...o);
-    return t.set(n, r), r;
-  };
-}
-
-function D(e) {
-  return p({
-    name: e
-  }, 1);
-}
-
-function p(e, n) {
-  return T((e => ({
-    value: e,
-    configurable: 1,
-    writable: !n
-  })), e);
-}
-
-function O(e) {
-  return T((e => ({
-    get: e,
-    configurable: 1
-  })), e);
-}
-
-function h(e) {
-  return {
-    [Symbol.toStringTag]: {
-      value: e,
-      configurable: 1
-    }
-  };
-}
-
-function zipProps(e, n) {
-  const t = {};
-  let o = e.length;
-  for (const r of n) {
-    t[e[--o]] = r;
-  }
-  return t;
-}
-
-function T(e, n, t) {
-  const o = {};
-  for (const r in n) {
-    o[r] = e(n[r], r, t);
-  }
-  return o;
-}
-
-function b(e, n, t) {
-  const o = {};
-  for (let r = 0; r < n.length; r++) {
-    const i = n[r];
-    o[i] = e(i, r, t);
-  }
-  return o;
-}
-
-function remapProps(e, n, t) {
-  const o = {};
-  for (let r = 0; r < e.length; r++) {
-    o[n[r]] = t[e[r]];
-  }
-  return o;
-}
-
-function Vn(e, n) {
-  const t = {};
-  for (const o of e) {
-    t[o] = n[o];
-  }
-  return t;
-}
-
-function V(e, n) {
-  const t = {};
-  for (const o in n) {
-    e.has(o) || (t[o] = n[o]);
-  }
-  return t;
-}
-
-function nn(e) {
-  e = {
-    ...e
-  };
-  const n = Object.keys(e);
-  for (const t of n) {
-    void 0 === e[t] && delete e[t];
-  }
-  return e;
-}
-
-function C(e, n) {
-  for (const t of n) {
-    if (!(t in e)) {
-      return 0;
-    }
-  }
-  return 1;
-}
-
-function allPropsEqual(e, n, t) {
-  for (const o of e) {
-    if (n[o] !== t[o]) {
-      return 0;
-    }
-  }
-  return 1;
-}
-
-function zeroOutProps(e, n, t) {
-  const o = {
-    ...t
-  };
-  for (let t = 0; t < n; t++) {
-    o[e[t]] = 0;
-  }
-  return o;
-}
-
-function E(e, ...n) {
-  return (...t) => e(...n, ...t);
-}
-
-function capitalize(e) {
-  return e[0].toUpperCase() + e.substring(1);
-}
-
-function sortStrings(e) {
-  return e.slice().sort();
-}
-
-function padNumber(e, n) {
-  return String(n).padStart(e, "0");
-}
-
-function compareNumbers(e, n) {
-  return Math.sign(e - n);
-}
-
-function clampNumber(e, n, t) {
-  return Math.min(Math.max(e, n), t);
-}
-
-function divModFloor(e, n) {
-  return [ Math.floor(e / n), modFloor(e, n) ];
-}
-
-function modFloor(e, n) {
-  return (e % n + n) % n;
-}
-
-function divModTrunc(e, n) {
-  return [ divTrunc(e, n), modTrunc(e, n) ];
-}
-
-function divTrunc(e, n) {
-  return Math.trunc(e / n) || 0;
-}
-
-function modTrunc(e, n) {
-  return e % n || 0;
-}
-
-function hasHalf(e) {
-  return .5 === Math.abs(e % 1);
-}
-
-function givenFieldsToBigNano(e, n, t) {
-  let o = 0, r = 0;
-  for (let i = 0; i <= n; i++) {
-    const n = e[t[i]], a = Xr[i], s = Qr / a, [c, u] = divModTrunc(n, s);
-    o += u * a, r += c;
-  }
-  const [i, a] = divModTrunc(o, Qr);
-  return [ r + i, a ];
-}
-
-function nanoToGivenFields(e, n, t) {
-  const o = {};
-  for (let r = n; r >= 0; r--) {
-    const n = Xr[r];
-    o[t[r]] = divTrunc(e, n), e = modTrunc(e, n);
-  }
-  return o;
-}
-
-function un(e) {
-  return e === X ? si : [];
-}
-
-function cn(e) {
-  return e === X ? li : [];
-}
-
-function ln(e) {
-  return e === X ? [ "year", "day" ] : [];
-}
-
-function l(e) {
-  if (void 0 !== e) {
-    return m(e);
-  }
-}
-
-function S(e) {
-  if (void 0 !== e) {
-    return d(e);
-  }
-}
-
-function c(e) {
-  if (void 0 !== e) {
-    return u(e);
-  }
-}
-
-function d(e) {
-  return requireNumberIsPositive(u(e));
-}
-
-function u(e) {
-  return requireNumberIsInteger(Mi(e));
-}
-
-function on(e) {
-  if (null == e) {
-    throw new TypeError("Cannot be null or undefined");
-  }
-  return e;
-}
-
-function requirePropDefined(e, n) {
-  if (null == n) {
-    throw new RangeError(missingField(e));
-  }
-  return n;
-}
-
-function de(e) {
-  if (!z(e)) {
-    throw new TypeError(hr);
-  }
-  return e;
-}
-
-function requireType(e, n, t = e) {
-  if (typeof n !== e) {
-    throw new TypeError(invalidEntity(t, n));
-  }
-  return n;
-}
-
-function requireNumberIsInteger(e, n = "number") {
-  if (!Number.isInteger(e)) {
-    throw new RangeError(expectedInteger(n, e));
-  }
-  return e || 0;
-}
-
-function requireNumberIsPositive(e, n = "number") {
-  if (e <= 0) {
-    throw new RangeError(expectedPositive(n, e));
-  }
-  return e;
-}
-
-function toString(e) {
-  if ("symbol" == typeof e) {
-    throw new TypeError(pr);
-  }
-  return String(e);
-}
-
-function toStringViaPrimitive(e, n) {
-  return z(e) ? String(e) : m(e, n);
-}
-
-function toBigInt(e) {
-  if ("string" == typeof e) {
-    return BigInt(e);
-  }
-  if ("bigint" != typeof e) {
-    throw new TypeError(invalidBigInt(e));
-  }
-  return e;
-}
-
-function toNumber(e, n = "number") {
-  if ("bigint" == typeof e) {
-    throw new TypeError(forbiddenBigIntToNumber(n));
-  }
-  if (e = Number(e), !Number.isFinite(e)) {
-    throw new RangeError(expectedFinite(n, e));
-  }
-  return e;
-}
-
-function toInteger(e, n) {
-  return Math.trunc(toNumber(e, n)) || 0;
-}
-
-function toStrictInteger(e, n) {
-  return requireNumberIsInteger(toNumber(e, n), n);
-}
-
-function toPositiveInteger(e, n) {
-  return requireNumberIsPositive(toInteger(e, n), n);
-}
-
-function createBigNano(e, n) {
-  let [t, o] = divModTrunc(n, Qr), r = e + t;
-  const i = Math.sign(r);
-  return i && i === -Math.sign(o) && (r -= i, o += i * Qr), [ r, o ];
-}
-
-function addBigNanos(e, n, t = 1) {
-  return createBigNano(e[0] + n[0] * t, e[1] + n[1] * t);
-}
-
-function moveBigNano(e, n) {
-  return createBigNano(e[0], e[1] + n);
-}
-
-function re(e, n) {
-  return addBigNanos(n, e, -1);
-}
-
-function te(e, n) {
-  return compareNumbers(e[0], n[0]) || compareNumbers(e[1], n[1]);
-}
-
-function bigNanoOutside(e, n, t) {
-  return -1 === te(e, n) || 1 === te(e, t);
-}
-
-function bigIntToBigNano(e, n = 1) {
-  const t = BigInt(Qr / n);
-  return [ Number(e / t), Number(e % t) * n ];
-}
-
-function he(e, n = 1) {
-  const t = Qr / n, [o, r] = divModTrunc(e, t);
-  return [ o, r * n ];
-}
-
-function bigNanoToBigInt(e, n = 1) {
-  const [t, o] = e, r = Math.floor(o / n), i = Qr / n;
-  return BigInt(t) * BigInt(i) + BigInt(r);
-}
-
-function oe(e, n = 1, t) {
-  const [o, r] = e, [i, a] = divModTrunc(r, n);
-  return o * (Qr / n) + (i + (t ? a / n : 0));
-}
-
-function divModBigNano(e, n, t = divModFloor) {
-  const [o, r] = e, [i, a] = t(r, n);
-  return [ o * (Qr / n) + i, a ];
-}
-
-function hashIntlFormatParts(e, n) {
-  const t = e.formatToParts(n), o = {};
-  for (const e of t) {
-    o[e.type] = e.value;
-  }
-  return o;
-}
-
-function checkIsoYearMonthInBounds(e) {
-  return clampProp(e, "isoYear", Li, Ai, 1), e.isoYear === Li ? clampProp(e, "isoMonth", 4, 12, 1) : e.isoYear === Ai && clampProp(e, "isoMonth", 1, 9, 1), 
-  e;
-}
-
-function checkIsoDateInBounds(e) {
-  return checkIsoDateTimeInBounds({
-    ...e,
-    ...Dt,
-    isoHour: 12
-  }), e;
-}
-
-function checkIsoDateTimeInBounds(e) {
-  const n = clampProp(e, "isoYear", Li, Ai, 1), t = n === Li ? 1 : n === Ai ? -1 : 0;
-  return t && checkEpochNanoInBounds(isoToEpochNano({
-    ...e,
-    isoDay: e.isoDay + t,
-    isoNanosecond: e.isoNanosecond - t
-  })), e;
-}
-
-function checkEpochNanoInBounds(e) {
-  if (!e || bigNanoOutside(e, Ui, qi)) {
-    throw new RangeError(Cr);
-  }
-  return e;
-}
-
-function isoTimeFieldsToNano(e) {
-  return givenFieldsToBigNano(e, 5, j)[1];
-}
-
-function nanoToIsoTimeAndDay(e) {
-  const [n, t] = divModFloor(e, Qr);
-  return [ nanoToGivenFields(t, 5, j), n ];
-}
-
-function epochNanoToSec(e) {
-  return epochNanoToSecMod(e)[0];
-}
-
-function epochNanoToSecMod(e) {
-  return divModBigNano(e, _r);
-}
-
-function isoToEpochMilli(e) {
-  return isoArgsToEpochMilli(e.isoYear, e.isoMonth, e.isoDay, e.isoHour, e.isoMinute, e.isoSecond, e.isoMillisecond);
-}
-
-function isoToEpochNano(e) {
-  const n = isoToEpochMilli(e);
-  if (void 0 !== n) {
-    const [t, o] = divModTrunc(n, Gr);
-    return [ t, o * be + (e.isoMicrosecond || 0) * Vr + (e.isoNanosecond || 0) ];
-  }
-}
-
-function isoToEpochNanoWithOffset(e, n) {
-  const [t, o] = nanoToIsoTimeAndDay(isoTimeFieldsToNano(e) - n);
-  return checkEpochNanoInBounds(isoToEpochNano({
-    ...e,
-    isoDay: e.isoDay + o,
-    ...t
-  }));
-}
-
-function isoArgsToEpochSec(...e) {
-  return isoArgsToEpochMilli(...e) / Hr;
-}
-
-function isoArgsToEpochMilli(...e) {
-  const [n, t] = isoToLegacyDate(...e), o = n.valueOf();
-  if (!isNaN(o)) {
-    return o - t * Gr;
-  }
-}
-
-function isoToLegacyDate(e, n = 1, t = 1, o = 0, r = 0, i = 0, a = 0) {
-  const s = e === Li ? 1 : e === Ai ? -1 : 0, c = new Date;
-  return c.setUTCHours(o, r, i, a), c.setUTCFullYear(e, n - 1, t + s), [ c, s ];
-}
-
-function Ie(e, n) {
-  let [t, o] = moveBigNano(e, n);
-  o < 0 && (o += Qr, t -= 1);
-  const [r, i] = divModFloor(o, be), [a, s] = divModFloor(i, Vr);
-  return epochMilliToIso(t * Gr + r, a, s);
-}
-
-function epochMilliToIso(e, n = 0, t = 0) {
-  const o = Math.ceil(Math.max(0, Math.abs(e) - zi) / Gr) * Math.sign(e), r = new Date(e - o * Gr);
-  return zipProps(wi, [ r.getUTCFullYear(), r.getUTCMonth() + 1, r.getUTCDate() + o, r.getUTCHours(), r.getUTCMinutes(), r.getUTCSeconds(), r.getUTCMilliseconds(), n, t ]);
-}
-
-function computeIsoDateParts(e) {
-  return [ e.isoYear, e.isoMonth, e.isoDay ];
-}
-
-function computeIsoMonthsInYear() {
-  return xi;
-}
-
-function computeIsoDaysInMonth(e, n) {
-  switch (n) {
-   case 2:
-    return computeIsoInLeapYear(e) ? 29 : 28;
-
-   case 4:
-   case 6:
-   case 9:
-   case 11:
-    return 30;
-  }
-  return 31;
-}
-
-function computeIsoDaysInYear(e) {
-  return computeIsoInLeapYear(e) ? 366 : 365;
-}
-
-function computeIsoInLeapYear(e) {
-  return e % 4 == 0 && (e % 100 != 0 || e % 400 == 0);
-}
-
-function computeIsoDayOfWeek(e) {
-  const [n, t] = isoToLegacyDate(e.isoYear, e.isoMonth, e.isoDay);
-  return modFloor(n.getUTCDay() - t, 7) || 7;
-}
-
-function computeGregoryEraParts({isoYear: e}) {
-  return e < 1 ? [ "bce", 1 - e ] : [ "ce", e ];
-}
-
-function computeJapaneseEraParts(e) {
-  const n = isoToEpochMilli(e);
-  if (n < $i) {
-    return computeGregoryEraParts(e);
-  }
-  const t = hashIntlFormatParts(La(Ti), n), {era: o, eraYear: r} = parseIntlYear(t, Ti);
-  return [ o, r ];
-}
-
-function checkIsoDateTimeFields(e) {
-  return checkIsoDateFields(e), constrainIsoTimeFields(e, 1), e;
-}
-
-function checkIsoDateFields(e) {
-  return constrainIsoDateFields(e, 1), e;
-}
-
-function isIsoDateFieldsValid(e) {
-  return allPropsEqual(Oi, e, constrainIsoDateFields(e));
-}
-
-function constrainIsoDateFields(e, n) {
-  const {isoYear: t} = e, o = clampProp(e, "isoMonth", 1, computeIsoMonthsInYear(), n);
-  return {
-    isoYear: t,
-    isoMonth: o,
-    isoDay: clampProp(e, "isoDay", 1, computeIsoDaysInMonth(t, o), n)
-  };
-}
-
-function constrainIsoTimeFields(e, n) {
-  return zipProps(j, [ clampProp(e, "isoHour", 0, 23, n), clampProp(e, "isoMinute", 0, 59, n), clampProp(e, "isoSecond", 0, 59, n), clampProp(e, "isoMillisecond", 0, 999, n), clampProp(e, "isoMicrosecond", 0, 999, n), clampProp(e, "isoNanosecond", 0, 999, n) ]);
-}
-
-function H(e) {
-  return void 0 === e ? 0 : ua(de(e));
-}
-
-function wn(e, n = 0) {
-  e = normalizeOptions(e);
-  const t = la(e), o = fa(e, n);
-  return [ ua(e), o, t ];
-}
-
-function ve(e) {
-  return la(normalizeOptions(e));
-}
-
-function _t(e) {
-  return e = normalizeOptions(e), sa(e, 9, 6, 1);
-}
-
-function refineDiffOptions(e, n, t, o = 9, r = 0, i = 4) {
-  n = normalizeOptions(n);
-  let a = sa(n, o, r), s = parseRoundingIncInteger(n), c = ha(n, i);
-  const u = aa(n, o, r, 1);
-  return null == a ? a = Math.max(t, u) : checkLargestSmallestUnit(a, u), s = refineRoundingInc(s, u, 1), 
-  e && (c = (e => e < 4 ? (e + 2) % 4 : e)(c)), [ a, u, s, c ];
-}
-
-function refineRoundingOptions(e, n = 6, t) {
-  let o = parseRoundingIncInteger(e = normalizeOptionsOrString(e, Hi));
-  const r = ha(e, 7);
-  let i = aa(e, n);
-  return i = requirePropDefined(Hi, i), o = refineRoundingInc(o, i, void 0, t), [ i, o, r ];
-}
-
-function refineDateDisplayOptions(e) {
-  return da(normalizeOptions(e));
-}
-
-function refineTimeDisplayOptions(e, n) {
-  return refineTimeDisplayTuple(normalizeOptions(e), n);
-}
-
-function refineTimeDisplayTuple(e, n = 4) {
-  const t = refineSubsecDigits(e);
-  return [ ha(e, 4), ...refineSmallestUnitAndSubsecDigits(aa(e, n), t) ];
-}
-
-function refineSmallestUnitAndSubsecDigits(e, n) {
-  return null != e ? [ Xr[e], e < 4 ? 9 - 3 * e : -1 ] : [ void 0 === n ? 1 : 10 ** (9 - n), n ];
-}
-
-function parseRoundingIncInteger(e) {
-  const n = e[_i];
-  return void 0 === n ? 1 : toInteger(n, _i);
-}
-
-function refineRoundingInc(e, n, t, o) {
-  const r = o ? Qr : Xr[n + 1];
-  if (r) {
-    const t = Xr[n];
-    if (r % ((e = clampEntity(_i, e, 1, r / t - (o ? 0 : 1), 1)) * t)) {
-      throw new RangeError(invalidEntity(_i, e));
-    }
-  } else {
-    e = clampEntity(_i, e, 1, t ? 10 ** 9 : 1, 1);
-  }
-  return e;
-}
-
-function refineSubsecDigits(e) {
-  let n = e[Ji];
-  if (void 0 !== n) {
-    if ("number" != typeof n) {
-      if ("auto" === toString(n)) {
-        return;
-      }
-      throw new RangeError(invalidEntity(Ji, n));
-    }
-    n = clampEntity(Ji, Math.floor(n), 0, 9, 1);
-  }
-  return n;
-}
-
-function normalizeOptions(e) {
-  return void 0 === e ? {} : de(e);
-}
-
-function normalizeOptionsOrString(e, n) {
-  return "string" == typeof e ? {
-    [n]: e
-  } : de(e);
-}
-
-function U(e) {
-  if (void 0 !== e) {
-    if (z(e)) {
-      return Object.assign(Object.create(null), e);
-    }
-    throw new TypeError(hr);
-  }
-}
-
-function overrideOverflowOptions(e, n) {
-  return e && Object.assign(Object.create(null), e, {
-    overflow: Xi[n]
-  });
-}
-
-function refineUnitOption(e, n, t = 9, o = 0, r) {
-  let i = n[e];
-  if (void 0 === i) {
-    return r ? o : void 0;
-  }
-  if (i = toString(i), "auto" === i) {
-    return r ? o : null;
-  }
-  let a = $r[i];
-  if (void 0 === a && (a = Ei[i]), void 0 === a) {
-    throw new RangeError(invalidChoice(e, i, $r));
-  }
-  return clampEntity(e, a, o, t, 1, Et), a;
-}
-
-function refineChoiceOption(e, n, t, o = 0) {
-  const r = t[e];
-  if (void 0 === r) {
-    return o;
-  }
-  const i = toString(r), a = n[i];
-  if (void 0 === a) {
-    throw new RangeError(invalidChoice(e, i, n));
-  }
-  return a;
-}
-
-function checkLargestSmallestUnit(e, n) {
-  if (n > e) {
-    throw new RangeError(Ar);
-  }
-}
-
-function _(e) {
-  return {
-    branding: Oe,
-    epochNanoseconds: e
-  };
-}
-
-function Yn(e, n, t) {
-  return {
-    branding: Te,
-    calendar: t,
-    timeZone: n,
-    epochNanoseconds: e
-  };
-}
-
-function ee(e, n = e.calendar) {
-  return {
-    branding: We,
-    calendar: n,
-    ...Vn(Yi, e)
-  };
-}
-
-function v(e, n = e.calendar) {
-  return {
-    branding: J,
-    calendar: n,
-    ...Vn(Bi, e)
-  };
-}
-
-function createPlainYearMonthSlots(e, n = e.calendar) {
-  return {
-    branding: L,
-    calendar: n,
-    ...Vn(Bi, e)
-  };
-}
-
-function createPlainMonthDaySlots(e, n = e.calendar) {
-  return {
-    branding: q,
-    calendar: n,
-    ...Vn(Bi, e)
-  };
-}
-
-function Ge(e) {
-  return {
-    branding: xe,
-    ...Vn(ki, e)
-  };
-}
-
-function Vt(e) {
-  return {
-    branding: qt,
-    sign: computeDurationSign(e),
-    ...Vn(Ni, e)
-  };
-}
-
-function M(e) {
-  return epochNanoToSec(e.epochNanoseconds);
-}
-
-function y(e) {
-  return divModBigNano(e.epochNanoseconds, be)[0];
-}
-
-function N(e) {
-  return bigNanoToBigInt(e.epochNanoseconds, Vr);
-}
-
-function B(e) {
-  return bigNanoToBigInt(e.epochNanoseconds);
-}
-
-function extractEpochNano(e) {
-  return e.epochNanoseconds;
-}
-
-function I(e) {
-  return "string" == typeof e ? e : m(e.id);
-}
-
-function isIdLikeEqual(e, n) {
-  return e === n || I(e) === I(n);
-}
-
-function Ut(e, n, t, o, r) {
-  const i = getMaxDurationUnit(o), [a, s] = ((e, n) => {
-    const t = n((e = normalizeOptionsOrString(e, Vi))[Ki]);
-    let o = ca(e);
-    return o = requirePropDefined(Vi, o), [ o, t ];
-  })(r, e);
-  if (isUniformUnit(Math.max(a, i), s)) {
-    return totalDayTimeDuration(o, a);
-  }
-  if (!s) {
-    throw new RangeError(zr);
-  }
-  const [c, u, l] = createMarkerSystem(n, t, s), f = createMarkerToEpochNano(l), d = createMoveMarker(l), m = createDiffMarkers(l), p = d(u, c, o), h = m(u, c, p, a);
-  return isUniformUnit(a, s) ? totalDayTimeDuration(h, a) : ((e, n, t, o, r, i, a) => {
-    const s = computeDurationSign(e), [c, u] = clampRelativeDuration(o, bi(t, e), t, s, r, i, a), l = computeEpochNanoFrac(n, c, u);
-    return e[F[t]] + l * s;
-  })(h, f(p), a, u, c, f, d);
-}
-
-function totalDayTimeDuration(e, n) {
-  return oe(durationFieldsToBigNano(e), Xr[n], 1);
-}
-
-function clampRelativeDuration(e, n, t, o, r, i, a) {
-  const s = F[t], c = {
-    ...n,
-    [s]: n[s] + o
-  }, u = a(e, r, n), l = a(e, r, c);
-  return [ i(u), i(l) ];
-}
-
-function computeEpochNanoFrac(e, n, t) {
-  const o = oe(re(n, t));
-  if (!o) {
-    throw new RangeError(vr);
-  }
-  return oe(re(n, e)) / o;
-}
-
-function ce(e, n) {
-  const [t, o, r] = refineRoundingOptions(n, 5, 1);
-  return _(roundBigNano(e.epochNanoseconds, t, o, r, 1));
-}
-
-function Pn(e, n, t) {
-  let {epochNanoseconds: o, timeZone: r, calendar: i} = n;
-  const [a, s, c] = refineRoundingOptions(t);
-  if (0 === a && 1 === s) {
-    return n;
-  }
-  const u = e(r);
-  if (6 === a) {
-    o = ((e, n, t, o) => {
-      const r = fn(t, n), [i, a] = e(r), s = t.epochNanoseconds, c = we(n, i), u = we(n, a);
-      if (bigNanoOutside(s, c, u)) {
-        throw new RangeError(vr);
-      }
-      return roundWithMode(computeEpochNanoFrac(s, c, u), o) ? u : c;
-    })(computeDayInterval, u, n, c);
-  } else {
-    const e = u.getOffsetNanosecondsFor(o);
-    o = getMatchingInstantFor(u, roundDateTime(Ie(o, e), a, s, c), e, 2, 0, 1);
-  }
-  return Yn(o, r, i);
-}
-
-function dt(e, n) {
-  return ee(roundDateTime(e, ...refineRoundingOptions(n)), e.calendar);
-}
-
-function Ee(e, n) {
-  const [t, o, r] = refineRoundingOptions(n, 5);
-  var i;
-  return Ge((i = r, roundTimeToNano(e, computeNanoInc(t, o), i)[0]));
-}
-
-function dn(e, n) {
-  const t = e(n.timeZone), o = fn(n, t), [r, i] = computeDayInterval(o), a = oe(re(we(t, r), we(t, i)), Kr, 1);
-  if (a <= 0) {
-    throw new RangeError(vr);
-  }
-  return a;
-}
-
-function Cn(e, n) {
-  const {timeZone: t, calendar: o} = n, r = ((e, n, t) => we(n, e(fn(t, n))))(computeDayFloor, e(t), n);
-  return Yn(r, t, o);
-}
-
-function roundDateTime(e, n, t, o) {
-  return roundDateTimeToNano(e, computeNanoInc(n, t), o);
-}
-
-function roundDateTimeToNano(e, n, t) {
-  const [o, r] = roundTimeToNano(e, n, t);
-  return checkIsoDateTimeInBounds({
-    ...moveByDays(e, r),
-    ...o
-  });
-}
-
-function roundTimeToNano(e, n, t) {
-  return nanoToIsoTimeAndDay(roundByInc(isoTimeFieldsToNano(e), n, t));
-}
-
-function roundToMinute(e) {
-  return roundByInc(e, Jr, 7);
-}
-
-function computeNanoInc(e, n) {
-  return Xr[e] * n;
-}
-
-function computeDayInterval(e) {
-  const n = computeDayFloor(e);
-  return [ n, moveByDays(n, 1) ];
-}
-
-function computeDayFloor(e) {
-  return Ci(6, e);
-}
-
-function roundDayTimeDurationByInc(e, n, t) {
-  const o = Math.min(getMaxDurationUnit(e), 6);
-  return nanoToDurationDayTimeFields(roundBigNanoByInc(durationFieldsToBigNano(e, o), n, t), o);
-}
-
-function roundRelativeDuration(e, n, t, o, r, i, a, s, c, u) {
-  if (0 === o && 1 === r) {
-    return e;
-  }
-  const l = isUniformUnit(o, s) ? isZonedEpochSlots(s) && o < 6 && t >= 6 ? nudgeZonedTimeDuration : nudgeDayTimeDuration : nudgeRelativeDuration;
-  let [f, d, m] = l(e, n, t, o, r, i, a, s, c, u);
-  return m && 7 !== o && (f = ((e, n, t, o, r, i, a, s) => {
-    const c = computeDurationSign(e);
-    for (let u = o + 1; u <= t; u++) {
-      if (7 === u && 7 !== t) {
-        continue;
-      }
-      const o = bi(u, e);
-      o[F[u]] += c;
-      const l = oe(re(a(s(r, i, o)), n));
-      if (l && Math.sign(l) !== c) {
-        break;
-      }
-      e = o;
-    }
-    return e;
-  })(f, d, t, Math.max(6, o), a, s, c, u)), f;
-}
-
-function roundBigNano(e, n, t, o, r) {
-  if (6 === n) {
-    const n = (e => e[0] + e[1] / Qr)(e);
-    return [ roundByInc(n, t, o), 0 ];
-  }
-  return roundBigNanoByInc(e, computeNanoInc(n, t), o, r);
-}
-
-function roundBigNanoByInc(e, n, t, o) {
-  let [r, i] = e;
-  o && i < 0 && (i += Qr, r -= 1);
-  const [a, s] = divModFloor(roundByInc(i, n, t), Qr);
-  return createBigNano(r + a, s);
-}
-
-function roundByInc(e, n, t) {
-  return roundWithMode(e / n, t) * n;
-}
-
-function roundWithMode(e, n) {
-  return ga[n](e);
-}
-
-function nudgeDayTimeDuration(e, n, t, o, r, i) {
-  const a = computeDurationSign(e), s = durationFieldsToBigNano(e), c = roundBigNano(s, o, r, i), u = re(s, c), l = Math.sign(c[0] - s[0]) === a, f = nanoToDurationDayTimeFields(c, Math.min(t, 6));
-  return [ {
-    ...e,
-    ...f
-  }, addBigNanos(n, u), l ];
-}
-
-function nudgeZonedTimeDuration(e, n, t, o, r, i, a, s, c, u) {
-  const l = computeDurationSign(e), f = oe(durationFieldsToBigNano(e, 5)), d = computeNanoInc(o, r);
-  let m = roundByInc(f, d, i);
-  const [p, h] = clampRelativeDuration(a, {
-    ...e,
-    ...Fi
-  }, 6, l, s, c, u), g = m - oe(re(p, h));
-  let T = 0;
-  g && Math.sign(g) !== l ? n = moveBigNano(p, m) : (T += l, m = roundByInc(g, d, i), 
-  n = moveBigNano(h, m));
-  const D = nanoToDurationTimeFields(m);
-  return [ {
-    ...e,
-    ...D,
-    days: e.days + T
-  }, n, Boolean(T) ];
-}
-
-function nudgeRelativeDuration(e, n, t, o, r, i, a, s, c, u) {
-  const l = computeDurationSign(e), f = F[o], d = bi(o, e);
-  7 === o && (e = {
-    ...e,
-    weeks: e.weeks + Math.trunc(e.days / 7)
-  });
-  const m = divTrunc(e[f], r) * r;
-  d[f] = m;
-  const [p, h] = clampRelativeDuration(a, d, o, r * l, s, c, u), g = m + computeEpochNanoFrac(n, p, h) * l * r, T = roundByInc(g, r, i), D = Math.sign(T - g) === l;
-  return d[f] = T, [ d, D ? h : p, D ];
-}
-
-function me(e, n, t, o) {
-  const [r, i, a, s] = (e => {
-    const n = refineTimeDisplayTuple(e = normalizeOptions(e));
-    return [ e.timeZone, ...n ];
-  })(o), c = void 0 !== r;
-  return ((e, n, t, o, r, i) => {
-    t = roundBigNanoByInc(t, r, o, 1);
-    const a = n.getOffsetNanosecondsFor(t);
-    return formatIsoDateTimeFields(Ie(t, a), i) + (e ? Fe(roundToMinute(a)) : "Z");
-  })(c, n(c ? e(r) : Ta), t.epochNanoseconds, i, a, s);
-}
-
-function In(e, n, t) {
-  const [o, r, i, a, s, c] = (e => {
-    e = normalizeOptions(e);
-    const n = da(e), t = refineSubsecDigits(e), o = pa(e), r = ha(e, 4), i = aa(e, 4);
-    return [ n, ma(e), o, r, ...refineSmallestUnitAndSubsecDigits(i, t) ];
-  })(t);
-  return ((e, n, t, o, r, i, a, s, c, u) => {
-    o = roundBigNanoByInc(o, c, s, 1);
-    const l = e(t).getOffsetNanosecondsFor(o);
-    return formatIsoDateTimeFields(Ie(o, l), u) + Fe(roundToMinute(l), a) + ((e, n) => 1 !== n ? "[" + (2 === n ? "!" : "") + I(e) + "]" : "")(t, i) + formatCalendar(n, r);
-  })(e, n.calendar, n.timeZone, n.epochNanoseconds, o, r, i, a, s, c);
-}
-
-function Tt(e, n) {
-  const [t, o, r, i] = (e => (e = normalizeOptions(e), [ da(e), ...refineTimeDisplayTuple(e) ]))(n);
-  return a = e.calendar, s = t, c = i, formatIsoDateTimeFields(roundDateTimeToNano(e, r, o), c) + formatCalendar(a, s);
-  // removed by dead control flow
- var a, s, c; 
-}
-
-function yt(e, n) {
-  return t = e.calendar, o = e, r = refineDateDisplayOptions(n), formatIsoDateFields(o) + formatCalendar(t, r);
-  // removed by dead control flow
- var t, o, r; 
-}
-
-function et(e, n) {
-  return formatDateLikeIso(e.calendar, formatIsoYearMonthFields, e, refineDateDisplayOptions(n));
-}
-
-function W(e, n) {
-  return formatDateLikeIso(e.calendar, formatIsoMonthDayFields, e, refineDateDisplayOptions(n));
-}
-
-function qe(e, n) {
-  const [t, o, r] = refineTimeDisplayOptions(n);
-  return i = r, formatIsoTimeFields(roundTimeToNano(e, o, t)[0], i);
-  // removed by dead control flow
- var i; 
-}
-
-function zt(e, n) {
-  const [t, o, r] = refineTimeDisplayOptions(n, 3);
-  return o > 1 && (e = {
-    ...e,
-    ...roundDayTimeDurationByInc(e, o, t)
-  }), ((e, n) => {
-    const {sign: t} = e, o = -1 === t ? negateDurationFields(e) : e, {hours: r, minutes: i} = o, [a, s] = divModBigNano(durationFieldsToBigNano(o, 3), _r, divModTrunc);
-    checkDurationTimeUnit(a);
-    const c = formatSubsecNano(s, n), u = n >= 0 || !t || c;
-    return (t < 0 ? "-" : "") + "P" + formatDurationFragments({
-      Y: formatDurationNumber(o.years),
-      M: formatDurationNumber(o.months),
-      W: formatDurationNumber(o.weeks),
-      D: formatDurationNumber(o.days)
-    }) + (r || i || a || u ? "T" + formatDurationFragments({
-      H: formatDurationNumber(r),
-      M: formatDurationNumber(i),
-      S: formatDurationNumber(a, u) + c
-    }) : "");
-  })(e, r);
-}
-
-function formatDateLikeIso(e, n, t, o) {
-  const r = I(e), i = o > 1 || 0 === o && r !== X;
-  return 1 === o ? r === X ? n(t) : formatIsoDateFields(t) : i ? formatIsoDateFields(t) + formatCalendarId(r, 2 === o) : n(t);
-}
-
-function formatDurationFragments(e) {
-  const n = [];
-  for (const t in e) {
-    const o = e[t];
-    o && n.push(o, t);
-  }
-  return n.join("");
-}
-
-function formatIsoDateTimeFields(e, n) {
-  return formatIsoDateFields(e) + "T" + formatIsoTimeFields(e, n);
-}
-
-function formatIsoDateFields(e) {
-  return formatIsoYearMonthFields(e) + "-" + xr(e.isoDay);
-}
-
-function formatIsoYearMonthFields(e) {
-  const {isoYear: n} = e;
-  return (n < 0 || n > 9999 ? getSignStr(n) + padNumber(6, Math.abs(n)) : padNumber(4, n)) + "-" + xr(e.isoMonth);
-}
-
-function formatIsoMonthDayFields(e) {
-  return xr(e.isoMonth) + "-" + xr(e.isoDay);
-}
-
-function formatIsoTimeFields(e, n) {
-  const t = [ xr(e.isoHour), xr(e.isoMinute) ];
-  return -1 !== n && t.push(xr(e.isoSecond) + ((e, n, t, o) => formatSubsecNano(e * be + n * Vr + t, o))(e.isoMillisecond, e.isoMicrosecond, e.isoNanosecond, n)), 
-  t.join(":");
-}
-
-function Fe(e, n = 0) {
-  if (1 === n) {
-    return "";
-  }
-  const [t, o] = divModFloor(Math.abs(e), Kr), [r, i] = divModFloor(o, Jr), [a, s] = divModFloor(i, _r);
-  return getSignStr(e) + xr(t) + ":" + xr(r) + (a || s ? ":" + xr(a) + formatSubsecNano(s) : "");
-}
-
-function formatCalendar(e, n) {
-  if (1 !== n) {
-    const t = I(e);
-    if (n > 1 || 0 === n && t !== X) {
-      return formatCalendarId(t, 2 === n);
-    }
-  }
-  return "";
-}
-
-function formatCalendarId(e, n) {
-  return "[" + (n ? "!" : "") + "u-ca=" + e + "]";
-}
-
-function formatSubsecNano(e, n) {
-  let t = padNumber(9, e);
-  return t = void 0 === n ? t.replace(Na, "") : t.slice(0, n), t ? "." + t : "";
-}
-
-function getSignStr(e) {
-  return e < 0 ? "-" : "+";
-}
-
-function formatDurationNumber(e, n) {
-  return e || n ? e.toLocaleString("fullwide", {
-    useGrouping: 0
-  }) : "";
-}
-
-function _zonedEpochSlotsToIso(e, n) {
-  const {epochNanoseconds: t} = e, o = (n.getOffsetNanosecondsFor ? n : n(e.timeZone)).getOffsetNanosecondsFor(t), r = Ie(t, o);
-  return {
-    calendar: e.calendar,
-    ...r,
-    offsetNanoseconds: o
-  };
-}
-
-function mn(e, n) {
-  const t = fn(n, e);
-  return {
-    calendar: n.calendar,
-    ...Vn(Yi, t),
-    offset: Fe(t.offsetNanoseconds),
-    timeZone: n.timeZone
-  };
-}
-
-function getMatchingInstantFor(e, n, t, o = 0, r = 0, i, a) {
-  if (void 0 !== t && 1 === o && (1 === o || a)) {
-    return isoToEpochNanoWithOffset(n, t);
-  }
-  const s = e.getPossibleInstantsFor(n);
-  if (void 0 !== t && 3 !== o) {
-    const e = ((e, n, t, o) => {
-      const r = isoToEpochNano(n);
-      o && (t = roundToMinute(t));
-      for (const n of e) {
-        let e = oe(re(n, r));
-        if (o && (e = roundToMinute(e)), e === t) {
-          return n;
-        }
-      }
-    })(s, n, t, i);
-    if (void 0 !== e) {
-      return e;
-    }
-    if (0 === o) {
-      throw new RangeError(kr);
-    }
-  }
-  return a ? isoToEpochNano(n) : we(e, n, r, s);
-}
-
-function we(e, n, t = 0, o = e.getPossibleInstantsFor(n)) {
-  if (1 === o.length) {
-    return o[0];
-  }
-  if (1 === t) {
-    throw new RangeError(Yr);
-  }
-  if (o.length) {
-    return o[3 === t ? 1 : 0];
-  }
-  const r = isoToEpochNano(n), i = ((e, n) => {
-    const t = e.getOffsetNanosecondsFor(moveBigNano(n, -Qr));
-    return ne(e.getOffsetNanosecondsFor(moveBigNano(n, Qr)) - t);
-  })(e, r), a = i * (2 === t ? -1 : 1);
-  return (o = e.getPossibleInstantsFor(Ie(r, a)))[2 === t ? 0 : o.length - 1];
-}
-
-function ae(e) {
-  if (Math.abs(e) >= Qr) {
-    throw new RangeError(wr);
-  }
-  return e;
-}
-
-function ne(e) {
-  if (e > Qr) {
-    throw new RangeError(Br);
-  }
-  return e;
-}
-
-function se(e, n, t) {
-  return _(checkEpochNanoInBounds(addBigNanos(n.epochNanoseconds, (e => {
-    if (durationHasDateParts(e)) {
-      throw new RangeError(qr);
-    }
-    return durationFieldsToBigNano(e, 5);
-  })(e ? negateDurationFields(t) : t))));
-}
-
-function hn(e, n, t, o, r, i = Object.create(null)) {
-  const a = n(o.timeZone), s = e(o.calendar);
-  return {
-    ...o,
-    ...moveZonedEpochs(a, s, o, t ? negateDurationFields(r) : r, i)
-  };
-}
-
-function ct(e, n, t, o, r = Object.create(null)) {
-  const {calendar: i} = t;
-  return ee(moveDateTime(e(i), t, n ? negateDurationFields(o) : o, r), i);
-}
-
-function bt(e, n, t, o, r) {
-  const {calendar: i} = t;
-  return v(moveDate(e(i), t, n ? negateDurationFields(o) : o, r), i);
-}
-
-function Qe(e, n, t, o, r = Object.create(null)) {
-  const i = t.calendar, a = e(i);
-  let s = moveToDayOfMonthUnsafe(a, t);
-  n && (o = xt(o)), o.sign < 0 && (s = a.dateAdd(s, {
-    ...Si,
-    months: 1
-  }), s = moveByDays(s, -1));
-  const c = a.dateAdd(s, o, r);
-  return createPlainYearMonthSlots(moveToDayOfMonthUnsafe(a, c), i);
-}
-
-function Ye(e, n, t) {
-  return Ge(moveTime(n, e ? negateDurationFields(t) : t)[0]);
-}
-
-function moveZonedEpochs(e, n, t, o, r) {
-  const i = durationFieldsToBigNano(o, 5);
-  let a = t.epochNanoseconds;
-  if (durationHasDateParts(o)) {
-    const s = fn(t, e);
-    a = addBigNanos(we(e, {
-      ...moveDate(n, s, {
-        ...o,
-        ...Fi
-      }, r),
-      ...Vn(j, s)
-    }), i);
-  } else {
-    a = addBigNanos(a, i), H(r);
-  }
-  return {
-    epochNanoseconds: checkEpochNanoInBounds(a)
-  };
-}
-
-function moveDateTime(e, n, t, o) {
-  const [r, i] = moveTime(n, t);
-  return checkIsoDateTimeInBounds({
-    ...moveDate(e, n, {
-      ...t,
-      ...Fi,
-      days: t.days + i
-    }, o),
-    ...r
-  });
-}
-
-function moveDate(e, n, t, o) {
-  if (t.years || t.months || t.weeks) {
-    return e.dateAdd(n, t, o);
-  }
-  H(o);
-  const r = t.days + durationFieldsToBigNano(t, 5)[0];
-  return r ? checkIsoDateInBounds(moveByDays(n, r)) : n;
-}
-
-function moveToDayOfMonthUnsafe(e, n, t = 1) {
-  return moveByDays(n, t - e.day(n));
-}
-
-function moveTime(e, n) {
-  const [t, o] = durationFieldsToBigNano(n, 5), [r, i] = nanoToIsoTimeAndDay(isoTimeFieldsToNano(e) + o);
-  return [ r, t + i ];
-}
-
-function moveByDays(e, n) {
-  return n ? {
-    ...e,
-    ...epochMilliToIso(isoToEpochMilli(e) + n * Gr)
-  } : e;
-}
-
-function createMarkerSystem(e, n, t) {
-  const o = e(t.calendar);
-  return isZonedEpochSlots(t) ? [ t, o, n(t.timeZone) ] : [ {
-    ...t,
-    ...Dt
-  }, o ];
-}
-
-function createMarkerToEpochNano(e) {
-  return e ? extractEpochNano : isoToEpochNano;
-}
-
-function createMoveMarker(e) {
-  return e ? E(moveZonedEpochs, e) : moveDateTime;
-}
-
-function createDiffMarkers(e) {
-  return e ? E(diffZonedEpochsExact, e) : diffDateTimesExact;
-}
-
-function isZonedEpochSlots(e) {
-  return e && e.epochNanoseconds;
-}
-
-function isUniformUnit(e, n) {
-  return e <= 6 - (isZonedEpochSlots(n) ? 1 : 0);
-}
-
-function Wt(e, n, t, o, r, i, a) {
-  const s = e(normalizeOptions(a).relativeTo), c = Math.max(getMaxDurationUnit(r), getMaxDurationUnit(i));
-  if (isUniformUnit(c, s)) {
-    return Vt(checkDurationUnits(((e, n, t, o) => {
-      const r = addBigNanos(durationFieldsToBigNano(e), durationFieldsToBigNano(n), o ? -1 : 1);
-      if (!Number.isFinite(r[0])) {
-        throw new RangeError(Cr);
-      }
-      return {
-        ...Si,
-        ...nanoToDurationDayTimeFields(r, t)
-      };
-    })(r, i, c, o)));
-  }
-  if (!s) {
-    throw new RangeError(zr);
-  }
-  o && (i = negateDurationFields(i));
-  const [u, l, f] = createMarkerSystem(n, t, s), d = createMoveMarker(f), m = createDiffMarkers(f), p = d(l, u, r);
-  return Vt(m(l, u, d(l, p, i), c));
-}
-
-function Gt(e, n, t, o, r) {
-  const i = getMaxDurationUnit(o), [a, s, c, u, l] = ((e, n, t) => {
-    e = normalizeOptionsOrString(e, Hi);
-    let o = sa(e);
-    const r = t(e[Ki]);
-    let i = parseRoundingIncInteger(e);
-    const a = ha(e, 7);
-    let s = aa(e);
-    if (void 0 === o && void 0 === s) {
-      throw new RangeError(Ur);
-    }
-    return null == s && (s = 0), null == o && (o = Math.max(s, n)), checkLargestSmallestUnit(o, s), 
-    i = refineRoundingInc(i, s, 1), [ o, s, i, a, r ];
-  })(r, i, e), f = Math.max(i, a);
-  if (!isZonedEpochSlots(l) && f <= 6) {
-    return Vt(checkDurationUnits(((e, n, t, o, r) => {
-      const i = roundBigNano(durationFieldsToBigNano(e), t, o, r);
-      return {
-        ...Si,
-        ...nanoToDurationDayTimeFields(i, n)
-      };
-    })(o, a, s, c, u)));
-  }
-  if (!l) {
-    throw new RangeError(zr);
-  }
-  const [d, m, p] = createMarkerSystem(n, t, l), h = createMarkerToEpochNano(p), g = createMoveMarker(p), T = createDiffMarkers(p), D = g(m, d, o);
-  let I = T(m, d, D, a);
-  const M = o.sign, N = computeDurationSign(I);
-  if (M && N && M !== N) {
-    throw new RangeError(vr);
-  }
-  return N && (I = roundRelativeDuration(I, h(D), a, s, c, u, m, d, h, g)), Vt(I);
-}
-
-function Rt(e) {
-  return -1 === e.sign ? xt(e) : e;
-}
-
-function xt(e) {
-  return Vt(negateDurationFields(e));
-}
-
-function negateDurationFields(e) {
-  const n = {};
-  for (const t of F) {
-    n[t] = -1 * e[t] || 0;
-  }
-  return n;
-}
-
-function Jt(e) {
-  return !e.sign;
-}
-
-function computeDurationSign(e, n = F) {
-  let t = 0;
-  for (const o of n) {
-    const n = Math.sign(e[o]);
-    if (n) {
-      if (t && t !== n) {
-        throw new RangeError(Rr);
-      }
-      t = n;
-    }
-  }
-  return t;
-}
-
-function checkDurationUnits(e) {
-  for (const n of vi) {
-    clampEntity(n, e[n], -ya, ya, 1);
-  }
-  return checkDurationTimeUnit(oe(durationFieldsToBigNano(e), _r)), e;
-}
-
-function checkDurationTimeUnit(e) {
-  if (!Number.isSafeInteger(e)) {
-    throw new RangeError(Zr);
-  }
-}
-
-function durationFieldsToBigNano(e, n = 6) {
-  return givenFieldsToBigNano(e, n, F);
-}
-
-function nanoToDurationDayTimeFields(e, n = 6) {
-  const [t, o] = e, r = nanoToGivenFields(o, n, F);
-  if (r[F[n]] += t * (Qr / Xr[n]), !Number.isFinite(r[F[n]])) {
-    throw new RangeError(Cr);
-  }
-  return r;
-}
-
-function nanoToDurationTimeFields(e, n = 5) {
-  return nanoToGivenFields(e, n, F);
-}
-
-function durationHasDateParts(e) {
-  return Boolean(computeDurationSign(e, Pi));
-}
-
-function getMaxDurationUnit(e) {
-  let n = 9;
-  for (;n > 0 && !e[F[n]]; n--) {}
-  return n;
-}
-
-function createSplitTuple(e, n) {
-  return [ e, n ];
-}
-
-function computePeriod(e) {
-  const n = Math.floor(e / Da) * Da;
-  return [ n, n + Da ];
-}
-
-function pe(e) {
-  const n = parseDateTimeLike(e = toStringViaPrimitive(e));
-  if (!n) {
-    throw new RangeError(failedParse(e));
-  }
-  let t;
-  if (n.m) {
-    t = 0;
-  } else {
-    if (!n.offset) {
-      throw new RangeError(failedParse(e));
-    }
-    t = parseOffsetNano(n.offset);
-  }
-  return n.timeZone && parseOffsetNanoMaybe(n.timeZone, 1), _(isoToEpochNanoWithOffset(checkIsoDateTimeFields(n), t));
-}
-
-function Xt(e) {
-  const n = parseDateTimeLike(m(e));
-  if (!n) {
-    throw new RangeError(failedParse(e));
-  }
-  if (n.timeZone) {
-    return finalizeZonedDateTime(n, n.offset ? parseOffsetNano(n.offset) : void 0);
-  }
-  if (n.m) {
-    throw new RangeError(failedParse(e));
-  }
-  return finalizeDate(n);
-}
-
-function Mn(e, n) {
-  const t = parseDateTimeLike(m(e));
-  if (!t || !t.timeZone) {
-    throw new RangeError(failedParse(e));
-  }
-  const {offset: o} = t, r = o ? parseOffsetNano(o) : void 0, [, i, a] = wn(n);
-  return finalizeZonedDateTime(t, r, i, a);
-}
-
-function parseOffsetNano(e) {
-  const n = parseOffsetNanoMaybe(e);
-  if (void 0 === n) {
-    throw new RangeError(failedParse(e));
-  }
-  return n;
-}
-
-function Ct(e) {
-  const n = parseDateTimeLike(m(e));
-  if (!n || n.m) {
-    throw new RangeError(failedParse(e));
-  }
-  return ee(finalizeDateTime(n));
-}
-
-function At(e) {
-  const n = parseDateTimeLike(m(e));
-  if (!n || n.m) {
-    throw new RangeError(failedParse(e));
-  }
-  return v(n.p ? finalizeDateTime(n) : finalizeDate(n));
-}
-
-function ot(e, n) {
-  const t = parseYearMonthOnly(m(n));
-  if (t) {
-    return requireIsoCalendar(t), createPlainYearMonthSlots(checkIsoYearMonthInBounds(checkIsoDateFields(t)));
-  }
-  const o = At(n);
-  return createPlainYearMonthSlots(moveToDayOfMonthUnsafe(e(o.calendar), o));
-}
-
-function requireIsoCalendar(e) {
-  if (e.calendar !== X) {
-    throw new RangeError(invalidSubstring(e.calendar));
-  }
-}
-
-function Q(e, n) {
-  const t = parseMonthDayOnly(m(n));
-  if (t) {
-    return requireIsoCalendar(t), createPlainMonthDaySlots(checkIsoDateFields(t));
-  }
-  const o = At(n), {calendar: r} = o, i = e(r), [a, s, c] = i.h(o), [u, l] = i.I(a, s), [f, d] = i.N(u, l, c);
-  return createPlainMonthDaySlots(checkIsoDateInBounds(i.P(f, d, c)), r);
-}
-
-function ze(e) {
-  let n, t = (e => {
-    const n = Ca.exec(e);
-    return n ? (organizeAnnotationParts(n[10]), organizeTimeParts(n)) : void 0;
-  })(m(e));
-  if (!t) {
-    if (t = parseDateTimeLike(e), !t) {
-      throw new RangeError(failedParse(e));
-    }
-    if (!t.p) {
-      throw new RangeError(failedParse(e));
-    }
-    if (t.m) {
-      throw new RangeError(invalidSubstring("Z"));
-    }
-    requireIsoCalendar(t);
-  }
-  if ((n = parseYearMonthOnly(e)) && isIsoDateFieldsValid(n)) {
-    throw new RangeError(failedParse(e));
-  }
-  if ((n = parseMonthDayOnly(e)) && isIsoDateFieldsValid(n)) {
-    throw new RangeError(failedParse(e));
-  }
-  return Ge(constrainIsoTimeFields(t, 1));
-}
-
-function Kt(e) {
-  const n = (e => {
-    const n = za.exec(e);
-    return n ? (e => {
-      function parseUnit(e, r, i) {
-        let a = 0, s = 0;
-        if (i && ([a, o] = divModFloor(o, Xr[i])), void 0 !== e) {
-          if (t) {
-            throw new RangeError(invalidSubstring(e));
-          }
-          s = (e => {
-            const n = parseInt(e);
-            if (!Number.isFinite(n)) {
-              throw new RangeError(invalidSubstring(e));
-            }
-            return n;
-          })(e), n = 1, r && (o = parseSubsecNano(r) * (Xr[i] / _r), t = 1);
-        }
-        return a + s;
-      }
-      let n = 0, t = 0, o = 0, r = {
-        ...zipProps(F, [ parseUnit(e[2]), parseUnit(e[3]), parseUnit(e[4]), parseUnit(e[5]), parseUnit(e[6], e[7], 5), parseUnit(e[8], e[9], 4), parseUnit(e[10], e[11], 3) ]),
-        ...nanoToGivenFields(o, 2, F)
-      };
-      if (!n) {
-        throw new RangeError(noValidFields(F));
-      }
-      return parseSign(e[1]) < 0 && (r = negateDurationFields(r)), r;
-    })(n) : void 0;
-  })(m(e));
-  if (!n) {
-    throw new RangeError(failedParse(e));
-  }
-  return Vt(checkDurationUnits(n));
-}
-
-function sn(e) {
-  const n = parseDateTimeLike(e) || parseYearMonthOnly(e) || parseMonthDayOnly(e);
-  return n ? n.calendar : e;
-}
-
-function Ne(e) {
-  const n = parseDateTimeLike(e);
-  return n && (n.timeZone || n.m && Ta || n.offset) || e;
-}
-
-function finalizeZonedDateTime(e, n, t = 0, o = 0) {
-  const r = ye(e.timeZone), i = ie(r);
-  return Yn(getMatchingInstantFor(i, checkIsoDateTimeFields(e), n, t, o, !i.v, e.m), r, an(e.calendar));
-}
-
-function finalizeDateTime(e) {
-  return resolveSlotsCalendar(checkIsoDateTimeInBounds(checkIsoDateTimeFields(e)));
-}
-
-function finalizeDate(e) {
-  return resolveSlotsCalendar(checkIsoDateInBounds(checkIsoDateFields(e)));
-}
-
-function resolveSlotsCalendar(e) {
-  return {
-    ...e,
-    calendar: an(e.calendar)
-  };
-}
-
-function parseDateTimeLike(e) {
-  const n = Ya.exec(e);
-  return n ? (e => {
-    const n = e[10], t = "Z" === (n || "").toUpperCase();
-    return {
-      isoYear: organizeIsoYearParts(e),
-      isoMonth: parseInt(e[4]),
-      isoDay: parseInt(e[5]),
-      ...organizeTimeParts(e.slice(5)),
-      ...organizeAnnotationParts(e[16]),
-      p: Boolean(e[6]),
-      m: t,
-      offset: t ? void 0 : n
-    };
-  })(n) : void 0;
-}
-
-function parseYearMonthOnly(e) {
-  const n = Ba.exec(e);
-  return n ? (e => ({
-    isoYear: organizeIsoYearParts(e),
-    isoMonth: parseInt(e[4]),
-    isoDay: 1,
-    ...organizeAnnotationParts(e[5])
-  }))(n) : void 0;
-}
-
-function parseMonthDayOnly(e) {
-  const n = ka.exec(e);
-  return n ? (e => ({
-    isoYear: ji,
-    isoMonth: parseInt(e[1]),
-    isoDay: parseInt(e[2]),
-    ...organizeAnnotationParts(e[3])
-  }))(n) : void 0;
-}
-
-function parseOffsetNanoMaybe(e, n) {
-  const t = Za.exec(e);
-  return t ? ((e, n) => {
-    const t = e[4] || e[5];
-    if (n && t) {
-      throw new RangeError(invalidSubstring(t));
-    }
-    return ae((parseInt0(e[2]) * Kr + parseInt0(e[3]) * Jr + parseInt0(e[4]) * _r + parseSubsecNano(e[5] || "")) * parseSign(e[1]));
-  })(t, n) : void 0;
-}
-
-function organizeIsoYearParts(e) {
-  const n = parseSign(e[1]), t = parseInt(e[2] || e[3]);
-  if (n < 0 && !t) {
-    throw new RangeError(invalidSubstring(-0));
-  }
-  return n * t;
-}
-
-function organizeTimeParts(e) {
-  const n = parseInt0(e[3]);
-  return {
-    ...nanoToIsoTimeAndDay(parseSubsecNano(e[4] || ""))[0],
-    isoHour: parseInt0(e[1]),
-    isoMinute: parseInt0(e[2]),
-    isoSecond: 60 === n ? 59 : n
-  };
-}
-
-function organizeAnnotationParts(e) {
-  let n, t;
-  const o = [];
-  if (e.replace(Ra, ((e, r, i) => {
-    const a = Boolean(r), [s, c] = i.split("=").reverse();
-    if (c) {
-      if ("u-ca" === c) {
-        o.push(s), n || (n = a);
-      } else if (a || /[A-Z]/.test(c)) {
-        throw new RangeError(invalidSubstring(e));
-      }
-    } else {
-      if (t) {
-        throw new RangeError(invalidSubstring(e));
-      }
-      t = s;
-    }
-    return "";
-  })), o.length > 1 && n) {
-    throw new RangeError(invalidSubstring(e));
-  }
-  return {
-    timeZone: t,
-    calendar: o[0] || X
-  };
-}
-
-function parseSubsecNano(e) {
-  return parseInt(e.padEnd(9, "0"));
-}
-
-function createRegExp(e) {
-  return new RegExp(`^${e}$`, "i");
-}
-
-function parseSign(e) {
-  return e && "+" !== e ? -1 : 1;
-}
-
-function parseInt0(e) {
-  return void 0 === e ? 0 : parseInt(e);
-}
-
-function Me(e) {
-  return ye(m(e));
-}
-
-function ye(e) {
-  const n = getTimeZoneEssence(e);
-  return "number" == typeof n ? Fe(n) : n ? (e => {
-    if (Ua.test(e)) {
-      throw new RangeError(br);
-    }
-    return e.toLowerCase().split("/").map(((e, n) => (e.length <= 3 || /\d/.test(e)) && !/etc|yap/.test(e) ? e.toUpperCase() : e.replace(/baja|dumont|[a-z]+/g, ((e, t) => e.length <= 2 && !n || "in" === e || "chat" === e ? e.toUpperCase() : e.length > 2 || !t ? capitalize(e).replace(/island|noronha|murdo|rivadavia|urville/, capitalize) : e)))).join("/");
-  })(e) : Ta;
-}
-
-function getTimeZoneAtomic(e) {
-  const n = getTimeZoneEssence(e);
-  return "number" == typeof n ? n : n ? n.resolvedOptions().timeZone : Ta;
-}
-
-function getTimeZoneEssence(e) {
-  const n = parseOffsetNanoMaybe(e = e.toUpperCase(), 1);
-  return void 0 !== n ? n : e !== Ta ? qa(e) : void 0;
-}
-
-function Ze(e, n) {
-  return te(e.epochNanoseconds, n.epochNanoseconds);
-}
-
-function yn(e, n) {
-  return te(e.epochNanoseconds, n.epochNanoseconds);
-}
-
-function $t(e, n, t, o, r, i) {
-  const a = e(normalizeOptions(i).relativeTo), s = Math.max(getMaxDurationUnit(o), getMaxDurationUnit(r));
-  if (allPropsEqual(F, o, r)) {
-    return 0;
-  }
-  if (isUniformUnit(s, a)) {
-    return te(durationFieldsToBigNano(o), durationFieldsToBigNano(r));
-  }
-  if (!a) {
-    throw new RangeError(zr);
-  }
-  const [c, u, l] = createMarkerSystem(n, t, a), f = createMarkerToEpochNano(l), d = createMoveMarker(l);
-  return te(f(d(u, c, o)), f(d(u, c, r)));
-}
-
-function gt(e, n) {
-  return rt(e, n) || He(e, n);
-}
-
-function rt(e, n) {
-  return compareNumbers(isoToEpochMilli(e), isoToEpochMilli(n));
-}
-
-function He(e, n) {
-  return compareNumbers(isoTimeFieldsToNano(e), isoTimeFieldsToNano(n));
-}
-
-function ue(e, n) {
-  return !Ze(e, n);
-}
-
-function gn(e, n) {
-  return !yn(e, n) && !!je(e.timeZone, n.timeZone) && isIdLikeEqual(e.calendar, n.calendar);
-}
-
-function ft(e, n) {
-  return !gt(e, n) && isIdLikeEqual(e.calendar, n.calendar);
-}
-
-function It(e, n) {
-  return !rt(e, n) && isIdLikeEqual(e.calendar, n.calendar);
-}
-
-function $e(e, n) {
-  return !rt(e, n) && isIdLikeEqual(e.calendar, n.calendar);
-}
-
-function x(e, n) {
-  return !rt(e, n) && isIdLikeEqual(e.calendar, n.calendar);
-}
-
-function Ve(e, n) {
-  return !He(e, n);
-}
-
-function je(e, n) {
-  if (e === n) {
-    return 1;
-  }
-  const t = I(e), o = I(n);
-  if (t === o) {
-    return 1;
-  }
-  try {
-    return getTimeZoneAtomic(t) === getTimeZoneAtomic(o);
-  } catch (e) {}
-}
-
-function le(e, n, t, o) {
-  const r = refineDiffOptions(e, U(o), 3, 5), i = diffEpochNanos(n.epochNanoseconds, t.epochNanoseconds, ...r);
-  return Vt(e ? negateDurationFields(i) : i);
-}
-
-function Dn(e, n, t, o, r, i) {
-  const a = getCommonCalendarSlot(o.calendar, r.calendar), s = U(i), [c, u, l, f] = refineDiffOptions(t, s, 5), d = o.epochNanoseconds, m = r.epochNanoseconds, p = te(m, d);
-  let h;
-  if (p) {
-    if (c < 6) {
-      h = diffEpochNanos(d, m, c, u, l, f);
-    } else {
-      const t = n(((e, n) => {
-        if (!je(e, n)) {
-          throw new RangeError(Fr);
-        }
-        return e;
-      })(o.timeZone, r.timeZone)), i = e(a);
-      h = diffZonedEpochsBig(i, t, o, r, p, c, s), h = roundRelativeDuration(h, m, c, u, l, f, i, o, extractEpochNano, E(moveZonedEpochs, t));
-    }
-  } else {
-    h = Si;
-  }
-  return Vt(t ? negateDurationFields(h) : h);
-}
-
-function ut(e, n, t, o, r) {
-  const i = getCommonCalendarSlot(t.calendar, o.calendar), a = U(r), [s, c, u, l] = refineDiffOptions(n, a, 6), f = isoToEpochNano(t), d = isoToEpochNano(o), m = te(d, f);
-  let p;
-  if (m) {
-    if (s <= 6) {
-      p = diffEpochNanos(f, d, s, c, u, l);
-    } else {
-      const n = e(i);
-      p = diffDateTimesBig(n, t, o, m, s, a), p = roundRelativeDuration(p, d, s, c, u, l, n, t, isoToEpochNano, moveDateTime);
-    }
-  } else {
-    p = Si;
-  }
-  return Vt(n ? negateDurationFields(p) : p);
-}
-
-function Ft(e, n, t, o, r) {
-  const i = getCommonCalendarSlot(t.calendar, o.calendar), a = U(r);
-  return diffDateLike(n, (() => e(i)), t, o, ...refineDiffOptions(n, a, 6, 9, 6), a);
-}
-
-function Xe(e, n, t, o, r) {
-  const i = getCommonCalendarSlot(t.calendar, o.calendar), a = U(r), s = refineDiffOptions(n, a, 9, 9, 8), c = e(i);
-  return diffDateLike(n, (() => c), moveToDayOfMonthUnsafe(c, t), moveToDayOfMonthUnsafe(c, o), ...s, a);
-}
-
-function diffDateLike(e, n, t, o, r, i, a, s, c) {
-  const u = isoToEpochNano(t), l = isoToEpochNano(o);
-  let f;
-  if (te(l, u)) {
-    if (6 === r) {
-      f = diffEpochNanos(u, l, r, i, a, s);
-    } else {
-      const e = n();
-      f = e.dateUntil(t, o, r, c), 6 === i && 1 === a || (f = roundRelativeDuration(f, l, r, i, a, s, e, t, isoToEpochNano, moveDate));
-    }
-  } else {
-    f = Si;
-  }
-  return Vt(e ? negateDurationFields(f) : f);
-}
-
-function Ae(e, n, t, o) {
-  const r = U(o), [i, a, s, c] = refineDiffOptions(e, r, 5, 5), u = roundByInc(diffTimes(n, t), computeNanoInc(a, s), c), l = {
-    ...Si,
-    ...nanoToDurationTimeFields(u, i)
-  };
-  return Vt(e ? negateDurationFields(l) : l);
-}
-
-function diffZonedEpochsExact(e, n, t, o, r, i) {
-  const a = te(o.epochNanoseconds, t.epochNanoseconds);
-  return a ? r < 6 ? diffEpochNanosExact(t.epochNanoseconds, o.epochNanoseconds, r) : diffZonedEpochsBig(n, e, t, o, a, r, i) : Si;
-}
-
-function diffDateTimesExact(e, n, t, o, r) {
-  const i = isoToEpochNano(n), a = isoToEpochNano(t), s = te(a, i);
-  return s ? o <= 6 ? diffEpochNanosExact(i, a, o) : diffDateTimesBig(e, n, t, s, o, r) : Si;
-}
-
-function diffZonedEpochsBig(e, n, t, o, r, i, a) {
-  const [s, c, u] = ((e, n, t, o) => {
-    function updateMid() {
-      return l = {
-        ...moveByDays(a, c++ * -o),
-        ...i
-      }, f = we(e, l), te(s, f) === -o;
-    }
-    const r = fn(n, e), i = Vn(j, r), a = fn(t, e), s = t.epochNanoseconds;
-    let c = 0;
-    const u = diffTimes(r, a);
-    let l, f;
-    if (Math.sign(u) === -o && c++, updateMid() && (-1 === o || updateMid())) {
-      throw new RangeError(vr);
-    }
-    const d = oe(re(f, s));
-    return [ r, l, d ];
-  })(n, t, o, r);
-  var l, f;
-  return {
-    ...6 === i ? (l = s, f = c, {
-      ...Si,
-      days: diffDays(l, f)
-    }) : e.dateUntil(s, c, i, a),
-    ...nanoToDurationTimeFields(u)
-  };
-}
-
-function diffDateTimesBig(e, n, t, o, r, i) {
-  const [a, s, c] = ((e, n, t) => {
-    let o = n, r = diffTimes(e, n);
-    return Math.sign(r) === -t && (o = moveByDays(n, -t), r += Qr * t), [ e, o, r ];
-  })(n, t, o);
-  return {
-    ...e.dateUntil(a, s, r, i),
-    ...nanoToDurationTimeFields(c)
-  };
-}
-
-function diffEpochNanos(e, n, t, o, r, i) {
-  return {
-    ...Si,
-    ...nanoToDurationDayTimeFields(roundBigNano(re(e, n), o, r, i), t)
-  };
-}
-
-function diffEpochNanosExact(e, n, t) {
-  return {
-    ...Si,
-    ...nanoToDurationDayTimeFields(re(e, n), t)
-  };
-}
-
-function diffDays(e, n) {
-  return diffEpochMilliByDay(isoToEpochMilli(e), isoToEpochMilli(n));
-}
-
-function diffEpochMilliByDay(e, n) {
-  return Math.trunc((n - e) / Gr);
-}
-
-function diffTimes(e, n) {
-  return isoTimeFieldsToNano(n) - isoTimeFieldsToNano(e);
-}
-
-function getCommonCalendarSlot(e, n) {
-  if (!isIdLikeEqual(e, n)) {
-    throw new RangeError(Er);
-  }
-  return e;
-}
-
-function createIntlCalendar(e) {
-  function epochMilliToIntlFields(e) {
-    return ((e, n) => ({
-      ...parseIntlYear(e, n),
-      F: e.month,
-      day: parseInt(e.day)
-    }))(hashIntlFormatParts(n, e), t);
-  }
-  const n = La(e), t = computeCalendarIdBase(e);
-  return {
-    id: e,
-    O: createIntlFieldCache(epochMilliToIntlFields),
-    B: createIntlYearDataCache(epochMilliToIntlFields)
-  };
-}
-
-function createIntlFieldCache(e) {
-  return Jn((n => {
-    const t = isoToEpochMilli(n);
-    return e(t);
-  }), WeakMap);
-}
-
-function createIntlYearDataCache(e) {
-  const n = e(0).year - Wi;
-  return Jn((t => {
-    let o, r = isoArgsToEpochMilli(t - n);
-    const i = [], a = [];
-    do {
-      r += 400 * Gr;
-    } while ((o = e(r)).year <= t);
-    do {
-      r += (1 - o.day) * Gr, o.year === t && (i.push(r), a.push(o.F)), r -= Gr;
-    } while ((o = e(r)).year >= t);
-    return {
-      k: i.reverse(),
-      C: Wr(a.reverse())
-    };
-  }));
-}
-
-function parseIntlYear(e, n) {
-  let t, o, r = parseIntlPartsYear(e);
-  if (e.era) {
-    const i = Di[n];
-    void 0 !== i && (t = "islamic" === n ? "ah" : e.era.normalize("NFD").toLowerCase().replace(/[^a-z0-9]/g, ""), 
-    "bc" === t || "b" === t ? t = "bce" : "ad" !== t && "a" !== t || (t = "ce"), o = r, 
-    r = eraYearToYear(o, i[t] || 0));
-  }
-  return {
-    era: t,
-    eraYear: o,
-    year: r
-  };
-}
-
-function parseIntlPartsYear(e) {
-  return parseInt(e.relatedYear || e.year);
-}
-
-function computeIntlDateParts(e) {
-  const {year: n, F: t, day: o} = this.O(e), {C: r} = this.B(n);
-  return [ n, r[t] + 1, o ];
-}
-
-function computeIntlEpochMilli(e, n = 1, t = 1) {
-  return this.B(e).k[n - 1] + (t - 1) * Gr;
-}
-
-function computeIntlLeapMonth(e) {
-  const n = queryMonthStrings(this, e), t = queryMonthStrings(this, e - 1), o = n.length;
-  if (o > t.length) {
-    const e = getCalendarLeapMonthMeta(this);
-    if (e < 0) {
-      return -e;
-    }
-    for (let e = 0; e < o; e++) {
-      if (n[e] !== t[e]) {
-        return e + 1;
-      }
-    }
-  }
-}
-
-function computeIntlDaysInYear(e) {
-  return diffEpochMilliByDay(computeIntlEpochMilli.call(this, e), computeIntlEpochMilli.call(this, e + 1));
-}
-
-function computeIntlDaysInMonth(e, n) {
-  const {k: t} = this.B(e);
-  let o = n + 1, r = t;
-  return o > t.length && (o = 1, r = this.B(e + 1).k), diffEpochMilliByDay(t[n - 1], r[o - 1]);
-}
-
-function computeIntlMonthsInYear(e) {
-  return this.B(e).k.length;
-}
-
-function queryMonthStrings(e, n) {
-  return Object.keys(e.B(n).C);
-}
-
-function rn(e) {
-  return an(m(e));
-}
-
-function an(e) {
-  if ((e = e.toLowerCase()) !== X && e !== gi && computeCalendarIdBase(e) !== computeCalendarIdBase(La(e).resolvedOptions().calendar)) {
-    throw new RangeError(invalidCalendar(e));
-  }
-  return e;
-}
-
-function computeCalendarIdBase(e) {
-  return "islamicc" === e && (e = "islamic"), e.split("-")[0];
-}
-
-function computeNativeWeekOfYear(e) {
-  return this.R(e)[0];
-}
-
-function computeNativeYearOfWeek(e) {
-  return this.R(e)[1];
-}
-
-function computeNativeDayOfYear(e) {
-  const [n] = this.h(e);
-  return diffEpochMilliByDay(this.q(n), isoToEpochMilli(e)) + 1;
-}
-
-function parseMonthCode(e) {
-  const n = Wa.exec(e);
-  if (!n) {
-    throw new RangeError(invalidMonthCode(e));
-  }
-  return [ parseInt(n[1]), Boolean(n[2]) ];
-}
-
-function monthCodeNumberToMonth(e, n, t) {
-  return e + (n || t && e >= t ? 1 : 0);
-}
-
-function monthToMonthCodeNumber(e, n) {
-  return e - (n && e >= n ? 1 : 0);
-}
-
-function eraYearToYear(e, n) {
-  return (n + e) * (Math.sign(n) || 1) || 0;
-}
-
-function getCalendarEraOrigins(e) {
-  return Di[getCalendarIdBase(e)];
-}
-
-function getCalendarLeapMonthMeta(e) {
-  return Ii[getCalendarIdBase(e)];
-}
-
-function getCalendarIdBase(e) {
-  return computeCalendarIdBase(e.id || X);
-}
-
-function Qt(e, n, t, o) {
-  const r = refineCalendarFields(t, o, en, [], ri);
-  if (void 0 !== r.timeZone) {
-    const o = t.dateFromFields(r), i = refineTimeBag(r), a = e(r.timeZone);
-    return {
-      epochNanoseconds: getMatchingInstantFor(n(a), {
-        ...o,
-        ...i
-      }, void 0 !== r.offset ? parseOffsetNano(r.offset) : void 0),
-      timeZone: a
-    };
-  }
-  return {
-    ...t.dateFromFields(r),
-    ...Dt
-  };
-}
-
-function jn(e, n, t, o, r, i) {
-  const a = refineCalendarFields(t, r, en, ti, ri), s = e(a.timeZone), [c, u, l] = wn(i), f = t.dateFromFields(a, overrideOverflowOptions(i, c)), d = refineTimeBag(a, c);
-  return Yn(getMatchingInstantFor(n(s), {
-    ...f,
-    ...d
-  }, void 0 !== a.offset ? parseOffsetNano(a.offset) : void 0, u, l), s, o);
-}
-
-function Pt(e, n, t) {
-  const o = refineCalendarFields(e, n, en, [], w), r = H(t);
-  return ee(checkIsoDateTimeInBounds({
-    ...e.dateFromFields(o, overrideOverflowOptions(t, r)),
-    ...refineTimeBag(o, r)
-  }));
-}
-
-function Yt(e, n, t, o = []) {
-  const r = refineCalendarFields(e, n, en, o);
-  return e.dateFromFields(r, t);
-}
-
-function nt(e, n, t, o) {
-  const r = refineCalendarFields(e, n, fi, o);
-  return e.yearMonthFromFields(r, t);
-}
-
-function K(e, n, t, o, r = []) {
-  const i = refineCalendarFields(e, t, en, r);
-  return n && void 0 !== i.month && void 0 === i.monthCode && void 0 === i.year && (i.year = ji), 
-  e.monthDayFromFields(i, o);
-}
-
-function Ue(e, n) {
-  const t = H(n);
-  return Ge(refineTimeBag(refineFields(e, ei, [], 1), t));
-}
-
-function Ht(e) {
-  const n = refineFields(e, Ni);
-  return Vt(checkDurationUnits({
-    ...Si,
-    ...n
-  }));
-}
-
-function refineCalendarFields(e, n, t, o = [], r = []) {
-  return refineFields(n, [ ...e.fields(t), ...r ].sort(), o);
-}
-
-function refineFields(e, n, t, o = !t) {
-  const r = {};
-  let i, a = 0;
-  for (const o of n) {
-    if (o === i) {
-      throw new RangeError(duplicateFields(o));
-    }
-    if ("constructor" === o || "__proto__" === o) {
-      throw new RangeError(tn(o));
-    }
-    let n = e[o];
-    if (void 0 !== n) {
-      a = 1, Ga[o] && (n = Ga[o](n, o)), r[o] = n;
-    } else if (t) {
-      if (t.includes(o)) {
-        throw new TypeError(missingField(o));
-      }
-      r[o] = hi[o];
-    }
-    i = o;
-  }
-  if (o && !a) {
-    throw new TypeError(noValidFields(n));
-  }
-  return r;
-}
-
-function refineTimeBag(e, n) {
-  return constrainIsoTimeFields(Ha({
-    ...hi,
-    ...e
-  }), n);
-}
-
-function Sn(e, n, t, o, r, i) {
-  const a = U(i), {calendar: s, timeZone: c} = t;
-  return Yn(((e, n, t, o, r) => {
-    const i = mergeCalendarFields(e, t, o, en, oi, ni), [a, s, c] = wn(r, 2);
-    return getMatchingInstantFor(n, {
-      ...e.dateFromFields(i, overrideOverflowOptions(r, a)),
-      ...refineTimeBag(i, a)
-    }, parseOffsetNano(i.offset), s, c);
-  })(e(s), n(c), o, r, a), c, s);
-}
-
-function at(e, n, t, o, r) {
-  const i = U(r);
-  return ee(((e, n, t, o) => {
-    const r = mergeCalendarFields(e, n, t, en, w), i = H(o);
-    return checkIsoDateTimeInBounds({
-      ...e.dateFromFields(r, overrideOverflowOptions(o, i)),
-      ...refineTimeBag(r, i)
-    });
-  })(e(n.calendar), t, o, i));
-}
-
-function Zt(e, n, t, o, r) {
-  const i = U(r);
-  return ((e, n, t, o) => {
-    const r = mergeCalendarFields(e, n, t, en);
-    return e.dateFromFields(r, o);
-  })(e(n.calendar), t, o, i);
-}
-
-function Ke(e, n, t, o, r) {
-  const i = U(r);
-  return createPlainYearMonthSlots(((e, n, t, o) => {
-    const r = mergeCalendarFields(e, n, t, fi);
-    return e.yearMonthFromFields(r, o);
-  })(e(n.calendar), t, o, i));
-}
-
-function k(e, n, t, o, r) {
-  const i = U(r);
-  return ((e, n, t, o) => {
-    const r = mergeCalendarFields(e, n, t, en);
-    return e.monthDayFromFields(r, o);
-  })(e(n.calendar), t, o, i);
-}
-
-function Be(e, n, t) {
-  return Ge(((e, n, t) => {
-    const o = H(t);
-    return refineTimeBag({
-      ...Vn(ei, e),
-      ...refineFields(n, ei)
-    }, o);
-  })(e, n, t));
-}
-
-function kt(e, n) {
-  return Vt((t = e, o = n, checkDurationUnits({
-    ...t,
-    ...refineFields(o, Ni)
-  })));
-  // removed by dead control flow
- var t, o; 
-}
-
-function mergeCalendarFields(e, n, t, o, r = [], i = []) {
-  const a = [ ...e.fields(o), ...r ].sort();
-  let s = refineFields(n, a, i);
-  const c = refineFields(t, a);
-  return s = e.mergeFields(s, c), refineFields(s, a, []);
-}
-
-function convertToPlainMonthDay(e, n) {
-  const t = refineCalendarFields(e, n, pi);
-  return e.monthDayFromFields(t);
-}
-
-function convertToPlainYearMonth(e, n, t) {
-  const o = refineCalendarFields(e, n, di);
-  return e.yearMonthFromFields(o, t);
-}
-
-function convertToIso(e, n, t, o, r) {
-  n = Vn(t = e.fields(t), n), o = refineFields(o, r = e.fields(r), []);
-  let i = e.mergeFields(n, o);
-  return i = refineFields(i, [ ...t, ...r ].sort(), []), e.dateFromFields(i);
-}
-
-function refineYear(e, n) {
-  let {era: t, eraYear: o, year: r} = n;
-  const i = getCalendarEraOrigins(e);
-  if (void 0 !== t || void 0 !== o) {
-    if (void 0 === t || void 0 === o) {
-      throw new TypeError(Dr);
-    }
-    if (!i) {
-      throw new RangeError(gr);
-    }
-    const e = i[t];
-    if (void 0 === e) {
-      throw new RangeError(invalidEra(t));
-    }
-    const n = eraYearToYear(o, e);
-    if (void 0 !== r && r !== n) {
-      throw new RangeError(Ir);
-    }
-    r = n;
-  } else if (void 0 === r) {
-    throw new TypeError(missingYear(i));
-  }
-  return r;
-}
-
-function refineMonth(e, n, t, o) {
-  let {month: r, monthCode: i} = n;
-  if (void 0 !== i) {
-    const n = ((e, n, t, o) => {
-      const r = e.U(t), [i, a] = parseMonthCode(n);
-      let s = monthCodeNumberToMonth(i, a, r);
-      if (a) {
-        const n = getCalendarLeapMonthMeta(e);
-        if (void 0 === n) {
-          throw new RangeError(Pr);
-        }
-        if (n > 0) {
-          if (s > n) {
-            throw new RangeError(Pr);
-          }
-          if (void 0 === r) {
-            if (1 === o) {
-              throw new RangeError(Pr);
-            }
-            s--;
-          }
-        } else {
-          if (s !== -n) {
-            throw new RangeError(Pr);
-          }
-          if (void 0 === r && 1 === o) {
-            throw new RangeError(Pr);
-          }
-        }
-      }
-      return s;
-    })(e, i, t, o);
-    if (void 0 !== r && r !== n) {
-      throw new RangeError(Mr);
-    }
-    r = n, o = 1;
-  } else if (void 0 === r) {
-    throw new TypeError(Nr);
-  }
-  return clampEntity("month", r, 1, e.L(t), o);
-}
-
-function refineDay(e, n, t, o, r) {
-  return clampProp(n, "day", 1, e.j(o, t), r);
-}
-
-function spliceFields(e, n, t, o) {
-  let r = 0;
-  const i = [];
-  for (const e of t) {
-    void 0 !== n[e] ? r = 1 : i.push(e);
-  }
-  if (Object.assign(e, n), r) {
-    for (const n of o || i) {
-      delete e[n];
-    }
-  }
-}
-
-function Se(e) {
-  return _(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(e))));
-}
-
-function vn(e, n, t, o, r = X) {
-  return Yn(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(t))), n(o), e(r));
-}
-
-function pt(e, n, t, o, r = 0, i = 0, a = 0, s = 0, c = 0, u = 0, l = X) {
-  return ee(checkIsoDateTimeInBounds(checkIsoDateTimeFields(T(toInteger, zipProps(wi, [ n, t, o, r, i, a, s, c, u ])))), e(l));
-}
-
-function Nt(e, n, t, o, r = X) {
-  return v(checkIsoDateInBounds(checkIsoDateFields(T(toInteger, {
-    isoYear: n,
-    isoMonth: t,
-    isoDay: o
-  }))), e(r));
-}
-
-function tt(e, n, t, o = X, r = 1) {
-  const i = toInteger(n), a = toInteger(t), s = e(o);
-  return createPlainYearMonthSlots(checkIsoYearMonthInBounds(checkIsoDateFields({
-    isoYear: i,
-    isoMonth: a,
-    isoDay: toInteger(r)
-  })), s);
-}
-
-function G(e, n, t, o = X, r = ji) {
-  const i = toInteger(n), a = toInteger(t), s = e(o);
-  return createPlainMonthDaySlots(checkIsoDateInBounds(checkIsoDateFields({
-    isoYear: toInteger(r),
-    isoMonth: i,
-    isoDay: a
-  })), s);
-}
-
-function ke(e = 0, n = 0, t = 0, o = 0, r = 0, i = 0) {
-  return Ge(constrainIsoTimeFields(T(toInteger, zipProps(j, [ e, n, t, o, r, i ])), 1));
-}
-
-function Lt(e = 0, n = 0, t = 0, o = 0, r = 0, i = 0, a = 0, s = 0, c = 0, u = 0) {
-  return Vt(checkDurationUnits(T(toStrictInteger, zipProps(F, [ e, n, t, o, r, i, a, s, c, u ]))));
-}
-
-function fe(e, n, t = X) {
-  return Yn(e.epochNanoseconds, n, t);
-}
-
-function Zn(e) {
-  return _(e.epochNanoseconds);
-}
-
-function ht(e, n) {
-  return ee(fn(n, e));
-}
-
-function Bt(e, n) {
-  return v(fn(n, e));
-}
-
-function bn(e, n, t) {
-  return convertToPlainYearMonth(e(n.calendar), t);
-}
-
-function Fn(e, n, t) {
-  return convertToPlainMonthDay(e(n.calendar), t);
-}
-
-function Re(e, n) {
-  return Ge(fn(n, e));
-}
-
-function mt(e, n, t, o) {
-  const r = ((e, n, t, o) => {
-    const r = ve(o);
-    return we(e(n), t, r);
-  })(e, t, n, o);
-  return Yn(checkEpochNanoInBounds(r), t, n.calendar);
-}
-
-function St(e, n, t) {
-  const o = e(n.calendar);
-  return createPlainYearMonthSlots({
-    ...n,
-    ...convertToPlainYearMonth(o, t)
-  });
-}
-
-function Ot(e, n, t) {
-  return convertToPlainMonthDay(e(n.calendar), t);
-}
-
-function vt(e, n, t, o, r) {
-  const i = e(r.timeZone), a = r.plainTime, s = void 0 !== a ? n(a) : Dt;
-  return Yn(we(t(i), {
-    ...o,
-    ...s
-  }), i, o.calendar);
-}
-
-function wt(e, n = Dt) {
-  return ee(checkIsoDateTimeInBounds({
-    ...e,
-    ...n
-  }));
-}
-
-function jt(e, n, t) {
-  return convertToPlainYearMonth(e(n.calendar), t);
-}
-
-function Mt(e, n, t) {
-  return convertToPlainMonthDay(e(n.calendar), t);
-}
-
-function _e(e, n, t, o) {
-  return ((e, n, t) => convertToIso(e, n, di, de(t), li))(e(n.calendar), t, o);
-}
-
-function R(e, n, t, o) {
-  return ((e, n, t) => convertToIso(e, n, pi, de(t), si))(e(n.calendar), t, o);
-}
-
-function Je(e, n, t, o, r) {
-  const i = de(r), a = n(i.plainDate), s = e(i.timeZone);
-  return Yn(we(t(s), {
-    ...a,
-    ...o
-  }), s, a.calendar);
-}
-
-function Le(e, n) {
-  return ee(checkIsoDateTimeInBounds({
-    ...e,
-    ...n
-  }));
-}
-
-function De(e) {
-  return _(checkEpochNanoInBounds(he(e, _r)));
-}
-
-function Pe(e) {
-  return _(checkEpochNanoInBounds(he(e, be)));
-}
-
-function Ce(e) {
-  return _(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(e), Vr)));
-}
-
-function ge(e) {
-  return _(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(e))));
-}
-
-function pn(e, n, t = Dt) {
-  const o = n.timeZone, r = e(o), i = {
-    ...fn(n, r),
-    ...t
-  };
-  return Yn(getMatchingInstantFor(r, i, i.offsetNanoseconds, 2), o, n.calendar);
-}
-
-function Tn(e, n, t) {
-  const o = n.timeZone, r = e(o), i = {
-    ...fn(n, r),
-    ...t
-  }, a = getPreferredCalendarSlot(n.calendar, t.calendar);
-  return Yn(getMatchingInstantFor(r, i, i.offsetNanoseconds, 2), o, a);
-}
-
-function lt(e, n = Dt) {
-  return ee({
-    ...e,
-    ...n
-  });
-}
-
-function st(e, n) {
-  return ee({
-    ...e,
-    ...n
-  }, getPreferredCalendarSlot(e.calendar, n.calendar));
-}
-
-function it(e, n) {
-  return {
-    ...e,
-    calendar: n
-  };
-}
-
-function On(e, n) {
-  return {
-    ...e,
-    timeZone: n
-  };
-}
-
-function getPreferredCalendarSlot(e, n) {
-  if (e === n) {
-    return e;
-  }
-  const t = I(e), o = I(n);
-  if (t === o || t === X) {
-    return n;
-  }
-  if (o === X) {
-    return e;
-  }
-  throw new RangeError(Er);
-}
-
-function createNativeOpsCreator(e, n) {
-  return t => t === X ? e : t === gi || t === Ti ? Object.assign(Object.create(e), {
-    id: t
-  }) : Object.assign(Object.create(n), Aa(t));
-}
-
-function createOptionsTransformer(e, n, t) {
-  const o = new Set(t);
-  return r => (((e, n) => {
-    for (const t of n) {
-      if (t in e) {
-        return 1;
-      }
-    }
-    return 0;
-  })(r = V(o, r), e) || Object.assign(r, n), t && (r.timeZone = Ta, [ "full", "long" ].includes(r.timeStyle) && (r.timeStyle = "medium")), 
-  r);
-}
-
-function e(e, n = qn) {
-  const [t, , , o] = e;
-  return (r, i = Ns, ...a) => {
-    const s = n(o && o(...a), r, i, t), c = s.resolvedOptions();
-    return [ s, ...toEpochMillis(e, c, a) ];
-  };
-}
-
-function qn(e, n, t, o) {
-  if (t = o(t), e) {
-    if (void 0 !== t.timeZone) {
-      throw new TypeError(Lr);
-    }
-    t.timeZone = e;
-  }
-  return new En(n, t);
-}
-
-function toEpochMillis(e, n, t) {
-  const [, o, r] = e;
-  return t.map((e => (e.calendar && ((e, n, t) => {
-    if ((t || e !== X) && e !== n) {
-      throw new RangeError(Er);
-    }
-  })(I(e.calendar), n.calendar, r), o(e, n))));
-}
-
-function An(e) {
-  const n = Bn();
-  return Ie(n, e.getOffsetNanosecondsFor(n));
-}
-
-function Bn() {
-  return he(Date.now(), be);
-}
-
-function Nn() {
-  return ys || (ys = (new En).resolvedOptions().timeZone);
-}
-
-const expectedInteger = (e, n) => `Non-integer ${e}: ${n}`, expectedPositive = (e, n) => `Non-positive ${e}: ${n}`, expectedFinite = (e, n) => `Non-finite ${e}: ${n}`, forbiddenBigIntToNumber = e => `Cannot convert bigint to ${e}`, invalidBigInt = e => `Invalid bigint: ${e}`, pr = "Cannot convert Symbol to string", hr = "Invalid object", numberOutOfRange = (e, n, t, o, r) => r ? numberOutOfRange(e, r[n], r[t], r[o]) : invalidEntity(e, n) + `; must be between ${t}-${o}`, invalidEntity = (e, n) => `Invalid ${e}: ${n}`, missingField = e => `Missing ${e}`, tn = e => `Invalid field ${e}`, duplicateFields = e => `Duplicate field ${e}`, noValidFields = e => "No valid fields: " + e.join(), Z = "Invalid bag", invalidChoice = (e, n, t) => invalidEntity(e, n) + "; must be " + Object.keys(t).join(), A = "Cannot use valueOf", P = "Invalid calling context", gr = "Forbidden era/eraYear", Dr = "Mismatching era/eraYear", Ir = "Mismatching year/eraYear", invalidEra = e => `Invalid era: ${e}`, missingYear = e => "Missing year" + (e ? "/era/eraYear" : ""), invalidMonthCode = e => `Invalid monthCode: ${e}`, Mr = "Mismatching month/monthCode", Nr = "Missing month/monthCode", yr = "Cannot guess year", Pr = "Invalid leap month", g = "Invalid protocol", vr = "Invalid protocol results", Er = "Mismatching Calendars", invalidCalendar = e => `Invalid Calendar: ${e}`, Fr = "Mismatching TimeZones", br = "Forbidden ICU TimeZone", wr = "Out-of-bounds offset", Br = "Out-of-bounds TimeZone gap", kr = "Invalid TimeZone offset", Yr = "Ambiguous offset", Cr = "Out-of-bounds date", Zr = "Out-of-bounds duration", Rr = "Cannot mix duration signs", zr = "Missing relativeTo", qr = "Cannot use large units", Ur = "Required smallestUnit or largestUnit", Ar = "smallestUnit > largestUnit", failedParse = e => `Cannot parse: ${e}`, invalidSubstring = e => `Invalid substring: ${e}`, Ln = e => `Cannot format ${e}`, kn = "Mismatching types for formatting", Lr = "Cannot specify TimeZone", Wr = /*@__PURE__*/ E(b, ((e, n) => n)), jr = /*@__PURE__*/ E(b, ((e, n, t) => t)), xr = /*@__PURE__*/ E(padNumber, 2), $r = {
-  nanosecond: 0,
-  microsecond: 1,
-  millisecond: 2,
-  second: 3,
-  minute: 4,
-  hour: 5,
-  day: 6,
-  week: 7,
-  month: 8,
-  year: 9
-}, Et = /*@__PURE__*/ Object.keys($r), Gr = 864e5, Hr = 1e3, Vr = 1e3, be = 1e6, _r = 1e9, Jr = 6e10, Kr = 36e11, Qr = 864e11, Xr = [ 1, Vr, be, _r, Jr, Kr, Qr ], w = /*@__PURE__*/ Et.slice(0, 6), ei = /*@__PURE__*/ sortStrings(w), ni = [ "offset" ], ti = [ "timeZone" ], oi = /*@__PURE__*/ w.concat(ni), ri = /*@__PURE__*/ oi.concat(ti), ii = [ "era", "eraYear" ], ai = /*@__PURE__*/ ii.concat([ "year" ]), si = [ "year" ], ci = [ "monthCode" ], ui = /*@__PURE__*/ [ "month" ].concat(ci), li = [ "day" ], fi = /*@__PURE__*/ ui.concat(si), di = /*@__PURE__*/ ci.concat(si), en = /*@__PURE__*/ li.concat(fi), mi = /*@__PURE__*/ li.concat(ui), pi = /*@__PURE__*/ li.concat(ci), hi = /*@__PURE__*/ jr(w, 0), X = "iso8601", gi = "gregory", Ti = "japanese", Di = {
-  [gi]: {
-    bce: -1,
-    ce: 0
-  },
-  [Ti]: {
-    bce: -1,
-    ce: 0,
-    meiji: 1867,
-    taisho: 1911,
-    showa: 1925,
-    heisei: 1988,
-    reiwa: 2018
-  },
-  ethioaa: {
-    era0: 0
-  },
-  ethiopic: {
-    era0: 0,
-    era1: 5500
-  },
-  coptic: {
-    era0: -1,
-    era1: 0
-  },
-  roc: {
-    beforeroc: -1,
-    minguo: 0
-  },
-  buddhist: {
-    be: 0
-  },
-  islamic: {
-    ah: 0
-  },
-  indian: {
-    saka: 0
-  },
-  persian: {
-    ap: 0
-  }
-}, Ii = {
-  chinese: 13,
-  dangi: 13,
-  hebrew: -6
-}, m = /*@__PURE__*/ E(requireType, "string"), f = /*@__PURE__*/ E(requireType, "boolean"), Mi = /*@__PURE__*/ E(requireType, "number"), $ = /*@__PURE__*/ E(requireType, "function"), F = /*@__PURE__*/ Et.map((e => e + "s")), Ni = /*@__PURE__*/ sortStrings(F), yi = /*@__PURE__*/ F.slice(0, 6), Pi = /*@__PURE__*/ F.slice(6), vi = /*@__PURE__*/ Pi.slice(1), Ei = /*@__PURE__*/ Wr(F), Si = /*@__PURE__*/ jr(F, 0), Fi = /*@__PURE__*/ jr(yi, 0), bi = /*@__PURE__*/ E(zeroOutProps, F), j = [ "isoNanosecond", "isoMicrosecond", "isoMillisecond", "isoSecond", "isoMinute", "isoHour" ], Oi = [ "isoDay", "isoMonth", "isoYear" ], wi = /*@__PURE__*/ j.concat(Oi), Bi = /*@__PURE__*/ sortStrings(Oi), ki = /*@__PURE__*/ sortStrings(j), Yi = /*@__PURE__*/ sortStrings(wi), Dt = /*@__PURE__*/ jr(ki, 0), Ci = /*@__PURE__*/ E(zeroOutProps, wi), En = Intl.DateTimeFormat, Zi = "en-GB", Ri = 1e8, zi = Ri * Gr, qi = [ Ri, 0 ], Ui = [ -Ri, 0 ], Ai = 275760, Li = -271821, Wi = 1970, ji = 1972, xi = 12, $i = /*@__PURE__*/ isoArgsToEpochMilli(1868, 9, 8), Gi = /*@__PURE__*/ Jn(computeJapaneseEraParts, WeakMap), Hi = "smallestUnit", Vi = "unit", _i = "roundingIncrement", Ji = "fractionalSecondDigits", Ki = "relativeTo", Qi = {
-  constrain: 0,
-  reject: 1
-}, Xi = /*@__PURE__*/ Object.keys(Qi), ea = {
-  compatible: 0,
-  reject: 1,
-  earlier: 2,
-  later: 3
-}, na = {
-  reject: 0,
-  use: 1,
-  prefer: 2,
-  ignore: 3
-}, ta = {
-  auto: 0,
-  never: 1,
-  critical: 2,
-  always: 3
-}, oa = {
-  auto: 0,
-  never: 1,
-  critical: 2
-}, ra = {
-  auto: 0,
-  never: 1
-}, ia = {
-  floor: 0,
-  halfFloor: 1,
-  ceil: 2,
-  halfCeil: 3,
-  trunc: 4,
-  halfTrunc: 5,
-  expand: 6,
-  halfExpand: 7,
-  halfEven: 8
-}, aa = /*@__PURE__*/ E(refineUnitOption, Hi), sa = /*@__PURE__*/ E(refineUnitOption, "largestUnit"), ca = /*@__PURE__*/ E(refineUnitOption, Vi), ua = /*@__PURE__*/ E(refineChoiceOption, "overflow", Qi), la = /*@__PURE__*/ E(refineChoiceOption, "disambiguation", ea), fa = /*@__PURE__*/ E(refineChoiceOption, "offset", na), da = /*@__PURE__*/ E(refineChoiceOption, "calendarName", ta), ma = /*@__PURE__*/ E(refineChoiceOption, "timeZoneName", oa), pa = /*@__PURE__*/ E(refineChoiceOption, "offset", ra), ha = /*@__PURE__*/ E(refineChoiceOption, "roundingMode", ia), L = "PlainYearMonth", q = "PlainMonthDay", J = "PlainDate", We = "PlainDateTime", xe = "PlainTime", Te = "ZonedDateTime", Oe = "Instant", qt = "Duration", ga = [ Math.floor, e => hasHalf(e) ? Math.floor(e) : Math.round(e), Math.ceil, e => hasHalf(e) ? Math.ceil(e) : Math.round(e), Math.trunc, e => hasHalf(e) ? Math.trunc(e) || 0 : Math.round(e), e => e < 0 ? Math.floor(e) : Math.ceil(e), e => Math.sign(e) * Math.round(Math.abs(e)) || 0, e => hasHalf(e) ? (e = Math.trunc(e) || 0) + e % 2 : Math.round(e) ], Ta = "UTC", Da = 5184e3, Ia = /*@__PURE__*/ isoArgsToEpochSec(1847), Ma = /*@__PURE__*/ isoArgsToEpochSec(/*@__PURE__*/ (/*@__PURE__*/ new Date).getUTCFullYear() + 10), Na = /0+$/, fn = /*@__PURE__*/ Jn(_zonedEpochSlotsToIso, WeakMap), ya = 2 ** 32 - 1, ie = /*@__PURE__*/ Jn((e => {
-  const n = getTimeZoneEssence(e);
-  return "object" == typeof n ? new IntlTimeZone(n) : new FixedTimeZone(n || 0);
-}));
-
-class FixedTimeZone {
-  constructor(e) {
-    this.v = e;
-  }
-  getOffsetNanosecondsFor() {
-    return this.v;
-  }
-  getPossibleInstantsFor(e) {
-    return [ isoToEpochNanoWithOffset(e, this.v) ];
-  }
-  l() {}
-}
-
-class IntlTimeZone {
-  constructor(e) {
-    this.$ = (e => {
-      function getOffsetSec(e) {
-        const i = clampNumber(e, o, r), [a, s] = computePeriod(i), c = n(a), u = n(s);
-        return c === u ? c : pinch(t(a, s), c, u, e);
-      }
-      function pinch(n, t, o, r) {
-        let i, a;
-        for (;(void 0 === r || void 0 === (i = r < n[0] ? t : r >= n[1] ? o : void 0)) && (a = n[1] - n[0]); ) {
-          const t = n[0] + Math.floor(a / 2);
-          e(t) === o ? n[1] = t : n[0] = t + 1;
-        }
-        return i;
-      }
-      const n = Jn(e), t = Jn(createSplitTuple);
-      let o = Ia, r = Ma;
-      return {
-        G(e) {
-          const n = getOffsetSec(e - 86400), t = getOffsetSec(e + 86400), o = e - n, r = e - t;
-          if (n === t) {
-            return [ o ];
-          }
-          const i = getOffsetSec(o);
-          return i === getOffsetSec(r) ? [ e - i ] : n > t ? [ o, r ] : [];
-        },
-        V: getOffsetSec,
-        l(e, i) {
-          const a = clampNumber(e, o, r);
-          let [s, c] = computePeriod(a);
-          const u = Da * i, l = i < 0 ? () => c > o || (o = a, 0) : () => s < r || (r = a, 
-          0);
-          for (;l(); ) {
-            const o = n(s), r = n(c);
-            if (o !== r) {
-              const n = t(s, c);
-              pinch(n, o, r);
-              const a = n[0];
-              if ((compareNumbers(a, e) || 1) === i) {
-                return a;
-              }
-            }
-            s += u, c += u;
-          }
-        }
-      };
-    })((e => n => {
-      const t = hashIntlFormatParts(e, n * Hr);
-      return isoArgsToEpochSec(parseIntlPartsYear(t), parseInt(t.month), parseInt(t.day), parseInt(t.hour), parseInt(t.minute), parseInt(t.second)) - n;
-    })(e));
-  }
-  getOffsetNanosecondsFor(e) {
-    return this.$.V(epochNanoToSec(e)) * _r;
-  }
-  getPossibleInstantsFor(e) {
-    const [n, t] = [ isoArgsToEpochSec((o = e).isoYear, o.isoMonth, o.isoDay, o.isoHour, o.isoMinute, o.isoSecond), o.isoMillisecond * be + o.isoMicrosecond * Vr + o.isoNanosecond ];
-    var o;
-    return this.$.G(n).map((e => checkEpochNanoInBounds(moveBigNano(he(e, _r), t))));
-  }
-  l(e, n) {
-    const [t, o] = epochNanoToSecMod(e), r = this.$.l(t + (n > 0 || o ? 1 : 0), n);
-    if (void 0 !== r) {
-      return he(r, _r);
-    }
-  }
-}
-
-const Pa = "([+−-])", va = "(?:[.,](\\d{1,9}))?", Ea = `(?:(?:${Pa}(\\d{6}))|(\\d{4}))-?(\\d{2})`, Sa = "(\\d{2})(?::?(\\d{2})(?::?(\\d{2})" + va + ")?)?", Fa = Pa + Sa, ba = Ea + "-?(\\d{2})(?:[T ]" + Sa + "(Z|" + Fa + ")?)?", Oa = "\\[(!?)([^\\]]*)\\]", wa = `((?:${Oa}){0,9})`, Ba = /*@__PURE__*/ createRegExp(Ea + wa), ka = /*@__PURE__*/ createRegExp("(?:--)?(\\d{2})-?(\\d{2})" + wa), Ya = /*@__PURE__*/ createRegExp(ba + wa), Ca = /*@__PURE__*/ createRegExp("T?" + Sa + "(?:" + Fa + ")?" + wa), Za = /*@__PURE__*/ createRegExp(Fa), Ra = /*@__PURE__*/ new RegExp(Oa, "g"), za = /*@__PURE__*/ createRegExp(`${Pa}?P(\\d+Y)?(\\d+M)?(\\d+W)?(\\d+D)?(?:T(?:(\\d+)${va}H)?(?:(\\d+)${va}M)?(?:(\\d+)${va}S)?)?`), qa = /*@__PURE__*/ Jn((e => new En(Zi, {
-  timeZone: e,
-  era: "short",
-  year: "numeric",
-  month: "numeric",
-  day: "numeric",
-  hour: "numeric",
-  minute: "numeric",
-  second: "numeric"
-}))), Ua = /^(AC|AE|AG|AR|AS|BE|BS|CA|CN|CS|CT|EA|EC|IE|IS|JS|MI|NE|NS|PL|PN|PR|PS|SS|VS)T$/, Aa = /*@__PURE__*/ Jn(createIntlCalendar), La = /*@__PURE__*/ Jn((e => new En(Zi, {
-  calendar: e,
-  timeZone: Ta,
-  era: "short",
-  year: "numeric",
-  month: "short",
-  day: "numeric"
-}))), Wa = /^M(\d{2})(L?)$/, ja = {
-  era: toStringViaPrimitive,
-  eraYear: toInteger,
-  year: toInteger,
-  month: toPositiveInteger,
-  monthCode: toStringViaPrimitive,
-  day: toPositiveInteger
-}, xa = /*@__PURE__*/ jr(w, toInteger), $a = /*@__PURE__*/ jr(F, toStrictInteger), Ga = /*@__PURE__*/ Object.assign({}, ja, xa, $a, {
-  offset: toStringViaPrimitive
-}), Ha = /*@__PURE__*/ E(remapProps, w, j), Va = {
-  dateAdd(e, n, t) {
-    const o = H(t);
-    let r, {years: i, months: a, weeks: s, days: c} = n;
-    if (c += durationFieldsToBigNano(n, 5)[0], i || a) {
-      r = ((e, n, t, o, r) => {
-        let [i, a, s] = e.h(n);
-        if (t) {
-          const [n, o] = e.I(i, a);
-          i += t, a = monthCodeNumberToMonth(n, o, e.U(i)), a = clampEntity("month", a, 1, e.L(i), r);
-        }
-        return o && ([i, a] = e._(i, a, o)), s = clampEntity("day", s, 1, e.j(i, a), r), 
-        e.q(i, a, s);
-      })(this, e, i, a, o);
-    } else {
-      if (!s && !c) {
-        return e;
-      }
-      r = isoToEpochMilli(e);
-    }
-    return r += (7 * s + c) * Gr, checkIsoDateInBounds(epochMilliToIso(r));
-  },
-  dateUntil(e, n, t) {
-    if (t <= 7) {
-      let o = 0, r = diffDays({
-        ...e,
-        ...Dt
-      }, {
-        ...n,
-        ...Dt
-      });
-      return 7 === t && ([o, r] = divModTrunc(r, 7)), {
-        ...Si,
-        weeks: o,
-        days: r
-      };
-    }
-    const o = this.h(e), r = this.h(n);
-    let [i, a, s] = ((e, n, t, o, r, i, a) => {
-      let s = r - n, c = i - t, u = a - o;
-      if (s || c) {
-        const l = Math.sign(s || c);
-        let f = e.j(r, i), d = 0;
-        if (Math.sign(u) === -l) {
-          const o = f;
-          [r, i] = e._(r, i, -l), s = r - n, c = i - t, f = e.j(r, i), d = l < 0 ? -o : f;
-        }
-        if (u = a - Math.min(o, f) + d, s) {
-          const [o, a] = e.I(n, t), [u, f] = e.I(r, i);
-          if (c = u - o || Number(f) - Number(a), Math.sign(c) === -l) {
-            const t = l < 0 && -e.L(r);
-            s = (r -= l) - n, c = i - monthCodeNumberToMonth(o, a, e.U(r)) + (t || e.L(r));
-          }
-        }
-      }
-      return [ s, c, u ];
-    })(this, ...o, ...r);
-    return 8 === t && (a += this.J(i, o[0]), i = 0), {
-      ...Si,
-      years: i,
-      months: a,
-      days: s
-    };
-  },
-  dateFromFields(e, n) {
-    const t = H(n), o = refineYear(this, e), r = refineMonth(this, e, o, t), i = refineDay(this, e, r, o, t);
-    return v(checkIsoDateInBounds(this.P(o, r, i)), this.id || X);
-  },
-  yearMonthFromFields(e, n) {
-    const t = H(n), o = refineYear(this, e), r = refineMonth(this, e, o, t);
-    return createPlainYearMonthSlots(checkIsoYearMonthInBounds(this.P(o, r, 1)), this.id || X);
-  },
-  monthDayFromFields(e, n) {
-    const t = H(n), o = !this.id, {monthCode: r, year: i, month: a} = e;
-    let s, c, u, l, f;
-    if (void 0 !== r) {
-      [s, c] = parseMonthCode(r), f = getDefinedProp(e, "day");
-      const n = this.N(s, c, f);
-      if (!n) {
-        throw new RangeError(yr);
-      }
-      if ([u, l] = n, void 0 !== a && a !== l) {
-        throw new RangeError(Mr);
-      }
-      o && (l = clampEntity("month", l, 1, xi, 1), f = clampEntity("day", f, 1, computeIsoDaysInMonth(void 0 !== i ? i : u, l), t));
-    } else {
-      u = void 0 === i && o ? ji : refineYear(this, e), l = refineMonth(this, e, u, t), 
-      f = refineDay(this, e, l, u, t);
-      const n = this.U(u);
-      c = l === n, s = monthToMonthCodeNumber(l, n);
-      const r = this.N(s, c, f);
-      if (!r) {
-        throw new RangeError(yr);
-      }
-      [u, l] = r;
-    }
-    return createPlainMonthDaySlots(checkIsoDateInBounds(this.P(u, l, f)), this.id || X);
-  },
-  fields(e) {
-    return getCalendarEraOrigins(this) && e.includes("year") ? [ ...e, ...ii ] : e;
-  },
-  mergeFields(e, n) {
-    const t = Object.assign(Object.create(null), e);
-    return spliceFields(t, n, ui), getCalendarEraOrigins(this) && (spliceFields(t, n, ai), 
-    this.id === Ti && spliceFields(t, n, mi, ii)), t;
-  },
-  inLeapYear(e) {
-    const [n] = this.h(e);
-    return this.K(n);
-  },
-  monthsInYear(e) {
-    const [n] = this.h(e);
-    return this.L(n);
-  },
-  daysInMonth(e) {
-    const [n, t] = this.h(e);
-    return this.j(n, t);
-  },
-  daysInYear(e) {
-    const [n] = this.h(e);
-    return this.X(n);
-  },
-  dayOfYear: computeNativeDayOfYear,
-  era(e) {
-    return this.ee(e)[0];
-  },
-  eraYear(e) {
-    return this.ee(e)[1];
-  },
-  monthCode(e) {
-    const [n, t] = this.h(e), [o, r] = this.I(n, t);
-    return ((e, n) => "M" + xr(e) + (n ? "L" : ""))(o, r);
-  },
-  dayOfWeek: computeIsoDayOfWeek,
-  daysInWeek() {
-    return 7;
-  }
-}, _a = {
-  dayOfYear: computeNativeDayOfYear,
-  h: computeIsoDateParts,
-  q: isoArgsToEpochMilli
-}, Ja = /*@__PURE__*/ Object.assign({}, _a, {
-  weekOfYear: computeNativeWeekOfYear,
-  yearOfWeek: computeNativeYearOfWeek,
-  R(e) {
-    function computeWeekShift(e) {
-      return (7 - e < n ? 7 : 0) - e;
-    }
-    function computeWeeksInYear(e) {
-      const n = computeIsoDaysInYear(l + e), t = e || 1, o = computeWeekShift(modFloor(a + n * t, 7));
-      return c = (n + (o - s) * t) / 7;
-    }
-    const n = this.id ? 1 : 4, t = computeIsoDayOfWeek(e), o = this.dayOfYear(e), r = modFloor(t - 1, 7), i = o - 1, a = modFloor(r - i, 7), s = computeWeekShift(a);
-    let c, u = Math.floor((i - s) / 7) + 1, l = e.isoYear;
-    return u ? u > computeWeeksInYear(0) && (u = 1, l++) : (u = computeWeeksInYear(-1), 
-    l--), [ u, l, c ];
-  }
-}), Ka = {
-  dayOfYear: computeNativeDayOfYear,
-  h: computeIntlDateParts,
-  q: computeIntlEpochMilli,
-  weekOfYear: computeNativeWeekOfYear,
-  yearOfWeek: computeNativeYearOfWeek,
-  R() {
-    return [];
-  }
-}, Y = /*@__PURE__*/ createNativeOpsCreator(/*@__PURE__*/ Object.assign({}, Va, Ja, {
-  h: computeIsoDateParts,
-  ee(e) {
-    return this.id === gi ? computeGregoryEraParts(e) : this.id === Ti ? Gi(e) : [];
-  },
-  I: (e, n) => [ n, 0 ],
-  N(e, n) {
-    if (!n) {
-      return [ ji, e ];
-    }
-  },
-  K: computeIsoInLeapYear,
-  U() {},
-  L: computeIsoMonthsInYear,
-  J: e => e * xi,
-  j: computeIsoDaysInMonth,
-  X: computeIsoDaysInYear,
-  P: (e, n, t) => ({
-    isoYear: e,
-    isoMonth: n,
-    isoDay: t
-  }),
-  q: isoArgsToEpochMilli,
-  _: (e, n, t) => (e += divTrunc(t, xi), (n += modTrunc(t, xi)) < 1 ? (e--, n += xi) : n > xi && (e++, 
-  n -= xi), [ e, n ]),
-  year(e) {
-    return e.isoYear;
-  },
-  month(e) {
-    return e.isoMonth;
-  },
-  day: e => e.isoDay
-}), /*@__PURE__*/ Object.assign({}, Va, Ka, {
-  h: computeIntlDateParts,
-  ee(e) {
-    const n = this.O(e);
-    return [ n.era, n.eraYear ];
-  },
-  I(e, n) {
-    const t = computeIntlLeapMonth.call(this, e);
-    return [ monthToMonthCodeNumber(n, t), t === n ];
-  },
-  N(e, n, t) {
-    let [o, r, i] = computeIntlDateParts.call(this, {
-      isoYear: ji,
-      isoMonth: xi,
-      isoDay: 31
-    });
-    const a = computeIntlLeapMonth.call(this, o), s = r === a;
-    1 === (compareNumbers(e, monthToMonthCodeNumber(r, a)) || compareNumbers(Number(n), Number(s)) || compareNumbers(t, i)) && o--;
-    for (let r = 0; r < 100; r++) {
-      const i = o - r, a = computeIntlLeapMonth.call(this, i), s = monthCodeNumberToMonth(e, n, a);
-      if (n === (s === a) && t <= computeIntlDaysInMonth.call(this, i, s)) {
-        return [ i, s ];
-      }
-    }
-  },
-  K(e) {
-    const n = computeIntlDaysInYear.call(this, e);
-    return n > computeIntlDaysInYear.call(this, e - 1) && n > computeIntlDaysInYear.call(this, e + 1);
-  },
-  U: computeIntlLeapMonth,
-  L: computeIntlMonthsInYear,
-  J(e, n) {
-    const t = n + e, o = Math.sign(e), r = o < 0 ? -1 : 0;
-    let i = 0;
-    for (let e = n; e !== t; e += o) {
-      i += computeIntlMonthsInYear.call(this, e + r);
-    }
-    return i;
-  },
-  j: computeIntlDaysInMonth,
-  X: computeIntlDaysInYear,
-  P(e, n, t) {
-    return epochMilliToIso(computeIntlEpochMilli.call(this, e, n, t));
-  },
-  q: computeIntlEpochMilli,
-  _(e, n, t) {
-    if (t) {
-      if (n += t, !Number.isSafeInteger(n)) {
-        throw new RangeError(Cr);
-      }
-      if (t < 0) {
-        for (;n < 1; ) {
-          n += computeIntlMonthsInYear.call(this, --e);
-        }
-      } else {
-        let t;
-        for (;n > (t = computeIntlMonthsInYear.call(this, e)); ) {
-          n -= t, e++;
-        }
-      }
-    }
-    return [ e, n ];
-  },
-  year(e) {
-    return this.O(e).year;
-  },
-  month(e) {
-    const {year: n, F: t} = this.O(e), {C: o} = this.B(n);
-    return o[t] + 1;
-  },
-  day(e) {
-    return this.O(e).day;
-  }
-})), Qa = "numeric", Xa = [ "timeZoneName" ], es = {
-  month: Qa,
-  day: Qa
-}, ns = {
-  year: Qa,
-  month: Qa
-}, ts = /*@__PURE__*/ Object.assign({}, ns, {
-  day: Qa
-}), os = {
-  hour: Qa,
-  minute: Qa,
-  second: Qa
-}, rs = /*@__PURE__*/ Object.assign({}, ts, os), is = /*@__PURE__*/ Object.assign({}, rs, {
-  timeZoneName: "short"
-}), as = /*@__PURE__*/ Object.keys(ns), ss = /*@__PURE__*/ Object.keys(es), cs = /*@__PURE__*/ Object.keys(ts), us = /*@__PURE__*/ Object.keys(os), ls = [ "dateStyle" ], fs = /*@__PURE__*/ as.concat(ls), ds = /*@__PURE__*/ ss.concat(ls), ms = /*@__PURE__*/ cs.concat(ls, [ "weekday" ]), ps = /*@__PURE__*/ us.concat([ "dayPeriod", "timeStyle" ]), hs = /*@__PURE__*/ ms.concat(ps), gs = /*@__PURE__*/ hs.concat(Xa), Ts = /*@__PURE__*/ Xa.concat(ps), Ds = /*@__PURE__*/ Xa.concat(ms), Is = /*@__PURE__*/ Xa.concat([ "day", "weekday" ], ps), Ms = /*@__PURE__*/ Xa.concat([ "year", "weekday" ], ps), Ns = {}, t = [ /*@__PURE__*/ createOptionsTransformer(hs, rs), y ], s = [ /*@__PURE__*/ createOptionsTransformer(gs, is), y, 0, (e, n) => {
-  const t = I(e.timeZone);
-  if (n && I(n.timeZone) !== t) {
-    throw new RangeError(Fr);
-  }
-  return t;
-} ], n = [ /*@__PURE__*/ createOptionsTransformer(hs, rs, Xa), isoToEpochMilli ], o = [ /*@__PURE__*/ createOptionsTransformer(ms, ts, Ts), isoToEpochMilli ], r = [ /*@__PURE__*/ createOptionsTransformer(ps, os, Ds), e => isoTimeFieldsToNano(e) / be ], a = [ /*@__PURE__*/ createOptionsTransformer(fs, ns, Is), isoToEpochMilli, 1 ], i = [ /*@__PURE__*/ createOptionsTransformer(ds, es, Ms), isoToEpochMilli, 1 ];
-
-let ys;
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/util/support/isBufferBrowser.js":
+/***/ "./node_modules/util/support/isBufferBrowser.js"
 /*!******************************************************!*\
   !*** ./node_modules/util/support/isBufferBrowser.js ***!
   \******************************************************/
-/***/ ((module) => {
+(module) {
 
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
@@ -17761,13 +7876,13 @@ module.exports = function isBuffer(arg) {
     && typeof arg.readUInt8 === 'function';
 }
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/util/support/types.js":
+/***/ "./node_modules/util/support/types.js"
 /*!********************************************!*\
   !*** ./node_modules/util/support/types.js ***!
   \********************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 // Currently in sync with Node.js lib/internal/util/types.js
@@ -18106,13 +8221,13 @@ exports.isAnyArrayBuffer = isAnyArrayBuffer;
 });
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/util/util.js":
+/***/ "./node_modules/util/util.js"
 /*!***********************************!*\
   !*** ./node_modules/util/util.js ***!
   \***********************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+(__unused_webpack_module, exports, __webpack_require__) {
 
 /* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
 // Copyright Joyent, Inc. and other Node contributors.
@@ -18832,13 +8947,13 @@ function callbackify(original) {
 exports.callbackify = callbackify;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/webextension-polyfill/dist/browser-polyfill.js":
+/***/ "./node_modules/webextension-polyfill/dist/browser-polyfill.js"
 /*!*********************************************************************!*\
   !*** ./node_modules/webextension-polyfill/dist/browser-polyfill.js ***!
   \*********************************************************************/
-/***/ (function(module, exports) {
+(module, exports) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
@@ -20107,13 +10222,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 //# sourceMappingURL=browser-polyfill.js.map
 
 
-/***/ }),
+/***/ },
 
-/***/ "./node_modules/which-typed-array/index.js":
+/***/ "./node_modules/which-typed-array/index.js"
 /*!*************************************************!*\
   !*** ./node_modules/which-typed-array/index.js ***!
   \*************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
@@ -20158,8 +10273,12 @@ if (hasToStringTag && gOPD && getProto) {
 				// @ts-expect-error TS won't narrow inside a closure
 				descriptor = gOPD(superProto, Symbol.toStringTag);
 			}
-			// @ts-expect-error TODO: fix
-			cache['$' + typedArray] = callBind(descriptor.get);
+			if (descriptor && descriptor.get) {
+				var bound = callBind(descriptor.get);
+				cache[
+					/** @type {`$${import('.').TypedArrayName}`} */ ('$' + typedArray)
+				] = bound;
+			}
 		}
 	});
 } else {
@@ -20167,12 +10286,13 @@ if (hasToStringTag && gOPD && getProto) {
 		var arr = new g[typedArray]();
 		var fn = arr.slice || arr.set;
 		if (fn) {
-			cache[
-				/** @type {`$${import('.').TypedArrayName}`} */ ('$' + typedArray)
-			] = /** @type {import('./types').BoundSlice | import('./types').BoundSet} */ (
+			var bound = /** @type {import('./types').BoundSlice | import('./types').BoundSet} */ (
 				// @ts-expect-error TODO FIXME
 				callBind(fn)
 			);
+			cache[
+				/** @type {`$${import('.').TypedArrayName}`} */ ('$' + typedArray)
+			] = bound;
 		}
 	});
 }
@@ -20235,3278 +10355,3892 @@ module.exports = function whichTypedArray(value) {
 };
 
 
-/***/ }),
+/***/ },
 
-/***/ "./src/canvas/Account.ts":
-/*!*******************************!*\
-  !*** ./src/canvas/Account.ts ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Account: () => (/* binding */ Account),
-/* harmony export */   RootAccountNotFoundError: () => (/* binding */ RootAccountNotFoundError)
-/* harmony export */ });
-/* harmony import */ var _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/baseCanvasObject */ "./src/canvas/baseCanvasObject.ts");
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-
-
-
-/**
- *  A base class for objects that interact with the Canvas API
- */
-class Account extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
-    static async getFromUrl(url = null) {
-        if (url === null) {
-            url = document.documentURI;
-        }
-        const match = /accounts\/(\d+)/.exec(url);
-        if (match) {
-            console.log(match);
-            return await this.getAccountById(parseInt(match[1]));
-        }
-        return null;
-    }
-    static async getAccountById(accountId, config = undefined) {
-        const data = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_2__.fetchJson)(`/api/v1/accounts/${accountId}`, config);
-        return new Account(data);
-    }
-    static async getRootAccount(resetCache = false) {
-        if (!resetCache && this.hasOwnProperty('account') && this.account) {
-            return this.account;
-        }
-        const accountGen = (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)('/api/v1/accounts');
-        for await (const account of accountGen) {
-            if (account.root_account_id)
-                continue; //if there is a root_account_id, this is not the root account
-            const root = new Account(account);
-            this.account = root;
-            return root;
-        }
-    }
-    get rootAccountId() {
-        return this.canvasData['root_account_id'];
-    }
-}
-Account.nameProperty = 'name'; // The field name of the primary name of the canvas object type
-Account.contentUrlTemplate = '/api/v1/accounts/{content_id}'; // A templated url to get a single item
-Account.allContentUrlTemplate = '/api/v1/accounts'; // A templated url to get all items
-class RootAccountNotFoundError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = 'RootAccountNotFoundError';
-    }
-}
-
-
-/***/ }),
-
-/***/ "./src/canvas/NotImplementedException.ts":
-/*!***********************************************!*\
-  !*** ./src/canvas/NotImplementedException.ts ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   NotImplementedException: () => (/* binding */ NotImplementedException)
-/* harmony export */ });
-class NotImplementedException extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "NotImplementedException";
-    }
-}
-
-
-/***/ }),
-
-/***/ "./src/canvas/baseCanvasObject.ts":
-/*!****************************************!*\
-  !*** ./src/canvas/baseCanvasObject.ts ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   BaseCanvasObject: () => (/* binding */ BaseCanvasObject)
-/* harmony export */ });
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./canvasUtils */ "./src/canvas/canvasUtils.ts");
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/fetch/utils */ "./src/canvas/fetch/utils.ts");
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-
-
-
-
-
-class BaseCanvasObject {
-    get accountId() {
-        return this._accountId;
-    }
-    constructor(data) {
-        this._accountId = null;
-        this.canvasData = data || {}; // A dict holding the decoded json representation of the object in Canvas
-    }
-    getClass() {
-        return this.constructor;
-    }
-    getItem(item) {
-        return this.canvasData[item];
-    }
-    get myClass() {
-        return this.constructor;
-    }
-    get nameKey() {
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(this.myClass.nameProperty);
-        return this.myClass.nameProperty;
-    }
-    get rawData() {
-        return { ...this.canvasData };
-    }
-    get contentUrlPath() {
-        const constructor = this.constructor;
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.accountId === 'number');
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof constructor.contentUrlTemplate === 'string');
-        return '/api/v1/' + constructor.contentUrlTemplate
-            .replace('{content_id}', this.id.toString())
-            .replace('{account_id}', this.accountId.toString());
-    }
-    get htmlContentUrl() {
-        return `${this.contentUrlPath}`;
-    }
-    get data() {
-        return this.canvasData;
-    }
-    static async getDataById(contentId, courseId = null, config = null) {
-        const url = this.getUrlPathFromIds(contentId, courseId);
-        const response = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(!Array.isArray(response));
-        return response;
-    }
-    static getUrlPathFromIds(contentId, courseId) {
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.contentUrlTemplate === 'string');
-        let url = this.contentUrlTemplate
-            .replace('{content_id}', contentId.toString());
-        if (courseId)
-            url = url.replace('{course_id}', courseId.toString());
-        return url;
-    }
-    /**
-     * @param courseId - The course ID to get elements within, if applicable
-     * @param accountId - The account ID to get elements within, if applicable
-     */
-    static getAllUrl(courseId = null, accountId = null) {
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(typeof this.allContentUrlTemplate === 'string');
-        let replaced = this.allContentUrlTemplate;
-        if (courseId)
-            replaced = replaced.replace('{course_id}', courseId.toString());
-        if (accountId)
-            replaced = replaced.replace('{account_id}', accountId.toString());
-        return replaced;
-    }
-    static async getAll(config = null) {
-        const url = this.getAllUrl();
-        return await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.renderAsyncGen)((0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.getPagedDataGenerator)(this.getAllUrl(), config));
-    }
-    get id() {
-        const id = this.canvasData[this.constructor.idProperty];
-        return parseInt(id);
-    }
-    get name() {
-        const nameProperty = this.getClass().nameProperty;
-        if (!nameProperty)
-            return 'NAME PROPERTY NOT SET';
-        return this.getItem(nameProperty);
-    }
-    async saveData(data, config) {
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(this.contentUrlPath);
-        config = (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_3__.overrideConfig)({
-            fetchInit: {
-                method: 'PUT',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.formDataify)(data)
-            }
-        }, config);
-        let results = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(this.contentUrlPath, config);
-        if (Array.isArray(results))
-            results = results[0];
-        this.canvasData = { ...this.canvasData, ...results };
-        return this.canvasData;
-    }
-}
-BaseCanvasObject.idProperty = 'id'; // The field name of the id of the canvas object type
-BaseCanvasObject.nameProperty = 'name'; // The field name of the primary name of the canvas object type
-BaseCanvasObject.contentUrlTemplate = null; // A templated url to get a single item
-BaseCanvasObject.allContentUrlTemplate = null; // A templated url to get all items
-
-
-/***/ }),
-
-/***/ "./src/canvas/canvasUtils.ts":
-/*!***********************************!*\
-  !*** ./src/canvas/canvasUtils.ts ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   batchGen: () => (/* binding */ batchGen),
-/* harmony export */   batchify: () => (/* binding */ batchify),
-/* harmony export */   callAll: () => (/* binding */ callAll),
-/* harmony export */   courseNameSort: () => (/* binding */ courseNameSort),
-/* harmony export */   deFormDataify: () => (/* reexport safe */ ueu_canvas__WEBPACK_IMPORTED_MODULE_2__.deFormDataify),
-/* harmony export */   deepObjectCopy: () => (/* reexport safe */ ueu_canvas__WEBPACK_IMPORTED_MODULE_2__.deepObjectCopy),
-/* harmony export */   deepObjectMerge: () => (/* reexport safe */ ueu_canvas__WEBPACK_IMPORTED_MODULE_2__.deepObjectMerge),
-/* harmony export */   filterUniqueFunc: () => (/* binding */ filterUniqueFunc),
-/* harmony export */   formDataify: () => (/* reexport safe */ ueu_canvas__WEBPACK_IMPORTED_MODULE_2__.formDataify),
-/* harmony export */   generatorMap: () => (/* binding */ generatorMap),
-/* harmony export */   getItemTypeAndId: () => (/* binding */ getItemTypeAndId),
-/* harmony export */   getPlainTextFromHtml: () => (/* binding */ getPlainTextFromHtml),
-/* harmony export */   numbers: () => (/* binding */ numbers),
-/* harmony export */   parentElement: () => (/* binding */ parentElement),
-/* harmony export */   queryStringify: () => (/* binding */ queryStringify),
-/* harmony export */   range: () => (/* binding */ range),
-/* harmony export */   renderAsyncGen: () => (/* binding */ renderAsyncGen),
-/* harmony export */   searchParamsFromObject: () => (/* binding */ searchParamsFromObject)
-/* harmony export */ });
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-/* harmony import */ var ueu_canvas__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ueu_canvas */ "./node_modules/@ueu/ueu-canvas/dist/index.js");
-/* harmony import */ var ueu_canvas__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(ueu_canvas__WEBPACK_IMPORTED_MODULE_2__);
-
-
-function isWithParamsFunc(func) {
-    return typeof func === 'function' && func.length > 0;
-}
-function isWithoutParamsFunc(func) {
-    return typeof func === 'function' && func.length === 0;
-}
-function callAll(funcs, params) {
-    const output = [];
-    for (const func of funcs) {
-        if ((typeof func === 'object')) {
-            output.push(func.func(func.params));
-            continue;
-        }
-        if (isWithoutParamsFunc(func)) {
-            output.push(func());
-            continue;
-        }
-        if (isWithParamsFunc(func) && typeof params !== 'undefined') {
-            output.push(func(params));
-        }
-    }
-    return output;
-}
-
-/**
- * Traverses up the DOM and finds a parent with a matching Tag
- * @param el
- * @param tagName
- */
-function parentElement(el, tagName) {
-    if (!el)
-        return null;
-    while (el && el.parentElement) {
-        el = el.parentElement;
-        if (el.tagName && el.tagName.toLowerCase() == tagName) {
-            return el;
-        }
-    }
-    return null;
-}
-const type_lut = {
-    Assignment: 'assignment',
-    Discussion: 'discussion_topic',
-    Quiz: 'quiz',
-    ExternalTool: 'external_tool',
-    File: 'attachment',
-    Page: 'wiki_page',
-    ExternalUrl: null, //Not passable to restrict
-    Subheader: null, //Not passable to restrict
-};
-
-// export function formDataify(data: Record<string, any>) {
-//     const formData = new FormData();
-//     for (const key in data) {
-//         addToFormData(formData, key, data[key]);
-//     }
-//
-//     if (document) {
-//         const el: HTMLInputElement | null = document.querySelector("input[name='authenticity_token']");
-//         const authenticityToken = el ? el.value : null;
-//         const cookies = getCookies();
-//         let csrfToken = cookies['_csrf_token'];
-//         if (authenticityToken) formData.append('authenticity_token', authenticityToken);
-//         else if (csrfToken) {
-//             csrfToken = csrfToken.replaceAll(/%([0-9A-F]{2})/g, (substring, hex) => {
-//                 const hexCode = hex;
-//                 return String.fromCharCode(parseInt(hexCode, 16))
-//             })
-//
-//             console.log(csrfToken);
-//             formData.append('authenticity_token', csrfToken);
-//         }
-//     }
-//     return formData;
-// }
-// export function deepObjectCopy<T extends ReturnType<typeof deepObjectMerge> & ({} | [])>(
-//     toCopy: T,
-//     complexObjectsTracker: Array<unknown> = [],
-// ) {
-//     return deepObjectMerge(toCopy, {} as T, true, complexObjectsTracker) as T;
-// }
-//
-//
-// export function deepObjectMerge<
-//     Return extends string | number | object | Record<string, any> | null | undefined | []
-// >(
-//     a: Return,
-//     b: Return,
-//     overrideWithA: boolean = false,
-//     complexObjectsTracker: Array<unknown> = [],
-// ): Return {
-//     for (const value of [a, b]) {
-//         if (typeof value == "object" &&
-//             complexObjectsTracker.includes(value)) throw new Error(`Infinite Loop: Element ${value} contains itself`);
-//     }
-//
-//     //if the types don't match
-//     if (a && b && (
-//         typeof a !== typeof b ||
-//         Array.isArray(a) != Array.isArray(b)
-//     )) {
-//         if (a === b) return a;
-//         if (overrideWithA) return a;
-//         throw new Error(`Type clash on merge ${typeof a} ${a}, ${typeof b} ${b}`);
-//     }
-//
-//     //If either or both are arrays, merge if able to
-//     if (Array.isArray(a)) {
-//         if (!b) return deepObjectCopy(a, complexObjectsTracker);
-//         assert(Array.isArray(b), "We should not get here if b is not an array")
-//         const mergedArray = [...a, ...b];
-//         const outputArray = mergedArray.map(value => {
-//             if (!value) return value;
-//             if (typeof value === 'object' && Object.getPrototypeOf(value) === Object.prototype) {
-//                 //Make a deep of any object literal
-//                 if (!value) return value;
-//                 value = deepObjectCopy(value, [...complexObjectsTracker, a, b]);
-//             }
-//             return value;
-//         }) as Return
-//         return outputArray;
-//     }
-//
-//     if (Array.isArray(b)) return deepObjectCopy(b, complexObjectsTracker); //we already know A is not an array at this point, return a deep copy of b
-//     if ((a && typeof a === 'object') || (b && typeof b === 'object')) {
-//         if (a instanceof File && b instanceof File) {
-//             if (!overrideWithA) assert(a.size == b.size && a.name == b.name, `File value clash ${a.name} ${b.name}`);
-//             return a;
-//         }
-//         if (a && Object.getPrototypeOf(a) != Object.prototype
-//             || b && Object.getPrototypeOf(b) != Object.prototype) {
-//             if (!overrideWithA) assert(!a || !b || a === b, `Non-mergeable object clash ${a} ${b}`);
-//             if (a) return a;
-//             if (b) return b;
-//         }
-//         if (a && !b) return deepObjectCopy(a, complexObjectsTracker);
-//         if (b && !a) return deepObjectCopy(b, complexObjectsTracker);
-//
-//
-//         assert(a && typeof a === 'object' && Object.getPrototypeOf(a) === Object.prototype, "a should always be defined here.")
-//         assert(b && typeof b === 'object' && Object.getPrototypeOf(b) === Object.prototype, "b should always be defined here.")
-//
-//         const allKeys = [...Object.keys(a), ...Object.keys(b)].filter(filterUniqueFunc);
-//         const aRecord: Record<string, any> = a;
-//         const bRecord: Record<string, any> = b;
-//
-//         const entries = allKeys.map((key: string) => [
-//             key,
-//             deepObjectMerge(aRecord[key], bRecord[key], overrideWithA, [...complexObjectsTracker, a, b])
-//         ]);
-//         return Object.fromEntries(entries)
-//     }
-//     if (a && b) {
-//         if (overrideWithA || a === b) return a;
-//         throw new Error(`Values unmergeable, ${a}>:${typeof a}, ${b} ${typeof b}`)
-//     }
-//     if (a) return a;
-//     if (b) return b;
-//     if (a === null) return a;
-//     if (b === null) return b;
-//     assert(typeof a === 'undefined')
-//     return a;
-// }
-// export interface FormMergeOutput {
-//     [key: string]: FormMergeOutput | FormDataEntryValue | FormDataEntryValue[]
-// }
-//
-// export function deFormDataify(formData: FormData) {
-//     return [...formData.entries()].reduce((aggregator, [key, value]) => {
-//         const isArray = key.includes('[]');
-//         const keys = key.split('[').map(key => key.replaceAll(/[\[\]]/g, ''));
-//         if (isArray) keys.pop(); //remove the last, empty, key if it's an array
-//         let currentValue: FormDataEntryValue | FormDataEntryValue[] | FormMergeOutput = isArray ? [value] : value;
-//         while (keys.length > 0) {
-//             let newValue: Record<string, any>;
-//             newValue = {
-//                 [keys.pop() as string]: currentValue
-//             };
-//             currentValue = newValue;
-//
-//         }
-//         return deepObjectMerge(aggregator, currentValue as FormMergeOutput) || {...aggregator};
-//     }, {} as FormMergeOutput);
-// }
-function getCookies() {
-    const cookieString = document.cookie;
-    const cookies = cookieString.split('; ');
-    const out = {};
-    for (const cookie of cookies) {
-        const [key, value] = cookie.split('=');
-        out[key] = value;
-    }
-    return out;
-}
-/**
- * Adds arrays and objects in the form formData posts expects
- * @param formData
- * @param key
- * @param value
- */
-function addToFormData(formData, key, value) {
-    if (Array.isArray(value)) {
-        for (const item of value) {
-            addToFormData(formData, `${key}[]`, item);
-        }
-    }
-    else if (typeof value === 'object') {
-        for (const itemKey in value) {
-            const itemValue = value[itemKey];
-            addToFormData(formData, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
-        }
-    }
-    else {
-        formData.append(key, value);
-    }
-}
-function queryStringify(data) {
-    const searchParams = new URLSearchParams();
-    for (const key in data) {
-        addToQuery(searchParams, key, data[key]);
-    }
-    return searchParams;
-}
-function addToQuery(searchParams, key, value) {
-    if (Array.isArray(value)) {
-        for (const item of value) {
-            addToQuery(searchParams, `${key}[]`, item);
-        }
-    }
-    else if (typeof value === 'object') {
-        for (const itemKey in value) {
-            const itemValue = value[itemKey];
-            addToQuery(searchParams, key.length > 0 ? `${key}[${itemKey}]` : itemKey, itemValue);
-        }
-    }
-    else {
-        searchParams.append(key, value);
-    }
-}
-/**
- * Takes in a module item and returns an object specifying its type and content id
- * @param item
- */
-async function getItemTypeAndId(item) {
-    let id;
-    let type;
-    assert__WEBPACK_IMPORTED_MODULE_0___default()(type_lut.hasOwnProperty(item.type), "Unexpected type " + item.type);
-    // eslint-disable-next-line prefer-const
-    type = type_lut[item.type];
-    if (type === "wiki_page") {
-        assert__WEBPACK_IMPORTED_MODULE_0___default()(item.url); //wiki_page items always have a url param
-        const pageData = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(item.url);
-        id = pageData.page_id;
-    }
-    else {
-        id = item.content_id;
-    }
-    return { type, id };
-}
-/**
- * @param queryParams
- * @returns {URLSearchParams} The correctly formatted parameters
- */
-function searchParamsFromObject(queryParams) {
-    return queryStringify(queryParams);
-}
-/**
- * sort courses (or course Data) alphabetically by name
- * @param a item to compare.
- * @param b item to compare.
- */
-function courseNameSort(a, b) {
-    if (a.name < b.name)
-        return -1;
-    if (b.name < a.name)
-        return 1;
-    return 0;
-}
-function* range(start, end, step = 1) {
-    if (typeof end === 'undefined') {
-        let i = start;
-        while (true) {
-            yield i;
-            i += step;
-        }
-    }
-    for (let i = start; i <= end; i++) {
-        yield i;
-    }
-}
-function* numbers(start, step = 1) {
-    let i = 0;
-    while (true) {
-        yield i;
-        i += step;
-    }
-}
-function getPlainTextFromHtml(html) {
-    const el = document.createElement('div');
-    el.innerHTML = html;
-    return el.innerText || el.textContent || "";
-}
-function batchify(toBatch, batchSize) {
-    const out = [];
-    for (let i = 0; i < toBatch.length; i += batchSize) {
-        out.push(toBatch.slice(i, i + batchSize));
-    }
-    return out;
-}
-function filterUniqueFunc(item, index, array) {
-    return array.indexOf(item) === index;
-}
-async function* batchGen(generator, batchSize) {
-    if (batchSize <= 0)
-        throw new Error("Batch size cannot be 0 or lower");
-    while (true) {
-        const out = [];
-        for (let i = 0; i < batchSize; i++) {
-            const next = await generator.next();
-            if (next.done) {
-                if (out.length > 0)
-                    yield out;
-                return;
-            }
-            out.push(next.value);
-        }
-        yield out;
-    }
-}
-async function renderAsyncGen(generator) {
-    const out = [];
-    for await (const item of generator) {
-        out.push(item);
-    }
-    return out;
-}
-async function* generatorMap(generator, nextMapFunc) {
-    let i = 0;
-    for await (const value of generator) {
-        yield nextMapFunc(value, i, generator);
-        i++;
-    }
-}
-
-
-/***/ }),
-
-/***/ "./src/canvas/content/BaseContentItem.ts":
-/*!***********************************************!*\
-  !*** ./src/canvas/content/BaseContentItem.ts ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   BaseContentItem: () => (/* binding */ BaseContentItem),
-/* harmony export */   getBannerImage: () => (/* binding */ getBannerImage),
-/* harmony export */   postContentConfig: () => (/* binding */ postContentConfig),
-/* harmony export */   putContentConfig: () => (/* binding */ putContentConfig)
-/* harmony export */ });
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-/* harmony import */ var _canvas_files__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/files */ "./src/canvas/files.ts");
-/* harmony import */ var _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/baseCanvasObject */ "./src/canvas/baseCanvasObject.ts");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_image__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/canvas/image */ "./src/canvas/image.ts");
-/* harmony import */ var _canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/canvas/course/getCourseIdFromUrl */ "./src/canvas/course/getCourseIdFromUrl.ts");
-/* harmony import */ var _canvas_NotImplementedException__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/canvas/NotImplementedException */ "./src/canvas/NotImplementedException.ts");
-/* harmony import */ var _publish_consts__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/publish/consts */ "./src/publish/consts.ts");
-
-
-
-
-
-
-
-
-
-
-class BaseContentItem extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_2__.BaseCanvasObject {
-    constructor(canvasData, courseId) {
-        super(canvasData);
-        this.kind = undefined;
-        this._courseId = courseId;
-    }
-    get htmlContentUrl() {
-        return `${this.contentUrlPath}`.replace('/api/v1/', '/');
-    }
-    static get contentUrlPart() {
-        assert__WEBPACK_IMPORTED_MODULE_3___default()(this.allContentUrlTemplate, "Not a content url template");
-        const urlTermMatch = /\/([\w_]+)$/.exec(this.allContentUrlTemplate);
-        if (!urlTermMatch)
-            return null;
-        return urlTermMatch[1];
-    }
-    static async getAllInCourse(courseId, config = null) {
-        const url = this.getAllUrl(courseId);
-        const data = await (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_5__.getPagedData)(url, config);
-        return data.map(item => new this(item, courseId));
-    }
-    static clearAddedContentTags(text) {
-        if (!text)
-            return null;
-        let out = text.replace(/<\/?link[^>]*>/g, '');
-        out = out.replace(/<\/?script[^>]*>/g, '');
-        return out;
-    }
-    static async getFromUrl(url = null, courseId = null) {
-        if (url === null) {
-            url = document.documentURI;
-        }
-        url = url.replace(/\.com/, '.com/api/v1');
-        const data = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url);
-        if (!courseId) {
-            courseId = (0,_canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_7__["default"])(url);
-            if (!courseId)
-                return null;
-        }
-        //If this is a collection of data, we can't process it as a Canvas Object
-        if (Array.isArray(data))
-            return null;
-        assert__WEBPACK_IMPORTED_MODULE_3___default()(!Array.isArray(data));
-        if (data) {
-            return new this(data, courseId);
-        }
-        return null;
-    }
-    static async getById(contentId, courseId) {
-        return new this(await this.getDataById(contentId, courseId), courseId);
-    }
-    get bodyKey() {
-        return this.myClass.bodyProperty;
-    }
-    get body() {
-        if (!this.bodyKey)
-            return null;
-        return this.myClass.clearAddedContentTags(this.canvasData[this.bodyKey]);
-    }
-    get dueAt() {
-        if (!this.canvasData.hasOwnProperty('due_at')) {
-            return null;
-        }
-        if (!this.canvasData.due_at)
-            return null;
-        return new Date(this.canvasData.due_at);
-    }
-    async setDueAt(date) {
-        throw new _canvas_NotImplementedException__WEBPACK_IMPORTED_MODULE_8__.NotImplementedException();
-    }
-    async dueAtTimeDelta(timeDelta) {
-        if (!this.dueAt)
-            return null;
-        const result = new Date(this.dueAt);
-        result.setDate(result.getDate() + timeDelta);
-        return await this.setDueAt(result);
-    }
-    get contentUrlPath() {
-        let url = this.constructor.contentUrlTemplate;
-        assert__WEBPACK_IMPORTED_MODULE_3___default()(url);
-        url = url.replace('{course_id}', this.courseId.toString());
-        url = url.replace('{content_id}', this.id.toString());
-        return url;
-    }
-    get courseId() {
-        return this._courseId;
-    }
-    async updateContent(text, name, config) {
-        const data = {};
-        const constructor = this.constructor;
-        assert__WEBPACK_IMPORTED_MODULE_3___default()(constructor.bodyProperty);
-        assert__WEBPACK_IMPORTED_MODULE_3___default()(constructor.nameProperty);
-        const nameProp = constructor.nameProperty;
-        const bodyProp = constructor.bodyProperty;
-        if (text && bodyProp) {
-            this.canvasData[bodyProp] = text;
-            data[bodyProp] = text;
-        }
-        if (name && nameProp) {
-            this.canvasData[nameProp] = name;
-            data[nameProp] = name;
-        }
-        return this.saveData(data, config);
-    }
-    async getMeInAnotherCourse(targetCourseId) {
-        const ContentClass = this.constructor;
-        const targets = await ContentClass.getAllInCourse(targetCourseId, { queryParams: { search_term: this.name } });
-        return targets.find((target) => target.name == this.name);
-    }
-    getAllLinks() {
-        const el = this.bodyAsElement;
-        const anchors = el.querySelectorAll('a');
-        const urls = [];
-        for (const link of anchors)
-            urls.push(link.href);
-        return urls;
-    }
-    get bodyAsElement() {
-        assert__WEBPACK_IMPORTED_MODULE_3___default()(this.body, "This content item has no body property");
-        const el = document.createElement('div');
-        el.innerHTML = this.body;
-        return el;
-    }
-    async resizeBanner(maxWidth = _publish_consts__WEBPACK_IMPORTED_MODULE_9__.SAFE_MAX_BANNER_WIDTH) {
-        const bannerImg = getBannerImage(this);
-        if (!bannerImg)
-            throw new Error("No banner");
-        const fileData = await getFileDataFromUrl(bannerImg.src, this.courseId);
-        if (!fileData)
-            throw new Error("File not found");
-        if (bannerImg.naturalWidth < maxWidth)
-            return; //Dont resize image unless we're shrinking it
-        const resizedImageBlob = await (0,_canvas_image__WEBPACK_IMPORTED_MODULE_6__.getResizedBlob)(bannerImg.src, maxWidth);
-        const fileName = fileData.filename;
-        const fileUploadUrl = `/api/v1/courses/${this.courseId}/files`;
-        assert__WEBPACK_IMPORTED_MODULE_3___default()(resizedImageBlob);
-        const file = new File([resizedImageBlob], fileName);
-        return await (0,_canvas_files__WEBPACK_IMPORTED_MODULE_1__.uploadFile)(file, fileData.folder_id, fileUploadUrl);
-    }
-}
-BaseContentItem.nameProperty = 'name';
-async function getFileDataFromUrl(url, courseId) {
-    const match = /.*\/files\/(\d+)/.exec(url);
-    if (!match)
-        return null;
-    if (match) {
-        const fileId = parseInt(match[1]);
-        return await getFileData(fileId, courseId);
-    }
-}
-function getBannerImage(overviewPage) {
-    const pageBody = document.createElement('html');
-    if (!overviewPage.body)
-        throw new Error(`Content item ${overviewPage.name} has no html body`);
-    pageBody.innerHTML = overviewPage.body;
-    return pageBody.querySelector('.cbt-banner-image img');
-}
-async function getFileData(fileId, courseId) {
-    const url = `/api/v1/courses/${courseId}/files/${fileId}`;
-    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url);
-}
-function putContentConfig(data, config) {
-    return (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_4__.deepObjectMerge)(config, {
-        fetchInit: {
-            method: 'PUT',
-            body: (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_4__.formDataify)(data)
-        }
-    }, true);
-}
-function postContentConfig(data, config) {
-    return (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_4__.deepObjectMerge)(config, {
-        fetchInit: {
-            method: 'POST',
-            body: (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_4__.formDataify)(data)
-        }
-    }, true);
-}
-
-
-/***/ }),
-
-/***/ "./src/canvas/content/ContentKind.ts":
-/*!*******************************************!*\
-  !*** ./src/canvas/content/ContentKind.ts ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   contentUrlFuncs: () => (/* binding */ contentUrlFuncs),
-/* harmony export */   courseContentUrlFunc: () => (/* binding */ courseContentUrlFunc),
-/* harmony export */   postContentFunc: () => (/* binding */ postContentFunc),
-/* harmony export */   putContentFunc: () => (/* binding */ putContentFunc)
-/* harmony export */ });
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-/* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
-
-
-function contentUrlFuncs(contentUrlPart) {
-    const urlRegex = new RegExp(`courses\/(\\d+)\/${contentUrlPart}/(\\d+)`, 'i');
-    const getApiUrl = courseContentUrlFunc(`/api/v1/courses/{courseId}/${contentUrlPart}/{contentId}`);
-    const getAllApiUrl = (courseId) => `/api/v1/courses/${courseId}/${contentUrlPart}`;
-    const getHtmlUrl = courseContentUrlFunc(`/courses/{courseId}/${contentUrlPart}/{contentId}`);
-    function getCourseAndContentIdFromUrl(url) {
-        var _a;
-        const [full, courseId, contentId] = (_a = url.match(urlRegex)) !== null && _a !== void 0 ? _a : [undefined, undefined, undefined];
-        return [courseId, contentId].map(a => a ? parseInt(a) : undefined);
-    }
-    const isValidUrl = (url) => typeof url === 'string' && typeof getCourseAndContentIdFromUrl(url)[0] !== 'undefined';
-    return {
-        contentUrlPart,
-        getApiUrl,
-        getAllApiUrl,
-        getHtmlUrl,
-        getCourseAndContentIdFromUrl,
-        isValidUrl,
-    };
-}
-function courseContentUrlFunc(url) {
-    return (courseId, contentId) => url
-        .replaceAll('{courseId}', courseId.toString())
-        .replaceAll('{contentId}', contentId.toString());
-}
-function putContentFunc(getApiUrl) {
-    return async function (courseId, contentId, content, config) {
-        const url = getApiUrl(courseId, contentId);
-        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url, (0,_canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__.putContentConfig)(content, config));
-    };
-}
-function postContentFunc(getApiUrl) {
-    return async function (courseId, content, config) {
-        const url = getApiUrl(courseId);
-        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(url, (0,_canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_1__.postContentConfig)(content, config));
-    };
-}
-
-
-/***/ }),
-
-/***/ "./src/canvas/content/assignments/Assignment.ts":
+/***/ "./node_modules/available-typed-arrays/index.js"
 /*!******************************************************!*\
-  !*** ./src/canvas/content/assignments/Assignment.ts ***!
+  !*** ./node_modules/available-typed-arrays/index.js ***!
   \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Assignment: () => (/* binding */ Assignment)
-/* harmony export */ });
-/* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/content/assignments/AssignmentKind */ "./src/canvas/content/assignments/AssignmentKind.ts");
 
 
+var possibleNames = __webpack_require__(/*! possible-typed-array-names */ "./node_modules/possible-typed-array-names/index.js");
 
+var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
 
-class Assignment extends _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
-    constructor(assignmentData, courseId) {
-        super(assignmentData, courseId);
-    }
-    async setDueAt(dueAt, config) {
-        const sourceDueAt = this.rawData.due_at ? temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(this.rawData.due_at) : null;
-        const targetDueAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(dueAt.toISOString());
-        const payload = {
-            assignment: {
-                due_at: dueAt.toISOString(),
-            }
-        };
-        if (this.rawData.peer_reviews && 'automatic_peer_reviews' in this.rawData) {
-            const peerReviewTime = this.rawData.peer_reviews_assign_at ? temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(this.rawData.peer_reviews_assign_at) : null;
-            assert__WEBPACK_IMPORTED_MODULE_2___default()(sourceDueAt, "Trying to set peer review date without a due date for the assignment.");
-            if (peerReviewTime) {
-                const peerReviewOffset = sourceDueAt.until(peerReviewTime);
-                const newPeerReviewTime = targetDueAt.add(peerReviewOffset);
-                payload.assignment.peer_reviews_assign_at =
-                    new Date(newPeerReviewTime.epochMilliseconds).toISOString();
-            }
-        }
-        const data = await this.saveData(payload, config);
-        this.canvasData['due_at'] = dueAt.toISOString();
-        return data;
-    }
-    get rawData() {
-        return this.canvasData;
-    }
-    async updateContent(text, name, config) {
-        const assignmentData = {};
-        if (text) {
-            assignmentData.description = text;
-            this.rawData.description = text;
-        }
-        if (name) {
-            assignmentData.name = name;
-            this.rawData.name = name;
-        }
-        return await this.saveData({
-            assignment: assignmentData
-        }, config);
-    }
-}
-Assignment.kind = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_3__["default"];
-Assignment.nameProperty = 'name';
-Assignment.bodyProperty = 'description';
-Assignment.contentUrlTemplate = "/api/v1/courses/{course_id}/assignments/{content_id}";
-Assignment.allContentUrlTemplate = "/api/v1/courses/{course_id}/assignments";
-
-
-/***/ }),
-
-/***/ "./src/canvas/content/assignments/AssignmentKind.ts":
-/*!**********************************************************!*\
-  !*** ./src/canvas/content/assignments/AssignmentKind.ts ***!
-  \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   assignmentUrlFuncs: () => (/* binding */ assignmentUrlFuncs),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/ContentKind */ "./src/canvas/content/ContentKind.ts");
-
-
-
-const assignmentUrlFuncs = (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('assignments');
-const AssignmentKind = {
-    getId: (data) => data.id,
-    dataIsThisKind: (data) => {
-        return 'submission_types' in data;
-    },
-    getName: (data) => data.name,
-    getBody: (data) => data.description,
-    async get(courseId, contentId, config) {
-        const data = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(assignmentUrlFuncs.getApiUrl(courseId, contentId), config);
-        return data;
-    },
-    ...assignmentUrlFuncs,
-    dataGenerator: (courseId, config) => (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(assignmentUrlFuncs.getAllApiUrl(courseId), config),
-    put: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(assignmentUrlFuncs.getApiUrl),
+/** @type {import('.')} */
+module.exports = function availableTypedArrays() {
+	var /** @type {ReturnType<typeof availableTypedArrays>} */ out = [];
+	for (var i = 0; i < possibleNames.length; i++) {
+		if (typeof g[possibleNames[i]] === 'function') {
+			// @ts-expect-error
+			out[out.length] = possibleNames[i];
+		}
+	}
+	return out;
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AssignmentKind);
 
 
-/***/ }),
+/***/ },
 
-/***/ "./src/canvas/content/assignments/index.ts":
-/*!*************************************************!*\
-  !*** ./src/canvas/content/assignments/index.ts ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ "./node_modules/temporal-polyfill/chunks/classApi.cjs"
+/*!************************************************************!*\
+  !*** ./node_modules/temporal-polyfill/chunks/classApi.cjs ***!
+  \************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   assignmentDataGen: () => (/* binding */ assignmentDataGen),
-/* harmony export */   updateAssignmentData: () => (/* binding */ updateAssignmentData),
-/* harmony export */   updateAssignmentDueDates: () => (/* binding */ updateAssignmentDueDates)
-/* harmony export */ });
-/* harmony import */ var _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/content/assignments/AssignmentKind */ "./src/canvas/content/assignments/AssignmentKind.ts");
-/* harmony import */ var _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/content/assignments/Assignment */ "./src/canvas/content/assignments/Assignment.ts");
 
 
-const assignmentDataGen = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__["default"].dataGenerator;
-const updateAssignmentData = _canvas_content_assignments_AssignmentKind__WEBPACK_IMPORTED_MODULE_0__["default"].put;
-async function updateAssignmentDueDates(offset, assignments, options) {
-    const returnAssignments = [];
-    let { courseId } = options !== null && options !== void 0 ? options : {};
-    if (!courseId && courseId !== 0) {
-        courseId = assignments[0].course_id;
+function createSlotClass(branding, construct, getters, methods, staticMethods) {
+  function Class(...args) {
+    if (!(this instanceof Class)) {
+      throw new TypeError(internal.invalidCallingContext);
     }
-    if (offset === 0 || offset) {
-        for await (const data of assignments) {
-            const assignment = new _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_1__.Assignment(data, courseId);
-            const returnData = await assignment.dueAtTimeDelta(Number(offset));
-            if (returnData) {
-                returnAssignments.push(returnData);
-            }
-        }
+    setSlots(this, construct(...args));
+  }
+  function bindMethod(method, methodName) {
+    return Object.defineProperties((function(...args) {
+      return method.call(this, getSpecificSlots(this), ...args);
+    }), internal.createNameDescriptors(methodName));
+  }
+  function getSpecificSlots(obj) {
+    const slots = getSlots(obj);
+    if (!slots || slots.branding !== branding) {
+      throw new TypeError(internal.invalidCallingContext);
     }
-    return returnAssignments;
+    return slots;
+  }
+  return Object.defineProperties(Class.prototype, {
+    ...internal.createGetterDescriptors(internal.mapProps(bindMethod, getters)),
+    ...internal.createPropDescriptors(internal.mapProps(bindMethod, methods)),
+    ...internal.createStringTagDescriptors("Temporal." + branding)
+  }), Object.defineProperties(Class, {
+    ...internal.createPropDescriptors(staticMethods),
+    ...internal.createNameDescriptors(branding)
+  }), [ Class, slots => {
+    const instance = Object.create(Class.prototype);
+    return setSlots(instance, slots), instance;
+  }, getSpecificSlots ];
 }
 
-
-/***/ }),
-
-/***/ "./src/canvas/content/discussions/Discussion.ts":
-/*!******************************************************!*\
-  !*** ./src/canvas/content/discussions/Discussion.ts ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Discussion: () => (/* binding */ Discussion)
-/* harmony export */ });
-/* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
-/* harmony import */ var _canvas_content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/discussions/DiscussionKind */ "./src/canvas/content/discussions/DiscussionKind.ts");
-
-
-
-class Discussion extends _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
-    async offsetPublishDelay(days, config) {
-        const data = this.rawData;
-        if (!this.rawData.delayed_post_at)
-            return;
-        let delayedPostAt = temporal_polyfill__WEBPACK_IMPORTED_MODULE_1__.Temporal.Instant.from(this.rawData.delayed_post_at).toZonedDateTimeISO('UTC');
-        delayedPostAt = delayedPostAt.add({ days });
-        const payload = {
-            delayed_post_at: new Date(delayedPostAt.epochMilliseconds).toISOString()
-        };
-        await this.saveData(payload, config);
+function createProtocolValidator(propNames) {
+  return propNames = propNames.concat("id").sort(), obj => {
+    if (!internal.hasAllPropsByName(obj, propNames)) {
+      throw new TypeError(internal.invalidProtocol);
     }
-    get rawData() {
-        return this.canvasData;
-    }
+    return obj;
+  };
 }
-Discussion.kindInfo = _canvas_content_discussions_DiscussionKind__WEBPACK_IMPORTED_MODULE_2__["default"];
-Discussion.nameProperty = 'title';
-Discussion.bodyProperty = 'message';
-Discussion.contentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics/{content_id}";
-Discussion.allContentUrlTemplate = "/api/v1/courses/{course_id}/discussion_topics";
 
-
-/***/ }),
-
-/***/ "./src/canvas/content/discussions/DiscussionKind.ts":
-/*!**********************************************************!*\
-  !*** ./src/canvas/content/discussions/DiscussionKind.ts ***!
-  \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   discussionUrlFuncs: () => (/* binding */ discussionUrlFuncs)
-/* harmony export */ });
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/ContentKind */ "./src/canvas/content/ContentKind.ts");
-
-
-
-const discussionUrlFuncs = (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('discussion_topics');
-const DiscussionKind = {
-    ...discussionUrlFuncs,
-    dataIsThisKind(data) {
-        return data.hasOwnProperty('discussion_type');
-    },
-    getId: (data) => data.id,
-    getName: (data) => data.title,
-    getBody: (data) => data.message,
-    async get(courseId, contentId, config) {
-        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(discussionUrlFuncs.getApiUrl(courseId, contentId), config);
-    },
-    dataGenerator: (courseId, config) => (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(discussionUrlFuncs.getAllApiUrl(courseId), config),
-    put: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(discussionUrlFuncs.getApiUrl),
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DiscussionKind);
-
-
-/***/ }),
-
-/***/ "./src/canvas/content/pages/Page.ts":
-/*!******************************************!*\
-  !*** ./src/canvas/content/pages/Page.ts ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Page: () => (/* binding */ Page)
-/* harmony export */ });
-/* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
-/* harmony import */ var _canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/content/pages/PageKind */ "./src/canvas/content/pages/PageKind.ts");
-
-
-class Page extends _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
-    constructor(canvasData, courseId) {
-        super(canvasData, courseId);
-    }
-    get body() {
-        return this.canvasData[this.bodyKey];
-    }
-    async updateContent(text, name, config) {
-        const data = {};
-        if (text) {
-            this.canvasData[this.bodyKey] = text;
-            data['wiki_page[body]'] = text;
-        }
-        if (name) {
-            this.canvasData[this.nameKey] = name;
-            data[this.nameKey] = name;
-        }
-        return this.saveData(data, config);
-    }
+function rejectInvalidBag(bag) {
+  if (getSlots(bag) || void 0 !== bag.calendar || void 0 !== bag.timeZone) {
+    throw new TypeError(internal.invalidBag);
+  }
+  return bag;
 }
-Page.kindInfo = _canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_1__["default"];
-Page.idProperty = 'page_id';
-Page.nameProperty = 'title';
-Page.bodyProperty = 'body';
-Page.contentUrlTemplate = "/api/v1/courses/{course_id}/pages/{content_id}";
-Page.allContentUrlTemplate = "/api/v1/courses/{course_id}/pages";
 
-
-/***/ }),
-
-/***/ "./src/canvas/content/pages/PageKind.ts":
-/*!**********************************************!*\
-  !*** ./src/canvas/content/pages/PageKind.ts ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PageUrlFuncs: () => (/* binding */ PageUrlFuncs),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/ContentKind */ "./src/canvas/content/ContentKind.ts");
-
-
-
-const PageUrlFuncs = (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.contentUrlFuncs)('pages');
-const getStringApiUrl = (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.courseContentUrlFunc)(`/api/v1/courses/{courseId}/pages/{contentId}`);
-const PageKind = {
-    ...PageUrlFuncs,
-    dataIsThisKind: (data) => {
-        return 'page_id' in data;
-    },
-    getName: page => page.title,
-    getBody: page => page.body,
-    getId: page => page.id,
-    get: (id, courseId, config) => (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(PageUrlFuncs.getApiUrl(courseId, id), config),
-    getByString: async (courseId, contentId, config, options) => {
-        const { allowPartialMatch } = options !== null && options !== void 0 ? options : {};
-        // 1) try an exact match
-        const res = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(getStringApiUrl(courseId, contentId), config);
-        // 2) if not found, fall back to any URL that *starts* with contentId
-        if ("message" in res && allowPartialMatch) {
-            const pageGen = (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(PageUrlFuncs.getAllApiUrl(courseId), { queryParams: { include: ["body"] } });
-            for await (const page of pageGen) {
-                if (page.url.startsWith(contentId))
-                    return page;
-            }
-        }
-        return res;
-    },
-    dataGenerator: (courseId, config = { queryParams: { include: ["body"] } }) => (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_1__.getPagedDataGenerator)(PageUrlFuncs.getAllApiUrl(courseId), config),
-    put: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.putContentFunc)(PageUrlFuncs.getApiUrl),
-    post: (0,_canvas_content_ContentKind__WEBPACK_IMPORTED_MODULE_2__.postContentFunc)(PageUrlFuncs.getAllApiUrl),
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PageKind);
-
-
-/***/ }),
-
-/***/ "./src/canvas/content/quizzes/Quiz.ts":
-/*!********************************************!*\
-  !*** ./src/canvas/content/quizzes/Quiz.ts ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Quiz: () => (/* binding */ Quiz)
-/* harmony export */ });
-/* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
-
-
-
-class Quiz extends _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_0__.BaseContentItem {
-    async setDueAt(date) {
-        const url = `/api/v1/courses/${this.courseId}/quizzes/${this.id}`;
-        return (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url, {
-            fetchInit: {
-                method: 'PUT',
-                body: (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({
-                    quiz: {
-                        due_at: date
-                    }
-                })
-            }
-        });
-    }
+function createCalendarFieldMethods(methodNameMap, alsoAccept) {
+  const methods = {};
+  for (const methodName in methodNameMap) {
+    methods[methodName] = ({native: native}, dateArg) => {
+      const argSlots = getSlots(dateArg) || {}, {branding: branding} = argSlots, refinedSlots = branding === internal.PlainDateBranding || alsoAccept.includes(branding) ? argSlots : toPlainDateSlots(dateArg);
+      return native[methodName](refinedSlots);
+    };
+  }
+  return methods;
 }
-Quiz.nameProperty = 'title';
-Quiz.bodyProperty = 'description';
-Quiz.contentUrlTemplate = "/api/v1/courses/{course_id}/quizzes/{content_id}";
-Quiz.allContentUrlTemplate = "/api/v1/courses/{course_id}/quizzes";
 
+function createCalendarGetters(methodNameMap) {
+  const methods = {};
+  for (const methodName in methodNameMap) {
+    methods[methodName] = slots => {
+      const {calendar: calendar} = slots;
+      return (calendarSlot = calendar, "string" == typeof calendarSlot ? internal.createNativeStandardOps(calendarSlot) : (calendarProtocol = calendarSlot, 
+      Object.assign(Object.create(adapterSimpleOps), {
+        calendarProtocol: calendarProtocol
+      })))[methodName](slots);
+      // removed by dead control flow
+ var calendarSlot, calendarProtocol; 
+    };
+  }
+  return methods;
+}
 
-/***/ }),
+function neverValueOf() {
+  throw new TypeError(internal.forbiddenValueOf);
+}
 
-/***/ "./src/canvas/course/Course.ts":
-/*!*************************************!*\
-  !*** ./src/canvas/course/Course.ts ***!
-  \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+function createCalendarFromSlots({calendar: calendar}) {
+  return "string" == typeof calendar ? new Calendar(calendar) : calendar;
+}
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   COURSE_CODE_REGEX: () => (/* binding */ COURSE_CODE_REGEX),
-/* harmony export */   Course: () => (/* binding */ Course)
-/* harmony export */ });
-/* harmony import */ var _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../baseCanvasObject */ "./src/canvas/baseCanvasObject.ts");
-/* harmony import */ var _blueprint__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./blueprint */ "./src/canvas/course/blueprint.ts");
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../canvasUtils */ "./src/canvas/canvasUtils.ts");
-/* harmony import */ var _changeStartDate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./changeStartDate */ "./src/canvas/course/changeStartDate.ts");
-/* harmony import */ var _modules__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules */ "./src/canvas/course/modules.ts");
-/* harmony import */ var _image__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../image */ "./src/canvas/image.ts");
-/* harmony import */ var _files__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../files */ "./src/canvas/files.ts");
-/* harmony import */ var _profile__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../profile */ "./src/canvas/profile.ts");
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./index */ "./src/canvas/course/index.ts");
-/* harmony import */ var _canvas_content_assignments__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/canvas/content/assignments */ "./src/canvas/content/assignments/index.ts");
-/* harmony import */ var _canvas_course_code__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @/canvas/course/code */ "./src/canvas/course/code.ts");
-/* harmony import */ var _canvas_term_Term__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @/canvas/term/Term */ "./src/canvas/term/Term.ts");
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @/canvas/fetch/utils */ "./src/canvas/fetch/utils.ts");
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-/* harmony import */ var _canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @/canvas/content/BaseContentItem */ "./src/canvas/content/BaseContentItem.ts");
-/* harmony import */ var _canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @/canvas/course/getCourseIdFromUrl */ "./src/canvas/course/getCourseIdFromUrl.ts");
-/* harmony import */ var _canvas_content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/canvas/content/quizzes/Quiz */ "./src/canvas/content/quizzes/Quiz.ts");
-/* harmony import */ var _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @/canvas/content/pages/Page */ "./src/canvas/content/pages/Page.ts");
-/* harmony import */ var _canvas_content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @/canvas/content/discussions/Discussion */ "./src/canvas/content/discussions/Discussion.ts");
-/* harmony import */ var _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @/canvas/content/assignments/Assignment */ "./src/canvas/content/assignments/Assignment.ts");
-/* harmony import */ var _fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/fetch/apiWriteConfig */ "./src/fetch/apiWriteConfig.ts");
-/* harmony import */ var _canvas_course_cachedGetAssociatedCoursesFunc__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @canvas/course/cachedGetAssociatedCoursesFunc */ "./src/canvas/course/cachedGetAssociatedCoursesFunc.ts");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_23__);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const HOMETILE_WIDTH = 500;
-const COURSE_CODE_REGEX = /^(.+[^_])?_?(\w{4}\d{3})/i;
-/**
- * Model class for courses
- */
-class Course extends _baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
-    constructor(data) {
-        super(data);
-        this._modules = undefined;
-        this.modulesByWeekNumber = undefined;
-        this.cachedContent = [];
-        this.isBlueprint = (() => (0,_blueprint__WEBPACK_IMPORTED_MODULE_1__.isBlueprint)(data));
-        this.getAssociatedCourses = (0,_canvas_course_cachedGetAssociatedCoursesFunc__WEBPACK_IMPORTED_MODULE_22__.cachedGetAssociatedCoursesFunc)(this);
+function toPlainMonthDaySlots(arg, options) {
+  if (options = internal.copyOptions(options), internal.isObjectLike(arg)) {
+    const slots = getSlots(arg);
+    if (slots && slots.branding === internal.PlainMonthDayBranding) {
+      return internal.refineOverflowOptions(options), slots;
     }
-    static async getFromUrl(url = null) {
-        if (url === null) {
-            url = document.documentURI;
-        }
-        const match = /courses\/(\d+)/.exec(url);
-        if (match) {
-            const id = (0,_canvas_course_getCourseIdFromUrl__WEBPACK_IMPORTED_MODULE_16__["default"])(url);
-            if (!id)
-                return null;
-            return (0,_index__WEBPACK_IMPORTED_MODULE_8__.getCourseById)(id);
-        }
-        return null;
+    const calendarMaybe = extractCalendarSlotFromBag(arg), calendar = calendarMaybe || internal.isoCalendarId;
+    return internal.refinePlainMonthDayBag(createMonthDayRefineOps(calendar), !calendarMaybe, arg, options);
+  }
+  const res = internal.parsePlainMonthDay(internal.createNativeStandardOps, arg);
+  return internal.refineOverflowOptions(options), res;
+}
+
+function getOffsetNanosecondsForAdapter(timeZoneProtocol, getOffsetNanosecondsFor, epochNano) {
+  return offsetNano = getOffsetNanosecondsFor.call(timeZoneProtocol, createInstant(internal.createInstantSlots(epochNano))), 
+  internal.validateTimeZoneOffset(internal.requireInteger(offsetNano));
+  // removed by dead control flow
+ var offsetNano; 
+}
+
+function createAdapterOps(timeZoneProtocol, adapterFuncs = timeZoneAdapters) {
+  const keys = Object.keys(adapterFuncs).sort(), boundFuncs = {};
+  for (const key of keys) {
+    boundFuncs[key] = internal.bindArgs(adapterFuncs[key], timeZoneProtocol, internal.requireFunction(timeZoneProtocol[key]));
+  }
+  return boundFuncs;
+}
+
+function createTimeZoneOps(timeZoneSlot, adapterFuncs) {
+  return "string" == typeof timeZoneSlot ? internal.queryNativeTimeZone(timeZoneSlot) : createAdapterOps(timeZoneSlot, adapterFuncs);
+}
+
+function createTimeZoneOffsetOps(timeZoneSlot) {
+  return createTimeZoneOps(timeZoneSlot, simpleTimeZoneAdapters);
+}
+
+function toInstantSlots(arg) {
+  if (internal.isObjectLike(arg)) {
+    const slots = getSlots(arg);
+    if (slots) {
+      switch (slots.branding) {
+       case internal.InstantBranding:
+        return slots;
+
+       case internal.ZonedDateTimeBranding:
+        return internal.createInstantSlots(slots.epochNanoseconds);
+      }
     }
-    static async getCourseById(courseId, config = undefined) {
-        const data = await (0,_index__WEBPACK_IMPORTED_MODULE_8__.getCourseData)(courseId, config);
-        return new Course(data);
+  }
+  return internal.parseInstant(arg);
+}
+
+function getImplTransition(direction, impl, instantArg) {
+  const epochNano = impl.getTransition(toInstantSlots(instantArg).epochNanoseconds, direction);
+  return epochNano ? createInstant(internal.createInstantSlots(epochNano)) : null;
+}
+
+function refineTimeZoneSlot(arg) {
+  return internal.isObjectLike(arg) ? (getSlots(arg) || {}).timeZone || validateTimeZoneProtocol(arg) : (arg => internal.resolveTimeZoneId(internal.parseTimeZoneId(internal.requireString(arg))))(arg);
+}
+
+function toPlainTimeSlots(arg, options) {
+  if (internal.isObjectLike(arg)) {
+    const slots = getSlots(arg) || {};
+    switch (slots.branding) {
+     case internal.PlainTimeBranding:
+      return internal.refineOverflowOptions(options), slots;
+
+     case internal.PlainDateTimeBranding:
+      return internal.refineOverflowOptions(options), internal.createPlainTimeSlots(slots);
+
+     case internal.ZonedDateTimeBranding:
+      return internal.refineOverflowOptions(options), internal.zonedDateTimeToPlainTime(createTimeZoneOffsetOps, slots);
     }
-    static async publishAll(courses, accountId) {
-        if (courses.length == 0)
-            return false;
-        const courseIds = courses.map((course) => {
-            if (course instanceof Course) {
-                return course.id;
-            }
-            return course;
-        });
-        const url = `/api/v1/accounts/${accountId}/courses`;
-        const data = {
-            'event': 'offer',
-            'course_ids': courseIds,
-        };
-        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(url, {
-            fetchInit: {
-                method: 'PUT',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)(data),
-            }
-        });
+    return internal.refinePlainTimeBag(arg, options);
+  }
+  return internal.refineOverflowOptions(options), internal.parsePlainTime(arg);
+}
+
+function optionalToPlainTimeFields(timeArg) {
+  return void 0 === timeArg ? void 0 : toPlainTimeSlots(timeArg);
+}
+
+function toPlainYearMonthSlots(arg, options) {
+  if (options = internal.copyOptions(options), internal.isObjectLike(arg)) {
+    const slots = getSlots(arg);
+    return slots && slots.branding === internal.PlainYearMonthBranding ? (internal.refineOverflowOptions(options), 
+    slots) : internal.refinePlainYearMonthBag(createYearMonthRefineOps(getCalendarSlotFromBag(arg)), arg, options);
+  }
+  const res = internal.parsePlainYearMonth(internal.createNativeStandardOps, arg);
+  return internal.refineOverflowOptions(options), res;
+}
+
+function toPlainDateTimeSlots(arg, options) {
+  if (options = internal.copyOptions(options), internal.isObjectLike(arg)) {
+    const slots = getSlots(arg) || {};
+    switch (slots.branding) {
+     case internal.PlainDateTimeBranding:
+      return internal.refineOverflowOptions(options), slots;
+
+     case internal.PlainDateBranding:
+      return internal.refineOverflowOptions(options), internal.createPlainDateTimeSlots({
+        ...slots,
+        ...internal.isoTimeFieldDefaults
+      });
+
+     case internal.ZonedDateTimeBranding:
+      return internal.refineOverflowOptions(options), internal.zonedDateTimeToPlainDateTime(createTimeZoneOffsetOps, slots);
     }
-    get contentUrlPath() {
-        return `/api/v1/courses/${this.id}`;
+    return internal.refinePlainDateTimeBag(createDateRefineOps(getCalendarSlotFromBag(arg)), arg, options);
+  }
+  const res = internal.parsePlainDateTime(arg);
+  return internal.refineOverflowOptions(options), res;
+}
+
+function toPlainDateSlots(arg, options) {
+  if (options = internal.copyOptions(options), internal.isObjectLike(arg)) {
+    const slots = getSlots(arg) || {};
+    switch (slots.branding) {
+     case internal.PlainDateBranding:
+      return internal.refineOverflowOptions(options), slots;
+
+     case internal.PlainDateTimeBranding:
+      return internal.refineOverflowOptions(options), internal.createPlainDateSlots(slots);
+
+     case internal.ZonedDateTimeBranding:
+      return internal.refineOverflowOptions(options), internal.zonedDateTimeToPlainDate(createTimeZoneOffsetOps, slots);
     }
-    get courseUrl() {
-        return this.htmlContentUrl;
+    return internal.refinePlainDateBag(createDateRefineOps(getCalendarSlotFromBag(arg)), arg, options);
+  }
+  const res = internal.parsePlainDate(arg);
+  return internal.refineOverflowOptions(options), res;
+}
+
+function dayAdapter(calendarProtocol, dayMethod, isoFields) {
+  return internal.requirePositiveInteger(dayMethod.call(calendarProtocol, createPlainDate(internal.createPlainDateSlots(isoFields, calendarProtocol))));
+}
+
+function createCompoundOpsCreator(adapterFuncs) {
+  return calendarSlot => "string" == typeof calendarSlot ? internal.createNativeStandardOps(calendarSlot) : ((calendarProtocol, adapterFuncs) => {
+    const keys = Object.keys(adapterFuncs).sort(), boundFuncs = {};
+    for (const key of keys) {
+      boundFuncs[key] = internal.bindArgs(adapterFuncs[key], calendarProtocol, calendarProtocol[key]);
     }
-    get htmlContentUrl() {
-        return `/courses/${this.id}`;
+    return boundFuncs;
+  })(calendarSlot, adapterFuncs);
+}
+
+function toDurationSlots(arg) {
+  if (internal.isObjectLike(arg)) {
+    const slots = getSlots(arg);
+    return slots && slots.branding === internal.DurationBranding ? slots : internal.refineDurationBag(arg);
+  }
+  return internal.parseDuration(arg);
+}
+
+function refinePublicRelativeTo(relativeTo) {
+  if (void 0 !== relativeTo) {
+    if (internal.isObjectLike(relativeTo)) {
+      const slots = getSlots(relativeTo) || {};
+      switch (slots.branding) {
+       case internal.ZonedDateTimeBranding:
+       case internal.PlainDateBranding:
+        return slots;
+
+       case internal.PlainDateTimeBranding:
+        return internal.createPlainDateSlots(slots);
+      }
+      const calendar = getCalendarSlotFromBag(relativeTo);
+      return {
+        ...internal.refineMaybeZonedDateTimeBag(refineTimeZoneSlot, createTimeZoneOps, createDateRefineOps(calendar), relativeTo),
+        calendar: calendar
+      };
     }
-    get parsedCourseCode() {
-        return (0,_canvas_course_code__WEBPACK_IMPORTED_MODULE_10__.parseCourseCode)(this.canvasData.course_code);
+    return internal.parseRelativeToSlots(relativeTo);
+  }
+}
+
+function getCalendarSlotFromBag(bag) {
+  return extractCalendarSlotFromBag(bag) || internal.isoCalendarId;
+}
+
+function extractCalendarSlotFromBag(bag) {
+  const {calendar: calendar} = bag;
+  if (void 0 !== calendar) {
+    return refineCalendarSlot(calendar);
+  }
+}
+
+function refineCalendarSlot(arg) {
+  return internal.isObjectLike(arg) ? (getSlots(arg) || {}).calendar || validateCalendarProtocol(arg) : (arg => internal.resolveCalendarId(internal.parseCalendarId(internal.requireString(arg))))(arg);
+}
+
+function toZonedDateTimeSlots(arg, options) {
+  if (options = internal.copyOptions(options), internal.isObjectLike(arg)) {
+    const slots = getSlots(arg);
+    if (slots && slots.branding === internal.ZonedDateTimeBranding) {
+      return internal.refineZonedFieldOptions(options), slots;
     }
-    get courseCode() {
-        return this.canvasData.course_code;
+    const calendarSlot = getCalendarSlotFromBag(arg);
+    return internal.refineZonedDateTimeBag(refineTimeZoneSlot, createTimeZoneOps, createDateRefineOps(calendarSlot), calendarSlot, arg, options);
+  }
+  return internal.parseZonedDateTime(arg, options);
+}
+
+function adaptDateMethods(methods) {
+  return internal.mapProps((method => slots => method(slotsToIso(slots))), methods);
+}
+
+function slotsToIso(slots) {
+  return internal.zonedEpochSlotsToIso(slots, createTimeZoneOffsetOps);
+}
+
+function createFormatMethod(methodName) {
+  return function(...formattables) {
+    const prepFormat = internalsMap.get(this), [format, ...rawFormattables] = prepFormat(...formattables);
+    return format[methodName](...rawFormattables);
+  };
+}
+
+function createProxiedMethod(methodName) {
+  return function(...args) {
+    return internalsMap.get(this).rawFormat[methodName](...args);
+  };
+}
+
+function createFormatPrepperForBranding(branding) {
+  const config = classFormatConfigs[branding];
+  if (!config) {
+    throw new TypeError(internal.invalidFormatType(branding));
+  }
+  return internal.createFormatPrepper(config, internal.memoize(internal.createFormatForPrep));
+}
+
+var internal = __webpack_require__(/*! ./internal.cjs */ "./node_modules/temporal-polyfill/chunks/internal.cjs");
+
+const classFormatConfigs = {
+  Instant: internal.instantConfig,
+  PlainDateTime: internal.dateTimeConfig,
+  PlainDate: internal.dateConfig,
+  PlainTime: internal.timeConfig,
+  PlainYearMonth: internal.yearMonthConfig,
+  PlainMonthDay: internal.monthDayConfig
+}, prepInstantFormat = internal.createFormatPrepper(internal.instantConfig), prepZonedDateTimeFormat = internal.createFormatPrepper(internal.zonedConfig), prepPlainDateTimeFormat = internal.createFormatPrepper(internal.dateTimeConfig), prepPlainDateFormat = internal.createFormatPrepper(internal.dateConfig), prepPlainTimeFormat = internal.createFormatPrepper(internal.timeConfig), prepPlainYearMonthFormat = internal.createFormatPrepper(internal.yearMonthConfig), prepPlainMonthDayFormat = internal.createFormatPrepper(internal.monthDayConfig), yearMonthOnlyRefiners = {
+  era: internal.requireStringOrUndefined,
+  eraYear: internal.requireIntegerOrUndefined,
+  year: internal.requireInteger,
+  month: internal.requirePositiveInteger,
+  daysInMonth: internal.requirePositiveInteger,
+  daysInYear: internal.requirePositiveInteger,
+  inLeapYear: internal.requireBoolean,
+  monthsInYear: internal.requirePositiveInteger
+}, monthOnlyRefiners = {
+  monthCode: internal.requireString
+}, dayOnlyRefiners = {
+  day: internal.requirePositiveInteger
+}, dateOnlyRefiners = {
+  dayOfWeek: internal.requirePositiveInteger,
+  dayOfYear: internal.requirePositiveInteger,
+  weekOfYear: internal.requirePositiveIntegerOrUndefined,
+  yearOfWeek: internal.requireIntegerOrUndefined,
+  daysInWeek: internal.requirePositiveInteger
+}, dateRefiners = {
+  ...yearMonthOnlyRefiners,
+  ...monthOnlyRefiners,
+  ...dayOnlyRefiners,
+  ...dateOnlyRefiners
+}, slotsMap = new WeakMap, getSlots = slotsMap.get.bind(slotsMap), setSlots = slotsMap.set.bind(slotsMap), calendarFieldMethods = {
+  ...createCalendarFieldMethods(yearMonthOnlyRefiners, [ internal.PlainYearMonthBranding ]),
+  ...createCalendarFieldMethods(dateOnlyRefiners, []),
+  ...createCalendarFieldMethods(monthOnlyRefiners, [ internal.PlainYearMonthBranding, internal.PlainMonthDayBranding ]),
+  ...createCalendarFieldMethods(dayOnlyRefiners, [ internal.PlainMonthDayBranding ])
+}, dateGetters = createCalendarGetters(dateRefiners), yearMonthGetters = createCalendarGetters({
+  ...yearMonthOnlyRefiners,
+  ...monthOnlyRefiners
+}), monthDayGetters = createCalendarGetters({
+  ...monthOnlyRefiners,
+  ...dayOnlyRefiners
+}), calendarIdGetters = {
+  calendarId: slots => internal.getId(slots.calendar)
+}, adapterSimpleOps = internal.mapProps(((refiner, methodName) => function(isoFields) {
+  const {calendarProtocol: calendarProtocol} = this;
+  return refiner(calendarProtocol[methodName](createPlainDate(internal.createPlainDateSlots(isoFields, calendarProtocol))));
+}), dateRefiners), durationGetters = internal.mapPropNames((propName => slots => slots[propName]), internal.durationFieldNamesAsc.concat("sign")), timeGetters = internal.mapPropNames(((_name, i) => slots => slots[internal.isoTimeFieldNamesAsc[i]]), internal.timeFieldNamesAsc), epochGetters = {
+  epochSeconds: internal.getEpochSec,
+  epochMilliseconds: internal.getEpochMilli,
+  epochMicroseconds: internal.getEpochMicro,
+  epochNanoseconds: internal.getEpochNano
+}, removeBranding = internal.bindArgs(internal.excludePropsByName, new Set([ "branding" ])), [PlainMonthDay, createPlainMonthDay, getPlainMonthDaySlots] = createSlotClass(internal.PlainMonthDayBranding, internal.bindArgs(internal.constructPlainMonthDaySlots, refineCalendarSlot), {
+  ...calendarIdGetters,
+  ...monthDayGetters
+}, {
+  getISOFields: removeBranding,
+  getCalendar: createCalendarFromSlots,
+  with(slots, mod, options) {
+    return createPlainMonthDay(internal.plainMonthDayWithFields(createMonthDayModOps, slots, this, rejectInvalidBag(mod), options));
+  },
+  equals: (slots, otherArg) => internal.plainMonthDaysEqual(slots, toPlainMonthDaySlots(otherArg)),
+  toPlainDate(slots, bag) {
+    return createPlainDate(internal.plainMonthDayToPlainDate(createDateModOps, slots, this, bag));
+  },
+  toLocaleString(slots, locales, options) {
+    const [format, epochMilli] = prepPlainMonthDayFormat(locales, options, slots);
+    return format.format(epochMilli);
+  },
+  toString: internal.formatPlainMonthDayIso,
+  toJSON: slots => internal.formatPlainMonthDayIso(slots),
+  valueOf: neverValueOf
+}, {
+  from: (arg, options) => createPlainMonthDay(toPlainMonthDaySlots(arg, options))
+}), timeZoneAdapters = {
+  getOffsetNanosecondsFor: getOffsetNanosecondsForAdapter,
+  getPossibleInstantsFor(timeZoneProtocol, getPossibleInstantsFor, isoFields) {
+    const epochNanos = [ ...getPossibleInstantsFor.call(timeZoneProtocol, createPlainDateTime(internal.createPlainDateTimeSlots(isoFields, internal.isoCalendarId))) ].map((instant => getInstantSlots(instant).epochNanoseconds)), epochNanoLen = epochNanos.length;
+    return epochNanoLen > 1 && (epochNanos.sort(internal.compareBigNanos), internal.validateTimeZoneGap(internal.bigNanoToNumber(internal.diffBigNanos(epochNanos[0], epochNanos[epochNanoLen - 1])))), 
+    epochNanos;
+  }
+}, simpleTimeZoneAdapters = {
+  getOffsetNanosecondsFor: getOffsetNanosecondsForAdapter
+}, [Instant, createInstant, getInstantSlots] = createSlotClass(internal.InstantBranding, internal.constructInstantSlots, epochGetters, {
+  add: (slots, durationArg) => createInstant(internal.moveInstant(0, slots, toDurationSlots(durationArg))),
+  subtract: (slots, durationArg) => createInstant(internal.moveInstant(1, slots, toDurationSlots(durationArg))),
+  until: (slots, otherArg, options) => createDuration(internal.diffInstants(0, slots, toInstantSlots(otherArg), options)),
+  since: (slots, otherArg, options) => createDuration(internal.diffInstants(1, slots, toInstantSlots(otherArg), options)),
+  round: (slots, options) => createInstant(internal.roundInstant(slots, options)),
+  equals: (slots, otherArg) => internal.instantsEqual(slots, toInstantSlots(otherArg)),
+  toZonedDateTime(slots, options) {
+    const refinedObj = internal.requireObjectLike(options);
+    return createZonedDateTime(internal.instantToZonedDateTime(slots, refineTimeZoneSlot(refinedObj.timeZone), refineCalendarSlot(refinedObj.calendar)));
+  },
+  toZonedDateTimeISO: (slots, timeZoneArg) => createZonedDateTime(internal.instantToZonedDateTime(slots, refineTimeZoneSlot(timeZoneArg))),
+  toLocaleString(slots, locales, options) {
+    const [format, epochMilli] = prepInstantFormat(locales, options, slots);
+    return format.format(epochMilli);
+  },
+  toString: (slots, options) => internal.formatInstantIso(refineTimeZoneSlot, createTimeZoneOffsetOps, slots, options),
+  toJSON: slots => internal.formatInstantIso(refineTimeZoneSlot, createTimeZoneOffsetOps, slots),
+  valueOf: neverValueOf
+}, {
+  from: arg => createInstant(toInstantSlots(arg)),
+  fromEpochSeconds: epochSec => createInstant(internal.epochSecToInstant(epochSec)),
+  fromEpochMilliseconds: epochMilli => createInstant(internal.epochMilliToInstant(epochMilli)),
+  fromEpochMicroseconds: epochMicro => createInstant(internal.epochMicroToInstant(epochMicro)),
+  fromEpochNanoseconds: epochNano => createInstant(internal.epochNanoToInstant(epochNano)),
+  compare: (a, b) => internal.compareInstants(toInstantSlots(a), toInstantSlots(b))
+}), [TimeZone, createTimeZone] = createSlotClass("TimeZone", (id => {
+  const slotId = internal.refineTimeZoneId(id);
+  return {
+    branding: "TimeZone",
+    id: slotId,
+    native: internal.queryNativeTimeZone(slotId)
+  };
+}), {
+  id: slots => slots.id
+}, {
+  getPossibleInstantsFor: ({native: native}, plainDateTimeArg) => native.getPossibleInstantsFor(toPlainDateTimeSlots(plainDateTimeArg)).map((epochNano => createInstant(internal.createInstantSlots(epochNano)))),
+  getOffsetNanosecondsFor: ({native: native}, instantArg) => native.getOffsetNanosecondsFor(toInstantSlots(instantArg).epochNanoseconds),
+  getOffsetStringFor(_slots, instantArg) {
+    const epochNano = toInstantSlots(instantArg).epochNanoseconds, offsetNano = createAdapterOps(this, simpleTimeZoneAdapters).getOffsetNanosecondsFor(epochNano);
+    return internal.formatOffsetNano(offsetNano);
+  },
+  getPlainDateTimeFor(_slots, instantArg, calendarArg = internal.isoCalendarId) {
+    const epochNano = toInstantSlots(instantArg).epochNanoseconds, offsetNano = createAdapterOps(this, simpleTimeZoneAdapters).getOffsetNanosecondsFor(epochNano);
+    return createPlainDateTime(internal.createPlainDateTimeSlots(internal.epochNanoToIso(epochNano, offsetNano), refineCalendarSlot(calendarArg)));
+  },
+  getInstantFor(_slots, plainDateTimeArg, options) {
+    const isoFields = toPlainDateTimeSlots(plainDateTimeArg), epochDisambig = internal.refineEpochDisambigOptions(options), calendarOps = createAdapterOps(this);
+    return createInstant(internal.createInstantSlots(internal.getSingleInstantFor(calendarOps, isoFields, epochDisambig)));
+  },
+  getNextTransition: ({native: native}, instantArg) => getImplTransition(1, native, instantArg),
+  getPreviousTransition: ({native: native}, instantArg) => getImplTransition(-1, native, instantArg),
+  equals(_slots, otherArg) {
+    return !!internal.isTimeZoneSlotsEqual(this, refineTimeZoneSlot(otherArg));
+  },
+  toString: slots => slots.id,
+  toJSON: slots => slots.id
+}, {
+  from(arg) {
+    const timeZoneSlot = refineTimeZoneSlot(arg);
+    return "string" == typeof timeZoneSlot ? new TimeZone(timeZoneSlot) : timeZoneSlot;
+  }
+}), validateTimeZoneProtocol = createProtocolValidator(Object.keys(timeZoneAdapters)), [PlainTime, createPlainTime] = createSlotClass(internal.PlainTimeBranding, internal.constructPlainTimeSlots, timeGetters, {
+  getISOFields: removeBranding,
+  with(_slots, mod, options) {
+    return createPlainTime(internal.plainTimeWithFields(this, rejectInvalidBag(mod), options));
+  },
+  add: (slots, durationArg) => createPlainTime(internal.movePlainTime(0, slots, toDurationSlots(durationArg))),
+  subtract: (slots, durationArg) => createPlainTime(internal.movePlainTime(1, slots, toDurationSlots(durationArg))),
+  until: (slots, otherArg, options) => createDuration(internal.diffPlainTimes(0, slots, toPlainTimeSlots(otherArg), options)),
+  since: (slots, otherArg, options) => createDuration(internal.diffPlainTimes(1, slots, toPlainTimeSlots(otherArg), options)),
+  round: (slots, options) => createPlainTime(internal.roundPlainTime(slots, options)),
+  equals: (slots, other) => internal.plainTimesEqual(slots, toPlainTimeSlots(other)),
+  toZonedDateTime: (slots, options) => createZonedDateTime(internal.plainTimeToZonedDateTime(refineTimeZoneSlot, toPlainDateSlots, createTimeZoneOps, slots, options)),
+  toPlainDateTime: (slots, plainDateArg) => createPlainDateTime(internal.plainTimeToPlainDateTime(slots, toPlainDateSlots(plainDateArg))),
+  toLocaleString(slots, locales, options) {
+    const [format, epochMilli] = prepPlainTimeFormat(locales, options, slots);
+    return format.format(epochMilli);
+  },
+  toString: internal.formatPlainTimeIso,
+  toJSON: slots => internal.formatPlainTimeIso(slots),
+  valueOf: neverValueOf
+}, {
+  from: (arg, options) => createPlainTime(toPlainTimeSlots(arg, options)),
+  compare: (arg0, arg1) => internal.compareIsoTimeFields(toPlainTimeSlots(arg0), toPlainTimeSlots(arg1))
+}), [PlainYearMonth, createPlainYearMonth, getPlainYearMonthSlots] = createSlotClass(internal.PlainYearMonthBranding, internal.bindArgs(internal.constructPlainYearMonthSlots, refineCalendarSlot), {
+  ...calendarIdGetters,
+  ...yearMonthGetters
+}, {
+  getISOFields: removeBranding,
+  getCalendar: createCalendarFromSlots,
+  with(slots, mod, options) {
+    return createPlainYearMonth(internal.plainYearMonthWithFields(createYearMonthModOps, slots, this, rejectInvalidBag(mod), options));
+  },
+  add: (slots, durationArg, options) => createPlainYearMonth(internal.movePlainYearMonth(createYearMonthMoveOps, 0, slots, toDurationSlots(durationArg), options)),
+  subtract: (slots, durationArg, options) => createPlainYearMonth(internal.movePlainYearMonth(createYearMonthMoveOps, 1, slots, toDurationSlots(durationArg), options)),
+  until: (slots, otherArg, options) => createDuration(internal.diffPlainYearMonth(createYearMonthDiffOps, 0, slots, toPlainYearMonthSlots(otherArg), options)),
+  since: (slots, otherArg, options) => createDuration(internal.diffPlainYearMonth(createYearMonthDiffOps, 1, slots, toPlainYearMonthSlots(otherArg), options)),
+  equals: (slots, otherArg) => internal.plainYearMonthsEqual(slots, toPlainYearMonthSlots(otherArg)),
+  toPlainDate(slots, bag) {
+    return createPlainDate(internal.plainYearMonthToPlainDate(createDateModOps, slots, this, bag));
+  },
+  toLocaleString(slots, locales, options) {
+    const [format, epochMilli] = prepPlainYearMonthFormat(locales, options, slots);
+    return format.format(epochMilli);
+  },
+  toString: internal.formatPlainYearMonthIso,
+  toJSON: slots => internal.formatPlainYearMonthIso(slots),
+  valueOf: neverValueOf
+}, {
+  from: (arg, options) => createPlainYearMonth(toPlainYearMonthSlots(arg, options)),
+  compare: (arg0, arg1) => internal.compareIsoDateFields(toPlainYearMonthSlots(arg0), toPlainYearMonthSlots(arg1))
+}), [PlainDateTime, createPlainDateTime] = createSlotClass(internal.PlainDateTimeBranding, internal.bindArgs(internal.constructPlainDateTimeSlots, refineCalendarSlot), {
+  ...calendarIdGetters,
+  ...dateGetters,
+  ...timeGetters
+}, {
+  getISOFields: removeBranding,
+  getCalendar: createCalendarFromSlots,
+  with(slots, mod, options) {
+    return createPlainDateTime(internal.plainDateTimeWithFields(createDateModOps, slots, this, rejectInvalidBag(mod), options));
+  },
+  withCalendar: (slots, calendarArg) => createPlainDateTime(internal.slotsWithCalendar(slots, refineCalendarSlot(calendarArg))),
+  withPlainDate: (slots, plainDateArg) => createPlainDateTime(internal.plainDateTimeWithPlainDate(slots, toPlainDateSlots(plainDateArg))),
+  withPlainTime: (slots, plainTimeArg) => createPlainDateTime(internal.plainDateTimeWithPlainTime(slots, optionalToPlainTimeFields(plainTimeArg))),
+  add: (slots, durationArg, options) => createPlainDateTime(internal.movePlainDateTime(createMoveOps, 0, slots, toDurationSlots(durationArg), options)),
+  subtract: (slots, durationArg, options) => createPlainDateTime(internal.movePlainDateTime(createMoveOps, 1, slots, toDurationSlots(durationArg), options)),
+  until: (slots, otherArg, options) => createDuration(internal.diffPlainDateTimes(createDiffOps, 0, slots, toPlainDateTimeSlots(otherArg), options)),
+  since: (slots, otherArg, options) => createDuration(internal.diffPlainDateTimes(createDiffOps, 1, slots, toPlainDateTimeSlots(otherArg), options)),
+  round: (slots, options) => createPlainDateTime(internal.roundPlainDateTime(slots, options)),
+  equals: (slots, otherArg) => internal.plainDateTimesEqual(slots, toPlainDateTimeSlots(otherArg)),
+  toZonedDateTime: (slots, timeZoneArg, options) => createZonedDateTime(internal.plainDateTimeToZonedDateTime(createTimeZoneOps, slots, refineTimeZoneSlot(timeZoneArg), options)),
+  toPlainDate: slots => createPlainDate(internal.createPlainDateSlots(slots)),
+  toPlainTime: slots => createPlainTime(internal.createPlainTimeSlots(slots)),
+  toPlainYearMonth(slots) {
+    return createPlainYearMonth(internal.plainDateTimeToPlainYearMonth(createYearMonthRefineOps, slots, this));
+  },
+  toPlainMonthDay(slots) {
+    return createPlainMonthDay(internal.plainDateTimeToPlainMonthDay(createMonthDayRefineOps, slots, this));
+  },
+  toLocaleString(slots, locales, options) {
+    const [format, epochMilli] = prepPlainDateTimeFormat(locales, options, slots);
+    return format.format(epochMilli);
+  },
+  toString: internal.formatPlainDateTimeIso,
+  toJSON: slots => internal.formatPlainDateTimeIso(slots),
+  valueOf: neverValueOf
+}, {
+  from: (arg, options) => createPlainDateTime(toPlainDateTimeSlots(arg, options)),
+  compare: (arg0, arg1) => internal.compareIsoDateTimeFields(toPlainDateTimeSlots(arg0), toPlainDateTimeSlots(arg1))
+}), [PlainDate, createPlainDate, getPlainDateSlots] = createSlotClass(internal.PlainDateBranding, internal.bindArgs(internal.constructPlainDateSlots, refineCalendarSlot), {
+  ...calendarIdGetters,
+  ...dateGetters
+}, {
+  getISOFields: removeBranding,
+  getCalendar: createCalendarFromSlots,
+  with(slots, mod, options) {
+    return createPlainDate(internal.plainDateWithFields(createDateModOps, slots, this, rejectInvalidBag(mod), options));
+  },
+  withCalendar: (slots, calendarArg) => createPlainDate(internal.slotsWithCalendar(slots, refineCalendarSlot(calendarArg))),
+  add: (slots, durationArg, options) => createPlainDate(internal.movePlainDate(createMoveOps, 0, slots, toDurationSlots(durationArg), options)),
+  subtract: (slots, durationArg, options) => createPlainDate(internal.movePlainDate(createMoveOps, 1, slots, toDurationSlots(durationArg), options)),
+  until: (slots, otherArg, options) => createDuration(internal.diffPlainDates(createDiffOps, 0, slots, toPlainDateSlots(otherArg), options)),
+  since: (slots, otherArg, options) => createDuration(internal.diffPlainDates(createDiffOps, 1, slots, toPlainDateSlots(otherArg), options)),
+  equals: (slots, otherArg) => internal.plainDatesEqual(slots, toPlainDateSlots(otherArg)),
+  toZonedDateTime(slots, options) {
+    const optionsObj = !internal.isObjectLike(options) || options instanceof TimeZone ? {
+      timeZone: options
+    } : options;
+    return createZonedDateTime(internal.plainDateToZonedDateTime(refineTimeZoneSlot, toPlainTimeSlots, createTimeZoneOps, slots, optionsObj));
+  },
+  toPlainDateTime: (slots, plainTimeArg) => createPlainDateTime(internal.plainDateToPlainDateTime(slots, optionalToPlainTimeFields(plainTimeArg))),
+  toPlainYearMonth(slots) {
+    return createPlainYearMonth(internal.plainDateToPlainYearMonth(createYearMonthRefineOps, slots, this));
+  },
+  toPlainMonthDay(slots) {
+    return createPlainMonthDay(internal.plainDateToPlainMonthDay(createMonthDayRefineOps, slots, this));
+  },
+  toLocaleString(slots, locales, options) {
+    const [format, epochMilli] = prepPlainDateFormat(locales, options, slots);
+    return format.format(epochMilli);
+  },
+  toString: internal.formatPlainDateIso,
+  toJSON: slots => internal.formatPlainDateIso(slots),
+  valueOf: neverValueOf
+}, {
+  from: (arg, options) => createPlainDate(toPlainDateSlots(arg, options)),
+  compare: (arg0, arg1) => internal.compareIsoDateFields(toPlainDateSlots(arg0), toPlainDateSlots(arg1))
+}), refineAdapters = {
+  fields(calendarProtocol, fieldsMethod, fieldNames) {
+    return [ ...fieldsMethod.call(calendarProtocol, fieldNames) ];
+  }
+}, dateRefineAdapters = {
+  dateFromFields(calendarProtocol, dateFromFields, fields, options) {
+    return getPlainDateSlots(dateFromFields.call(calendarProtocol, Object.assign(Object.create(null), fields), options));
+  },
+  ...refineAdapters
+}, yearMonthRefineAdapters = {
+  yearMonthFromFields(calendarProtocol, yearMonthFromFields, fields, options) {
+    return getPlainYearMonthSlots(yearMonthFromFields.call(calendarProtocol, Object.assign(Object.create(null), fields), options));
+  },
+  ...refineAdapters
+}, monthDayRefineAdapters = {
+  monthDayFromFields(calendarProtocol, monthDayFromFields, fields, options) {
+    return getPlainMonthDaySlots(monthDayFromFields.call(calendarProtocol, Object.assign(Object.create(null), fields), options));
+  },
+  ...refineAdapters
+}, modAdapters = {
+  mergeFields(calendarProtocol, mergeFields, fields, additionalFields) {
+    return internal.requireObjectLike(mergeFields.call(calendarProtocol, Object.assign(Object.create(null), fields), Object.assign(Object.create(null), additionalFields)));
+  }
+}, dateModAdapters = {
+  ...dateRefineAdapters,
+  ...modAdapters
+}, yearMonthModAdapters = {
+  ...yearMonthRefineAdapters,
+  ...modAdapters
+}, monthDayModAdapters = {
+  ...monthDayRefineAdapters,
+  ...modAdapters
+}, moveAdapters = {
+  dateAdd(calendarProtocol, dateAdd, isoFields, durationFields, options) {
+    return getPlainDateSlots(dateAdd.call(calendarProtocol, createPlainDate(internal.createPlainDateSlots(isoFields, calendarProtocol)), createDuration(internal.createDurationSlots(durationFields)), options));
+  }
+}, diffAdapters = {
+  ...moveAdapters,
+  dateUntil(calendarProtocol, dateUntil, isoFields0, isoFields1, largestUnit, origOptions) {
+    return getDurationSlots(dateUntil.call(calendarProtocol, createPlainDate(internal.createPlainDateSlots(isoFields0, calendarProtocol)), createPlainDate(internal.createPlainDateSlots(isoFields1, calendarProtocol)), Object.assign(Object.create(null), origOptions, {
+      largestUnit: internal.unitNamesAsc[largestUnit]
+    })));
+  }
+}, yearMonthMoveAdapters = {
+  ...moveAdapters,
+  day: dayAdapter
+}, yearMonthDiffAdapters = {
+  ...diffAdapters,
+  day: dayAdapter
+}, createYearMonthRefineOps = createCompoundOpsCreator(yearMonthRefineAdapters), createDateRefineOps = createCompoundOpsCreator(dateRefineAdapters), createMonthDayRefineOps = createCompoundOpsCreator(monthDayRefineAdapters), createYearMonthModOps = createCompoundOpsCreator(yearMonthModAdapters), createDateModOps = createCompoundOpsCreator(dateModAdapters), createMonthDayModOps = createCompoundOpsCreator(monthDayModAdapters), createMoveOps = createCompoundOpsCreator(moveAdapters), createDiffOps = createCompoundOpsCreator(diffAdapters), createYearMonthMoveOps = createCompoundOpsCreator(yearMonthMoveAdapters), createYearMonthDiffOps = createCompoundOpsCreator(yearMonthDiffAdapters), [Duration, createDuration, getDurationSlots] = createSlotClass(internal.DurationBranding, internal.constructDurationSlots, {
+  ...durationGetters,
+  blank: internal.getDurationBlank
+}, {
+  with: (slots, mod) => createDuration(internal.durationWithFields(slots, mod)),
+  negated: slots => createDuration(internal.negateDuration(slots)),
+  abs: slots => createDuration(internal.absDuration(slots)),
+  add: (slots, otherArg, options) => createDuration(internal.addDurations(refinePublicRelativeTo, createDiffOps, createTimeZoneOps, 0, slots, toDurationSlots(otherArg), options)),
+  subtract: (slots, otherArg, options) => createDuration(internal.addDurations(refinePublicRelativeTo, createDiffOps, createTimeZoneOps, 1, slots, toDurationSlots(otherArg), options)),
+  round: (slots, options) => createDuration(internal.roundDuration(refinePublicRelativeTo, createDiffOps, createTimeZoneOps, slots, options)),
+  total: (slots, options) => internal.totalDuration(refinePublicRelativeTo, createDiffOps, createTimeZoneOps, slots, options),
+  toLocaleString(slots, locales, options) {
+    return Intl.DurationFormat ? new Intl.DurationFormat(locales, options).format(this) : internal.formatDurationIso(slots);
+  },
+  toString: internal.formatDurationIso,
+  toJSON: slots => internal.formatDurationIso(slots),
+  valueOf: neverValueOf
+}, {
+  from: arg => createDuration(toDurationSlots(arg)),
+  compare: (durationArg0, durationArg1, options) => internal.compareDurations(refinePublicRelativeTo, createMoveOps, createTimeZoneOps, toDurationSlots(durationArg0), toDurationSlots(durationArg1), options)
+}), calendarMethods = {
+  toString: slots => slots.id,
+  toJSON: slots => slots.id,
+  ...calendarFieldMethods,
+  dateAdd: ({id: id, native: native}, plainDateArg, durationArg, options) => createPlainDate(internal.createPlainDateSlots(native.dateAdd(toPlainDateSlots(plainDateArg), toDurationSlots(durationArg), options), id)),
+  dateUntil: ({native: native}, plainDateArg0, plainDateArg1, options) => createDuration(internal.createDurationSlots(native.dateUntil(toPlainDateSlots(plainDateArg0), toPlainDateSlots(plainDateArg1), internal.refineDateDiffOptions(options)))),
+  dateFromFields: ({id: id, native: native}, fields, options) => createPlainDate(internal.refinePlainDateBag(native, fields, options, internal.getRequiredDateFields(id))),
+  yearMonthFromFields: ({id: id, native: native}, fields, options) => createPlainYearMonth(internal.refinePlainYearMonthBag(native, fields, options, internal.getRequiredYearMonthFields(id))),
+  monthDayFromFields: ({id: id, native: native}, fields, options) => createPlainMonthDay(internal.refinePlainMonthDayBag(native, 0, fields, options, internal.getRequiredMonthDayFields(id))),
+  fields({native: native}, fieldNames) {
+    const allowed = new Set(internal.dateFieldNamesAlpha), fieldNamesArray = [];
+    for (const fieldName of fieldNames) {
+      if (internal.requireString(fieldName), !allowed.has(fieldName)) {
+        throw new RangeError(internal.forbiddenField(fieldName));
+      }
+      allowed.delete(fieldName), fieldNamesArray.push(fieldName);
     }
-    get baseCode() {
-        return (0,_canvas_course_code__WEBPACK_IMPORTED_MODULE_10__.baseCourseCode)(this.canvasData.course_code);
+    return native.fields(fieldNamesArray);
+  },
+  mergeFields: ({native: native}, fields0, fields1) => native.mergeFields(internal.excludeUndefinedProps(internal.requireNonNullish(fields0)), internal.excludeUndefinedProps(internal.requireNonNullish(fields1)))
+}, [Calendar] = createSlotClass("Calendar", (id => {
+  const slotId = internal.refineCalendarId(id);
+  return {
+    branding: "Calendar",
+    id: slotId,
+    native: internal.createNativeStandardOps(slotId)
+  };
+}), {
+  id: slots => slots.id
+}, calendarMethods, {
+  from(arg) {
+    const calendarSlot = refineCalendarSlot(arg);
+    return "string" == typeof calendarSlot ? new Calendar(calendarSlot) : calendarSlot;
+  }
+}), validateCalendarProtocol = createProtocolValidator(Object.keys(calendarMethods).slice(4)), [ZonedDateTime, createZonedDateTime] = createSlotClass(internal.ZonedDateTimeBranding, internal.bindArgs(internal.constructZonedDateTimeSlots, refineCalendarSlot, refineTimeZoneSlot), {
+  ...epochGetters,
+  ...calendarIdGetters,
+  ...adaptDateMethods(dateGetters),
+  ...adaptDateMethods(timeGetters),
+  offset: slots => internal.formatOffsetNano(slotsToIso(slots).offsetNanoseconds),
+  offsetNanoseconds: slots => slotsToIso(slots).offsetNanoseconds,
+  timeZoneId: slots => internal.getId(slots.timeZone),
+  hoursInDay: slots => internal.computeZonedHoursInDay(createTimeZoneOps, slots)
+}, {
+  getISOFields: slots => internal.buildZonedIsoFields(createTimeZoneOffsetOps, slots),
+  getCalendar: createCalendarFromSlots,
+  getTimeZone: ({timeZone: timeZone}) => "string" == typeof timeZone ? new TimeZone(timeZone) : timeZone,
+  with(slots, mod, options) {
+    return createZonedDateTime(internal.zonedDateTimeWithFields(createDateModOps, createTimeZoneOps, slots, this, rejectInvalidBag(mod), options));
+  },
+  withCalendar: (slots, calendarArg) => createZonedDateTime(internal.slotsWithCalendar(slots, refineCalendarSlot(calendarArg))),
+  withTimeZone: (slots, timeZoneArg) => createZonedDateTime(internal.slotsWithTimeZone(slots, refineTimeZoneSlot(timeZoneArg))),
+  withPlainDate: (slots, plainDateArg) => createZonedDateTime(internal.zonedDateTimeWithPlainDate(createTimeZoneOps, slots, toPlainDateSlots(plainDateArg))),
+  withPlainTime: (slots, plainTimeArg) => createZonedDateTime(internal.zonedDateTimeWithPlainTime(createTimeZoneOps, slots, optionalToPlainTimeFields(plainTimeArg))),
+  add: (slots, durationArg, options) => createZonedDateTime(internal.moveZonedDateTime(createMoveOps, createTimeZoneOps, 0, slots, toDurationSlots(durationArg), options)),
+  subtract: (slots, durationArg, options) => createZonedDateTime(internal.moveZonedDateTime(createMoveOps, createTimeZoneOps, 1, slots, toDurationSlots(durationArg), options)),
+  until: (slots, otherArg, options) => createDuration(internal.createDurationSlots(internal.diffZonedDateTimes(createDiffOps, createTimeZoneOps, 0, slots, toZonedDateTimeSlots(otherArg), options))),
+  since: (slots, otherArg, options) => createDuration(internal.createDurationSlots(internal.diffZonedDateTimes(createDiffOps, createTimeZoneOps, 1, slots, toZonedDateTimeSlots(otherArg), options))),
+  round: (slots, options) => createZonedDateTime(internal.roundZonedDateTime(createTimeZoneOps, slots, options)),
+  startOfDay: slots => createZonedDateTime(internal.computeZonedStartOfDay(createTimeZoneOps, slots)),
+  equals: (slots, otherArg) => internal.zonedDateTimesEqual(slots, toZonedDateTimeSlots(otherArg)),
+  toInstant: slots => createInstant(internal.zonedDateTimeToInstant(slots)),
+  toPlainDateTime: slots => createPlainDateTime(internal.zonedDateTimeToPlainDateTime(createTimeZoneOffsetOps, slots)),
+  toPlainDate: slots => createPlainDate(internal.zonedDateTimeToPlainDate(createTimeZoneOffsetOps, slots)),
+  toPlainTime: slots => createPlainTime(internal.zonedDateTimeToPlainTime(createTimeZoneOffsetOps, slots)),
+  toPlainYearMonth(slots) {
+    return createPlainYearMonth(internal.zonedDateTimeToPlainYearMonth(createYearMonthRefineOps, slots, this));
+  },
+  toPlainMonthDay(slots) {
+    return createPlainMonthDay(internal.zonedDateTimeToPlainMonthDay(createMonthDayRefineOps, slots, this));
+  },
+  toLocaleString(slots, locales, options = {}) {
+    const [format, epochMilli] = prepZonedDateTimeFormat(locales, options, slots);
+    return format.format(epochMilli);
+  },
+  toString: (slots, options) => internal.formatZonedDateTimeIso(createTimeZoneOffsetOps, slots, options),
+  toJSON: slots => internal.formatZonedDateTimeIso(createTimeZoneOffsetOps, slots),
+  valueOf: neverValueOf
+}, {
+  from: (arg, options) => createZonedDateTime(toZonedDateTimeSlots(arg, options)),
+  compare: (arg0, arg1) => internal.compareZonedDateTimes(toZonedDateTimeSlots(arg0), toZonedDateTimeSlots(arg1))
+}), Now = Object.defineProperties({}, {
+  ...internal.createStringTagDescriptors("Temporal.Now"),
+  ...internal.createPropDescriptors({
+    timeZoneId: () => internal.getCurrentTimeZoneId(),
+    instant: () => createInstant(internal.createInstantSlots(internal.getCurrentEpochNano())),
+    zonedDateTime: (calendar, timeZone = internal.getCurrentTimeZoneId()) => createZonedDateTime(internal.createZonedDateTimeSlots(internal.getCurrentEpochNano(), refineTimeZoneSlot(timeZone), refineCalendarSlot(calendar))),
+    zonedDateTimeISO: (timeZone = internal.getCurrentTimeZoneId()) => createZonedDateTime(internal.createZonedDateTimeSlots(internal.getCurrentEpochNano(), refineTimeZoneSlot(timeZone), internal.isoCalendarId)),
+    plainDateTime: (calendar, timeZone = internal.getCurrentTimeZoneId()) => createPlainDateTime(internal.createPlainDateTimeSlots(internal.getCurrentIsoDateTime(createTimeZoneOffsetOps(refineTimeZoneSlot(timeZone))), refineCalendarSlot(calendar))),
+    plainDateTimeISO: (timeZone = internal.getCurrentTimeZoneId()) => createPlainDateTime(internal.createPlainDateTimeSlots(internal.getCurrentIsoDateTime(createTimeZoneOffsetOps(refineTimeZoneSlot(timeZone))), internal.isoCalendarId)),
+    plainDate: (calendar, timeZone = internal.getCurrentTimeZoneId()) => createPlainDate(internal.createPlainDateSlots(internal.getCurrentIsoDateTime(createTimeZoneOffsetOps(refineTimeZoneSlot(timeZone))), refineCalendarSlot(calendar))),
+    plainDateISO: (timeZone = internal.getCurrentTimeZoneId()) => createPlainDate(internal.createPlainDateSlots(internal.getCurrentIsoDateTime(createTimeZoneOffsetOps(refineTimeZoneSlot(timeZone))), internal.isoCalendarId)),
+    plainTimeISO: (timeZone = internal.getCurrentTimeZoneId()) => createPlainTime(internal.createPlainTimeSlots(internal.getCurrentIsoDateTime(createTimeZoneOffsetOps(refineTimeZoneSlot(timeZone)))))
+  })
+}), Temporal = Object.defineProperties({}, {
+  ...internal.createStringTagDescriptors("Temporal"),
+  ...internal.createPropDescriptors({
+    PlainYearMonth: PlainYearMonth,
+    PlainMonthDay: PlainMonthDay,
+    PlainDate: PlainDate,
+    PlainTime: PlainTime,
+    PlainDateTime: PlainDateTime,
+    ZonedDateTime: ZonedDateTime,
+    Instant: Instant,
+    Calendar: Calendar,
+    TimeZone: TimeZone,
+    Duration: Duration,
+    Now: Now
+  })
+}), DateTimeFormat = function() {
+  const members = internal.RawDateTimeFormat.prototype, memberDescriptors = Object.getOwnPropertyDescriptors(members), classDescriptors = Object.getOwnPropertyDescriptors(internal.RawDateTimeFormat), DateTimeFormat = function(locales, options = {}) {
+    if (!(this instanceof DateTimeFormat)) {
+      return new DateTimeFormat(locales, options);
     }
-    get termId() {
-        const id = this.canvasData.enrollment_term_id;
-        if (typeof id === 'number')
-            return id;
-        else
-            return id[0];
-    }
-    async getTerm() {
-        assert__WEBPACK_IMPORTED_MODULE_23___default()(typeof this.termId === 'number');
-        if (this.termId)
-            return _canvas_term_Term__WEBPACK_IMPORTED_MODULE_11__.Term.getTermById(this.termId);
-        else
-            return null;
-    }
-    get fileUploadUrl() {
-        return `/api/v1/courses/${this.id}/files`;
-    }
-    get codePrefix() {
-        const match = COURSE_CODE_REGEX.exec(this.rawData.course_code);
-        return match ? match[1] : '';
-    }
-    get workflowState() {
-        return this.canvasData.workflow_state;
-    }
-    get isDev() {
-        return !!this.name.match(/^DEV/);
-    }
-    get rootAccountId() {
-        return this.canvasData.root_account_id;
-    }
-    get accountId() {
-        return this.canvasData.account_id;
-    }
-    async getModules(config) {
-        if (this._modules) {
-            return this._modules;
-        }
-        const modules = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_modules__WEBPACK_IMPORTED_MODULE_4__.moduleGenerator)(this.id, {
-            queryParams: {
-                include: ['items', 'content_details']
-            }
+    internalsMap.set(this, ((locales, options = {}) => {
+      const rawFormat = new internal.RawDateTimeFormat(locales, options), resolveOptions = rawFormat.resolvedOptions(), resolvedLocale = resolveOptions.locale, copiedOptions = internal.pluckProps(Object.keys(options), resolveOptions), queryFormatPrepperForBranding = internal.memoize(createFormatPrepperForBranding), prepFormat = (...formattables) => {
+        let branding;
+        const slotsList = formattables.map(((formattable, i) => {
+          const slots = getSlots(formattable), slotsBranding = (slots || {}).branding;
+          if (i && branding && branding !== slotsBranding) {
+            throw new TypeError(internal.mismatchingFormatTypes);
+          }
+          return branding = slotsBranding, slots;
         }));
-        this._modules = modules;
-        return modules;
-    }
-    async getStartDateFromModules() {
-        return (0,_changeStartDate__WEBPACK_IMPORTED_MODULE_3__.getModuleUnlockStartDate)(await this.getModules());
-    }
-    async getInstructors() {
-        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(`/api/v1/courses/${this.id}/users?enrollment_type=teacher`);
-    }
-    async getLatePolicy(config) {
-        const latePolicyResult = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(`/api/v1/courses/${this.id}/late_policy`, config);
-        if ('late_policy' in latePolicyResult)
-            return latePolicyResult.late_policy;
-        return undefined;
-    }
-    async getAvailableGradingStandards(config) {
-        let out = [];
-        console.log(this.name);
-        const { id, account_id, root_account_id } = this.canvasData;
-        try {
-            if (id) {
-                const courseGradingStandards = await (0,_index__WEBPACK_IMPORTED_MODULE_8__.getGradingStandards)(id, "course", config);
-                out = [...out, ...courseGradingStandards];
-            }
-            if (account_id) {
-                const accountGradingStandards = await (0,_index__WEBPACK_IMPORTED_MODULE_8__.getGradingStandards)(account_id, 'account', config);
-                out = [...out, ...accountGradingStandards];
-            }
-            if (root_account_id) {
-                const rootAccountGradingStandards = await (0,_index__WEBPACK_IMPORTED_MODULE_8__.getGradingStandards)(root_account_id, 'account', config);
-                out = [...out, ...rootAccountGradingStandards];
-            }
-        }
-        catch (e) {
-            console.warn(e);
-        }
-        return out.filter(_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.filterUniqueFunc);
-    }
-    async getCurrentGradingStandard(config) {
-        const { grading_standard_id, account_id, root_account_id } = this.canvasData;
-        const urls = [];
-        if (grading_standard_id) {
-            urls.push(`/api/v1/courses/${this.id}/grading_standards/${grading_standard_id}`);
-            if (root_account_id)
-                urls.push(`/api/v1/accounts/${root_account_id}/grading_standards/${grading_standard_id}`);
-            if (account_id)
-                urls.push(`/api/v1/accounts/${account_id}/grading_standards/${grading_standard_id}`);
-        }
-        const standards = (await this.getAvailableGradingStandards(config)).filter(standard => standard.id === grading_standard_id);
-        if (standards.length == 0)
-            return null;
-        return standards[0];
-    }
-    async getModulesByWeekNumber(config) {
-        if (this.modulesByWeekNumber)
-            return this.modulesByWeekNumber;
-        const modules = await this.getModules(config);
-        this.modulesByWeekNumber = await (0,_modules__WEBPACK_IMPORTED_MODULE_4__.getModulesByWeekNumber)(modules);
-        return (this.modulesByWeekNumber);
-    }
-    /**
-     * Returns a list of links to items in a given module
-     *
-     * @param moduleOrWeekNumber
-     * @param target An object specifying an item or items to look for
-     * type - specifies the type,
-     * search - a string to search for in titles. optional.
-     * index - return the indexth one of these in the week (minus the intro in week 1, which should be index 0)
-     * if none is specified, return all matches
-     */
-    async getModuleItemLinks(moduleOrWeekNumber, target) {
-        assert__WEBPACK_IMPORTED_MODULE_23___default()(target.hasOwnProperty('type'));
-        const targetType = target.type;
-        const contentSearchString = target.hasOwnProperty('search') ? target.search : null;
-        let targetIndex = isNaN(target.index) ? null : target.index;
-        let targetModuleWeekNumber;
-        let targetModule;
-        if (typeof moduleOrWeekNumber === 'number') {
-            const modules = await this.getModulesByWeekNumber();
-            assert__WEBPACK_IMPORTED_MODULE_23___default()(modules.hasOwnProperty(moduleOrWeekNumber));
-            targetModuleWeekNumber = moduleOrWeekNumber;
-            targetModule = modules[targetModuleWeekNumber];
-        }
-        else {
-            targetModule = moduleOrWeekNumber;
-            targetModuleWeekNumber = (0,_modules__WEBPACK_IMPORTED_MODULE_4__.getModuleWeekNumber)(targetModule);
-        }
-        const urls = [];
-        if (targetModule && typeof targetType !== 'undefined') {
-            //If it's a page, just search for the parameter string
-            if (targetType === 'Page' && contentSearchString) {
-                const pages = await this.getPages({
-                    queryParams: { search_term: contentSearchString }
-                });
-                pages.forEach((page) => urls.push(page.htmlContentUrl));
-                //If it's anything else, get only those items in the module and set url to the targetIndexth one.
-            }
-            else if (targetType) {
-                //bump index for week 1 to account for intro discussion / checking for rubric would require pulling too much data
-                //and too much performance overhead
-                if (targetIndex && targetType === 'Discussion' && targetModuleWeekNumber === 1)
-                    targetIndex++;
-                const matchingTypeItems = targetModule.items.filter((item) => item.type === targetType);
-                if (targetIndex && matchingTypeItems.length >= targetIndex) {
-                    //We refer to and number the assignments indexed at 1, but the array is indexed at 0
-                    const targetItem = matchingTypeItems[targetIndex - 1];
-                    urls.push(targetItem.html_url);
-                }
-                else if (!targetIndex) {
-                    for (const item of matchingTypeItems)
-                        urls.push(item.html_url);
-                }
-            }
-        }
-        return urls;
-    }
-    async getSyllabus(config = { queryParams: {} }) {
-        if (this.canvasData.syllabus_body)
-            return this.canvasData.syllabus_body;
-        const data = await (0,_index__WEBPACK_IMPORTED_MODULE_8__.getCourseData)(this.id, (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_13__.fetchGetConfig)({ include: ['syllabus_body'] }, config));
-        assert__WEBPACK_IMPORTED_MODULE_23___default()(data.syllabus_body);
-        this.canvasData.syllabus_body = data.syllabus_body;
-        return this.canvasData.syllabus_body;
-    }
-    // /**
-    //  * gets all assignments in a course
-    //  * @returns {Promise<Assignment[]>}
-    //  * @param config
-    //  */
-    async getAssignments(config) {
-        console.warn('deprecated, use assignmentDataGen instead');
-        config = (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_13__.overrideConfig)(config, { queryParams: { include: ['due_at'] } });
-        const assignmentDatas = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_canvas_content_assignments__WEBPACK_IMPORTED_MODULE_9__.assignmentDataGen)(this.id, config));
-        return (assignmentDatas.map(data => new _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_20__.Assignment(data, this.id)));
-    }
-    async getContent(config, refresh = false) {
-        if (refresh || this.cachedContent.length == 0) {
-            const discussions = await this.getDiscussions(config);
-            const assignments = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.renderAsyncGen)((0,_canvas_content_assignments__WEBPACK_IMPORTED_MODULE_9__.assignmentDataGen)(this.id, config));
-            const quizzes = await this.getQuizzes(config);
-            const pages = await this.getPages(config);
-            this.cachedContent = [
-                ...discussions,
-                ...assignments.map(a => new _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_20__.Assignment(a, this.id)),
-                ...quizzes,
-                ...pages
-            ];
-        }
-        return this.cachedContent;
-    }
-    async getDiscussions(config) {
-        return await _canvas_content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_19__.Discussion.getAllInCourse(this.id, config);
-    }
-    async getAssignmentGroups(config) {
-        return await (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_12__.getPagedData)(`/api/v1/courses/${this.id}/assignment_groups`, config);
-    }
-    async getQuizzes(config) {
-        return await _canvas_content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_17__.Quiz.getAllInCourse(this.id, config);
-    }
-    async getSubsections() {
-        const url = `/api/v1/courses/${this.id}/sections`;
-        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(url);
-    }
-    async getTabs(config) {
-        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(`/api/v1/courses/${this.id}/tabs`, config);
-    }
-    async getFrontPage() {
-        try {
-            const data = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(`${this.contentUrlPath}/front_page`);
-            return new _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_18__.Page(data, this.id);
-        }
-        catch (error) {
-            return null;
-        }
-    }
-    getTab(label) {
-        return this.canvasData.tabs.find((tab) => tab.label === label) || null;
-    }
-    async reload() {
-        const id = this.id;
-        const reloaded = await Course.getCourseById(id);
-        this.canvasData = reloaded.rawData;
-    }
-    async changeSyllabus(newHtml) {
-        this.canvasData['syllabus_body'] = newHtml;
-        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(`/api/v1/courses/${this.id}`, {
-            fetchInit: {
-                method: 'PUT',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({
-                    course: {
-                        syllabus_body: newHtml
-                    }
-                })
-            }
-        });
-    }
-    async publish() {
-        const url = `/api/v1/courses/${this.id}`;
-        const courseData = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(url, {
-            fetchInit: {
-                method: 'PUT',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_2__.formDataify)({ 'offer': true })
-            }
-        });
-        console.log(courseData);
-        this.canvasData = courseData;
-    }
-    get devCode() {
-        return 'DEV_' + this.baseCode;
-    }
-    async getParentCourse(return_dev_search = false) {
-        const migrations = await (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_12__.getPagedData)(`/api/v1/courses/${this.id}/content_migrations`);
-        const parentCode = this.devCode;
-        migrations.sort((a, b) => b.id - a.id);
-        for (const migration of migrations) {
-            const course = await Course.getCourseById(migration['settings']['source_course_id']);
-            if (course && /^DEV/.test(course.codePrefix)) {
-                return_dev_search = true;
-                return course;
-            }
-        }
-        if (!return_dev_search) {
-            const courseGen = (0,_index__WEBPACK_IMPORTED_MODULE_8__.getCourseGenerator)(parentCode, this.getAccountIds(), undefined, {
-                queryParams: {
-                    search_term: parentCode
-                }
-            });
-            for await (const course of courseGen) {
-                if (course.courseCode && /^DEV/.test(course.courseCode))
-                    return course;
-            }
-        }
-        else
-            return;
-    }
-    getAccountIds() {
-        return [this.accountId, this.rootAccountId].filter(a => typeof a !== 'undefined' && a !== null);
-    }
-    async regenerateHomeTiles() {
-        const modules = await this.getModules();
-        const urls = await Promise.all(modules.map(async (module) => {
-            try {
-                const dataUrl = await this.generateHomeTile(module);
-            }
-            catch (e) {
-                console.log(e);
-            }
-        }));
-        console.log('done');
-    }
-    async generateHomeTile(module) {
-        const hometileSrcPage = await (0,_modules__WEBPACK_IMPORTED_MODULE_4__.getHometileSrcPage)(module, this.id);
-        if (!hometileSrcPage)
-            throw new Error("Module does not have an overview");
-        const bannerImg = (0,_canvas_content_BaseContentItem__WEBPACK_IMPORTED_MODULE_15__.getBannerImage)(hometileSrcPage);
-        if (!bannerImg)
-            throw new Error("No banner image on page");
-        const resizedImageBlob = await (0,_image__WEBPACK_IMPORTED_MODULE_5__.getResizedBlob)(bannerImg.src, HOMETILE_WIDTH);
-        const fileName = `hometile${module.position}.png`;
-        assert__WEBPACK_IMPORTED_MODULE_23___default()(resizedImageBlob);
-        const file = new File([resizedImageBlob], fileName);
-        return await (0,_files__WEBPACK_IMPORTED_MODULE_6__.uploadFile)(file, 'Images/hometile', this.fileUploadUrl);
-    }
-    getPages(config = null) {
-        return _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_18__.Page.getAllInCourse(this.id, config);
-    }
-    async getFrontPageProfile() {
-        const frontPage = await this.getFrontPage();
-        try {
-            assert__WEBPACK_IMPORTED_MODULE_23___default()(frontPage && frontPage.body, "Course front page not found");
-            const frontPageProfile = (0,_profile__WEBPACK_IMPORTED_MODULE_7__.getCurioPageFrontPageProfile)(frontPage === null || frontPage === void 0 ? void 0 : frontPage.body);
-            frontPageProfile.sourcePage = frontPage;
-            return frontPageProfile;
-        }
-        catch (e) {
-            return {
-                bio: 'NOT FOUND',
-                sourcePage: frontPage,
-            };
-        }
-    }
-    async getPotentialInstructorProfiles() {
-        try {
-            const instructors = await this.getInstructors();
-            let profiles = [];
-            if (!instructors)
-                return profiles;
-            for (const instructor of instructors) {
-                profiles = profiles.concat(await (0,_profile__WEBPACK_IMPORTED_MODULE_7__.getPotentialFacultyProfiles)(instructor));
-            }
-            return profiles;
-        }
-        catch (e) {
-            return [];
-        }
-    }
-    async getSettings(config) {
-        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(`/api/v1/courses/${this.id}/settings`, config);
-    }
-    async updateSettings(newSettings, config) {
-        const configToUse = (0,_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_21__["default"])("PUT", newSettings, config);
-        return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_14__.fetchJson)(`/api/v1/courses/${this.id}/settings`, configToUse);
-    }
-    isUndergrad() {
-        if (this.courseCode) {
-            const match = this.courseCode.match(/\d{3,4}/);
-            if (match)
-                return parseInt(match[0], 10) < 500;
-        }
-        return false;
-    }
-    isGrad() {
-        if (this.courseCode) {
-            const match = this.courseCode.match(/\d{3,4}/);
-            if (match)
-                return parseInt(match[0], 10) >= 500 && parseInt(match[0], 10) < 1000;
-        }
-        return false;
-    }
-    isCareerInstitute() {
-        if (this.courseCode) {
-            const match = this.courseCode.match(/\d{4}/);
-            if (match)
-                return true;
-        }
-        return false;
-    }
-}
-Course.nameProperty = 'name';
-Course.contentClasses = [_canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_20__.Assignment, _canvas_content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_19__.Discussion, _canvas_content_quizzes_Quiz__WEBPACK_IMPORTED_MODULE_17__.Quiz, _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_18__.Page];
-
-
-/***/ }),
-
-/***/ "./src/canvas/course/blueprint.ts":
-/*!****************************************!*\
-  !*** ./src/canvas/course/blueprint.ts ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   beginBpSync: () => (/* binding */ beginBpSync),
-/* harmony export */   genBlueprintDataForCode: () => (/* binding */ genBlueprintDataForCode),
-/* harmony export */   getBlueprintsFromCode: () => (/* binding */ getBlueprintsFromCode),
-/* harmony export */   isBlueprint: () => (/* binding */ isBlueprint),
-/* harmony export */   lockBlueprint: () => (/* binding */ lockBlueprint),
-/* harmony export */   sectionDataGenerator: () => (/* binding */ sectionDataGenerator),
-/* harmony export */   setAsBlueprint: () => (/* binding */ setAsBlueprint),
-/* harmony export */   unSetAsBlueprint: () => (/* binding */ unSetAsBlueprint)
-/* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../canvasUtils */ "./src/canvas/canvasUtils.ts");
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "./src/canvas/course/index.ts");
-/* harmony import */ var _canvas_course_code__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/course/code */ "./src/canvas/course/code.ts");
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/canvas/fetch/utils */ "./src/canvas/fetch/utils.ts");
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-/* harmony import */ var _fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/fetch/apiWriteConfig */ "./src/fetch/apiWriteConfig.ts");
-
-
-
-
-
-
-
-function isBlueprint({ blueprint }) {
-    return !!blueprint;
-}
-//W
-function genBlueprintDataForCode(courseCode, accountIds, queryParams) {
-    if (!courseCode) {
-        console.warn("Course code not present");
-        return null;
-    }
-    const baseCode = (0,_canvas_course_code__WEBPACK_IMPORTED_MODULE_2__.baseCourseCode)(courseCode);
-    if (!baseCode) {
-        console.warn(`Code ${courseCode} invalid`);
-        return null;
-    }
-    return (0,_index__WEBPACK_IMPORTED_MODULE_1__.getCourseDataGenerator)(baseCode, accountIds, undefined, (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.fetchGetConfig)({
-        blueprint: true,
-        include: ['concluded'],
-    }, { queryParams }));
-}
-function sectionDataGenerator(courseId, config) {
-    const url = `/api/v1/courses/${courseId}/blueprint_templates/default/associated_courses`;
-    return (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedDataGenerator)(url, config);
-}
-async function beginBpSync(courseId, { message, copy_settings, config }) {
-    const url = `/api/v1/courses/${courseId}/blueprint_templates/default/migrations`;
-    if (typeof copy_settings === 'undefined')
-        copy_settings = true;
-    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, (0,_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__.apiWriteConfig)('POST', {
-        message,
-        copy_settings
-    }, config));
-}
-async function getBlueprintsFromCode(code, accountIds, config) {
-    const [_, baseCode] = code.match(/_(\w{4}\d{3})$/) || [];
-    if (!baseCode)
-        return null;
-    const bps = (0,_index__WEBPACK_IMPORTED_MODULE_1__.getCourseGenerator)(`BP_${baseCode}`, accountIds, undefined, config);
-    return (await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.renderAsyncGen)(bps)).toSorted((a, b) => b.name.length - a.name.length);
-}
-async function lockBlueprint(courseId, modules) {
-    let items = [];
-    items = items.concat(...modules.map(a => [].concat(...a.items)));
-    const promises = items.map(async (item) => {
-        const url = `/api/v1/courses/${courseId}/blueprint_templates/default/restrict_item`;
-        const { type, id } = await (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.getItemTypeAndId)(item);
-        if (typeof id === 'undefined')
-            return;
-        const body = {
-            "content_type": type,
-            "content_id": id,
-            "restricted": true,
-            "_method": 'PUT'
-        };
-        await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, {
-            fetchInit: {
-                method: 'PUT',
-                body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(body)
-            }
-        });
+        return branding ? queryFormatPrepperForBranding(branding)(resolvedLocale, copiedOptions, ...slotsList) : [ rawFormat, ...formattables ];
+      };
+      return prepFormat.rawFormat = rawFormat, prepFormat;
+    })(locales, options));
+  };
+  for (const memberName in memberDescriptors) {
+    const memberDescriptor = memberDescriptors[memberName], formatLikeMethod = memberName.startsWith("format") && createFormatMethod(memberName);
+    "function" == typeof memberDescriptor.value ? memberDescriptor.value = "constructor" === memberName ? DateTimeFormat : formatLikeMethod || createProxiedMethod(memberName) : formatLikeMethod && (memberDescriptor.get = function() {
+      return formatLikeMethod.bind(this);
     });
-    await Promise.all(promises);
-}
-async function setAsBlueprint(courseId, config) {
-    const url = `/api/v1/courses/${courseId}`;
-    const payload = {
-        course: {
-            blueprint: true,
-            use_blueprint_restrictions_by_object_type: 0,
-            blueprint_restrictions: {
-                content: 1,
-                points: 1,
-                due_dates: 1,
-                availability_dates: 1,
-            }
-        }
-    };
-    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, (0,_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__.apiWriteConfig)('PUT', payload, config));
-}
-async function unSetAsBlueprint(courseId, config) {
-    const url = `/api/v1/courses/${courseId}`;
-    const payload = {
-        course: {
-            blueprint: false
-        }
-    };
-    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_5__.fetchJson)(url, (0,_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_6__.apiWriteConfig)("PUT", payload, config));
-}
+  }
+  return classDescriptors.prototype.value = Object.create(members, memberDescriptors), 
+  Object.defineProperties(DateTimeFormat, classDescriptors), DateTimeFormat;
+}(), internalsMap = new WeakMap, IntlExtended = Object.defineProperties(Object.create(Intl), internal.createPropDescriptors({
+  DateTimeFormat: DateTimeFormat
+}));
+
+exports.DateTimeFormat = DateTimeFormat, exports.IntlExtended = IntlExtended, exports.Temporal = Temporal, 
+exports.toTemporalInstant = function() {
+  return createInstant(internal.createInstantSlots(internal.numberToBigNano(this.valueOf(), internal.nanoInMilli)));
+};
 
 
-/***/ }),
+/***/ },
 
-/***/ "./src/canvas/course/cachedGetAssociatedCoursesFunc.ts":
-/*!*************************************************************!*\
-  !*** ./src/canvas/course/cachedGetAssociatedCoursesFunc.ts ***!
-  \*************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ "./node_modules/temporal-polyfill/chunks/internal.cjs"
+/*!************************************************************!*\
+  !*** ./node_modules/temporal-polyfill/chunks/internal.cjs ***!
+  \************************************************************/
+(__unused_webpack_module, exports) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   cachedGetAssociatedCoursesFunc: () => (/* binding */ cachedGetAssociatedCoursesFunc)
-/* harmony export */ });
-/* harmony import */ var _canvas_course_getSections__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @canvas/course/getSections */ "./src/canvas/course/getSections.ts");
 
-function cachedGetAssociatedCoursesFunc(course) {
-    let cache = null;
-    return async (redownload = false) => {
-        if (!redownload && cache)
-            return cache;
-        cache = await (0,_canvas_course_getSections__WEBPACK_IMPORTED_MODULE_0__.getSections)(course.id);
-        return cache;
-    };
+
+function clampProp(props, propName, min, max, overflow) {
+  return clampEntity(propName, getDefinedProp(props, propName), min, max, overflow);
 }
 
-
-/***/ }),
-
-/***/ "./src/canvas/course/changeStartDate.ts":
-/*!**********************************************!*\
-  !*** ./src/canvas/course/changeStartDate.ts ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   MalformedSyllabusError: () => (/* binding */ MalformedSyllabusError),
-/* harmony export */   NoAssignmentsWithDueDatesError: () => (/* binding */ NoAssignmentsWithDueDatesError),
-/* harmony export */   NoOverviewModuleFoundError: () => (/* binding */ NoOverviewModuleFoundError),
-/* harmony export */   getModuleUnlockStartDate: () => (/* binding */ getModuleUnlockStartDate),
-/* harmony export */   getNewTermName: () => (/* binding */ getNewTermName),
-/* harmony export */   getOldUgTermName: () => (/* binding */ getOldUgTermName),
-/* harmony export */   getStartDateAssignments: () => (/* binding */ getStartDateAssignments),
-/* harmony export */   getStartDateFromSyllabus: () => (/* binding */ getStartDateFromSyllabus),
-/* harmony export */   getUpdatedStyleTermName: () => (/* binding */ getUpdatedStyleTermName),
-/* harmony export */   sortAssignmentsByDueDate: () => (/* binding */ sortAssignmentsByDueDate),
-/* harmony export */   syllabusHeaderName: () => (/* binding */ syllabusHeaderName),
-/* harmony export */   updatedDateSyllabusHtml: () => (/* binding */ updatedDateSyllabusHtml)
-/* harmony export */ });
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
-/* harmony import */ var _date__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/date */ "./src/date.ts");
-/* harmony import */ var _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/assignments/Assignment */ "./src/canvas/content/assignments/Assignment.ts");
-/* harmony import */ var _canvas_content_assignments__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @canvas/content/assignments */ "./src/canvas/content/assignments/index.ts");
-
-
-
-
-const DEFAULT_LOCALE = 'en-US';
-function getModuleUnlockStartDate(modules) {
-    if (modules.length == 0)
-        throw new NoOverviewModuleFoundError();
-    const overviewModule = modules[0];
-    const unlockDateString = overviewModule.unlock_at;
-    if (!unlockDateString)
-        return null;
-    const oldDate = new Date(unlockDateString);
-    return (0,_date__WEBPACK_IMPORTED_MODULE_1__.oldDateToPlainDate)(oldDate);
+function clampEntity(entityName, num, min, max, overflow, choices) {
+  const clamped = clampNumber(num, min, max);
+  if (overflow && num !== clamped) {
+    throw new RangeError(numberOutOfRange(entityName, num, min, max, choices));
+  }
+  return clamped;
 }
-//This may be unnecessary, as the API call is now pulling by due_at date.
-function sortAssignmentsByDueDate(assignments) {
-    return assignments
-        .toSorted((a, b) => {
-        a = a instanceof _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_2__.Assignment ? a.rawData : a;
-        b = b instanceof _canvas_content_assignments_Assignment__WEBPACK_IMPORTED_MODULE_2__.Assignment ? b.rawData : b;
-        if (a.due_at && b.due_at) {
-            return (0,_date__WEBPACK_IMPORTED_MODULE_1__.oldDateToPlainDate)(new Date(b.due_at)).until((0,_date__WEBPACK_IMPORTED_MODULE_1__.oldDateToPlainDate)(new Date(a.due_at))).days;
-        }
-        if (a.due_at)
-            return -1;
-        if (b.due_at)
-            return 1;
-        return 0;
-    });
+
+function getDefinedProp(props, propName) {
+  const propVal = props[propName];
+  if (void 0 === propVal) {
+    throw new TypeError(missingField(propName));
+  }
+  return propVal;
 }
-async function getStartDateAssignments(courseId) {
-    const assignmentGen = (0,_canvas_content_assignments__WEBPACK_IMPORTED_MODULE_3__.assignmentDataGen)(courseId, {
-        queryParams: {
-            order_by: "due_at",
-            per_page: 2,
-        }
-    });
-    let assignmentDueAt;
-    for await (const assignment of assignmentGen) {
-        if (assignment.due_at) {
-            assignmentDueAt = assignment.due_at;
-            break;
-        }
+
+function isObjectLike(arg) {
+  return null !== arg && /object|function/.test(typeof arg);
+}
+
+function memoize(generator, MapClass = Map) {
+  const map = new MapClass;
+  return (key, ...otherArgs) => {
+    if (map.has(key)) {
+      return map.get(key);
     }
-    if (!assignmentDueAt)
-        throw new NoAssignmentsWithDueDatesError();
-    //Set to monday of that week.
-    const firstAssignmentDue = new Date(assignmentDueAt);
-    const plainDateDue = (0,_date__WEBPACK_IMPORTED_MODULE_1__.oldDateToPlainDate)(firstAssignmentDue);
-    const dayOfWeekOffset = 1 - plainDateDue.dayOfWeek;
-    return plainDateDue.add({ days: dayOfWeekOffset });
+    const val = generator(key, ...otherArgs);
+    return map.set(key, val), val;
+  };
 }
-function getStartDateFromSyllabus(syllabusHtml, locale = DEFAULT_LOCALE) {
-    const syllabusBody = document.createElement('div');
-    syllabusBody.innerHTML = syllabusHtml;
-    const syllabusCalloutBox = syllabusBody.querySelector('div.cbt-callout-box');
-    if (!syllabusCalloutBox)
-        throw new MalformedSyllabusError("Can't find syllabus callout box");
-    const paras = Array.from(syllabusCalloutBox.querySelectorAll('p'));
-    const strongParas = paras.filter((para) => para.querySelector('strong'));
-    if (strongParas.length < 5)
-        throw new MalformedSyllabusError(`Missing syllabus headers\n${strongParas}`);
-    const termNameEl = strongParas[1];
-    const datesEl = strongParas[2];
-    let dateRange = (0,_date__WEBPACK_IMPORTED_MODULE_1__.findDateRange)(datesEl.innerHTML, locale);
-    if (!dateRange)
-        throw new MalformedSyllabusError("Date range not found in syllabus");
-    const termName = termNameEl.textContent || '';
-    let yearToUse;
-    const yearMatchNew = termName.match(/\.(\d{2})$/);
-    if (yearMatchNew) {
-        yearToUse = 2000 + parseInt(yearMatchNew[1]);
+
+function createPropDescriptors(propVals, readonly) {
+  return mapProps((value => ({
+    value: value,
+    configurable: 1,
+    writable: !readonly
+  })), propVals);
+}
+
+function zipProps(propNamesRev, args) {
+  const res = {};
+  let i = propNamesRev.length;
+  for (const arg of args) {
+    res[propNamesRev[--i]] = arg;
+  }
+  return res;
+}
+
+function mapProps(transformer, props, extraArg) {
+  const res = {};
+  for (const propName in props) {
+    res[propName] = transformer(props[propName], propName, extraArg);
+  }
+  return res;
+}
+
+function mapPropNames(generator, propNames, extraArg) {
+  const props = {};
+  for (let i = 0; i < propNames.length; i++) {
+    const propName = propNames[i];
+    props[propName] = generator(propName, i, extraArg);
+  }
+  return props;
+}
+
+function pluckProps(propNames, props) {
+  const res = {};
+  for (const propName of propNames) {
+    res[propName] = props[propName];
+  }
+  return res;
+}
+
+function excludePropsByName(propNames, props) {
+  const filteredProps = {};
+  for (const propName in props) {
+    propNames.has(propName) || (filteredProps[propName] = props[propName]);
+  }
+  return filteredProps;
+}
+
+function allPropsEqual(propNames, props0, props1) {
+  for (const propName of propNames) {
+    if (props0[propName] !== props1[propName]) {
+      return 0;
     }
-    else {
-        const yearMatchOld = termName.match(/DE-(\d{2})-/);
-        if (yearMatchOld) {
-            yearToUse = 2000 + parseInt(yearMatchOld[1]);
-        }
+  }
+  return 1;
+}
+
+function zeroOutProps(propNames, clearUntilI, props) {
+  const copy = {
+    ...props
+  };
+  for (let i = 0; i < clearUntilI; i++) {
+    copy[propNames[i]] = 0;
+  }
+  return copy;
+}
+
+function bindArgs(f, ...boundArgs) {
+  return (...dynamicArgs) => f(...boundArgs, ...dynamicArgs);
+}
+
+function capitalize(s) {
+  return s[0].toUpperCase() + s.substring(1);
+}
+
+function sortStrings(strs) {
+  return strs.slice().sort();
+}
+
+function padNumber(digits, num) {
+  return String(num).padStart(digits, "0");
+}
+
+function compareNumbers(a, b) {
+  return Math.sign(a - b);
+}
+
+function clampNumber(num, min, max) {
+  return Math.min(Math.max(num, min), max);
+}
+
+function divModFloor(num, divisor) {
+  return [ Math.floor(num / divisor), modFloor(num, divisor) ];
+}
+
+function modFloor(num, divisor) {
+  return (num % divisor + divisor) % divisor;
+}
+
+function divModTrunc(num, divisor) {
+  return [ divTrunc(num, divisor), modTrunc(num, divisor) ];
+}
+
+function divTrunc(num, divisor) {
+  return Math.trunc(num / divisor) || 0;
+}
+
+function modTrunc(num, divisor) {
+  return num % divisor || 0;
+}
+
+function hasHalf(num) {
+  return .5 === Math.abs(num % 1);
+}
+
+function givenFieldsToBigNano(fields, largestUnit, fieldNames) {
+  let timeNano = 0, days = 0;
+  for (let unit = 0; unit <= largestUnit; unit++) {
+    const fieldVal = fields[fieldNames[unit]], unitNano = unitNanoMap[unit], unitInDay = nanoInUtcDay / unitNano, [unitDays, leftoverUnits] = divModTrunc(fieldVal, unitInDay);
+    timeNano += leftoverUnits * unitNano, days += unitDays;
+  }
+  const [timeDays, leftoverNano] = divModTrunc(timeNano, nanoInUtcDay);
+  return [ days + timeDays, leftoverNano ];
+}
+
+function nanoToGivenFields(nano, largestUnit, fieldNames) {
+  const fields = {};
+  for (let unit = largestUnit; unit >= 0; unit--) {
+    const divisor = unitNanoMap[unit];
+    fields[fieldNames[unit]] = divTrunc(nano, divisor), nano = modTrunc(nano, divisor);
+  }
+  return fields;
+}
+
+function requirePositiveInteger(arg) {
+  return requireNumberIsPositive(requireInteger(arg));
+}
+
+function requireInteger(arg) {
+  return requireNumberIsInteger(requireNumber(arg));
+}
+
+function requirePropDefined(optionName, optionVal) {
+  if (null == optionVal) {
+    throw new RangeError(missingField(optionName));
+  }
+  return optionVal;
+}
+
+function requireObjectLike(arg) {
+  if (!isObjectLike(arg)) {
+    throw new TypeError(invalidObject);
+  }
+  return arg;
+}
+
+function requireType(typeName, arg, entityName = typeName) {
+  if (typeof arg !== typeName) {
+    throw new TypeError(invalidEntity(entityName, arg));
+  }
+  return arg;
+}
+
+function requireNumberIsInteger(num, entityName = "number") {
+  if (!Number.isInteger(num)) {
+    throw new RangeError(expectedInteger(entityName, num));
+  }
+  return num || 0;
+}
+
+function requireNumberIsPositive(num, entityName = "number") {
+  if (num <= 0) {
+    throw new RangeError(expectedPositive(entityName, num));
+  }
+  return num;
+}
+
+function toString(arg) {
+  if ("symbol" == typeof arg) {
+    throw new TypeError(forbiddenSymbolToString);
+  }
+  return String(arg);
+}
+
+function toStringViaPrimitive(arg, entityName) {
+  return isObjectLike(arg) ? String(arg) : requireString(arg, entityName);
+}
+
+function toBigInt(bi) {
+  if ("string" == typeof bi) {
+    return BigInt(bi);
+  }
+  if ("bigint" != typeof bi) {
+    throw new TypeError(invalidBigInt(bi));
+  }
+  return bi;
+}
+
+function toNumber(arg, entityName = "number") {
+  if ("bigint" == typeof arg) {
+    throw new TypeError(forbiddenBigIntToNumber(entityName));
+  }
+  if (arg = Number(arg), !Number.isFinite(arg)) {
+    throw new RangeError(expectedFinite(entityName, arg));
+  }
+  return arg;
+}
+
+function toInteger(arg, entityName) {
+  return Math.trunc(toNumber(arg, entityName)) || 0;
+}
+
+function toStrictInteger(arg, entityName) {
+  return requireNumberIsInteger(toNumber(arg, entityName), entityName);
+}
+
+function toPositiveInteger(arg, entityName) {
+  return requireNumberIsPositive(toInteger(arg, entityName), entityName);
+}
+
+function createBigNano(days, timeNano) {
+  let [extraDays, newTimeNano] = divModTrunc(timeNano, nanoInUtcDay), newDays = days + extraDays;
+  const newDaysSign = Math.sign(newDays);
+  return newDaysSign && newDaysSign === -Math.sign(newTimeNano) && (newDays -= newDaysSign, 
+  newTimeNano += newDaysSign * nanoInUtcDay), [ newDays, newTimeNano ];
+}
+
+function addBigNanos(a, b, sign = 1) {
+  return createBigNano(a[0] + b[0] * sign, a[1] + b[1] * sign);
+}
+
+function moveBigNano(a, b) {
+  return createBigNano(a[0], a[1] + b);
+}
+
+function diffBigNanos(a, b) {
+  return addBigNanos(b, a, -1);
+}
+
+function compareBigNanos(a, b) {
+  return compareNumbers(a[0], b[0]) || compareNumbers(a[1], b[1]);
+}
+
+function bigNanoOutside(subject, rangeStart, rangeEndExcl) {
+  return -1 === compareBigNanos(subject, rangeStart) || 1 === compareBigNanos(subject, rangeEndExcl);
+}
+
+function bigIntToBigNano(num, multiplierNano = 1) {
+  const wholeInDay = BigInt(nanoInUtcDay / multiplierNano);
+  return [ Number(num / wholeInDay), Number(num % wholeInDay) * multiplierNano ];
+}
+
+function numberToBigNano(num, multiplierNano = 1) {
+  const wholeInDay = nanoInUtcDay / multiplierNano, [days, remainder] = divModTrunc(num, wholeInDay);
+  return [ days, remainder * multiplierNano ];
+}
+
+function bigNanoToBigInt(bigNano, divisorNano = 1) {
+  const [days, timeNano] = bigNano, whole = Math.floor(timeNano / divisorNano), wholeInDay = nanoInUtcDay / divisorNano;
+  return BigInt(days) * BigInt(wholeInDay) + BigInt(whole);
+}
+
+function bigNanoToNumber(bigNano, divisorNano = 1, exact) {
+  const [days, timeNano] = bigNano, [whole, remainderNano] = divModTrunc(timeNano, divisorNano);
+  return days * (nanoInUtcDay / divisorNano) + (whole + (exact ? remainderNano / divisorNano : 0));
+}
+
+function divModBigNano(bigNano, divisorNano, divModFunc = divModFloor) {
+  const [days, timeNano] = bigNano, [whole, remainderNano] = divModFunc(timeNano, divisorNano);
+  return [ days * (nanoInUtcDay / divisorNano) + whole, remainderNano ];
+}
+
+function hashIntlFormatParts(intlFormat, epochMilliseconds) {
+  const parts = intlFormat.formatToParts(epochMilliseconds), hash = {};
+  for (const part of parts) {
+    hash[part.type] = part.value;
+  }
+  return hash;
+}
+
+function checkIsoYearMonthInBounds(isoFields) {
+  return clampProp(isoFields, "isoYear", isoYearMin, isoYearMax, 1), isoFields.isoYear === isoYearMin ? clampProp(isoFields, "isoMonth", 4, 12, 1) : isoFields.isoYear === isoYearMax && clampProp(isoFields, "isoMonth", 1, 9, 1), 
+  isoFields;
+}
+
+function checkIsoDateInBounds(isoFields) {
+  return checkIsoDateTimeInBounds({
+    ...isoFields,
+    ...isoTimeFieldDefaults,
+    isoHour: 12
+  }), isoFields;
+}
+
+function checkIsoDateTimeInBounds(isoFields) {
+  const isoYear = clampProp(isoFields, "isoYear", isoYearMin, isoYearMax, 1), nudge = isoYear === isoYearMin ? 1 : isoYear === isoYearMax ? -1 : 0;
+  return nudge && checkEpochNanoInBounds(isoToEpochNano({
+    ...isoFields,
+    isoDay: isoFields.isoDay + nudge,
+    isoNanosecond: isoFields.isoNanosecond - nudge
+  })), isoFields;
+}
+
+function checkEpochNanoInBounds(epochNano) {
+  if (!epochNano || bigNanoOutside(epochNano, epochNanoMin, epochNanoMax)) {
+    throw new RangeError(outOfBoundsDate);
+  }
+  return epochNano;
+}
+
+function isoTimeFieldsToNano(isoTimeFields) {
+  return givenFieldsToBigNano(isoTimeFields, 5, isoTimeFieldNamesAsc)[1];
+}
+
+function nanoToIsoTimeAndDay(nano) {
+  const [dayDelta, timeNano] = divModFloor(nano, nanoInUtcDay);
+  return [ nanoToGivenFields(timeNano, 5, isoTimeFieldNamesAsc), dayDelta ];
+}
+
+function epochNanoToSec(epochNano) {
+  return epochNanoToSecMod(epochNano)[0];
+}
+
+function epochNanoToSecMod(epochNano) {
+  return divModBigNano(epochNano, nanoInSec);
+}
+
+function isoToEpochMilli(isoDateTimeFields) {
+  return isoArgsToEpochMilli(isoDateTimeFields.isoYear, isoDateTimeFields.isoMonth, isoDateTimeFields.isoDay, isoDateTimeFields.isoHour, isoDateTimeFields.isoMinute, isoDateTimeFields.isoSecond, isoDateTimeFields.isoMillisecond);
+}
+
+function isoToEpochNano(isoFields) {
+  const epochMilli = isoToEpochMilli(isoFields);
+  if (void 0 !== epochMilli) {
+    const [days, milliRemainder] = divModTrunc(epochMilli, milliInDay);
+    return [ days, milliRemainder * nanoInMilli + (isoFields.isoMicrosecond || 0) * nanoInMicro + (isoFields.isoNanosecond || 0) ];
+  }
+}
+
+function isoToEpochNanoWithOffset(isoFields, offsetNano) {
+  const [newIsoTimeFields, dayDelta] = nanoToIsoTimeAndDay(isoTimeFieldsToNano(isoFields) - offsetNano);
+  return checkEpochNanoInBounds(isoToEpochNano({
+    ...isoFields,
+    isoDay: isoFields.isoDay + dayDelta,
+    ...newIsoTimeFields
+  }));
+}
+
+function isoArgsToEpochSec(...args) {
+  return isoArgsToEpochMilli(...args) / milliInSec;
+}
+
+function isoArgsToEpochMilli(...args) {
+  const [legacyDate, daysNudged] = isoToLegacyDate(...args), epochMilli = legacyDate.valueOf();
+  if (!isNaN(epochMilli)) {
+    return epochMilli - daysNudged * milliInDay;
+  }
+}
+
+function isoToLegacyDate(isoYear, isoMonth = 1, isoDay = 1, isoHour = 0, isoMinute = 0, isoSec = 0, isoMilli = 0) {
+  const daysNudged = isoYear === isoYearMin ? 1 : isoYear === isoYearMax ? -1 : 0, legacyDate = new Date;
+  return legacyDate.setUTCHours(isoHour, isoMinute, isoSec, isoMilli), legacyDate.setUTCFullYear(isoYear, isoMonth - 1, isoDay + daysNudged), 
+  [ legacyDate, daysNudged ];
+}
+
+function epochNanoToIso(epochNano, offsetNano) {
+  let [days, timeNano] = moveBigNano(epochNano, offsetNano);
+  timeNano < 0 && (timeNano += nanoInUtcDay, days -= 1);
+  const [timeMilli, nanoRemainder] = divModFloor(timeNano, nanoInMilli), [isoMicrosecond, isoNanosecond] = divModFloor(nanoRemainder, nanoInMicro);
+  return epochMilliToIso(days * milliInDay + timeMilli, isoMicrosecond, isoNanosecond);
+}
+
+function epochMilliToIso(epochMilli, isoMicrosecond = 0, isoNanosecond = 0) {
+  const daysOver = Math.ceil(Math.max(0, Math.abs(epochMilli) - maxMilli) / milliInDay) * Math.sign(epochMilli), legacyDate = new Date(epochMilli - daysOver * milliInDay);
+  return zipProps(isoDateTimeFieldNamesAsc, [ legacyDate.getUTCFullYear(), legacyDate.getUTCMonth() + 1, legacyDate.getUTCDate() + daysOver, legacyDate.getUTCHours(), legacyDate.getUTCMinutes(), legacyDate.getUTCSeconds(), legacyDate.getUTCMilliseconds(), isoMicrosecond, isoNanosecond ]);
+}
+
+function computeIsoDateParts(isoFields) {
+  return [ isoFields.isoYear, isoFields.isoMonth, isoFields.isoDay ];
+}
+
+function computeIsoMonthsInYear() {
+  return isoMonthsInYear;
+}
+
+function computeIsoDaysInMonth(isoYear, isoMonth) {
+  switch (isoMonth) {
+   case 2:
+    return computeIsoInLeapYear(isoYear) ? 29 : 28;
+
+   case 4:
+   case 6:
+   case 9:
+   case 11:
+    return 30;
+  }
+  return 31;
+}
+
+function computeIsoDaysInYear(isoYear) {
+  return computeIsoInLeapYear(isoYear) ? 366 : 365;
+}
+
+function computeIsoInLeapYear(isoYear) {
+  return isoYear % 4 == 0 && (isoYear % 100 != 0 || isoYear % 400 == 0);
+}
+
+function computeIsoDayOfWeek(isoDateFields) {
+  const [legacyDate, daysNudged] = isoToLegacyDate(isoDateFields.isoYear, isoDateFields.isoMonth, isoDateFields.isoDay);
+  return modFloor(legacyDate.getUTCDay() - daysNudged, 7) || 7;
+}
+
+function computeGregoryEraParts({isoYear: isoYear}) {
+  return isoYear < 1 ? [ "bce", 1 - isoYear ] : [ "ce", isoYear ];
+}
+
+function checkIsoDateTimeFields(isoDateTimeFields) {
+  return checkIsoDateFields(isoDateTimeFields), constrainIsoTimeFields(isoDateTimeFields, 1), 
+  isoDateTimeFields;
+}
+
+function checkIsoDateFields(isoInternals) {
+  return constrainIsoDateFields(isoInternals, 1), isoInternals;
+}
+
+function isIsoDateFieldsValid(isoFields) {
+  return allPropsEqual(isoDateFieldNamesAsc, isoFields, constrainIsoDateFields(isoFields));
+}
+
+function constrainIsoDateFields(isoFields, overflow) {
+  const {isoYear: isoYear} = isoFields, isoMonth = clampProp(isoFields, "isoMonth", 1, computeIsoMonthsInYear(), overflow);
+  return {
+    isoYear: isoYear,
+    isoMonth: isoMonth,
+    isoDay: clampProp(isoFields, "isoDay", 1, computeIsoDaysInMonth(isoYear, isoMonth), overflow)
+  };
+}
+
+function constrainIsoTimeFields(isoTimeFields, overflow) {
+  return zipProps(isoTimeFieldNamesAsc, [ clampProp(isoTimeFields, "isoHour", 0, 23, overflow), clampProp(isoTimeFields, "isoMinute", 0, 59, overflow), clampProp(isoTimeFields, "isoSecond", 0, 59, overflow), clampProp(isoTimeFields, "isoMillisecond", 0, 999, overflow), clampProp(isoTimeFields, "isoMicrosecond", 0, 999, overflow), clampProp(isoTimeFields, "isoNanosecond", 0, 999, overflow) ]);
+}
+
+function refineOverflowOptions(options) {
+  return void 0 === options ? 0 : refineOverflow(requireObjectLike(options));
+}
+
+function refineZonedFieldOptions(options, defaultOffsetDisambig = 0) {
+  options = normalizeOptions(options);
+  const epochDisambig = refineEpochDisambig(options), offsetDisambig = refineOffsetDisambig(options, defaultOffsetDisambig);
+  return [ refineOverflow(options), offsetDisambig, epochDisambig ];
+}
+
+function refineEpochDisambigOptions(options) {
+  return refineEpochDisambig(normalizeOptions(options));
+}
+
+function refineDiffOptions(roundingModeInvert, options, defaultLargestUnit, maxUnit = 9, minUnit = 0, defaultRoundingMode = 4) {
+  options = normalizeOptions(options);
+  let largestUnit = refineLargestUnit(options, maxUnit, minUnit), roundingInc = parseRoundingIncInteger(options), roundingMode = refineRoundingMode(options, defaultRoundingMode);
+  const smallestUnit = refineSmallestUnit(options, maxUnit, minUnit, 1);
+  return null == largestUnit ? largestUnit = Math.max(defaultLargestUnit, smallestUnit) : checkLargestSmallestUnit(largestUnit, smallestUnit), 
+  roundingInc = refineRoundingInc(roundingInc, smallestUnit, 1), roundingModeInvert && (roundingMode = (roundingMode => roundingMode < 4 ? (roundingMode + 2) % 4 : roundingMode)(roundingMode)), 
+  [ largestUnit, smallestUnit, roundingInc, roundingMode ];
+}
+
+function refineRoundingOptions(options, maxUnit = 6, solarMode) {
+  let roundingInc = parseRoundingIncInteger(options = normalizeOptionsOrString(options, smallestUnitStr));
+  const roundingMode = refineRoundingMode(options, 7);
+  let smallestUnit = refineSmallestUnit(options, maxUnit);
+  return smallestUnit = requirePropDefined(smallestUnitStr, smallestUnit), roundingInc = refineRoundingInc(roundingInc, smallestUnit, void 0, solarMode), 
+  [ smallestUnit, roundingInc, roundingMode ];
+}
+
+function refineDateDisplayOptions(options) {
+  return refineCalendarDisplay(normalizeOptions(options));
+}
+
+function refineTimeDisplayOptions(options, maxSmallestUnit) {
+  return refineTimeDisplayTuple(normalizeOptions(options), maxSmallestUnit);
+}
+
+function refineTimeDisplayTuple(options, maxSmallestUnit = 4) {
+  const subsecDigits = refineSubsecDigits(options);
+  return [ refineRoundingMode(options, 4), ...refineSmallestUnitAndSubsecDigits(refineSmallestUnit(options, maxSmallestUnit), subsecDigits) ];
+}
+
+function refineSmallestUnitAndSubsecDigits(smallestUnit, subsecDigits) {
+  return null != smallestUnit ? [ unitNanoMap[smallestUnit], smallestUnit < 4 ? 9 - 3 * smallestUnit : -1 ] : [ void 0 === subsecDigits ? 1 : 10 ** (9 - subsecDigits), subsecDigits ];
+}
+
+function parseRoundingIncInteger(options) {
+  const roundingInc = options[roundingIncName];
+  return void 0 === roundingInc ? 1 : toInteger(roundingInc, roundingIncName);
+}
+
+function refineRoundingInc(roundingInc, smallestUnit, allowManyLargeUnits, solarMode) {
+  const upUnitNano = solarMode ? nanoInUtcDay : unitNanoMap[smallestUnit + 1];
+  if (upUnitNano) {
+    const unitNano = unitNanoMap[smallestUnit];
+    if (upUnitNano % ((roundingInc = clampEntity(roundingIncName, roundingInc, 1, upUnitNano / unitNano - (solarMode ? 0 : 1), 1)) * unitNano)) {
+      throw new RangeError(invalidEntity(roundingIncName, roundingInc));
     }
-    if (yearToUse) {
-        dateRange = {
-            start: temporal_polyfill__WEBPACK_IMPORTED_MODULE_0__.Temporal.PlainDate.from({
-                year: yearToUse,
-                month: dateRange.start.month,
-                day: dateRange.start.day
-            }),
-            end: temporal_polyfill__WEBPACK_IMPORTED_MODULE_0__.Temporal.PlainDate.from({
-                year: yearToUse,
-                month: dateRange.end.month,
-                day: dateRange.end.day
-            })
-        };
-    }
-    return dateRange.start;
-}
-function getUpdatedStyleTermName(termStart, weekCount, locale = DEFAULT_LOCALE) {
-    const month = termStart.toLocaleString(locale, { month: '2-digit' });
-    const day = termStart.toLocaleString(locale, { day: '2-digit' });
-    const year = termStart.toLocaleString(locale, { year: '2-digit' });
-    return `DE${weekCount}W${month}.${day}.${year}`;
-}
-function getOldUgTermName(termStart) {
-    const year = termStart.toLocaleString(DEFAULT_LOCALE, { year: '2-digit' });
-    const month = termStart.toLocaleString(DEFAULT_LOCALE, { month: 'short' });
-    return `DE-${year}-${month}`;
-}
-function getNewTermName(oldTermName, newTermStart, isGrad = undefined) {
-    const [termName, weekCount] = oldTermName.match(/DE(\d)W\d\d\.\d\d\.\d\d/) || [];
-    if (termName)
-        return getUpdatedStyleTermName(newTermStart, weekCount);
-    const termNameUg = oldTermName.match(/(DE(?:.HL|)-\d\d)-(\w+)\w{2}?/i);
-    const newWeekCount = isGrad ? 8 : 5;
-    if (termNameUg)
-        return getUpdatedStyleTermName(newTermStart, newWeekCount);
-    throw new MalformedSyllabusError(`Can't Recognize Term Name ${oldTermName}`);
-}
-function updatedDateSyllabusHtml(html, newStartDate, isGrad = undefined, locale = DEFAULT_LOCALE) {
-    const syllabusBody = document.createElement('div');
-    syllabusBody.innerHTML = html;
-    const syllabusCalloutBox = syllabusBody.querySelector('div.cbt-callout-box');
-    if (!syllabusCalloutBox)
-        throw new MalformedSyllabusError("Can't find syllabus callout box");
-    const paras = Array.from(syllabusCalloutBox.querySelectorAll('p'));
-    const strongParas = paras.filter((para) => para.querySelector('strong'));
-    if (strongParas.length < 5)
-        throw new MalformedSyllabusError(`Missing syllabus headers\n${strongParas}`);
-    const [_courseNameEl, termNameEl, datesEl, _instructorNameEl, _instructorContactInfoEl, _creditsEl] = strongParas;
-    const changedText = [];
-    const oldTermName = termNameEl.textContent || '';
-    const oldDates = datesEl.textContent || '';
-    const dateRange = (0,_date__WEBPACK_IMPORTED_MODULE_1__.findDateRange)(datesEl.innerHTML, locale);
-    if (!dateRange)
-        throw new MalformedSyllabusError("Date range not found in syllabus");
-    const courseDuration = dateRange.start.until(dateRange.end);
-    const newEndDate = newStartDate.add(courseDuration);
-    const newTermName = getNewTermName(oldTermName, newStartDate, isGrad);
-    const dateRangeText = `${dateToSyllabusString(newStartDate)} - ${dateToSyllabusString(newEndDate)}`;
-    termNameEl.innerHTML = `<strong>${syllabusHeaderName(termNameEl)}:</strong><span> ${newTermName}</span>`;
-    datesEl.innerHTML = `<strong>${syllabusHeaderName(datesEl)}:</strong><span> ${dateRangeText}</span>`;
-    changedText.push(`${oldTermName} -> ${termNameEl.textContent}`);
-    changedText.push(`${oldDates} -> ${datesEl.textContent}`);
-    const output = {
-        html: syllabusBody.innerHTML.replaceAll(/<p>\s*(&nbsp;)?<\/p>/ig, ''),
-        changedText,
-    };
-    syllabusBody.remove();
-    return output;
-}
-function dateToSyllabusString(date) {
-    return `${date.toLocaleString(DEFAULT_LOCALE, { month: 'long', day: 'numeric' })}`;
-}
-function syllabusHeaderName(el) {
-    var _a;
-    // eslint-disable-next-line prefer-const
-    let [_, head] = (_a = /([^:]*):/.exec(el.innerHTML)) !== null && _a !== void 0 ? _a : [];
-    head = head === null || head === void 0 ? void 0 : head.replaceAll(/<[^>]*>/g, '');
-    return head;
-}
-class NoOverviewModuleFoundError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "NoOverviewModuleFoundError";
-    }
-}
-class MalformedSyllabusError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "MalformedSyllabusError";
-    }
-}
-class NoAssignmentsWithDueDatesError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "NoAssignmentsWithDueDatesError";
-    }
+  } else {
+    roundingInc = clampEntity(roundingIncName, roundingInc, 1, allowManyLargeUnits ? 10 ** 9 : 1, 1);
+  }
+  return roundingInc;
 }
 
-
-/***/ }),
-
-/***/ "./src/canvas/course/code.ts":
-/*!***********************************!*\
-  !*** ./src/canvas/course/code.ts ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   MalformedCourseCodeError: () => (/* binding */ MalformedCourseCodeError),
-/* harmony export */   baseCourseCode: () => (/* binding */ baseCourseCode),
-/* harmony export */   parseCourseCode: () => (/* binding */ parseCourseCode),
-/* harmony export */   stringIsCourseCode: () => (/* binding */ stringIsCourseCode)
-/* harmony export */ });
-/* harmony import */ var _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/course/Course */ "./src/canvas/course/Course.ts");
-
-function parseCourseCode(code) {
-    const match = _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
-    if (!match)
-        return null;
-    const prefix = match[1] || "";
-    const courseCode = match[2] || "";
-    if (prefix.length > 0) {
-        return `${prefix}_${courseCode}`;
-    }
-    return courseCode;
-}
-function baseCourseCode(code) {
-    const match = _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
-    if (!match)
-        return null;
-    return match[2];
-}
-function stringIsCourseCode(code) {
-    return _canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__.COURSE_CODE_REGEX.exec(code);
-}
-class MalformedCourseCodeError extends Error {
-    constructor(courseCode, message, options) {
-        if (!message)
-            message = `${courseCode} is not a valid course code`;
-        super(message, options);
-        this.name = "MalformedCourseCodeError";
-        this.courseCode = courseCode;
-    }
-}
-
-
-/***/ }),
-
-/***/ "./src/canvas/course/getCourseIdFromUrl.ts":
-/*!*************************************************!*\
-  !*** ./src/canvas/course/getCourseIdFromUrl.ts ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ getCourseIdFromUrl)
-/* harmony export */ });
-function getCourseIdFromUrl(url) {
-    const match = /courses\/(\d+)/.exec(url);
-    if (match) {
-        return parseInt(match[1]);
-    }
-    return null;
-}
-
-
-/***/ }),
-
-/***/ "./src/canvas/course/getSections.ts":
-/*!******************************************!*\
-  !*** ./src/canvas/course/getSections.ts ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getSections: () => (/* binding */ getSections)
-/* harmony export */ });
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
-/* harmony import */ var _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @canvas/course/Course */ "./src/canvas/course/Course.ts");
-/* harmony import */ var _canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @canvas/course/blueprint */ "./src/canvas/course/blueprint.ts");
-
-
-
-async function getSections(courseId, config) {
-    return (await (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.renderAsyncGen)((0,_canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_2__.sectionDataGenerator)(courseId, config))).map(section => new _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__.Course(section));
-}
-
-
-/***/ }),
-
-/***/ "./src/canvas/course/index.ts":
-/*!************************************!*\
-  !*** ./src/canvas/course/index.ts ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   CourseNotFoundException: () => (/* binding */ CourseNotFoundException),
-/* harmony export */   createNewCourse: () => (/* binding */ createNewCourse),
-/* harmony export */   getCourseById: () => (/* binding */ getCourseById),
-/* harmony export */   getCourseData: () => (/* binding */ getCourseData),
-/* harmony export */   getCourseDataGenerator: () => (/* binding */ getCourseDataGenerator),
-/* harmony export */   getCourseGenerator: () => (/* binding */ getCourseGenerator),
-/* harmony export */   getCourseName: () => (/* binding */ getCourseName),
-/* harmony export */   getGradingStandards: () => (/* binding */ getGradingStandards),
-/* harmony export */   getSingleCourse: () => (/* binding */ getSingleCourse),
-/* harmony export */   saveCourseData: () => (/* binding */ saveCourseData),
-/* harmony export */   setGradingStandardForCourse: () => (/* binding */ setGradingStandardForCourse)
-/* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../canvasUtils */ "./src/canvas/canvasUtils.ts");
-/* harmony import */ var _Course__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Course */ "./src/canvas/course/Course.ts");
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @canvas/fetch/utils */ "./src/canvas/fetch/utils.ts");
-
-
-
-
-
-async function getGradingStandards(contextId, contextType, config) {
-    const url = `/api/v1/${contextType}s/${contextId}/grading_standards`;
-    return await (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.getPagedData)(url, config);
-}
-function getCourseData(id, config) {
-    const url = `/api/v1/courses/${id}`;
-    config = config && 'queryParams' in config ? config : { queryParams: config };
-    return (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(url, config);
-}
-function getCourseDataGenerator(queryString, accountIds, term, config) {
-    if (!Array.isArray(accountIds))
-        accountIds = [accountIds];
-    const defaultConfig = queryString ? {
-        queryParams: {
-            search_term: queryString,
-        }
-    } : {};
-    const termId = typeof term === 'object' ? term.id : term;
-    if (termId && defaultConfig.queryParams)
-        defaultConfig.queryParams.enrollment_term_id = termId;
-    config = (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.overrideConfig)(defaultConfig, config);
-    const generators = accountIds.map(accountId => {
-        const url = `/api/v1/accounts/${accountId}/courses`;
-        return (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.getPagedDataGenerator)(url, config);
-    });
-    return (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_2__.mergePagedDataGenerators)(generators);
-}
-function getCourseGenerator(queryString, accountIds, term, config) {
-    return (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.generatorMap)(getCourseDataGenerator(queryString, accountIds, term, config), courseData => new _Course__WEBPACK_IMPORTED_MODULE_1__.Course(courseData));
-}
-async function getSingleCourse(queryString, accountIds, term, config) {
-    for (const accountId of accountIds) {
-        const courseDatas = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(`/api/v1/accounts/${accountId}/courses`, (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.overrideConfig)({ queryParams: { search_term: queryString } }, config));
-        if (courseDatas.length > 0)
-            return new _Course__WEBPACK_IMPORTED_MODULE_1__.Course(courseDatas[0]);
-    }
-    return undefined;
-}
-async function getCourseById(id, config) {
-    return new _Course__WEBPACK_IMPORTED_MODULE_1__.Course(await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(`/api/v1/courses/${id}`, config));
-}
-async function createNewCourse(courseCode, accountId, name, config) {
-    name !== null && name !== void 0 ? name : (name = courseCode);
-    const createUrl = `/api/v1/accounts/${accountId}/courses/`;
-    const createConfig = {
-        fetchInit: {
-            method: 'POST',
-            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)({
-                course: {
-                    name,
-                    course_code: courseCode
-                }
-            })
-        }
-    };
-    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(createUrl, (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(createConfig, config, true));
-}
-class CourseNotFoundException extends Error {
-}
-async function saveCourseData(courseId, data, config) {
-    const url = `/api/v1/courses/${courseId}`;
-    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(url, (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_4__.overrideConfig)(config, {
-        fetchInit: {
-            method: 'PUT',
-            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)({ course: data })
-        }
-    }));
-}
-async function setGradingStandardForCourse(courseId, standardId, config) {
-    return await saveCourseData(courseId, { grading_standard_id: standardId });
-}
-function getCourseName(data) {
-    var _a;
-    const [full, withoutCode] = (_a = /[^:]*:\s*(.*)/.exec(data.name)) !== null && _a !== void 0 ? _a : [];
-    if (withoutCode)
-        return withoutCode;
-    return data.name;
-}
-
-
-/***/ }),
-
-/***/ "./src/canvas/course/modules.ts":
-/*!**************************************!*\
-  !*** ./src/canvas/course/modules.ts ***!
-  \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   changeModuleLockDate: () => (/* binding */ changeModuleLockDate),
-/* harmony export */   getHometileSrcPage: () => (/* binding */ getHometileSrcPage),
-/* harmony export */   getModuleWeekNumber: () => (/* binding */ getModuleWeekNumber),
-/* harmony export */   getModulesByWeekNumber: () => (/* binding */ getModulesByWeekNumber),
-/* harmony export */   isAssignmentItemData: () => (/* binding */ isAssignmentItemData),
-/* harmony export */   isDiscussionItemData: () => (/* binding */ isDiscussionItemData),
-/* harmony export */   isPageItemData: () => (/* binding */ isPageItemData),
-/* harmony export */   isQuizItemData: () => (/* binding */ isQuizItemData),
-/* harmony export */   moduleGenerator: () => (/* binding */ moduleGenerator),
-/* harmony export */   saveModuleItem: () => (/* binding */ saveModuleItem)
-/* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../canvasUtils */ "./src/canvas/canvasUtils.ts");
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-/* harmony import */ var _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/content/pages/Page */ "./src/canvas/content/pages/Page.ts");
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_course_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @canvas/course/index */ "./src/canvas/course/index.ts");
-
-
-
-
-
-async function saveModuleItem(courseId, moduleId, moduleItemId, moduleItem) {
-    return await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(`/api/v1/courses/${courseId}/modules/${moduleId}/modules/items/${moduleItemId}`, {
-        fetchInit: {
-            method: "PUT",
-            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)({ moduleItem: moduleItem }),
-        }
-    });
-}
-function moduleGenerator(courseId, config) {
-    return (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedDataGenerator)(`/api/v1/courses/${courseId}/modules`, config);
-}
-async function changeModuleLockDate(courseId, module, targetDate) {
-    const payload = {
-        module: {
-            unlock_at: targetDate.toString()
-        }
-    };
-    const url = `/api/v1/courses/${courseId}/modules/${module.id}`;
-    const result = (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url, {
-        fetchInit: {
-            method: 'PUT',
-            body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(payload)
-        }
-    });
-}
-async function getHometileSrcPage(module, courseId) {
-    const course = await (0,_canvas_course_index__WEBPACK_IMPORTED_MODULE_4__.getCourseById)(courseId);
-    let hometileSrc;
-    if (course.isCareerInstitute()) {
-        // if career institute, grab first page
-        hometileSrc = module.items.find(item => item.type === "Page");
-    }
-    else {
-        hometileSrc = module.items.find(item => item.type === "Page" &&
-            item.title.toLowerCase().includes('overview'));
-    }
-    console.log("hometileSrc: ", hometileSrc);
-    if (!(hometileSrc === null || hometileSrc === void 0 ? void 0 : hometileSrc.url))
+function refineSubsecDigits(options) {
+  let subsecDigits = options[subsecDigitsName];
+  if (void 0 !== subsecDigits) {
+    if ("number" != typeof subsecDigits) {
+      if ("auto" === toString(subsecDigits)) {
         return;
-    const url = hometileSrc.url.replace(/.*\/api\/v1/, '/api/v1');
-    const pageData = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(url);
-    return new _canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_2__.Page(pageData, courseId);
+      }
+      throw new RangeError(invalidEntity(subsecDigitsName, subsecDigits));
+    }
+    subsecDigits = clampEntity(subsecDigitsName, Math.floor(subsecDigits), 0, 9, 1);
+  }
+  return subsecDigits;
 }
-function getModuleWeekNumber(module) {
-    const regex = /(week|module) (\d+)/i;
-    const match = module.name.match(regex);
-    let weekNumber = !match ? null : Number(match[1]);
-    if (!weekNumber) {
-        for (const moduleItem of module.items) {
-            if (!moduleItem.hasOwnProperty('title')) {
-                continue;
-            }
-            const match = moduleItem.title.match(regex);
-            if (match) {
-                weekNumber = match[2];
-            }
+
+function normalizeOptions(options) {
+  return void 0 === options ? {} : requireObjectLike(options);
+}
+
+function normalizeOptionsOrString(options, optionName) {
+  return "string" == typeof options ? {
+    [optionName]: options
+  } : requireObjectLike(options);
+}
+
+function copyOptions(options) {
+  if (void 0 !== options) {
+    if (isObjectLike(options)) {
+      return Object.assign(Object.create(null), options);
+    }
+    throw new TypeError(invalidObject);
+  }
+}
+
+function overrideOverflowOptions(options, overflow) {
+  return options && Object.assign(Object.create(null), options, {
+    overflow: overflowMapNames[overflow]
+  });
+}
+
+function refineUnitOption(optionName, options, maxUnit = 9, minUnit = 0, ensureDefined) {
+  let unitStr = options[optionName];
+  if (void 0 === unitStr) {
+    return ensureDefined ? minUnit : void 0;
+  }
+  if (unitStr = toString(unitStr), "auto" === unitStr) {
+    return ensureDefined ? minUnit : null;
+  }
+  let unit = unitNameMap[unitStr];
+  if (void 0 === unit && (unit = durationFieldIndexes[unitStr]), void 0 === unit) {
+    throw new RangeError(invalidChoice(optionName, unitStr, unitNameMap));
+  }
+  return clampEntity(optionName, unit, minUnit, maxUnit, 1, unitNamesAsc), unit;
+}
+
+function refineChoiceOption(optionName, enumNameMap, options, defaultChoice = 0) {
+  const enumArg = options[optionName];
+  if (void 0 === enumArg) {
+    return defaultChoice;
+  }
+  const enumStr = toString(enumArg), enumNum = enumNameMap[enumStr];
+  if (void 0 === enumNum) {
+    throw new RangeError(invalidChoice(optionName, enumStr, enumNameMap));
+  }
+  return enumNum;
+}
+
+function checkLargestSmallestUnit(largestUnit, smallestUnit) {
+  if (smallestUnit > largestUnit) {
+    throw new RangeError(flippedSmallestLargestUnit);
+  }
+}
+
+function createInstantSlots(epochNano) {
+  return {
+    branding: InstantBranding,
+    epochNanoseconds: epochNano
+  };
+}
+
+function createZonedDateTimeSlots(epochNano, timeZone, calendar) {
+  return {
+    branding: ZonedDateTimeBranding,
+    calendar: calendar,
+    timeZone: timeZone,
+    epochNanoseconds: epochNano
+  };
+}
+
+function createPlainDateTimeSlots(isoFields, calendar = isoFields.calendar) {
+  return {
+    branding: PlainDateTimeBranding,
+    calendar: calendar,
+    ...pluckProps(isoDateTimeFieldNamesAlpha, isoFields)
+  };
+}
+
+function createPlainDateSlots(isoFields, calendar = isoFields.calendar) {
+  return {
+    branding: PlainDateBranding,
+    calendar: calendar,
+    ...pluckProps(isoDateFieldNamesAlpha, isoFields)
+  };
+}
+
+function createPlainYearMonthSlots(isoFields, calendar = isoFields.calendar) {
+  return {
+    branding: PlainYearMonthBranding,
+    calendar: calendar,
+    ...pluckProps(isoDateFieldNamesAlpha, isoFields)
+  };
+}
+
+function createPlainMonthDaySlots(isoFields, calendar = isoFields.calendar) {
+  return {
+    branding: PlainMonthDayBranding,
+    calendar: calendar,
+    ...pluckProps(isoDateFieldNamesAlpha, isoFields)
+  };
+}
+
+function createPlainTimeSlots(isoFields) {
+  return {
+    branding: PlainTimeBranding,
+    ...pluckProps(isoTimeFieldNamesAlpha, isoFields)
+  };
+}
+
+function createDurationSlots(durationFields) {
+  return {
+    branding: DurationBranding,
+    sign: computeDurationSign(durationFields),
+    ...pluckProps(durationFieldNamesAlpha, durationFields)
+  };
+}
+
+function getEpochMilli(slots) {
+  return divModBigNano(slots.epochNanoseconds, nanoInMilli)[0];
+}
+
+function extractEpochNano(slots) {
+  return slots.epochNanoseconds;
+}
+
+function getId(idLike) {
+  return "string" == typeof idLike ? idLike : requireString(idLike.id);
+}
+
+function isIdLikeEqual(idLike0, idLike1) {
+  return idLike0 === idLike1 || getId(idLike0) === getId(idLike1);
+}
+
+function totalDayTimeDuration(durationFields, totalUnit) {
+  return bigNanoToNumber(durationFieldsToBigNano(durationFields), unitNanoMap[totalUnit], 1);
+}
+
+function clampRelativeDuration(calendarOps, durationFields, clampUnit, clampDistance, marker, markerToEpochNano, moveMarker) {
+  const unitName = durationFieldNamesAsc[clampUnit], durationPlusDistance = {
+    ...durationFields,
+    [unitName]: durationFields[unitName] + clampDistance
+  }, marker0 = moveMarker(calendarOps, marker, durationFields), marker1 = moveMarker(calendarOps, marker, durationPlusDistance);
+  return [ markerToEpochNano(marker0), markerToEpochNano(marker1) ];
+}
+
+function computeEpochNanoFrac(epochNanoProgress, epochNano0, epochNano1) {
+  const denom = bigNanoToNumber(diffBigNanos(epochNano0, epochNano1));
+  if (!denom) {
+    throw new RangeError(invalidProtocolResults);
+  }
+  return bigNanoToNumber(diffBigNanos(epochNano0, epochNanoProgress)) / denom;
+}
+
+function roundDateTime(isoFields, smallestUnit, roundingInc, roundingMode) {
+  return roundDateTimeToNano(isoFields, computeNanoInc(smallestUnit, roundingInc), roundingMode);
+}
+
+function roundDateTimeToNano(isoFields, nanoInc, roundingMode) {
+  const [roundedIsoFields, dayDelta] = roundTimeToNano(isoFields, nanoInc, roundingMode);
+  return checkIsoDateTimeInBounds({
+    ...moveByDays(isoFields, dayDelta),
+    ...roundedIsoFields
+  });
+}
+
+function roundTimeToNano(isoFields, nanoInc, roundingMode) {
+  return nanoToIsoTimeAndDay(roundByInc(isoTimeFieldsToNano(isoFields), nanoInc, roundingMode));
+}
+
+function roundToMinute(offsetNano) {
+  return roundByInc(offsetNano, nanoInMinute, 7);
+}
+
+function computeNanoInc(smallestUnit, roundingInc) {
+  return unitNanoMap[smallestUnit] * roundingInc;
+}
+
+function computeDayInterval(isoFields) {
+  const isoFields0 = computeDayFloor(isoFields);
+  return [ isoFields0, moveByDays(isoFields0, 1) ];
+}
+
+function computeDayFloor(isoFields) {
+  return clearIsoFields(6, isoFields);
+}
+
+function roundDayTimeDurationByInc(durationFields, nanoInc, roundingMode) {
+  const maxUnit = Math.min(getMaxDurationUnit(durationFields), 6);
+  return nanoToDurationDayTimeFields(roundBigNanoByInc(durationFieldsToBigNano(durationFields, maxUnit), nanoInc, roundingMode), maxUnit);
+}
+
+function roundRelativeDuration(durationFields, endEpochNano, largestUnit, smallestUnit, roundingInc, roundingMode, calendarOps, marker, markerToEpochNano, moveMarker) {
+  if (0 === smallestUnit && 1 === roundingInc) {
+    return durationFields;
+  }
+  const nudgeFunc = isUniformUnit(smallestUnit, marker) ? isZonedEpochSlots(marker) && smallestUnit < 6 && largestUnit >= 6 ? nudgeZonedTimeDuration : nudgeDayTimeDuration : nudgeRelativeDuration;
+  let [roundedDurationFields, roundedEpochNano, grewBigUnit] = nudgeFunc(durationFields, endEpochNano, largestUnit, smallestUnit, roundingInc, roundingMode, calendarOps, marker, markerToEpochNano, moveMarker);
+  return grewBigUnit && 7 !== smallestUnit && (roundedDurationFields = ((durationFields, endEpochNano, largestUnit, smallestUnit, calendarOps, marker, markerToEpochNano, moveMarker) => {
+    const sign = computeDurationSign(durationFields);
+    for (let currentUnit = smallestUnit + 1; currentUnit <= largestUnit; currentUnit++) {
+      if (7 === currentUnit && 7 !== largestUnit) {
+        continue;
+      }
+      const baseDurationFields = clearDurationFields(currentUnit, durationFields);
+      baseDurationFields[durationFieldNamesAsc[currentUnit]] += sign;
+      const beyondThresholdNano = bigNanoToNumber(diffBigNanos(markerToEpochNano(moveMarker(calendarOps, marker, baseDurationFields)), endEpochNano));
+      if (beyondThresholdNano && Math.sign(beyondThresholdNano) !== sign) {
+        break;
+      }
+      durationFields = baseDurationFields;
+    }
+    return durationFields;
+  })(roundedDurationFields, roundedEpochNano, largestUnit, Math.max(6, smallestUnit), calendarOps, marker, markerToEpochNano, moveMarker)), 
+  roundedDurationFields;
+}
+
+function roundBigNano(bigNano, smallestUnit, roundingInc, roundingMode, useDayOrigin) {
+  if (6 === smallestUnit) {
+    const daysExact = (bigNano => bigNano[0] + bigNano[1] / nanoInUtcDay)(bigNano);
+    return [ roundByInc(daysExact, roundingInc, roundingMode), 0 ];
+  }
+  return roundBigNanoByInc(bigNano, computeNanoInc(smallestUnit, roundingInc), roundingMode, useDayOrigin);
+}
+
+function roundBigNanoByInc(bigNano, nanoInc, roundingMode, useDayOrigin) {
+  let [days, timeNano] = bigNano;
+  useDayOrigin && timeNano < 0 && (timeNano += nanoInUtcDay, days -= 1);
+  const [dayDelta, roundedTimeNano] = divModFloor(roundByInc(timeNano, nanoInc, roundingMode), nanoInUtcDay);
+  return createBigNano(days + dayDelta, roundedTimeNano);
+}
+
+function roundByInc(num, inc, roundingMode) {
+  return roundWithMode(num / inc, roundingMode) * inc;
+}
+
+function roundWithMode(num, roundingMode) {
+  return roundingModeFuncs[roundingMode](num);
+}
+
+function nudgeDayTimeDuration(durationFields, endEpochNano, largestUnit, smallestUnit, roundingInc, roundingMode) {
+  const sign = computeDurationSign(durationFields), bigNano = durationFieldsToBigNano(durationFields), roundedBigNano = roundBigNano(bigNano, smallestUnit, roundingInc, roundingMode), nanoDiff = diffBigNanos(bigNano, roundedBigNano), expandedBigUnit = Math.sign(roundedBigNano[0] - bigNano[0]) === sign, roundedDayTimeFields = nanoToDurationDayTimeFields(roundedBigNano, Math.min(largestUnit, 6));
+  return [ {
+    ...durationFields,
+    ...roundedDayTimeFields
+  }, addBigNanos(endEpochNano, nanoDiff), expandedBigUnit ];
+}
+
+function nudgeZonedTimeDuration(durationFields, endEpochNano, _largestUnit, smallestUnit, roundingInc, roundingMode, calendarOps, marker, markerToEpochNano, moveMarker) {
+  const sign = computeDurationSign(durationFields), timeNano = bigNanoToNumber(durationFieldsToBigNano(durationFields, 5)), nanoInc = computeNanoInc(smallestUnit, roundingInc);
+  let roundedTimeNano = roundByInc(timeNano, nanoInc, roundingMode);
+  const [dayEpochNano0, dayEpochNano1] = clampRelativeDuration(calendarOps, {
+    ...durationFields,
+    ...durationTimeFieldDefaults
+  }, 6, sign, marker, markerToEpochNano, moveMarker), beyondDayNano = roundedTimeNano - bigNanoToNumber(diffBigNanos(dayEpochNano0, dayEpochNano1));
+  let dayDelta = 0;
+  beyondDayNano && Math.sign(beyondDayNano) !== sign ? endEpochNano = moveBigNano(dayEpochNano0, roundedTimeNano) : (dayDelta += sign, 
+  roundedTimeNano = roundByInc(beyondDayNano, nanoInc, roundingMode), endEpochNano = moveBigNano(dayEpochNano1, roundedTimeNano));
+  const durationTimeFields = nanoToDurationTimeFields(roundedTimeNano);
+  return [ {
+    ...durationFields,
+    ...durationTimeFields,
+    days: durationFields.days + dayDelta
+  }, endEpochNano, Boolean(dayDelta) ];
+}
+
+function nudgeRelativeDuration(durationFields, endEpochNano, _largestUnit, smallestUnit, roundingInc, roundingMode, calendarOps, marker, markerToEpochNano, moveMarker) {
+  const sign = computeDurationSign(durationFields), smallestUnitFieldName = durationFieldNamesAsc[smallestUnit], baseDurationFields = clearDurationFields(smallestUnit, durationFields);
+  7 === smallestUnit && (durationFields = {
+    ...durationFields,
+    weeks: durationFields.weeks + Math.trunc(durationFields.days / 7)
+  });
+  const truncedVal = divTrunc(durationFields[smallestUnitFieldName], roundingInc) * roundingInc;
+  baseDurationFields[smallestUnitFieldName] = truncedVal;
+  const [epochNano0, epochNano1] = clampRelativeDuration(calendarOps, baseDurationFields, smallestUnit, roundingInc * sign, marker, markerToEpochNano, moveMarker), exactVal = truncedVal + computeEpochNanoFrac(endEpochNano, epochNano0, epochNano1) * sign * roundingInc, roundedVal = roundByInc(exactVal, roundingInc, roundingMode), expanded = Math.sign(roundedVal - exactVal) === sign;
+  return baseDurationFields[smallestUnitFieldName] = roundedVal, [ baseDurationFields, expanded ? epochNano1 : epochNano0, expanded ];
+}
+
+function formatDateLikeIso(calendarIdLike, formatSimple, isoFields, calendarDisplay) {
+  const calendarId = getId(calendarIdLike), showCalendar = calendarDisplay > 1 || 0 === calendarDisplay && calendarId !== isoCalendarId;
+  return 1 === calendarDisplay ? calendarId === isoCalendarId ? formatSimple(isoFields) : formatIsoDateFields(isoFields) : showCalendar ? formatIsoDateFields(isoFields) + formatCalendarId(calendarId, 2 === calendarDisplay) : formatSimple(isoFields);
+}
+
+function formatDurationFragments(fragObj) {
+  const parts = [];
+  for (const fragName in fragObj) {
+    const fragVal = fragObj[fragName];
+    fragVal && parts.push(fragVal, fragName);
+  }
+  return parts.join("");
+}
+
+function formatIsoDateTimeFields(isoDateTimeFields, subsecDigits) {
+  return formatIsoDateFields(isoDateTimeFields) + "T" + formatIsoTimeFields(isoDateTimeFields, subsecDigits);
+}
+
+function formatIsoDateFields(isoDateFields) {
+  return formatIsoYearMonthFields(isoDateFields) + "-" + padNumber2(isoDateFields.isoDay);
+}
+
+function formatIsoYearMonthFields(isoDateFields) {
+  const {isoYear: isoYear} = isoDateFields;
+  return (isoYear < 0 || isoYear > 9999 ? getSignStr(isoYear) + padNumber(6, Math.abs(isoYear)) : padNumber(4, isoYear)) + "-" + padNumber2(isoDateFields.isoMonth);
+}
+
+function formatIsoMonthDayFields(isoDateFields) {
+  return padNumber2(isoDateFields.isoMonth) + "-" + padNumber2(isoDateFields.isoDay);
+}
+
+function formatIsoTimeFields(isoTimeFields, subsecDigits) {
+  const parts = [ padNumber2(isoTimeFields.isoHour), padNumber2(isoTimeFields.isoMinute) ];
+  return -1 !== subsecDigits && parts.push(padNumber2(isoTimeFields.isoSecond) + ((isoMillisecond, isoMicrosecond, isoNanosecond, subsecDigits) => formatSubsecNano(isoMillisecond * nanoInMilli + isoMicrosecond * nanoInMicro + isoNanosecond, subsecDigits))(isoTimeFields.isoMillisecond, isoTimeFields.isoMicrosecond, isoTimeFields.isoNanosecond, subsecDigits)), 
+  parts.join(":");
+}
+
+function formatOffsetNano(offsetNano, offsetDisplay = 0) {
+  if (1 === offsetDisplay) {
+    return "";
+  }
+  const [hour, nanoRemainder0] = divModFloor(Math.abs(offsetNano), nanoInHour), [minute, nanoRemainder1] = divModFloor(nanoRemainder0, nanoInMinute), [second, nanoRemainder2] = divModFloor(nanoRemainder1, nanoInSec);
+  return getSignStr(offsetNano) + padNumber2(hour) + ":" + padNumber2(minute) + (second || nanoRemainder2 ? ":" + padNumber2(second) + formatSubsecNano(nanoRemainder2) : "");
+}
+
+function formatCalendar(calendarIdLike, calendarDisplay) {
+  if (1 !== calendarDisplay) {
+    const calendarId = getId(calendarIdLike);
+    if (calendarDisplay > 1 || 0 === calendarDisplay && calendarId !== isoCalendarId) {
+      return formatCalendarId(calendarId, 2 === calendarDisplay);
+    }
+  }
+  return "";
+}
+
+function formatCalendarId(calendarId, isCritical) {
+  return "[" + (isCritical ? "!" : "") + "u-ca=" + calendarId + "]";
+}
+
+function formatSubsecNano(totalNano, subsecDigits) {
+  let s = padNumber(9, totalNano);
+  return s = void 0 === subsecDigits ? s.replace(trailingZerosRE, "") : s.slice(0, subsecDigits), 
+  s ? "." + s : "";
+}
+
+function getSignStr(num) {
+  return num < 0 ? "-" : "+";
+}
+
+function formatDurationNumber(n, force) {
+  return n || force ? n.toLocaleString("fullwide", {
+    useGrouping: 0
+  }) : "";
+}
+
+function getMatchingInstantFor(timeZoneOps, isoFields, offsetNano, offsetDisambig = 0, epochDisambig = 0, epochFuzzy, hasZ) {
+  if (void 0 !== offsetNano && 1 === offsetDisambig && (1 === offsetDisambig || hasZ)) {
+    return isoToEpochNanoWithOffset(isoFields, offsetNano);
+  }
+  const possibleEpochNanos = timeZoneOps.getPossibleInstantsFor(isoFields);
+  if (void 0 !== offsetNano && 3 !== offsetDisambig) {
+    const matchingEpochNano = ((possibleEpochNanos, isoDateTimeFields, offsetNano, fuzzy) => {
+      const zonedEpochNano = isoToEpochNano(isoDateTimeFields);
+      fuzzy && (offsetNano = roundToMinute(offsetNano));
+      for (const possibleEpochNano of possibleEpochNanos) {
+        let possibleOffsetNano = bigNanoToNumber(diffBigNanos(possibleEpochNano, zonedEpochNano));
+        if (fuzzy && (possibleOffsetNano = roundToMinute(possibleOffsetNano)), possibleOffsetNano === offsetNano) {
+          return possibleEpochNano;
         }
+      }
+    })(possibleEpochNanos, isoFields, offsetNano, epochFuzzy);
+    if (void 0 !== matchingEpochNano) {
+      return matchingEpochNano;
     }
-    return weekNumber;
-}
-async function getModulesByWeekNumber(modules) {
-    const modulesByWeekNumber = {};
-    for (const module of modules) {
-        const weekNumber = getModuleWeekNumber(module);
-        if (weekNumber) {
-            modulesByWeekNumber[weekNumber] = module;
-        }
+    if (0 === offsetDisambig) {
+      throw new RangeError(invalidOffsetForTimeZone);
     }
-    return modulesByWeekNumber;
+  }
+  return hasZ ? isoToEpochNano(isoFields) : getSingleInstantFor(timeZoneOps, isoFields, epochDisambig, possibleEpochNanos);
 }
-const isModuleItemTypeFunc = (typeString) => (item) => {
-    return item.type === typeString;
-};
-const isPageItemData = isModuleItemTypeFunc("Page");
-const isAssignmentItemData = isModuleItemTypeFunc("Assignment");
-const isDiscussionItemData = isModuleItemTypeFunc("Discussion");
-const isQuizItemData = isModuleItemTypeFunc("Quiz");
 
+function getSingleInstantFor(timeZoneOps, isoFields, disambig = 0, possibleEpochNanos = timeZoneOps.getPossibleInstantsFor(isoFields)) {
+  if (1 === possibleEpochNanos.length) {
+    return possibleEpochNanos[0];
+  }
+  if (1 === disambig) {
+    throw new RangeError(ambigOffset);
+  }
+  if (possibleEpochNanos.length) {
+    return possibleEpochNanos[3 === disambig ? 1 : 0];
+  }
+  const zonedEpochNano = isoToEpochNano(isoFields), gapNano = ((timeZoneOps, zonedEpochNano) => {
+    const startOffsetNano = timeZoneOps.getOffsetNanosecondsFor(moveBigNano(zonedEpochNano, -nanoInUtcDay));
+    return validateTimeZoneGap(timeZoneOps.getOffsetNanosecondsFor(moveBigNano(zonedEpochNano, nanoInUtcDay)) - startOffsetNano);
+  })(timeZoneOps, zonedEpochNano), shiftNano = gapNano * (2 === disambig ? -1 : 1);
+  return (possibleEpochNanos = timeZoneOps.getPossibleInstantsFor(epochNanoToIso(zonedEpochNano, shiftNano)))[2 === disambig ? 0 : possibleEpochNanos.length - 1];
+}
 
-/***/ }),
+function validateTimeZoneOffset(offsetNano) {
+  if (Math.abs(offsetNano) >= nanoInUtcDay) {
+    throw new RangeError(outOfBoundsOffset);
+  }
+  return offsetNano;
+}
 
-/***/ "./src/canvas/fetch/fetchJson.ts":
-/*!***************************************!*\
-  !*** ./src/canvas/fetch/fetchJson.ts ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+function validateTimeZoneGap(gapNano) {
+  if (gapNano > nanoInUtcDay) {
+    throw new RangeError(outOfBoundsDstGap);
+  }
+  return gapNano;
+}
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   fetchJson: () => (/* binding */ fetchJson)
-/* harmony export */ });
-async function fetchJson(url, config = null) {
-    const match = url.search(/^(\/|\w+:\/\/)/);
-    if (match < 0)
-        throw new Error("url does not start with / or http");
-    if (config === null || config === void 0 ? void 0 : config.queryParams) {
-        url += '?' + new URLSearchParams(config.queryParams);
+function moveZonedEpochs(timeZoneOps, calendarOps, slots, durationFields, options) {
+  const timeOnlyNano = durationFieldsToBigNano(durationFields, 5);
+  let epochNano = slots.epochNanoseconds;
+  if (durationHasDateParts(durationFields)) {
+    const isoDateTimeFields = zonedEpochSlotsToIso(slots, timeZoneOps);
+    epochNano = addBigNanos(getSingleInstantFor(timeZoneOps, {
+      ...moveDate(calendarOps, isoDateTimeFields, {
+        ...durationFields,
+        ...durationTimeFieldDefaults
+      }, options),
+      ...pluckProps(isoTimeFieldNamesAsc, isoDateTimeFields)
+    }), timeOnlyNano);
+  } else {
+    epochNano = addBigNanos(epochNano, timeOnlyNano), refineOverflowOptions(options);
+  }
+  return {
+    epochNanoseconds: checkEpochNanoInBounds(epochNano)
+  };
+}
+
+function moveDateTime(calendarOps, isoDateTimeFields, durationFields, options) {
+  const [movedIsoTimeFields, dayDelta] = moveTime(isoDateTimeFields, durationFields);
+  return checkIsoDateTimeInBounds({
+    ...moveDate(calendarOps, isoDateTimeFields, {
+      ...durationFields,
+      ...durationTimeFieldDefaults,
+      days: durationFields.days + dayDelta
+    }, options),
+    ...movedIsoTimeFields
+  });
+}
+
+function moveDate(calendarOps, isoDateFields, durationFields, options) {
+  if (durationFields.years || durationFields.months || durationFields.weeks) {
+    return calendarOps.dateAdd(isoDateFields, durationFields, options);
+  }
+  refineOverflowOptions(options);
+  const days = durationFields.days + durationFieldsToBigNano(durationFields, 5)[0];
+  return days ? checkIsoDateInBounds(moveByDays(isoDateFields, days)) : isoDateFields;
+}
+
+function moveToDayOfMonthUnsafe(calendarOps, isoFields, dayOfMonth = 1) {
+  return moveByDays(isoFields, dayOfMonth - calendarOps.day(isoFields));
+}
+
+function moveTime(isoFields, durationFields) {
+  const [durDays, durTimeNano] = durationFieldsToBigNano(durationFields, 5), [newIsoFields, overflowDays] = nanoToIsoTimeAndDay(isoTimeFieldsToNano(isoFields) + durTimeNano);
+  return [ newIsoFields, durDays + overflowDays ];
+}
+
+function moveByDays(isoFields, days) {
+  return days ? {
+    ...isoFields,
+    ...epochMilliToIso(isoToEpochMilli(isoFields) + days * milliInDay)
+  } : isoFields;
+}
+
+function createMarkerSystem(getCalendarOps, getTimeZoneOps, relativeToSlots) {
+  const calendarOps = getCalendarOps(relativeToSlots.calendar);
+  return isZonedEpochSlots(relativeToSlots) ? [ relativeToSlots, calendarOps, getTimeZoneOps(relativeToSlots.timeZone) ] : [ {
+    ...relativeToSlots,
+    ...isoTimeFieldDefaults
+  }, calendarOps ];
+}
+
+function createMarkerToEpochNano(timeZoneOps) {
+  return timeZoneOps ? extractEpochNano : isoToEpochNano;
+}
+
+function createMoveMarker(timeZoneOps) {
+  return timeZoneOps ? bindArgs(moveZonedEpochs, timeZoneOps) : moveDateTime;
+}
+
+function createDiffMarkers(timeZoneOps) {
+  return timeZoneOps ? bindArgs(diffZonedEpochsExact, timeZoneOps) : diffDateTimesExact;
+}
+
+function isZonedEpochSlots(marker) {
+  return marker && marker.epochNanoseconds;
+}
+
+function isUniformUnit(unit, marker) {
+  return unit <= 6 - (isZonedEpochSlots(marker) ? 1 : 0);
+}
+
+function negateDuration(slots) {
+  return createDurationSlots(negateDurationFields(slots));
+}
+
+function negateDurationFields(fields) {
+  const res = {};
+  for (const fieldName of durationFieldNamesAsc) {
+    res[fieldName] = -1 * fields[fieldName] || 0;
+  }
+  return res;
+}
+
+function computeDurationSign(fields, fieldNames = durationFieldNamesAsc) {
+  let sign = 0;
+  for (const fieldName of fieldNames) {
+    const fieldSign = Math.sign(fields[fieldName]);
+    if (fieldSign) {
+      if (sign && sign !== fieldSign) {
+        throw new RangeError(forbiddenDurationSigns);
+      }
+      sign = fieldSign;
     }
-    config !== null && config !== void 0 ? config : (config = {});
-    const response = await fetch(url, config.fetchInit);
-    return await response.json();
+  }
+  return sign;
 }
 
-
-/***/ }),
-
-/***/ "./src/canvas/fetch/getPagedDataGenerator.ts":
-/*!***************************************************!*\
-  !*** ./src/canvas/fetch/getPagedDataGenerator.ts ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getPagedData: () => (/* binding */ getPagedData),
-/* harmony export */   getPagedDataGenerator: () => (/* binding */ getPagedDataGenerator),
-/* harmony export */   mergePagedDataGenerators: () => (/* binding */ mergePagedDataGenerators)
-/* harmony export */ });
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
-
-/**
- * @param url The entire path of the url
- * @param config a configuration object of type ICanvasCallConfig
- * @returns {Promise<Record<string, any>[]>}
- */
-async function getPagedData(url, config = null) {
-    const generator = getPagedDataGenerator(url, config);
-    const out = [];
-    for await (const value of generator) {
-        out.push(value);
-    }
-    return out;
-}
-/**
- * Merges multiple asynchronous paginated data generators into a single generator.
- *
- * This function combines the results of multiple paginated data generators into a unified stream. Each generator
- * is processed sequentially, and its results are yielded one by one as they become available. This allows for
- * easy handling of multiple paginated API requests or data sources in parallel without needing to collect all
- * results in memory at once.
- *
- * The function is particularly useful when dealing with multiple sources of paginated data (e.g., multiple API
- * endpoints) that need to be processed as one continuous stream of results, without waiting for all pages from one
- * source to finish before beginning to process the next.
- *
- * @template T - A type parameter that extends `CanvasData`, ensuring that the data being yielded is in a format consistent
- *               with Canvas API data structures.
- * @param {AsyncGenerator<T, T[], void>[]} generators - An array of asynchronous generators, each of which yields paginated
- *               results of type `T`. These could represent different paginated data sources that are combined into a single stream.
- *
- * @yields {T} - The function yields items of type `T` as they are retrieved from each generator in sequence.
- *
- * @example
- * // Example usage combining two paginated API responses into a single data stream
- * const generator1 = fetchPagedDataFromSource1();
- * const generator2 = fetchPagedDataFromSource2();
- *
- * for await (const data of mergePagedDataGenerators([generator1, generator2])) {
- *     console.log(data); // Process each item from both generators as a single stream
- * }
- *
- */
-async function* mergePagedDataGenerators(generators) {
-    for (const generator of generators) {
-        for await (const result of generator) {
-            yield result;
-        }
-    }
-}
-/**
- * Handles the response data from a Canvas API call, normalizing it into an array of `CanvasData` objects.
- *
- * This function accepts various formats of the data (single object, array of objects, or a keyed object containing arrays of objects),
- * and ensures the result is always an array. If no valid array is found, it returns an empty array and logs a warning.
- *
- * @template T - A type that extends `CanvasData`.
- * @param {T | T[] | { [key: string]: T[] }} data - The response data to process. This can be a single object, an array of objects,
- *        or a keyed object where the values are arrays of objects.
- * @param {string} url - The URL from which the data was retrieved, used for logging purposes if no valid data is found.
- * @returns {T[]} An array of `CanvasData` objects, or an empty array if no valid array of data is present.
- */
-function handleResponseData(data, url) {
-    if (typeof data === 'undefined' || data == null) {
-        console.warn(`no data found for ${url}`);
-        return [];
-    }
-    if (typeof data === 'object' && !Array.isArray(data)) {
-        const values = Array.from(Object.values(data));
-        if (values) {
-            data = values.find((a) => Array.isArray(a));
-        }
-    }
-    if (!Array.isArray(data)) {
-        console.warn(`No valid data found for ${url}`);
-        return [];
-    }
-    return data;
-}
-/**
- * Async generator function that retrieves paged data from a Canvas API endpoint.
- * It sends HTTP GET requests to the provided URL, processes the results, and iterates
- * through all pages of data, yielding each individual item.
- *
- * The generator automatically handles pagination by examining the 'Link' header
- * returned in each response and fetching the next page as long as a 'next' link is available.
- *
- * @template T - A generic type parameter extending CanvasData to represent the structure of the data.
- * @param {string} url - The full URL for the API request. If the `queryParams` option is provided in the config, it appends the query parameters to the URL.
- * @param {ICanvasCallConfig | null} [config=null] - Optional configuration object for the request, including query parameters and additional fetch options like headers.
- * @yields {T} - Yields individual items of the retrieved data from each page, one at a time.
- *
- * @throws {Error} - If the request fails or the URL contains "undefined", a warning is logged to the console.
- *
- * @example
- * ```
- * const generator = getPagedDataGenerator<MyDataType>('https://canvas.example.com/api/data', config);
- * for await (const item of generator) {
- *     console.log(item);  // Handle each item individually
- * }
- * ```
- */
-async function* getPagedDataGenerator(url, config = null) {
-    if (config === null || config === void 0 ? void 0 : config.queryParams) {
-        url += '?' + (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.searchParamsFromObject)(config.queryParams);
-    }
-    if (url.includes('undefined')) {
-        console.warn(url);
-    }
-    /* Returns a list of data from a GET request, going through multiple pages of data requests as necessary */
-    let response = await fetch(url, config === null || config === void 0 ? void 0 : config.fetchInit);
-    const data = handleResponseData(await response.json(), url);
-    if (data.length === 0)
-        return data;
-    for (const value of data)
-        yield value;
-    let next_page_link = "!";
-    while (next_page_link.length !== 0 &&
-        response &&
-        response.ok) {
-        const nextLink = getNextLink(response);
-        if (!nextLink)
-            break;
-        next_page_link = nextLink.split(";")[0].split("<")[1].split(">")[0];
-        response = await fetch(next_page_link, config === null || config === void 0 ? void 0 : config.fetchInit);
-        const responseData = handleResponseData(await response.json(), url);
-        for (const value of responseData) {
-            yield value;
-        }
-    }
-}
-function getNextLink(response) {
-    const link = response.headers.get("Link");
-    if (!link)
-        return null;
-    const paginationLinks = link.split(",");
-    return paginationLinks.find((link) => link.includes('next'));
+function checkDurationUnits(fields) {
+  for (const calendarUnit of durationCalendarFieldNamesAsc) {
+    clampEntity(calendarUnit, fields[calendarUnit], -maxCalendarUnit, maxCalendarUnit, 1);
+  }
+  return checkDurationTimeUnit(bigNanoToNumber(durationFieldsToBigNano(fields), nanoInSec)), 
+  fields;
 }
 
-
-/***/ }),
-
-/***/ "./src/canvas/fetch/utils.ts":
-/*!***********************************!*\
-  !*** ./src/canvas/fetch/utils.ts ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   fetchGetConfig: () => (/* binding */ fetchGetConfig),
-/* harmony export */   overrideConfig: () => (/* binding */ overrideConfig)
-/* harmony export */ });
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
-
-function overrideConfig(source, override) {
-    var _a;
-    return (_a = (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.deepObjectMerge)(source, override)) !== null && _a !== void 0 ? _a : {};
-}
-function fetchGetConfig(options, baseConfig) {
-    return overrideConfig(baseConfig, {
-        queryParams: options,
-    });
+function checkDurationTimeUnit(n) {
+  if (!Number.isSafeInteger(n)) {
+    throw new RangeError(outOfBoundsDuration);
+  }
 }
 
-
-/***/ }),
-
-/***/ "./src/canvas/files.ts":
-/*!*****************************!*\
-  !*** ./src/canvas/files.ts ***!
-  \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   uploadFile: () => (/* binding */ uploadFile)
-/* harmony export */ });
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./canvasUtils */ "./src/canvas/canvasUtils.ts");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
-
-
-async function uploadFile(file, folder, url) {
-    const initialParams = {
-        name: file.name,
-        no_redirect: true,
-        on_duplicate: 'overwrite'
-    };
-    if (typeof folder === 'number')
-        initialParams.parent_folder_id = folder;
-    else
-        initialParams.parent_folder_path = folder;
-    let response = await fetch(url, {
-        body: (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(initialParams),
-        method: 'POST'
-    });
-    const data = await response.json();
-    const uploadParams = data.upload_params;
-    const uploadFormData = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(uploadParams);
-    uploadFormData.append('file', file);
-    response = await fetch(data.upload_url, {
-        method: 'POST',
-        body: uploadFormData,
-    });
-    assert__WEBPACK_IMPORTED_MODULE_1___default()(response.ok);
+function durationFieldsToBigNano(fields, largestUnit = 6) {
+  return givenFieldsToBigNano(fields, largestUnit, durationFieldNamesAsc);
 }
 
-
-/***/ }),
-
-/***/ "./src/canvas/image.ts":
-/*!*****************************!*\
-  !*** ./src/canvas/image.ts ***!
-  \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   backgroundDownloadImage: () => (/* binding */ backgroundDownloadImage),
-/* harmony export */   contentDownloadImage: () => (/* binding */ contentDownloadImage),
-/* harmony export */   getCroppedSquareBlob: () => (/* binding */ getCroppedSquareBlob),
-/* harmony export */   getResizedBlob: () => (/* binding */ getResizedBlob)
-/* harmony export */ });
-/* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! webextension-polyfill */ "./node_modules/webextension-polyfill/dist/browser-polyfill.js");
-/* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_1__);
-
-
-async function getResizedBlob(src, width, height = undefined) {
-    const imageSrc = await contentDownloadImage(src);
-    const canvas = document.createElement('canvas');
-    const image = new Image();
-    image.src = imageSrc;
-    const ctx = canvas.getContext('2d');
-    return new Promise((resolve) => {
-        image.onload = () => {
-            height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
-            assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
-            console.log(image.src);
-            canvas.width = width;
-            canvas.height = height;
-            ctx.drawImage(image, 0, 0, width, height);
-            canvas.toBlob(resolve);
-        };
-    });
-}
-async function getCroppedSquareBlob(src, size) {
-    const imageSrc = await contentDownloadImage(src);
-    const image = new Image();
-    image.src = imageSrc;
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    return new Promise((resolve) => {
-        image.onload = () => {
-            assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
-            const minDim = Math.min(image.width, image.height);
-            const cropX = (image.width - minDim) / 2;
-            const cropY = (image.height - minDim) / 2;
-            canvas.width = size;
-            canvas.height = size;
-            ctx.drawImage(image, cropX, cropY, minDim, minDim, 0, 0, size, size);
-            canvas.toBlob(resolve);
-        };
-    });
-}
-async function contentDownloadImage(src) {
-    const base64 = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.sendMessage({ downloadImage: src });
-    return base64;
-}
-function backgroundDownloadImage(src) {
-    //if(!height) height = src.height / src.width * width;
-    const imageUrl = src;
-    return new Promise(async (resolve) => {
-        const imageFileResponse = await fetch(imageUrl);
-        const reader = new FileReader();
-        reader.onload = event => {
-            console.log(reader.result);
-            resolve(reader.result);
-        };
-        const blob = await imageFileResponse.blob();
-        reader.readAsDataURL(blob);
-    });
+function nanoToDurationDayTimeFields(bigNano, largestUnit = 6) {
+  const [days, timeNano] = bigNano, dayTimeFields = nanoToGivenFields(timeNano, largestUnit, durationFieldNamesAsc);
+  if (dayTimeFields[durationFieldNamesAsc[largestUnit]] += days * (nanoInUtcDay / unitNanoMap[largestUnit]), 
+  !Number.isFinite(dayTimeFields[durationFieldNamesAsc[largestUnit]])) {
+    throw new RangeError(outOfBoundsDate);
+  }
+  return dayTimeFields;
 }
 
-
-/***/ }),
-
-/***/ "./src/canvas/profile.ts":
-/*!*******************************!*\
-  !*** ./src/canvas/profile.ts ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   frontPageBio: () => (/* binding */ frontPageBio),
-/* harmony export */   getCurioPageFrontPageProfile: () => (/* binding */ getCurioPageFrontPageProfile),
-/* harmony export */   getFacultyPages: () => (/* binding */ getFacultyPages),
-/* harmony export */   getPotentialFacultyProfiles: () => (/* binding */ getPotentialFacultyProfiles),
-/* harmony export */   getProfileFromPage: () => (/* binding */ getProfileFromPage),
-/* harmony export */   renderProfileIntoCurioFrontPage: () => (/* binding */ renderProfileIntoCurioFrontPage),
-/* harmony export */   winnow: () => (/* binding */ winnow)
-/* harmony export */ });
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./canvasUtils */ "./src/canvas/canvasUtils.ts");
-/* harmony import */ var _canvas_Account__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/Account */ "./src/canvas/Account.ts");
-/* harmony import */ var _canvas_course__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/course */ "./src/canvas/course/index.ts");
-
-
-
-
-let facultyCourseCached;
-async function getFacultyCourse() {
-    const facultyCourse = facultyCourseCached !== null && facultyCourseCached !== void 0 ? facultyCourseCached : await (0,_canvas_course__WEBPACK_IMPORTED_MODULE_3__.getSingleCourse)('Faculty Bios', (await _canvas_Account__WEBPACK_IMPORTED_MODULE_2__.Account.getAll()).map(a => a.id));
-    facultyCourseCached = facultyCourse;
-    assert__WEBPACK_IMPORTED_MODULE_0___default()(facultyCourse);
-    return facultyCourse;
+function nanoToDurationTimeFields(nano, largestUnit = 5) {
+  return nanoToGivenFields(nano, largestUnit, durationFieldNamesAsc);
 }
-async function getFacultyPages(searchTerm) {
-    const facultyCourse = await getFacultyCourse();
-    return await facultyCourse.getPages({
-        queryParams: {
-            include: ['body'],
-            search_term: searchTerm
-        }
-    });
+
+function durationHasDateParts(fields) {
+  return Boolean(computeDurationSign(fields, durationDateFieldNamesAsc));
 }
-async function getPotentialFacultyProfiles(user) {
-    var _a;
-    let pages = [];
-    const [lastName, firstName] = user.name.split(' ');
-    for (const query of [
-        user.name,
-        lastName,
-        firstName,
-    ]) {
-        console.log(query);
-        pages = await getFacultyPages(query);
-        if (pages.length > 0)
-            break;
-    }
-    const profiles = pages.map((page) => getProfileFromPage(page, user), true);
-    if (profiles.length > 0) {
-        for (const profile of profiles) {
-            (_a = profile.displayName) !== null && _a !== void 0 ? _a : (profile.displayName = user.name);
-        }
-    }
-    return profiles;
+
+function getMaxDurationUnit(fields) {
+  let unit = 9;
+  for (;unit > 0 && !fields[durationFieldNamesAsc[unit]]; unit--) {}
+  return unit;
 }
-function getProfileFromPage(page, user) {
-    const profile = getProfileFromPageHtml(page.body, user);
-    profile.sourcePage = page;
-    return profile;
+
+function createSplitTuple(startEpochSec, endEpochSec) {
+  return [ startEpochSec, endEpochSec ];
 }
-function getProfileFromPageHtml(html, user) {
-    const el = document.createElement('div');
-    el.innerHTML = html;
-    const displayName = getDisplayName(el);
-    const body = getProfileBody(el);
-    const image = getImageLink(el);
+
+function computePeriod(epochSec) {
+  const startEpochSec = Math.floor(epochSec / periodDur) * periodDur;
+  return [ startEpochSec, startEpochSec + periodDur ];
+}
+
+function parseOffsetNano(s) {
+  const offsetNano = parseOffsetNanoMaybe(s);
+  if (void 0 === offsetNano) {
+    throw new RangeError(failedParse(s));
+  }
+  return offsetNano;
+}
+
+function parsePlainDate(s) {
+  const organized = parseDateTimeLike(requireString(s));
+  if (!organized || organized.hasZ) {
+    throw new RangeError(failedParse(s));
+  }
+  return createPlainDateSlots(organized.hasTime ? finalizeDateTime(organized) : finalizeDate(organized));
+}
+
+function requireIsoCalendar(organized) {
+  if (organized.calendar !== isoCalendarId) {
+    throw new RangeError(invalidSubstring(organized.calendar));
+  }
+}
+
+function finalizeZonedDateTime(organized, offsetNano, offsetDisambig = 0, epochDisambig = 0) {
+  const slotId = resolveTimeZoneId(organized.timeZone), timeZoneImpl = queryNativeTimeZone(slotId);
+  return createZonedDateTimeSlots(getMatchingInstantFor(timeZoneImpl, checkIsoDateTimeFields(organized), offsetNano, offsetDisambig, epochDisambig, !timeZoneImpl.offsetNano, organized.hasZ), slotId, resolveCalendarId(organized.calendar));
+}
+
+function finalizeDateTime(organized) {
+  return resolveSlotsCalendar(checkIsoDateTimeInBounds(checkIsoDateTimeFields(organized)));
+}
+
+function finalizeDate(organized) {
+  return resolveSlotsCalendar(checkIsoDateInBounds(checkIsoDateFields(organized)));
+}
+
+function resolveSlotsCalendar(organized) {
+  return {
+    ...organized,
+    calendar: resolveCalendarId(organized.calendar)
+  };
+}
+
+function parseDateTimeLike(s) {
+  const parts = dateTimeRegExp.exec(s);
+  return parts ? (parts => {
+    const zOrOffset = parts[10], hasZ = "Z" === (zOrOffset || "").toUpperCase();
     return {
-        user,
-        bio: body,
-        displayName,
-        image,
-        imageLink: image === null || image === void 0 ? void 0 : image.src,
+      isoYear: organizeIsoYearParts(parts),
+      isoMonth: parseInt(parts[4]),
+      isoDay: parseInt(parts[5]),
+      ...organizeTimeParts(parts.slice(5)),
+      ...organizeAnnotationParts(parts[16]),
+      hasTime: Boolean(parts[6]),
+      hasZ: hasZ,
+      offset: hasZ ? void 0 : zOrOffset
     };
-}
-function getProfileBody(el) {
-    const h4s = el.querySelectorAll('h4');
-    const instructorHeaders = Array.from(h4s).filter((el) => {
-        return el.innerHTML.search(/instructor/i);
-    });
-    let potentials = [];
-    for (const header of instructorHeaders) {
-        const potentialParent = header.parentElement;
-        if (potentialParent) {
-            header.remove();
-            potentials.push(potentialParent.innerHTML);
-        }
-    }
-    potentials = winnow(potentials, [
-        (potential) => potential.length > 0,
-    ]);
-    /* just guess if we can't find anything */
-    if (potentials.length > 0) {
-        return potentials[0];
-    }
-    return null;
-}
-function getDisplayName(el) {
-    let titles = Array.from(el.querySelectorAll('strong em'));
-    if (titles.length === 0) {
-        const enclosedImages = Array.from(el.querySelectorAll('p img'));
-        titles = enclosedImages.map((el) => { var _a; return (_a = (0,_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.parentElement)(el, 'p')) === null || _a === void 0 ? void 0 : _a.nextElementSibling; })
-            .filter((el) => el instanceof Element);
-    }
-    if (titles.length === 0) {
-        const headings = Array.from(el.querySelectorAll('p strong'));
-        const instructorHeaders = headings.filter(el => el.innerHTML.search(/Instructor/));
-        titles = instructorHeaders.map((el) => el.previousElementSibling)
-            .filter((el) => el instanceof Element);
-    }
-    titles = titles.filter((title) => title.textContent && title.textContent.length > 0);
-    if (titles.length > 0)
-        return titles[0].textContent;
-    return null;
-}
-/**
- * Finds all the image links in the content and returns the biggest.
- * @param el
- */
-function getImageLink(el) {
-    const imgs = el.querySelectorAll('img');
-    if (imgs.length === 0)
-        return null;
-    return Array.from(imgs)[1];
-}
-/**
- * Takes in a list of parameters and a set of filter functions. Runs filter functions until there are one or fewer elements,
- * or it runs out of filter functions. Returns post-filtered list.
- * @param originalList The list of items to run
- * @param winnowFuncs A list of filter functions, run in order
- * @param returnLastNonEmpty If true, will return the last non-empty array found if elements are winnowed to 0
- */
-function winnow(originalList, winnowFuncs, returnLastNonEmpty = false) {
-    let copyList = [...originalList];
-    if (copyList.length === 1)
-        return copyList; //already at 1 element
-    let lastSet = [...copyList];
-    for (const winnowFunc of winnowFuncs) {
-        lastSet = [...copyList];
-        copyList = copyList.filter(winnowFunc);
-        if (copyList.length === 1)
-            break;
-    }
-    if (copyList.length === 0 && returnLastNonEmpty)
-        return lastSet;
-    return copyList;
-}
-function getCurioPageFrontPageProfile(html, user) {
-    const el = document.createElement('div');
-    el.innerHTML = html;
-    try {
-        const header = getCurioHeader(el);
-        const match = header.innerHTML.match(/Meet your instructor, ?(.*)!/i);
-        const displayName = match ? match[1] : null;
-        const bio = getCurioBio(el);
-        const image = getCurioProfileImage(el);
-        return {
-            user,
-            displayName,
-            image,
-            imageLink: image ? image.src : null,
-            bio: bio === null || bio === void 0 ? void 0 : bio.innerHTML
-        };
-    }
-    catch (e) {
-        return {
-            user,
-            displayName: "CANNOT LOCATE PROFILE",
-            bio: e.toString(),
-        };
-    }
-}
-function frontPageBio(profile) {
-    return profile.bio + `<p>${profile.displayName} should be contacted during the term using Canvas Inbox,
- but can be reached after and before the term via their email address: ${profile.user.email}</p>`;
-}
-function renderProfileIntoCurioFrontPage(html, profile) {
-    const el = document.createElement('div');
-    el.innerHTML = html;
-    if (profile.displayName) {
-        const header = getCurioHeader(el);
-        header.innerHTML = `Meet your instructor, ${profile.displayName}!`;
-    }
-    if (profile.bio) {
-        const bio = getCurioBio(el);
-        if (bio) {
-            const classes = bio.classList;
-            if (!classes.contains('cbt-instructor-bio'))
-                classes.add('cbt-instructor-bio');
-            bio.innerHTML = frontPageBio(profile);
-        }
-    }
-    if (profile.image) {
-        const image = getCurioProfileImage(el);
-        if (image) {
-            image.src = profile.image.src;
-            image.alt = profile.image.alt;
-        }
-    }
-    else if (profile.imageLink) {
-        const image = getCurioProfileImage(el);
-        if (image) {
-            image.src = profile.imageLink;
-        }
-    }
-    return el.innerHTML;
-}
-function getCurioHeader(el) {
-    let h2s = Array.from(el.querySelectorAll('h2'));
-    h2s = h2s.filter((h2) => h2.innerHTML.match(/Meet your instructor/i));
-    if (h2s.length <= 0)
-        throw new Error(`Can't find bio section of front page.\n${h2s.map(a => a.innerHTML)}\n${el.innerHTML}`);
-    return h2s[0];
-}
-function getCurioProfileDiv(el) {
-    const header = getCurioHeader(el);
-    const sectionEl = header.nextElementSibling;
-    assert__WEBPACK_IMPORTED_MODULE_0___default()(sectionEl, "Body element of bio not found on page.");
-    return sectionEl;
-}
-function getCurioBio(el) {
-    const profileDiv = getCurioProfileDiv(el);
-    const bio = profileDiv.querySelector('.cbt-instructor-bio');
-    if (bio && bio.innerHTML)
-        return bio;
-    const div = getCurioProfileDiv(el);
-    const p = div.querySelector('p');
-    return p === null || p === void 0 ? void 0 : p.parentElement;
-}
-function getCurioProfileImage(el) {
-    return getCurioProfileDiv(el).querySelector('img');
+  })(parts) : void 0;
 }
 
-
-
-/***/ }),
-
-/***/ "./src/canvas/term/Term.ts":
-/*!*********************************!*\
-  !*** ./src/canvas/term/Term.ts ***!
-  \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Term: () => (/* binding */ Term)
-/* harmony export */ });
-/* harmony import */ var _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/canvas/baseCanvasObject */ "./src/canvas/baseCanvasObject.ts");
-/* harmony import */ var _canvas_Account__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/canvas/Account */ "./src/canvas/Account.ts");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/canvas/fetch/getPagedDataGenerator */ "./src/canvas/fetch/getPagedDataGenerator.ts");
-/* harmony import */ var _canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/canvas/fetch/fetchJson */ "./src/canvas/fetch/fetchJson.ts");
-
-
-
-
-
-class Term extends _canvas_baseCanvasObject__WEBPACK_IMPORTED_MODULE_0__.BaseCanvasObject {
-    static async getTerm(code, workflowState = 'all', config = undefined) {
-        const terms = await this.searchTerms(code, workflowState, config);
-        if (!Array.isArray(terms) || terms.length <= 0) {
-            return null;
-        }
-        return terms[0];
-    }
-    static async getTermById(termId, config = null) {
-        const account = await _canvas_Account__WEBPACK_IMPORTED_MODULE_1__.Account.getRootAccount();
-        if (!account)
-            throw new _canvas_Account__WEBPACK_IMPORTED_MODULE_1__.RootAccountNotFoundError();
-        const url = `/api/v1/accounts/${account.id}/terms/${termId}`;
-        const termData = await (0,_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_4__.fetchJson)(url, config);
-        if (termData)
-            return new Term(termData);
-        return null;
-    }
-    static async getAllActiveTerms(config = null) {
-        return await this.searchTerms(null, 'active', config);
-    }
-    static async searchTerms(code = null, workflowState = 'all', config = null) {
-        config = config || {};
-        config.queryParams = config.queryParams || {};
-        const queryParams = config.queryParams;
-        if (workflowState)
-            queryParams['workflow_state'] = workflowState;
-        if (code)
-            queryParams['term_name'] = code;
-        const rootAccount = await _canvas_Account__WEBPACK_IMPORTED_MODULE_1__.Account.getRootAccount();
-        assert__WEBPACK_IMPORTED_MODULE_2___default()(rootAccount);
-        const url = `/api/v1/accounts/${rootAccount.id}/terms`;
-        const data = await (0,_canvas_fetch_getPagedDataGenerator__WEBPACK_IMPORTED_MODULE_3__.getPagedData)(url, config);
-        const terms = [];
-        for (const datum of data) {
-            if (datum.hasOwnProperty('enrollment_terms')) {
-                for (const termData of datum['enrollment_terms']) {
-                    terms.push(termData);
-                }
-            }
-            else {
-                terms.push(datum);
-            }
-        }
-        console.log(terms);
-        if (!terms || terms.length === 0) {
-            return null;
-        }
-        return terms.map(term => new Term(term));
-    }
+function parseYearMonthOnly(s) {
+  const parts = yearMonthRegExp.exec(s);
+  return parts ? (parts => ({
+    isoYear: organizeIsoYearParts(parts),
+    isoMonth: parseInt(parts[4]),
+    isoDay: 1,
+    ...organizeAnnotationParts(parts[5])
+  }))(parts) : void 0;
 }
-Term.nameProperty = "name";
 
-
-/***/ }),
-
-/***/ "./src/date.ts":
-/*!*********************!*\
-  !*** ./src/date.ts ***!
-  \*********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   MalformedDateError: () => (/* binding */ MalformedDateError),
-/* harmony export */   StringNotAMonthDateError: () => (/* binding */ StringNotAMonthDateError),
-/* harmony export */   findDateRange: () => (/* binding */ findDateRange),
-/* harmony export */   oldDateToPlainDate: () => (/* binding */ oldDateToPlainDate)
-/* harmony export */ });
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
-
-
-
-function getMonthNames(style = "long", locale = 'en-US') {
-    return Array.from((0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.range)(1, 12)).map((monthInt) => {
-        return temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from({
-            day: 1,
-            month: monthInt,
-            year: temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.Now.plainDateISO().year
-        }).toLocaleString(locale, {
-            month: style
-        });
-    });
+function parseMonthDayOnly(s) {
+  const parts = monthDayRegExp.exec(s);
+  return parts ? (parts => ({
+    isoYear: isoEpochFirstLeapYear,
+    isoMonth: parseInt(parts[1]),
+    isoDay: parseInt(parts[2]),
+    ...organizeAnnotationParts(parts[3])
+  }))(parts) : void 0;
 }
-/**
- * takes a string of formatted [monthname] [date] and give a plain date
- * @param value the string to evaluate
- * @param locale the locale to use to generate month names, e.g. en-US
- * @param year the year to give the date object. If not provided defaults to current year.
- */
-function plainDateFromMonthDayString(value, locale, year) {
-    year !== null && year !== void 0 ? year : (year = temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.Now.plainDateISO().year);
-    const match = value.match(getDateRegexString(locale));
-    if (!match)
-        throw new MalformedDateError(value);
-    const fullDate = match[1];
-    return temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from({
-        month: getMonthNumberLut(locale)[match[2]],
-        day: parseInt(match[3]),
-        year
-    });
-}
-const monthNumberLutCache = {};
-/**
- * returns a string with 3 capturing groups -- 1 - month date, 2 month, 3 date. cuts off rd/th...
- * @param locale
- */
-function getMonthNumberLut(locale) {
-    if (monthNumberLutCache[locale])
-        return monthNumberLutCache[locale];
-    const monthNames = getMonthNames('long', locale);
-    const shortMonthNames = getMonthNames('short', locale);
-    const monthNumberLut = {};
-    assert__WEBPACK_IMPORTED_MODULE_0___default()(monthNames.length === shortMonthNames.length);
-    for (let i = 0; i < monthNames.length; i++) {
-        monthNumberLut[monthNames[i]] = i + 1;
-        monthNumberLut[shortMonthNames[i]] = i + 1;
+
+function parseOffsetNanoMaybe(s, onlyHourMinute) {
+  const parts = offsetRegExp.exec(s);
+  return parts ? ((parts, onlyHourMinute) => {
+    const firstSubMinutePart = parts[4] || parts[5];
+    if (onlyHourMinute && firstSubMinutePart) {
+      throw new RangeError(invalidSubstring(firstSubMinutePart));
     }
-    monthNumberLutCache[locale] = monthNumberLut;
-    return monthNumberLut;
+    return validateTimeZoneOffset((parseInt0(parts[2]) * nanoInHour + parseInt0(parts[3]) * nanoInMinute + parseInt0(parts[4]) * nanoInSec + parseSubsecNano(parts[5] || "")) * parseSign(parts[1]));
+  })(parts, onlyHourMinute) : void 0;
 }
-const dateRegexStringCache = {};
-//TODO: Make the capture groups in this optional
-function getDateRegexString(locale = 'en-US') {
-    if (dateRegexStringCache[locale])
-        return dateRegexStringCache[locale];
-    const monthNames = getMonthNames('long', locale);
-    const shortMonthNames = getMonthNames('short', locale);
-    const monthRegexDatePart = `(?:${[...monthNames, ...shortMonthNames].join('|')})`;
-    const output = `((${monthRegexDatePart}) (\\d+))(?:\\w{2}|)`;
-    dateRegexStringCache[locale] = output;
-    return output;
+
+function organizeIsoYearParts(parts) {
+  const yearSign = parseSign(parts[1]), year = parseInt(parts[2] || parts[3]);
+  if (yearSign < 0 && !year) {
+    throw new RangeError(invalidSubstring(-0));
+  }
+  return yearSign * year;
 }
-/**
- * Looks for a date range in text and, if found, returns an object with start and end params as Temporal PlainDates
- * @param textToSearch
- * @param locale
- */
-function findDateRange(textToSearch, locale = 'en-US') {
-    const dateRegExString = getDateRegexString(locale);
-    const searchRegex = new RegExp(`(${dateRegExString}).*(${dateRegExString})`, 'i');
-    const dateRegex = new RegExp(dateRegExString, 'i');
-    const matchRange = textToSearch.match(searchRegex);
-    if (!matchRange)
-        throw new MalformedDateError('Cannot find date range in syllabus'); //No date range found in syllabus
-    let start, end;
-    for (const separator of ['-', 'to']) {
-        [start, end] = matchRange[0].split(separator);
-        if (start && end)
-            break;
+
+function organizeTimeParts(parts) {
+  const isoSecond = parseInt0(parts[3]);
+  return {
+    ...nanoToIsoTimeAndDay(parseSubsecNano(parts[4] || ""))[0],
+    isoHour: parseInt0(parts[1]),
+    isoMinute: parseInt0(parts[2]),
+    isoSecond: 60 === isoSecond ? 59 : isoSecond
+  };
+}
+
+function organizeAnnotationParts(s) {
+  let calendarIsCritical, timeZoneId;
+  const calendarIds = [];
+  if (s.replace(annotationRegExp, ((whole, criticalStr, mainStr) => {
+    const isCritical = Boolean(criticalStr), [val, name] = mainStr.split("=").reverse();
+    if (name) {
+      if ("u-ca" === name) {
+        calendarIds.push(val), calendarIsCritical || (calendarIsCritical = isCritical);
+      } else if (isCritical || /[A-Z]/.test(name)) {
+        throw new RangeError(invalidSubstring(whole));
+      }
+    } else {
+      if (timeZoneId) {
+        throw new RangeError(invalidSubstring(whole));
+      }
+      timeZoneId = val;
     }
-    if (!start || !end)
-        throw new MalformedDateError('Cannot find date range in syllabus');
-    const startMatch = start.match(dateRegex);
-    const endMatch = end.match(dateRegex);
-    if (!startMatch)
-        throw new MalformedDateError(`Missing Start Date ${start}`);
-    if (!endMatch)
-        throw new MalformedDateError(`Missing End Date ${end}`);
+    return "";
+  })), calendarIds.length > 1 && calendarIsCritical) {
+    throw new RangeError(invalidSubstring(s));
+  }
+  return {
+    timeZone: timeZoneId,
+    calendar: calendarIds[0] || isoCalendarId
+  };
+}
+
+function parseSubsecNano(fracStr) {
+  return parseInt(fracStr.padEnd(9, "0"));
+}
+
+function createRegExp(meat) {
+  return new RegExp(`^${meat}$`, "i");
+}
+
+function parseSign(s) {
+  return s && "+" !== s ? -1 : 1;
+}
+
+function parseInt0(s) {
+  return void 0 === s ? 0 : parseInt(s);
+}
+
+function resolveTimeZoneId(id) {
+  const essence = getTimeZoneEssence(id);
+  return "number" == typeof essence ? formatOffsetNano(essence) : essence ? (id => {
+    if (icuRegExp.test(id)) {
+      throw new RangeError(forbiddenIcuTimeZone);
+    }
+    return id.toLowerCase().split("/").map(((part, partI) => (part.length <= 3 || /\d/.test(part)) && !/etc|yap/.test(part) ? part.toUpperCase() : part.replace(/baja|dumont|[a-z]+/g, ((a, i) => a.length <= 2 && !partI || "in" === a || "chat" === a ? a.toUpperCase() : a.length > 2 || !i ? capitalize(a).replace(/island|noronha|murdo|rivadavia|urville/, capitalize) : a)))).join("/");
+  })(id) : utcTimeZoneId;
+}
+
+function getTimeZoneAtomic(id) {
+  const essence = getTimeZoneEssence(id);
+  return "number" == typeof essence ? essence : essence ? essence.resolvedOptions().timeZone : utcTimeZoneId;
+}
+
+function getTimeZoneEssence(id) {
+  const offsetNano = parseOffsetNanoMaybe(id = id.toUpperCase(), 1);
+  return void 0 !== offsetNano ? offsetNano : id !== utcTimeZoneId ? queryTimeZoneIntlFormat(id) : void 0;
+}
+
+function compareInstants(instantSlots0, instantSlots1) {
+  return compareBigNanos(instantSlots0.epochNanoseconds, instantSlots1.epochNanoseconds);
+}
+
+function compareZonedDateTimes(zonedDateTimeSlots0, zonedDateTimeSlots1) {
+  return compareBigNanos(zonedDateTimeSlots0.epochNanoseconds, zonedDateTimeSlots1.epochNanoseconds);
+}
+
+function compareIsoDateTimeFields(isoFields0, isoFields1) {
+  return compareIsoDateFields(isoFields0, isoFields1) || compareIsoTimeFields(isoFields0, isoFields1);
+}
+
+function compareIsoDateFields(isoFields0, isoFields1) {
+  return compareNumbers(isoToEpochMilli(isoFields0), isoToEpochMilli(isoFields1));
+}
+
+function compareIsoTimeFields(isoFields0, isoFields1) {
+  return compareNumbers(isoTimeFieldsToNano(isoFields0), isoTimeFieldsToNano(isoFields1));
+}
+
+function isTimeZoneSlotsEqual(a, b) {
+  if (a === b) {
+    return 1;
+  }
+  const aId = getId(a), bId = getId(b);
+  if (aId === bId) {
+    return 1;
+  }
+  try {
+    return getTimeZoneAtomic(aId) === getTimeZoneAtomic(bId);
+  } catch (_a) {}
+}
+
+function diffDateLike(invert, getCalendarOps, startIsoFields, endIsoFields, largestUnit, smallestUnit, roundingInc, roundingMode, origOptions) {
+  const startEpochNano = isoToEpochNano(startIsoFields), endEpochNano = isoToEpochNano(endIsoFields);
+  let durationFields;
+  if (compareBigNanos(endEpochNano, startEpochNano)) {
+    if (6 === largestUnit) {
+      durationFields = diffEpochNanos(startEpochNano, endEpochNano, largestUnit, smallestUnit, roundingInc, roundingMode);
+    } else {
+      const calendarOps = getCalendarOps();
+      durationFields = calendarOps.dateUntil(startIsoFields, endIsoFields, largestUnit, origOptions), 
+      6 === smallestUnit && 1 === roundingInc || (durationFields = roundRelativeDuration(durationFields, endEpochNano, largestUnit, smallestUnit, roundingInc, roundingMode, calendarOps, startIsoFields, isoToEpochNano, moveDate));
+    }
+  } else {
+    durationFields = durationFieldDefaults;
+  }
+  return createDurationSlots(invert ? negateDurationFields(durationFields) : durationFields);
+}
+
+function diffZonedEpochsExact(timeZoneOps, calendarOps, slots0, slots1, largestUnit, origOptions) {
+  const sign = compareBigNanos(slots1.epochNanoseconds, slots0.epochNanoseconds);
+  return sign ? largestUnit < 6 ? diffEpochNanosExact(slots0.epochNanoseconds, slots1.epochNanoseconds, largestUnit) : diffZonedEpochsBig(calendarOps, timeZoneOps, slots0, slots1, sign, largestUnit, origOptions) : durationFieldDefaults;
+}
+
+function diffDateTimesExact(calendarOps, startIsoFields, endIsoFields, largestUnit, origOptions) {
+  const startEpochNano = isoToEpochNano(startIsoFields), endEpochNano = isoToEpochNano(endIsoFields), sign = compareBigNanos(endEpochNano, startEpochNano);
+  return sign ? largestUnit <= 6 ? diffEpochNanosExact(startEpochNano, endEpochNano, largestUnit) : diffDateTimesBig(calendarOps, startIsoFields, endIsoFields, sign, largestUnit, origOptions) : durationFieldDefaults;
+}
+
+function diffZonedEpochsBig(calendarOps, timeZoneOps, slots0, slots1, sign, largestUnit, origOptions) {
+  const [isoFields0, isoFields1, remainderNano] = ((timeZoneOps, slots0, slots1, sign) => {
+    function updateMid() {
+      return midIsoFields = {
+        ...moveByDays(endIsoFields, dayCorrection++ * -sign),
+        ...startIsoTimeFields
+      }, midEpochNano = getSingleInstantFor(timeZoneOps, midIsoFields), compareBigNanos(endEpochNano, midEpochNano) === -sign;
+    }
+    const startIsoFields = zonedEpochSlotsToIso(slots0, timeZoneOps), startIsoTimeFields = pluckProps(isoTimeFieldNamesAsc, startIsoFields), endIsoFields = zonedEpochSlotsToIso(slots1, timeZoneOps), endEpochNano = slots1.epochNanoseconds;
+    let dayCorrection = 0;
+    const timeDiffNano = diffTimes(startIsoFields, endIsoFields);
+    let midIsoFields, midEpochNano;
+    if (Math.sign(timeDiffNano) === -sign && dayCorrection++, updateMid() && (-1 === sign || updateMid())) {
+      throw new RangeError(invalidProtocolResults);
+    }
+    const remainderNano = bigNanoToNumber(diffBigNanos(midEpochNano, endEpochNano));
+    return [ startIsoFields, midIsoFields, remainderNano ];
+  })(timeZoneOps, slots0, slots1, sign);
+  var startIsoFields, endIsoFields;
+  return {
+    ...6 === largestUnit ? (startIsoFields = isoFields0, endIsoFields = isoFields1, 
+    {
+      ...durationFieldDefaults,
+      days: diffDays(startIsoFields, endIsoFields)
+    }) : calendarOps.dateUntil(isoFields0, isoFields1, largestUnit, origOptions),
+    ...nanoToDurationTimeFields(remainderNano)
+  };
+}
+
+function diffDateTimesBig(calendarOps, startIsoFields, endIsoFields, sign, largestUnit, origOptions) {
+  const [startIsoDate, endIsoDate, timeNano] = ((startIsoDateTime, endIsoDateTime, sign) => {
+    let endIsoDate = endIsoDateTime, timeDiffNano = diffTimes(startIsoDateTime, endIsoDateTime);
+    return Math.sign(timeDiffNano) === -sign && (endIsoDate = moveByDays(endIsoDateTime, -sign), 
+    timeDiffNano += nanoInUtcDay * sign), [ startIsoDateTime, endIsoDate, timeDiffNano ];
+  })(startIsoFields, endIsoFields, sign);
+  return {
+    ...calendarOps.dateUntil(startIsoDate, endIsoDate, largestUnit, origOptions),
+    ...nanoToDurationTimeFields(timeNano)
+  };
+}
+
+function diffEpochNanos(startEpochNano, endEpochNano, largestUnit, smallestUnit, roundingInc, roundingMode) {
+  return {
+    ...durationFieldDefaults,
+    ...nanoToDurationDayTimeFields(roundBigNano(diffBigNanos(startEpochNano, endEpochNano), smallestUnit, roundingInc, roundingMode), largestUnit)
+  };
+}
+
+function diffEpochNanosExact(startEpochNano, endEpochNano, largestUnit) {
+  return {
+    ...durationFieldDefaults,
+    ...nanoToDurationDayTimeFields(diffBigNanos(startEpochNano, endEpochNano), largestUnit)
+  };
+}
+
+function diffDays(startIsoFields, endIsoFields) {
+  return diffEpochMilliByDay(isoToEpochMilli(startIsoFields), isoToEpochMilli(endIsoFields));
+}
+
+function diffEpochMilliByDay(epochMilli0, epochMilli1) {
+  return Math.trunc((epochMilli1 - epochMilli0) / milliInDay);
+}
+
+function diffTimes(isoTime0, isoTime1) {
+  return isoTimeFieldsToNano(isoTime1) - isoTimeFieldsToNano(isoTime0);
+}
+
+function getCommonCalendarSlot(a, b) {
+  if (!isIdLikeEqual(a, b)) {
+    throw new RangeError(mismatchingCalendars);
+  }
+  return a;
+}
+
+function createIntlFieldCache(epochMilliToIntlFields) {
+  return memoize((isoDateFields => {
+    const epochMilli = isoToEpochMilli(isoDateFields);
+    return epochMilliToIntlFields(epochMilli);
+  }), WeakMap);
+}
+
+function createIntlYearDataCache(epochMilliToIntlFields) {
+  const yearCorrection = epochMilliToIntlFields(0).year - isoEpochOriginYear;
+  return memoize((year => {
+    let intlFields, epochMilli = isoArgsToEpochMilli(year - yearCorrection);
+    const millisReversed = [], monthStringsReversed = [];
+    do {
+      epochMilli += 400 * milliInDay;
+    } while ((intlFields = epochMilliToIntlFields(epochMilli)).year <= year);
+    do {
+      epochMilli += (1 - intlFields.day) * milliInDay, intlFields.year === year && (millisReversed.push(epochMilli), 
+      monthStringsReversed.push(intlFields.monthString)), epochMilli -= milliInDay;
+    } while ((intlFields = epochMilliToIntlFields(epochMilli)).year >= year);
     return {
-        start: plainDateFromMonthDayString(startMatch[0], locale),
-        end: plainDateFromMonthDayString(endMatch[0], locale)
+      monthEpochMillis: millisReversed.reverse(),
+      monthStringToIndex: mapPropNamesToIndex(monthStringsReversed.reverse())
     };
+  }));
 }
-function oldDateToPlainDate(date) {
-    const data = {
-        day: date.getDate(),
-        month: date.getMonth() + 1,
-        year: date.getFullYear(),
-    };
-    return temporal_polyfill__WEBPACK_IMPORTED_MODULE_2__.Temporal.PlainDate.from(data);
+
+function parseIntlYear(intlParts, calendarIdBase) {
+  let era, eraYear, year = parseIntlPartsYear(intlParts);
+  if (intlParts.era) {
+    const eraOrigins = eraOriginsByCalendarId[calendarIdBase];
+    void 0 !== eraOrigins && (era = "islamic" === calendarIdBase ? "ah" : intlParts.era.normalize("NFD").toLowerCase().replace(/[^a-z0-9]/g, ""), 
+    "bc" === era || "b" === era ? era = "bce" : "ad" !== era && "a" !== era || (era = "ce"), 
+    eraYear = year, year = eraYearToYear(eraYear, eraOrigins[era] || 0));
+  }
+  return {
+    era: era,
+    eraYear: eraYear,
+    year: year
+  };
 }
-class StringNotAMonthDateError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "StringNotAMonthDateError";
+
+function parseIntlPartsYear(intlParts) {
+  return parseInt(intlParts.relatedYear || intlParts.year);
+}
+
+function computeIntlDateParts(isoFields) {
+  const {year: year, monthString: monthString, day: day} = this.queryFields(isoFields), {monthStringToIndex: monthStringToIndex} = this.queryYearData(year);
+  return [ year, monthStringToIndex[monthString] + 1, day ];
+}
+
+function computeIntlEpochMilli(year, month = 1, day = 1) {
+  return this.queryYearData(year).monthEpochMillis[month - 1] + (day - 1) * milliInDay;
+}
+
+function computeIntlLeapMonth(year) {
+  const currentMonthStrings = queryMonthStrings(this, year), prevMonthStrings = queryMonthStrings(this, year - 1), currentLength = currentMonthStrings.length;
+  if (currentLength > prevMonthStrings.length) {
+    const leapMonthMeta = getCalendarLeapMonthMeta(this);
+    if (leapMonthMeta < 0) {
+      return -leapMonthMeta;
     }
-}
-class MalformedDateError extends Error {
-    constructor() {
-        super(...arguments);
-        this.name = "MalformedDateError";
+    for (let i = 0; i < currentLength; i++) {
+      if (currentMonthStrings[i] !== prevMonthStrings[i]) {
+        return i + 1;
+      }
     }
+  }
 }
 
+function computeIntlDaysInYear(year) {
+  return diffEpochMilliByDay(computeIntlEpochMilli.call(this, year), computeIntlEpochMilli.call(this, year + 1));
+}
 
-/***/ }),
+function computeIntlDaysInMonth(year, month) {
+  const {monthEpochMillis: monthEpochMillis} = this.queryYearData(year);
+  let nextMonth = month + 1, nextMonthEpochMilli = monthEpochMillis;
+  return nextMonth > monthEpochMillis.length && (nextMonth = 1, nextMonthEpochMilli = this.queryYearData(year + 1).monthEpochMillis), 
+  diffEpochMilliByDay(monthEpochMillis[month - 1], nextMonthEpochMilli[nextMonth - 1]);
+}
 
-/***/ "./src/fetch/apiWriteConfig.ts":
-/*!*************************************!*\
-  !*** ./src/fetch/apiWriteConfig.ts ***!
-  \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+function computeIntlMonthsInYear(year) {
+  return this.queryYearData(year).monthEpochMillis.length;
+}
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   apiWriteConfig: () => (/* binding */ apiWriteConfig),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @canvas/canvasUtils */ "./src/canvas/canvasUtils.ts");
-/* harmony import */ var _canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @canvas/fetch/utils */ "./src/canvas/fetch/utils.ts");
+function queryMonthStrings(intlCalendar, year) {
+  return Object.keys(intlCalendar.queryYearData(year).monthStringToIndex);
+}
 
+function resolveCalendarId(id) {
+  if ((id = id.toLowerCase()) !== isoCalendarId && id !== gregoryCalendarId && computeCalendarIdBase(id) !== computeCalendarIdBase(queryCalendarIntlFormat(id).resolvedOptions().calendar)) {
+    throw new RangeError(invalidCalendar(id));
+  }
+  return id;
+}
 
-function apiWriteConfig(method, data, baseConfig) {
-    const body = (0,_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_0__.formDataify)(data);
-    return (0,_canvas_fetch_utils__WEBPACK_IMPORTED_MODULE_1__.overrideConfig)({
-        fetchInit: {
-            method,
-            body,
+function computeCalendarIdBase(id) {
+  return "islamicc" === id && (id = "islamic"), id.split("-")[0];
+}
+
+function computeNativeWeekOfYear(isoFields) {
+  return this.weekParts(isoFields)[0];
+}
+
+function computeNativeYearOfWeek(isoFields) {
+  return this.weekParts(isoFields)[1];
+}
+
+function computeNativeDayOfYear(isoFields) {
+  const [year] = this.dateParts(isoFields);
+  return diffEpochMilliByDay(this.epochMilli(year), isoToEpochMilli(isoFields)) + 1;
+}
+
+function parseMonthCode(monthCode) {
+  const m = monthCodeRegExp.exec(monthCode);
+  if (!m) {
+    throw new RangeError(invalidMonthCode(monthCode));
+  }
+  return [ parseInt(m[1]), Boolean(m[2]) ];
+}
+
+function monthCodeNumberToMonth(monthCodeNumber, isLeapMonth, leapMonth) {
+  return monthCodeNumber + (isLeapMonth || leapMonth && monthCodeNumber >= leapMonth ? 1 : 0);
+}
+
+function monthToMonthCodeNumber(month, leapMonth) {
+  return month - (leapMonth && month >= leapMonth ? 1 : 0);
+}
+
+function eraYearToYear(eraYear, eraOrigin) {
+  return (eraOrigin + eraYear) * (Math.sign(eraOrigin) || 1) || 0;
+}
+
+function getCalendarEraOrigins(native) {
+  return eraOriginsByCalendarId[getCalendarIdBase(native)];
+}
+
+function getCalendarLeapMonthMeta(native) {
+  return leapMonthMetas[getCalendarIdBase(native)];
+}
+
+function getCalendarIdBase(native) {
+  return computeCalendarIdBase(native.id || isoCalendarId);
+}
+
+function refineCalendarFields(calendarOps, bag, validFieldNames, requiredFieldNames = [], forcedValidFieldNames = []) {
+  return refineFields(bag, [ ...calendarOps.fields(validFieldNames), ...forcedValidFieldNames ].sort(), requiredFieldNames);
+}
+
+function refineFields(bag, validFieldNames, requiredFieldNames, disallowEmpty = !requiredFieldNames) {
+  const res = {};
+  let prevFieldName, anyMatching = 0;
+  for (const fieldName of validFieldNames) {
+    if (fieldName === prevFieldName) {
+      throw new RangeError(duplicateFields(fieldName));
+    }
+    if ("constructor" === fieldName || "__proto__" === fieldName) {
+      throw new RangeError(forbiddenField(fieldName));
+    }
+    let fieldVal = bag[fieldName];
+    if (void 0 !== fieldVal) {
+      anyMatching = 1, builtinRefiners[fieldName] && (fieldVal = builtinRefiners[fieldName](fieldVal, fieldName)), 
+      res[fieldName] = fieldVal;
+    } else if (requiredFieldNames) {
+      if (requiredFieldNames.includes(fieldName)) {
+        throw new TypeError(missingField(fieldName));
+      }
+      res[fieldName] = timeFieldDefaults[fieldName];
+    }
+    prevFieldName = fieldName;
+  }
+  if (disallowEmpty && !anyMatching) {
+    throw new TypeError(noValidFields(validFieldNames));
+  }
+  return res;
+}
+
+function refineTimeBag(fields, overflow) {
+  return constrainIsoTimeFields(timeFieldsToIso({
+    ...timeFieldDefaults,
+    ...fields
+  }), overflow);
+}
+
+function mergeCalendarFields(calendarOps, obj, bag, validFieldNames, forcedValidFieldNames = [], requiredObjFieldNames = []) {
+  const fieldNames = [ ...calendarOps.fields(validFieldNames), ...forcedValidFieldNames ].sort();
+  let fields = refineFields(obj, fieldNames, requiredObjFieldNames);
+  const partialFields = refineFields(bag, fieldNames);
+  return fields = calendarOps.mergeFields(fields, partialFields), refineFields(fields, fieldNames, []);
+}
+
+function convertToPlainMonthDay(calendarOps, input) {
+  const fields = refineCalendarFields(calendarOps, input, monthCodeDayFieldNames);
+  return calendarOps.monthDayFromFields(fields);
+}
+
+function convertToPlainYearMonth(calendarOps, input, options) {
+  const fields = refineCalendarFields(calendarOps, input, yearMonthCodeFieldNames);
+  return calendarOps.yearMonthFromFields(fields, options);
+}
+
+function convertToIso(calendarOps, input, inputFieldNames, extra, extraFieldNames) {
+  input = pluckProps(inputFieldNames = calendarOps.fields(inputFieldNames), input), 
+  extra = refineFields(extra, extraFieldNames = calendarOps.fields(extraFieldNames), []);
+  let mergedFields = calendarOps.mergeFields(input, extra);
+  return mergedFields = refineFields(mergedFields, [ ...inputFieldNames, ...extraFieldNames ].sort(), []), 
+  calendarOps.dateFromFields(mergedFields);
+}
+
+function refineYear(calendarNative, fields) {
+  let {era: era, eraYear: eraYear, year: year} = fields;
+  const eraOrigins = getCalendarEraOrigins(calendarNative);
+  if (void 0 !== era || void 0 !== eraYear) {
+    if (void 0 === era || void 0 === eraYear) {
+      throw new TypeError(mismatchingEraParts);
+    }
+    if (!eraOrigins) {
+      throw new RangeError(forbiddenEraParts);
+    }
+    const eraOrigin = eraOrigins[era];
+    if (void 0 === eraOrigin) {
+      throw new RangeError(invalidEra(era));
+    }
+    const yearByEra = eraYearToYear(eraYear, eraOrigin);
+    if (void 0 !== year && year !== yearByEra) {
+      throw new RangeError(mismatchingYearAndEra);
+    }
+    year = yearByEra;
+  } else if (void 0 === year) {
+    throw new TypeError(missingYear(eraOrigins));
+  }
+  return year;
+}
+
+function refineMonth(calendarNative, fields, year, overflow) {
+  let {month: month, monthCode: monthCode} = fields;
+  if (void 0 !== monthCode) {
+    const monthByCode = ((calendarNative, monthCode, year, overflow) => {
+      const leapMonth = calendarNative.leapMonth(year), [monthCodeNumber, wantsLeapMonth] = parseMonthCode(monthCode);
+      let month = monthCodeNumberToMonth(monthCodeNumber, wantsLeapMonth, leapMonth);
+      if (wantsLeapMonth) {
+        const leapMonthMeta = getCalendarLeapMonthMeta(calendarNative);
+        if (void 0 === leapMonthMeta) {
+          throw new RangeError(invalidLeapMonth);
         }
-    }, baseConfig);
+        if (leapMonthMeta > 0) {
+          if (month > leapMonthMeta) {
+            throw new RangeError(invalidLeapMonth);
+          }
+          if (void 0 === leapMonth) {
+            if (1 === overflow) {
+              throw new RangeError(invalidLeapMonth);
+            }
+            month--;
+          }
+        } else {
+          if (month !== -leapMonthMeta) {
+            throw new RangeError(invalidLeapMonth);
+          }
+          if (void 0 === leapMonth && 1 === overflow) {
+            throw new RangeError(invalidLeapMonth);
+          }
+        }
+      }
+      return month;
+    })(calendarNative, monthCode, year, overflow);
+    if (void 0 !== month && month !== monthByCode) {
+      throw new RangeError(mismatchingMonthAndCode);
+    }
+    month = monthByCode, overflow = 1;
+  } else if (void 0 === month) {
+    throw new TypeError(missingMonth);
+  }
+  return clampEntity("month", month, 1, calendarNative.monthsInYearPart(year), overflow);
 }
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (apiWriteConfig);
+
+function refineDay(calendarNative, fields, month, year, overflow) {
+  return clampProp(fields, "day", 1, calendarNative.daysInMonthParts(year, month), overflow);
+}
+
+function spliceFields(dest, additional, allPropNames, deletablePropNames) {
+  let anyMatching = 0;
+  const nonMatchingPropNames = [];
+  for (const propName of allPropNames) {
+    void 0 !== additional[propName] ? anyMatching = 1 : nonMatchingPropNames.push(propName);
+  }
+  if (Object.assign(dest, additional), anyMatching) {
+    for (const deletablePropName of deletablePropNames || nonMatchingPropNames) {
+      delete dest[deletablePropName];
+    }
+  }
+}
+
+function getPreferredCalendarSlot(a, b) {
+  if (a === b) {
+    return a;
+  }
+  const aId = getId(a), bId = getId(b);
+  if (aId === bId || aId === isoCalendarId) {
+    return b;
+  }
+  if (bId === isoCalendarId) {
+    return a;
+  }
+  throw new RangeError(mismatchingCalendars);
+}
+
+function createOptionsTransformer(standardNames, fallbacks, exclusions) {
+  const excludedNameSet = new Set(exclusions);
+  return options => (((props, names) => {
+    for (const name of names) {
+      if (name in props) {
+        return 1;
+      }
+    }
+    return 0;
+  })(options = excludePropsByName(excludedNameSet, options), standardNames) || Object.assign(options, fallbacks), 
+  exclusions && (options.timeZone = utcTimeZoneId, [ "full", "long" ].includes(options.timeStyle) && (options.timeStyle = "medium")), 
+  options);
+}
+
+function createFormatForPrep(forcedTimeZoneId, locales, options, transformOptions) {
+  if (options = transformOptions(options), forcedTimeZoneId) {
+    if (void 0 !== options.timeZone) {
+      throw new TypeError(forbiddenFormatTimeZone);
+    }
+    options.timeZone = forcedTimeZoneId;
+  }
+  return new RawDateTimeFormat(locales, options);
+}
+
+function toEpochMillis(config, resolvedOptions, slotsList) {
+  const [, slotsToEpochMilli, strictCalendarCheck] = config;
+  return slotsList.map((slots => (slots.calendar && ((internalCalendarId, resolvedCalendarId, strictCalendarCheck) => {
+    if ((strictCalendarCheck || internalCalendarId !== isoCalendarId) && internalCalendarId !== resolvedCalendarId) {
+      throw new RangeError(mismatchingCalendars);
+    }
+  })(getId(slots.calendar), resolvedOptions.calendar, strictCalendarCheck), slotsToEpochMilli(slots, resolvedOptions))));
+}
+
+function getCurrentEpochNano() {
+  return numberToBigNano(Date.now(), nanoInMilli);
+}
+
+const expectedInteger = (entityName, num) => `Non-integer ${entityName}: ${num}`, expectedPositive = (entityName, num) => `Non-positive ${entityName}: ${num}`, expectedFinite = (entityName, num) => `Non-finite ${entityName}: ${num}`, forbiddenBigIntToNumber = entityName => `Cannot convert bigint to ${entityName}`, invalidBigInt = arg => `Invalid bigint: ${arg}`, forbiddenSymbolToString = "Cannot convert Symbol to string", invalidObject = "Invalid object", numberOutOfRange = (entityName, val, min, max, choices) => choices ? numberOutOfRange(entityName, choices[val], choices[min], choices[max]) : invalidEntity(entityName, val) + `; must be between ${min}-${max}`, invalidEntity = (fieldName, val) => `Invalid ${fieldName}: ${val}`, missingField = fieldName => `Missing ${fieldName}`, forbiddenField = fieldName => `Invalid field ${fieldName}`, duplicateFields = fieldName => `Duplicate field ${fieldName}`, noValidFields = validFields => "No valid fields: " + validFields.join(), invalidChoice = (fieldName, val, choiceMap) => invalidEntity(fieldName, val) + "; must be " + Object.keys(choiceMap).join(), forbiddenEraParts = "Forbidden era/eraYear", mismatchingEraParts = "Mismatching era/eraYear", mismatchingYearAndEra = "Mismatching year/eraYear", invalidEra = era => `Invalid era: ${era}`, missingYear = allowEra => "Missing year" + (allowEra ? "/era/eraYear" : ""), invalidMonthCode = monthCode => `Invalid monthCode: ${monthCode}`, mismatchingMonthAndCode = "Mismatching month/monthCode", missingMonth = "Missing month/monthCode", invalidLeapMonth = "Invalid leap month", invalidProtocolResults = "Invalid protocol results", mismatchingCalendars = "Mismatching Calendars", invalidCalendar = calendarId => `Invalid Calendar: ${calendarId}`, forbiddenIcuTimeZone = "Forbidden ICU TimeZone", outOfBoundsOffset = "Out-of-bounds offset", outOfBoundsDstGap = "Out-of-bounds TimeZone gap", invalidOffsetForTimeZone = "Invalid TimeZone offset", ambigOffset = "Ambiguous offset", outOfBoundsDate = "Out-of-bounds date", outOfBoundsDuration = "Out-of-bounds duration", forbiddenDurationSigns = "Cannot mix duration signs", flippedSmallestLargestUnit = "smallestUnit > largestUnit", failedParse = s => `Cannot parse: ${s}`, invalidSubstring = substring => `Invalid substring: ${substring}`, forbiddenFormatTimeZone = "Cannot specify TimeZone", mapPropNamesToIndex = bindArgs(mapPropNames, ((_propVal, i) => i)), mapPropNamesToConstant = bindArgs(mapPropNames, ((_propVal, _i, constant) => constant)), padNumber2 = bindArgs(padNumber, 2), unitNameMap = {
+  nanosecond: 0,
+  microsecond: 1,
+  millisecond: 2,
+  second: 3,
+  minute: 4,
+  hour: 5,
+  day: 6,
+  week: 7,
+  month: 8,
+  year: 9
+}, unitNamesAsc = Object.keys(unitNameMap), milliInDay = 864e5, milliInSec = 1e3, nanoInMicro = 1e3, nanoInMilli = 1e6, nanoInSec = 1e9, nanoInMinute = 6e10, nanoInHour = 36e11, nanoInUtcDay = 864e11, unitNanoMap = [ 1, nanoInMicro, nanoInMilli, nanoInSec, nanoInMinute, nanoInHour, nanoInUtcDay ], timeFieldNamesAsc = unitNamesAsc.slice(0, 6), timeFieldNamesAlpha = sortStrings(timeFieldNamesAsc), offsetFieldNames = [ "offset" ], timeZoneFieldNames = [ "timeZone" ], timeAndOffsetFieldNames = [ ...timeFieldNamesAsc, ...offsetFieldNames ], timeAndZoneFieldNames = [ ...timeAndOffsetFieldNames, ...timeZoneFieldNames ], eraYearFieldNames = [ "era", "eraYear" ], allYearFieldNames = [ ...eraYearFieldNames, "year" ], yearFieldNames = [ "year" ], monthCodeFieldNames = [ "monthCode" ], monthFieldNames = [ "month", ...monthCodeFieldNames ], dayFieldNames = [ "day" ], yearMonthFieldNames = [ ...monthFieldNames, ...yearFieldNames ], yearMonthCodeFieldNames = [ ...monthCodeFieldNames, ...yearFieldNames ], dateFieldNamesAlpha = [ ...dayFieldNames, ...yearMonthFieldNames ], monthDayFieldNames = [ ...dayFieldNames, ...monthFieldNames ], monthCodeDayFieldNames = [ ...dayFieldNames, ...monthCodeFieldNames ], timeFieldDefaults = mapPropNamesToConstant(timeFieldNamesAsc, 0), isoCalendarId = "iso8601", gregoryCalendarId = "gregory", eraOriginsByCalendarId = {
+  [gregoryCalendarId]: {
+    bce: -1,
+    ce: 0
+  },
+  japanese: {
+    bce: -1,
+    ce: 0,
+    meiji: 1867,
+    taisho: 1911,
+    showa: 1925,
+    heisei: 1988,
+    reiwa: 2018
+  },
+  ethioaa: {
+    era0: 0
+  },
+  ethiopic: {
+    era0: 0,
+    era1: 5500
+  },
+  coptic: {
+    era0: -1,
+    era1: 0
+  },
+  roc: {
+    beforeroc: -1,
+    minguo: 0
+  },
+  buddhist: {
+    be: 0
+  },
+  islamic: {
+    ah: 0
+  },
+  indian: {
+    saka: 0
+  },
+  persian: {
+    ap: 0
+  }
+}, leapMonthMetas = {
+  chinese: 13,
+  dangi: 13,
+  hebrew: -6
+}, requireString = bindArgs(requireType, "string"), requireBoolean = bindArgs(requireType, "boolean"), requireNumber = bindArgs(requireType, "number"), requireFunction = bindArgs(requireType, "function"), durationFieldNamesAsc = unitNamesAsc.map((unitName => unitName + "s")), durationFieldNamesAlpha = sortStrings(durationFieldNamesAsc), durationTimeFieldNamesAsc = durationFieldNamesAsc.slice(0, 6), durationDateFieldNamesAsc = durationFieldNamesAsc.slice(6), durationCalendarFieldNamesAsc = durationDateFieldNamesAsc.slice(1), durationFieldIndexes = mapPropNamesToIndex(durationFieldNamesAsc), durationFieldDefaults = mapPropNamesToConstant(durationFieldNamesAsc, 0), durationTimeFieldDefaults = mapPropNamesToConstant(durationTimeFieldNamesAsc, 0), clearDurationFields = bindArgs(zeroOutProps, durationFieldNamesAsc), isoTimeFieldNamesAsc = [ "isoNanosecond", "isoMicrosecond", "isoMillisecond", "isoSecond", "isoMinute", "isoHour" ], isoDateFieldNamesAsc = [ "isoDay", "isoMonth", "isoYear" ], isoDateTimeFieldNamesAsc = [ ...isoTimeFieldNamesAsc, ...isoDateFieldNamesAsc ], isoDateFieldNamesAlpha = sortStrings(isoDateFieldNamesAsc), isoTimeFieldNamesAlpha = sortStrings(isoTimeFieldNamesAsc), isoDateTimeFieldNamesAlpha = sortStrings(isoDateTimeFieldNamesAsc), isoTimeFieldDefaults = mapPropNamesToConstant(isoTimeFieldNamesAlpha, 0), clearIsoFields = bindArgs(zeroOutProps, isoDateTimeFieldNamesAsc), RawDateTimeFormat = Intl.DateTimeFormat, maxMilli = 1e8 * milliInDay, epochNanoMax = [ 1e8, 0 ], epochNanoMin = [ -1e8, 0 ], isoYearMax = 275760, isoYearMin = -271821, isoEpochOriginYear = 1970, isoEpochFirstLeapYear = 1972, isoMonthsInYear = 12, primaryJapaneseEraMilli = isoArgsToEpochMilli(1868, 9, 8), queryJapaneseEraParts = memoize((isoFields => {
+  const epochMilli = isoToEpochMilli(isoFields);
+  if (epochMilli < primaryJapaneseEraMilli) {
+    return computeGregoryEraParts(isoFields);
+  }
+  const intlParts = hashIntlFormatParts(queryCalendarIntlFormat("japanese"), epochMilli), {era: era, eraYear: eraYear} = parseIntlYear(intlParts, "japanese");
+  return [ era, eraYear ];
+}), WeakMap), smallestUnitStr = "smallestUnit", roundingIncName = "roundingIncrement", subsecDigitsName = "fractionalSecondDigits", overflowMap = {
+  constrain: 0,
+  reject: 1
+}, overflowMapNames = Object.keys(overflowMap), refineSmallestUnit = bindArgs(refineUnitOption, smallestUnitStr), refineLargestUnit = bindArgs(refineUnitOption, "largestUnit"), refineTotalUnit = bindArgs(refineUnitOption, "unit"), refineOverflow = bindArgs(refineChoiceOption, "overflow", overflowMap), refineEpochDisambig = bindArgs(refineChoiceOption, "disambiguation", {
+  compatible: 0,
+  reject: 1,
+  earlier: 2,
+  later: 3
+}), refineOffsetDisambig = bindArgs(refineChoiceOption, "offset", {
+  reject: 0,
+  use: 1,
+  prefer: 2,
+  ignore: 3
+}), refineCalendarDisplay = bindArgs(refineChoiceOption, "calendarName", {
+  auto: 0,
+  never: 1,
+  critical: 2,
+  always: 3
+}), refineTimeZoneDisplay = bindArgs(refineChoiceOption, "timeZoneName", {
+  auto: 0,
+  never: 1,
+  critical: 2
+}), refineOffsetDisplay = bindArgs(refineChoiceOption, "offset", {
+  auto: 0,
+  never: 1
+}), refineRoundingMode = bindArgs(refineChoiceOption, "roundingMode", {
+  floor: 0,
+  halfFloor: 1,
+  ceil: 2,
+  halfCeil: 3,
+  trunc: 4,
+  halfTrunc: 5,
+  expand: 6,
+  halfExpand: 7,
+  halfEven: 8
+}), PlainYearMonthBranding = "PlainYearMonth", PlainMonthDayBranding = "PlainMonthDay", PlainDateBranding = "PlainDate", PlainDateTimeBranding = "PlainDateTime", PlainTimeBranding = "PlainTime", ZonedDateTimeBranding = "ZonedDateTime", InstantBranding = "Instant", DurationBranding = "Duration", roundingModeFuncs = [ Math.floor, num => hasHalf(num) ? Math.floor(num) : Math.round(num), Math.ceil, num => hasHalf(num) ? Math.ceil(num) : Math.round(num), Math.trunc, num => hasHalf(num) ? Math.trunc(num) || 0 : Math.round(num), num => num < 0 ? Math.floor(num) : Math.ceil(num), num => Math.sign(num) * Math.round(Math.abs(num)) || 0, num => hasHalf(num) ? (num = Math.trunc(num) || 0) + num % 2 : Math.round(num) ], utcTimeZoneId = "UTC", periodDur = 5184e3, minPossibleTransition = isoArgsToEpochSec(1847), maxPossibleTransition = isoArgsToEpochSec((new Date).getUTCFullYear() + 10), trailingZerosRE = /0+$/, zonedEpochSlotsToIso = memoize(((slots, getTimeZoneOps) => {
+  const {epochNanoseconds: epochNanoseconds} = slots, offsetNanoseconds = (getTimeZoneOps.getOffsetNanosecondsFor ? getTimeZoneOps : getTimeZoneOps(slots.timeZone)).getOffsetNanosecondsFor(epochNanoseconds), isoDateTimeFields = epochNanoToIso(epochNanoseconds, offsetNanoseconds);
+  return {
+    calendar: slots.calendar,
+    ...isoDateTimeFields,
+    offsetNanoseconds: offsetNanoseconds
+  };
+}), WeakMap), maxCalendarUnit = 2 ** 32 - 1, queryNativeTimeZone = memoize((slotId => {
+  const essence = getTimeZoneEssence(slotId);
+  return "object" == typeof essence ? new IntlTimeZone(essence) : new FixedTimeZone(essence || 0);
+}));
+
+class FixedTimeZone {
+  constructor(offsetNano) {
+    this.offsetNano = offsetNano;
+  }
+  getOffsetNanosecondsFor() {
+    return this.offsetNano;
+  }
+  getPossibleInstantsFor(isoDateTimeFields) {
+    return [ isoToEpochNanoWithOffset(isoDateTimeFields, this.offsetNano) ];
+  }
+  getTransition() {}
+}
+
+class IntlTimeZone {
+  constructor(format) {
+    this.tzStore = (computeOffsetSec => {
+      function getOffsetSec(epochSec) {
+        const clampedEpochSec = clampNumber(epochSec, minTransition, maxTransition), [startEpochSec, endEpochSec] = computePeriod(clampedEpochSec), startOffsetSec = getSample(startEpochSec), endOffsetSec = getSample(endEpochSec);
+        return startOffsetSec === endOffsetSec ? startOffsetSec : pinch(getSplit(startEpochSec, endEpochSec), startOffsetSec, endOffsetSec, epochSec);
+      }
+      function pinch(split, startOffsetSec, endOffsetSec, forEpochSec) {
+        let offsetSec, splitDurSec;
+        for (;(void 0 === forEpochSec || void 0 === (offsetSec = forEpochSec < split[0] ? startOffsetSec : forEpochSec >= split[1] ? endOffsetSec : void 0)) && (splitDurSec = split[1] - split[0]); ) {
+          const middleEpochSec = split[0] + Math.floor(splitDurSec / 2);
+          computeOffsetSec(middleEpochSec) === endOffsetSec ? split[1] = middleEpochSec : split[0] = middleEpochSec + 1;
+        }
+        return offsetSec;
+      }
+      const getSample = memoize(computeOffsetSec), getSplit = memoize(createSplitTuple);
+      let minTransition = minPossibleTransition, maxTransition = maxPossibleTransition;
+      return {
+        getPossibleEpochSec(zonedEpochSec) {
+          const wideOffsetSec0 = getOffsetSec(zonedEpochSec - 86400), wideOffsetSec1 = getOffsetSec(zonedEpochSec + 86400), wideUtcEpochSec0 = zonedEpochSec - wideOffsetSec0, wideUtcEpochSec1 = zonedEpochSec - wideOffsetSec1;
+          if (wideOffsetSec0 === wideOffsetSec1) {
+            return [ wideUtcEpochSec0 ];
+          }
+          const narrowOffsetSec0 = getOffsetSec(wideUtcEpochSec0);
+          return narrowOffsetSec0 === getOffsetSec(wideUtcEpochSec1) ? [ zonedEpochSec - narrowOffsetSec0 ] : wideOffsetSec0 > wideOffsetSec1 ? [ wideUtcEpochSec0, wideUtcEpochSec1 ] : [];
+        },
+        getOffsetSec: getOffsetSec,
+        getTransition(epochSec, direction) {
+          const clampedEpochSec = clampNumber(epochSec, minTransition, maxTransition);
+          let [startEpochSec, endEpochSec] = computePeriod(clampedEpochSec);
+          const inc = periodDur * direction, inBounds = direction < 0 ? () => endEpochSec > minTransition || (minTransition = clampedEpochSec, 
+          0) : () => startEpochSec < maxTransition || (maxTransition = clampedEpochSec, 0);
+          for (;inBounds(); ) {
+            const startOffsetSec = getSample(startEpochSec), endOffsetSec = getSample(endEpochSec);
+            if (startOffsetSec !== endOffsetSec) {
+              const split = getSplit(startEpochSec, endEpochSec);
+              pinch(split, startOffsetSec, endOffsetSec);
+              const transitionEpochSec = split[0];
+              if ((compareNumbers(transitionEpochSec, epochSec) || 1) === direction) {
+                return transitionEpochSec;
+              }
+            }
+            startEpochSec += inc, endEpochSec += inc;
+          }
+        }
+      };
+    })((format => epochSec => {
+      const intlParts = hashIntlFormatParts(format, epochSec * milliInSec);
+      return isoArgsToEpochSec(parseIntlPartsYear(intlParts), parseInt(intlParts.month), parseInt(intlParts.day), parseInt(intlParts.hour), parseInt(intlParts.minute), parseInt(intlParts.second)) - epochSec;
+    })(format));
+  }
+  getOffsetNanosecondsFor(epochNano) {
+    return this.tzStore.getOffsetSec(epochNanoToSec(epochNano)) * nanoInSec;
+  }
+  getPossibleInstantsFor(isoFields) {
+    const [zonedEpochSec, subsecNano] = [ isoArgsToEpochSec((isoDateTimeFields = isoFields).isoYear, isoDateTimeFields.isoMonth, isoDateTimeFields.isoDay, isoDateTimeFields.isoHour, isoDateTimeFields.isoMinute, isoDateTimeFields.isoSecond), isoDateTimeFields.isoMillisecond * nanoInMilli + isoDateTimeFields.isoMicrosecond * nanoInMicro + isoDateTimeFields.isoNanosecond ];
+    var isoDateTimeFields;
+    return this.tzStore.getPossibleEpochSec(zonedEpochSec).map((epochSec => checkEpochNanoInBounds(moveBigNano(numberToBigNano(epochSec, nanoInSec), subsecNano))));
+  }
+  getTransition(epochNano, direction) {
+    const [epochSec, subsecNano] = epochNanoToSecMod(epochNano), resEpochSec = this.tzStore.getTransition(epochSec + (direction > 0 || subsecNano ? 1 : 0), direction);
+    if (void 0 !== resEpochSec) {
+      return numberToBigNano(resEpochSec, nanoInSec);
+    }
+  }
+}
+
+const timeRegExpStr = "(\\d{2})(?::?(\\d{2})(?::?(\\d{2})(?:[.,](\\d{1,9}))?)?)?", offsetRegExpStr = "([+−-])" + timeRegExpStr, dateTimeRegExpStr = "(?:(?:([+−-])(\\d{6}))|(\\d{4}))-?(\\d{2})-?(\\d{2})(?:[T ]" + timeRegExpStr + "(Z|" + offsetRegExpStr + ")?)?", yearMonthRegExp = createRegExp("(?:(?:([+−-])(\\d{6}))|(\\d{4}))-?(\\d{2})((?:\\[(!?)([^\\]]*)\\]){0,9})"), monthDayRegExp = createRegExp("(?:--)?(\\d{2})-?(\\d{2})((?:\\[(!?)([^\\]]*)\\]){0,9})"), dateTimeRegExp = createRegExp(dateTimeRegExpStr + "((?:\\[(!?)([^\\]]*)\\]){0,9})"), timeRegExp = createRegExp("T?" + timeRegExpStr + "(?:" + offsetRegExpStr + ")?((?:\\[(!?)([^\\]]*)\\]){0,9})"), offsetRegExp = createRegExp(offsetRegExpStr), annotationRegExp = new RegExp("\\[(!?)([^\\]]*)\\]", "g"), durationRegExp = createRegExp("([+−-])?P(\\d+Y)?(\\d+M)?(\\d+W)?(\\d+D)?(?:T(?:(\\d+)(?:[.,](\\d{1,9}))?H)?(?:(\\d+)(?:[.,](\\d{1,9}))?M)?(?:(\\d+)(?:[.,](\\d{1,9}))?S)?)?"), queryTimeZoneIntlFormat = memoize((id => new RawDateTimeFormat("en-GB", {
+  timeZone: id,
+  era: "short",
+  year: "numeric",
+  month: "numeric",
+  day: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+  second: "numeric"
+}))), icuRegExp = /^(AC|AE|AG|AR|AS|BE|BS|CA|CN|CS|CT|EA|EC|IE|IS|JS|MI|NE|NS|PL|PN|PR|PS|SS|VS)T$/, queryIntlCalendar = memoize((calendarId => {
+  function epochMilliToIntlFields(epochMilli) {
+    return ((intlParts, calendarIdBase) => ({
+      ...parseIntlYear(intlParts, calendarIdBase),
+      monthString: intlParts.month,
+      day: parseInt(intlParts.day)
+    }))(hashIntlFormatParts(intlFormat, epochMilli), calendarIdBase);
+  }
+  const intlFormat = queryCalendarIntlFormat(calendarId), calendarIdBase = computeCalendarIdBase(calendarId);
+  return {
+    id: calendarId,
+    queryFields: createIntlFieldCache(epochMilliToIntlFields),
+    queryYearData: createIntlYearDataCache(epochMilliToIntlFields)
+  };
+})), queryCalendarIntlFormat = memoize((id => new RawDateTimeFormat("en-GB", {
+  calendar: id,
+  timeZone: utcTimeZoneId,
+  era: "short",
+  year: "numeric",
+  month: "short",
+  day: "numeric"
+}))), monthCodeRegExp = /^M(\d{2})(L?)$/, builtinRefiners = {
+  era: toStringViaPrimitive,
+  eraYear: toInteger,
+  year: toInteger,
+  month: toPositiveInteger,
+  monthCode: toStringViaPrimitive,
+  day: toPositiveInteger,
+  ...mapPropNamesToConstant(timeFieldNamesAsc, toInteger),
+  ...mapPropNamesToConstant(durationFieldNamesAsc, toStrictInteger),
+  offset: toStringViaPrimitive
+}, timeFieldsToIso = bindArgs(((oldNames, newNames, oldProps) => {
+  const newProps = {};
+  for (let i = 0; i < oldNames.length; i++) {
+    newProps[newNames[i]] = oldProps[oldNames[i]];
+  }
+  return newProps;
+}), timeFieldNamesAsc, isoTimeFieldNamesAsc), nativeStandardBase = {
+  dateAdd(isoDateFields, durationFields, options) {
+    const overflow = refineOverflowOptions(options);
+    let epochMilli, {years: years, months: months, weeks: weeks, days: days} = durationFields;
+    if (days += durationFieldsToBigNano(durationFields, 5)[0], years || months) {
+      epochMilli = ((moveOps, isoDateFields, years, months, overflow) => {
+        let [year, month, day] = moveOps.dateParts(isoDateFields);
+        if (years) {
+          const [monthCodeNumber, isLeapMonth] = moveOps.monthCodeParts(year, month);
+          year += years, month = monthCodeNumberToMonth(monthCodeNumber, isLeapMonth, moveOps.leapMonth(year)), 
+          month = clampEntity("month", month, 1, moveOps.monthsInYearPart(year), overflow);
+        }
+        return months && ([year, month] = moveOps.monthAdd(year, month, months)), day = clampEntity("day", day, 1, moveOps.daysInMonthParts(year, month), overflow), 
+        moveOps.epochMilli(year, month, day);
+      })(this, isoDateFields, years, months, overflow);
+    } else {
+      if (!weeks && !days) {
+        return isoDateFields;
+      }
+      epochMilli = isoToEpochMilli(isoDateFields);
+    }
+    return epochMilli += (7 * weeks + days) * milliInDay, checkIsoDateInBounds(epochMilliToIso(epochMilli));
+  },
+  dateUntil(startIsoFields, endIsoFields, largestUnit) {
+    if (largestUnit <= 7) {
+      let weeks = 0, days = diffDays({
+        ...startIsoFields,
+        ...isoTimeFieldDefaults
+      }, {
+        ...endIsoFields,
+        ...isoTimeFieldDefaults
+      });
+      return 7 === largestUnit && ([weeks, days] = divModTrunc(days, 7)), {
+        ...durationFieldDefaults,
+        weeks: weeks,
+        days: days
+      };
+    }
+    const yearMonthDayStart = this.dateParts(startIsoFields), yearMonthDayEnd = this.dateParts(endIsoFields);
+    let [years, months, days] = ((calendarNative, year0, month0, day0, year1, month1, day1) => {
+      let yearDiff = year1 - year0, monthDiff = month1 - month0, dayDiff = day1 - day0;
+      if (yearDiff || monthDiff) {
+        const sign = Math.sign(yearDiff || monthDiff);
+        let daysInMonth1 = calendarNative.daysInMonthParts(year1, month1), dayCorrect = 0;
+        if (Math.sign(dayDiff) === -sign) {
+          const origDaysInMonth1 = daysInMonth1;
+          [year1, month1] = calendarNative.monthAdd(year1, month1, -sign), yearDiff = year1 - year0, 
+          monthDiff = month1 - month0, daysInMonth1 = calendarNative.daysInMonthParts(year1, month1), 
+          dayCorrect = sign < 0 ? -origDaysInMonth1 : daysInMonth1;
+        }
+        if (dayDiff = day1 - Math.min(day0, daysInMonth1) + dayCorrect, yearDiff) {
+          const [monthCodeNumber0, isLeapYear0] = calendarNative.monthCodeParts(year0, month0), [monthCodeNumber1, isLeapYear1] = calendarNative.monthCodeParts(year1, month1);
+          if (monthDiff = monthCodeNumber1 - monthCodeNumber0 || Number(isLeapYear1) - Number(isLeapYear0), 
+          Math.sign(monthDiff) === -sign) {
+            const monthCorrect = sign < 0 && -calendarNative.monthsInYearPart(year1);
+            yearDiff = (year1 -= sign) - year0, monthDiff = month1 - monthCodeNumberToMonth(monthCodeNumber0, isLeapYear0, calendarNative.leapMonth(year1)) + (monthCorrect || calendarNative.monthsInYearPart(year1));
+          }
+        }
+      }
+      return [ yearDiff, monthDiff, dayDiff ];
+    })(this, ...yearMonthDayStart, ...yearMonthDayEnd);
+    return 8 === largestUnit && (months += this.monthsInYearSpan(years, yearMonthDayStart[0]), 
+    years = 0), {
+      ...durationFieldDefaults,
+      years: years,
+      months: months,
+      days: days
+    };
+  },
+  dateFromFields(fields, options) {
+    const overflow = refineOverflowOptions(options), year = refineYear(this, fields), month = refineMonth(this, fields, year, overflow), day = refineDay(this, fields, month, year, overflow);
+    return createPlainDateSlots(checkIsoDateInBounds(this.isoFields(year, month, day)), this.id || isoCalendarId);
+  },
+  yearMonthFromFields(fields, options) {
+    const overflow = refineOverflowOptions(options), year = refineYear(this, fields), month = refineMonth(this, fields, year, overflow);
+    return createPlainYearMonthSlots(checkIsoYearMonthInBounds(this.isoFields(year, month, 1)), this.id || isoCalendarId);
+  },
+  monthDayFromFields(fields, options) {
+    const overflow = refineOverflowOptions(options), isIso = !this.id, {monthCode: monthCode, year: year, month: month} = fields;
+    let monthCodeNumber, isLeapMonth, normalYear, normalMonth, normalDay;
+    if (void 0 !== monthCode) {
+      [monthCodeNumber, isLeapMonth] = parseMonthCode(monthCode), normalDay = getDefinedProp(fields, "day");
+      const res = this.yearMonthForMonthDay(monthCodeNumber, isLeapMonth, normalDay);
+      if (!res) {
+        throw new RangeError("Cannot guess year");
+      }
+      if ([normalYear, normalMonth] = res, void 0 !== month && month !== normalMonth) {
+        throw new RangeError(mismatchingMonthAndCode);
+      }
+      isIso && (normalMonth = clampEntity("month", normalMonth, 1, isoMonthsInYear, 1), 
+      normalDay = clampEntity("day", normalDay, 1, computeIsoDaysInMonth(void 0 !== year ? year : normalYear, normalMonth), overflow));
+    } else {
+      normalYear = void 0 === year && isIso ? isoEpochFirstLeapYear : refineYear(this, fields), 
+      normalMonth = refineMonth(this, fields, normalYear, overflow), normalDay = refineDay(this, fields, normalMonth, normalYear, overflow);
+      const leapMonth = this.leapMonth(normalYear);
+      isLeapMonth = normalMonth === leapMonth, monthCodeNumber = monthToMonthCodeNumber(normalMonth, leapMonth);
+      const res = this.yearMonthForMonthDay(monthCodeNumber, isLeapMonth, normalDay);
+      if (!res) {
+        throw new RangeError("Cannot guess year");
+      }
+      [normalYear, normalMonth] = res;
+    }
+    return createPlainMonthDaySlots(checkIsoDateInBounds(this.isoFields(normalYear, normalMonth, normalDay)), this.id || isoCalendarId);
+  },
+  fields(fieldNames) {
+    return getCalendarEraOrigins(this) && fieldNames.includes("year") ? [ ...fieldNames, ...eraYearFieldNames ] : fieldNames;
+  },
+  mergeFields(baseFields, additionalFields) {
+    const merged = Object.assign(Object.create(null), baseFields);
+    return spliceFields(merged, additionalFields, monthFieldNames), getCalendarEraOrigins(this) && (spliceFields(merged, additionalFields, allYearFieldNames), 
+    "japanese" === this.id && spliceFields(merged, additionalFields, monthDayFieldNames, eraYearFieldNames)), 
+    merged;
+  },
+  inLeapYear(isoFields) {
+    const [year] = this.dateParts(isoFields);
+    return this.inLeapYearPart(year);
+  },
+  monthsInYear(isoFields) {
+    const [year] = this.dateParts(isoFields);
+    return this.monthsInYearPart(year);
+  },
+  daysInMonth(isoFields) {
+    const [year, month] = this.dateParts(isoFields);
+    return this.daysInMonthParts(year, month);
+  },
+  daysInYear(isoFields) {
+    const [year] = this.dateParts(isoFields);
+    return this.daysInYearPart(year);
+  },
+  dayOfYear: computeNativeDayOfYear,
+  era(isoFields) {
+    return this.eraParts(isoFields)[0];
+  },
+  eraYear(isoFields) {
+    return this.eraParts(isoFields)[1];
+  },
+  monthCode(isoFields) {
+    const [year, month] = this.dateParts(isoFields), [monthCodeNumber, isLeapMonth] = this.monthCodeParts(year, month);
+    return ((monthCodeNumber, isLeapMonth) => "M" + padNumber2(monthCodeNumber) + (isLeapMonth ? "L" : ""))(monthCodeNumber, isLeapMonth);
+  },
+  dayOfWeek: computeIsoDayOfWeek,
+  daysInWeek() {
+    return 7;
+  }
+}, isoWeekOps = {
+  dayOfYear: computeNativeDayOfYear,
+  dateParts: computeIsoDateParts,
+  epochMilli: isoArgsToEpochMilli,
+  weekOfYear: computeNativeWeekOfYear,
+  yearOfWeek: computeNativeYearOfWeek,
+  weekParts(isoDateFields) {
+    function computeWeekShift(yDayOfWeek) {
+      return (7 - yDayOfWeek < minDaysInWeek ? 7 : 0) - yDayOfWeek;
+    }
+    function computeWeeksInYear(delta) {
+      const daysInYear = computeIsoDaysInYear(yearOfWeek + delta), sign = delta || 1, y1WeekShift = computeWeekShift(modFloor(y0DayOfWeek + daysInYear * sign, 7));
+      return weeksInYear = (daysInYear + (y1WeekShift - y0WeekShift) * sign) / 7;
+    }
+    const minDaysInWeek = this.id ? 1 : 4, isoDayOfWeek = computeIsoDayOfWeek(isoDateFields), isoDayOfYear = this.dayOfYear(isoDateFields), dayOfWeek = modFloor(isoDayOfWeek - 1, 7), dayOfYear = isoDayOfYear - 1, y0DayOfWeek = modFloor(dayOfWeek - dayOfYear, 7), y0WeekShift = computeWeekShift(y0DayOfWeek);
+    let weeksInYear, weekOfYear = Math.floor((dayOfYear - y0WeekShift) / 7) + 1, yearOfWeek = isoDateFields.isoYear;
+    return weekOfYear ? weekOfYear > computeWeeksInYear(0) && (weekOfYear = 1, yearOfWeek++) : (weekOfYear = computeWeeksInYear(-1), 
+    yearOfWeek--), [ weekOfYear, yearOfWeek, weeksInYear ];
+  }
+}, isoStandardOps = {
+  ...nativeStandardBase,
+  ...isoWeekOps,
+  dateParts: computeIsoDateParts,
+  eraParts(isoFields) {
+    return this.id === gregoryCalendarId ? computeGregoryEraParts(isoFields) : "japanese" === this.id ? queryJapaneseEraParts(isoFields) : [];
+  },
+  monthCodeParts(_isoYear, isoMonth) {
+    return [ isoMonth, 0 ];
+  },
+  yearMonthForMonthDay(monthCodeNumber, isLeapMonth) {
+    if (!isLeapMonth) {
+      return [ isoEpochFirstLeapYear, monthCodeNumber ];
+    }
+  },
+  inLeapYearPart: computeIsoInLeapYear,
+  leapMonth() {},
+  monthsInYearPart: computeIsoMonthsInYear,
+  monthsInYearSpan: yearDelta => yearDelta * isoMonthsInYear,
+  daysInMonthParts: computeIsoDaysInMonth,
+  daysInYearPart: computeIsoDaysInYear,
+  isoFields(year, month, day) {
+    return {
+      isoYear: year,
+      isoMonth: month,
+      isoDay: day
+    };
+  },
+  epochMilli: isoArgsToEpochMilli,
+  monthAdd(year, month, monthDelta) {
+    return year += divTrunc(monthDelta, isoMonthsInYear), (month += modTrunc(monthDelta, isoMonthsInYear)) < 1 ? (year--, 
+    month += isoMonthsInYear) : month > isoMonthsInYear && (year++, month -= isoMonthsInYear), 
+    [ year, month ];
+  },
+  year(isoFields) {
+    return isoFields.isoYear;
+  },
+  month(isoFields) {
+    return isoFields.isoMonth;
+  },
+  day: isoFields => isoFields.isoDay
+}, intlWeekOps = {
+  dayOfYear: computeNativeDayOfYear,
+  dateParts: computeIntlDateParts,
+  epochMilli: computeIntlEpochMilli,
+  weekOfYear: computeNativeWeekOfYear,
+  yearOfWeek: computeNativeYearOfWeek,
+  weekParts() {
+    return [];
+  }
+}, intlStandardOps = {
+  ...nativeStandardBase,
+  ...intlWeekOps,
+  dateParts: computeIntlDateParts,
+  eraParts(isoFields) {
+    const intlFields = this.queryFields(isoFields);
+    return [ intlFields.era, intlFields.eraYear ];
+  },
+  monthCodeParts(year, month) {
+    const leapMonth = computeIntlLeapMonth.call(this, year);
+    return [ monthToMonthCodeNumber(month, leapMonth), leapMonth === month ];
+  },
+  yearMonthForMonthDay(monthCodeNumber, isLeapMonth, day) {
+    let [startYear, startMonth, startDay] = computeIntlDateParts.call(this, {
+      isoYear: isoEpochFirstLeapYear,
+      isoMonth: isoMonthsInYear,
+      isoDay: 31
+    });
+    const startYearLeapMonth = computeIntlLeapMonth.call(this, startYear), startMonthIsLeap = startMonth === startYearLeapMonth;
+    1 === (compareNumbers(monthCodeNumber, monthToMonthCodeNumber(startMonth, startYearLeapMonth)) || compareNumbers(Number(isLeapMonth), Number(startMonthIsLeap)) || compareNumbers(day, startDay)) && startYear--;
+    for (let yearMove = 0; yearMove < 100; yearMove++) {
+      const tryYear = startYear - yearMove, tryLeapMonth = computeIntlLeapMonth.call(this, tryYear), tryMonth = monthCodeNumberToMonth(monthCodeNumber, isLeapMonth, tryLeapMonth);
+      if (isLeapMonth === (tryMonth === tryLeapMonth) && day <= computeIntlDaysInMonth.call(this, tryYear, tryMonth)) {
+        return [ tryYear, tryMonth ];
+      }
+    }
+  },
+  inLeapYearPart(year) {
+    const days = computeIntlDaysInYear.call(this, year);
+    return days > computeIntlDaysInYear.call(this, year - 1) && days > computeIntlDaysInYear.call(this, year + 1);
+  },
+  leapMonth: computeIntlLeapMonth,
+  monthsInYearPart: computeIntlMonthsInYear,
+  monthsInYearSpan(yearDelta, yearStart) {
+    const yearEnd = yearStart + yearDelta, yearSign = Math.sign(yearDelta), yearCorrection = yearSign < 0 ? -1 : 0;
+    let months = 0;
+    for (let year = yearStart; year !== yearEnd; year += yearSign) {
+      months += computeIntlMonthsInYear.call(this, year + yearCorrection);
+    }
+    return months;
+  },
+  daysInMonthParts: computeIntlDaysInMonth,
+  daysInYearPart: computeIntlDaysInYear,
+  isoFields(year, month, day) {
+    return epochMilliToIso(computeIntlEpochMilli.call(this, year, month, day));
+  },
+  epochMilli: computeIntlEpochMilli,
+  monthAdd(year, month, monthDelta) {
+    if (monthDelta) {
+      if (month += monthDelta, !Number.isSafeInteger(month)) {
+        throw new RangeError(outOfBoundsDate);
+      }
+      if (monthDelta < 0) {
+        for (;month < 1; ) {
+          month += computeIntlMonthsInYear.call(this, --year);
+        }
+      } else {
+        let monthsInYear;
+        for (;month > (monthsInYear = computeIntlMonthsInYear.call(this, year)); ) {
+          month -= monthsInYear, year++;
+        }
+      }
+    }
+    return [ year, month ];
+  },
+  year(isoFields) {
+    return this.queryFields(isoFields).year;
+  },
+  month(isoFields) {
+    const {year: year, monthString: monthString} = this.queryFields(isoFields), {monthStringToIndex: monthStringToIndex} = this.queryYearData(year);
+    return monthStringToIndex[monthString] + 1;
+  },
+  day(isoFields) {
+    return this.queryFields(isoFields).day;
+  }
+}, createNativeStandardOps = (isoOps = isoStandardOps, intlOps = intlStandardOps, 
+calendarId => calendarId === isoCalendarId ? isoOps : calendarId === gregoryCalendarId || "japanese" === calendarId ? Object.assign(Object.create(isoOps), {
+  id: calendarId
+}) : Object.assign(Object.create(intlOps), queryIntlCalendar(calendarId)));
+
+var isoOps, intlOps;
+
+const timeZoneNameStrs = [ "timeZoneName" ], monthDayFallbacks = {
+  month: "numeric",
+  day: "numeric"
+}, yearMonthFallbacks = {
+  year: "numeric",
+  month: "numeric"
+}, dateFallbacks = {
+  ...yearMonthFallbacks,
+  day: "numeric"
+}, timeFallbacks = {
+  hour: "numeric",
+  minute: "numeric",
+  second: "numeric"
+}, dateTimeFallbacks = {
+  ...dateFallbacks,
+  ...timeFallbacks
+}, zonedFallbacks = {
+  ...dateTimeFallbacks,
+  timeZoneName: "short"
+}, yearMonthFallbackNames = Object.keys(yearMonthFallbacks), monthDayFallbackNames = Object.keys(monthDayFallbacks), dateFallbackNames = Object.keys(dateFallbacks), timeFallbackNames = Object.keys(timeFallbacks), dateStyleNames = [ "dateStyle" ], yearMonthStandardNames = [ ...yearMonthFallbackNames, ...dateStyleNames ], monthDayStandardNames = [ ...monthDayFallbackNames, ...dateStyleNames ], dateStandardNames = [ ...dateFallbackNames, ...dateStyleNames, "weekday" ], timeStandardNames = [ ...timeFallbackNames, "dayPeriod", "timeStyle" ], dateTimeStandardNames = [ ...dateStandardNames, ...timeStandardNames ], zonedStandardNames = [ ...dateTimeStandardNames, ...timeZoneNameStrs ], dateExclusions = [ ...timeZoneNameStrs, ...timeStandardNames ], timeExclusions = [ ...timeZoneNameStrs, ...dateStandardNames ], yearMonthExclusions = [ ...timeZoneNameStrs, "day", "weekday", ...timeStandardNames ], monthDayExclusions = [ ...timeZoneNameStrs, "year", "weekday", ...timeStandardNames ], transformInstantOptions = createOptionsTransformer(dateTimeStandardNames, dateTimeFallbacks), transformZonedOptions = createOptionsTransformer(zonedStandardNames, zonedFallbacks), transformDateTimeOptions = createOptionsTransformer(dateTimeStandardNames, dateTimeFallbacks, timeZoneNameStrs), transformDateOptions = createOptionsTransformer(dateStandardNames, dateFallbacks, dateExclusions), transformTimeOptions = createOptionsTransformer(timeStandardNames, timeFallbacks, timeExclusions), transformYearMonthOptions = createOptionsTransformer(yearMonthStandardNames, yearMonthFallbacks, yearMonthExclusions), transformMonthDayOptions = createOptionsTransformer(monthDayStandardNames, monthDayFallbacks, monthDayExclusions), emptyOptions = {}, instantConfig = [ transformInstantOptions, getEpochMilli ], zonedConfig = [ transformZonedOptions, getEpochMilli, 0, (slots0, slots1) => {
+  const timeZoneId = getId(slots0.timeZone);
+  if (slots1 && getId(slots1.timeZone) !== timeZoneId) {
+    throw new RangeError("Mismatching TimeZones");
+  }
+  return timeZoneId;
+} ], dateTimeConfig = [ transformDateTimeOptions, isoToEpochMilli ], dateConfig = [ transformDateOptions, isoToEpochMilli ], timeConfig = [ transformTimeOptions, isoFields => isoTimeFieldsToNano(isoFields) / nanoInMilli ], yearMonthConfig = [ transformYearMonthOptions, isoToEpochMilli, 1 ], monthDayConfig = [ transformMonthDayOptions, isoToEpochMilli, 1 ];
+
+let currentTimeZoneId;
+
+exports.DurationBranding = DurationBranding, exports.InstantBranding = InstantBranding, 
+exports.PlainDateBranding = PlainDateBranding, exports.PlainDateTimeBranding = PlainDateTimeBranding, 
+exports.PlainMonthDayBranding = PlainMonthDayBranding, exports.PlainTimeBranding = PlainTimeBranding, 
+exports.PlainYearMonthBranding = PlainYearMonthBranding, exports.RawDateTimeFormat = RawDateTimeFormat, 
+exports.ZonedDateTimeBranding = ZonedDateTimeBranding, exports.absDuration = slots => -1 === slots.sign ? negateDuration(slots) : slots, 
+exports.addDurations = (refineRelativeTo, getCalendarOps, getTimeZoneOps, doSubtract, slots, otherSlots, options) => {
+  const relativeToSlots = refineRelativeTo(normalizeOptions(options).relativeTo), maxUnit = Math.max(getMaxDurationUnit(slots), getMaxDurationUnit(otherSlots));
+  if (isUniformUnit(maxUnit, relativeToSlots)) {
+    return createDurationSlots(checkDurationUnits(((a, b, largestUnit, doSubtract) => {
+      const combined = addBigNanos(durationFieldsToBigNano(a), durationFieldsToBigNano(b), doSubtract ? -1 : 1);
+      if (!Number.isFinite(combined[0])) {
+        throw new RangeError(outOfBoundsDate);
+      }
+      return {
+        ...durationFieldDefaults,
+        ...nanoToDurationDayTimeFields(combined, largestUnit)
+      };
+    })(slots, otherSlots, maxUnit, doSubtract)));
+  }
+  if (!relativeToSlots) {
+    throw new RangeError("Missing relativeTo");
+  }
+  doSubtract && (otherSlots = negateDurationFields(otherSlots));
+  const [marker, calendarOps, timeZoneOps] = createMarkerSystem(getCalendarOps, getTimeZoneOps, relativeToSlots), moveMarker = createMoveMarker(timeZoneOps), diffMarkers = createDiffMarkers(timeZoneOps), midMarker = moveMarker(calendarOps, marker, slots);
+  return createDurationSlots(diffMarkers(calendarOps, marker, moveMarker(calendarOps, midMarker, otherSlots), maxUnit));
+}, exports.bigNanoToNumber = bigNanoToNumber, exports.bindArgs = bindArgs, exports.buildZonedIsoFields = (getTimeZoneOps, zonedDateTimeSlots) => {
+  const isoFields = zonedEpochSlotsToIso(zonedDateTimeSlots, getTimeZoneOps);
+  return {
+    calendar: zonedDateTimeSlots.calendar,
+    ...pluckProps(isoDateTimeFieldNamesAlpha, isoFields),
+    offset: formatOffsetNano(isoFields.offsetNanoseconds),
+    timeZone: zonedDateTimeSlots.timeZone
+  };
+}, exports.compareBigNanos = compareBigNanos, exports.compareDurations = (refineRelativeTo, getCalendarOps, getTimeZoneOps, durationSlots0, durationSlots1, options) => {
+  const relativeToSlots = refineRelativeTo(normalizeOptions(options).relativeTo), maxUnit = Math.max(getMaxDurationUnit(durationSlots0), getMaxDurationUnit(durationSlots1));
+  if (allPropsEqual(durationFieldNamesAsc, durationSlots0, durationSlots1)) {
+    return 0;
+  }
+  if (isUniformUnit(maxUnit, relativeToSlots)) {
+    return compareBigNanos(durationFieldsToBigNano(durationSlots0), durationFieldsToBigNano(durationSlots1));
+  }
+  if (!relativeToSlots) {
+    throw new RangeError("Missing relativeTo");
+  }
+  const [marker, calendarOps, timeZoneOps] = createMarkerSystem(getCalendarOps, getTimeZoneOps, relativeToSlots), markerToEpochNano = createMarkerToEpochNano(timeZoneOps), moveMarker = createMoveMarker(timeZoneOps);
+  return compareBigNanos(markerToEpochNano(moveMarker(calendarOps, marker, durationSlots0)), markerToEpochNano(moveMarker(calendarOps, marker, durationSlots1)));
+}, exports.compareInstants = compareInstants, exports.compareIsoDateFields = compareIsoDateFields, 
+exports.compareIsoDateTimeFields = compareIsoDateTimeFields, exports.compareIsoTimeFields = compareIsoTimeFields, 
+exports.compareZonedDateTimes = compareZonedDateTimes, exports.computeZonedHoursInDay = (getTimeZoneOps, slots) => {
+  const timeZoneOps = getTimeZoneOps(slots.timeZone), isoFields = zonedEpochSlotsToIso(slots, timeZoneOps), [isoFields0, isoFields1] = computeDayInterval(isoFields), hoursExact = bigNanoToNumber(diffBigNanos(getSingleInstantFor(timeZoneOps, isoFields0), getSingleInstantFor(timeZoneOps, isoFields1)), nanoInHour, 1);
+  if (hoursExact <= 0) {
+    throw new RangeError(invalidProtocolResults);
+  }
+  return hoursExact;
+}, exports.computeZonedStartOfDay = (getTimeZoneOps, slots) => {
+  const {timeZone: timeZone, calendar: calendar} = slots;
+  return createZonedDateTimeSlots(((computeAlignment, timeZoneOps, slots) => getSingleInstantFor(timeZoneOps, computeAlignment(zonedEpochSlotsToIso(slots, timeZoneOps))))(computeDayFloor, getTimeZoneOps(timeZone), slots), timeZone, calendar);
+}, exports.constructDurationSlots = (years = 0, months = 0, weeks = 0, days = 0, hours = 0, minutes = 0, seconds = 0, milliseconds = 0, microseconds = 0, nanoseconds = 0) => createDurationSlots(checkDurationUnits(mapProps(toStrictInteger, zipProps(durationFieldNamesAsc, [ years, months, weeks, days, hours, minutes, seconds, milliseconds, microseconds, nanoseconds ])))), 
+exports.constructInstantSlots = epochNano => createInstantSlots(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(epochNano)))), 
+exports.constructPlainDateSlots = (refineCalendarArg, isoYear, isoMonth, isoDay, calendarArg = isoCalendarId) => createPlainDateSlots(checkIsoDateInBounds(checkIsoDateFields(mapProps(toInteger, {
+  isoYear: isoYear,
+  isoMonth: isoMonth,
+  isoDay: isoDay
+}))), refineCalendarArg(calendarArg)), exports.constructPlainDateTimeSlots = (refineCalendarArg, isoYear, isoMonth, isoDay, isoHour = 0, isoMinute = 0, isoSecond = 0, isoMillisecond = 0, isoMicrosecond = 0, isoNanosecond = 0, calendarArg = isoCalendarId) => createPlainDateTimeSlots(checkIsoDateTimeInBounds(checkIsoDateTimeFields(mapProps(toInteger, zipProps(isoDateTimeFieldNamesAsc, [ isoYear, isoMonth, isoDay, isoHour, isoMinute, isoSecond, isoMillisecond, isoMicrosecond, isoNanosecond ])))), refineCalendarArg(calendarArg)), 
+exports.constructPlainMonthDaySlots = (refineCalendarArg, isoMonth, isoDay, calendar = isoCalendarId, referenceIsoYear = isoEpochFirstLeapYear) => {
+  const isoMonthInt = toInteger(isoMonth), isoDayInt = toInteger(isoDay), calendarSlot = refineCalendarArg(calendar);
+  return createPlainMonthDaySlots(checkIsoDateInBounds(checkIsoDateFields({
+    isoYear: toInteger(referenceIsoYear),
+    isoMonth: isoMonthInt,
+    isoDay: isoDayInt
+  })), calendarSlot);
+}, exports.constructPlainTimeSlots = (isoHour = 0, isoMinute = 0, isoSecond = 0, isoMillisecond = 0, isoMicrosecond = 0, isoNanosecond = 0) => createPlainTimeSlots(constrainIsoTimeFields(mapProps(toInteger, zipProps(isoTimeFieldNamesAsc, [ isoHour, isoMinute, isoSecond, isoMillisecond, isoMicrosecond, isoNanosecond ])), 1)), 
+exports.constructPlainYearMonthSlots = (refineCalendarArg, isoYear, isoMonth, calendar = isoCalendarId, referenceIsoDay = 1) => {
+  const isoYearInt = toInteger(isoYear), isoMonthInt = toInteger(isoMonth), calendarSlot = refineCalendarArg(calendar);
+  return createPlainYearMonthSlots(checkIsoYearMonthInBounds(checkIsoDateFields({
+    isoYear: isoYearInt,
+    isoMonth: isoMonthInt,
+    isoDay: toInteger(referenceIsoDay)
+  })), calendarSlot);
+}, exports.constructZonedDateTimeSlots = (refineCalendarArg, refineTimeZoneArg, epochNano, timeZoneArg, calendarArg = isoCalendarId) => createZonedDateTimeSlots(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(epochNano))), refineTimeZoneArg(timeZoneArg), refineCalendarArg(calendarArg)), 
+exports.copyOptions = copyOptions, exports.createDurationSlots = createDurationSlots, 
+exports.createFormatForPrep = createFormatForPrep, exports.createFormatPrepper = (config, queryFormat = createFormatForPrep) => {
+  const [transformOptions, , , getForcedTimeZoneId] = config;
+  return (locales, options = emptyOptions, ...slotsList) => {
+    const subformat = queryFormat(getForcedTimeZoneId && getForcedTimeZoneId(...slotsList), locales, options, transformOptions), resolvedOptions = subformat.resolvedOptions();
+    return [ subformat, ...toEpochMillis(config, resolvedOptions, slotsList) ];
+  };
+}, exports.createGetterDescriptors = getters => mapProps((getter => ({
+  get: getter,
+  configurable: 1
+})), getters), exports.createInstantSlots = createInstantSlots, exports.createNameDescriptors = name => createPropDescriptors({
+  name: name
+}, 1), exports.createNativeStandardOps = createNativeStandardOps, exports.createPlainDateSlots = createPlainDateSlots, 
+exports.createPlainDateTimeSlots = createPlainDateTimeSlots, exports.createPlainTimeSlots = createPlainTimeSlots, 
+exports.createPropDescriptors = createPropDescriptors, exports.createStringTagDescriptors = value => ({
+  [Symbol.toStringTag]: {
+    value: value,
+    configurable: 1
+  }
+}), exports.createZonedDateTimeSlots = createZonedDateTimeSlots, exports.dateConfig = dateConfig, 
+exports.dateFieldNamesAlpha = dateFieldNamesAlpha, exports.dateTimeConfig = dateTimeConfig, 
+exports.diffBigNanos = diffBigNanos, exports.diffInstants = (invert, instantSlots0, instantSlots1, options) => {
+  const optionsTuple = refineDiffOptions(invert, copyOptions(options), 3, 5), durationFields = diffEpochNanos(instantSlots0.epochNanoseconds, instantSlots1.epochNanoseconds, ...optionsTuple);
+  return createDurationSlots(invert ? negateDurationFields(durationFields) : durationFields);
+}, exports.diffPlainDateTimes = (getCalendarOps, invert, plainDateTimeSlots0, plainDateTimeSlots1, options) => {
+  const calendarSlot = getCommonCalendarSlot(plainDateTimeSlots0.calendar, plainDateTimeSlots1.calendar), optionsCopy = copyOptions(options), [largestUnit, smallestUnit, roundingInc, roundingMode] = refineDiffOptions(invert, optionsCopy, 6), startEpochNano = isoToEpochNano(plainDateTimeSlots0), endEpochNano = isoToEpochNano(plainDateTimeSlots1), sign = compareBigNanos(endEpochNano, startEpochNano);
+  let durationFields;
+  if (sign) {
+    if (largestUnit <= 6) {
+      durationFields = diffEpochNanos(startEpochNano, endEpochNano, largestUnit, smallestUnit, roundingInc, roundingMode);
+    } else {
+      const calendarOps = getCalendarOps(calendarSlot);
+      durationFields = diffDateTimesBig(calendarOps, plainDateTimeSlots0, plainDateTimeSlots1, sign, largestUnit, optionsCopy), 
+      durationFields = roundRelativeDuration(durationFields, endEpochNano, largestUnit, smallestUnit, roundingInc, roundingMode, calendarOps, plainDateTimeSlots0, isoToEpochNano, moveDateTime);
+    }
+  } else {
+    durationFields = durationFieldDefaults;
+  }
+  return createDurationSlots(invert ? negateDurationFields(durationFields) : durationFields);
+}, exports.diffPlainDates = (getCalendarOps, invert, plainDateSlots0, plainDateSlots1, options) => {
+  const calendarSlot = getCommonCalendarSlot(plainDateSlots0.calendar, plainDateSlots1.calendar), optionsCopy = copyOptions(options);
+  return diffDateLike(invert, (() => getCalendarOps(calendarSlot)), plainDateSlots0, plainDateSlots1, ...refineDiffOptions(invert, optionsCopy, 6, 9, 6), optionsCopy);
+}, exports.diffPlainTimes = (invert, plainTimeSlots0, plainTimeSlots1, options) => {
+  const optionsCopy = copyOptions(options), [largestUnit, smallestUnit, roundingInc, roundingMode] = refineDiffOptions(invert, optionsCopy, 5, 5), timeDiffNano = roundByInc(diffTimes(plainTimeSlots0, plainTimeSlots1), computeNanoInc(smallestUnit, roundingInc), roundingMode), durationFields = {
+    ...durationFieldDefaults,
+    ...nanoToDurationTimeFields(timeDiffNano, largestUnit)
+  };
+  return createDurationSlots(invert ? negateDurationFields(durationFields) : durationFields);
+}, exports.diffPlainYearMonth = (getCalendarOps, invert, plainYearMonthSlots0, plainYearMonthSlots1, options) => {
+  const calendarSlot = getCommonCalendarSlot(plainYearMonthSlots0.calendar, plainYearMonthSlots1.calendar), optionsCopy = copyOptions(options), optionsTuple = refineDiffOptions(invert, optionsCopy, 9, 9, 8), calendarOps = getCalendarOps(calendarSlot);
+  return diffDateLike(invert, (() => calendarOps), moveToDayOfMonthUnsafe(calendarOps, plainYearMonthSlots0), moveToDayOfMonthUnsafe(calendarOps, plainYearMonthSlots1), ...optionsTuple, optionsCopy);
+}, exports.diffZonedDateTimes = (getCalendarOps, getTimeZoneOps, invert, slots0, slots1, options) => {
+  const calendarSlot = getCommonCalendarSlot(slots0.calendar, slots1.calendar), optionsCopy = copyOptions(options), [largestUnit, smallestUnit, roundingInc, roundingMode] = refineDiffOptions(invert, optionsCopy, 5), epochNano0 = slots0.epochNanoseconds, epochNano1 = slots1.epochNanoseconds, sign = compareBigNanos(epochNano1, epochNano0);
+  let durationFields;
+  if (sign) {
+    if (largestUnit < 6) {
+      durationFields = diffEpochNanos(epochNano0, epochNano1, largestUnit, smallestUnit, roundingInc, roundingMode);
+    } else {
+      const timeZoneOps = getTimeZoneOps(((a, b) => {
+        if (!isTimeZoneSlotsEqual(a, b)) {
+          throw new RangeError("Mismatching TimeZones");
+        }
+        return a;
+      })(slots0.timeZone, slots1.timeZone)), calendarOps = getCalendarOps(calendarSlot);
+      durationFields = diffZonedEpochsBig(calendarOps, timeZoneOps, slots0, slots1, sign, largestUnit, optionsCopy), 
+      durationFields = roundRelativeDuration(durationFields, epochNano1, largestUnit, smallestUnit, roundingInc, roundingMode, calendarOps, slots0, extractEpochNano, bindArgs(moveZonedEpochs, timeZoneOps));
+    }
+  } else {
+    durationFields = durationFieldDefaults;
+  }
+  return createDurationSlots(invert ? negateDurationFields(durationFields) : durationFields);
+}, exports.durationFieldNamesAsc = durationFieldNamesAsc, exports.durationWithFields = (slots, fields) => {
+  return createDurationSlots((initialFields = slots, modFields = fields, checkDurationUnits({
+    ...initialFields,
+    ...refineFields(modFields, durationFieldNamesAlpha)
+  })));
+  // removed by dead control flow
+ var initialFields, modFields; 
+}, exports.epochMicroToInstant = epochMicro => createInstantSlots(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(epochMicro), nanoInMicro))), 
+exports.epochMilliToInstant = epochMilli => createInstantSlots(checkEpochNanoInBounds(numberToBigNano(epochMilli, nanoInMilli))), 
+exports.epochNanoToInstant = epochNano => createInstantSlots(checkEpochNanoInBounds(bigIntToBigNano(toBigInt(epochNano)))), 
+exports.epochNanoToIso = epochNanoToIso, exports.epochSecToInstant = epochSec => createInstantSlots(checkEpochNanoInBounds(numberToBigNano(epochSec, nanoInSec))), 
+exports.excludePropsByName = excludePropsByName, exports.excludeUndefinedProps = props => {
+  props = {
+    ...props
+  };
+  const propNames = Object.keys(props);
+  for (const propName of propNames) {
+    void 0 === props[propName] && delete props[propName];
+  }
+  return props;
+}, exports.forbiddenField = forbiddenField, exports.forbiddenValueOf = "Cannot use valueOf", 
+exports.formatDurationIso = (slots, options) => {
+  const [roundingMode, nanoInc, subsecDigits] = refineTimeDisplayOptions(options, 3);
+  return nanoInc > 1 && (slots = {
+    ...slots,
+    ...roundDayTimeDurationByInc(slots, nanoInc, roundingMode)
+  }), ((durationSlots, subsecDigits) => {
+    const {sign: sign} = durationSlots, abs = -1 === sign ? negateDurationFields(durationSlots) : durationSlots, {hours: hours, minutes: minutes} = abs, [wholeSec, subsecNano] = divModBigNano(durationFieldsToBigNano(abs, 3), nanoInSec, divModTrunc);
+    checkDurationTimeUnit(wholeSec);
+    const subsecNanoString = formatSubsecNano(subsecNano, subsecDigits), forceSec = subsecDigits >= 0 || !sign || subsecNanoString;
+    return (sign < 0 ? "-" : "") + "P" + formatDurationFragments({
+      Y: formatDurationNumber(abs.years),
+      M: formatDurationNumber(abs.months),
+      W: formatDurationNumber(abs.weeks),
+      D: formatDurationNumber(abs.days)
+    }) + (hours || minutes || wholeSec || forceSec ? "T" + formatDurationFragments({
+      H: formatDurationNumber(hours),
+      M: formatDurationNumber(minutes),
+      S: formatDurationNumber(wholeSec, forceSec) + subsecNanoString
+    }) : "");
+  })(slots, subsecDigits);
+}, exports.formatInstantIso = (refineTimeZoneArg, getTimeZoneOps, instantSlots, options) => {
+  const [timeZoneArg, roundingMode, nanoInc, subsecDigits] = (options => {
+    const timeDisplayTuple = refineTimeDisplayTuple(options = normalizeOptions(options));
+    return [ options.timeZone, ...timeDisplayTuple ];
+  })(options), providedTimeZone = void 0 !== timeZoneArg;
+  return ((providedTimeZone, timeZoneOps, epochNano, roundingMode, nanoInc, subsecDigits) => {
+    epochNano = roundBigNanoByInc(epochNano, nanoInc, roundingMode, 1);
+    const offsetNano = timeZoneOps.getOffsetNanosecondsFor(epochNano);
+    return formatIsoDateTimeFields(epochNanoToIso(epochNano, offsetNano), subsecDigits) + (providedTimeZone ? formatOffsetNano(roundToMinute(offsetNano)) : "Z");
+  })(providedTimeZone, getTimeZoneOps(providedTimeZone ? refineTimeZoneArg(timeZoneArg) : utcTimeZoneId), instantSlots.epochNanoseconds, roundingMode, nanoInc, subsecDigits);
+}, exports.formatOffsetNano = formatOffsetNano, exports.formatPlainDateIso = (plainDateSlots, options) => {
+  return calendarIdLike = plainDateSlots.calendar, isoFields = plainDateSlots, calendarDisplay = refineDateDisplayOptions(options), 
+  formatIsoDateFields(isoFields) + formatCalendar(calendarIdLike, calendarDisplay);
+  // removed by dead control flow
+ var calendarIdLike, isoFields, calendarDisplay; 
+}, exports.formatPlainDateTimeIso = (plainDateTimeSlots0, options) => {
+  const [a, b, c, d] = (options => (options = normalizeOptions(options), [ refineCalendarDisplay(options), ...refineTimeDisplayTuple(options) ]))(options);
+  return calendarIdLike = plainDateTimeSlots0.calendar, calendarDisplay = a, subsecDigits = d, 
+  formatIsoDateTimeFields(roundDateTimeToNano(plainDateTimeSlots0, c, b), subsecDigits) + formatCalendar(calendarIdLike, calendarDisplay);
+  // removed by dead control flow
+ var calendarIdLike, calendarDisplay, subsecDigits; 
+}, exports.formatPlainMonthDayIso = (plainMonthDaySlots, options) => formatDateLikeIso(plainMonthDaySlots.calendar, formatIsoMonthDayFields, plainMonthDaySlots, refineDateDisplayOptions(options)), 
+exports.formatPlainTimeIso = (slots, options) => {
+  const [a, b, c] = refineTimeDisplayOptions(options);
+  return subsecDigits = c, formatIsoTimeFields(roundTimeToNano(slots, b, a)[0], subsecDigits);
+  // removed by dead control flow
+ var subsecDigits; 
+}, exports.formatPlainYearMonthIso = (plainYearMonthSlots, options) => formatDateLikeIso(plainYearMonthSlots.calendar, formatIsoYearMonthFields, plainYearMonthSlots, refineDateDisplayOptions(options)), 
+exports.formatZonedDateTimeIso = (getTimeZoneOps, zonedDateTimeSlots0, options) => {
+  const [a, b, c, d, e, f] = (options => {
+    options = normalizeOptions(options);
+    const calendarDisplay = refineCalendarDisplay(options), subsecDigits = refineSubsecDigits(options), offsetDisplay = refineOffsetDisplay(options), roundingMode = refineRoundingMode(options, 4), smallestUnit = refineSmallestUnit(options, 4);
+    return [ calendarDisplay, refineTimeZoneDisplay(options), offsetDisplay, roundingMode, ...refineSmallestUnitAndSubsecDigits(smallestUnit, subsecDigits) ];
+  })(options);
+  return ((getTimeZoneOps, calendarSlot, timeZoneSlot, epochNano, calendarDisplay, timeZoneDisplay, offsetDisplay, roundingMode, nanoInc, subsecDigits) => {
+    epochNano = roundBigNanoByInc(epochNano, nanoInc, roundingMode, 1);
+    const offsetNano = getTimeZoneOps(timeZoneSlot).getOffsetNanosecondsFor(epochNano);
+    return formatIsoDateTimeFields(epochNanoToIso(epochNano, offsetNano), subsecDigits) + formatOffsetNano(roundToMinute(offsetNano), offsetDisplay) + ((timeZoneNative, timeZoneDisplay) => 1 !== timeZoneDisplay ? "[" + (2 === timeZoneDisplay ? "!" : "") + getId(timeZoneNative) + "]" : "")(timeZoneSlot, timeZoneDisplay) + formatCalendar(calendarSlot, calendarDisplay);
+  })(getTimeZoneOps, zonedDateTimeSlots0.calendar, zonedDateTimeSlots0.timeZone, zonedDateTimeSlots0.epochNanoseconds, a, b, c, d, e, f);
+}, exports.getCurrentEpochNano = getCurrentEpochNano, exports.getCurrentIsoDateTime = timeZoneOps => {
+  const epochNano = getCurrentEpochNano();
+  return epochNanoToIso(epochNano, timeZoneOps.getOffsetNanosecondsFor(epochNano));
+}, exports.getCurrentTimeZoneId = () => currentTimeZoneId || (currentTimeZoneId = (new RawDateTimeFormat).resolvedOptions().timeZone), 
+exports.getDurationBlank = slots => !slots.sign, exports.getEpochMicro = slots => bigNanoToBigInt(slots.epochNanoseconds, nanoInMicro), 
+exports.getEpochMilli = getEpochMilli, exports.getEpochNano = slots => bigNanoToBigInt(slots.epochNanoseconds), 
+exports.getEpochSec = slots => epochNanoToSec(slots.epochNanoseconds), exports.getId = getId, 
+exports.getRequiredDateFields = calendarId => calendarId === isoCalendarId ? [ "year", "day" ] : [], 
+exports.getRequiredMonthDayFields = calendarId => calendarId === isoCalendarId ? dayFieldNames : [], 
+exports.getRequiredYearMonthFields = calendarId => calendarId === isoCalendarId ? yearFieldNames : [], 
+exports.getSingleInstantFor = getSingleInstantFor, exports.hasAllPropsByName = (props, names) => {
+  for (const name of names) {
+    if (!(name in props)) {
+      return 0;
+    }
+  }
+  return 1;
+}, exports.instantConfig = instantConfig, exports.instantToZonedDateTime = (instantSlots, timeZoneSlot, calendarSlot = isoCalendarId) => createZonedDateTimeSlots(instantSlots.epochNanoseconds, timeZoneSlot, calendarSlot), 
+exports.instantsEqual = (instantSlots0, instantSlots1) => !compareInstants(instantSlots0, instantSlots1), 
+exports.invalidBag = "Invalid bag", exports.invalidCallingContext = "Invalid calling context", 
+exports.invalidFormatType = branding => `Cannot format ${branding}`, exports.invalidProtocol = "Invalid protocol", 
+exports.isObjectLike = isObjectLike, exports.isTimeZoneSlotsEqual = isTimeZoneSlotsEqual, 
+exports.isoCalendarId = isoCalendarId, exports.isoTimeFieldDefaults = isoTimeFieldDefaults, 
+exports.isoTimeFieldNamesAsc = isoTimeFieldNamesAsc, exports.mapPropNames = mapPropNames, 
+exports.mapProps = mapProps, exports.memoize = memoize, exports.mismatchingFormatTypes = "Mismatching types for formatting", 
+exports.monthDayConfig = monthDayConfig, exports.moveInstant = (doSubtract, instantSlots, durationSlots) => createInstantSlots(checkEpochNanoInBounds(addBigNanos(instantSlots.epochNanoseconds, (fields => {
+  if (durationHasDateParts(fields)) {
+    throw new RangeError("Cannot use large units");
+  }
+  return durationFieldsToBigNano(fields, 5);
+})(doSubtract ? negateDurationFields(durationSlots) : durationSlots)))), exports.movePlainDate = (getCalendarOps, doSubtract, plainDateSlots, durationSlots, options) => {
+  const {calendar: calendar} = plainDateSlots;
+  return createPlainDateSlots(moveDate(getCalendarOps(calendar), plainDateSlots, doSubtract ? negateDurationFields(durationSlots) : durationSlots, options), calendar);
+}, exports.movePlainDateTime = (getCalendarOps, doSubtract, plainDateTimeSlots, durationSlots, options = Object.create(null)) => {
+  const {calendar: calendar} = plainDateTimeSlots;
+  return createPlainDateTimeSlots(moveDateTime(getCalendarOps(calendar), plainDateTimeSlots, doSubtract ? negateDurationFields(durationSlots) : durationSlots, options), calendar);
+}, exports.movePlainTime = (doSubtract, slots, durationSlots) => createPlainTimeSlots(moveTime(slots, doSubtract ? negateDurationFields(durationSlots) : durationSlots)[0]), 
+exports.movePlainYearMonth = (getCalendarOps, doSubtract, plainYearMonthSlots, durationSlots, options = Object.create(null)) => {
+  const calendarSlot = plainYearMonthSlots.calendar, calendarOps = getCalendarOps(calendarSlot);
+  let isoDateFields = moveToDayOfMonthUnsafe(calendarOps, plainYearMonthSlots);
+  doSubtract && (durationSlots = negateDuration(durationSlots)), durationSlots.sign < 0 && (isoDateFields = calendarOps.dateAdd(isoDateFields, {
+    ...durationFieldDefaults,
+    months: 1
+  }), isoDateFields = moveByDays(isoDateFields, -1));
+  const movedIsoDateFields = calendarOps.dateAdd(isoDateFields, durationSlots, options);
+  return createPlainYearMonthSlots(moveToDayOfMonthUnsafe(calendarOps, movedIsoDateFields), calendarSlot);
+}, exports.moveZonedDateTime = (getCalendarOps, getTimeZoneOps, doSubtract, zonedDateTimeSlots, durationSlots, options = Object.create(null)) => {
+  const timeZoneOps = getTimeZoneOps(zonedDateTimeSlots.timeZone), calendarOps = getCalendarOps(zonedDateTimeSlots.calendar);
+  return {
+    ...zonedDateTimeSlots,
+    ...moveZonedEpochs(timeZoneOps, calendarOps, zonedDateTimeSlots, doSubtract ? negateDurationFields(durationSlots) : durationSlots, options)
+  };
+}, exports.nanoInMilli = nanoInMilli, exports.negateDuration = negateDuration, exports.numberToBigNano = numberToBigNano, 
+exports.parseCalendarId = s => {
+  const res = parseDateTimeLike(s) || parseYearMonthOnly(s) || parseMonthDayOnly(s);
+  return res ? res.calendar : s;
+}, exports.parseDuration = s => {
+  const parsed = (s => {
+    const parts = durationRegExp.exec(s);
+    return parts ? (parts => {
+      function parseUnit(wholeStr, fracStr, timeUnit) {
+        let leftoverUnits = 0, wholeUnits = 0;
+        if (timeUnit && ([leftoverUnits, leftoverNano] = divModFloor(leftoverNano, unitNanoMap[timeUnit])), 
+        void 0 !== wholeStr) {
+          if (hasAnyFrac) {
+            throw new RangeError(invalidSubstring(wholeStr));
+          }
+          wholeUnits = (s => {
+            const n = parseInt(s);
+            if (!Number.isFinite(n)) {
+              throw new RangeError(invalidSubstring(s));
+            }
+            return n;
+          })(wholeStr), hasAny = 1, fracStr && (leftoverNano = parseSubsecNano(fracStr) * (unitNanoMap[timeUnit] / nanoInSec), 
+          hasAnyFrac = 1);
+        }
+        return leftoverUnits + wholeUnits;
+      }
+      let hasAny = 0, hasAnyFrac = 0, leftoverNano = 0, durationFields = {
+        ...zipProps(durationFieldNamesAsc, [ parseUnit(parts[2]), parseUnit(parts[3]), parseUnit(parts[4]), parseUnit(parts[5]), parseUnit(parts[6], parts[7], 5), parseUnit(parts[8], parts[9], 4), parseUnit(parts[10], parts[11], 3) ]),
+        ...nanoToGivenFields(leftoverNano, 2, durationFieldNamesAsc)
+      };
+      if (!hasAny) {
+        throw new RangeError(noValidFields(durationFieldNamesAsc));
+      }
+      return parseSign(parts[1]) < 0 && (durationFields = negateDurationFields(durationFields)), 
+      durationFields;
+    })(parts) : void 0;
+  })(requireString(s));
+  if (!parsed) {
+    throw new RangeError(failedParse(s));
+  }
+  return createDurationSlots(checkDurationUnits(parsed));
+}, exports.parseInstant = s => {
+  const organized = parseDateTimeLike(s = toStringViaPrimitive(s));
+  if (!organized) {
+    throw new RangeError(failedParse(s));
+  }
+  let offsetNano;
+  if (organized.hasZ) {
+    offsetNano = 0;
+  } else {
+    if (!organized.offset) {
+      throw new RangeError(failedParse(s));
+    }
+    offsetNano = parseOffsetNano(organized.offset);
+  }
+  return organized.timeZone && parseOffsetNanoMaybe(organized.timeZone, 1), createInstantSlots(isoToEpochNanoWithOffset(checkIsoDateTimeFields(organized), offsetNano));
+}, exports.parsePlainDate = parsePlainDate, exports.parsePlainDateTime = s => {
+  const organized = parseDateTimeLike(requireString(s));
+  if (!organized || organized.hasZ) {
+    throw new RangeError(failedParse(s));
+  }
+  return createPlainDateTimeSlots(finalizeDateTime(organized));
+}, exports.parsePlainMonthDay = (getCalendarOps, s) => {
+  const organized = parseMonthDayOnly(requireString(s));
+  if (organized) {
+    return requireIsoCalendar(organized), createPlainMonthDaySlots(checkIsoDateFields(organized));
+  }
+  const dateSlots = parsePlainDate(s), {calendar: calendar} = dateSlots, calendarOps = getCalendarOps(calendar), [origYear, origMonth, day] = calendarOps.dateParts(dateSlots), [monthCodeNumber, isLeapMonth] = calendarOps.monthCodeParts(origYear, origMonth), [year, month] = calendarOps.yearMonthForMonthDay(monthCodeNumber, isLeapMonth, day);
+  return createPlainMonthDaySlots(checkIsoDateInBounds(calendarOps.isoFields(year, month, day)), calendar);
+}, exports.parsePlainTime = s => {
+  let altParsed, organized = (s => {
+    const parts = timeRegExp.exec(s);
+    return parts ? (organizeAnnotationParts(parts[10]), organizeTimeParts(parts)) : void 0;
+  })(requireString(s));
+  if (!organized) {
+    if (organized = parseDateTimeLike(s), !organized) {
+      throw new RangeError(failedParse(s));
+    }
+    if (!organized.hasTime) {
+      throw new RangeError(failedParse(s));
+    }
+    if (organized.hasZ) {
+      throw new RangeError(invalidSubstring("Z"));
+    }
+    requireIsoCalendar(organized);
+  }
+  if ((altParsed = parseYearMonthOnly(s)) && isIsoDateFieldsValid(altParsed)) {
+    throw new RangeError(failedParse(s));
+  }
+  if ((altParsed = parseMonthDayOnly(s)) && isIsoDateFieldsValid(altParsed)) {
+    throw new RangeError(failedParse(s));
+  }
+  return createPlainTimeSlots(constrainIsoTimeFields(organized, 1));
+}, exports.parsePlainYearMonth = (getCalendarOps, s) => {
+  const organized = parseYearMonthOnly(requireString(s));
+  if (organized) {
+    return requireIsoCalendar(organized), createPlainYearMonthSlots(checkIsoYearMonthInBounds(checkIsoDateFields(organized)));
+  }
+  const isoSlots = parsePlainDate(s);
+  return createPlainYearMonthSlots(moveToDayOfMonthUnsafe(getCalendarOps(isoSlots.calendar), isoSlots));
+}, exports.parseRelativeToSlots = s => {
+  const organized = parseDateTimeLike(requireString(s));
+  if (!organized) {
+    throw new RangeError(failedParse(s));
+  }
+  if (organized.timeZone) {
+    return finalizeZonedDateTime(organized, organized.offset ? parseOffsetNano(organized.offset) : void 0);
+  }
+  if (organized.hasZ) {
+    throw new RangeError(failedParse(s));
+  }
+  return finalizeDate(organized);
+}, exports.parseTimeZoneId = s => {
+  const parsed = parseDateTimeLike(s);
+  return parsed && (parsed.timeZone || parsed.hasZ && utcTimeZoneId || parsed.offset) || s;
+}, exports.parseZonedDateTime = (s, options) => {
+  const organized = parseDateTimeLike(requireString(s));
+  if (!organized || !organized.timeZone) {
+    throw new RangeError(failedParse(s));
+  }
+  const {offset: offset} = organized, offsetNano = offset ? parseOffsetNano(offset) : void 0, [, offsetDisambig, epochDisambig] = refineZonedFieldOptions(options);
+  return finalizeZonedDateTime(organized, offsetNano, offsetDisambig, epochDisambig);
+}, exports.plainDateTimeToPlainMonthDay = (getCalendarOps, plainDateTimeSlots, plainDateFields) => convertToPlainMonthDay(getCalendarOps(plainDateTimeSlots.calendar), plainDateFields), 
+exports.plainDateTimeToPlainYearMonth = (getCalendarOps, plainDateTimeSlots, plainDateFields) => {
+  const calendarOps = getCalendarOps(plainDateTimeSlots.calendar);
+  return createPlainYearMonthSlots({
+    ...plainDateTimeSlots,
+    ...convertToPlainYearMonth(calendarOps, plainDateFields)
+  });
+}, exports.plainDateTimeToZonedDateTime = (getTimeZoneOps, plainDateTimeSlots, timeZoneSlot, options) => createZonedDateTimeSlots(checkEpochNanoInBounds(((getTimeZoneOps, timeZoneSlot, isoFields, options) => {
+  const epochDisambig = refineEpochDisambigOptions(options);
+  return getSingleInstantFor(getTimeZoneOps(timeZoneSlot), isoFields, epochDisambig);
+})(getTimeZoneOps, timeZoneSlot, plainDateTimeSlots, options)), timeZoneSlot, plainDateTimeSlots.calendar), 
+exports.plainDateTimeWithFields = (getCalendarOps, plainDateTimeSlots, initialFields, modFields, options) => {
+  const optionsCopy = copyOptions(options);
+  return createPlainDateTimeSlots(((calendarOps, initialFields, modFields, options) => {
+    const fields = mergeCalendarFields(calendarOps, initialFields, modFields, dateFieldNamesAlpha, timeFieldNamesAsc), overflow = refineOverflowOptions(options);
+    return checkIsoDateTimeInBounds({
+      ...calendarOps.dateFromFields(fields, overrideOverflowOptions(options, overflow)),
+      ...refineTimeBag(fields, overflow)
+    });
+  })(getCalendarOps(plainDateTimeSlots.calendar), initialFields, modFields, optionsCopy));
+}, exports.plainDateTimeWithPlainDate = (plainDateTimeSlots, plainDateSlots) => createPlainDateTimeSlots({
+  ...plainDateTimeSlots,
+  ...plainDateSlots
+}, getPreferredCalendarSlot(plainDateTimeSlots.calendar, plainDateSlots.calendar)), 
+exports.plainDateTimeWithPlainTime = (plainDateTimeSlots, plainTimeSlots = isoTimeFieldDefaults) => createPlainDateTimeSlots({
+  ...plainDateTimeSlots,
+  ...plainTimeSlots
+}), exports.plainDateTimesEqual = (plainDateTimeSlots0, plainDateTimeSlots1) => !compareIsoDateTimeFields(plainDateTimeSlots0, plainDateTimeSlots1) && isIdLikeEqual(plainDateTimeSlots0.calendar, plainDateTimeSlots1.calendar), 
+exports.plainDateToPlainDateTime = (plainDateSlots, plainTimeFields = isoTimeFieldDefaults) => createPlainDateTimeSlots(checkIsoDateTimeInBounds({
+  ...plainDateSlots,
+  ...plainTimeFields
+})), exports.plainDateToPlainMonthDay = (getCalendarOps, plainDateSlots, plainDateFields) => convertToPlainMonthDay(getCalendarOps(plainDateSlots.calendar), plainDateFields), 
+exports.plainDateToPlainYearMonth = (getCalendarOps, plainDateSlots, plainDateFields) => convertToPlainYearMonth(getCalendarOps(plainDateSlots.calendar), plainDateFields), 
+exports.plainDateToZonedDateTime = (refineTimeZoneArg, refinePlainTimeArg, getTimeZoneOps, plainDateSlots, options) => {
+  const timeZoneSlot = refineTimeZoneArg(options.timeZone), plainTimeArg = options.plainTime, isoTimeFields = void 0 !== plainTimeArg ? refinePlainTimeArg(plainTimeArg) : isoTimeFieldDefaults;
+  return createZonedDateTimeSlots(getSingleInstantFor(getTimeZoneOps(timeZoneSlot), {
+    ...plainDateSlots,
+    ...isoTimeFields
+  }), timeZoneSlot, plainDateSlots.calendar);
+}, exports.plainDateWithFields = (getCalendarOps, plainDateSlots, initialFields, modFields, options) => {
+  const optionsCopy = copyOptions(options);
+  return ((calendarOps, initialFields, modFields, options) => {
+    const fields = mergeCalendarFields(calendarOps, initialFields, modFields, dateFieldNamesAlpha);
+    return calendarOps.dateFromFields(fields, options);
+  })(getCalendarOps(plainDateSlots.calendar), initialFields, modFields, optionsCopy);
+}, exports.plainDatesEqual = (plainDateSlots0, plainDateSlots1) => !compareIsoDateFields(plainDateSlots0, plainDateSlots1) && isIdLikeEqual(plainDateSlots0.calendar, plainDateSlots1.calendar), 
+exports.plainMonthDayToPlainDate = (getCalendarOps, plainMonthDaySlots, plainMonthDayFields, bag) => ((calendarOps, input, bag) => convertToIso(calendarOps, input, monthCodeDayFieldNames, requireObjectLike(bag), yearFieldNames))(getCalendarOps(plainMonthDaySlots.calendar), plainMonthDayFields, bag), 
+exports.plainMonthDayWithFields = (getCalendarOps, plainMonthDaySlots, initialFields, modFields, options) => {
+  const optionsCopy = copyOptions(options);
+  return ((calendarOps, initialFields, modFields, options) => {
+    const fields = mergeCalendarFields(calendarOps, initialFields, modFields, dateFieldNamesAlpha);
+    return calendarOps.monthDayFromFields(fields, options);
+  })(getCalendarOps(plainMonthDaySlots.calendar), initialFields, modFields, optionsCopy);
+}, exports.plainMonthDaysEqual = (plainMonthDaySlots0, plainMonthDaySlots1) => !compareIsoDateFields(plainMonthDaySlots0, plainMonthDaySlots1) && isIdLikeEqual(plainMonthDaySlots0.calendar, plainMonthDaySlots1.calendar), 
+exports.plainTimeToPlainDateTime = (plainTimeSlots0, plainDateSlots1) => createPlainDateTimeSlots(checkIsoDateTimeInBounds({
+  ...plainTimeSlots0,
+  ...plainDateSlots1
+})), exports.plainTimeToZonedDateTime = (refineTimeZoneArg, refinePlainDateArg, getTimeZoneOps, slots, options) => {
+  const refinedOptions = requireObjectLike(options), plainDateSlots = refinePlainDateArg(refinedOptions.plainDate), timeZoneSlot = refineTimeZoneArg(refinedOptions.timeZone);
+  return createZonedDateTimeSlots(getSingleInstantFor(getTimeZoneOps(timeZoneSlot), {
+    ...plainDateSlots,
+    ...slots
+  }), timeZoneSlot, plainDateSlots.calendar);
+}, exports.plainTimeWithFields = (initialFields, mod, options) => createPlainTimeSlots(((initialFields, modFields, options) => {
+  const overflow = refineOverflowOptions(options);
+  return refineTimeBag({
+    ...pluckProps(timeFieldNamesAlpha, initialFields),
+    ...refineFields(modFields, timeFieldNamesAlpha)
+  }, overflow);
+})(initialFields, mod, options)), exports.plainTimesEqual = (plainTimeSlots0, plainTimeSlots1) => !compareIsoTimeFields(plainTimeSlots0, plainTimeSlots1), 
+exports.plainYearMonthToPlainDate = (getCalendarOps, plainYearMonthSlots, plainYearMonthFields, bag) => ((calendarOps, input, bag) => convertToIso(calendarOps, input, yearMonthCodeFieldNames, requireObjectLike(bag), dayFieldNames))(getCalendarOps(plainYearMonthSlots.calendar), plainYearMonthFields, bag), 
+exports.plainYearMonthWithFields = (getCalendarOps, plainYearMonthSlots, initialFields, modFields, options) => {
+  const optionsCopy = copyOptions(options);
+  return createPlainYearMonthSlots(((calendarOps, initialFields, modFields, options) => {
+    const fields = mergeCalendarFields(calendarOps, initialFields, modFields, yearMonthFieldNames);
+    return calendarOps.yearMonthFromFields(fields, options);
+  })(getCalendarOps(plainYearMonthSlots.calendar), initialFields, modFields, optionsCopy));
+}, exports.plainYearMonthsEqual = (plainYearMonthSlots0, plainYearMonthSlots1) => !compareIsoDateFields(plainYearMonthSlots0, plainYearMonthSlots1) && isIdLikeEqual(plainYearMonthSlots0.calendar, plainYearMonthSlots1.calendar), 
+exports.pluckProps = pluckProps, exports.queryNativeTimeZone = queryNativeTimeZone, 
+exports.refineCalendarId = id => resolveCalendarId(requireString(id)), exports.refineDateDiffOptions = options => (options = normalizeOptions(options), 
+refineLargestUnit(options, 9, 6, 1)), exports.refineDurationBag = bag => {
+  const durationFields = refineFields(bag, durationFieldNamesAlpha);
+  return createDurationSlots(checkDurationUnits({
+    ...durationFieldDefaults,
+    ...durationFields
+  }));
+}, exports.refineEpochDisambigOptions = refineEpochDisambigOptions, exports.refineMaybeZonedDateTimeBag = (refineTimeZoneArg, getTimeZoneOps, calendarOps, bag) => {
+  const fields = refineCalendarFields(calendarOps, bag, dateFieldNamesAlpha, [], timeAndZoneFieldNames);
+  if (void 0 !== fields.timeZone) {
+    const isoDateFields = calendarOps.dateFromFields(fields), isoTimeFields = refineTimeBag(fields), timeZoneSlot = refineTimeZoneArg(fields.timeZone);
+    return {
+      epochNanoseconds: getMatchingInstantFor(getTimeZoneOps(timeZoneSlot), {
+        ...isoDateFields,
+        ...isoTimeFields
+      }, void 0 !== fields.offset ? parseOffsetNano(fields.offset) : void 0),
+      timeZone: timeZoneSlot
+    };
+  }
+  return {
+    ...calendarOps.dateFromFields(fields),
+    ...isoTimeFieldDefaults
+  };
+}, exports.refineOverflowOptions = refineOverflowOptions, exports.refinePlainDateBag = (calendarOps, bag, options, requireFields = []) => {
+  const fields = refineCalendarFields(calendarOps, bag, dateFieldNamesAlpha, requireFields);
+  return calendarOps.dateFromFields(fields, options);
+}, exports.refinePlainDateTimeBag = (calendarOps, bag, options) => {
+  const fields = refineCalendarFields(calendarOps, bag, dateFieldNamesAlpha, [], timeFieldNamesAsc), overflow = refineOverflowOptions(options);
+  return createPlainDateTimeSlots(checkIsoDateTimeInBounds({
+    ...calendarOps.dateFromFields(fields, overrideOverflowOptions(options, overflow)),
+    ...refineTimeBag(fields, overflow)
+  }));
+}, exports.refinePlainMonthDayBag = (calendarOps, calendarAbsent, bag, options, requireFields = []) => {
+  const fields = refineCalendarFields(calendarOps, bag, dateFieldNamesAlpha, requireFields);
+  return calendarAbsent && void 0 !== fields.month && void 0 === fields.monthCode && void 0 === fields.year && (fields.year = isoEpochFirstLeapYear), 
+  calendarOps.monthDayFromFields(fields, options);
+}, exports.refinePlainTimeBag = (bag, options) => {
+  const overflow = refineOverflowOptions(options);
+  return createPlainTimeSlots(refineTimeBag(refineFields(bag, timeFieldNamesAlpha, [], 1), overflow));
+}, exports.refinePlainYearMonthBag = (calendarOps, bag, options, requireFields) => {
+  const fields = refineCalendarFields(calendarOps, bag, yearMonthFieldNames, requireFields);
+  return calendarOps.yearMonthFromFields(fields, options);
+}, exports.refineTimeZoneId = id => resolveTimeZoneId(requireString(id)), exports.refineZonedDateTimeBag = (refineTimeZoneArg, getTimeZoneOps, calendarOps, calendarSlot, bag, options) => {
+  const fields = refineCalendarFields(calendarOps, bag, dateFieldNamesAlpha, timeZoneFieldNames, timeAndZoneFieldNames), timeZoneSlot = refineTimeZoneArg(fields.timeZone), [overflow, offsetDisambig, epochDisambig] = refineZonedFieldOptions(options), isoDateFields = calendarOps.dateFromFields(fields, overrideOverflowOptions(options, overflow)), isoTimeFields = refineTimeBag(fields, overflow);
+  return createZonedDateTimeSlots(getMatchingInstantFor(getTimeZoneOps(timeZoneSlot), {
+    ...isoDateFields,
+    ...isoTimeFields
+  }, void 0 !== fields.offset ? parseOffsetNano(fields.offset) : void 0, offsetDisambig, epochDisambig), timeZoneSlot, calendarSlot);
+}, exports.refineZonedFieldOptions = refineZonedFieldOptions, exports.requireBoolean = requireBoolean, 
+exports.requireFunction = requireFunction, exports.requireInteger = requireInteger, 
+exports.requireIntegerOrUndefined = input => {
+  if (void 0 !== input) {
+    return requireInteger(input);
+  }
+}, exports.requireNonNullish = o => {
+  if (null == o) {
+    throw new TypeError("Cannot be null or undefined");
+  }
+  return o;
+}, exports.requireObjectLike = requireObjectLike, exports.requirePositiveInteger = requirePositiveInteger, 
+exports.requirePositiveIntegerOrUndefined = input => {
+  if (void 0 !== input) {
+    return requirePositiveInteger(input);
+  }
+}, exports.requireString = requireString, exports.requireStringOrUndefined = input => {
+  if (void 0 !== input) {
+    return requireString(input);
+  }
+}, exports.resolveCalendarId = resolveCalendarId, exports.resolveTimeZoneId = resolveTimeZoneId, 
+exports.roundDuration = (refineRelativeTo, getCalendarOps, getTimeZoneOps, slots, options) => {
+  const durationLargestUnit = getMaxDurationUnit(slots), [largestUnit, smallestUnit, roundingInc, roundingMode, relativeToSlots] = ((options, defaultLargestUnit, refineRelativeTo) => {
+    options = normalizeOptionsOrString(options, smallestUnitStr);
+    let largestUnit = refineLargestUnit(options);
+    const relativeToInternals = refineRelativeTo(options.relativeTo);
+    let roundingInc = parseRoundingIncInteger(options);
+    const roundingMode = refineRoundingMode(options, 7);
+    let smallestUnit = refineSmallestUnit(options);
+    if (void 0 === largestUnit && void 0 === smallestUnit) {
+      throw new RangeError("Required smallestUnit or largestUnit");
+    }
+    return null == smallestUnit && (smallestUnit = 0), null == largestUnit && (largestUnit = Math.max(smallestUnit, defaultLargestUnit)), 
+    checkLargestSmallestUnit(largestUnit, smallestUnit), roundingInc = refineRoundingInc(roundingInc, smallestUnit, 1), 
+    [ largestUnit, smallestUnit, roundingInc, roundingMode, relativeToInternals ];
+  })(options, durationLargestUnit, refineRelativeTo), maxUnit = Math.max(durationLargestUnit, largestUnit);
+  if (!isZonedEpochSlots(relativeToSlots) && maxUnit <= 6) {
+    return createDurationSlots(checkDurationUnits(((durationFields, largestUnit, smallestUnit, roundingInc, roundingMode) => {
+      const roundedBigNano = roundBigNano(durationFieldsToBigNano(durationFields), smallestUnit, roundingInc, roundingMode);
+      return {
+        ...durationFieldDefaults,
+        ...nanoToDurationDayTimeFields(roundedBigNano, largestUnit)
+      };
+    })(slots, largestUnit, smallestUnit, roundingInc, roundingMode)));
+  }
+  if (!relativeToSlots) {
+    throw new RangeError("Missing relativeTo");
+  }
+  const [marker, calendarOps, timeZoneOps] = createMarkerSystem(getCalendarOps, getTimeZoneOps, relativeToSlots), markerToEpochNano = createMarkerToEpochNano(timeZoneOps), moveMarker = createMoveMarker(timeZoneOps), diffMarkers = createDiffMarkers(timeZoneOps), endMarker = moveMarker(calendarOps, marker, slots);
+  let balancedDuration = diffMarkers(calendarOps, marker, endMarker, largestUnit);
+  const origSign = slots.sign, balancedSign = computeDurationSign(balancedDuration);
+  if (origSign && balancedSign && origSign !== balancedSign) {
+    throw new RangeError(invalidProtocolResults);
+  }
+  return balancedSign && (balancedDuration = roundRelativeDuration(balancedDuration, markerToEpochNano(endMarker), largestUnit, smallestUnit, roundingInc, roundingMode, calendarOps, marker, markerToEpochNano, moveMarker)), 
+  createDurationSlots(balancedDuration);
+}, exports.roundInstant = (instantSlots, options) => {
+  const [smallestUnit, roundingInc, roundingMode] = refineRoundingOptions(options, 5, 1);
+  return createInstantSlots(roundBigNano(instantSlots.epochNanoseconds, smallestUnit, roundingInc, roundingMode, 1));
+}, exports.roundPlainDateTime = (slots, options) => createPlainDateTimeSlots(roundDateTime(slots, ...refineRoundingOptions(options)), slots.calendar), 
+exports.roundPlainTime = (slots, options) => {
+  const [a, b, c] = refineRoundingOptions(options, 5);
+  var roundingMode;
+  return createPlainTimeSlots((roundingMode = c, roundTimeToNano(slots, computeNanoInc(a, b), roundingMode)[0]));
+}, exports.roundZonedDateTime = (getTimeZoneOps, slots, options) => {
+  let {epochNanoseconds: epochNanoseconds, timeZone: timeZone, calendar: calendar} = slots;
+  const [smallestUnit, roundingInc, roundingMode] = refineRoundingOptions(options);
+  if (0 === smallestUnit && 1 === roundingInc) {
+    return slots;
+  }
+  const timeZoneOps = getTimeZoneOps(timeZone);
+  if (6 === smallestUnit) {
+    epochNanoseconds = ((computeInterval, timeZoneOps, slots, roundingMode) => {
+      const isoSlots = zonedEpochSlotsToIso(slots, timeZoneOps), [isoFields0, isoFields1] = computeInterval(isoSlots), epochNano = slots.epochNanoseconds, epochNano0 = getSingleInstantFor(timeZoneOps, isoFields0), epochNano1 = getSingleInstantFor(timeZoneOps, isoFields1);
+      if (bigNanoOutside(epochNano, epochNano0, epochNano1)) {
+        throw new RangeError(invalidProtocolResults);
+      }
+      return roundWithMode(computeEpochNanoFrac(epochNano, epochNano0, epochNano1), roundingMode) ? epochNano1 : epochNano0;
+    })(computeDayInterval, timeZoneOps, slots, roundingMode);
+  } else {
+    const offsetNano = timeZoneOps.getOffsetNanosecondsFor(epochNanoseconds);
+    epochNanoseconds = getMatchingInstantFor(timeZoneOps, roundDateTime(epochNanoToIso(epochNanoseconds, offsetNano), smallestUnit, roundingInc, roundingMode), offsetNano, 2, 0, 1);
+  }
+  return createZonedDateTimeSlots(epochNanoseconds, timeZone, calendar);
+}, exports.slotsWithCalendar = (slots, calendarSlot) => ({
+  ...slots,
+  calendar: calendarSlot
+}), exports.slotsWithTimeZone = (slots, timeZoneSlot) => ({
+  ...slots,
+  timeZone: timeZoneSlot
+}), exports.timeConfig = timeConfig, exports.timeFieldNamesAsc = timeFieldNamesAsc, 
+exports.totalDuration = (refineRelativeTo, getCalendarOps, getTimeZoneOps, slots, options) => {
+  const maxDurationUnit = getMaxDurationUnit(slots), [totalUnit, relativeToSlots] = ((options, refineRelativeTo) => {
+    const relativeToInternals = refineRelativeTo((options = normalizeOptionsOrString(options, "unit")).relativeTo);
+    let totalUnit = refineTotalUnit(options);
+    return totalUnit = requirePropDefined("unit", totalUnit), [ totalUnit, relativeToInternals ];
+  })(options, refineRelativeTo);
+  if (isUniformUnit(Math.max(totalUnit, maxDurationUnit), relativeToSlots)) {
+    return totalDayTimeDuration(slots, totalUnit);
+  }
+  if (!relativeToSlots) {
+    throw new RangeError("Missing relativeTo");
+  }
+  const [marker, calendarOps, timeZoneOps] = createMarkerSystem(getCalendarOps, getTimeZoneOps, relativeToSlots), markerToEpochNano = createMarkerToEpochNano(timeZoneOps), moveMarker = createMoveMarker(timeZoneOps), diffMarkers = createDiffMarkers(timeZoneOps), endMarker = moveMarker(calendarOps, marker, slots), balancedDuration = diffMarkers(calendarOps, marker, endMarker, totalUnit);
+  return isUniformUnit(totalUnit, relativeToSlots) ? totalDayTimeDuration(balancedDuration, totalUnit) : ((durationFields, endEpochNano, totalUnit, calendarOps, marker, markerToEpochNano, moveMarker) => {
+    const sign = computeDurationSign(durationFields), [epochNano0, epochNano1] = clampRelativeDuration(calendarOps, clearDurationFields(totalUnit, durationFields), totalUnit, sign, marker, markerToEpochNano, moveMarker), frac = computeEpochNanoFrac(endEpochNano, epochNano0, epochNano1);
+    return durationFields[durationFieldNamesAsc[totalUnit]] + frac * sign;
+  })(balancedDuration, markerToEpochNano(endMarker), totalUnit, calendarOps, marker, markerToEpochNano, moveMarker);
+}, exports.unitNamesAsc = unitNamesAsc, exports.validateTimeZoneGap = validateTimeZoneGap, 
+exports.validateTimeZoneOffset = validateTimeZoneOffset, exports.yearMonthConfig = yearMonthConfig, 
+exports.zonedConfig = zonedConfig, exports.zonedDateTimeToInstant = zonedDateTimeSlots0 => createInstantSlots(zonedDateTimeSlots0.epochNanoseconds), 
+exports.zonedDateTimeToPlainDate = (getTimeZoneOps, zonedDateTimeSlots0) => createPlainDateSlots(zonedEpochSlotsToIso(zonedDateTimeSlots0, getTimeZoneOps)), 
+exports.zonedDateTimeToPlainDateTime = (getTimeZoneOps, zonedDateTimeSlots0) => createPlainDateTimeSlots(zonedEpochSlotsToIso(zonedDateTimeSlots0, getTimeZoneOps)), 
+exports.zonedDateTimeToPlainMonthDay = (getCalendarOps, zonedDateTimeSlots0, zonedDateTimeFields) => convertToPlainMonthDay(getCalendarOps(zonedDateTimeSlots0.calendar), zonedDateTimeFields), 
+exports.zonedDateTimeToPlainTime = (getTimeZoneOps, zonedDateTimeSlots0) => createPlainTimeSlots(zonedEpochSlotsToIso(zonedDateTimeSlots0, getTimeZoneOps)), 
+exports.zonedDateTimeToPlainYearMonth = (getCalendarOps, zonedDateTimeSlots0, zonedDateTimeFields) => convertToPlainYearMonth(getCalendarOps(zonedDateTimeSlots0.calendar), zonedDateTimeFields), 
+exports.zonedDateTimeWithFields = (getCalendarOps, getTimeZoneOps, zonedDateTimeSlots, initialFields, modFields, options) => {
+  const optionsCopy = copyOptions(options), {calendar: calendar, timeZone: timeZone} = zonedDateTimeSlots;
+  return createZonedDateTimeSlots(((calendarOps, timeZoneOps, initialFields, modFields, options) => {
+    const fields = mergeCalendarFields(calendarOps, initialFields, modFields, dateFieldNamesAlpha, timeAndOffsetFieldNames, offsetFieldNames), [overflow, offsetDisambig, epochDisambig] = refineZonedFieldOptions(options, 2);
+    return getMatchingInstantFor(timeZoneOps, {
+      ...calendarOps.dateFromFields(fields, overrideOverflowOptions(options, overflow)),
+      ...refineTimeBag(fields, overflow)
+    }, parseOffsetNano(fields.offset), offsetDisambig, epochDisambig);
+  })(getCalendarOps(calendar), getTimeZoneOps(timeZone), initialFields, modFields, optionsCopy), timeZone, calendar);
+}, exports.zonedDateTimeWithPlainDate = (getTimeZoneOps, zonedDateTimeSlots, plainDateSlots) => {
+  const timeZoneSlot = zonedDateTimeSlots.timeZone, timeZoneOps = getTimeZoneOps(timeZoneSlot), isoFields = {
+    ...zonedEpochSlotsToIso(zonedDateTimeSlots, timeZoneOps),
+    ...plainDateSlots
+  }, calendar = getPreferredCalendarSlot(zonedDateTimeSlots.calendar, plainDateSlots.calendar);
+  return createZonedDateTimeSlots(getMatchingInstantFor(timeZoneOps, isoFields, isoFields.offsetNanoseconds, 2), timeZoneSlot, calendar);
+}, exports.zonedDateTimeWithPlainTime = (getTimeZoneOps, zonedDateTimeSlots, plainTimeSlots = isoTimeFieldDefaults) => {
+  const timeZoneSlot = zonedDateTimeSlots.timeZone, timeZoneOps = getTimeZoneOps(timeZoneSlot), isoFields = {
+    ...zonedEpochSlotsToIso(zonedDateTimeSlots, timeZoneOps),
+    ...plainTimeSlots
+  };
+  return createZonedDateTimeSlots(getMatchingInstantFor(timeZoneOps, isoFields, isoFields.offsetNanoseconds, 2), timeZoneSlot, zonedDateTimeSlots.calendar);
+}, exports.zonedDateTimesEqual = (zonedDateTimeSlots0, zonedDateTimeSlots1) => !compareZonedDateTimes(zonedDateTimeSlots0, zonedDateTimeSlots1) && !!isTimeZoneSlotsEqual(zonedDateTimeSlots0.timeZone, zonedDateTimeSlots1.timeZone) && isIdLikeEqual(zonedDateTimeSlots0.calendar, zonedDateTimeSlots1.calendar), 
+exports.zonedEpochSlotsToIso = zonedEpochSlotsToIso;
 
 
-/***/ }),
+/***/ },
 
-/***/ "./src/publish/consts.ts":
-/*!*******************************!*\
-  !*** ./src/publish/consts.ts ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ "./node_modules/temporal-polyfill/index.cjs"
+/*!**************************************************!*\
+  !*** ./node_modules/temporal-polyfill/index.cjs ***!
+  \**************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DEV_TEMPLATE_COURSE_ID: () => (/* binding */ DEV_TEMPLATE_COURSE_ID),
-/* harmony export */   DIST_REPO_MANIFEST: () => (/* binding */ DIST_REPO_MANIFEST),
-/* harmony export */   DIST_REPO_URL: () => (/* binding */ DIST_REPO_URL),
-/* harmony export */   DOCUMENTATION_TOC_URL: () => (/* binding */ DOCUMENTATION_TOC_URL),
-/* harmony export */   DOCUMENTATION_TOPICS_URL: () => (/* binding */ DOCUMENTATION_TOPICS_URL),
-/* harmony export */   PUBLISH_FORM_EMAIL_TEMPLATE_URL: () => (/* binding */ PUBLISH_FORM_EMAIL_TEMPLATE_URL),
-/* harmony export */   REFERENCES_PAGE_URL_NAME: () => (/* binding */ REFERENCES_PAGE_URL_NAME),
-/* harmony export */   SAFE_MAX_BANNER_WIDTH: () => (/* binding */ SAFE_MAX_BANNER_WIDTH)
-/* harmony export */ });
-const PUBLISH_FORM_EMAIL_TEMPLATE_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics/Form-Email-Template.md';
-const DOCUMENTATION_TOC_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/lxd.tree';
-const DOCUMENTATION_TOPICS_URL = 'https://raw.githubusercontent.com/Unity-Environmental-University/LXD-Documentation/main/Writerside/topics';
-const DIST_REPO_URL = 'https://github.com/Unity-Environmental-University/lxd-tools-build';
-const DIST_REPO_MANIFEST = 'https://raw.githubusercontent.com/Unity-Environmental-University/lxd-tools-build/stable/manifest.json';
-const SAFE_MAX_BANNER_WIDTH = 1400;
-const DEV_TEMPLATE_COURSE_ID = 3850558;
-const REFERENCES_PAGE_URL_NAME = 'learning-materials-reference-page';
 
 
-/***/ })
+var classApi = __webpack_require__(/*! ./chunks/classApi.cjs */ "./node_modules/temporal-polyfill/chunks/classApi.cjs");
+
+exports.Intl = classApi.IntlExtended, exports.Temporal = classApi.Temporal, exports.toTemporalInstant = classApi.toTemporalInstant;
+
+
+/***/ }
 
 /******/ 	});
 /************************************************************************/
@@ -23528,6 +14262,12 @@ const REFERENCES_PAGE_URL_NAME = 'learning-materials-reference-page';
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
@@ -23598,8 +14338,9 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! webextension-polyfill */ "./node_modules/webextension-polyfill/dist/browser-polyfill.js");
 /* harmony import */ var webextension_polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../canvas/course/Course */ "./src/canvas/course/Course.ts");
-/* harmony import */ var _canvas_course_code__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/canvas/course/code */ "./src/canvas/course/code.ts");
+/* harmony import */ var _ueu_ueu_canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ueu/ueu-canvas/course/Course */ "./node_modules/@ueu/ueu-canvas/dist/course/Course.js");
+/* harmony import */ var _ueu_ueu_canvas_course_Course__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ueu_ueu_canvas_course_code__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ueu/ueu-canvas/course/code */ "./node_modules/@ueu/ueu-canvas/dist/course/code.js");
 
 
 
@@ -23629,8 +14370,8 @@ async function openTargetCourse(queryString, subAccount) {
         return;
     }
     try {
-        const courses = (0,_canvas_course_code__WEBPACK_IMPORTED_MODULE_2__.stringIsCourseCode)(searchCode) ? await getJson(queryUrl) : null;
-        const course = courses ? getCourseToNavTo(searchCode, courses) : await _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__.Course.getFromUrl();
+        const courses = (0,_ueu_ueu_canvas_course_code__WEBPACK_IMPORTED_MODULE_2__.stringIsCourseCode)(searchCode) ? await getJson(queryUrl) : null;
+        const course = courses ? getCourseToNavTo(searchCode, courses) : await _ueu_ueu_canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__.Course.getFromUrl();
         let targetType = null;
         let targetModuleWeekNumber = NaN;
         let targetIndex = NaN;
@@ -23701,7 +14442,7 @@ function getCourseToNavTo(searchCode, courses, maxMatches = null) {
         return null;
     }
     else if (courses.length === 1) {
-        return new _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__.Course(courses[0]);
+        return new _ueu_ueu_canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__.Course(courses[0]);
     }
     else {
         const exact_code_search = /[A-Za-z-_.]+_?[a-zA-Z]{3}\d{4}/;
@@ -23716,7 +14457,7 @@ function getCourseToNavTo(searchCode, courses, maxMatches = null) {
             }
         }
         courses.sort((a, b) => b.id - a.id);
-        return new _canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__.Course(courses[0]);
+        return new _ueu_ueu_canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__.Course(courses[0]);
     }
 }
 async function getJson(url) {
