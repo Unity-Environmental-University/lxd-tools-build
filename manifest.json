@@ -12,7 +12,7 @@
         ]
       },
       "strict_min_version": "128.0",
-      "update_url": "https://cdn-lxd-extension-delivery.unity.edu//updates.json"
+      "update_url": "https://cdn-lxd-extension-delivery.unity.edu/updates.json"
     }
   },
   "action": {
@@ -153,6 +153,6 @@
     "*://*.instructure.com/*"
   ],
   "optional_host_permissions": [],
-  "update_url": "https://cdn-lxd-extension-delivery.unity.edu//update.xml",
-  "version": "3.0.31"
+  "update_url": "https://cdn-lxd-extension-delivery.unity.edu/update.xml",
+  "version": "3.0.32"
 }
