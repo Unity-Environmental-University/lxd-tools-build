@@ -3,8 +3,8 @@
     "lxd-extension@unity.edu": {
       "updates": [
         {
-          "version": "3.0.32",
-          "update_link": "https://cdn-lxd-extension-delivery.unity.edu/lxd-extension-3.0.32.xpi",
+          "version": "3.0.33",
+          "update_link": "https://cdn-lxd-extension-delivery.unity.edu/lxd-extension-3.0.33.xpi",
           "applications": {
             "gecko": {
               "strict_min_version": "128.0"
