@@ -4526,13 +4526,13 @@ __webpack_require__.r(__webpack_exports__);
 
 async function getResizedBlob(src, width, height = undefined) {
     const imageSrc = await contentDownloadImage(src);
-    const canvas = document.createElement('canvas');
+    const canvas = document.createElement("canvas");
     const image = new Image();
     image.src = imageSrc;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     return new Promise((resolve) => {
         image.onload = () => {
-            height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
+            height !== null && height !== void 0 ? height : (height = (image.height / image.width) * width);
             assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
             console.log(image.src);
             canvas.width = width;
@@ -4546,8 +4546,8 @@ async function getCroppedSquareBlob(src, size) {
     const imageSrc = await contentDownloadImage(src);
     const image = new Image();
     image.src = imageSrc;
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
     return new Promise((resolve) => {
         image.onload = () => {
             assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
@@ -4571,7 +4571,7 @@ function backgroundDownloadImage(src) {
     return new Promise(async (resolve) => {
         const imageFileResponse = await fetch(imageUrl);
         const reader = new FileReader();
-        reader.onload = event => {
+        reader.onload = (_event) => {
             console.log(reader.result);
             resolve(reader.result);
         };
@@ -7260,8 +7260,8 @@ webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.action.onClicked.addListener(
 });
 async function getActiveTab() {
     const windowTabs = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.query({ lastFocusedWindow: true });
-    const activeTabs = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.query({ active: true });
-    const activeLastWindow = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.query({ active: true, lastFocusedWindow: true });
+    const _activeTabs = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.query({ active: true });
+    const _activeLastWindow = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.tabs.query({ active: true, lastFocusedWindow: true });
     const [tab] = windowTabs.filter((tab) => tab.active);
     return tab;
 }

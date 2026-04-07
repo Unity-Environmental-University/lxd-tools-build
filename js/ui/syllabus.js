@@ -44066,25 +44066,47 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
-/* harmony import */ var _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ueu/ueu-canvas */ "./node_modules/@ueu/ueu-canvas/dist/index.js");
-/* harmony import */ var _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _ueu_ueu_canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ueu/ueu-canvas/content/pages/Page */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/Page.js");
-/* harmony import */ var _ueu_ueu_canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _ueu_ueu_canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ueu/ueu-canvas/content/pages/PageKind */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/PageKind.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _ui_syllabus_handleImportClick__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/ui/syllabus/handleImportClick */ "./src/ui/syllabus/handleImportClick.ts");
 
 
 
 
+function ImportButton() {
+    const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false);
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["default"], { title: "Import the Week 1 Learning mats into the syllabus", disabled: loading, onClick: async (e) => {
+            setLoading(true);
+            console.log("Import Syllabus clicked", e);
+            await (0,_ui_syllabus_handleImportClick__WEBPACK_IMPORTED_MODULE_3__.handleImportClick)();
+            console.log("About to reload");
+            location.reload();
+        }, children: loading ? "..." : "Import Wk1 Mats" }));
+}
 
 
+/***/ },
+
+/***/ "./src/ui/syllabus/ImportHelpers.ts"
+/*!******************************************!*\
+  !*** ./src/ui/syllabus/ImportHelpers.ts ***!
+  \******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   clearMatsSection: () => (/* binding */ clearMatsSection),
+/* harmony export */   extractContentFromHTML: () => (/* binding */ extractContentFromHTML),
+/* harmony export */   importContentIntoSyllabus: () => (/* binding */ importContentIntoSyllabus)
+/* harmony export */ });
+// helper functions for extracting & importing content into syllabus body
 // takes html string, parses it, and returns the first HTMLElement with class "cbt-video-container"
 function extractContentFromHTML(html, query) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, "text/html");
     const elements = Array.from(doc.querySelectorAll(query));
-    elements.forEach(element => {
+    elements.forEach((element) => {
         const iframe = element === null || element === void 0 ? void 0 : element.querySelector("iframe");
         // should only be one iframe in each the video container
         // resize to video to fit in syllabus if iframe found
@@ -44105,20 +44127,37 @@ function extractContentFromHTML(html, query) {
 function clearMatsSection(syllabusBody) {
     const parser = new DOMParser();
     const syllabusDoc = parser.parseFromString(syllabusBody, "text/html");
+    const textHeader = "Week 1 Learning Materials";
     // find all divs with class "content" in syllabus, then find
     // the one that contains "Week 1 Learning Materials" - thats where we want to import
-    const targetDiv = Array.from(syllabusDoc.querySelectorAll(".content"))
-        .find(div => { var _a; return (_a = div.textContent) === null || _a === void 0 ? void 0 : _a.includes("Week 1 Learning Materials"); });
+    const targetDiv = Array.from(syllabusDoc.querySelectorAll(".content")).find((div) => { var _a; return (_a = div.textContent) === null || _a === void 0 ? void 0 : _a.includes(textHeader); });
     if (!targetDiv) {
         console.error("Could not find 'Week 1 Learning Materials' section in syllabus");
         return syllabusBody;
     }
-    Array.from(targetDiv.children).forEach(child => {
+    const targetChildren = Array.from(targetDiv.children);
+    targetChildren.forEach((child) => {
+        var _a;
         const tag = child.tagName.toLowerCase();
-        if (tag !== "p" && tag !== "h3") {
-            child.remove();
+        if (tag === "h3") {
+            if (!((_a = child.textContent) === null || _a === void 0 ? void 0 : _a.includes(textHeader))) {
+                // remove h3s that aren't the section header
+                child.remove();
+            }
+        }
+        else if (tag === "p") {
+            child.innerHTML = ""; // clear content, keep the element - p used as reference point
+        }
+        else {
+            child.remove(); // remove all other elements
         }
     });
+    // add a <p> if none exist in above array so we have a reference point for where to insert the new content
+    const referencePt = targetChildren.find((child) => child.tagName === "P");
+    if (!referencePt) {
+        const newP = syllabusDoc.createElement("p");
+        targetDiv.appendChild(newP);
+    }
     const newBody = syllabusDoc.body.innerHTML;
     return newBody;
 }
@@ -44132,20 +44171,20 @@ function importContentIntoSyllabus(syllabusBody, content, selector, position) {
     // find all divs with class "content" in syllabus, then find
     // the one that contains "Week 1 Learning Materials" - thats where we want to import
     // TODO I use this same targetdiv a lot - make a function for this
-    const targetDiv = Array.from(syllabusDoc.querySelectorAll(".content"))
-        .find(div => { var _a; return (_a = div.textContent) === null || _a === void 0 ? void 0 : _a.includes("Week 1 Learning Materials"); });
+    const targetDiv = Array.from(syllabusDoc.querySelectorAll(".content")).find((div) => { var _a; return (_a = div.textContent) === null || _a === void 0 ? void 0 : _a.includes("Week 1 Learning Materials"); });
     if (!targetDiv) {
         console.error("Could not find 'Week 1 Learning Materials' section in syllabus");
         return syllabusBody;
     }
     // remove the [bulleted list] placeholder
     const paragraphs = targetDiv.querySelectorAll("p");
-    paragraphs.forEach(p => {
+    paragraphs.forEach((p) => {
         var _a, _b;
         if ((_a = p.textContent) === null || _a === void 0 ? void 0 : _a.includes("[bulleted list]")) {
             p.remove();
         }
-        if ((_b = p.textContent) === null || _b === void 0 ? void 0 : _b.includes("The following learning materials will")) { // TODO dropdown titles instead of this
+        if ((_b = p.textContent) === null || _b === void 0 ? void 0 : _b.includes("The following learning materials will")) {
+            // TODO dropdown titles instead of this
             p.textContent = "Please watch the overview video(s) for context on the learning materials below:";
         }
     });
@@ -44153,7 +44192,7 @@ function importContentIntoSyllabus(syllabusBody, content, selector, position) {
     const insertionPoint = targetDiv.querySelector(selector);
     content.reverse(); // reverse to maintain order when inserting
     if (insertionPoint) {
-        content.forEach(element => {
+        content.forEach((element) => {
             insertionPoint.insertAdjacentElement(position, element);
         });
     }
@@ -44163,24 +44202,49 @@ function importContentIntoSyllabus(syllabusBody, content, selector, position) {
     const newBody = syllabusDoc.body.innerHTML;
     return newBody;
 }
+
+
+/***/ },
+
+/***/ "./src/ui/syllabus/handleImportClick.ts"
+/*!**********************************************!*\
+  !*** ./src/ui/syllabus/handleImportClick.ts ***!
+  \**********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   handleImportClick: () => (/* binding */ handleImportClick)
+/* harmony export */ });
+/* harmony import */ var _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ueu/ueu-canvas */ "./node_modules/@ueu/ueu-canvas/dist/index.js");
+/* harmony import */ var _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ueu_ueu_canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ueu/ueu-canvas/content/pages/Page */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/Page.js");
+/* harmony import */ var _ueu_ueu_canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ueu_ueu_canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ueu/ueu-canvas/content/pages/PageKind */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/PageKind.js");
+/* harmony import */ var _ui_syllabus_ImportHelpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/ui/syllabus/ImportHelpers */ "./src/ui/syllabus/ImportHelpers.ts");
+
+
+
+
 // main handler for import button click
 async function handleImportClick() {
     try {
-        const course = await _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_2__.Course.getFromUrl();
+        const course = await _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_0__.Course.getFromUrl();
         if (!course) {
             console.error("No course found from URL");
             return;
         }
         // Canvas "slug" form of page name
         const pageSlug = "week-1-learning-materials";
-        const pageData = await _ueu_ueu_canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_4__["default"].getByString(course.id, pageSlug, { queryParams: { include: ["body"] } });
+        const pageData = await _ueu_ueu_canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_2__["default"].getByString(course.id, pageSlug, { queryParams: { include: ["body"] } });
         if ("message" in pageData) {
             console.error(`Page with slug "${pageSlug}" not found:`, pageData.message);
             return;
         }
-        const wk1_mats_page = new _ueu_ueu_canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_3__.Page(pageData, course.id); // TODO dont need to create this if all i need is body
-        const extractedContent = extractContentFromHTML(wk1_mats_page.body, ".cbt-video-container");
-        const extractedMats = extractContentFromHTML(wk1_mats_page.body, "div.scaffold-media-box.cbt-content.cbt-accordion-container"); // assuming learning mats are in a <ul>
+        const wk1_mats_page = new _ueu_ueu_canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_1__.Page(pageData, course.id); // TODO dont need to create this if all i need is body
+        const extractedContent = (0,_ui_syllabus_ImportHelpers__WEBPACK_IMPORTED_MODULE_3__.extractContentFromHTML)(wk1_mats_page.body, ".cbt-video-container");
+        const extractedMats = (0,_ui_syllabus_ImportHelpers__WEBPACK_IMPORTED_MODULE_3__.extractContentFromHTML)(wk1_mats_page.body, "div.scaffold-media-box.cbt-content.cbt-accordion-container"); // assuming learning mats are in a <ul>
         if (!extractedContent) {
             console.error("No video content found on Week 1 Learning Materials page");
             return;
@@ -44190,9 +44254,9 @@ async function handleImportClick() {
             return;
         }
         const syllabusBody = await course.getSyllabus();
-        let newBody = clearMatsSection(syllabusBody);
-        newBody = importContentIntoSyllabus(newBody, extractedContent, 'p', "beforebegin");
-        newBody = importContentIntoSyllabus(newBody, extractedMats, 'p', "afterend");
+        let newBody = (0,_ui_syllabus_ImportHelpers__WEBPACK_IMPORTED_MODULE_3__.clearMatsSection)(syllabusBody);
+        newBody = (0,_ui_syllabus_ImportHelpers__WEBPACK_IMPORTED_MODULE_3__.importContentIntoSyllabus)(newBody, extractedContent, 'p', "beforebegin");
+        newBody = (0,_ui_syllabus_ImportHelpers__WEBPACK_IMPORTED_MODULE_3__.importContentIntoSyllabus)(newBody, extractedMats, 'p', "afterend");
         // only update the body if it changed
         if (newBody != syllabusBody) {
             await course.changeSyllabus(newBody);
@@ -44204,16 +44268,6 @@ async function handleImportClick() {
     catch (err) {
         console.error("Error fetching Week 1 Learning Materials page and importing into syllabus:", err);
     }
-}
-function ImportButton() {
-    const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(false);
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["default"], { title: "Import the Week 1 Learning mats into the syllabus", disabled: loading, onClick: async (e) => {
-            setLoading(true);
-            console.log("Import Syllabus clicked", e);
-            await handleImportClick();
-            console.log("About to reload");
-            location.reload();
-        }, children: loading ? "..." : "Import Wk1 Mats" }));
 }
 
 
@@ -44253,7 +44307,7 @@ function addImportButton(location) {
 function main() {
     // grab the location to add the button to
     const location = Array.from(document.querySelectorAll(".content"))
-        .find(h3 => { var _a; return (_a = h3.textContent) === null || _a === void 0 ? void 0 : _a.includes("Week 1 Learning Materials"); });
+        .find(h3 => { var _a; return (_a = h3.textContent) === null || _a === void 0 ? void 0 : _a.includes("Week 1 Learning Materials"); }); // TODO I re-use this little snippet a lot - make a func?
     if (location) {
         console.log("adding import button to syllabus");
         addImportButton(location);

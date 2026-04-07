@@ -92404,7 +92404,6 @@ class AssignmentsCollection {
         if (contentItem.hasOwnProperty('quiz_id')) {
             return 'Quiz';
         }
-        const id = contentItem === null || contentItem === void 0 ? void 0 : contentItem.id;
         return "Assignment";
     }
     getModuleItemType(contentItem) {
@@ -92573,30 +92572,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function DateRangeExportDialog({ course, show, handleShow, handleHide, onExporting, onFinishedExporting }) {
+function DateRangeExportDialog({ course, show, handleShow, handleHide, onExporting, onFinishedExporting, }) {
     const [exportStart, setExportStart] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(new Date());
     const [exportEnd, setExportEnd] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(new Date());
-    const colWidth = 'sm-6';
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { show: show, onHide: handleHide, onShow: handleShow, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"].Title, { children: "Export Range of Sections" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"].Body, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { className: colWidth, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"].Title, { id: 'startDate', children: "Start Date" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"].Body, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)((react_datepicker__WEBPACK_IMPORTED_MODULE_7___default()), { ariaLabelledBy: 'startDate', selected: exportStart, onChange: (date) => setExportStart(date) }) })] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { className: colWidth, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"].Title, { id: 'endDate', children: "End Date" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"].Body, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)((react_datepicker__WEBPACK_IMPORTED_MODULE_7___default()), { ariaLabelledBy: 'endDate', selected: exportEnd, onChange: (date) => setExportEnd(date) }) })] }) })] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"].Footer, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], { onClick: async (e) => {
+    const colWidth = "sm-6";
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { show: show, onHide: handleHide, onShow: handleShow, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"].Title, { children: "Export Range of Sections" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"].Body, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { className: colWidth, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"].Title, { id: "startDate", children: "Start Date" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"].Body, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)((react_datepicker__WEBPACK_IMPORTED_MODULE_7___default()), { ariaLabelledBy: "startDate", selected: exportStart, onChange: (date) => setExportStart(date) }) })] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { className: colWidth, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"].Title, { id: "endDate", children: "End Date" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"].Body, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)((react_datepicker__WEBPACK_IMPORTED_MODULE_7___default()), { ariaLabelledBy: "endDate", selected: exportEnd, onChange: (date) => setExportEnd(date) }) })] }) })] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"].Footer, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], { onClick: async (e) => {
                         var _a, _b;
                         e.stopPropagation();
                         onExporting();
                         handleHide();
                         const by_subaccounts = course.termId ? [course.termId] : [];
-                        let sections = await (0,_ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_12__.renderAsyncGen)((0,_ueu_ueu_canvas_course__WEBPACK_IMPORTED_MODULE_10__.getCourseDataGenerator)((0,_ueu_ueu_canvas_course_code__WEBPACK_IMPORTED_MODULE_11__.baseCourseCode)(course.course_code), [
-                            course.account_id, course.root_account_id
-                        ], undefined, {
+                        let sections = await (0,_ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_12__.renderAsyncGen)((0,_ueu_ueu_canvas_course__WEBPACK_IMPORTED_MODULE_10__.getCourseDataGenerator)((0,_ueu_ueu_canvas_course_code__WEBPACK_IMPORTED_MODULE_11__.baseCourseCode)(course.course_code), [course.account_id, course.root_account_id], undefined, {
                             queryParams: {
                                 starts_before: (_a = exportEnd === null || exportEnd === void 0 ? void 0 : exportEnd.toString()) !== null && _a !== void 0 ? _a : undefined,
                                 ends_after: (_b = exportStart === null || exportStart === void 0 ? void 0 : exportStart.toString()) !== null && _b !== void 0 ? _b : undefined,
                                 published: true,
                                 by_subaccounts,
                                 with_enrollments: true,
-                            }
+                            },
                         }));
                         sections !== null && sections !== void 0 ? sections : (sections = []);
                         sections.sort((a, b) => {
-                            return new Date(b.start_at).getTime() - new Date(b.start_at).getTime();
+                            return new Date(a.start_at).getTime() - new Date(b.start_at).getTime();
                         });
                         const allSectionRows = sections ? await (0,_ui_speedGrader_getData_getRowsForSections__WEBPACK_IMPORTED_MODULE_9__.getRowsForSections)(sections) : [];
                         (0,_ui_speedGrader_saveDataGenFunc__WEBPACK_IMPORTED_MODULE_8__.saveDataGenFunc)()(allSectionRows, `${course.baseCode}-${exportStart === null || exportStart === void 0 ? void 0 : exportStart.toUTCString()}-${exportEnd === null || exportEnd === void 0 ? void 0 : exportEnd.toUTCString()}.csv`);
@@ -92834,7 +92831,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 async function getRows(args) {
-    const { course, enrollment, modules, userSubmissions, assignmentsCollection, instructors, term } = args;
+    // TODO; Can't just add underscore to fix this
+    const { course, enrollment, userSubmissions, instructors, term } = args;
     const { user } = enrollment;
     const { course_code } = course;
     const sectionMatch = course_code.match(/-\s*(\d+)$/);
@@ -92843,29 +92841,25 @@ async function getRows(args) {
     const baseCode = baseCodeMatch ? baseCodeMatch[1] : null;
     const instructorName = getInstructorName(instructors);
     // Let's not actually do this if we can't find the user's submissions.
-    const baseRow = [
-        term.name,
-        instructorName,
-        baseCode,
-        section,
-    ];
+    const baseRow = [term.name, instructorName, baseCode, section];
     const rows = parseSubmissions(user, userSubmissions).reduce((rows, submission) => {
         if (!user)
             return rows;
         const { assignment } = submission;
         let rubricSettings;
         if (!assignment) {
-            console.warn('No assignment associated with submission');
+            console.warn("No assignment associated with submission");
             return [];
         }
-        if (assignment.hasOwnProperty('rubric_settings')) {
+        if (assignment.hasOwnProperty("rubric_settings")) {
             rubricSettings = assignment.rubric_settings;
         }
         const criteriaInfo = getCriteriaInfo(assignment);
-        course_code.replace(/^(.*)_?(\[A-Za-z]{4}\d{3}).*$/, '$1$2');
+        course_code.replace(/^(.*)_?(\[A-Za-z]{4}\d{3}).*$/, "$1$2");
         const { rubric_assessment: rubricAssessment } = submission;
-        const rubricId = typeof (rubricSettings) !== 'undefined' && rubricSettings.hasOwnProperty('id') ?
-            rubricSettings.id : 'No Rubric Settings';
+        const rubricId = typeof rubricSettings !== "undefined" && rubricSettings.hasOwnProperty("id")
+            ? rubricSettings.id
+            : "No Rubric Settings";
         const submissionBaseRow = getSubmissionBaseRow({
             ...args,
             baseRow,
@@ -92874,11 +92868,11 @@ async function getRows(args) {
         const out = [
             ...rows,
             submissionHeader(submissionBaseRow, submission, assignment, rubricId.toString()),
-            ...criteriaAssessmentRows(rubricAssessment, criteriaInfo, submissionBaseRow)
+            ...criteriaAssessmentRows(rubricAssessment, criteriaInfo, submissionBaseRow),
         ];
         return out;
     }, []);
-    return rows.map(row => row.map(_ui_speedGrader_exportAndRender_csvRowsForCourse__WEBPACK_IMPORTED_MODULE_2__.csvEncode).join(',') + '\n');
+    return rows.map((row) => row.map(_ui_speedGrader_exportAndRender_csvRowsForCourse__WEBPACK_IMPORTED_MODULE_2__.csvEncode).join(",") + "\n");
 }
 function criteriaAssessmentRows(rubricAssessment, criteriaInfo, submissionBaseRow) {
     // eslint-disable-next-line prefer-const
@@ -92887,11 +92881,13 @@ function criteriaAssessmentRows(rubricAssessment, criteriaInfo, submissionBaseRo
     sortCritAssessments(critAssessments, criteriaInfo);
     return critAssessments.map((critAssessment, critIndex) => {
         const criterion = criteriaInfo === null || criteriaInfo === void 0 ? void 0 : criteriaInfo.critsById[critAssessment.id];
-        return [...submissionBaseRow,
+        return [
+            ...submissionBaseRow,
             criterion ? criterion.id : critAssessment.id,
             Number(critIndex) + 1,
             criterion ? criterion.description : "-REMOVED-",
-            critAssessment.points, criterion === null || criterion === void 0 ? void 0 : criterion.points
+            critAssessment.points,
+            criterion === null || criterion === void 0 ? void 0 : criterion.points,
         ];
     });
 }
@@ -92907,7 +92903,7 @@ function sortCritAssessments(critAssessments, criteriaInfo) {
 function fillEmptyCriteria(critAssessments, criteriaInfo, critIds) {
     for (const critKey in criteriaInfo === null || criteriaInfo === void 0 ? void 0 : criteriaInfo.order) {
         if (!critIds.includes(critKey)) {
-            critAssessments.push({ 'id': critKey, 'points': null, 'rating': null });
+            critAssessments.push({ id: critKey, points: null, rating: null });
         }
     }
     return critAssessments;
@@ -92940,10 +92936,10 @@ function getCriteriaInfo(assignment) {
 }
 function getInstructorName(instructors) {
     if (instructors.length > 1) {
-        return instructors.map((a) => a.name).join(',');
+        return instructors.map((a) => a.name).join(",");
     }
     else if (instructors.length === 0) {
-        return 'No Instructor Found';
+        return "No Instructor Found";
     }
     else {
         return instructors[0].name;
@@ -92955,16 +92951,16 @@ function getCritIdsAndAssessments(rubricAssessment, criteriaInfo) {
     if (rubricAssessment) {
         for (const [critKey, critValue] of Object.entries(rubricAssessment)) {
             const crit = {
-                'id': critKey,
-                'points': critValue.points,
-                'rating': null
+                id: critKey,
+                points: critValue.points,
+                rating: null,
             };
             if (critValue.rating_id) {
                 if ((criteriaInfo === null || criteriaInfo === void 0 ? void 0 : criteriaInfo.ratingDescriptions) && critKey in criteriaInfo.ratingDescriptions) {
                     crit.rating = criteriaInfo.ratingDescriptions[critKey][critValue.rating_id];
                 }
                 else {
-                    console.warn('critKey not found ', critKey, criteriaInfo, rubricAssessment);
+                    console.warn("critKey not found ", critKey, criteriaInfo, rubricAssessment);
                 }
             }
             critAssessments.push(crit);
@@ -92973,11 +92969,12 @@ function getCritIdsAndAssessments(rubricAssessment, criteriaInfo) {
     }
     return [critIds, critAssessments];
 }
-function getSubmissionBaseRow({ baseRow, enrollment, assignmentsCollection, modules, submission }) {
+function getSubmissionBaseRow({ baseRow, enrollment, assignmentsCollection, modules, submission, }) {
     const { assignment } = submission;
     const { weekNumber, moduleName, numberInModule, type } = (0,_ui_speedGrader_modules__WEBPACK_IMPORTED_MODULE_0__.getModuleInfo)(assignment, modules, assignmentsCollection);
     const { user } = enrollment;
-    return [...baseRow,
+    return [
+        ...baseRow,
         user.name,
         user.sis_user_id,
         enrollment.enrollment_state,
@@ -92991,20 +92988,14 @@ function getSubmissionBaseRow({ baseRow, enrollment, assignmentsCollection, modu
     ];
 }
 function submissionHeader(submissionBaseRow, submission, assignment, rubricId) {
-    return [...submissionBaseRow,
-        rubricId,
-        'Total',
-        'Total',
-        submission.grade,
-        assignment.points_possible
-    ];
+    return [...submissionBaseRow, rubricId, "Total", "Total", submission.grade, assignment.points_possible];
 }
 function parseSubmissions(user, userSubmissions) {
-    const singleUserSubmissions = userSubmissions.filter(a => a.user_id === user.id);
+    const singleUserSubmissions = userSubmissions.filter((a) => a.user_id === user.id);
     if (singleUserSubmissions.length === 0)
         return [];
     const entry = singleUserSubmissions[0];
-    if ('submissions' in entry) {
+    if ("submissions" in entry) {
         return entry.submissions;
     }
     else {
@@ -93076,7 +93067,7 @@ function getModuleInfo(contentItem, modules, assignmentsCollection) {
         let weekNumber = (moduleNameMatch !== null && moduleNameMatch !== void 0 ? moduleNameMatch : [])[2];
         if (!weekNumber) {
             for (const moduleItem of module.items) {
-                if (!moduleItem.hasOwnProperty('title')) {
+                if (!moduleItem.hasOwnProperty("title")) {
                     continue;
                 }
                 const [_a, _b, itemWeekNumber] = (_c = moduleItem.title.match(regex)) !== null && _c !== void 0 ? _c : [];
@@ -93090,23 +93081,23 @@ function getModuleInfo(contentItem, modules, assignmentsCollection) {
             continue;
         }
         return {
-            weekNumber: weekNumber == null ? '-' : parseInt(weekNumber),
+            weekNumber: weekNumber == null ? "-" : parseInt(weekNumber),
             moduleName: module.name,
             type: moduleItem.type,
-            numberInModule: moduleItem.numberInModule
+            numberInModule: moduleItem.numberInModule,
         };
     }
     return {
-        weekNumber: '-',
-        moduleName: '-',
+        weekNumber: "-",
+        moduleName: "-",
         type: assignmentsCollection.getAssignmentContentType(contentItem),
-        numberInModule: -1
+        numberInModule: -1,
     };
 }
 function getContentItemId(contentItem, type) {
-    if (type === 'Discussion')
+    if (type === "Discussion")
         return contentItem.discussion_topic.id;
-    if (type === 'Quiz')
+    if (type === "Quiz")
         return contentItem.quiz_id;
     return contentItem.id;
 }
@@ -93120,8 +93111,8 @@ function getItemInModule(contentItem, module, assignmentsCollection) {
             continue;
         }
         if (moduleItem.content_id === contentId) {
-            if (type === 'Discussion' && !contentItem.rubric) {
-                moduleItem.numberInModule = '-';
+            if (type === "Discussion" && !contentItem.rubric) {
+                moduleItem.numberInModule = "-";
             }
             else {
                 moduleItem.numberInModule = count;
@@ -93129,7 +93120,7 @@ function getItemInModule(contentItem, module, assignmentsCollection) {
             moduleItem.type = type;
             return moduleItem;
         }
-        if (type === 'Discussion' && !(moduleItemAssignment === null || moduleItemAssignment === void 0 ? void 0 : moduleItemAssignment.rubric)) {
+        if (type === "Discussion" && !(moduleItemAssignment === null || moduleItemAssignment === void 0 ? void 0 : moduleItemAssignment.rubric)) {
             continue;
         }
         count++;

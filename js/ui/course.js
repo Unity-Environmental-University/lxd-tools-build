@@ -44881,23 +44881,21 @@ function BpButton({ course, currentBp }) {
             return;
         }
         const loadBps = [];
-        let i = 0;
         for await (const bp of bpGen) {
             loadBps.push(bp);
             dispatchBps({ set: loadBps });
-            i++;
         }
     }, [course]);
-    async function openMainBp(e) {
+    async function openMainBp(_e) {
         assert__WEBPACK_IMPORTED_MODULE_4___default()(currentBp, "Attempted to open main BP with no BP");
         await (0,_ueu_ueu_canvas_content_openThisContentInTarget__WEBPACK_IMPORTED_MODULE_5__["default"])(course.id, currentBp.id);
     }
     const isBpDisabled = !currentBp;
-    const otherBps = currentBp ? bps.filter(bp => bp.id !== currentBp.id) : bps;
+    const otherBps = currentBp ? bps.filter((bp) => bp.id !== currentBp.id) : bps;
     const isBpsDisabled = otherBps.length === 0;
     const bpBtnTitle = isBpDisabled ? "No current BP" : "Open the blueprint version of this course";
     const bpsBtnTitle = isBpsDisabled ? "No other BPs" : "Show archived BPs";
-    return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { title: bpBtnTitle, onClick: openMainBp, disabled: (currentBp === null || currentBp === void 0 ? void 0 : currentBp.id) === course.id || isBpDisabled, children: "BP" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { onClick: e => setOpen(true), title: bpsBtnTitle, disabled: isBpsDisabled, children: "BPs" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_widgets_Modal__WEBPACK_IMPORTED_MODULE_9__["default"], { isOpen: open, requestClose: () => setOpen(false), children: bps.toSorted((0,_utils_toolbox__WEBPACK_IMPORTED_MODULE_11__.bMinusASortFn)((a) => a.id)).map((bp, i) => (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { onClick: e => (0,_ueu_ueu_canvas_content_openThisContentInTarget__WEBPACK_IMPORTED_MODULE_5__["default"])(course, bp.id), children: bp.course_code }) }, `${bp.id}-${i}`)) })] }) });
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { title: bpBtnTitle, onClick: openMainBp, disabled: (currentBp === null || currentBp === void 0 ? void 0 : currentBp.id) === course.id || isBpDisabled, children: "BP" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { onClick: (_e) => setOpen(true), title: bpsBtnTitle, disabled: isBpsDisabled, children: "BPs" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_widgets_Modal__WEBPACK_IMPORTED_MODULE_9__["default"], { isOpen: open, requestClose: () => setOpen(false), children: bps.toSorted((0,_utils_toolbox__WEBPACK_IMPORTED_MODULE_11__.bMinusASortFn)((a) => a.id)).map((bp, i) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { onClick: (_e) => (0,_ueu_ueu_canvas_content_openThisContentInTarget__WEBPACK_IMPORTED_MODULE_5__["default"])(course, bp.id), children: bp.course_code }) }, `${bp.id}-${i}`))) })] }) }));
 }
 
 
@@ -44929,7 +44927,7 @@ function HighlightBigImages({ el, bannerImage, currentContentItem, resizeTo = 12
     const [showModal, setShowModal] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [running, setRunning] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [finished, setFinished] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
-    const [showButton, setShowButton] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(true);
+    const [showButton, _setShowButton] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(true);
     async function resizeBanner() {
         var _a;
         setRunning(true);
@@ -44996,7 +44994,6 @@ function HomeTileApp({ course, el }) {
         setRunning(true);
         setShowModal(true);
         await (0,_ui_course_hometile__WEBPACK_IMPORTED_MODULE_5__.regenerateHomeTiles)(course);
-        // eslint-disable-next-line @/no-undef
         const homeTiles = document.querySelectorAll(".cbt-module-card-img img");
         try {
             await Promise.all(Array.from(homeTiles).map(async (tile) => {
@@ -45092,7 +45089,7 @@ __webpack_require__.r(__webpack_exports__);
 function RubricButton({ course }) {
     const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_8__.useState)(false);
     async function insertRubric(course) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+        var _a, _b, _c, _d, _f, _g, _h, _j, _k;
         setIsLoading(true);
         if (!confirm("This will try to update the rubric for the assignment based on the same assignment in DEV/BP. Confirm?")) {
             setIsLoading(false);
@@ -45173,18 +45170,18 @@ function RubricButton({ course }) {
                     "rubric_association[association_id]": rubricAssociation.association_id,
                     "rubric_association[association_type]": rubricAssociation.association_type,
                     "rubric_association[use_for_grading]": ((_d = rubricAssociation.use_for_grading) !== null && _d !== void 0 ? _d : true) ? 1 : 0,
-                    "rubric_association[hide_score_total]": ((_e = rubricAssociation.hide_score_total) !== null && _e !== void 0 ? _e : false) ? 1 : 0,
-                    "rubric_association[purpose]": (_f = rubricAssociation.purpose) !== null && _f !== void 0 ? _f : "grading",
+                    "rubric_association[hide_score_total]": ((_f = rubricAssociation.hide_score_total) !== null && _f !== void 0 ? _f : false) ? 1 : 0,
+                    "rubric_association[purpose]": (_g = rubricAssociation.purpose) !== null && _g !== void 0 ? _g : "grading",
                 };
                 // Add criteria and ratings (Canvas requires indexed hash-style keys)
-                ((_g = relatedRubric.data) !== null && _g !== void 0 ? _g : []).forEach((criterion, i) => {
-                    var _a, _b, _c, _d, _e;
+                ((_h = relatedRubric.data) !== null && _h !== void 0 ? _h : []).forEach((criterion, i) => {
+                    var _a, _b, _c, _d, _f;
                     updatedRubric[`rubric[criteria][${i}][id]`] = (_a = criterion.id) !== null && _a !== void 0 ? _a : `new_${i}`;
                     updatedRubric[`rubric[criteria][${i}][description]`] = (_b = cleanText(criterion.description)) !== null && _b !== void 0 ? _b : "";
                     updatedRubric[`rubric[criteria][${i}][long_description]`] = (_c = cleanText(criterion.long_description)) !== null && _c !== void 0 ? _c : "";
                     updatedRubric[`rubric[criteria][${i}][points]`] = (_d = criterion.points) !== null && _d !== void 0 ? _d : 0;
                     // Ratings must be fully expanded
-                    ((_e = criterion.ratings) !== null && _e !== void 0 ? _e : []).forEach((rating, j) => {
+                    ((_f = criterion.ratings) !== null && _f !== void 0 ? _f : []).forEach((rating, j) => {
                         var _a, _b, _c, _d;
                         updatedRubric[`rubric[criteria][${i}][ratings][${j}][id]`] = (_a = rating.id) !== null && _a !== void 0 ? _a : `new_${i}_${j}`;
                         updatedRubric[`rubric[criteria][${i}][ratings][${j}][description]`] = (_b = cleanText(rating.description)) !== null && _b !== void 0 ? _b : "";
@@ -45204,21 +45201,21 @@ function RubricButton({ course }) {
                 //Create a rubric
                 const newRubric = {
                     "rubric[title]": cleanText(relatedRubric.title),
-                    "rubric[free_form_criterion_comments]": ((_h = relatedRubric.free_form_criterion_comments) !== null && _h !== void 0 ? _h : true) ? 1 : 0,
+                    "rubric[free_form_criterion_comments]": ((_j = relatedRubric.free_form_criterion_comments) !== null && _j !== void 0 ? _j : true) ? 1 : 0,
                     "rubric_association[association_id]": assignment.id,
                     "rubric_association[association_type]": "Assignment",
                     "rubric_association[use_for_grading]": 1,
                     "rubric_association[hide_score_total]": 0,
                     "rubric_association[purpose]": "grading",
                 };
-                ((_j = relatedRubric.data) !== null && _j !== void 0 ? _j : []).forEach((criterion, i) => {
-                    var _a, _b, _c, _d, _e;
+                ((_k = relatedRubric.data) !== null && _k !== void 0 ? _k : []).forEach((criterion, i) => {
+                    var _a, _b, _c, _d, _f;
                     newRubric[`rubric[criteria][${i}][id]`] = (_a = criterion.id) !== null && _a !== void 0 ? _a : `new_${i}`;
                     newRubric[`rubric[criteria][${i}][description]`] = (_b = cleanText(criterion.description)) !== null && _b !== void 0 ? _b : "";
                     newRubric[`rubric[criteria][${i}][long_description]`] = (_c = cleanText(criterion.long_description)) !== null && _c !== void 0 ? _c : "";
                     newRubric[`rubric[criteria][${i}][points]`] = (_d = criterion.points) !== null && _d !== void 0 ? _d : 0;
                     // Ratings must be fully expanded
-                    ((_e = criterion.ratings) !== null && _e !== void 0 ? _e : []).forEach((rating, j) => {
+                    ((_f = criterion.ratings) !== null && _f !== void 0 ? _f : []).forEach((rating, j) => {
                         var _a, _b, _c, _d;
                         newRubric[`rubric[criteria][${i}][ratings][${j}][id]`] = (_a = rating.id) !== null && _a !== void 0 ? _a : `new_${i}_${j}`;
                         newRubric[`rubric[criteria][${i}][ratings][${j}][description]`] = (_b = cleanText(rating.description)) !== null && _b !== void 0 ? _b : "";
@@ -45293,7 +45290,7 @@ function RubricButton({ course }) {
         const decoded = parser.parseFromString(`<!doctype html><body>${text}`, "text/html").body.textContent;
         return decoded || text;
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "relative inline-block", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { title: "Pull the rubric from a corresponding assignment into this one.", onClick: (e) => insertRubric(course), disabled: isLoading, className: "btn", children: "Rubric" }), isLoading && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute inset-0 flex items-center justify-center rounded-md backdrop-blur-sm bg-white/40", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "animate-spin h-5 w-5 border-2 border-t-transparent border-gray-700 rounded-full" }) }))] }) }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "relative inline-block", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { title: "Pull the rubric from a corresponding assignment into this one.", onClick: (_e) => insertRubric(course), disabled: isLoading, className: "btn", children: "Rubric" }), isLoading && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "absolute inset-0 flex items-center justify-center rounded-md backdrop-blur-sm bg-white/40", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "animate-spin h-5 w-5 border-2 border-t-transparent border-gray-700 rounded-full" }) }))] }) }));
 }
 
 
@@ -45616,7 +45613,7 @@ async function resizeBannerOnItem(item, maxWidth = _publish_consts__WEBPACK_IMPO
     if (bannerImg.naturalWidth < maxWidth)
         return;
     const resizedImageBlob = await (0,_utils_image__WEBPACK_IMPORTED_MODULE_1__.getResizedBlob)(bannerImg.src, maxWidth);
-    const fileName = fileData.filename;
+    const fileName = fileData.filename.replace(/\.[^.]+$/, '.png');
     const fileUploadUrl = `/api/v1/courses/${item.courseId}/files`;
     assert__WEBPACK_IMPORTED_MODULE_2___default()(resizedImageBlob);
     const file = new File([resizedImageBlob], fileName);
@@ -45819,13 +45816,13 @@ __webpack_require__.r(__webpack_exports__);
 
 async function getResizedBlob(src, width, height = undefined) {
     const imageSrc = await contentDownloadImage(src);
-    const canvas = document.createElement('canvas');
+    const canvas = document.createElement("canvas");
     const image = new Image();
     image.src = imageSrc;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     return new Promise((resolve) => {
         image.onload = () => {
-            height !== null && height !== void 0 ? height : (height = image.height / image.width * width);
+            height !== null && height !== void 0 ? height : (height = (image.height / image.width) * width);
             assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
             console.log(image.src);
             canvas.width = width;
@@ -45839,8 +45836,8 @@ async function getCroppedSquareBlob(src, size) {
     const imageSrc = await contentDownloadImage(src);
     const image = new Image();
     image.src = imageSrc;
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
     return new Promise((resolve) => {
         image.onload = () => {
             assert__WEBPACK_IMPORTED_MODULE_1___default()(ctx);
@@ -45864,7 +45861,7 @@ function backgroundDownloadImage(src) {
     return new Promise(async (resolve) => {
         const imageFileResponse = await fetch(imageUrl);
         const reader = new FileReader();
-        reader.onload = event => {
+        reader.onload = (_event) => {
             console.log(reader.result);
             resolve(reader.result);
         };
@@ -45891,14 +45888,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   sleep: () => (/* binding */ sleep)
 /* harmony export */ });
 function sleep(milliseconds) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         setTimeout(resolve, milliseconds);
     });
 }
 function isNotNullOrUndefined(value) {
     if (value === null)
         return false;
-    if (typeof value === 'undefined')
+    if (typeof value === "undefined")
         return false;
     return true;
 }

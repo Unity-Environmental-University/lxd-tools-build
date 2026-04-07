@@ -64085,7 +64085,7 @@ const FacultyView = () => {
     const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_8__.useDispatch)();
     const [selectableTerms, setSelectableTerms] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)();
     const [selectedTerms, setSelectedTerms] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]);
-    const { status: termsStatus } = (0,react_redux__WEBPACK_IMPORTED_MODULE_8__.useSelector)((state) => state.terms);
+    const { status: _termsStatus } = (0,react_redux__WEBPACK_IMPORTED_MODULE_8__.useSelector)((state) => state.terms);
     const { status: coursesStatus } = (0,react_redux__WEBPACK_IMPORTED_MODULE_8__.useSelector)((state) => state.courses);
     const courses = (0,_hooks_useCourses__WEBPACK_IMPORTED_MODULE_5__.useCourses)(selectableTerms);
     const accountId = (0,react_redux__WEBPACK_IMPORTED_MODULE_8__.useSelector)((state) => state.accounts.accountId);
@@ -64178,7 +64178,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const TermPicker = ({ onPickTerms }) => {
     var _a;
-    const [activeTerms, setActiveTerms] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]);
+    const [_activeTerms, setActiveTerms] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]);
     const [showOngoingOnly, setShowOngoingOnly] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const { terms, status } = (0,_reporting_hooks_useTerms__WEBPACK_IMPORTED_MODULE_8__.useTerms)({ maxFetch: 20 });
     const now = Date.now();
@@ -64186,15 +64186,15 @@ const TermPicker = ({ onPickTerms }) => {
         if (!terms)
             return [];
         return [...terms]
-            .filter(term => !showOngoingOnly || (new Date(term.start_at).getTime() <= now && now <= new Date(term.end_at).getTime()))
+            .filter((term) => !showOngoingOnly || (new Date(term.start_at).getTime() <= now && now <= new Date(term.end_at).getTime()))
             .sort(showOngoingTermsFirst);
     }, [terms, showOngoingOnly]);
     const handleSelect = (selectedOptions) => {
-        const selectedTerms = sortedTerms.filter(term => selectedOptions.some((opt) => opt.value === term.id));
+        const selectedTerms = sortedTerms.filter((term) => selectedOptions.some((opt) => opt.value === term.id));
         setActiveTerms(selectedTerms);
         onPickTerms(selectedTerms);
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { className: "p-3", children: "Select Terms" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"].Body, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Group, { controlId: "termField", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Label, { children: ["Terms: ", status === "loading" ? (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { animation: "border", size: "sm" }) : (_a = terms === null || terms === void 0 ? void 0 : terms.length) !== null && _a !== void 0 ? _a : 0] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "d-flex align-items-center mb-2", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Check, { type: "switch", label: "Show Ongoing Terms Only", checked: showOngoingOnly, onChange: () => setShowOngoingOnly(!showOngoingOnly) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_7__["default"], { isMulti: true, options: sortedTerms.map(term => ({ value: term.id, label: term.name })), onChange: handleSelect, placeholder: "Select terms..." })] }) }) })] }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { className: "p-3", children: "Select Terms" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"].Body, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Group, { controlId: "termField", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Label, { children: ["Terms: ", status === "loading" ? (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { animation: "border", size: "sm" }) : (_a = terms === null || terms === void 0 ? void 0 : terms.length) !== null && _a !== void 0 ? _a : 0] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "d-flex align-items-center mb-2", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Check, { type: "switch", label: "Show Ongoing Terms Only", checked: showOngoingOnly, onChange: () => setShowOngoingOnly(!showOngoingOnly) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_7__["default"], { isMulti: true, options: sortedTerms.map((term) => ({ value: term.id, label: term.name })), onChange: handleSelect, placeholder: "Select terms..." })] }) }) })] }));
 };
 const showOngoingTermsFirst = (a, b) => {
     const now = Date.now();
@@ -64694,10 +64694,10 @@ __webpack_require__.r(__webpack_exports__);
 const initialState = {
     terms: [],
     termsById: {},
-    status: 'idle',
+    status: "idle",
 };
 const termSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
-    name: 'terms',
+    name: "terms",
     initialState,
     reducers: {
         setStatus(state, action) {
@@ -64711,9 +64711,9 @@ const termSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)(
         },
         reset: (state) => {
             state.terms = [];
-            state.status = 'idle';
+            state.status = "idle";
             state.error = undefined;
-        }
+        },
     },
 });
 const { reset, addTerm, setStatus } = termSlice.actions;
@@ -64772,12 +64772,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const defaults = {
-    include: ['teachers'],
+    include: ["teachers"],
 };
 const fetchCourseThunk = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)("courses/fetchCourseThunk", async ({ courseId, options }, { dispatch, getState }) => {
     const state = getState();
-    const status = state.courses.courseStatus[courseId];
-    if (state.courses.status === 'loading')
+    const _status = state.courses.courseStatus[courseId];
+    if (state.courses.status === "loading")
         dispatch((0,_reporting_data_coursesSlice__WEBPACK_IMPORTED_MODULE_2__.setCourseStatus)({ courseId, status: "loading" }));
     const data = await (0,_ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_1__.getCourseData)(courseId, { queryParams: (0,_ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_1__.deepObjectMerge)(options, defaults) });
     dispatch((0,_reporting_data_coursesSlice__WEBPACK_IMPORTED_MODULE_2__.setCourseStatus)({ courseId, status: "fulfilled" }));
@@ -65114,12 +65114,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const useTerms = ({ maxFetch }) => {
+const useTerms = ({}) => {
     const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
     const { rootAccountId, status: accountStatus } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)((state) => state.accounts);
     const { terms, status } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)((state) => state.terms);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        if (accountStatus !== 'loading' && !rootAccountId)
+        if (accountStatus !== "loading" && !rootAccountId)
             dispatch((0,_reporting_data_thunks_fetchAccountInfoThunk__WEBPACK_IMPORTED_MODULE_3__.fetchAccountInfoThunk)());
     }, [rootAccountId]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
