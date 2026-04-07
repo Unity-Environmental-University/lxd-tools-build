@@ -2492,6 +2492,9 @@ async function detectOverflow(state, options) {
   };
 }
 
+// Maximum number of resets that can occur before bailing to avoid infinite reset loops.
+const MAX_RESET_COUNT = 50;
+
 /**
  * Computes the `x` and `y` coordinates that will place the floating element
  * next to a given reference element.
@@ -2506,7 +2509,10 @@ const computePosition = async (reference, floating, config) => {
     middleware = [],
     platform
   } = config;
-  const validMiddleware = middleware.filter(Boolean);
+  const platformWithDetectOverflow = platform.detectOverflow ? platform : {
+    ...platform,
+    detectOverflow
+  };
   const rtl = await (platform.isRTL == null ? void 0 : platform.isRTL(floating));
   let rects = await platform.getElementRects({
     reference,
@@ -2518,14 +2524,17 @@ const computePosition = async (reference, floating, config) => {
     y
   } = computeCoordsFromPlacement(rects, placement, rtl);
   let statefulPlacement = placement;
-  let middlewareData = {};
   let resetCount = 0;
-  for (let i = 0; i < validMiddleware.length; i++) {
-    var _platform$detectOverf;
+  const middlewareData = {};
+  for (let i = 0; i < middleware.length; i++) {
+    const currentMiddleware = middleware[i];
+    if (!currentMiddleware) {
+      continue;
+    }
     const {
       name,
       fn
-    } = validMiddleware[i];
+    } = currentMiddleware;
     const {
       x: nextX,
       y: nextY,
@@ -2539,10 +2548,7 @@ const computePosition = async (reference, floating, config) => {
       strategy,
       middlewareData,
       rects,
-      platform: {
-        ...platform,
-        detectOverflow: (_platform$detectOverf = platform.detectOverflow) != null ? _platform$detectOverf : detectOverflow
-      },
+      platform: platformWithDetectOverflow,
       elements: {
         reference,
         floating
@@ -2550,14 +2556,11 @@ const computePosition = async (reference, floating, config) => {
     });
     x = nextX != null ? nextX : x;
     y = nextY != null ? nextY : y;
-    middlewareData = {
-      ...middlewareData,
-      [name]: {
-        ...middlewareData[name],
-        ...data
-      }
+    middlewareData[name] = {
+      ...middlewareData[name],
+      ...data
     };
-    if (reset && resetCount <= 50) {
+    if (reset && resetCount < MAX_RESET_COUNT) {
       resetCount++;
       if (typeof reset === 'object') {
         if (reset.placement) {
@@ -3630,7 +3633,7 @@ function convertOffsetParentRelativeRectToViewportRelativeRect(_ref) {
     if ((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getNodeName)(offsetParent) !== 'body' || (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isOverflowElement)(documentElement)) {
       scroll = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getNodeScroll)(offsetParent);
     }
-    if ((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isHTMLElement)(offsetParent)) {
+    if (isOffsetParentAnElement) {
       const offsetRect = getBoundingClientRect(offsetParent);
       scale = getScale(offsetParent);
       offsets.x = offsetRect.x + offsetParent.clientLeft;
@@ -3718,7 +3721,6 @@ function getViewportRect(element, strategy) {
   };
 }
 
-const absoluteOrFixed = /*#__PURE__*/new Set(['absolute', 'fixed']);
 // Returns the inner client rect, subtracting scrollbars if present.
 function getInnerBoundingClientRect(element, strategy) {
   const clientRect = getBoundingClientRect(element, true, strategy === 'fixed');
@@ -3783,7 +3785,7 @@ function getClippingElementAncestors(element, cache) {
     if (!currentNodeIsContaining && computedStyle.position === 'fixed') {
       currentContainingBlockComputedStyle = null;
     }
-    const shouldDropCurrentNode = elementIsFixed ? !currentNodeIsContaining && !currentContainingBlockComputedStyle : !currentNodeIsContaining && computedStyle.position === 'static' && !!currentContainingBlockComputedStyle && absoluteOrFixed.has(currentContainingBlockComputedStyle.position) || (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isOverflowElement)(currentNode) && !currentNodeIsContaining && hasFixedPositionAncestor(element, currentNode);
+    const shouldDropCurrentNode = elementIsFixed ? !currentNodeIsContaining && !currentContainingBlockComputedStyle : !currentNodeIsContaining && computedStyle.position === 'static' && !!currentContainingBlockComputedStyle && (currentContainingBlockComputedStyle.position === 'absolute' || currentContainingBlockComputedStyle.position === 'fixed') || (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isOverflowElement)(currentNode) && !currentNodeIsContaining && hasFixedPositionAncestor(element, currentNode);
     if (shouldDropCurrentNode) {
       // Drop non-containing blocks.
       result = result.filter(ancestor => ancestor !== currentNode);
@@ -3808,20 +3810,23 @@ function getClippingRect(_ref) {
   } = _ref;
   const elementClippingAncestors = boundary === 'clippingAncestors' ? (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isTopLayer)(element) ? [] : getClippingElementAncestors(element, this._c) : [].concat(boundary);
   const clippingAncestors = [...elementClippingAncestors, rootBoundary];
-  const firstClippingAncestor = clippingAncestors[0];
-  const clippingRect = clippingAncestors.reduce((accRect, clippingAncestor) => {
-    const rect = getClientRectFromClippingAncestor(element, clippingAncestor, strategy);
-    accRect.top = (0,_floating_ui_core__WEBPACK_IMPORTED_MODULE_1__.max)(rect.top, accRect.top);
-    accRect.right = (0,_floating_ui_core__WEBPACK_IMPORTED_MODULE_1__.min)(rect.right, accRect.right);
-    accRect.bottom = (0,_floating_ui_core__WEBPACK_IMPORTED_MODULE_1__.min)(rect.bottom, accRect.bottom);
-    accRect.left = (0,_floating_ui_core__WEBPACK_IMPORTED_MODULE_1__.max)(rect.left, accRect.left);
-    return accRect;
-  }, getClientRectFromClippingAncestor(element, firstClippingAncestor, strategy));
+  const firstRect = getClientRectFromClippingAncestor(element, clippingAncestors[0], strategy);
+  let top = firstRect.top;
+  let right = firstRect.right;
+  let bottom = firstRect.bottom;
+  let left = firstRect.left;
+  for (let i = 1; i < clippingAncestors.length; i++) {
+    const rect = getClientRectFromClippingAncestor(element, clippingAncestors[i], strategy);
+    top = (0,_floating_ui_core__WEBPACK_IMPORTED_MODULE_1__.max)(rect.top, top);
+    right = (0,_floating_ui_core__WEBPACK_IMPORTED_MODULE_1__.min)(rect.right, right);
+    bottom = (0,_floating_ui_core__WEBPACK_IMPORTED_MODULE_1__.min)(rect.bottom, bottom);
+    left = (0,_floating_ui_core__WEBPACK_IMPORTED_MODULE_1__.max)(rect.left, left);
+  }
   return {
-    width: clippingRect.right - clippingRect.left,
-    height: clippingRect.bottom - clippingRect.top,
-    x: clippingRect.left,
-    y: clippingRect.top
+    width: right - left,
+    height: bottom - top,
+    x: left,
+    y: top
   };
 }
 
@@ -4072,7 +4077,7 @@ function autoUpdate(reference, floating, update, options) {
     animationFrame = false
   } = options;
   const referenceEl = unwrapElement(reference);
-  const ancestors = ancestorScroll || ancestorResize ? [...(referenceEl ? (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getOverflowAncestors)(referenceEl) : []), ...(0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getOverflowAncestors)(floating)] : [];
+  const ancestors = ancestorScroll || ancestorResize ? [...(referenceEl ? (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getOverflowAncestors)(referenceEl) : []), ...(floating ? (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getOverflowAncestors)(floating) : [])] : [];
   ancestors.forEach(ancestor => {
     ancestorScroll && ancestor.addEventListener('scroll', update, {
       passive: true
@@ -4085,7 +4090,7 @@ function autoUpdate(reference, floating, update, options) {
   if (elementResize) {
     resizeObserver = new ResizeObserver(_ref => {
       let [firstEntry] = _ref;
-      if (firstEntry && firstEntry.target === referenceEl && resizeObserver) {
+      if (firstEntry && firstEntry.target === referenceEl && resizeObserver && floating) {
         // Prevent update loops when using the `size` middleware.
         // https://github.com/floating-ui/floating-ui/issues/1740
         resizeObserver.unobserve(floating);
@@ -4100,7 +4105,9 @@ function autoUpdate(reference, floating, update, options) {
     if (referenceEl && !animationFrame) {
       resizeObserver.observe(referenceEl);
     }
-    resizeObserver.observe(floating);
+    if (floating) {
+      resizeObserver.observe(floating);
+    }
   }
   let frameId;
   let prevRefRect = animationFrame ? getBoundingClientRect(reference) : null;
@@ -4309,7 +4316,6 @@ function isShadowRoot(value) {
   }
   return value instanceof ShadowRoot || value instanceof getWindow(value).ShadowRoot;
 }
-const invalidOverflowDisplayValues = /*#__PURE__*/new Set(['inline', 'contents']);
 function isOverflowElement(element) {
   const {
     overflow,
@@ -4317,32 +4323,35 @@ function isOverflowElement(element) {
     overflowY,
     display
   } = getComputedStyle(element);
-  return /auto|scroll|overlay|hidden|clip/.test(overflow + overflowY + overflowX) && !invalidOverflowDisplayValues.has(display);
+  return /auto|scroll|overlay|hidden|clip/.test(overflow + overflowY + overflowX) && display !== 'inline' && display !== 'contents';
 }
-const tableElements = /*#__PURE__*/new Set(['table', 'td', 'th']);
 function isTableElement(element) {
-  return tableElements.has(getNodeName(element));
+  return /^(table|td|th)$/.test(getNodeName(element));
 }
-const topLayerSelectors = [':popover-open', ':modal'];
 function isTopLayer(element) {
-  return topLayerSelectors.some(selector => {
-    try {
-      return element.matches(selector);
-    } catch (_e) {
-      return false;
+  try {
+    if (element.matches(':popover-open')) {
+      return true;
     }
-  });
+  } catch (_e) {
+    // no-op
+  }
+  try {
+    return element.matches(':modal');
+  } catch (_e) {
+    return false;
+  }
 }
-const transformProperties = ['transform', 'translate', 'scale', 'rotate', 'perspective'];
-const willChangeValues = ['transform', 'translate', 'scale', 'rotate', 'perspective', 'filter'];
-const containValues = ['paint', 'layout', 'strict', 'content'];
+const willChangeRe = /transform|translate|scale|rotate|perspective|filter/;
+const containRe = /paint|layout|strict|content/;
+const isNotNone = value => !!value && value !== 'none';
+let isWebKitValue;
 function isContainingBlock(elementOrCss) {
-  const webkit = isWebKit();
   const css = isElement(elementOrCss) ? getComputedStyle(elementOrCss) : elementOrCss;
 
   // https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#identifying_the_containing_block
   // https://drafts.csswg.org/css-transforms-2/#individual-transforms
-  return transformProperties.some(value => css[value] ? css[value] !== 'none' : false) || (css.containerType ? css.containerType !== 'normal' : false) || !webkit && (css.backdropFilter ? css.backdropFilter !== 'none' : false) || !webkit && (css.filter ? css.filter !== 'none' : false) || willChangeValues.some(value => (css.willChange || '').includes(value)) || containValues.some(value => (css.contain || '').includes(value));
+  return isNotNone(css.transform) || isNotNone(css.translate) || isNotNone(css.scale) || isNotNone(css.rotate) || isNotNone(css.perspective) || !isWebKit() && (isNotNone(css.backdropFilter) || isNotNone(css.filter)) || willChangeRe.test(css.willChange || '') || containRe.test(css.contain || '');
 }
 function getContainingBlock(element) {
   let currentNode = getParentNode(element);
@@ -4357,12 +4366,13 @@ function getContainingBlock(element) {
   return null;
 }
 function isWebKit() {
-  if (typeof CSS === 'undefined' || !CSS.supports) return false;
-  return CSS.supports('-webkit-backdrop-filter', 'none');
+  if (isWebKitValue == null) {
+    isWebKitValue = typeof CSS !== 'undefined' && CSS.supports && CSS.supports('-webkit-backdrop-filter', 'none');
+  }
+  return isWebKitValue;
 }
-const lastTraversableNodeNames = /*#__PURE__*/new Set(['html', 'body', '#document']);
 function isLastTraversableNode(node) {
-  return lastTraversableNodeNames.has(getNodeName(node));
+  return /^(html|body|#document)$/.test(getNodeName(node));
 }
 function getComputedStyle(element) {
   return getWindow(element).getComputedStyle(element);
@@ -4418,8 +4428,9 @@ function getOverflowAncestors(node, list, traverseIframes) {
   if (isBody) {
     const frameElement = getFrameElement(win);
     return list.concat(win, win.visualViewport || [], isOverflowElement(scrollableAncestor) ? scrollableAncestor : [], frameElement && traverseIframes ? getOverflowAncestors(frameElement) : []);
+  } else {
+    return list.concat(scrollableAncestor, getOverflowAncestors(scrollableAncestor, [], traverseIframes));
   }
-  return list.concat(scrollableAncestor, getOverflowAncestors(scrollableAncestor, [], traverseIframes));
 }
 function getFrameElement(win) {
   return win.parent && Object.getPrototypeOf(win.parent) ? win.frameElement : null;
@@ -4486,10 +4497,6 @@ const oppositeSideMap = {
   bottom: 'top',
   top: 'bottom'
 };
-const oppositeAlignmentMap = {
-  start: 'end',
-  end: 'start'
-};
 function clamp(start, value, end) {
   return max(start, min(value, end));
 }
@@ -4508,9 +4515,9 @@ function getOppositeAxis(axis) {
 function getAxisLength(axis) {
   return axis === 'y' ? 'height' : 'width';
 }
-const yAxisSides = /*#__PURE__*/new Set(['top', 'bottom']);
 function getSideAxis(placement) {
-  return yAxisSides.has(getSide(placement)) ? 'y' : 'x';
+  const firstChar = placement[0];
+  return firstChar === 't' || firstChar === 'b' ? 'y' : 'x';
 }
 function getAlignmentAxis(placement) {
   return getOppositeAxis(getSideAxis(placement));
@@ -4533,7 +4540,7 @@ function getExpandedPlacements(placement) {
   return [getOppositeAlignmentPlacement(placement), oppositePlacement, getOppositeAlignmentPlacement(oppositePlacement)];
 }
 function getOppositeAlignmentPlacement(placement) {
-  return placement.replace(/start|end/g, alignment => oppositeAlignmentMap[alignment]);
+  return placement.includes('start') ? placement.replace('start', 'end') : placement.replace('end', 'start');
 }
 const lrPlacement = ['left', 'right'];
 const rlPlacement = ['right', 'left'];
@@ -4564,7 +4571,8 @@ function getOppositeAxisPlacements(placement, flipAlignment, direction, rtl) {
   return list;
 }
 function getOppositePlacement(placement) {
-  return placement.replace(/left|right|bottom|top/g, side => oppositeSideMap[side]);
+  const side = getSide(placement);
+  return oppositeSideMap[side] + placement.slice(side.length);
 }
 function expandPaddingObject(padding) {
   return {
@@ -64077,7 +64085,7 @@ const FacultyView = () => {
     const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_8__.useDispatch)();
     const [selectableTerms, setSelectableTerms] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)();
     const [selectedTerms, setSelectedTerms] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]);
-    const { status: termsStatus } = (0,react_redux__WEBPACK_IMPORTED_MODULE_8__.useSelector)((state) => state.terms);
+    const { status: _termsStatus } = (0,react_redux__WEBPACK_IMPORTED_MODULE_8__.useSelector)((state) => state.terms);
     const { status: coursesStatus } = (0,react_redux__WEBPACK_IMPORTED_MODULE_8__.useSelector)((state) => state.courses);
     const courses = (0,_hooks_useCourses__WEBPACK_IMPORTED_MODULE_5__.useCourses)(selectableTerms);
     const accountId = (0,react_redux__WEBPACK_IMPORTED_MODULE_8__.useSelector)((state) => state.accounts.accountId);
@@ -64170,7 +64178,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const TermPicker = ({ onPickTerms }) => {
     var _a;
-    const [activeTerms, setActiveTerms] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]);
+    const [_activeTerms, setActiveTerms] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]);
     const [showOngoingOnly, setShowOngoingOnly] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const { terms, status } = (0,_reporting_hooks_useTerms__WEBPACK_IMPORTED_MODULE_8__.useTerms)({ maxFetch: 20 });
     const now = Date.now();
@@ -64178,15 +64186,15 @@ const TermPicker = ({ onPickTerms }) => {
         if (!terms)
             return [];
         return [...terms]
-            .filter(term => !showOngoingOnly || (new Date(term.start_at).getTime() <= now && now <= new Date(term.end_at).getTime()))
+            .filter((term) => !showOngoingOnly || (new Date(term.start_at).getTime() <= now && now <= new Date(term.end_at).getTime()))
             .sort(showOngoingTermsFirst);
     }, [terms, showOngoingOnly]);
     const handleSelect = (selectedOptions) => {
-        const selectedTerms = sortedTerms.filter(term => selectedOptions.some((opt) => opt.value === term.id));
+        const selectedTerms = sortedTerms.filter((term) => selectedOptions.some((opt) => opt.value === term.id));
         setActiveTerms(selectedTerms);
         onPickTerms(selectedTerms);
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { className: "p-3", children: "Select Terms" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"].Body, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Group, { controlId: "termField", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Label, { children: ["Terms: ", status === "loading" ? (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { animation: "border", size: "sm" }) : (_a = terms === null || terms === void 0 ? void 0 : terms.length) !== null && _a !== void 0 ? _a : 0] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "d-flex align-items-center mb-2", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Check, { type: "switch", label: "Show Ongoing Terms Only", checked: showOngoingOnly, onChange: () => setShowOngoingOnly(!showOngoingOnly) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_7__["default"], { isMulti: true, options: sortedTerms.map(term => ({ value: term.id, label: term.name })), onChange: handleSelect, placeholder: "Select terms..." })] }) }) })] }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { className: "p-3", children: "Select Terms" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"].Body, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Group, { controlId: "termField", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Label, { children: ["Terms: ", status === "loading" ? (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { animation: "border", size: "sm" }) : (_a = terms === null || terms === void 0 ? void 0 : terms.length) !== null && _a !== void 0 ? _a : 0] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "d-flex align-items-center mb-2", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Check, { type: "switch", label: "Show Ongoing Terms Only", checked: showOngoingOnly, onChange: () => setShowOngoingOnly(!showOngoingOnly) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_7__["default"], { isMulti: true, options: sortedTerms.map((term) => ({ value: term.id, label: term.name })), onChange: handleSelect, placeholder: "Select terms..." })] }) }) })] }));
 };
 const showOngoingTermsFirst = (a, b) => {
     const now = Date.now();
@@ -64686,10 +64694,10 @@ __webpack_require__.r(__webpack_exports__);
 const initialState = {
     terms: [],
     termsById: {},
-    status: 'idle',
+    status: "idle",
 };
 const termSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
-    name: 'terms',
+    name: "terms",
     initialState,
     reducers: {
         setStatus(state, action) {
@@ -64703,9 +64711,9 @@ const termSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)(
         },
         reset: (state) => {
             state.terms = [];
-            state.status = 'idle';
+            state.status = "idle";
             state.error = undefined;
-        }
+        },
     },
 });
 const { reset, addTerm, setStatus } = termSlice.actions;
@@ -64764,12 +64772,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const defaults = {
-    include: ['teachers'],
+    include: ["teachers"],
 };
 const fetchCourseThunk = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)("courses/fetchCourseThunk", async ({ courseId, options }, { dispatch, getState }) => {
     const state = getState();
-    const status = state.courses.courseStatus[courseId];
-    if (state.courses.status === 'loading')
+    const _status = state.courses.courseStatus[courseId];
+    if (state.courses.status === "loading")
         dispatch((0,_reporting_data_coursesSlice__WEBPACK_IMPORTED_MODULE_2__.setCourseStatus)({ courseId, status: "loading" }));
     const data = await (0,_ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_1__.getCourseData)(courseId, { queryParams: (0,_ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_1__.deepObjectMerge)(options, defaults) });
     dispatch((0,_reporting_data_coursesSlice__WEBPACK_IMPORTED_MODULE_2__.setCourseStatus)({ courseId, status: "fulfilled" }));
@@ -65106,12 +65114,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const useTerms = ({ maxFetch }) => {
+const useTerms = ({}) => {
     const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
     const { rootAccountId, status: accountStatus } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)((state) => state.accounts);
     const { terms, status } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)((state) => state.terms);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        if (accountStatus !== 'loading' && !rootAccountId)
+        if (accountStatus !== "loading" && !rootAccountId)
             dispatch((0,_reporting_data_thunks_fetchAccountInfoThunk__WEBPACK_IMPORTED_MODULE_3__.fetchAccountInfoThunk)());
     }, [rootAccountId]);
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -72317,12 +72325,6 @@ function combine (array, callback) {
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
-/******/ 		// Check if module exists (development only)
-/******/ 		if (__webpack_modules__[moduleId] === undefined) {
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
-/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			id: moduleId,
@@ -72331,6 +72333,12 @@ function combine (array, callback) {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Flag the module as loaded

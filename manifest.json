@@ -1,5 +1,6 @@
 {
   "manifest_version": 3,
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzQzhDuKyCO7xlRl7UCE9eL64eWTTT+6bHnClBDHcKWo/gVzS1nQKc4PYgtmJVgpT2rGOjcsmCp7WOidyxp4lkv9lADg3PVfah3q7wrIPfya6v3izkhxXh8x0A12yVd9NVDKaT/z7H0i9RwRYoWh9sZN20i2GVlt9uR6nka5tIk89Cn7hofh9VokKhePRiiTRUbTkqNJKSDhK2Q/Bcl5Qjj5WmRua0ayc94dUDxsWeA3k34a1SnFlnDmKqbXofndTOj3g+ZFO9uDoV09b+KhP/kHK3Ta58+XPQTUkbf7KbO5eJBDGCqMmSnssCWh+tk/wr6Yqqn6aakQGHvgcZlh4swIDAQAB",
   "name": "LXD Browser Extension",
   "description": "Extension for LXD team",
   "browser_specific_settings": {
@@ -11,7 +12,7 @@
         ]
       },
       "strict_min_version": "128.0",
-      "update_url": "https://raw.githubusercontent.com/Unity-Environmental-University/lxd-tools-build/refs/heads/stable/update.json"
+      "update_url": "https://cdn-lxd-extension-delivery.unity.edu/updates.json"
     }
   },
   "action": {
@@ -51,7 +52,8 @@
         "js/rubricOrganize.js.map",
         "js/ui/module.js.map",
         "js/ui/course.js.map",
-        "js/ui/account.js.map"
+        "js/ui/account.js.map",
+        "js/ui/syllabus.js.map"
       ]
     }
   ],
@@ -103,6 +105,15 @@
     },
     {
       "matches": [
+        "*://*.instructure.com/courses/**"
+      ],
+      "js": [
+        "js/ui/course.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
         "*://*.instructure.com/accounts/*"
       ],
       "js": [
@@ -119,6 +130,15 @@
         "js/rubricOrganize.js"
       ],
       "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "*://*.instructure.com/courses/*/assignments/syllabus"
+      ],
+      "js": [
+        "js/ui/syllabus.js"
+      ],
+      "run_at": "document_end"
     }
   ],
   "permissions": [
@@ -133,5 +153,6 @@
     "*://*.instructure.com/*"
   ],
   "optional_host_permissions": [],
-  "version": "3.0.0"
+  "update_url": "https://cdn-lxd-extension-delivery.unity.edu/update.xml",
+  "version": "3.1.0"
 }

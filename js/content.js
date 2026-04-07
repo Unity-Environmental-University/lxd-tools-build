@@ -14254,12 +14254,6 @@ exports.Intl = classApi.IntlExtended, exports.Temporal = classApi.Temporal, expo
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
-/******/ 		// Check if module exists (development only)
-/******/ 		if (__webpack_modules__[moduleId] === undefined) {
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
-/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			// no module.id needed
@@ -14268,6 +14262,12 @@ exports.Intl = classApi.IntlExtended, exports.Temporal = classApi.Temporal, expo
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
@@ -14345,26 +14345,26 @@ __webpack_require__.r(__webpack_exports__);
 
 
 webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
-    if (message.hasOwnProperty('queryString')) {
+    if (message.hasOwnProperty("queryString")) {
         try {
             await openTargetCourse(message.queryString, message.subAccount);
             sendResponse({ success: true });
         }
         catch (e) {
-            sendResponse({ success: false, error: e.message || 'Unknown error' });
+            sendResponse({ success: false, error: e.message || "Unknown error" });
         }
     }
     return true;
 });
 async function openTargetCourse(queryString, subAccount) {
     console.log(queryString, subAccount);
-    const params = queryString.split('|');
+    const params = queryString.split("|");
     const searchCode = params.length > 0 ? params[0] : null;
     let didOpen = false;
     if (!searchCode)
         throw new Error("No search code provided");
     let queryUrl = `/api/v1/accounts/${subAccount}/courses?search_term=${searchCode}`;
-    if (!document.documentURI.includes(".instructure.com")) {
+    if (!new URL(document.documentURI).hostname.endsWith(".instructure.com")) {
         queryUrl = `https://unity.instructure.com/accounts/${subAccount}?search_term=${searchCode}`;
         window.open(queryUrl, "_blank");
         return;
@@ -14380,7 +14380,7 @@ async function openTargetCourse(queryString, subAccount) {
             a: "Assignment",
             d: "Discussion",
             q: "Quiz",
-            p: "Page"
+            p: "Page",
         };
         for (const param of params) {
             //Test for assignment matching
@@ -14407,7 +14407,7 @@ async function openTargetCourse(queryString, subAccount) {
                 potentialUrls = await course.getModuleItemLinks(targetModuleWeekNumber, {
                     type: targetType,
                     index: targetIndex,
-                    search: contentSearchString
+                    search: contentSearchString,
                 });
             }
         }
@@ -14438,7 +14438,7 @@ async function openTargetCourse(queryString, subAccount) {
  * @returns {*|null} The best matching course
  */
 function getCourseToNavTo(searchCode, courses, maxMatches = null) {
-    if (typeof courses === 'undefined' || courses.length === 0 || (maxMatches && courses.length < maxMatches)) {
+    if (typeof courses === "undefined" || courses.length === 0 || (maxMatches && courses.length < maxMatches)) {
         return null;
     }
     else if (courses.length === 1) {
@@ -14450,7 +14450,7 @@ function getCourseToNavTo(searchCode, courses, maxMatches = null) {
             const match = course.course_code.match(exact_code_search);
             const matchCode = match && match[0];
             console.log(matchCode);
-            if (typeof matchCode !== 'string')
+            if (typeof matchCode !== "string")
                 continue;
             if (matchCode.toLowerCase() === searchCode.toLowerCase()) {
                 return course;

@@ -3,12 +3,11 @@
     "lxd-extension@unity.edu": {
       "updates": [
         {
-          "version": "3.0.0",
-          "update_link": "ai2.unity.edu/lxd-tools/lxd-extension-3.0.0.xpi",
+          "version": "3.1.0",
+          "update_link": "https://cdn-lxd-extension-delivery.unity.edu/lxd-extension-3.1.0.xpi",
           "applications": {
             "gecko": {
-              "strict_min_version": "109.0",
-              "strict_max_version": "115.*"
+              "strict_min_version": "128.0"
             }
           }
         }

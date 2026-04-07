@@ -57044,8 +57044,8 @@ function CourseNavigation() {
 function SalesforceNavigation() {
     const [isDisabled, setIsDisabled] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [option, setOption] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(" ");
-    const [queryString, setQueryString] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
-    const [textEntryEnabled, setTextEntryEnabled] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    const [_queryString, _setQueryString] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    const [_textEntryEnabled, setTextEntryEnabled] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
     /*This isn't currently working, but I'm leaving it because it's closer than not and would be a nice feature to have.
     async function getCourseCodeFromCanvas() {
@@ -57086,7 +57086,7 @@ function SalesforceNavigation() {
 }
 function SetOpenAiKey() {
     const [key, setKey] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('');
-    const [saved, setSaved] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    const [saved, _setSaved] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     async function saveKey(keyToSave) {
         await webextension_polyfill__WEBPACK_IMPORTED_MODULE_2__.storage.local.set({ [_consts__WEBPACK_IMPORTED_MODULE_8__.OPEN_AI_API_KEY_KEY]: keyToSave });
     }
@@ -58785,12 +58785,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
-/******/ 		// Check if module exists (development only)
-/******/ 		if (__webpack_modules__[moduleId] === undefined) {
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
-/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			id: moduleId,
@@ -58799,6 +58793,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Flag the module as loaded

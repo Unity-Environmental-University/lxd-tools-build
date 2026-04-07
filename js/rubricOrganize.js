@@ -29,8 +29,8 @@ __webpack_require__.r(__webpack_exports__);
 // @include     https://*.instructure.com/courses/*/rubrics/*
 // ==/UserScript==
 (() => {
-    'use strict';
-    const pageRegex = new RegExp('^/courses/[0-9]+/rubrics/[0-9]+');
+    "use strict";
+    const pageRegex = new RegExp("^/courses/[0-9]+/rubrics/[0-9]+");
     if (!pageRegex.test(window.location.pathname)) {
         return;
     }
@@ -38,11 +38,11 @@ __webpack_require__.r(__webpack_exports__);
     waitForEdit();
     // Use MutationObserver to detect when edit mode is entered.
     function waitForEdit(mutations, observer) {
-        const parent = document.getElementById('rubrics');
+        const parent = document.getElementById("rubrics");
         if (!parent) {
             return;
         }
-        const el = parent.querySelector('.rubric_container.rubric.editing');
+        const el = parent.querySelector(".rubric_container.rubric.editing");
         if (!el) {
             if (observer === undefined) {
                 const obs = new MutationObserver(waitForEdit);
@@ -59,31 +59,31 @@ __webpack_require__.r(__webpack_exports__);
     }
     // Build the sorting row UI and bind drag-and-drop behavior.
     function attachRowSorter() {
-        const tbody = document.querySelector('.rubric_container.rubric.editing .rubric_table tbody');
+        const tbody = document.querySelector(".rubric_container.rubric.editing .rubric_table tbody");
         if (!tbody) {
             return;
         }
         // Insert the "Sort" header if missing.
-        const thead = document.querySelector('.rubric_container.rubric.editing .rubric_table thead');
+        const thead = document.querySelector(".rubric_container.rubric.editing .rubric_table thead");
         if (thead) {
-            const headerRow = thead.querySelector('tr');
-            if (headerRow && !headerRow.querySelector('.rubric-sort-header')) {
-                const th = document.createElement('th');
-                th.className = 'rubric-sort-header';
-                th.textContent = 'Sort';
+            const headerRow = thead.querySelector("tr");
+            if (headerRow && !headerRow.querySelector(".rubric-sort-header")) {
+                const th = document.createElement("th");
+                th.className = "rubric-sort-header";
+                th.textContent = "Sort";
                 headerRow.insertBefore(th, headerRow.firstChild);
             }
         }
         let draggingRow = null;
         Array.from(tbody.rows).forEach((row) => {
-            if (!row.querySelector('.rubric-move-btns')) {
-                const btnCell = document.createElement('td');
-                btnCell.className = 'rubric-move-btns';
-                btnCell.style.whiteSpace = 'nowrap';
-                const upBtn = document.createElement('button');
-                upBtn.textContent = '↑';
-                upBtn.title = 'Move up';
-                upBtn.style.marginRight = '4px';
+            if (!row.querySelector(".rubric-move-btns")) {
+                const btnCell = document.createElement("td");
+                btnCell.className = "rubric-move-btns";
+                btnCell.style.whiteSpace = "nowrap";
+                const upBtn = document.createElement("button");
+                upBtn.textContent = "↑";
+                upBtn.title = "Move up";
+                upBtn.style.marginRight = "4px";
                 upBtn.onclick = function (e) {
                     e.stopPropagation();
                     const prev = row.previousElementSibling;
@@ -91,9 +91,9 @@ __webpack_require__.r(__webpack_exports__);
                         tbody.insertBefore(row, prev);
                     }
                 };
-                const downBtn = document.createElement('button');
-                downBtn.textContent = '↓';
-                downBtn.title = 'Move down';
+                const downBtn = document.createElement("button");
+                downBtn.textContent = "↓";
+                downBtn.title = "Move down";
                 downBtn.onclick = function (e) {
                     e.stopPropagation();
                     const next = row.nextElementSibling;
@@ -107,35 +107,35 @@ __webpack_require__.r(__webpack_exports__);
             }
             // Setup drag-and-drop functionality.
             row.draggable = true;
-            row.addEventListener('dragstart', function (e) {
+            row.addEventListener("dragstart", function (_e) {
                 draggingRow = row;
-                row.style.opacity = '0.5';
+                row.style.opacity = "0.5";
             });
-            row.addEventListener('dragend', function (e) {
+            row.addEventListener("dragend", function (_e) {
                 draggingRow = null;
-                row.style.opacity = '';
+                row.style.opacity = "";
             });
-            row.addEventListener('dragover', function (e) {
+            row.addEventListener("dragover", function (e) {
                 e.preventDefault();
                 const bounding = row.getBoundingClientRect();
                 const offset = e.clientY - bounding.top;
                 if (offset > bounding.height / 2) {
-                    row.style.borderBottom = '2px solid #0074D9';
-                    row.style.borderTop = '';
+                    row.style.borderBottom = "2px solid #0074D9";
+                    row.style.borderTop = "";
                 }
                 else {
-                    row.style.borderTop = '2px solid #0074D9';
-                    row.style.borderBottom = '';
+                    row.style.borderTop = "2px solid #0074D9";
+                    row.style.borderBottom = "";
                 }
             });
-            row.addEventListener('dragleave', function (e) {
-                row.style.borderBottom = '';
-                row.style.borderTop = '';
+            row.addEventListener("dragleave", function (_e) {
+                row.style.borderBottom = "";
+                row.style.borderTop = "";
             });
-            row.addEventListener('drop', function (e) {
+            row.addEventListener("drop", function (e) {
                 e.preventDefault();
-                row.style.borderBottom = '';
-                row.style.borderTop = '';
+                row.style.borderBottom = "";
+                row.style.borderTop = "";
                 if (draggingRow && draggingRow !== row) {
                     const bounding = row.getBoundingClientRect();
                     const offset = e.clientY - bounding.top;
@@ -150,17 +150,17 @@ __webpack_require__.r(__webpack_exports__);
         });
     }
     // Use event delegation on the stable parent (#rubrics) for the update and cancel buttons.
-    const rubricsContainer = document.getElementById('rubrics');
+    const rubricsContainer = document.getElementById("rubrics");
     if (rubricsContainer) {
-        rubricsContainer.addEventListener('click', function (e) {
+        rubricsContainer.addEventListener("click", function (e) {
             let target = e.target;
             while (target && target !== this) {
-                if (target.matches('.save_button')) {
+                if (target.matches(".save_button")) {
                     e.stopPropagation();
                     handleUpdateClick();
                     break;
                 }
-                if (target.matches('.cancel_button')) {
+                if (target.matches(".cancel_button")) {
                     e.stopPropagation();
                     handleCancelClick();
                     break;
@@ -171,17 +171,15 @@ __webpack_require__.r(__webpack_exports__);
     }
     // The update handler cleans the sorting UI and then reengages edit detection.
     function handleUpdateClick() {
-        // eslint-disable-next-line @/no-undef
-        const sortBtns = document.querySelectorAll('.rubric_container.rubric.editing .rubric_table .rubric-move-btns');
-        sortBtns.forEach(btnCell => {
+        const sortBtns = document.querySelectorAll(".rubric_container.rubric.editing .rubric_table .rubric-move-btns");
+        sortBtns.forEach((btnCell) => {
             btnCell.remove();
         });
-        // eslint-disable-next-line @/no-undef
-        const sortHeaders = document.querySelectorAll('.rubric_container.rubric.editing .rubric_table thead .rubric-sort-header');
-        sortHeaders.forEach(th => {
+        const sortHeaders = document.querySelectorAll(".rubric_container.rubric.editing .rubric_table thead .rubric-sort-header");
+        sortHeaders.forEach((th) => {
             th.remove();
         });
-        const currTbody = document.querySelector('.rubric_container.rubric.editing .rubric_table tbody');
+        const currTbody = document.querySelector(".rubric_container.rubric.editing .rubric_table tbody");
         if (currTbody) {
             Array.from(currTbody.rows).forEach((row) => {
                 row.draggable = false;
@@ -205,15 +203,15 @@ __webpack_require__.r(__webpack_exports__);
             if (attached)
                 return;
             console.log("MutationObserver running");
-            const criterionBtn = document.querySelector('.btn.save_button.btn-primary');
-            if (criterionBtn && !criterionBtn.hasAttribute('data-rubric-organize-listener')) {
+            const criterionBtn = document.querySelector(".btn.save_button.btn-primary");
+            if (criterionBtn && !criterionBtn.hasAttribute("data-rubric-organize-listener")) {
                 console.log("criterionBtn detected");
-                criterionBtn.addEventListener('click', () => {
+                criterionBtn.addEventListener("click", () => {
                     console.log("criterionBtn click event heard");
                     handleUpdateClick();
                     attachRowSorter();
                 });
-                criterionBtn.setAttribute('data-rubric-organize-listener', 'true');
+                criterionBtn.setAttribute("data-rubric-organize-listener", "true");
                 attached = true;
                 observer.disconnect();
             }
@@ -239,12 +237,6 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
-/******/ 		// Check if module exists (development only)
-/******/ 		if (__webpack_modules__[moduleId] === undefined) {
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
-/******/ 			e.code = 'MODULE_NOT_FOUND';
-/******/ 			throw e;
-/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			// no module.id needed
@@ -253,6 +245,12 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
