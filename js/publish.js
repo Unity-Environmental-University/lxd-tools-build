@@ -5802,11 +5802,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
-const isReactNative = typeof __webpack_require__.g !== 'undefined' &&
+const isReactNative = typeof globalThis !== 'undefined' &&
 // @ts-ignore
-__webpack_require__.g.navigator &&
+globalThis.navigator &&
 // @ts-ignore
-__webpack_require__.g.navigator.product === 'ReactNative';
+globalThis.navigator.product === 'ReactNative';
 const isDOM = typeof document !== 'undefined';
 
 /**
@@ -8089,18 +8089,17 @@ const apiGetConfig_1 = __importDefault(__webpack_require__(/*! ../fetch/apiGetCo
 const cachedGetAssociatedCoursesFunc_1 = __webpack_require__(/*! ../course/cachedGetAssociatedCoursesFunc */ "./node_modules/@ueu/ueu-canvas/dist/course/cachedGetAssociatedCoursesFunc.js");
 const assert_1 = __importDefault(__webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js"));
 const HOMETILE_WIDTH = 500;
-exports.COURSE_CODE_REGEX = /^(.+[^_])?_?(\w{4}\d{3})/i;
+exports.COURSE_CODE_REGEX = /^(.+[^_])?_?([A-Z]{4}\d{3,4})/i;
 class Course extends baseCanvasObject_1.BaseCanvasObject {
-    static nameProperty = 'name';
+    static nameProperty = "name";
     _modules = undefined;
     modulesByWeekNumber = undefined;
     static contentClasses = [Assignment_1.Assignment, Discussion_1.Discussion, Quiz_1.Quiz, Page_1.Page];
     isBlueprint;
     getAssociatedCourses;
     constructor(data) {
-        console.warn("Course is being deprecated");
         super(data);
-        this.isBlueprint = (() => (0, blueprint_1.isBlueprint)(data));
+        this.isBlueprint = () => (0, blueprint_1.isBlueprint)(data);
         this.getAssociatedCourses = (0, cachedGetAssociatedCoursesFunc_1.cachedGetAssociatedCoursesFunc)(this);
     }
     static async getFromUrl(url = null) {
@@ -8131,14 +8130,14 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
         });
         const url = `/api/v1/accounts/${accountId}/courses`;
         const data = {
-            'event': 'offer',
-            'course_ids': courseIds,
+            event: "offer",
+            course_ids: courseIds,
         };
         return await (0, fetchJson_1.fetchJson)(url, {
             fetchInit: {
-                method: 'PUT',
+                method: "PUT",
                 body: (0, canvasUtils_1.formDataify)(data),
-            }
+            },
         });
     }
     get contentUrlPath() {
@@ -8161,13 +8160,13 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
     }
     get termId() {
         const id = this.canvasData.enrollment_term_id;
-        if (typeof id === 'number')
+        if (typeof id === "number")
             return id;
         else
             return id[0];
     }
     async getTerm() {
-        (0, assert_1.default)(typeof this.termId === 'number');
+        (0, assert_1.default)(typeof this.termId === "number");
         if (this.termId)
             return Term_1.Term.getTermById(this.termId);
         else
@@ -8178,7 +8177,7 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
     }
     get codePrefix() {
         const match = exports.COURSE_CODE_REGEX.exec(this.rawData.course_code);
-        return match ? match[1] : '';
+        return match ? match[1] : "";
     }
     get workflowState() {
         return this.canvasData.workflow_state;
@@ -8198,8 +8197,8 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
         }
         const modules = await (0, canvasUtils_1.renderAsyncGen)((0, modules_1.moduleGenerator)(this.id, {
             queryParams: {
-                include: ['items', 'content_details']
-            }
+                include: ["items", "content_details"],
+            },
         }));
         this._modules = modules;
         return modules;
@@ -8236,11 +8235,11 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
         return false;
     }
     async getInstructors() {
-        return await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/users?enrollment_type=teacher`);
+        return (await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/users?enrollment_type=teacher`));
     }
     async getLatePolicy(config) {
         const latePolicyResult = await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/late_policy`, config);
-        if ('late_policy' in latePolicyResult)
+        if ("late_policy" in latePolicyResult)
             return latePolicyResult.late_policy;
         return undefined;
     }
@@ -8254,11 +8253,11 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
                 out = [...out, ...courseGradingStandards];
             }
             if (account_id) {
-                const accountGradingStandards = await (0, toolbox_1.getGradingStandards)(account_id, 'account', config);
+                const accountGradingStandards = await (0, toolbox_1.getGradingStandards)(account_id, "account", config);
                 out = [...out, ...accountGradingStandards];
             }
             if (root_account_id) {
-                const rootAccountGradingStandards = await (0, toolbox_1.getGradingStandards)(root_account_id, 'account', config);
+                const rootAccountGradingStandards = await (0, toolbox_1.getGradingStandards)(root_account_id, "account", config);
                 out = [...out, ...rootAccountGradingStandards];
             }
         }
@@ -8277,7 +8276,7 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
             if (account_id)
                 urls.push(`/api/v1/accounts/${account_id}/grading_standards/${grading_standard_id}`);
         }
-        const standards = (await this.getAvailableGradingStandards(config)).filter(standard => standard.id === grading_standard_id);
+        const standards = (await this.getAvailableGradingStandards(config)).filter((standard) => standard.id === grading_standard_id);
         if (standards.length == 0)
             return null;
         return standards[0];
@@ -8287,7 +8286,7 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
             return this.modulesByWeekNumber;
         const modules = await this.getModules(config);
         this.modulesByWeekNumber = await (0, modules_1.getModulesByWeekNumber)(modules);
-        return (this.modulesByWeekNumber);
+        return this.modulesByWeekNumber;
     }
     /**
      * Returns a list of links to items in a given module
@@ -8300,13 +8299,13 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
      * if none is specified, return all matches
      */
     async getModuleItemLinks(moduleOrWeekNumber, target) {
-        (0, assert_1.default)(target.hasOwnProperty('type'));
+        (0, assert_1.default)(target.hasOwnProperty("type"));
         const targetType = target.type;
-        const contentSearchString = target.hasOwnProperty('search') ? target.search : null;
+        const contentSearchString = target.hasOwnProperty("search") ? target.search : null;
         let targetIndex = isNaN(target.index) ? null : target.index;
         let targetModuleWeekNumber;
         let targetModule;
-        if (typeof moduleOrWeekNumber === 'number') {
+        if (typeof moduleOrWeekNumber === "number") {
             const modules = await this.getModulesByWeekNumber();
             (0, assert_1.default)(modules.hasOwnProperty(moduleOrWeekNumber));
             targetModuleWeekNumber = moduleOrWeekNumber;
@@ -8317,11 +8316,11 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
             targetModuleWeekNumber = (0, modules_1.getModuleWeekNumber)(targetModule);
         }
         const urls = [];
-        if (targetModule && typeof targetType !== 'undefined') {
+        if (targetModule && typeof targetType !== "undefined") {
             //If it's a page, just search for the parameter string
-            if (targetType === 'Page' && contentSearchString) {
+            if (targetType === "Page" && contentSearchString) {
                 const pages = await this.getPages({
-                    queryParams: { search_term: contentSearchString }
+                    queryParams: { search_term: contentSearchString },
                 });
                 pages.forEach((page) => urls.push(page.htmlContentUrl));
                 //If it's anything else, get only those items in the module and set url to the targetIndexth one.
@@ -8329,7 +8328,7 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
             else if (targetType) {
                 //bump index for week 1 to account for intro discussion / checking for rubric would require pulling too much data
                 //and too much performance overhead
-                if (targetIndex && targetType === 'Discussion' && targetModuleWeekNumber === 1)
+                if (targetIndex && targetType === "Discussion" && targetModuleWeekNumber === 1)
                     targetIndex++;
                 const matchingTypeItems = targetModule.items.filter((item) => item.type === targetType);
                 if (targetIndex && matchingTypeItems.length >= targetIndex) {
@@ -8348,7 +8347,7 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
     async getSyllabus(config = { queryParams: {} }) {
         if (this.canvasData.syllabus_body)
             return this.canvasData.syllabus_body;
-        const data = await (0, toolbox_1.getCourseData)(this.id, (0, utils_1.fetchGetConfig)({ include: ['syllabus_body'] }, config));
+        const data = await (0, toolbox_1.getCourseData)(this.id, (0, utils_1.fetchGetConfig)({ include: ["syllabus_body"] }, config));
         (0, assert_1.default)(data.syllabus_body);
         this.canvasData.syllabus_body = data.syllabus_body;
         return this.canvasData.syllabus_body;
@@ -8359,10 +8358,10 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
     //  * @param config
     //  */
     async getAssignments(config) {
-        console.warn('deprecated, use assignmentDataGen instead');
-        config = (0, utils_1.overrideConfig)(config, { queryParams: { include: ['due_at'] } });
+        console.warn("deprecated, use assignmentDataGen instead");
+        config = (0, utils_1.overrideConfig)(config, { queryParams: { include: ["due_at"] } });
         const assignmentDatas = await (0, canvasUtils_1.renderAsyncGen)((0, assignments_1.assignmentDataGen)(this.id, config));
-        return (assignmentDatas.map(data => new Assignment_1.Assignment(data, this.id)));
+        return assignmentDatas.map((data) => new Assignment_1.Assignment(data, this.id));
     }
     cachedContent = [];
     async getContent(config, refresh = false) {
@@ -8373,32 +8372,32 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
             const pages = await this.getPages(config);
             this.cachedContent = [
                 ...discussions,
-                ...assignments.map(a => new Assignment_1.Assignment(a, this.id)),
+                ...assignments.map((a) => new Assignment_1.Assignment(a, this.id)),
                 ...quizzes,
-                ...pages
+                ...pages,
             ];
         }
         return this.cachedContent;
     }
     async getDiscussions(config) {
-        return await Discussion_1.Discussion.getAllInCourse(this.id, config);
+        return (await Discussion_1.Discussion.getAllInCourse(this.id, config));
     }
     async getAssignmentGroups(config) {
         return await (0, getPagedDataGenerator_1.getPagedData)(`/api/v1/courses/${this.id}/assignment_groups`, config);
     }
     async getQuizzes(config) {
-        return await Quiz_1.Quiz.getAllInCourse(this.id, config);
+        return (await Quiz_1.Quiz.getAllInCourse(this.id, config));
     }
     async getSubsections() {
         const url = `/api/v1/courses/${this.id}/sections`;
         return await (0, fetchJson_1.fetchJson)(url);
     }
     async getTabs(config) {
-        return await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/tabs`, config);
+        return (await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/tabs`, config));
     }
     async getFrontPage() {
         try {
-            const data = await (0, fetchJson_1.fetchJson)(`${this.contentUrlPath}/front_page`);
+            const data = (await (0, fetchJson_1.fetchJson)(`${this.contentUrlPath}/front_page`));
             return new Page_1.Page(data, this.id);
         }
         catch (error) {
@@ -8414,37 +8413,37 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
         this.canvasData = reloaded.rawData;
     }
     async changeSyllabus(newHtml) {
-        this.canvasData['syllabus_body'] = newHtml;
+        this.canvasData["syllabus_body"] = newHtml;
         return await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}`, {
             fetchInit: {
-                method: 'PUT',
+                method: "PUT",
                 body: (0, canvasUtils_1.formDataify)({
                     course: {
-                        syllabus_body: newHtml
-                    }
-                })
-            }
+                        syllabus_body: newHtml,
+                    },
+                }),
+            },
         });
     }
     async publish() {
         const url = `/api/v1/courses/${this.id}`;
         const courseData = await (0, fetchJson_1.fetchJson)(url, {
             fetchInit: {
-                method: 'PUT',
-                body: (0, canvasUtils_1.formDataify)({ 'offer': true })
-            }
+                method: "PUT",
+                body: (0, canvasUtils_1.formDataify)({ offer: true }),
+            },
         });
         console.log(courseData);
         this.canvasData = courseData;
     }
     get devCode() {
-        return 'DEV_' + this.baseCode;
+        return "DEV_" + this.baseCode;
     }
     async getParentCourse(return_dev_search = false) {
         const migrations = await (0, getPagedDataGenerator_1.getPagedData)(`/api/v1/courses/${this.id}/content_migrations`);
         const parentCode = this.devCode;
         if (migrations.length < 1) {
-            console.log('no migrations found');
+            console.log("no migrations found");
             if (return_dev_search) {
                 return (0, toolbox_1.getSingleCourse)(parentCode, this.getAccountIds());
             }
@@ -8454,7 +8453,7 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
         migrations.sort((a, b) => b.id - a.id);
         try {
             for (const migration of migrations) {
-                const course = await Course.getCourseById(migration['settings']['source_course_id']);
+                const course = await Course.getCourseById(migration["settings"]["source_course_id"]);
                 if (course && course.codePrefix.includes("DEV"))
                     return course;
             }
@@ -8465,7 +8464,7 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
         return await (0, toolbox_1.getSingleCourse)(parentCode, this.getAccountIds());
     }
     getAccountIds() {
-        return [this.accountId, this.rootAccountId].filter(a => typeof a !== 'undefined' && a !== null);
+        return [this.accountId, this.rootAccountId].filter((a) => typeof a !== "undefined" && a !== null);
     }
     // async regenerateHomeTiles() {
     //     const modules = await this.getModules();
@@ -8504,7 +8503,7 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
         }
         catch (e) {
             return {
-                bio: 'NOT FOUND',
+                bio: "NOT FOUND",
                 sourcePage: frontPage,
             };
         }
@@ -8525,11 +8524,11 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
         }
     }
     async getSettings(config) {
-        return await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/settings`, config);
+        return (await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/settings`, config));
     }
     async updateSettings(newSettings, config) {
         const configToUse = (0, apiGetConfig_1.default)(newSettings, config);
-        return await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/settings`, configToUse);
+        return (await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/settings`, configToUse));
     }
 }
 exports.Course = Course;
@@ -8718,7 +8717,7 @@ function genBlueprintDataForCode(courseCode, accountIds, queryParams) {
     }
     return (0, toolbox_1.getCourseDataGenerator)(baseCode, accountIds, undefined, (0, utils_1.fetchGetConfig)({
         blueprint: true,
-        include: ['concluded'],
+        include: ["concluded"],
     }, { queryParams }));
 }
 function sectionDataGenerator(courseId, config) {
@@ -8727,15 +8726,15 @@ function sectionDataGenerator(courseId, config) {
 }
 async function beginBpSync(courseId, { message, copy_settings, config }) {
     const url = `/api/v1/courses/${courseId}/blueprint_templates/default/migrations`;
-    if (typeof copy_settings === 'undefined')
+    if (typeof copy_settings === "undefined")
         copy_settings = true;
-    return await (0, fetchJson_1.fetchJson)(url, (0, apiWriteConfig_1.default)('POST', {
+    return await (0, fetchJson_1.fetchJson)(url, (0, apiWriteConfig_1.default)("POST", {
         message,
-        copy_settings
+        copy_settings,
     }, config));
 }
 async function getBlueprintsFromCode(code, accountIds, config) {
-    const [_, baseCode] = code.match(/_(\w{4}\d{3})$/) || [];
+    const [_, baseCode] = code.match(/_(\w{4}\d{3,4})$/) || [];
     if (!baseCode)
         return null;
     const bps = (0, toolbox_1.getCourseGenerator)(`BP_${baseCode}`, accountIds, undefined, config);
@@ -8743,23 +8742,23 @@ async function getBlueprintsFromCode(code, accountIds, config) {
 }
 async function lockBlueprint(courseId, modules) {
     let items = [];
-    items = items.concat(...modules.map(a => [].concat(...a.items)));
+    items = items.concat(...modules.map((a) => [].concat(...a.items)));
     const promises = items.map(async (item) => {
         const url = `/api/v1/courses/${courseId}/blueprint_templates/default/restrict_item`;
         const { type, id } = await (0, canvasUtils_1.getItemTypeAndId)(item);
-        if (typeof id === 'undefined')
+        if (typeof id === "undefined")
             return;
         const body = {
-            "content_type": type,
-            "content_id": id,
-            "restricted": true,
-            "_method": 'PUT'
+            content_type: type,
+            content_id: id,
+            restricted: true,
+            _method: "PUT",
         };
         await (0, fetchJson_1.fetchJson)(url, {
             fetchInit: {
-                method: 'PUT',
-                body: (0, canvasUtils_1.formDataify)(body)
-            }
+                method: "PUT",
+                body: (0, canvasUtils_1.formDataify)(body),
+            },
         });
     });
     await Promise.all(promises);
@@ -8775,19 +8774,19 @@ async function setAsBlueprint(courseId, config) {
                 points: 1,
                 due_dates: 1,
                 availability_dates: 1,
-            }
-        }
+            },
+        },
     };
-    return await (0, fetchJson_1.fetchJson)(url, (0, apiWriteConfig_1.default)('PUT', payload, config));
+    return (await (0, fetchJson_1.fetchJson)(url, (0, apiWriteConfig_1.default)("PUT", payload, config)));
 }
 async function unSetAsBlueprint(courseId, config) {
     const url = `/api/v1/courses/${courseId}`;
     const payload = {
         course: {
-            blueprint: false
-        }
+            blueprint: false,
+        },
     };
-    return await (0, fetchJson_1.fetchJson)(url, (0, apiWriteConfig_1.default)("PUT", payload, config));
+    return (await (0, fetchJson_1.fetchJson)(url, (0, apiWriteConfig_1.default)("PUT", payload, config)));
 }
 //# sourceMappingURL=blueprint.js.map
 
@@ -36730,7 +36729,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ purify)
 /* harmony export */ });
-/*! @license DOMPurify 3.3.3 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.3.3/LICENSE */
+/*! @license DOMPurify 3.4.0 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.4.0/LICENSE */
 
 const {
   entries,
@@ -36931,7 +36930,7 @@ const text = freeze(['#text']);
 
 const html = freeze(['accept', 'action', 'align', 'alt', 'autocapitalize', 'autocomplete', 'autopictureinpicture', 'autoplay', 'background', 'bgcolor', 'border', 'capture', 'cellpadding', 'cellspacing', 'checked', 'cite', 'class', 'clear', 'color', 'cols', 'colspan', 'controls', 'controlslist', 'coords', 'crossorigin', 'datetime', 'decoding', 'default', 'dir', 'disabled', 'disablepictureinpicture', 'disableremoteplayback', 'download', 'draggable', 'enctype', 'enterkeyhint', 'exportparts', 'face', 'for', 'headers', 'height', 'hidden', 'high', 'href', 'hreflang', 'id', 'inert', 'inputmode', 'integrity', 'ismap', 'kind', 'label', 'lang', 'list', 'loading', 'loop', 'low', 'max', 'maxlength', 'media', 'method', 'min', 'minlength', 'multiple', 'muted', 'name', 'nonce', 'noshade', 'novalidate', 'nowrap', 'open', 'optimum', 'part', 'pattern', 'placeholder', 'playsinline', 'popover', 'popovertarget', 'popovertargetaction', 'poster', 'preload', 'pubdate', 'radiogroup', 'readonly', 'rel', 'required', 'rev', 'reversed', 'role', 'rows', 'rowspan', 'spellcheck', 'scope', 'selected', 'shape', 'size', 'sizes', 'slot', 'span', 'srclang', 'start', 'src', 'srcset', 'step', 'style', 'summary', 'tabindex', 'title', 'translate', 'type', 'usemap', 'valign', 'value', 'width', 'wrap', 'xmlns', 'slot']);
 const svg = freeze(['accent-height', 'accumulate', 'additive', 'alignment-baseline', 'amplitude', 'ascent', 'attributename', 'attributetype', 'azimuth', 'basefrequency', 'baseline-shift', 'begin', 'bias', 'by', 'class', 'clip', 'clippathunits', 'clip-path', 'clip-rule', 'color', 'color-interpolation', 'color-interpolation-filters', 'color-profile', 'color-rendering', 'cx', 'cy', 'd', 'dx', 'dy', 'diffuseconstant', 'direction', 'display', 'divisor', 'dur', 'edgemode', 'elevation', 'end', 'exponent', 'fill', 'fill-opacity', 'fill-rule', 'filter', 'filterunits', 'flood-color', 'flood-opacity', 'font-family', 'font-size', 'font-size-adjust', 'font-stretch', 'font-style', 'font-variant', 'font-weight', 'fx', 'fy', 'g1', 'g2', 'glyph-name', 'glyphref', 'gradientunits', 'gradienttransform', 'height', 'href', 'id', 'image-rendering', 'in', 'in2', 'intercept', 'k', 'k1', 'k2', 'k3', 'k4', 'kerning', 'keypoints', 'keysplines', 'keytimes', 'lang', 'lengthadjust', 'letter-spacing', 'kernelmatrix', 'kernelunitlength', 'lighting-color', 'local', 'marker-end', 'marker-mid', 'marker-start', 'markerheight', 'markerunits', 'markerwidth', 'maskcontentunits', 'maskunits', 'max', 'mask', 'mask-type', 'media', 'method', 'mode', 'min', 'name', 'numoctaves', 'offset', 'operator', 'opacity', 'order', 'orient', 'orientation', 'origin', 'overflow', 'paint-order', 'path', 'pathlength', 'patterncontentunits', 'patterntransform', 'patternunits', 'points', 'preservealpha', 'preserveaspectratio', 'primitiveunits', 'r', 'rx', 'ry', 'radius', 'refx', 'refy', 'repeatcount', 'repeatdur', 'restart', 'result', 'rotate', 'scale', 'seed', 'shape-rendering', 'slope', 'specularconstant', 'specularexponent', 'spreadmethod', 'startoffset', 'stddeviation', 'stitchtiles', 'stop-color', 'stop-opacity', 'stroke-dasharray', 'stroke-dashoffset', 'stroke-linecap', 'stroke-linejoin', 'stroke-miterlimit', 'stroke-opacity', 'stroke', 'stroke-width', 'style', 'surfacescale', 'systemlanguage', 'tabindex', 'tablevalues', 'targetx', 'targety', 'transform', 'transform-origin', 'text-anchor', 'text-decoration', 'text-rendering', 'textlength', 'type', 'u1', 'u2', 'unicode', 'values', 'viewbox', 'visibility', 'version', 'vert-adv-y', 'vert-origin-x', 'vert-origin-y', 'width', 'word-spacing', 'wrap', 'writing-mode', 'xchannelselector', 'ychannelselector', 'x', 'x1', 'x2', 'xmlns', 'y', 'y1', 'y2', 'z', 'zoomandpan']);
-const mathMl = freeze(['accent', 'accentunder', 'align', 'bevelled', 'close', 'columnsalign', 'columnlines', 'columnspan', 'denomalign', 'depth', 'dir', 'display', 'displaystyle', 'encoding', 'fence', 'frame', 'height', 'href', 'id', 'largeop', 'length', 'linethickness', 'lspace', 'lquote', 'mathbackground', 'mathcolor', 'mathsize', 'mathvariant', 'maxsize', 'minsize', 'movablelimits', 'notation', 'numalign', 'open', 'rowalign', 'rowlines', 'rowspacing', 'rowspan', 'rspace', 'rquote', 'scriptlevel', 'scriptminsize', 'scriptsizemultiplier', 'selection', 'separator', 'separators', 'stretchy', 'subscriptshift', 'supscriptshift', 'symmetric', 'voffset', 'width', 'xmlns']);
+const mathMl = freeze(['accent', 'accentunder', 'align', 'bevelled', 'close', 'columnalign', 'columnlines', 'columnspacing', 'columnspan', 'denomalign', 'depth', 'dir', 'display', 'displaystyle', 'encoding', 'fence', 'frame', 'height', 'href', 'id', 'largeop', 'length', 'linethickness', 'lquote', 'lspace', 'mathbackground', 'mathcolor', 'mathsize', 'mathvariant', 'maxsize', 'minsize', 'movablelimits', 'notation', 'numalign', 'open', 'rowalign', 'rowlines', 'rowspacing', 'rowspan', 'rspace', 'rquote', 'scriptlevel', 'scriptminsize', 'scriptsizemultiplier', 'selection', 'separator', 'separators', 'stretchy', 'subscriptshift', 'supscriptshift', 'symmetric', 'voffset', 'width', 'xmlns']);
 const xml = freeze(['xlink:href', 'xml:id', 'xlink:title', 'xml:space', 'xmlns:xlink']);
 
 // eslint-disable-next-line unicorn/better-regex
@@ -36966,20 +36965,11 @@ var EXPRESSIONS = /*#__PURE__*/Object.freeze({
 // https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
 const NODE_TYPE = {
   element: 1,
-  attribute: 2,
   text: 3,
-  cdataSection: 4,
-  entityReference: 5,
-  // Deprecated
-  entityNode: 6,
   // Deprecated
   progressingInstruction: 7,
   comment: 8,
-  document: 9,
-  documentType: 10,
-  documentFragment: 11,
-  notation: 12 // Deprecated
-};
+  document: 9};
 const getGlobal = function getGlobal() {
   return typeof window === 'undefined' ? null : window;
 };
@@ -37037,7 +37027,7 @@ const _createHooksMap = function _createHooksMap() {
 function createDOMPurify() {
   let window = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : getGlobal();
   const DOMPurify = root => createDOMPurify(root);
-  DOMPurify.version = '3.3.3';
+  DOMPurify.version = '3.4.0';
   DOMPurify.removed = [];
   if (!window || !window.document || window.document.nodeType !== NODE_TYPE.document || !window.Element) {
     // Not running in a browser, provide a factory function
@@ -37313,7 +37303,7 @@ function createDOMPurify() {
     NAMESPACE = cfg.NAMESPACE || HTML_NAMESPACE;
     MATHML_TEXT_INTEGRATION_POINTS = cfg.MATHML_TEXT_INTEGRATION_POINTS || MATHML_TEXT_INTEGRATION_POINTS;
     HTML_INTEGRATION_POINTS = cfg.HTML_INTEGRATION_POINTS || HTML_INTEGRATION_POINTS;
-    CUSTOM_ELEMENT_HANDLING = cfg.CUSTOM_ELEMENT_HANDLING || {};
+    CUSTOM_ELEMENT_HANDLING = cfg.CUSTOM_ELEMENT_HANDLING || create(null);
     if (cfg.CUSTOM_ELEMENT_HANDLING && isRegexOrFunction(cfg.CUSTOM_ELEMENT_HANDLING.tagNameCheck)) {
       CUSTOM_ELEMENT_HANDLING.tagNameCheck = cfg.CUSTOM_ELEMENT_HANDLING.tagNameCheck;
     }
@@ -37353,13 +37343,10 @@ function createDOMPurify() {
         addToSet(ALLOWED_ATTR, xml);
       }
     }
-    /* Prevent function-based ADD_ATTR / ADD_TAGS from leaking across calls */
-    if (!objectHasOwnProperty(cfg, 'ADD_TAGS')) {
-      EXTRA_ELEMENT_HANDLING.tagCheck = null;
-    }
-    if (!objectHasOwnProperty(cfg, 'ADD_ATTR')) {
-      EXTRA_ELEMENT_HANDLING.attributeCheck = null;
-    }
+    /* Always reset function-based ADD_TAGS / ADD_ATTR checks to prevent
+     * leaking across calls when switching from function to array config */
+    EXTRA_ELEMENT_HANDLING.tagCheck = null;
+    EXTRA_ELEMENT_HANDLING.attributeCheck = null;
     /* Merge configuration parameters */
     if (cfg.ADD_TAGS) {
       if (typeof cfg.ADD_TAGS === 'function') {
@@ -37682,6 +37669,11 @@ function createDOMPurify() {
       _forceRemove(currentNode);
       return true;
     }
+    /* Remove risky CSS construction leading to mXSS */
+    if (SAFE_FOR_XML && currentNode.namespaceURI === HTML_NAMESPACE && tagName === 'style' && _isNode(currentNode.firstElementChild)) {
+      _forceRemove(currentNode);
+      return true;
+    }
     /* Remove any occurrence of processing instructions */
     if (currentNode.nodeType === NODE_TYPE.progressingInstruction) {
       _forceRemove(currentNode);
@@ -37693,7 +37685,7 @@ function createDOMPurify() {
       return true;
     }
     /* Remove element if anything forbids its presence */
-    if (!(EXTRA_ELEMENT_HANDLING.tagCheck instanceof Function && EXTRA_ELEMENT_HANDLING.tagCheck(tagName)) && (!ALLOWED_TAGS[tagName] || FORBID_TAGS[tagName])) {
+    if (FORBID_TAGS[tagName] || !(EXTRA_ELEMENT_HANDLING.tagCheck instanceof Function && EXTRA_ELEMENT_HANDLING.tagCheck(tagName)) && !ALLOWED_TAGS[tagName]) {
       /* Check if we have a custom element to handle */
       if (!FORBID_TAGS[tagName] && _isBasicCustomElement(tagName)) {
         if (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, tagName)) {
@@ -37932,7 +37924,7 @@ function createDOMPurify() {
    *
    * @param fragment to iterate over recursively
    */
-  const _sanitizeShadowDOM = function _sanitizeShadowDOM(fragment) {
+  const _sanitizeShadowDOM2 = function _sanitizeShadowDOM(fragment) {
     let shadowNode = null;
     const shadowIterator = _createNodeIterator(fragment);
     /* Execute a hook if present */
@@ -37946,7 +37938,7 @@ function createDOMPurify() {
       _sanitizeAttributes(shadowNode);
       /* Deep shadow DOM detected */
       if (shadowNode.content instanceof DocumentFragment) {
-        _sanitizeShadowDOM(shadowNode.content);
+        _sanitizeShadowDOM2(shadowNode.content);
       }
     }
     /* Execute a hook if present */
@@ -38041,7 +38033,7 @@ function createDOMPurify() {
       _sanitizeAttributes(currentNode);
       /* Shadow DOM detected, sanitize it */
       if (currentNode.content instanceof DocumentFragment) {
-        _sanitizeShadowDOM(currentNode.content);
+        _sanitizeShadowDOM2(currentNode.content);
       }
     }
     /* If we sanitized `dirty` in-place, return it. */
@@ -38050,6 +38042,14 @@ function createDOMPurify() {
     }
     /* Return sanitized string or DOM */
     if (RETURN_DOM) {
+      if (SAFE_FOR_TEMPLATES) {
+        body.normalize();
+        let html = body.innerHTML;
+        arrayForEach([MUSTACHE_EXPR, ERB_EXPR, TMPLIT_EXPR], expr => {
+          html = stringReplace(html, expr, ' ');
+        });
+        body.innerHTML = html;
+      }
       if (RETURN_DOM_FRAGMENT) {
         returnNode = createDocumentFragment.call(body.ownerDocument);
         while (body.firstChild) {
@@ -42668,10 +42668,10 @@ module.exports = equalObjects;
 /*!********************************************!*\
   !*** ./node_modules/lodash/_freeGlobal.js ***!
   \********************************************/
-(module, __unused_webpack_exports, __webpack_require__) {
+(module) {
 
 /** Detect free variable `global` from Node.js. */
-var freeGlobal = typeof __webpack_require__.g == 'object' && __webpack_require__.g && __webpack_require__.g.Object === Object && __webpack_require__.g;
+var freeGlobal = typeof globalThis == 'object' && globalThis && globalThis.Object === Object && globalThis;
 
 module.exports = freeGlobal;
 
@@ -43743,7 +43743,7 @@ module.exports = setCacheAdd;
  * @name has
  * @memberOf SetCache
  * @param {*} value The value to search for.
- * @returns {number} Returns `true` if `value` is found, else `false`.
+ * @returns {boolean} Returns `true` if `value` is found, else `false`.
  */
 function setCacheHas(value) {
   return this.__data__.has(value);
@@ -96509,6 +96509,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   finalNotInGradingPolicyParaTest: () => (/* binding */ finalNotInGradingPolicyParaTest),
 /* harmony export */   fixSupportEmailTest: () => (/* binding */ fixSupportEmailTest),
+/* harmony export */   gradAIPolicyTest: () => (/* binding */ gradAIPolicyTest),
+/* harmony export */   gradDiscussionExpectationsTest: () => (/* binding */ gradDiscussionExpectationsTest),
+/* harmony export */   gradLearningAccommodationsTest: () => (/* binding */ gradLearningAccommodationsTest),
+/* harmony export */   gradStatementOnFairPracticesTest: () => (/* binding */ gradStatementOnFairPracticesTest),
+/* harmony export */   gradTechnicalSupportTest: () => (/* binding */ gradTechnicalSupportTest),
 /* harmony export */   gradeTableHeadersCorrectTest: () => (/* binding */ gradeTableHeadersCorrectTest),
 /* harmony export */   gradingDeadlineLanguageTest: () => (/* binding */ gradingDeadlineLanguageTest),
 /* harmony export */   gradingPolicyTest: () => (/* binding */ gradingPolicyTest),
@@ -96545,21 +96550,63 @@ const finalNotInGradingPolicyParaTest = {
     },
     fix: (0,_utils__WEBPACK_IMPORTED_MODULE_1__.badSyllabusFixFunc)(/off the final grade/gi, "off the grade"),
 };
+const ugCommunicationHtml = `<h3><strong>Communication</strong></h3><div><p>The instructor will conduct all correspondence with students related to the class in Canvas, and you should expect to receive a response to emails within 24 hours. Students are also expected to check email at least once every 24 hours. While instructors are not required to have a set list of standard office hours each week, faculty are expected to be available to meet with students to achieve the same goals as typical office hours based on requests from students, and to respond to requests within the response windows described above.</p><p>Please remember to start assignments early so you have time to ask questions and get answers before the due date. Instructors are encouraged to post announcements at least once a week, so please check your Canvas profile to make sure that Announcements are sent to your preferred communication pathway.</p><p>While all course-specific communication should take place in Canvas, remember to check your @unity.edu email account regularly for important communication from advisors/concierges and other Unity Environmental University offices. If your @unity.edu email account isn't working, reach out to <a class="inline_disabled external" href="https://unity.edu/contact-us/" target="_blank" rel="noopener"><span>Unity Environmental University's IT Support </span></a>for assistance.</p><p>Non-degree students without a @unity.edu email account can expect to receive correspondence from Unity Environmental University administrative staff via the email account used to sign up for classes.</p></div>`;
+const gradCommunicationHtml = `<h3><strong>Communication</strong></h3><div><p>All course communication will occur through Canvas. Instructors respond to messages within 24 hours, and students are expected to check Canvas and email at least once daily. Faculty hold flexible office hours by request and will coordinate meeting times within this same response window.</p><p>Start assignments early to allow time for questions before deadlines. Instructors typically post weekly announcements&mdash;please ensure your Canvas notifications are set to your preferred contact method.</p><p>Check your @unity.edu email regularly for university updates from advisors, faculty, and other offices. If you experience email issues, contact <a href="https://unity.edu/contact-us/">Unity Environmental University IT Support</a>.</p><p>Non-degree students without a @unity.edu address will receive communication through the email used at registration.</p></div>`;
 const communication24HoursTest = {
     name: "Syllabus - Within 24 Hours",
-    description: 'Revise the top sentence of the "Communication" section of the syllabus to read: "The instructor will ' +
-        "conduct all correspondence with students related to the class in Canvas, and you should " +
-        'expect to receive a response to emails within 24 hours."',
-    run: async (course, _config) => {
+    description: "UG: Communication section must open with the standard 24-hour response sentence. " +
+        "Grad: Communication section must contain the grad-specific 24-hour response language.",
+    async run(course, _config) {
         var _a;
         const syllabus = await course.getSyllabus();
-        const testString = "The instructor will conduct all correspondence with students related to the class in Canvas, and you should expect to receive a response to emails within 24 hours".toLowerCase();
         const el = document.createElement("div");
         el.innerHTML = syllabus;
-        const text = ((_a = el.textContent) === null || _a === void 0 ? void 0 : _a.toLowerCase()) || "";
+        const text = (((_a = el.textContent) === null || _a === void 0 ? void 0 : _a.toLowerCase()) || "").replace(/\s+/g, " ");
         const failureMessage = "Communication language section in syllabus does not look right.";
         const links = [`/courses/${course.id}/assignments/syllabus`];
-        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(text.includes(testString) && !text.match(/48 hours .* weekends/), { failureMessage, links });
+        const courseObj = new _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_3__.Course(course.rawData);
+        if (courseObj.isGrad()) {
+            const gradTestString = "Instructors respond to messages within 24 hours".toLowerCase();
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(text.includes(gradTestString) && !text.match(/48 hours .* weekends/), {
+                failureMessage,
+                links,
+            });
+        }
+        const ugTestString = "The instructor will conduct all correspondence with students related to the class in Canvas, and you should expect to receive a response to emails within 24 hours".toLowerCase();
+        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(text.includes(ugTestString) && !text.match(/48 hours .* weekends/), { failureMessage, links });
+    },
+    async fix(course) {
+        const { success } = await this.run(course);
+        if (success)
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+                notFailureMessage: "Communication section already correct.",
+            });
+        const syllabus = await course.getSyllabus();
+        const el = htmlDiv(syllabus);
+        const links = [`/courses/${course.id}/assignments/syllabus`];
+        const commH3 = [...el.querySelectorAll("h3")].find((h3) => { var _a, _b; return ((_b = (_a = h3.innerText) !== null && _a !== void 0 ? _a : h3.textContent) !== null && _b !== void 0 ? _b : "").trim() === "Communication"; });
+        if (!commH3)
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(false, {
+                failureMessage: "Communication section heading not found.",
+                links,
+            });
+        const commTd = commH3.closest("td");
+        if (!commTd)
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(false, {
+                failureMessage: "Communication section table cell not found.",
+                links,
+            });
+        const courseObj = new _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_3__.Course(course.rawData);
+        commTd.innerHTML = courseObj.isGrad()
+            ? gradCommunicationHtml
+            : ugCommunicationHtml;
+        try {
+            await course.changeSyllabus(el.innerHTML);
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(true, { links });
+        }
+        catch (e) {
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.errorMessageResult)(e);
+        }
     },
 };
 const courseCreditsInSyllabusTest = {
@@ -96573,7 +96620,10 @@ const courseCreditsInSyllabusTest = {
         const creditList = Array.from(strongs).filter((strong) => /credits/i.test(strong.textContent || ""));
         const links = [`/courses/${course.id}/assignments/syllabus`];
         const failureMessage = "Can't find credits in syllabus";
-        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(creditList && creditList.length > 0, { failureMessage, links });
+        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(creditList && creditList.length > 0, {
+            failureMessage,
+            links,
+        });
     },
 };
 const classInclusiveDatesLanguageRegex = /<p>\s*<strong>\s*Class Inclusive[\s:]*<\/strong>[\s:]*(.*)<\/p>/gi;
@@ -96694,9 +96744,13 @@ const correctSecondPara = 'To access a discussion\'s grading rubric, click on th
 const secondDiscussionParaOff = {
     name: "Second discussion expectation paragraph",
     description: 'To access a discussion\'s grading rubric, click on the "View Rubric" button in the discussion directions and/or the "Dot Dot Dot" ' +
-        '(for screen readers, titled "Manage this Discussion") button in the upper right corner of the discussion, and then click "show rubric".',
+        '(for screen readers, titled "Manage this Discussion") button in the upper right corner of the discussion, and then click "show rubric". (Skipped for grad courses which have a different discussion structure.)',
     async run(course) {
         var _a, _b;
+        if (new _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_3__.Course(course.rawData).isGrad())
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+                notFailureMessage: "Skipped for grad courses — discussion structure differs.",
+            });
         const el = htmlDiv(await course.getSyllabus());
         const secondPara = findSecondParaOfDiscExpect(el);
         const userData = { el, secondPara };
@@ -96706,18 +96760,25 @@ const secondDiscussionParaOff = {
                 userData,
             });
         const secondParaText = (_b = (_a = secondPara.textContent) !== null && _a !== void 0 ? _a : secondPara.innerText) !== null && _b !== void 0 ? _b : "";
-        const success = secondParaText.toLowerCase().replace(/\W*/, "") === correctSecondPara.toLowerCase().replace(/\W*/, "");
+        const success = secondParaText.toLowerCase().replace(/\W*/, "") ===
+            correctSecondPara.toLowerCase().replace(/\W*/, "");
         return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(success, {
             failureMessage: `Second paragraph does not match ${correctSecondPara}`,
             userData,
         });
     },
     async fix(course) {
+        if (new _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_3__.Course(course.rawData).isGrad())
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+                notFailureMessage: "Skipped for grad courses — discussion structure differs.",
+            });
         const { success, userData } = await this.run(course);
         if (success)
             return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", { notFailureMessage: "No need to run fix" });
         if (!(userData === null || userData === void 0 ? void 0 : userData.secondPara))
-            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(false, { failureMessage: "There was a problem accessing the syllabus." });
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(false, {
+                failureMessage: "There was a problem accessing the syllabus.",
+            });
         const { el, secondPara } = userData;
         secondPara.innerHTML = correctSecondPara;
         try {
@@ -96779,12 +96840,24 @@ const latePolicyTableTest = {
             `<div><h2>Grading</h2><h3>Grading Policies</h3><p>Lorem</p>${tableHtml}<h3>Grading Scale</h3><div class="cbt-table"><table></table></div><p>ipsum</p></div>`,
         ],
     ],
-    description: `Add the late policy table to the grading section of the syllabus. The table should look like this: ${tableHtml}`,
-    run: runLatePolicyTableCheck,
+    description: `Add the late policy table to the grading section of the syllabus. The table should look like this: ${tableHtml} (Skipped for grad courses.)`,
+    run: async (course) => {
+        if (new _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_3__.Course(course.rawData).isGrad())
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+                notFailureMessage: "Late policy table check skipped for grad courses.",
+            });
+        return runLatePolicyTableCheck(course);
+    },
     fix: async (course) => {
+        if (new _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_3__.Course(course.rawData).isGrad())
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+                notFailureMessage: "Late policy table fix skipped for grad courses.",
+            });
         const results = await runLatePolicyTableCheck(course);
         if (results.success)
-            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", { notFailureMessage: "Late policy table already exists." });
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+                notFailureMessage: "Late policy table already exists.",
+            });
         const syllabus = await course.getSyllabus();
         const el = htmlDiv(syllabus);
         const gradingHeaderText = "Grading Scale";
@@ -96844,8 +96917,9 @@ const fixSupportEmailTest = {
 };
 const ugSearchString = "students be honest in all academic work";
 const ugHonorCodeLinkPhrase = "?docid=3341";
-// TODO; New Honor Code Syllabus language for grad needed here
-const gradSearchString = `NEW HONOR CODE SYLLABUS LANGUAGE HERE`;
+const gradHonorCodeSearchString = "Academic Integrity and the Graduate Honor Code";
+const gradHonorCodeLinkPhrase = "?docid=3327";
+const gradHonorCodeHtml = `<h3><strong>Academic Integrity and the Graduate Honor Code</strong></h3><p>Unity Environmental University expects graduate students to uphold the highest standards of academic integrity in all coursework and scholarship. This includes producing original work, citing sources accurately, acknowledging collaboration, and using AI tools responsibly.</p><p>Academic dishonesty includes (but is not limited to) plagiarism, falsifying data or citations, unauthorized collaboration, misrepresenting authorship, or submitting AI-generated content without meaningful human review and authorship.</p><p>Violations are cumulative across terms and may result in academic penalties up to and including dismissal. A first low-level issue may be treated as a learning opportunity; repeated or serious offenses become formal violations recorded with the Dean&rsquo;s office.</p><p>Unity uses Turnitin to support academic integrity. When Turnitin is enabled, you must agree that the work submitted is your own, with all sources properly cited.</p><p>The complete policy can be found in the <a href="https://unitycollege.policytech.com/dotNet/documents/?docid=3327&amp;app=pt&amp;source=unspecified&amp;public=true">Graduate Academic Honor Code</a>.</p>`;
 const honorCodeCheck = {
     name: "Syllabus Honor Code Check",
     description: "Checks for outdated honor code section in syllabus and replaces it with new language.",
@@ -96870,29 +96944,41 @@ const honorCodeCheck = {
             return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(!honorCodeTable, {
                 failureMessage: "Syllabus honor code section is missing or has incorrect language/link.",
                 notFailureMessage: "Honor code table is up to date.",
-                userData: { parsedSyllabus, honorCodeTable, course },
+                userData: {
+                    parsedSyllabus,
+                    honorCodeTable,
+                    course,
+                },
             });
         }
-        // Grad check checks for the grad syllabus language to make sure it doesn't contain the old language or UG language
+        // Grad check: passes only when the correct grad heading and link are both present
         if (course.isGrad()) {
-            //Check for new language and flag if it is the new language
             for (const table of tables) {
-                if ((_c = table.textContent) === null || _c === void 0 ? void 0 : _c.includes(gradSearchString)) {
+                const hasGradHeader = (_c = table.textContent) === null || _c === void 0 ? void 0 : _c.includes(gradHonorCodeSearchString);
+                const hasGradLink = table.innerHTML.includes(gradHonorCodeLinkPhrase);
+                if (hasGradHeader && hasGradLink) {
                     honorCodeTable = table;
                 }
             }
-            // The test passes if the honor code table is not undefined(it found that textContent includes the searchString)
             return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(honorCodeTable !== undefined, {
-                failureMessage: "Syllabus contains incorrect honor code language",
+                failureMessage: "Syllabus is missing the Graduate Honor Code section or has incorrect content/link.",
                 notFailureMessage: "Honor code table is up to date.",
-                userData: { parsedSyllabus, honorCodeTable, course },
+                userData: {
+                    parsedSyllabus,
+                    honorCodeTable,
+                    course,
+                },
             });
         }
-        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", { notFailureMessage: "Not run because course is not grad or undergrad" });
+        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+            notFailureMessage: "Not run because course is not grad or undergrad",
+        });
     },
     async fix(bp, results) {
         if (!results)
-            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", { notFailureMessage: "Fix did not run because results of test are unknown" });
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+                notFailureMessage: "Fix did not run because results of test are unknown",
+            });
         if (results === null || results === void 0 ? void 0 : results.success)
             return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
                 notFailureMessage: "Fix did not run because syllabus honor code section is correct.",
@@ -96903,18 +96989,19 @@ const honorCodeCheck = {
         const parser = new DOMParser();
         const parsedSyllabus = parser.parseFromString(syllabus, "text/html");
         const tables = Array.from(parsedSyllabus.querySelectorAll("table"));
-        const honorCodeTable = tables.find((table) => {
-            var _a, _b;
-            const hasOldLanguage = (_a = table.textContent) === null || _a === void 0 ? void 0 : _a.includes(ugSearchString);
-            const hasHonorCodeText = (_b = table.textContent) === null || _b === void 0 ? void 0 : _b.toLowerCase().includes("honor code");
-            const hasNewLink = table.innerHTML.includes(ugHonorCodeLinkPhrase);
-            return hasOldLanguage || (hasHonorCodeText && !hasNewLink);
-        });
-        if (!honorCodeTable)
-            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", { notFailureMessage: "Couldn't find table in syllabus" });
         const ugNewSyllabusHtml = `<h3><strong>The Unity Environmental University Honor Code</strong></h3><p>Click on <a href="https://unitycollege.policytech.com/dotNet/documents/?docid=3341&app=pt&source=browse&public=true">this link to view the full Academic Honor Code</a>. You are responsible for being familiar with the Academic Honor Code.</p>`;
-        // UG fix updates old honor code language to new language, or corrects the link if only that changed
         if (course.isUndergrad()) {
+            const honorCodeTable = tables.find((table) => {
+                var _a, _b;
+                const hasOldLanguage = (_a = table.textContent) === null || _a === void 0 ? void 0 : _a.includes(ugSearchString);
+                const hasHonorCodeText = (_b = table.textContent) === null || _b === void 0 ? void 0 : _b.toLowerCase().includes("honor code");
+                const hasNewLink = table.innerHTML.includes(ugHonorCodeLinkPhrase);
+                return hasOldLanguage || (hasHonorCodeText && !hasNewLink);
+            });
+            if (!honorCodeTable)
+                return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+                    notFailureMessage: "Couldn't find table in syllabus",
+                });
             honorCodeTd = Array.from(honorCodeTable.querySelectorAll("td")).find((td) => {
                 var _a, _b;
                 const hasOldLanguage = (_a = td.textContent) === null || _a === void 0 ? void 0 : _a.includes(ugSearchString);
@@ -96923,25 +97010,39 @@ const honorCodeCheck = {
                 return hasOldLanguage || (hasHonorCodeText && !hasNewLink);
             });
             if (!honorCodeTd)
-                return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", { notFailureMessage: "Couldn't find honor code table cell." });
-            // Replace the text with the newSyllabusHtml
+                return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+                    notFailureMessage: "Couldn't find honor code table cell.",
+                });
             honorCodeTd.innerHTML = ugNewSyllabusHtml;
+            // Remove fixed heights so the table resizes naturally after the shorter UG content is inserted.
+            for (const el of [
+                honorCodeTable,
+                ...Array.from(honorCodeTable.querySelectorAll("tr, td")),
+            ]) {
+                el.style.removeProperty("height");
+                el.removeAttribute("height");
+            }
         }
-        // Remove fixed heights from the table and all its tr/td elements so the
-        // table resizes naturally after the shorter honor code content is inserted.
-        for (const el of [honorCodeTable, ...Array.from(honorCodeTable.querySelectorAll("tr, td"))]) {
-            el.style.removeProperty("height");
-            el.removeAttribute("height");
-        }
-        // Grad fix replaces the UG honor code langugae with the old language(until we have new language)
-        if (course.isGrad()) {
-            // Searching for the title even though that would be in all three specifically because we shouldn't get to this point if the syllabus contains the grad honor code language
-            honorCodeTd = Array.from(honorCodeTable.querySelectorAll("td")).find((td) => { var _a; return (_a = td.textContent) === null || _a === void 0 ? void 0 : _a.includes("The Unity Environmental University Honor Code"); });
+        else if (course.isGrad()) {
+            const gradHonorCodeTable = tables.find((table) => {
+                var _a, _b;
+                const hasHonorCodeText = (_a = table.textContent) === null || _a === void 0 ? void 0 : _a.toLowerCase().includes("honor code");
+                const hasCorrectGradHeader = (_b = table.textContent) === null || _b === void 0 ? void 0 : _b.includes(gradHonorCodeSearchString);
+                const hasCorrectGradLink = table.innerHTML.includes(gradHonorCodeLinkPhrase);
+                return (hasHonorCodeText && !(hasCorrectGradHeader && hasCorrectGradLink));
+            });
+            if (!gradHonorCodeTable)
+                return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+                    notFailureMessage: "Couldn't find table with incorrect honor code content in syllabus",
+                });
+            honorCodeTd = Array.from(gradHonorCodeTable.querySelectorAll("td")).find((td) => { var _a; return (_a = td.textContent) === null || _a === void 0 ? void 0 : _a.toLowerCase().includes("honor code"); });
             if (!honorCodeTd)
-                return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", { notFailureMessage: "Couldn't find honor code table cell." });
-            honorCodeTd.innerHTML = gradSearchString;
+                return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+                    notFailureMessage: "Couldn't find honor code table cell.",
+                });
+            honorCodeTd.innerHTML = gradHonorCodeHtml;
         }
-        if (course.isCareerInstitute()) {
+        else if (course.isCareerInstitute()) {
             return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
                 notFailureMessage: "Fix not run because there's not specific career institute honor code language",
             });
@@ -96979,7 +97080,9 @@ const titleIXPolicyTest = {
     fix: async (course) => {
         const results = await runTitleIXPolicyCheck(course);
         if (results.success)
-            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", { notFailureMessage: "Title IX policy cell already exists." });
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+                notFailureMessage: "Title IX policy cell already exists.",
+            });
         const syllabus = await course.getSyllabus();
         let newHtml;
         if (/course\.\s*<\/p>\s*<\/td>\s*<\/tr>\s*<\/tbody>\s*<\/table>/i.test(syllabus)) {
@@ -97008,11 +97111,15 @@ const gradingDeadlineRun = async (course) => {
     const pTags = Array.from(parsedSyllabus.querySelectorAll("p"));
     const courseP = pTags.find((p) => { var _a; return (_a = p.textContent) === null || _a === void 0 ? void 0 : _a.trim().startsWith("Course Number and Title:"); });
     if (!courseP)
-        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", { notFailureMessage: "Course number and title not found." });
+        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+            notFailureMessage: "Course number and title not found.",
+        });
     const content = (_a = courseP.textContent) === null || _a === void 0 ? void 0 : _a.split("Course Number and Title:")[1].trim();
     const courseCodeMatch = content === null || content === void 0 ? void 0 : content.match(/\b([A-Za-z]{4})\s*([0-9]{3})\b/);
     if (!courseCodeMatch)
-        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", { notFailureMessage: "Course code not found." });
+        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+            notFailureMessage: "Course code not found.",
+        });
     const numericPart = parseInt(courseCodeMatch[2], 10);
     const isUndergrad = numericPart < 500;
     if (isUndergrad) {
@@ -97026,14 +97133,17 @@ const gradingDeadlineRun = async (course) => {
         });
     }
     else {
-        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(true, { notFailureMessage: "Not run because course is not undergrad." });
+        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(true, {
+            notFailureMessage: "Not run because course is not undergrad.",
+        });
     }
 };
 const gradingDeadlineFix = async (course) => {
     const syllabus = await course.getSyllabus();
     const syllabusText = syllabus.toString();
     const fixedText = syllabusText.replace(/<\/div>\s*<\/div>\s*$/, "");
-    const newSyllabus = fixedText + `<br /><p><strong>${gradingDeadlineLanguage}</strong></p></div><div>`;
+    const newSyllabus = fixedText +
+        `<br /><p><strong>${gradingDeadlineLanguage}</strong></p></div><div>`;
     try {
         course.changeSyllabus(newSyllabus);
         return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(true);
@@ -97095,7 +97205,8 @@ const aiPolicyMediaFix = async (course) => {
     }
     aiPolicyTd.innerHTML += aiPolicyMediaText;
     const container = document.createElement("div");
-    container.innerHTML = parsedSyllabus.body.innerHTML || parsedSyllabus.documentElement.innerHTML;
+    container.innerHTML =
+        parsedSyllabus.body.innerHTML || parsedSyllabus.documentElement.innerHTML;
     const updatedSyllabus = container.innerHTML;
     try {
         //Update Syllabus
@@ -97143,7 +97254,10 @@ const makeBeforeAndAfters = (badUrlData) => {
     const { badUrl, goodUrl } = badUrlData;
     return [
         [`<a href="${badUrl}">`, `<a href="${goodUrl}">`],
-        [`<a href="${badUrl}" target="_blank">`, `<a href="${goodUrl}" target="_blank">`],
+        [
+            `<a href="${badUrl}" target="_blank">`,
+            `<a href="${goodUrl}" target="_blank">`,
+        ],
     ];
 };
 const makeSyllabusUrlCheck = (data) => {
@@ -97161,6 +97275,144 @@ const makeSyllabusUrlCheck = (data) => {
         run,
         fix,
     };
+};
+const gradDiscussionExpectationsHtml = `<h3><strong>Discussion Expectations</strong></h3><p class="grad">Some discussions require you to post your initial response before viewing your peers&rsquo; posts. All discussions have deadlines on two different days each week: your initial post by 3:00 a.m. ET Thursday and your peer responses by 3:00 a.m. ET Monday. This schedule ensures everyone has posts available for meaningful interaction. You are encouraged to post and/or respond on different days during the week to create an active, ongoing discussion.</p><p>Your posts should contribute thoughtfully to the conversation. Avoid brief responses such as &ldquo;I agree&rdquo; or &ldquo;I was thinking the same thing.&rdquo; Instead, write responses that offer constructive feedback, analysis, critique, or insights related to the topic and prompts.</p><p>To view the grading rubric, select &ldquo;View Rubric&rdquo; in the discussion directions or open the &ldquo;More Options&rdquo; menu (titled <em>&ldquo;Manage this Discussion&rdquo;</em> for screen readers) and click &ldquo;Show Rubric.&rdquo;</p><p>All students are expected to uphold the <a href="https://unity.instructure.com/courses/3266650/pages/digital-citizenship-expectations">Digital Citizenship Expectations</a>, which guide respectful and engaged participation in our online learning community.</p>`;
+function findDiscussionExpectationsTd(el) {
+    var _a;
+    const h3 = [...el.querySelectorAll("h3")].find((h) => { var _a, _b; return ((_b = (_a = h.innerText) !== null && _a !== void 0 ? _a : h.textContent) !== null && _b !== void 0 ? _b : "").includes("Discussion Expectations"); });
+    return (_a = h3 === null || h3 === void 0 ? void 0 : h3.closest("td")) !== null && _a !== void 0 ? _a : null;
+}
+const gradDiscussionExpectationsTest = {
+    name: "Grad Discussion Expectations",
+    description: 'Checks that grad syllabi have the correct Discussion Expectations paragraph (class="grad") with 3:00 a.m. ET Thursday and Monday deadlines.',
+    async run(course) {
+        var _a, _b;
+        if (!new _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_3__.Course(course.rawData).isGrad())
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", { notFailureMessage: "Not a grad course." });
+        const el = htmlDiv(await course.getSyllabus());
+        const links = [`/courses/${course.id}/assignments/syllabus`];
+        const discussExpectTd = findDiscussionExpectationsTd(el);
+        if (!discussExpectTd)
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(false, { failureMessage: "Discussion Expectations section not found.", links });
+        const gradPara = discussExpectTd.querySelector("p.grad");
+        const text = ((_b = (_a = discussExpectTd.textContent) === null || _a === void 0 ? void 0 : _a.toLowerCase()) !== null && _b !== void 0 ? _b : "").replace(/\s+/g, " ");
+        const hasDeadlines = text.includes("3:00 a.m. et thursday") && text.includes("3:00 a.m. et monday");
+        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(gradPara !== null && hasDeadlines, {
+            failureMessage: 'Discussion Expectations section is missing the correct grad paragraph (class="grad") or the 3:00 a.m. ET deadline language.',
+            links,
+        });
+    },
+    async fix(course) {
+        if (!new _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_3__.Course(course.rawData).isGrad())
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", { notFailureMessage: "Not a grad course." });
+        const { success } = await this.run(course);
+        if (success)
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", { notFailureMessage: "Grad Discussion Expectations already correct." });
+        const el = htmlDiv(await course.getSyllabus());
+        const links = [`/courses/${course.id}/assignments/syllabus`];
+        const discussExpectTd = findDiscussionExpectationsTd(el);
+        if (!discussExpectTd)
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(false, { failureMessage: "Discussion Expectations section not found.", links });
+        discussExpectTd.innerHTML = gradDiscussionExpectationsHtml;
+        try {
+            await course.changeSyllabus(el.innerHTML);
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(true, { links });
+        }
+        catch (e) {
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.errorMessageResult)(e);
+        }
+    },
+};
+function findGradSectionTd(parsedSyllabus, headingSearch) {
+    return Array.from(parsedSyllabus.querySelectorAll("td")).find((td) => {
+        var _a;
+        const text = ((_a = td.textContent) !== null && _a !== void 0 ? _a : "").replace(/\s+/g, " ");
+        return typeof headingSearch === "string"
+            ? text.includes(headingSearch)
+            : headingSearch.test(text);
+    });
+}
+function gradSectionRun(headingSearch, checkString, failureMessage) {
+    return async (bp) => {
+        var _a;
+        const syllabus = await bp.getSyllabus();
+        const parser = new DOMParser();
+        const parsedSyllabus = parser.parseFromString(syllabus, "text/html");
+        const course = new _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_3__.Course(bp.rawData);
+        if (!course.isGrad())
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", { notFailureMessage: "Not a grad course." });
+        const sectionTd = findGradSectionTd(parsedSyllabus, headingSearch);
+        const text = ((_a = sectionTd === null || sectionTd === void 0 ? void 0 : sectionTd.textContent) !== null && _a !== void 0 ? _a : "").replace(/\s+/g, " ");
+        const success = text.includes(checkString);
+        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(success, {
+            failureMessage,
+            notFailureMessage: "Section content is correct.",
+            userData: { parsedSyllabus, sectionTd, course },
+        });
+    };
+}
+function gradSectionFix(headingSearch, canonicalHtml) {
+    return async (bp, results) => {
+        var _a;
+        if (!results)
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", { notFailureMessage: "Fix did not run because results of test are unknown." });
+        if (results.success)
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", { notFailureMessage: "Fix did not run because section is already correct." });
+        const { course } = (_a = results.userData) !== null && _a !== void 0 ? _a : {};
+        if (!(course === null || course === void 0 ? void 0 : course.isGrad()))
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", { notFailureMessage: "Not a grad course." });
+        const syllabus = await bp.getSyllabus();
+        const parser = new DOMParser();
+        const parsedSyllabus = parser.parseFromString(syllabus, "text/html");
+        const sectionTd = findGradSectionTd(parsedSyllabus, headingSearch);
+        if (!sectionTd)
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", { notFailureMessage: "Couldn't find section in syllabus." });
+        sectionTd.innerHTML = canonicalHtml;
+        // Remove fixed heights so the cell and its row resize naturally after content replacement.
+        for (const el of [sectionTd, sectionTd.closest("tr")].filter(Boolean)) {
+            el.style.removeProperty("height");
+            el.removeAttribute("height");
+        }
+        try {
+            await bp.changeSyllabus(parsedSyllabus.body.innerHTML);
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(true, { notFailureMessage: "Section updated successfully." });
+        }
+        catch (e) {
+            return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(false, { failureMessage: `Could not update syllabus: ${e}` });
+        }
+    };
+}
+const gradLearningAccommodationsHtml = `<h3><strong>Learning Accommodations</strong></h3><p>Unity Environmental University supports students with disabilities by providing reasonable learning accommodations.</p><p>If you believe you may need accommodations, please contact the <a href="https://unity.edu/policies/accessibility-and-ada-services/">Accessibility and ADA Services Office</a> to begin the review process. You&rsquo;ll complete an Accessibility and Accommodations Request Form and provide relevant documentation. Eligibility and appropriate supports will be determined confidentially, and you&rsquo;ll be contacted directly to discuss next steps.</p>`;
+const gradLearningAccommodationsRun = gradSectionRun("Learning Accommodations", "Accessibility and ADA Services Office", "Learning Accommodations section does not have the correct grad content.");
+const gradLearningAccommodationsTest = {
+    name: "Grad Learning Accommodations",
+    description: "Checks that grad syllabi have the correct concise Learning Accommodations section referencing the Accessibility and ADA Services Office.",
+    run: gradLearningAccommodationsRun,
+    fix: gradSectionFix("Learning Accommodations", gradLearningAccommodationsHtml),
+};
+const gradAIPolicyHtml = `<h3><strong>Using Generative Artificial Intelligence(AI)</strong></h3><p>Students must follow the <a href="https://unity.instructure.com/courses/3266650/pages/gen-ai-student-policy">Unity Distance Education Generative AI Policy for Students</a>, which defines acceptable and unacceptable use of AI tools. Please review this policy before using AI in your coursework.</p><p>In this course, you may be invited to explore or apply generative AI tools to support learning. When AI use is <em>not</em> permitted for a particular assignment, it will be clearly stated in the instructions. If an assignment does not specify restrictions, AI use is allowed in line with the policy above.</p><p>If you have questions about using AI effectively or appropriately, contact your instructor.</p><p>For additional guidance, view Unity&rsquo;s <a href="https://drive.google.com/file/d/16O7s7_nX9NZF3orhogb3-nusBCCZ796x/view?t=2">AI Policy Video</a> or <a href="https://drive.google.com/file/d/1Gzbgp5piaQk9PQT5BbNsSfWfqEqWmNak/view">AI Policy Infographic</a>.</p>`;
+const gradAIPolicyRun = gradSectionRun(/generative artificial intelligence/i, "Using Generative Artificial Intelligence(AI)", "AI policy section does not have the correct grad heading or content.");
+const gradAIPolicyTest = {
+    name: "Grad AI Policy",
+    description: 'Checks that grad syllabi use the "Using Generative Artificial Intelligence(AI)" heading and paragraph-style content.',
+    run: gradAIPolicyRun,
+    fix: gradSectionFix(/generative artificial intelligence/i, gradAIPolicyHtml),
+};
+const gradTechnicalSupportHtml = `<h3><strong>Technical Support</strong></h3><p>For questions about Canvas, contact your instructor.</p><p>For issues with your Unity Environmental University email or other technical services, email unitysupport@unity.edu or call 207‑509‑7110 for faster assistance, especially outside business hours.</p>`;
+const gradTechnicalSupportRun = gradSectionRun("Technical Support", "For questions about Canvas, contact your instructor.", "Technical Support section does not have the correct grad content.");
+const gradTechnicalSupportTest = {
+    name: "Grad Technical Support",
+    description: 'Checks that grad syllabi have the concise Technical Support section ("For questions about Canvas, contact your instructor.").',
+    run: gradTechnicalSupportRun,
+    fix: gradSectionFix("Technical Support", gradTechnicalSupportHtml),
+};
+const gradStatementOnFairPracticesHtml = `<h3><strong>Statement on Fair Practices</strong></h3><p>Unity Environmental University prohibits discrimination on the basis of race, color, creed or religion, national origin, sex, sexual orientation, age, marital status, pregnancy, veteran&rsquo;s status, or disability in regard to treatment, access to, or employment in its programs and activities, in accordance with federal and state laws and regulations. &nbsp;In compliance with the Americans with Disabilities Act (ADA), individuals with disabilities needing accommodation should contact the ADA compliance officer.</p><p>For further explanation on this topic, please contact the Dean.</p><p>This syllabus constitutes the agreement between the instructor and student.</p><p>Any modifications to this syllabus will be identified during the course.</p>`;
+const gradStatementOnFairPracticesRun = gradSectionRun("Statement on Fair Practices", "creed or religion", "Statement on Fair Practices does not contain the full standard language.");
+const gradStatementOnFairPracticesTest = {
+    name: "Grad Statement on Fair Practices",
+    description: 'Checks that the Statement on Fair Practices includes "creed or religion" and "veteran\'s status" (the full standard language).',
+    run: gradStatementOnFairPracticesRun,
+    fix: gradSectionFix("Statement on Fair Practices", gradStatementOnFairPracticesHtml),
 };
 const badUrlDatas = [
     {
@@ -97190,6 +97442,11 @@ const badUrlDatas = [
     aiPolicyMediaTest,
     supportPhoneNumberFix,
     gradingPolicyTest,
+    gradDiscussionExpectationsTest,
+    gradLearningAccommodationsTest,
+    gradAIPolicyTest,
+    gradTechnicalSupportTest,
+    gradStatementOnFairPracticesTest,
 ]);
 
 
@@ -97779,11 +98036,14 @@ async function fetchEmailTemplate(course) {
         }
         const courseCodeNumber = parseInt(parsedCourseCode[0]);
         let devCourseId = null;
-        if (courseCodeNumber >= 500) {
+        if (course.isUndergrad() || course.isCareerInstitute()) {
             devCourseId = 7773747;
         }
-        else if (courseCodeNumber < 500) {
+        else if (course.isGrad()) {
             devCourseId = 7775658;
+        }
+        else {
+            throw new Error("Unsure which email to grab.");
         }
         if (devCourseId) {
             // Get the publish email from the page in the DEV course
@@ -102582,7 +102842,7 @@ var getProto = __webpack_require__(/*! get-proto */ "./node_modules/get-proto/in
 var $toString = callBound('Object.prototype.toString');
 var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "./node_modules/has-tostringtag/shams.js")();
 
-var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
+var g = typeof globalThis === 'undefined' ? globalThis : globalThis;
 var typedArrays = availableTypedArrays();
 
 var $slice = callBound('String.prototype.slice');
@@ -102707,7 +102967,7 @@ module.exports = function whichTypedArray(value) {
 
 var possibleNames = __webpack_require__(/*! possible-typed-array-names */ "./node_modules/possible-typed-array-names/index.js");
 
-var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
+var g = typeof globalThis === 'undefined' ? globalThis : globalThis;
 
 /** @type {import('.')} */
 module.exports = function availableTypedArrays() {
@@ -111090,18 +111350,6 @@ let ys;
 /******/ 				}
 /******/ 			}
 /******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/global */
-/******/ 	(() => {
-/******/ 		__webpack_require__.g = (function() {
-/******/ 			if (typeof globalThis === 'object') return globalThis;
-/******/ 			try {
-/******/ 				return this || new Function('return this')();
-/******/ 			} catch (e) {
-/******/ 				if (typeof window === 'object') return window;
-/******/ 			}
-/******/ 		})();
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

@@ -2076,18 +2076,17 @@ const apiGetConfig_1 = __importDefault(__webpack_require__(/*! ../fetch/apiGetCo
 const cachedGetAssociatedCoursesFunc_1 = __webpack_require__(/*! ../course/cachedGetAssociatedCoursesFunc */ "./node_modules/@ueu/ueu-canvas/dist/course/cachedGetAssociatedCoursesFunc.js");
 const assert_1 = __importDefault(__webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js"));
 const HOMETILE_WIDTH = 500;
-exports.COURSE_CODE_REGEX = /^(.+[^_])?_?(\w{4}\d{3})/i;
+exports.COURSE_CODE_REGEX = /^(.+[^_])?_?([A-Z]{4}\d{3,4})/i;
 class Course extends baseCanvasObject_1.BaseCanvasObject {
-    static nameProperty = 'name';
+    static nameProperty = "name";
     _modules = undefined;
     modulesByWeekNumber = undefined;
     static contentClasses = [Assignment_1.Assignment, Discussion_1.Discussion, Quiz_1.Quiz, Page_1.Page];
     isBlueprint;
     getAssociatedCourses;
     constructor(data) {
-        console.warn("Course is being deprecated");
         super(data);
-        this.isBlueprint = (() => (0, blueprint_1.isBlueprint)(data));
+        this.isBlueprint = () => (0, blueprint_1.isBlueprint)(data);
         this.getAssociatedCourses = (0, cachedGetAssociatedCoursesFunc_1.cachedGetAssociatedCoursesFunc)(this);
     }
     static async getFromUrl(url = null) {
@@ -2118,14 +2117,14 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
         });
         const url = `/api/v1/accounts/${accountId}/courses`;
         const data = {
-            'event': 'offer',
-            'course_ids': courseIds,
+            event: "offer",
+            course_ids: courseIds,
         };
         return await (0, fetchJson_1.fetchJson)(url, {
             fetchInit: {
-                method: 'PUT',
+                method: "PUT",
                 body: (0, canvasUtils_1.formDataify)(data),
-            }
+            },
         });
     }
     get contentUrlPath() {
@@ -2148,13 +2147,13 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
     }
     get termId() {
         const id = this.canvasData.enrollment_term_id;
-        if (typeof id === 'number')
+        if (typeof id === "number")
             return id;
         else
             return id[0];
     }
     async getTerm() {
-        (0, assert_1.default)(typeof this.termId === 'number');
+        (0, assert_1.default)(typeof this.termId === "number");
         if (this.termId)
             return Term_1.Term.getTermById(this.termId);
         else
@@ -2165,7 +2164,7 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
     }
     get codePrefix() {
         const match = exports.COURSE_CODE_REGEX.exec(this.rawData.course_code);
-        return match ? match[1] : '';
+        return match ? match[1] : "";
     }
     get workflowState() {
         return this.canvasData.workflow_state;
@@ -2185,8 +2184,8 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
         }
         const modules = await (0, canvasUtils_1.renderAsyncGen)((0, modules_1.moduleGenerator)(this.id, {
             queryParams: {
-                include: ['items', 'content_details']
-            }
+                include: ["items", "content_details"],
+            },
         }));
         this._modules = modules;
         return modules;
@@ -2223,11 +2222,11 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
         return false;
     }
     async getInstructors() {
-        return await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/users?enrollment_type=teacher`);
+        return (await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/users?enrollment_type=teacher`));
     }
     async getLatePolicy(config) {
         const latePolicyResult = await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/late_policy`, config);
-        if ('late_policy' in latePolicyResult)
+        if ("late_policy" in latePolicyResult)
             return latePolicyResult.late_policy;
         return undefined;
     }
@@ -2241,11 +2240,11 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
                 out = [...out, ...courseGradingStandards];
             }
             if (account_id) {
-                const accountGradingStandards = await (0, toolbox_1.getGradingStandards)(account_id, 'account', config);
+                const accountGradingStandards = await (0, toolbox_1.getGradingStandards)(account_id, "account", config);
                 out = [...out, ...accountGradingStandards];
             }
             if (root_account_id) {
-                const rootAccountGradingStandards = await (0, toolbox_1.getGradingStandards)(root_account_id, 'account', config);
+                const rootAccountGradingStandards = await (0, toolbox_1.getGradingStandards)(root_account_id, "account", config);
                 out = [...out, ...rootAccountGradingStandards];
             }
         }
@@ -2264,7 +2263,7 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
             if (account_id)
                 urls.push(`/api/v1/accounts/${account_id}/grading_standards/${grading_standard_id}`);
         }
-        const standards = (await this.getAvailableGradingStandards(config)).filter(standard => standard.id === grading_standard_id);
+        const standards = (await this.getAvailableGradingStandards(config)).filter((standard) => standard.id === grading_standard_id);
         if (standards.length == 0)
             return null;
         return standards[0];
@@ -2274,7 +2273,7 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
             return this.modulesByWeekNumber;
         const modules = await this.getModules(config);
         this.modulesByWeekNumber = await (0, modules_1.getModulesByWeekNumber)(modules);
-        return (this.modulesByWeekNumber);
+        return this.modulesByWeekNumber;
     }
     /**
      * Returns a list of links to items in a given module
@@ -2287,13 +2286,13 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
      * if none is specified, return all matches
      */
     async getModuleItemLinks(moduleOrWeekNumber, target) {
-        (0, assert_1.default)(target.hasOwnProperty('type'));
+        (0, assert_1.default)(target.hasOwnProperty("type"));
         const targetType = target.type;
-        const contentSearchString = target.hasOwnProperty('search') ? target.search : null;
+        const contentSearchString = target.hasOwnProperty("search") ? target.search : null;
         let targetIndex = isNaN(target.index) ? null : target.index;
         let targetModuleWeekNumber;
         let targetModule;
-        if (typeof moduleOrWeekNumber === 'number') {
+        if (typeof moduleOrWeekNumber === "number") {
             const modules = await this.getModulesByWeekNumber();
             (0, assert_1.default)(modules.hasOwnProperty(moduleOrWeekNumber));
             targetModuleWeekNumber = moduleOrWeekNumber;
@@ -2304,11 +2303,11 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
             targetModuleWeekNumber = (0, modules_1.getModuleWeekNumber)(targetModule);
         }
         const urls = [];
-        if (targetModule && typeof targetType !== 'undefined') {
+        if (targetModule && typeof targetType !== "undefined") {
             //If it's a page, just search for the parameter string
-            if (targetType === 'Page' && contentSearchString) {
+            if (targetType === "Page" && contentSearchString) {
                 const pages = await this.getPages({
-                    queryParams: { search_term: contentSearchString }
+                    queryParams: { search_term: contentSearchString },
                 });
                 pages.forEach((page) => urls.push(page.htmlContentUrl));
                 //If it's anything else, get only those items in the module and set url to the targetIndexth one.
@@ -2316,7 +2315,7 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
             else if (targetType) {
                 //bump index for week 1 to account for intro discussion / checking for rubric would require pulling too much data
                 //and too much performance overhead
-                if (targetIndex && targetType === 'Discussion' && targetModuleWeekNumber === 1)
+                if (targetIndex && targetType === "Discussion" && targetModuleWeekNumber === 1)
                     targetIndex++;
                 const matchingTypeItems = targetModule.items.filter((item) => item.type === targetType);
                 if (targetIndex && matchingTypeItems.length >= targetIndex) {
@@ -2335,7 +2334,7 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
     async getSyllabus(config = { queryParams: {} }) {
         if (this.canvasData.syllabus_body)
             return this.canvasData.syllabus_body;
-        const data = await (0, toolbox_1.getCourseData)(this.id, (0, utils_1.fetchGetConfig)({ include: ['syllabus_body'] }, config));
+        const data = await (0, toolbox_1.getCourseData)(this.id, (0, utils_1.fetchGetConfig)({ include: ["syllabus_body"] }, config));
         (0, assert_1.default)(data.syllabus_body);
         this.canvasData.syllabus_body = data.syllabus_body;
         return this.canvasData.syllabus_body;
@@ -2346,10 +2345,10 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
     //  * @param config
     //  */
     async getAssignments(config) {
-        console.warn('deprecated, use assignmentDataGen instead');
-        config = (0, utils_1.overrideConfig)(config, { queryParams: { include: ['due_at'] } });
+        console.warn("deprecated, use assignmentDataGen instead");
+        config = (0, utils_1.overrideConfig)(config, { queryParams: { include: ["due_at"] } });
         const assignmentDatas = await (0, canvasUtils_1.renderAsyncGen)((0, assignments_1.assignmentDataGen)(this.id, config));
-        return (assignmentDatas.map(data => new Assignment_1.Assignment(data, this.id)));
+        return assignmentDatas.map((data) => new Assignment_1.Assignment(data, this.id));
     }
     cachedContent = [];
     async getContent(config, refresh = false) {
@@ -2360,32 +2359,32 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
             const pages = await this.getPages(config);
             this.cachedContent = [
                 ...discussions,
-                ...assignments.map(a => new Assignment_1.Assignment(a, this.id)),
+                ...assignments.map((a) => new Assignment_1.Assignment(a, this.id)),
                 ...quizzes,
-                ...pages
+                ...pages,
             ];
         }
         return this.cachedContent;
     }
     async getDiscussions(config) {
-        return await Discussion_1.Discussion.getAllInCourse(this.id, config);
+        return (await Discussion_1.Discussion.getAllInCourse(this.id, config));
     }
     async getAssignmentGroups(config) {
         return await (0, getPagedDataGenerator_1.getPagedData)(`/api/v1/courses/${this.id}/assignment_groups`, config);
     }
     async getQuizzes(config) {
-        return await Quiz_1.Quiz.getAllInCourse(this.id, config);
+        return (await Quiz_1.Quiz.getAllInCourse(this.id, config));
     }
     async getSubsections() {
         const url = `/api/v1/courses/${this.id}/sections`;
         return await (0, fetchJson_1.fetchJson)(url);
     }
     async getTabs(config) {
-        return await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/tabs`, config);
+        return (await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/tabs`, config));
     }
     async getFrontPage() {
         try {
-            const data = await (0, fetchJson_1.fetchJson)(`${this.contentUrlPath}/front_page`);
+            const data = (await (0, fetchJson_1.fetchJson)(`${this.contentUrlPath}/front_page`));
             return new Page_1.Page(data, this.id);
         }
         catch (error) {
@@ -2401,37 +2400,37 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
         this.canvasData = reloaded.rawData;
     }
     async changeSyllabus(newHtml) {
-        this.canvasData['syllabus_body'] = newHtml;
+        this.canvasData["syllabus_body"] = newHtml;
         return await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}`, {
             fetchInit: {
-                method: 'PUT',
+                method: "PUT",
                 body: (0, canvasUtils_1.formDataify)({
                     course: {
-                        syllabus_body: newHtml
-                    }
-                })
-            }
+                        syllabus_body: newHtml,
+                    },
+                }),
+            },
         });
     }
     async publish() {
         const url = `/api/v1/courses/${this.id}`;
         const courseData = await (0, fetchJson_1.fetchJson)(url, {
             fetchInit: {
-                method: 'PUT',
-                body: (0, canvasUtils_1.formDataify)({ 'offer': true })
-            }
+                method: "PUT",
+                body: (0, canvasUtils_1.formDataify)({ offer: true }),
+            },
         });
         console.log(courseData);
         this.canvasData = courseData;
     }
     get devCode() {
-        return 'DEV_' + this.baseCode;
+        return "DEV_" + this.baseCode;
     }
     async getParentCourse(return_dev_search = false) {
         const migrations = await (0, getPagedDataGenerator_1.getPagedData)(`/api/v1/courses/${this.id}/content_migrations`);
         const parentCode = this.devCode;
         if (migrations.length < 1) {
-            console.log('no migrations found');
+            console.log("no migrations found");
             if (return_dev_search) {
                 return (0, toolbox_1.getSingleCourse)(parentCode, this.getAccountIds());
             }
@@ -2441,7 +2440,7 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
         migrations.sort((a, b) => b.id - a.id);
         try {
             for (const migration of migrations) {
-                const course = await Course.getCourseById(migration['settings']['source_course_id']);
+                const course = await Course.getCourseById(migration["settings"]["source_course_id"]);
                 if (course && course.codePrefix.includes("DEV"))
                     return course;
             }
@@ -2452,7 +2451,7 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
         return await (0, toolbox_1.getSingleCourse)(parentCode, this.getAccountIds());
     }
     getAccountIds() {
-        return [this.accountId, this.rootAccountId].filter(a => typeof a !== 'undefined' && a !== null);
+        return [this.accountId, this.rootAccountId].filter((a) => typeof a !== "undefined" && a !== null);
     }
     // async regenerateHomeTiles() {
     //     const modules = await this.getModules();
@@ -2491,7 +2490,7 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
         }
         catch (e) {
             return {
-                bio: 'NOT FOUND',
+                bio: "NOT FOUND",
                 sourcePage: frontPage,
             };
         }
@@ -2512,11 +2511,11 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
         }
     }
     async getSettings(config) {
-        return await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/settings`, config);
+        return (await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/settings`, config));
     }
     async updateSettings(newSettings, config) {
         const configToUse = (0, apiGetConfig_1.default)(newSettings, config);
-        return await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/settings`, configToUse);
+        return (await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/settings`, configToUse));
     }
 }
 exports.Course = Course;
@@ -2705,7 +2704,7 @@ function genBlueprintDataForCode(courseCode, accountIds, queryParams) {
     }
     return (0, toolbox_1.getCourseDataGenerator)(baseCode, accountIds, undefined, (0, utils_1.fetchGetConfig)({
         blueprint: true,
-        include: ['concluded'],
+        include: ["concluded"],
     }, { queryParams }));
 }
 function sectionDataGenerator(courseId, config) {
@@ -2714,15 +2713,15 @@ function sectionDataGenerator(courseId, config) {
 }
 async function beginBpSync(courseId, { message, copy_settings, config }) {
     const url = `/api/v1/courses/${courseId}/blueprint_templates/default/migrations`;
-    if (typeof copy_settings === 'undefined')
+    if (typeof copy_settings === "undefined")
         copy_settings = true;
-    return await (0, fetchJson_1.fetchJson)(url, (0, apiWriteConfig_1.default)('POST', {
+    return await (0, fetchJson_1.fetchJson)(url, (0, apiWriteConfig_1.default)("POST", {
         message,
-        copy_settings
+        copy_settings,
     }, config));
 }
 async function getBlueprintsFromCode(code, accountIds, config) {
-    const [_, baseCode] = code.match(/_(\w{4}\d{3})$/) || [];
+    const [_, baseCode] = code.match(/_(\w{4}\d{3,4})$/) || [];
     if (!baseCode)
         return null;
     const bps = (0, toolbox_1.getCourseGenerator)(`BP_${baseCode}`, accountIds, undefined, config);
@@ -2730,23 +2729,23 @@ async function getBlueprintsFromCode(code, accountIds, config) {
 }
 async function lockBlueprint(courseId, modules) {
     let items = [];
-    items = items.concat(...modules.map(a => [].concat(...a.items)));
+    items = items.concat(...modules.map((a) => [].concat(...a.items)));
     const promises = items.map(async (item) => {
         const url = `/api/v1/courses/${courseId}/blueprint_templates/default/restrict_item`;
         const { type, id } = await (0, canvasUtils_1.getItemTypeAndId)(item);
-        if (typeof id === 'undefined')
+        if (typeof id === "undefined")
             return;
         const body = {
-            "content_type": type,
-            "content_id": id,
-            "restricted": true,
-            "_method": 'PUT'
+            content_type: type,
+            content_id: id,
+            restricted: true,
+            _method: "PUT",
         };
         await (0, fetchJson_1.fetchJson)(url, {
             fetchInit: {
-                method: 'PUT',
-                body: (0, canvasUtils_1.formDataify)(body)
-            }
+                method: "PUT",
+                body: (0, canvasUtils_1.formDataify)(body),
+            },
         });
     });
     await Promise.all(promises);
@@ -2762,19 +2761,19 @@ async function setAsBlueprint(courseId, config) {
                 points: 1,
                 due_dates: 1,
                 availability_dates: 1,
-            }
-        }
+            },
+        },
     };
-    return await (0, fetchJson_1.fetchJson)(url, (0, apiWriteConfig_1.default)('PUT', payload, config));
+    return (await (0, fetchJson_1.fetchJson)(url, (0, apiWriteConfig_1.default)("PUT", payload, config)));
 }
 async function unSetAsBlueprint(courseId, config) {
     const url = `/api/v1/courses/${courseId}`;
     const payload = {
         course: {
-            blueprint: false
-        }
+            blueprint: false,
+        },
     };
-    return await (0, fetchJson_1.fetchJson)(url, (0, apiWriteConfig_1.default)("PUT", payload, config));
+    return (await (0, fetchJson_1.fetchJson)(url, (0, apiWriteConfig_1.default)("PUT", payload, config)));
 }
 //# sourceMappingURL=blueprint.js.map
 
@@ -48289,7 +48288,7 @@ var getProto = __webpack_require__(/*! get-proto */ "./node_modules/get-proto/in
 var $toString = callBound('Object.prototype.toString');
 var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "./node_modules/has-tostringtag/shams.js")();
 
-var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
+var g = typeof globalThis === 'undefined' ? globalThis : globalThis;
 var typedArrays = availableTypedArrays();
 
 var $slice = callBound('String.prototype.slice');
@@ -48414,7 +48413,7 @@ module.exports = function whichTypedArray(value) {
 
 var possibleNames = __webpack_require__(/*! possible-typed-array-names */ "./node_modules/possible-typed-array-names/index.js");
 
-var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
+var g = typeof globalThis === 'undefined' ? globalThis : globalThis;
 
 /** @type {import('.')} */
 module.exports = function availableTypedArrays() {
@@ -52433,18 +52432,6 @@ exports.Intl = classApi.IntlExtended, exports.Temporal = classApi.Temporal, expo
 /******/ 				}
 /******/ 			}
 /******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/global */
-/******/ 	(() => {
-/******/ 		__webpack_require__.g = (function() {
-/******/ 			if (typeof globalThis === 'object') return globalThis;
-/******/ 			try {
-/******/ 				return this || new Function('return this')();
-/******/ 			} catch (e) {
-/******/ 				if (typeof window === 'object') return window;
-/******/ 			}
-/******/ 		})();
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
