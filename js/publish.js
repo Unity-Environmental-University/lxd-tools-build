@@ -97063,6 +97063,14 @@ const honorCodeCheck = {
                     notFailureMessage: "Couldn't find honor code table cell.",
                 });
             honorCodeTd.innerHTML = gradHonorCodeHtml;
+            // Remove fixed heights so the table resizes naturally after the shorter grad content is inserted.
+            for (const el of [
+                gradHonorCodeTable,
+                ...Array.from(gradHonorCodeTable.querySelectorAll("tr, td")),
+            ]) {
+                el.style.removeProperty("height");
+                el.removeAttribute("height");
+            }
         }
         else if (course.isCareerInstitute()) {
             return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
