@@ -7470,6 +7470,28 @@ async function updateAssignmentDueDates(offset, assignments, options) {
 
 /***/ },
 
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/legacy.js"
+/*!*************************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/assignments/legacy.js ***!
+  \*************************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+// noinspection JSUnusedGlobalSymbols
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getAssignmentData = exports.updateAssignmentData = exports.assignmentDataGen = void 0;
+const AssignmentKind_1 = __importDefault(__webpack_require__(/*! ../../content/assignments/AssignmentKind */ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/AssignmentKind.js"));
+exports.assignmentDataGen = AssignmentKind_1.default.dataGenerator;
+exports.updateAssignmentData = AssignmentKind_1.default.put;
+exports.getAssignmentData = AssignmentKind_1.default.get;
+//# sourceMappingURL=legacy.js.map
+
+/***/ },
+
 /***/ "./node_modules/@ueu/ueu-canvas/dist/content/determineContent.js"
 /*!***********************************************************************!*\
   !*** ./node_modules/@ueu/ueu-canvas/dist/content/determineContent.js ***!
@@ -98231,9 +98253,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
 /* harmony import */ var _ueu_ueu_canvas_course_retireBlueprint__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ueu/ueu-canvas/course/retireBlueprint */ "./node_modules/@ueu/ueu-canvas/dist/course/retireBlueprint.js");
 /* harmony import */ var _academicIntegritySetup__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./academicIntegritySetup */ "./src/publish/publishInterface/academicIntegritySetup.ts");
-/* harmony import */ var _ueu_ueu_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ueu/ueu-canvas/fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
-/* harmony import */ var _ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ueu/ueu-canvas/canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
-/* harmony import */ var _ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var _publish_publishInterface_aiLiteracySetup__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @/publish/publishInterface/aiLiteracySetup */ "./src/publish/publishInterface/aiLiteracySetup.ts");
+/* harmony import */ var _ueu_ueu_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ueu/ueu-canvas/fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
+/* harmony import */ var _ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ueu/ueu-canvas/canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
+/* harmony import */ var _ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_23__);
+
 
 
 
@@ -98267,7 +98291,7 @@ function callOnChangeFunc(value, onChange) {
 async function waitForMigrationCompletion(courseId, migrationId, intervalMs = 5000, timeoutMs = 300000) {
     const start = Date.now();
     while (true) {
-        const migration = await (0,_ueu_ueu_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_21__.fetchJson)(`/api/v1/courses/${courseId}/content_migrations/${migrationId}`);
+        const migration = await (0,_ueu_ueu_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_22__.fetchJson)(`/api/v1/courses/${courseId}/content_migrations/${migrationId}`);
         if (migration.workflow_state === "completed" || migration.workflow_state === "failed") {
             return migration;
         }
@@ -98290,8 +98314,11 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet }) {
     const [isArchiveDisabled, setIsArchiveDisabled] = (0,react__WEBPACK_IMPORTED_MODULE_7__.useState)(true);
     const [isNewBpDisabled, setIsNewBpDisabled] = (0,react__WEBPACK_IMPORTED_MODULE_7__.useState)(true);
     const [isRunningIntegritySetup, setIsRunningIntegritySetup] = (0,react__WEBPACK_IMPORTED_MODULE_7__.useState)(false);
+    const [isRunningAiLiteracySetup, setIsRunningAiLiteracySetup] = (0,react__WEBPACK_IMPORTED_MODULE_7__.useState)(false);
     const [isCloningBp, setCloningBp] = (0,react__WEBPACK_IMPORTED_MODULE_7__.useState)(false);
-    const academicIntegrityText = isRunningIntegritySetup ? "Setting up..." : `Setup Academic Integrity`;
+    const academicIntegrityText = isRunningIntegritySetup ? "Setting up..." : `Setup Citations Module`;
+    const aiLiteracyText = isRunningAiLiteracySetup ? "Setting up..." : "Setup AI Literacy Assignment";
+    const showAcademicIntegrityButton = currentBp ? true : false;
     (0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(...callOnChangeFunc(currentBp, onBpSet));
     (0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(...callOnChangeFunc(termName, onTermNameSet));
     (0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(...callOnChangeFunc(sections, onSectionsSet));
@@ -98450,10 +98477,10 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet }) {
                 console.log("BP Modules ", bpAssignmentGroups);
                 for (const group of bpAssignmentGroups) {
                     if (group.name === "Assignments" && group.group_weight === 0) {
-                        const deleteGroup = await (0,_ueu_ueu_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_21__.fetchJson)(`/api/v1/courses/${bpCourse.id}/assignment_groups/${group.id}`, {
+                        const deleteGroup = await (0,_ueu_ueu_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_22__.fetchJson)(`/api/v1/courses/${bpCourse.id}/assignment_groups/${group.id}`, {
                             fetchInit: {
                                 method: "DELETE",
-                                body: (0,_ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_22__.formDataify)({}),
+                                body: (0,_ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_23__.formDataify)({}),
                             },
                         });
                         if (deleteGroup.errors) {
@@ -98481,7 +98508,7 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet }) {
         window.open(newBp.htmlContentUrl);
         location.reload();
     }
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { children: [!isDev && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { className: "alert alert-warning", children: "This is not a DEV course" }) })), currentBp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { id: "archiveButton", onClick: onArchive, disabled: isArchiveDisabled, children: ["Archive ", currentBp.parsedCourseCode] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 2, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { children: "Term Name" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { required: true, "aria-required": true, id: "archiveTermName", typeof: "text", value: termName, disabled: (sections === null || sections === void 0 ? void 0 : sections.length) > 0, onChange: (e) => setTermName(e.target.value), placeholder: TERM_NAME_PLACEHOLDER }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { children: !termName && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], { children: "Term name not found in BP sections." }) })] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("hr", {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { id: "newBpButton", onClick: onCloneIntoBp, "aria-label": "New BP", disabled: isNewBpDisabled, children: "Create New BP" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: (currentBp === null || currentBp === void 0 ? void 0 : currentBp.isUndergrad) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { id: "academicIntegrityButton", onClick: () => (0,_academicIntegritySetup__WEBPACK_IMPORTED_MODULE_20__.academicIntegritySetup)({ currentBp, setIsRunningIntegritySetup }), disabled: isRunningIntegritySetup || !currentBp || isCloningBp, "aria-label": "Setup Academic Integrity in New BP", title: "Set up the Academic Integrity content in the BP. This may take a while to complete. You can change tabs but closing or refreshing this tab may cause issues.", children: academicIntegrityText })) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 5, children: currentBp &&
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { children: [!isDev && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { className: "alert alert-warning", children: "This is not a DEV course" }) })), currentBp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { id: "archiveButton", onClick: onArchive, disabled: isArchiveDisabled, children: ["Archive ", currentBp.parsedCourseCode] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 2, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { children: "Term Name" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { required: true, "aria-required": true, id: "archiveTermName", typeof: "text", value: termName, disabled: (sections === null || sections === void 0 ? void 0 : sections.length) > 0, onChange: (e) => setTermName(e.target.value), placeholder: TERM_NAME_PLACEHOLDER }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { children: !termName && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], { children: "Term name not found in BP sections." }) })] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("hr", {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { id: "newBpButton", onClick: onCloneIntoBp, "aria-label": "New BP", disabled: isNewBpDisabled, children: "Create New BP" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: [showAcademicIntegrityButton && currentBp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { id: "aiLiteracyButton", onClick: () => (0,_publish_publishInterface_aiLiteracySetup__WEBPACK_IMPORTED_MODULE_21__.aiLiteracySetup)({ currentBp, setIsRunningAiLiteracySetup }), disabled: isRunningAiLiteracySetup || !currentBp || isCloningBp || isRunningIntegritySetup, "aria-label": "Setup AI Literacy Assignment in New BP", title: "Set up the AI Literacy assignment content in the BP. This may take a while to complete. You can change tabs but closing or refreshing this tab may cause issues.", children: aiLiteracyText })), (currentBp === null || currentBp === void 0 ? void 0 : currentBp.isUndergrad) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { className: showAcademicIntegrityButton ? "mt-2" : undefined, id: "academicIntegrityButton", onClick: () => (0,_academicIntegritySetup__WEBPACK_IMPORTED_MODULE_20__.academicIntegritySetup)({ currentBp, setIsRunningIntegritySetup }), disabled: isRunningIntegritySetup || !currentBp || isCloningBp || isRunningAiLiteracySetup, "aria-label": "Setup Citations Module in New BP", title: "Set up the Citations module content in the BP. This may take a while to complete. You can change tabs but closing or refreshing this tab may cause issues.", children: academicIntegrityText }))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 5, children: currentBp &&
                                 activeMigrations.map((migration) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_DevToBpMigrationBar__WEBPACK_IMPORTED_MODULE_15__.DevToBpMigrationBar, { migration: migration, onFinishMigration: finishMigration, course: currentBp }))) })] }) })] }));
 }
 
@@ -98894,6 +98921,7 @@ async function academicIntegritySetup({ currentBp, setIsRunningIntegritySetup })
     const bp = currentBp;
     if (!bp) {
         alert("No BP found.");
+        setIsRunningIntegritySetup(false);
         return;
     }
     const modules = await bp.getModules();
@@ -99060,6 +99088,176 @@ async function academicIntegritySetup({ currentBp, setIsRunningIntegritySetup })
     //If we made it here, let the user know we've succeeded
     alert("Academic integrity setup complete!");
     setIsRunningIntegritySetup(false);
+}
+
+
+/***/ },
+
+/***/ "./src/publish/publishInterface/aiLiteracySetup.ts"
+/*!*********************************************************!*\
+  !*** ./src/publish/publishInterface/aiLiteracySetup.ts ***!
+  \*********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   aiLiteracySetup: () => (/* binding */ aiLiteracySetup),
+/* harmony export */   getModuleDueDate: () => (/* binding */ getModuleDueDate)
+/* harmony export */ });
+/* harmony import */ var _publish_publishInterface_MakeBp__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/publish/publishInterface/MakeBp */ "./src/publish/publishInterface/MakeBp.tsx");
+/* harmony import */ var _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ueu/ueu-canvas */ "./node_modules/@ueu/ueu-canvas/dist/index.js");
+/* harmony import */ var _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ueu_ueu_canvas_content_assignments_legacy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ueu/ueu-canvas/content/assignments/legacy */ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/legacy.js");
+/* harmony import */ var _ueu_ueu_canvas_content_assignments_legacy__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas_content_assignments_legacy__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _ueu_ueu_canvas_course_migration__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ueu/ueu-canvas/course/migration */ "./node_modules/@ueu/ueu-canvas/dist/course/migration/index.js");
+
+
+
+
+function getModuleDueDate(module) {
+    var _a, _b;
+    const dueDates = module.items
+        .map((item) => { var _a; return (_a = item.content_details) === null || _a === void 0 ? void 0 : _a.due_at; })
+        .filter((dueDate) => !!dueDate);
+    if (dueDates.length === 0) {
+        return undefined;
+    }
+    const dueDateCounts = new Map();
+    for (const dueDate of dueDates) {
+        dueDateCounts.set(dueDate, ((_a = dueDateCounts.get(dueDate)) !== null && _a !== void 0 ? _a : 0) + 1);
+    }
+    let mostCommonDueDate;
+    let mostCommonCount = 0;
+    for (const dueDate of dueDates) {
+        const count = (_b = dueDateCounts.get(dueDate)) !== null && _b !== void 0 ? _b : 0;
+        if (count > mostCommonCount) {
+            mostCommonDueDate = dueDate;
+            mostCommonCount = count;
+        }
+    }
+    return mostCommonDueDate;
+}
+async function aiLiteracySetup({ currentBp, setIsRunningAiLiteracySetup }) {
+    const bp = currentBp;
+    const aiLiteracyCourseId = 8019281;
+    const aiLiteracyAssignmentId = 55291320;
+    setIsRunningAiLiteracySetup(true);
+    if (!bp) {
+        alert("No BP found.");
+        setIsRunningAiLiteracySetup(false);
+        return;
+    }
+    const bpAssignments = await bp.getAssignments();
+    for (const assignment of bpAssignments) {
+        if (assignment.name.toLowerCase().includes("ai literacy")) {
+            alert("AI Literacy Assignment already exists in course.");
+            setIsRunningAiLiteracySetup(false);
+            return;
+        }
+    }
+    const assignmentGroups = await bp.getAssignmentGroups();
+    let destAssignmentGroup = null;
+    const modules = await bp.getModules();
+    let destModule = null;
+    for (const group of assignmentGroups) {
+        if (group.name.toLowerCase().includes("assignment") && !group.name.toLowerCase().includes("imported")) {
+            destAssignmentGroup = group;
+            break;
+        }
+    }
+    if (!destAssignmentGroup) {
+        destAssignmentGroup = assignmentGroups[0];
+    }
+    for (const module of modules) {
+        if (module.name.toLowerCase().includes("module 1")) {
+            destModule = module;
+            break;
+        }
+    }
+    if (!destModule) {
+        alert("Module 1 not found.");
+        setIsRunningAiLiteracySetup(false);
+        return;
+    }
+    /*
+    const lastItem = destModule.items[destModule.items.length - 1];
+  
+    const dueDate = (await getAssignmentData(bp.id, lastItem.content_id))?.due_at ?? lastItem.content_details?.due_at;
+    */
+    const dueDate = getModuleDueDate(destModule);
+    if (!dueDate) {
+        alert("Couldn't find due date for Week 1 assignments.");
+        setIsRunningAiLiteracySetup(false);
+        return;
+    }
+    const assignmentContentMigration = await (0,_ueu_ueu_canvas_course_migration__WEBPACK_IMPORTED_MODULE_3__.startMigration)(aiLiteracyCourseId, bp.id, {
+        fetchInit: {
+            body: (0,_ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_1__.formDataify)({
+                migration_type: "course_copy_importer",
+                settings: {
+                    source_course_id: aiLiteracyCourseId,
+                    move_to_assignment_group_id: destAssignmentGroup.id,
+                    insert_into_module_id: destModule.id,
+                    insert_into_module_type: "assignment",
+                    insert_into_module_position: 2,
+                },
+                select: {
+                    assignments: [aiLiteracyAssignmentId],
+                },
+            }),
+        },
+    });
+    const finalMigration = await (0,_publish_publishInterface_MakeBp__WEBPACK_IMPORTED_MODULE_0__.waitForMigrationCompletion)(bp.id, assignmentContentMigration.id);
+    if (finalMigration.workflow_state === "failed") {
+        alert("There was a problem in the migration process. Check the BP to make sure the modules imported correctly.");
+        setIsRunningAiLiteracySetup(false);
+        return;
+    }
+    const updatedModules = await bp.updateModules();
+    const updatedGroups = await bp.getAssignmentGroups();
+    const aiLiteracyModuleItem = updatedModules[1].items[1];
+    const aiLiteracyAssignment = await (0,_ueu_ueu_canvas_content_assignments_legacy__WEBPACK_IMPORTED_MODULE_2__.getAssignmentData)(bp.id, aiLiteracyModuleItem.content_id);
+    const updateAssignmentDate = await (0,_ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_1__.updateAssignmentData)(bp.id, aiLiteracyAssignment.id, {
+        assignment: {
+            due_at: dueDate,
+        },
+    });
+    if (updateAssignmentDate.errors) {
+        alert("There was a problem updating the due date of the AI Literacy Assignment. You may need to update that manually.");
+    }
+    const updateModuleItem = await (0,_ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(`/api/v1/courses/${bp.id}/modules/${updatedModules[1].id}/items/${aiLiteracyModuleItem.id}`, {
+        fetchInit: {
+            method: "PUT",
+            body: (0,_ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_1__.formDataify)({
+                module_item: {
+                    indent: 1,
+                    completion_requirement: {
+                        type: "must_submit",
+                    },
+                    published: true,
+                },
+            }),
+        },
+    });
+    if (updateModuleItem.errors) {
+        alert("Failed to update the assignment in the module. You may need to update indent, competion requirement and published status manually.");
+    }
+    for (const group of updatedGroups) {
+        if (group.name.toLocaleLowerCase().includes("imported")) {
+            const deleteGroup = await (0,_ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_1__.fetchJson)(`/api/v1/courses/${bp.id}/assignment_groups/${group.id}`, {
+                fetchInit: {
+                    method: "DELETE",
+                    body: (0,_ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_1__.formDataify)({}),
+                },
+            });
+            if (deleteGroup.errors) {
+                alert("Failed to delete imported assignment group in BP. You will need to remove it manually.");
+            }
+        }
+    }
+    setIsRunningAiLiteracySetup(false);
+    alert("AI Literacy Assignment Setup done!");
 }
 
 
