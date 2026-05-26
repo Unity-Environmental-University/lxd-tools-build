@@ -44072,15 +44072,32 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ImportButton() {
+function ImportButton({ name = "Import Wk1 Mats", useSlug = false }) {
     const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false);
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["default"], { title: "Import the Week 1 Learning mats into the syllabus", disabled: loading, onClick: async (e) => {
+    let title = "Import the Week 1 Learning mats into the syllabus";
+    if (useSlug) {
+        title = "Choose a page to import into the syllabus";
+    }
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["default"], { title: title, disabled: loading, onClick: async (e) => {
             setLoading(true);
+            let slug = "week-1-learning-materials";
+            if (useSlug) {
+                slug = prompt("This tool will grab videos & dropdowns from the page with the slug you enter, if present. A page slug is between 'pages/' and the first '?'\n\nExample: https://unity.instructure.com/courses/7740758/pages/week-1-learning-materials-and-overview?module_item_id=136520398 has slug week-1-learning-materials-and-overview");
+                if (slug === null) {
+                    setLoading(false);
+                    return;
+                }
+            }
             console.log("Import Syllabus clicked", e);
-            await (0,_ui_syllabus_handleImportClick__WEBPACK_IMPORTED_MODULE_3__.handleImportClick)();
+            if (slug) {
+                await (0,_ui_syllabus_handleImportClick__WEBPACK_IMPORTED_MODULE_3__.handleImportClick)(slug);
+            }
+            else {
+                await (0,_ui_syllabus_handleImportClick__WEBPACK_IMPORTED_MODULE_3__.handleImportClick)();
+            }
             console.log("About to reload");
             location.reload();
-        }, children: loading ? "..." : "Import Wk1 Mats" }));
+        }, children: loading ? "..." : name }));
 }
 
 
@@ -44227,29 +44244,26 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // main handler for import button click
-async function handleImportClick() {
+async function handleImportClick(pageSlug = "week-1-learning-materials") {
     try {
         const course = await _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_0__.Course.getFromUrl();
         if (!course) {
+            alert("No course found");
             console.error("No course found from URL");
             return;
         }
-        // Canvas "slug" form of page name
-        const pageSlug = "week-1-learning-materials";
         const pageData = await _ueu_ueu_canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_2__["default"].getByString(course.id, pageSlug, { queryParams: { include: ["body"] } });
         if ("message" in pageData) {
+            alert(`Page with slug "${pageSlug}" not found: ${pageData.message}`);
             console.error(`Page with slug "${pageSlug}" not found:`, pageData.message);
             return;
         }
         const wk1_mats_page = new _ueu_ueu_canvas_content_pages_Page__WEBPACK_IMPORTED_MODULE_1__.Page(pageData, course.id); // TODO dont need to create this if all i need is body
         const extractedContent = (0,_ui_syllabus_ImportHelpers__WEBPACK_IMPORTED_MODULE_3__.extractContentFromHTML)(wk1_mats_page.body, ".cbt-video-container");
-        const extractedMats = (0,_ui_syllabus_ImportHelpers__WEBPACK_IMPORTED_MODULE_3__.extractContentFromHTML)(wk1_mats_page.body, "div.scaffold-media-box.cbt-content.cbt-accordion-container"); // assuming learning mats are in a <ul>
-        if (!extractedContent) {
-            console.error("No video content found on Week 1 Learning Materials page");
-            return;
-        }
-        if (!extractedMats) {
-            console.error("No learning materials content found on Week 1 Learning Materials page");
+        const extractedMats = (0,_ui_syllabus_ImportHelpers__WEBPACK_IMPORTED_MODULE_3__.extractContentFromHTML)(wk1_mats_page.body, "div.cbt-accordion-list.utc-accordion-list"); // assuming learning mats are in a <ul>
+        if (!extractedContent.length && !extractedMats.length) {
+            alert("No video content or dropdowns found on Week 1 Learning Materials page");
+            console.error("No video content or dropdowns found on Week 1 Learning Materials page");
             return;
         }
         const syllabusBody = await course.getSyllabus();
@@ -44259,12 +44273,15 @@ async function handleImportClick() {
         // only update the body if it changed
         if (newBody != syllabusBody) {
             await course.changeSyllabus(newBody);
+            alert("Syllabus successfully updated");
         }
         else {
+            alert("Syllabus already up to date");
             console.log("Syllabus already up to date");
         }
     }
     catch (err) {
+        alert(`Error: ${err}`);
         console.error("Error fetching Week 1 Learning Materials page and importing into syllabus:", err);
     }
 }
@@ -44297,7 +44314,7 @@ function addImportButton(location) {
         const rootDiv = document.createElement('div');
         correctParent.insertBefore(rootDiv, correctParent.firstElementChild);
         const importButtonRoot = react_dom_client__WEBPACK_IMPORTED_MODULE_2__.createRoot(rootDiv);
-        importButtonRoot.render((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_syllabus_ImportButton__WEBPACK_IMPORTED_MODULE_1__.ImportButton, {}));
+        importButtonRoot.render((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_syllabus_ImportButton__WEBPACK_IMPORTED_MODULE_1__.ImportButton, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_syllabus_ImportButton__WEBPACK_IMPORTED_MODULE_1__.ImportButton, { name: "Custom Import", useSlug: true })] }));
     }
     else {
         console.error("could not find correct parent to add import button to syllabus");
@@ -44305,6 +44322,12 @@ function addImportButton(location) {
 }
 function main() {
     // grab the location to add the button to
+    // TODO this location is hardcoded has Week 1 Learning Materials
+    // at least make it a constant because this is used in ImportHelpers as
+    // well - at best it needs to be state because some CE pages won't 
+    // use that wording in the syllabus - in that case the custom import button
+    // should appear at top of page and accept a string indicating what text to
+    // look for in syllabus.
     const location = Array.from(document.querySelectorAll(".content"))
         .find(h3 => { var _a; return (_a = h3.textContent) === null || _a === void 0 ? void 0 : _a.includes("Week 1 Learning Materials"); }); // TODO I re-use this little snippet a lot - make a func?
     if (location) {
@@ -44313,6 +44336,7 @@ function main() {
     }
     else {
         console.error("could not find location to add import button to syllabus");
+        alert("could not find location to add import button to syllabus - does this syllabus include header 'Week 1 Learning Materials' for that section? Make sure it does if you wish to use this feature");
     }
 }
 

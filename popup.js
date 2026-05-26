@@ -56997,7 +56997,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function PopUpApp() {
     const [advanced, setAdvanced] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "PopUpApp container text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: ['d-flex', 'flex-row-reverse'].join(' '), children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Check, { type: 'switch', label: 'Advanced Options', checked: advanced, onChange: (e) => setAdvanced(e.target.checked) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(CourseNavigation, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(SalesforceNavigation, {}), advanced && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(SetOpenAiKey, {}) })] }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "PopUpApp container text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: ["d-flex", "flex-row-reverse"].join(" "), children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Check, { type: "switch", label: "Advanced Options", checked: advanced, onChange: (e) => setAdvanced(e.target.checked) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(CourseNavigation, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(SalesforceNavigation, {}), advanced && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(SetOpenAiKey, {}) }))] }));
 }
 function CourseNavigation() {
     const [isDisabled, setIsDisabled] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
@@ -57014,7 +57014,7 @@ function CourseNavigation() {
             return;
         }
         const response = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_2__.runtime.sendMessage({
-            searchForCourse: { queryString, subAccount }
+            searchForCourse: { queryString, subAccount },
         });
         console.log(response);
         setIsDisabled(false);
@@ -57023,7 +57023,7 @@ function CourseNavigation() {
             setError(response.error);
         }
     }
-    return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col card-body search-box", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", { children: "Course Navigation" }), error && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "alert alert-warning", children: error }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", { onSubmit: async (e) => {
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col card-body search-box", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", { children: "Course Navigation" }), error && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "alert alert-warning", children: error }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", { onSubmit: async (e) => {
                     e.preventDefault();
                     localStorage.setItem(_consts__WEBPACK_IMPORTED_MODULE_8__.SUB_ACCOUNT, subAccount.toString());
                     setError(null);
@@ -57036,10 +57036,10 @@ function CourseNavigation() {
                         return;
                     }
                     await submitQuery(queryString, subAccount);
-                }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { disabled: isDisabled, autoFocus: true, id: "search-box", type: 'text', placeholder: 'Enter search here', onChange: (e) => setQueryString(e.target.value) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { disabled: isDisabled, value: subAccount !== null && subAccount !== void 0 ? subAccount : "", onChange: (e) => {
+                }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { disabled: isDisabled, autoFocus: true, id: "search-box", type: "text", placeholder: "Enter search here", onChange: (e) => setQueryString(e.target.value) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { disabled: isDisabled, value: subAccount !== null && subAccount !== void 0 ? subAccount : "", onChange: (e) => {
                                     const val = e.target.value;
                                     setSubAccount(parseInt(val, 10));
-                                }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "", children: "Pick account/subaccount" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "169877", children: "Distance Education" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "170329", children: "Distance Education Development" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "98244", children: "Unity College" })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { disabled: isDisabled, className: "btn", children: "Search" }) })] })] });
+                                }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "", children: "Pick account/subaccount" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "169877", children: "Distance Education" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "170329", children: "Distance Education Development" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "98244", children: "Unity College" })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { disabled: isDisabled, className: "btn", children: "Search" }) })] })] }));
 }
 function SalesforceNavigation() {
     const [isDisabled, setIsDisabled] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
@@ -57047,18 +57047,35 @@ function SalesforceNavigation() {
     const [_queryString, _setQueryString] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
     const [_textEntryEnabled, setTextEntryEnabled] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
-    /*This isn't currently working, but I'm leaving it because it's closer than not and would be a nice feature to have.
-    async function getCourseCodeFromCanvas() {
-        // Get the active tab's URL to check if we're on a Canvas course page
-        const tabs = await browser.tabs.query({ active: true, currentWindow: true });
-        const activeTab = tabs[0];
-        if(!activeTab?.url) return;
-
-        if(activeTab.url.includes("unity.instructure.com/courses")) {
-
+    const [canvasCourseCode, setCanvasCourseCode] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    const learningMaterialsReportUrl = buildSalesforceReportUrl("00OUH000005LkRZ2A0");
+    const filteredLearningMaterialsReportUrl = canvasCourseCode
+        ? buildSalesforceReportUrl("00OUH000005LkRZ2A0", 4, canvasCourseCode)
+        : learningMaterialsReportUrl;
+    (0,_ui_utils__WEBPACK_IMPORTED_MODULE_6__.useEffectAsync)(async () => {
+        var _a;
+        try {
+            const [activeTab] = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_2__.tabs.query({ active: true, currentWindow: true });
+            const extractedCourseCode = await extractCanvasCourseCodeFromUrl((_a = activeTab === null || activeTab === void 0 ? void 0 : activeTab.url) !== null && _a !== void 0 ? _a : null);
+            setCanvasCourseCode(extractedCourseCode);
         }
-    }*/
-    return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col card-body search-box", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", { children: "Salesforce Navigation" }), error && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "alert alert-warning", children: error }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "row", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { disabled: isDisabled, value: option !== null && option !== void 0 ? option : " ", onChange: (e) => {
+        catch (e) {
+            console.warn("Unable to inspect active tab for Canvas course code:", e);
+            setCanvasCourseCode(null);
+        }
+    }, []);
+    /*This isn't currently working, but I'm leaving it because it's closer than not and would be a nice feature to have.
+      async function getCourseCodeFromCanvas() {
+          // Get the active tab's URL to check if we're on a Canvas course page
+          const tabs = await browser.tabs.query({ active: true, currentWindow: true });
+          const activeTab = tabs[0];
+          if(!activeTab?.url) return;
+  
+          if(activeTab.url.includes("unity.instructure.com/courses")) {
+  
+          }
+      }*/
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col card-body search-box", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", { children: "Salesforce Navigation" }), error && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "alert alert-warning", children: error }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "row", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { disabled: isDisabled, value: option !== null && option !== void 0 ? option : " ", onChange: (e) => {
                         setIsDisabled(true);
                         setOption(e.target.value);
                         if (e.target.value === "section-check-ug") {
@@ -57070,22 +57087,64 @@ function SalesforceNavigation() {
                         else if (e.target.value === "course-offerings") {
                             window.open("https://unityenvironmentaluniversity.lightning.force.com/lightning/r/Report/00OUH000004Undh2AC/view?queryScope=userFolders", "_blank");
                         }
+                        else if (e.target.value === "course-materials") {
+                            window.open(filteredLearningMaterialsReportUrl, "_blank");
+                        }
                         else if (["learning-course", "course-material"].includes(e.target.value)) {
                             /*getCourseCodeFromCanvas().then(r => {
-                                if(r) {
-                                    setQueryString(r);
-                                }
-                            });*/
+                                          if(r) {
+                                              setQueryString(r);
+                                          }
+                                      });*/
                             setTextEntryEnabled(true);
                         }
                         else {
                             setError("Invalid Salesforce page selected");
                         }
                         setIsDisabled(false);
-                    }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "", children: "Pick Salesforce page:" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "section-check-ug", children: "Undergrad Section Check" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "section-check-grad", children: "Grad Section Check" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "course-offerings", children: "Unique Course Offerings by Term" })] }) })] });
+                    }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "", children: "Pick Salesforce page:" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "section-check-ug", children: "Undergrad Section Check" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "section-check-grad", children: "Grad Section Check" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "course-offerings", children: "Unique Course Offerings by Term" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "course-materials", children: "Learning Materials Report" })] }) })] }));
+}
+function buildSalesforceReportUrl(reportId, filterIndex, filterValue) {
+    const baseUrl = `https://unityenvironmentaluniversity.lightning.force.com/lightning/r/Report/${reportId}/view`;
+    if (typeof filterIndex !== "number" || typeof filterValue !== "string" || filterValue.length === 0) {
+        return `${baseUrl}?queryScope=userFolders`;
+    }
+    const filterParam = `fv${filterIndex}=${encodeURIComponent(filterValue)}`;
+    return `${baseUrl}?queryScope=userFolders&${filterParam}`;
+}
+async function extractCanvasCourseCodeFromUrl(url) {
+    if (!url)
+        return null;
+    const canvasUrl = new URL(url);
+    if (!canvasUrl.hostname.endsWith(".instructure.com") || !/\/courses\/\d+/.test(canvasUrl.pathname))
+        return null;
+    const idRegex = /courses\/(\d+)/m;
+    const match = idRegex.exec(canvasUrl.pathname);
+    if (!match)
+        return null;
+    const courseId = +match[1];
+    const course = await getCanvasCourseById(canvasUrl.origin, courseId);
+    const courseName = course.name;
+    if (!courseName)
+        return null;
+    const courseNameRegex = /([A-Za-z]{4})[\s_-]?(\d{3,4})/m;
+    const courseCode = courseNameRegex.exec(courseName);
+    if (!courseCode || !courseCode[1] || !courseCode[2])
+        return null;
+    const formattedCourseCode = `${courseCode[1].toUpperCase()} ${courseCode[2]}`;
+    return formattedCourseCode;
+}
+async function getCanvasCourseById(canvasOrigin, courseId) {
+    const response = await fetch(`${canvasOrigin}/api/v1/courses/${courseId}`, {
+        credentials: "include",
+    });
+    if (!response.ok) {
+        throw new Error(`Unable to load Canvas course ${courseId}: ${response.status} ${response.statusText}`);
+    }
+    return response.json();
 }
 function SetOpenAiKey() {
-    const [key, setKey] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('');
+    const [key, setKey] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("");
     const [saved, _setSaved] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     async function saveKey(keyToSave) {
         await webextension_polyfill__WEBPACK_IMPORTED_MODULE_2__.storage.local.set({ [_consts__WEBPACK_IMPORTED_MODULE_8__.OPEN_AI_API_KEY_KEY]: keyToSave });
@@ -57096,10 +57155,10 @@ function SetOpenAiKey() {
         console.log(savedKey);
         setKey(savedKey);
     }, []);
-    return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col card-body search-box", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", { children: "OpenAI API Key" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", { onSubmit: async (e) => {
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col card-body search-box", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", { children: "OpenAI API Key" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", { onSubmit: async (e) => {
                     e.preventDefault();
                     saveKey(key);
-                }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "row", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { id: "open-api-key", type: 'text', value: key, placeholder: 'Enter search here', onChange: (e) => setKey(e.target.value) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'col', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { className: "btn", onClick: () => saveKey(key), children: "Save API Key" }), saved && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h4", { children: "Saved" })] })] })] });
+                }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "row", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { id: "open-api-key", type: "text", value: key, placeholder: "Enter search here", onChange: (e) => setKey(e.target.value) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { className: "btn", onClick: () => saveKey(key), children: "Save API Key" }), saved && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h4", { children: "Saved" })] })] })] }));
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PopUpApp);
 
