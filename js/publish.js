@@ -97059,7 +97059,7 @@ const fixSupportEmailTest = {
     fix: (0,_utils__WEBPACK_IMPORTED_MODULE_1__.badSyllabusFixFunc)(badSupportEmailRegex, goodSupportEmail),
 };
 const ugSearchString = "students be honest in all academic work";
-const ugHonorCodeLinkPhrase = "?docid=3341";
+const ugHonorCodeLinkPhrase = "?docid=3360";
 const gradHonorCodeSearchString = "Academic Integrity and the Graduate Honor Code";
 const gradHonorCodeLinkPhrase = "?docid=3327";
 const gradHonorCodeHtml = `<h3><strong>Academic Integrity and the Graduate Honor Code</strong></h3><p>Unity Environmental University expects graduate students to uphold the highest standards of academic integrity in all coursework and scholarship. This includes producing original work, citing sources accurately, acknowledging collaboration, and using AI tools responsibly.</p><p>Academic dishonesty includes (but is not limited to) plagiarism, falsifying data or citations, unauthorized collaboration, misrepresenting authorship, or submitting AI-generated content without meaningful human review and authorship.</p><p>Violations are cumulative across terms and may result in academic penalties up to and including dismissal. A first low-level issue may be treated as a learning opportunity; repeated or serious offenses become formal violations recorded with the Dean&rsquo;s office.</p><p>Unity uses Turnitin to support academic integrity. When Turnitin is enabled, you must agree that the work submitted is your own, with all sources properly cited.</p><p>The complete policy can be found in the <a href="https://unitycollege.policytech.com/dotNet/documents/?docid=3327&amp;app=pt&amp;source=unspecified&amp;public=true">Graduate Academic Honor Code</a>.</p>`;
@@ -97132,7 +97132,7 @@ const honorCodeCheck = {
         const parser = new DOMParser();
         const parsedSyllabus = parser.parseFromString(syllabus, "text/html");
         const tables = Array.from(parsedSyllabus.querySelectorAll("table"));
-        const ugNewSyllabusHtml = `<h3><strong>The Unity Environmental University Honor Code</strong></h3><p>Click on <a href="https://unitycollege.policytech.com/dotNet/documents/?docid=3341&app=pt&source=browse&public=true">this link to view the full Academic Honor Code</a>. You are responsible for being familiar with the Academic Honor Code.</p>`;
+        const ugNewSyllabusHtml = `<h3><strong>The Unity Environmental University Honor Code</strong></h3><p>Click on <a href="https://unitycollege.policytech.com/dotNet/documents/?docid=3360&app=pt&source=browse&public=true">this link to view the full Academic Honor Code</a>. You are responsible for being familiar with the Academic Honor Code.</p>`;
         if (course.isUndergrad()) {
             const honorCodeTable = tables.find((table) => {
                 var _a, _b;
