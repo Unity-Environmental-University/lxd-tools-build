@@ -99265,10 +99265,10 @@ async function fetchEmailTemplate(course) {
         const courseCodeNumber = parseInt(parsedCourseCode[0]);
         let devCourseId = null;
         if (course.isUndergrad() || course.isCareerInstitute()) {
-            devCourseId = 7773747;
+            devCourseId = 7775658;
         }
         else if (course.isGrad()) {
-            devCourseId = 7775658;
+            devCourseId = 7773747;
         }
         else {
             throw new Error("Unsure which email to grab.");
