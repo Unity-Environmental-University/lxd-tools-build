@@ -72,13 +72,9 @@ function computeCoordsFromPlacement(_ref, placement, rtl) {
         y: reference.y
       };
   }
-  switch ((0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAlignment)(placement)) {
-    case 'start':
-      coords[alignmentAxis] -= commonAlign * (rtl && isVertical ? -1 : 1);
-      break;
-    case 'end':
-      coords[alignmentAxis] += commonAlign * (rtl && isVertical ? -1 : 1);
-      break;
+  const alignment = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAlignment)(placement);
+  if (alignment) {
+    coords[alignmentAxis] += commonAlign * (alignment === 'end' ? 1 : -1) * (rtl && isVertical ? -1 : 1);
   }
   return coords;
 }
@@ -127,10 +123,7 @@ async function detectOverflow(state, options) {
     height: rects.floating.height
   } : rects.reference;
   const offsetParent = await (platform.getOffsetParent == null ? void 0 : platform.getOffsetParent(elements.floating));
-  const offsetScale = (await (platform.isElement == null ? void 0 : platform.isElement(offsetParent))) ? (await (platform.getScale == null ? void 0 : platform.getScale(offsetParent))) || {
-    x: 1,
-    y: 1
-  } : {
+  const offsetScale = (await (platform.isElement == null ? void 0 : platform.isElement(offsetParent))) && (await (platform.getScale == null ? void 0 : platform.getScale(offsetParent))) || {
     x: 1,
     y: 1
   };
@@ -303,17 +296,16 @@ const arrow = options => ({
 
     // Make sure the arrow doesn't overflow the floating element if the center
     // point is outside the floating element's bounds.
-    const min$1 = minPadding;
     const max = clientSize - arrowDimensions[length] - maxPadding;
     const center = clientSize / 2 - arrowDimensions[length] / 2 + centerToReference;
-    const offset = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.clamp)(min$1, center, max);
+    const offset = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.clamp)(minPadding, center, max);
 
     // If the reference is small enough that the arrow's padding causes it to
     // to point to nothing for an aligned placement, adjust the offset of the
     // floating element itself. To ensure `shift()` continues to take action,
     // a single reset is performed when this is true.
-    const shouldAddOffset = !middlewareData.arrow && (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAlignment)(placement) != null && center !== offset && rects.reference[length] / 2 - (center < min$1 ? minPadding : maxPadding) - arrowDimensions[length] / 2 < 0;
-    const alignmentOffset = shouldAddOffset ? center < min$1 ? center - min$1 : center - max : 0;
+    const shouldAddOffset = !middlewareData.arrow && (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAlignment)(placement) != null && center !== offset && rects.reference[length] / 2 - (center < minPadding ? minPadding : maxPadding) - arrowDimensions[length] / 2 < 0;
+    const alignmentOffset = shouldAddOffset ? center < minPadding ? center - minPadding : center - max : 0;
     return {
       [axis]: coords[axis] + alignmentOffset,
       data: {
@@ -367,13 +359,11 @@ const autoPlacement = function (options) {
         ...detectOverflowOptions
       } = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.evaluate)(options, state);
       const placements$1 = alignment !== undefined || allowedPlacements === _floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.placements ? getPlacementList(alignment || null, autoAlignment, allowedPlacements) : allowedPlacements;
-      const overflow = await platform.detectOverflow(state, detectOverflowOptions);
       const currentIndex = ((_middlewareData$autoP = middlewareData.autoPlacement) == null ? void 0 : _middlewareData$autoP.index) || 0;
       const currentPlacement = placements$1[currentIndex];
       if (currentPlacement == null) {
         return {};
       }
-      const alignmentSides = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAlignmentSides)(currentPlacement, rects, await (platform.isRTL == null ? void 0 : platform.isRTL(elements.floating)));
 
       // Make `computeCoords` start from the right place.
       if (placement !== currentPlacement) {
@@ -383,6 +373,8 @@ const autoPlacement = function (options) {
           }
         };
       }
+      const overflow = await platform.detectOverflow(state, detectOverflowOptions);
+      const alignmentSides = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAlignmentSides)(currentPlacement, rects, await (platform.isRTL == null ? void 0 : platform.isRTL(elements.floating)));
       const currentOverflows = [overflow[(0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSide)(currentPlacement)], overflow[alignmentSides[0]], overflow[alignmentSides[1]]];
       const allOverflows = [...(((_middlewareData$autoP2 = middlewareData.autoPlacement) == null ? void 0 : _middlewareData$autoP2.overflows) || []), {
         placement: currentPlacement,
@@ -689,12 +681,19 @@ const inline = function (options) {
         y
       } = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.evaluate)(options, state);
       const nativeClientRects = Array.from((await (platform.getClientRects == null ? void 0 : platform.getClientRects(elements.reference))) || []);
+
+      // No rects (e.g. a hidden or detached reference, or a collapsed range) —
+      // keep the existing reference rect rather than resetting to an invalid
+      // one with non-finite values.
+      if (!nativeClientRects.length) {
+        return {};
+      }
       const clientRects = getRectsByLine(nativeClientRects);
       const fallback = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.rectToClientRect)(getBoundingRect(nativeClientRects));
       const paddingObject = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getPaddingObject)(padding);
       function getBoundingClientRect() {
         // There are two rects and they are disjoined.
-        if (clientRects.length === 2 && clientRects[0].left > clientRects[1].right && x != null && y != null) {
+        if (clientRects.length === 2 && (clientRects[0].left > clientRects[1].right || clientRects[1].left > clientRects[0].right) && x != null && y != null) {
           // Find the first rect in which the point is fully inside.
           return clientRects.find(rect => x > rect.left - paddingObject.left && x < rect.right + paddingObject.right && y > rect.top - paddingObject.top && y < rect.bottom + paddingObject.bottom) || fallback;
         }
@@ -709,18 +708,12 @@ const inline = function (options) {
             const bottom = lastRect.bottom;
             const left = isTop ? firstRect.left : lastRect.left;
             const right = isTop ? firstRect.right : lastRect.right;
-            const width = right - left;
-            const height = bottom - top;
-            return {
-              top,
-              bottom,
-              left,
-              right,
-              width,
-              height,
+            return (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.rectToClientRect)({
               x: left,
-              y: top
-            };
+              y: top,
+              width: right - left,
+              height: bottom - top
+            });
           }
           const isLeftSide = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSide)(placement) === 'left';
           const maxRight = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.max)(...clientRects.map(rect => rect.right));
@@ -728,20 +721,12 @@ const inline = function (options) {
           const measureRects = clientRects.filter(rect => isLeftSide ? rect.left === minLeft : rect.right === maxRight);
           const top = measureRects[0].top;
           const bottom = measureRects[measureRects.length - 1].bottom;
-          const left = minLeft;
-          const right = maxRight;
-          const width = right - left;
-          const height = bottom - top;
-          return {
-            top,
-            bottom,
-            left,
-            right,
-            width,
-            height,
-            x: left,
-            y: top
-          };
+          return (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.rectToClientRect)({
+            x: minLeft,
+            y: top,
+            width: maxRight - minLeft,
+            height: bottom - top
+          });
         }
         return fallback;
       }
@@ -891,23 +876,16 @@ const shift = function (options) {
         y
       };
       const overflow = await platform.detectOverflow(state, detectOverflowOptions);
-      const crossAxis = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSideAxis)((0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSide)(placement));
+      const crossAxis = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSideAxis)(placement);
       const mainAxis = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getOppositeAxis)(crossAxis);
       let mainAxisCoord = coords[mainAxis];
       let crossAxisCoord = coords[crossAxis];
+      const clampCoord = (axis, coord) => (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.clamp)(coord + overflow[axis === 'y' ? 'top' : 'left'], coord, coord - overflow[axis === 'y' ? 'bottom' : 'right']);
       if (checkMainAxis) {
-        const minSide = mainAxis === 'y' ? 'top' : 'left';
-        const maxSide = mainAxis === 'y' ? 'bottom' : 'right';
-        const min = mainAxisCoord + overflow[minSide];
-        const max = mainAxisCoord - overflow[maxSide];
-        mainAxisCoord = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.clamp)(min, mainAxisCoord, max);
+        mainAxisCoord = clampCoord(mainAxis, mainAxisCoord);
       }
       if (checkCrossAxis) {
-        const minSide = crossAxis === 'y' ? 'top' : 'left';
-        const maxSide = crossAxis === 'y' ? 'bottom' : 'right';
-        const min = crossAxisCoord + overflow[minSide];
-        const max = crossAxisCoord - overflow[maxSide];
-        crossAxisCoord = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.clamp)(min, crossAxisCoord, max);
+        crossAxisCoord = clampCoord(crossAxis, crossAxisCoord);
       }
       const limitedCoords = limiter.fn({
         ...state,
@@ -938,6 +916,7 @@ const limitShift = function (options) {
   return {
     options,
     fn(state) {
+      var _rawOffset$mainAxis, _rawOffset$crossAxis;
       const {
         x,
         y,
@@ -963,9 +942,8 @@ const limitShift = function (options) {
         mainAxis: rawOffset,
         crossAxis: 0
       } : {
-        mainAxis: 0,
-        crossAxis: 0,
-        ...rawOffset
+        mainAxis: (_rawOffset$mainAxis = rawOffset.mainAxis) != null ? _rawOffset$mainAxis : 0,
+        crossAxis: (_rawOffset$crossAxis = rawOffset.crossAxis) != null ? _rawOffset$crossAxis : 0
       };
       if (checkMainAxis) {
         const len = mainAxis === 'y' ? 'height' : 'width';
@@ -997,6 +975,12 @@ const limitShift = function (options) {
   };
 };
 
+// Method syntax keeps callback parameters bivariant, but expressing the
+// explicit `| undefined` required by `exactOptionalPropertyTypes` needs
+// property syntax, which is contravariant under `strictFunctionTypes`.
+// Extracting the function from a method position restores that bivariance so
+// consumers can still assign callbacks with narrower parameter types.
+
 /**
  * Provides data that allows you to change the size of the floating element —
  * for instance, prevent it from overflowing the clipping boundary or match the
@@ -1011,7 +995,6 @@ const size = function (options) {
     name: 'size',
     options,
     async fn(state) {
-      var _state$middlewareData, _state$middlewareData2;
       const {
         placement,
         rects,
@@ -1043,24 +1026,21 @@ const size = function (options) {
       const maximumClippingWidth = width - overflow.left - overflow.right;
       const overflowAvailableHeight = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.min)(height - overflow[heightSide], maximumClippingHeight);
       const overflowAvailableWidth = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.min)(width - overflow[widthSide], maximumClippingWidth);
-      const noShift = !state.middlewareData.shift;
+      const shiftData = state.middlewareData.shift;
+      const noShift = !shiftData;
       let availableHeight = overflowAvailableHeight;
       let availableWidth = overflowAvailableWidth;
-      if ((_state$middlewareData = state.middlewareData.shift) != null && _state$middlewareData.enabled.x) {
+      if (shiftData != null && shiftData.enabled.x) {
         availableWidth = maximumClippingWidth;
       }
-      if ((_state$middlewareData2 = state.middlewareData.shift) != null && _state$middlewareData2.enabled.y) {
+      if (shiftData != null && shiftData.enabled.y) {
         availableHeight = maximumClippingHeight;
       }
       if (noShift && !alignment) {
-        const xMin = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.max)(overflow.left, 0);
-        const xMax = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.max)(overflow.right, 0);
-        const yMin = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.max)(overflow.top, 0);
-        const yMax = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.max)(overflow.bottom, 0);
         if (isYAxis) {
-          availableWidth = width - 2 * (xMin !== 0 || xMax !== 0 ? xMin + xMax : (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.max)(overflow.left, overflow.right));
+          availableWidth = width - 2 * (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.max)(overflow.left, overflow.right);
         } else {
-          availableHeight = height - 2 * (yMin !== 0 || yMax !== 0 ? yMin + yMax : (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.max)(overflow.top, overflow.bottom));
+          availableHeight = height - 2 * (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.max)(overflow.top, overflow.bottom);
         }
       }
       await apply({
@@ -1186,10 +1166,7 @@ function shouldAddVisualOffsets(element, isFixed, floatingOffsetParent) {
   if (isFixed === void 0) {
     isFixed = false;
   }
-  if (!floatingOffsetParent || isFixed && floatingOffsetParent !== (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getWindow)(element)) {
-    return false;
-  }
-  return isFixed;
+  return !!floatingOffsetParent && isFixed && floatingOffsetParent === (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getWindow)(element);
 }
 
 function getBoundingClientRect(element, includeScale, isFixedStrategy, offsetParent) {
@@ -1216,12 +1193,12 @@ function getBoundingClientRect(element, includeScale, isFixedStrategy, offsetPar
   let y = (clientRect.top + visualOffsets.y) / scale.y;
   let width = clientRect.width / scale.x;
   let height = clientRect.height / scale.y;
-  if (domElement) {
+  if (domElement && offsetParent) {
     const win = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getWindow)(domElement);
-    const offsetWin = offsetParent && (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isElement)(offsetParent) ? (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getWindow)(offsetParent) : offsetParent;
+    const offsetWin = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isElement)(offsetParent) ? (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getWindow)(offsetParent) : offsetParent;
     let currentWin = win;
     let currentIFrame = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getFrameElement)(currentWin);
-    while (currentIFrame && offsetParent && offsetWin !== currentWin) {
+    while (currentIFrame && offsetWin !== currentWin) {
       const iframeScale = getScale(currentIFrame);
       const iframeRect = currentIFrame.getBoundingClientRect();
       const css = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getComputedStyle)(currentIFrame);
@@ -1285,7 +1262,7 @@ function convertOffsetParentRelativeRectToViewportRelativeRect(_ref) {
   let scale = (0,_floating_ui_core__WEBPACK_IMPORTED_MODULE_1__.createCoords)(1);
   const offsets = (0,_floating_ui_core__WEBPACK_IMPORTED_MODULE_1__.createCoords)(0);
   const isOffsetParentAnElement = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isHTMLElement)(offsetParent);
-  if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
+  if (isOffsetParentAnElement || !isFixed) {
     if ((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getNodeName)(offsetParent) !== 'body' || (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isOverflowElement)(documentElement)) {
       scroll = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getNodeScroll)(offsetParent);
     }
@@ -1306,18 +1283,17 @@ function convertOffsetParentRelativeRectToViewportRelativeRect(_ref) {
 }
 
 function getClientRects(element) {
-  return Array.from(element.getClientRects());
+  return element.getClientRects ? Array.from(element.getClientRects()) : [];
 }
 
 // Gets the entire size of the scrollable document area, even extending outside
 // of the `<html>` and `<body>` rect bounds if horizontally scrollable.
-function getDocumentRect(element) {
-  const html = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getDocumentElement)(element);
-  const scroll = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getNodeScroll)(element);
-  const body = element.ownerDocument.body;
+function getDocumentRect(html) {
+  const scroll = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getNodeScroll)(html);
+  const body = html.ownerDocument.body;
   const width = (0,_floating_ui_core__WEBPACK_IMPORTED_MODULE_1__.max)(html.scrollWidth, html.clientWidth, body.scrollWidth, body.clientWidth);
   const height = (0,_floating_ui_core__WEBPACK_IMPORTED_MODULE_1__.max)(html.scrollHeight, html.clientHeight, body.scrollHeight, body.clientHeight);
-  let x = -scroll.scrollLeft + getWindowScrollBarX(element);
+  let x = -scroll.scrollLeft + getWindowScrollBarX(html);
   const y = -scroll.scrollTop;
   if ((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getComputedStyle)(body).direction === 'rtl') {
     x += (0,_floating_ui_core__WEBPACK_IMPORTED_MODULE_1__.max)(html.clientWidth, body.clientWidth) - width;
@@ -1334,7 +1310,11 @@ function getDocumentRect(element) {
 // calculation is affected by unusual styles.
 // Most scrollbars leave 15-18px of space.
 const SCROLLBAR_MAX = 25;
-function getViewportRect(element, strategy) {
+function getViewportRect(element, strategy, rootBoundary) {
+  if (rootBoundary === void 0) {
+    rootBoundary = 'viewport';
+  }
+  const isLayoutViewport = rootBoundary === 'layoutViewport';
   const win = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getWindow)(element);
   const html = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getDocumentElement)(element);
   const visualViewport = win.visualViewport;
@@ -1343,31 +1323,42 @@ function getViewportRect(element, strategy) {
   let x = 0;
   let y = 0;
   if (visualViewport) {
-    width = visualViewport.width;
-    height = visualViewport.height;
-    const visualViewportBased = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isWebKit)();
-    if (!visualViewportBased || visualViewportBased && strategy === 'fixed') {
-      x = visualViewport.offsetLeft;
-      y = visualViewport.offsetTop;
+    // Client coordinates are relative to the layout viewport, except in
+    // WebKit with an `absolute` strategy, where they are relative to the
+    // visual viewport.
+    const layoutRelativeClientCoords = !(0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isWebKit)() || strategy === 'fixed';
+    if (isLayoutViewport) {
+      if (!layoutRelativeClientCoords) {
+        x = -visualViewport.offsetLeft;
+        y = -visualViewport.offsetTop;
+      }
+    } else {
+      width = visualViewport.width;
+      height = visualViewport.height;
+      if (layoutRelativeClientCoords) {
+        x = visualViewport.offsetLeft;
+        y = visualViewport.offsetTop;
+      }
     }
   }
   const windowScrollbarX = getWindowScrollBarX(html);
-  // <html> `overflow: hidden` + `scrollbar-gutter: stable` reduces the
-  // visual width of the <html> but this is not considered in the size
-  // of `html.clientWidth`.
+  // `scrollbar-gutter: stable` on the <html> reserves gutter space that shrinks
+  // the visual width but isn't reflected in `html.clientWidth`, so subtract it.
+  // Only the inline-end (right) gutter can hold the scrollbar; `both-edges` also
+  // reserves an empty inline-start gutter that clips nothing, so exclude just
+  // the one scrollbar-side gutter — halve the measured (two-gutter) total. A
+  // left-side scrollbar (`windowScrollbarX > 0`) is already handled by
+  // `getHTMLOffset`/`visualViewport.width`; skip it here.
   if (windowScrollbarX <= 0) {
     const doc = html.ownerDocument;
     const body = doc.body;
     const bodyStyles = getComputedStyle(body);
     const bodyMarginInline = doc.compatMode === 'CSS1Compat' ? parseFloat(bodyStyles.marginLeft) + parseFloat(bodyStyles.marginRight) || 0 : 0;
-    const clippingStableScrollbarWidth = Math.abs(html.clientWidth - body.clientWidth - bodyMarginInline);
-    if (clippingStableScrollbarWidth <= SCROLLBAR_MAX) {
-      width -= clippingStableScrollbarWidth;
+    const reservedWidth = Math.abs(html.clientWidth - body.clientWidth - bodyMarginInline);
+    const gutter = getComputedStyle(html).scrollbarGutter === 'stable both-edges' ? reservedWidth / 2 : reservedWidth;
+    if (gutter <= SCROLLBAR_MAX) {
+      width -= gutter;
     }
-  } else if (windowScrollbarX <= SCROLLBAR_MAX) {
-    // If the <body> scrollbar is on the left, the width needs to be extended
-    // by the scrollbar amount so there isn't extra space on the right.
-    width += windowScrollbarX;
   }
   return {
     width,
@@ -1382,7 +1373,7 @@ function getInnerBoundingClientRect(element, strategy) {
   const clientRect = getBoundingClientRect(element, true, strategy === 'fixed');
   const top = clientRect.top + element.clientTop;
   const left = clientRect.left + element.clientLeft;
-  const scale = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isHTMLElement)(element) ? getScale(element) : (0,_floating_ui_core__WEBPACK_IMPORTED_MODULE_1__.createCoords)(1);
+  const scale = getScale(element);
   const width = element.clientWidth * scale.x;
   const height = element.clientHeight * scale.y;
   const x = left * scale.x;
@@ -1396,8 +1387,8 @@ function getInnerBoundingClientRect(element, strategy) {
 }
 function getClientRectFromClippingAncestor(element, clippingAncestor, strategy) {
   let rect;
-  if (clippingAncestor === 'viewport') {
-    rect = getViewportRect(element, strategy);
+  if (clippingAncestor === 'viewport' || clippingAncestor === 'layoutViewport') {
+    rect = getViewportRect(element, strategy, clippingAncestor);
   } else if (clippingAncestor === 'document') {
     rect = getDocumentRect((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getDocumentElement)(element));
   } else if ((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isElement)(clippingAncestor)) {
@@ -1413,13 +1404,6 @@ function getClientRectFromClippingAncestor(element, clippingAncestor, strategy) 
   }
   return (0,_floating_ui_core__WEBPACK_IMPORTED_MODULE_1__.rectToClientRect)(rect);
 }
-function hasFixedPositionAncestor(element, stopNode) {
-  const parentNode = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getParentNode)(element);
-  if (parentNode === stopNode || !(0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isElement)(parentNode) || (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isLastTraversableNode)(parentNode)) {
-    return false;
-  }
-  return (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getComputedStyle)(parentNode).position === 'fixed' || hasFixedPositionAncestor(parentNode, stopNode);
-}
 
 // A "clipping ancestor" is an `overflow` element with the characteristic of
 // clipping (or hiding) child elements. This returns all clipping ancestors
@@ -1430,7 +1414,7 @@ function getClippingElementAncestors(element, cache) {
     return cachedResult;
   }
   let result = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getOverflowAncestors)(element, [], false).filter(el => (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isElement)(el) && (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getNodeName)(el) !== 'body');
-  let currentContainingBlockComputedStyle = null;
+  let lastKeptComputedStyle = null;
   const elementIsFixed = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getComputedStyle)(element).position === 'fixed';
   let currentNode = elementIsFixed ? (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getParentNode)(element) : element;
 
@@ -1438,16 +1422,20 @@ function getClippingElementAncestors(element, cache) {
   while ((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isElement)(currentNode) && !(0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isLastTraversableNode)(currentNode)) {
     const computedStyle = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getComputedStyle)(currentNode);
     const currentNodeIsContaining = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isContainingBlock)(currentNode);
-    if (!currentNodeIsContaining && computedStyle.position === 'fixed') {
-      currentContainingBlockComputedStyle = null;
-    }
-    const shouldDropCurrentNode = elementIsFixed ? !currentNodeIsContaining && !currentContainingBlockComputedStyle : !currentNodeIsContaining && computedStyle.position === 'static' && !!currentContainingBlockComputedStyle && (currentContainingBlockComputedStyle.position === 'absolute' || currentContainingBlockComputedStyle.position === 'fixed') || (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isOverflowElement)(currentNode) && !currentNodeIsContaining && hasFixedPositionAncestor(element, currentNode);
+    // Position of the containing block chain below the current node. A fixed
+    // element whose containing block hasn't been found yet is a fixed chain.
+    const lastPosition = lastKeptComputedStyle ? lastKeptComputedStyle.position : elementIsFixed ? 'fixed' : '';
+
+    // A non-containing ancestor does not clip the element when the chain
+    // below it escapes it: a fixed chain escapes all ancestors up to the
+    // next containing block, an absolute chain escapes static ancestors.
+    const shouldDropCurrentNode = !currentNodeIsContaining && (lastPosition === 'fixed' || lastPosition === 'absolute' && computedStyle.position === 'static');
     if (shouldDropCurrentNode) {
       // Drop non-containing blocks.
       result = result.filter(ancestor => ancestor !== currentNode);
     } else {
-      // Record last containing block for next iteration.
-      currentContainingBlockComputedStyle = computedStyle;
+      // The kept node carries the chain position for the next iteration.
+      lastKeptComputedStyle = computedStyle;
     }
     currentNode = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getParentNode)(currentNode);
   }
@@ -1507,13 +1495,7 @@ function getRectRelativeToOffsetParent(element, offsetParent, strategy) {
     scrollTop: 0
   };
   const offsets = (0,_floating_ui_core__WEBPACK_IMPORTED_MODULE_1__.createCoords)(0);
-
-  // If the <body> scrollbar appears on the left (e.g. RTL systems). Use
-  // Firefox with layout.scrollbar.side = 3 in about:config to test this.
-  function setLeftRTLScrollbarOffset() {
-    offsets.x = getWindowScrollBarX(documentElement);
-  }
-  if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
+  if (isOffsetParentAnElement || !isFixed) {
     if ((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getNodeName)(offsetParent) !== 'body' || (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.isOverflowElement)(documentElement)) {
       scroll = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getNodeScroll)(offsetParent);
     }
@@ -1521,12 +1503,13 @@ function getRectRelativeToOffsetParent(element, offsetParent, strategy) {
       const offsetRect = getBoundingClientRect(offsetParent, true, isFixed, offsetParent);
       offsets.x = offsetRect.x + offsetParent.clientLeft;
       offsets.y = offsetRect.y + offsetParent.clientTop;
-    } else if (documentElement) {
-      setLeftRTLScrollbarOffset();
     }
   }
-  if (isFixed && !isOffsetParentAnElement && documentElement) {
-    setLeftRTLScrollbarOffset();
+
+  // If the <body> scrollbar appears on the left (e.g. RTL systems). Use
+  // Firefox with layout.scrollbar.side = 3 in about:config to test this.
+  if (!isOffsetParentAnElement && documentElement) {
+    offsets.x = getWindowScrollBarX(documentElement);
   }
   const htmlOffset = documentElement && !isOffsetParentAnElement && !isFixed ? getHTMLOffset(documentElement, scroll) : (0,_floating_ui_core__WEBPACK_IMPORTED_MODULE_1__.createCoords)(0);
   const x = rect.left + scroll.scrollLeft - offsets.x - htmlOffset.x;
@@ -1626,7 +1609,7 @@ function rectsAreEqual(a, b) {
 }
 
 // https://samthor.au/2021/observing-dom/
-function observeMove(element, onMove) {
+function observeMove(element, onMove, ancestorResize) {
   let io = null;
   let timeoutId;
   const root = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getDocumentElement)(element);
@@ -1669,29 +1652,28 @@ function observeMove(element, onMove) {
     let isFirstUpdate = true;
     function handleObserve(entries) {
       const ratio = entries[0].intersectionRatio;
+
+      // The entry is a snapshot, so the reference may have moved since the
+      // intersection was computed (under performance constraints, or between
+      // consecutive frames of a multi-frame layout shift). The reported ratio
+      // and the observed area are stale in that case and cannot be trusted to
+      // detect subsequent movement, so refresh regardless of the ratio.
+      if (!rectsAreEqual(elementRectForRootMargin, element.getBoundingClientRect())) {
+        return refresh();
+      }
       if (ratio !== threshold) {
         if (!isFirstUpdate) {
           return refresh();
         }
         if (!ratio) {
-          // If the reference is clipped, the ratio is 0. Throttle the refresh
-          // to prevent an infinite loop of updates.
+          // If the reference is clipped in place, the ratio is 0. Throttle
+          // the refresh to prevent an infinite loop of updates.
           timeoutId = setTimeout(() => {
             refresh(false, 1e-7);
           }, 1000);
         } else {
           refresh(false, ratio);
         }
-      }
-      if (ratio === 1 && !rectsAreEqual(elementRectForRootMargin, element.getBoundingClientRect())) {
-        // It's possible that even though the ratio is reported as 1, the
-        // element is not actually fully within the IntersectionObserver's root
-        // area anymore. This can happen under performance constraints. This may
-        // be a bug in the browser's IntersectionObserver implementation. To
-        // work around this, we compare the element's bounding rect now with
-        // what it was at the time we created the IntersectionObserver. If they
-        // are not equal then the element moved, so we refresh.
-        refresh();
       }
       isFirstUpdate = false;
     }
@@ -1709,8 +1691,18 @@ function observeMove(element, onMove) {
     }
     io.observe(element);
   }
+  const win = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getWindow)(element);
+  // The window is a resize ancestor, so when `ancestorResize` is enabled its
+  // listener already runs the update on resize. Here we only need to rebuild
+  // the `IntersectionObserver` for the new root size, skipping a redundant
+  // update. When `ancestorResize` is disabled, this becomes the sole update.
+  const handleResize = () => refresh(ancestorResize);
+  win.addEventListener('resize', handleResize);
   refresh(true);
-  return cleanup;
+  return () => {
+    win.removeEventListener('resize', handleResize);
+    cleanup();
+  };
 }
 
 /**
@@ -1735,12 +1727,10 @@ function autoUpdate(reference, floating, update, options) {
   const referenceEl = unwrapElement(reference);
   const ancestors = ancestorScroll || ancestorResize ? [...(referenceEl ? (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getOverflowAncestors)(referenceEl) : []), ...(floating ? (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_2__.getOverflowAncestors)(floating) : [])] : [];
   ancestors.forEach(ancestor => {
-    ancestorScroll && ancestor.addEventListener('scroll', update, {
-      passive: true
-    });
+    ancestorScroll && ancestor.addEventListener('scroll', update);
     ancestorResize && ancestor.addEventListener('resize', update);
   });
-  const cleanupIo = referenceEl && layoutShift ? observeMove(referenceEl, update) : null;
+  const cleanupIo = referenceEl && layoutShift ? observeMove(referenceEl, update, ancestorResize) : null;
   let reobserveFrame = -1;
   let resizeObserver = null;
   if (elementResize) {
@@ -1879,11 +1869,9 @@ const computePosition = (reference, floating, options) => {
   // multiple lifecycle resets re-use the same result. It only lives for a
   // single call. If other functions become expensive, we can add them as well.
   const cache = new Map();
-  const mergedOptions = {
-    platform,
-    ...options
-  };
+  const mergedOptions = options != null ? options : {};
   const platformWithCache = {
+    ...platform,
     ...mergedOptions.platform,
     _c: cache
   };
@@ -2078,7 +2066,7 @@ function useFloating(options) {
     if (platformRef.current) {
       config.platform = platformRef.current;
     }
-    (0,_floating_ui_dom__WEBPACK_IMPORTED_MODULE_0__.computePosition)(referenceRef.current, floatingRef.current, config).then(data => {
+    ;(0,_floating_ui_dom__WEBPACK_IMPORTED_MODULE_0__.computePosition)(referenceRef.current, floatingRef.current, config).then(data => {
       const fullData = {
         ...data,
         // The floating element's position may be recomputed while it's closed
@@ -2503,7 +2491,7 @@ function getParentNode(node) {
 function getNearestOverflowAncestor(node) {
   const parentNode = getParentNode(node);
   if (isLastTraversableNode(parentNode)) {
-    return node.ownerDocument ? node.ownerDocument.body : node.body;
+    return (node.ownerDocument || node).body;
   }
   if (isHTMLElement(parentNode) && isOverflowElement(parentNode)) {
     return parentNode;
@@ -2671,12 +2659,12 @@ function getOppositePlacement(placement) {
   return oppositeSideMap[side] + placement.slice(side.length);
 }
 function expandPaddingObject(padding) {
+  var _padding$top, _padding$right, _padding$bottom, _padding$left;
   return {
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    ...padding
+    top: (_padding$top = padding.top) != null ? _padding$top : 0,
+    right: (_padding$right = padding.right) != null ? _padding$right : 0,
+    bottom: (_padding$bottom = padding.bottom) != null ? _padding$bottom : 0,
+    left: (_padding$left = padding.left) != null ? _padding$left : 0
   };
 }
 function getPaddingObject(padding) {
@@ -2719,22 +2707,23 @@ function rectToClientRect(rect) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* empty/unused harmony star reexport */
+/* empty/unused harmony star reexport */
+/* empty/unused harmony star reexport */
+/* empty/unused harmony star reexport */
+/* empty/unused harmony star reexport */
+/* empty/unused harmony star reexport */
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ReducerType: () => (/* binding */ ReducerType),
 /* harmony export */   SHOULD_AUTOBATCH: () => (/* binding */ SHOULD_AUTOBATCH),
 /* harmony export */   TaskAbortError: () => (/* binding */ TaskAbortError),
 /* harmony export */   Tuple: () => (/* binding */ Tuple),
-/* harmony export */   __DO_NOT_USE__ActionTypes: () => (/* reexport safe */ redux__WEBPACK_IMPORTED_MODULE_0__.__DO_NOT_USE__ActionTypes),
 /* harmony export */   addListener: () => (/* binding */ addListener),
-/* harmony export */   applyMiddleware: () => (/* reexport safe */ redux__WEBPACK_IMPORTED_MODULE_0__.applyMiddleware),
 /* harmony export */   asyncThunkCreator: () => (/* binding */ asyncThunkCreator),
 /* harmony export */   autoBatchEnhancer: () => (/* binding */ autoBatchEnhancer),
-/* harmony export */   bindActionCreators: () => (/* reexport safe */ redux__WEBPACK_IMPORTED_MODULE_0__.bindActionCreators),
 /* harmony export */   buildCreateSlice: () => (/* binding */ buildCreateSlice),
 /* harmony export */   clearAllListeners: () => (/* binding */ clearAllListeners),
-/* harmony export */   combineReducers: () => (/* reexport safe */ redux__WEBPACK_IMPORTED_MODULE_0__.combineReducers),
 /* harmony export */   combineSlices: () => (/* binding */ combineSlices),
-/* harmony export */   compose: () => (/* reexport safe */ redux__WEBPACK_IMPORTED_MODULE_0__.compose),
 /* harmony export */   configureStore: () => (/* binding */ configureStore),
 /* harmony export */   createAction: () => (/* binding */ createAction),
 /* harmony export */   createActionCreatorInvariantMiddleware: () => (/* binding */ createActionCreatorInvariantMiddleware),
@@ -2745,45 +2734,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   createEntityAdapter: () => (/* binding */ createEntityAdapter),
 /* harmony export */   createImmutableStateInvariantMiddleware: () => (/* binding */ createImmutableStateInvariantMiddleware),
 /* harmony export */   createListenerMiddleware: () => (/* binding */ createListenerMiddleware),
-/* harmony export */   createNextState: () => (/* reexport safe */ immer__WEBPACK_IMPORTED_MODULE_1__.produce),
 /* harmony export */   createReducer: () => (/* binding */ createReducer),
 /* harmony export */   createSelector: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_2__.createSelector),
 /* harmony export */   createSelectorCreator: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_2__.createSelectorCreator),
 /* harmony export */   createSerializableStateInvariantMiddleware: () => (/* binding */ createSerializableStateInvariantMiddleware),
 /* harmony export */   createSlice: () => (/* binding */ createSlice),
-/* harmony export */   createStore: () => (/* reexport safe */ redux__WEBPACK_IMPORTED_MODULE_0__.createStore),
-/* harmony export */   current: () => (/* reexport safe */ immer__WEBPACK_IMPORTED_MODULE_1__.current),
 /* harmony export */   findNonSerializableValue: () => (/* binding */ findNonSerializableValue),
 /* harmony export */   formatProdErrorMessage: () => (/* binding */ formatProdErrorMessage),
-/* harmony export */   freeze: () => (/* reexport safe */ immer__WEBPACK_IMPORTED_MODULE_1__.freeze),
-/* harmony export */   isAction: () => (/* reexport safe */ redux__WEBPACK_IMPORTED_MODULE_0__.isAction),
 /* harmony export */   isActionCreator: () => (/* binding */ isActionCreator),
 /* harmony export */   isAllOf: () => (/* binding */ isAllOf),
 /* harmony export */   isAnyOf: () => (/* binding */ isAnyOf),
 /* harmony export */   isAsyncThunkAction: () => (/* binding */ isAsyncThunkAction),
-/* harmony export */   isDraft: () => (/* reexport safe */ immer__WEBPACK_IMPORTED_MODULE_1__.isDraft),
 /* harmony export */   isFluxStandardAction: () => (/* binding */ isFSA),
 /* harmony export */   isFulfilled: () => (/* binding */ isFulfilled),
 /* harmony export */   isImmutableDefault: () => (/* binding */ isImmutableDefault),
 /* harmony export */   isPending: () => (/* binding */ isPending),
 /* harmony export */   isPlain: () => (/* binding */ isPlain),
-/* harmony export */   isPlainObject: () => (/* reexport safe */ redux__WEBPACK_IMPORTED_MODULE_0__.isPlainObject),
 /* harmony export */   isRejected: () => (/* binding */ isRejected),
 /* harmony export */   isRejectedWithValue: () => (/* binding */ isRejectedWithValue),
-/* harmony export */   legacy_createStore: () => (/* reexport safe */ redux__WEBPACK_IMPORTED_MODULE_0__.legacy_createStore),
 /* harmony export */   lruMemoize: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_2__.lruMemoize),
 /* harmony export */   miniSerializeError: () => (/* binding */ miniSerializeError),
 /* harmony export */   nanoid: () => (/* binding */ nanoid),
-/* harmony export */   original: () => (/* reexport safe */ immer__WEBPACK_IMPORTED_MODULE_1__.original),
 /* harmony export */   prepareAutoBatched: () => (/* binding */ prepareAutoBatched),
 /* harmony export */   removeListener: () => (/* binding */ removeListener),
 /* harmony export */   unwrapResult: () => (/* binding */ unwrapResult),
 /* harmony export */   weakMapMemoize: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_2__.weakMapMemoize)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/dist/redux.mjs");
 /* harmony import */ var immer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! immer */ "./node_modules/immer/dist/immer.mjs");
 /* harmony import */ var reselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! reselect */ "./node_modules/reselect/dist/reselect.mjs");
-/* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/dist/redux-thunk.mjs");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/dist/redux.mjs");
+/* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/dist/redux-thunk.mjs");
 /* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
 // src/index.ts
 
@@ -2819,8 +2799,8 @@ var createDraftSafeSelector = /* @__PURE__ */ createDraftSafeSelectorCreator(res
 // src/devtoolsExtension.ts
 var composeWithDevTools = typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : function() {
   if (arguments.length === 0) return void 0;
-  if (typeof arguments[0] === "object") return redux__WEBPACK_IMPORTED_MODULE_0__.compose;
-  return redux__WEBPACK_IMPORTED_MODULE_0__.compose.apply(null, arguments);
+  if (typeof arguments[0] === "object") return redux__WEBPACK_IMPORTED_MODULE_3__.compose;
+  return redux__WEBPACK_IMPORTED_MODULE_3__.compose.apply(null, arguments);
 };
 var devToolsEnhancer = typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__ : function() {
   return function(noop3) {
@@ -2862,7 +2842,7 @@ function createAction(type, prepareAction) {
   }
   actionCreator.toString = () => `${type}`;
   actionCreator.type = type;
-  actionCreator.match = (action) => (0,redux__WEBPACK_IMPORTED_MODULE_0__.isAction)(action) && action.type === type;
+  actionCreator.match = (action) => (0,redux__WEBPACK_IMPORTED_MODULE_3__.isAction)(action) && action.type === type;
   return actionCreator;
 }
 function isActionCreator(action) {
@@ -2870,7 +2850,7 @@ function isActionCreator(action) {
   hasMatchFunction(action);
 }
 function isFSA(action) {
-  return (0,redux__WEBPACK_IMPORTED_MODULE_0__.isAction)(action) && Object.keys(action).every(isValidKey);
+  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.isAction)(action) && Object.keys(action).every(isValidKey);
 }
 function isValidKey(key) {
   return ["type", "payload", "error", "meta"].indexOf(key) > -1;
@@ -2880,7 +2860,7 @@ function isValidKey(key) {
 function getMessage(type) {
   const splitType = type ? `${type}`.split("/") : [];
   const actionName = splitType[splitType.length - 1] || "actionCreator";
-  return `Detected an action creator with type "${type || "unknown"}" being dispatched. 
+  return `Detected an action creator with type "${type || "unknown"}" being dispatched.
 Make sure you're calling the action creator before dispatching, i.e. \`dispatch(${actionName}())\` instead of \`dispatch(${actionName})\`. This is necessary even if the action has no payload.`;
 }
 function createActionCreatorInvariantMiddleware(options = {}) {
@@ -3091,7 +3071,7 @@ function createImmutableStateInvariantMiddleware(options = {}) {
 // src/serializableStateInvariantMiddleware.ts
 function isPlain(val) {
   const type = typeof val;
-  return val == null || type === "string" || type === "boolean" || type === "number" || Array.isArray(val) || (0,redux__WEBPACK_IMPORTED_MODULE_0__.isPlainObject)(val);
+  return val == null || type === "string" || type === "boolean" || type === "number" || Array.isArray(val) || (0,redux__WEBPACK_IMPORTED_MODULE_3__.isPlainObject)(val);
 }
 function findNonSerializableValue(value, path = "", isSerializable = isPlain, getEntries, ignoredPaths = [], cache) {
   let foundNestedSerializable;
@@ -3160,7 +3140,7 @@ function createSerializableStateInvariantMiddleware(options = {}) {
     } = options;
     const cache = !disableCache && WeakSet ? /* @__PURE__ */ new WeakSet() : void 0;
     return (storeAPI) => (next) => (action) => {
-      if (!(0,redux__WEBPACK_IMPORTED_MODULE_0__.isAction)(action)) {
+      if (!(0,redux__WEBPACK_IMPORTED_MODULE_3__.isAction)(action)) {
         return next(action);
       }
       const result = next(action);
@@ -3212,9 +3192,9 @@ var buildGetDefaultMiddleware = () => function getDefaultMiddleware(options) {
   let middlewareArray = new Tuple();
   if (thunk) {
     if (isBoolean(thunk)) {
-      middlewareArray.push(redux_thunk__WEBPACK_IMPORTED_MODULE_3__.thunk);
+      middlewareArray.push(redux_thunk__WEBPACK_IMPORTED_MODULE_4__.thunk);
     } else {
-      middlewareArray.push((0,redux_thunk__WEBPACK_IMPORTED_MODULE_3__.withExtraArgument)(thunk.extraArgument));
+      middlewareArray.push((0,redux_thunk__WEBPACK_IMPORTED_MODULE_4__.withExtraArgument)(thunk.extraArgument));
     }
   }
   if (true) {
@@ -3256,6 +3236,20 @@ var createQueueWithTimer = (timeout) => {
     setTimeout(notify, timeout);
   };
 };
+var createRafWithFallbackTimer = (raf, timeout) => {
+  return (notify) => {
+    let called = false;
+    const callback = () => {
+      if (called) return;
+      called = true;
+      cancelAnimationFrame(rafId);
+      clearTimeout(timerId);
+      notify();
+    };
+    const rafId = raf(callback);
+    const timerId = setTimeout(callback, timeout);
+  };
+};
 var autoBatchEnhancer = (options = {
   type: "raf"
 }) => (next) => (...args) => {
@@ -3266,7 +3260,7 @@ var autoBatchEnhancer = (options = {
   const listeners = /* @__PURE__ */ new Set();
   const queueCallback = options.type === "tick" ? queueMicrotask : options.type === "raf" ? (
     // requestAnimationFrame won't exist in SSR environments. Fall back to a vague approximation just to keep from erroring.
-    typeof window !== "undefined" && window.requestAnimationFrame ? window.requestAnimationFrame : createQueueWithTimer(10)
+    typeof window !== "undefined" && window.requestAnimationFrame ? createRafWithFallbackTimer(window.requestAnimationFrame, 100) : createQueueWithTimer(10)
   ) : options.type === "callback" ? options.queueNotification : createQueueWithTimer(options.timeout);
   const notifyListeners = () => {
     notificationQueued = false;
@@ -3333,8 +3327,8 @@ function configureStore(options) {
   let rootReducer;
   if (typeof reducer === "function") {
     rootReducer = reducer;
-  } else if ((0,redux__WEBPACK_IMPORTED_MODULE_0__.isPlainObject)(reducer)) {
-    rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_0__.combineReducers)(reducer);
+  } else if ((0,redux__WEBPACK_IMPORTED_MODULE_3__.isPlainObject)(reducer)) {
+    rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)(reducer);
   } else {
     throw new Error( false ? 0 : "`reducer` is a required argument, and must be a function or an object of functions that can be passed to combineReducers");
   }
@@ -3362,7 +3356,7 @@ function configureStore(options) {
       middlewareReferences.add(middleware2);
     });
   }
-  let finalCompose = redux__WEBPACK_IMPORTED_MODULE_0__.compose;
+  let finalCompose = redux__WEBPACK_IMPORTED_MODULE_3__.compose;
   if (devTools) {
     finalCompose = composeWithDevTools({
       // Enable capture of stack traces for dispatched Redux actions
@@ -3370,7 +3364,7 @@ function configureStore(options) {
       ...typeof devTools === "object" && devTools
     });
   }
-  const middlewareEnhancer = (0,redux__WEBPACK_IMPORTED_MODULE_0__.applyMiddleware)(...finalMiddleware);
+  const middlewareEnhancer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(...finalMiddleware);
   const getDefaultEnhancers = buildGetDefaultEnhancers(middlewareEnhancer);
   if ( true && enhancers && typeof enhancers !== "function") {
     throw new Error( false ? 0 : "`enhancers` field must be a callback");
@@ -3386,7 +3380,7 @@ function configureStore(options) {
     console.error("middlewares were provided, but middleware enhancer was not included in final enhancers - make sure to call `getDefaultEnhancers`");
   }
   const composedEnhancer = finalCompose(...storeEnhancers);
-  return (0,redux__WEBPACK_IMPORTED_MODULE_0__.createStore)(rootReducer, preloadedState, composedEnhancer);
+  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(rootReducer, preloadedState, composedEnhancer);
 }
 
 // src/mapBuilders.ts
@@ -3607,6 +3601,8 @@ var RejectWithValue = class {
     this.payload = payload;
     this.meta = meta;
   }
+  payload;
+  meta;
   /*
   type-only property to distinguish between RejectWithValue and FulfillWithMeta
   does not exist at runtime
@@ -3618,6 +3614,8 @@ var FulfillWithMeta = class {
     this.payload = payload;
     this.meta = meta;
   }
+  payload;
+  meta;
   /*
   type-only property to distinguish between RejectWithValue and FulfillWithMeta
   does not exist at runtime
@@ -3693,7 +3691,7 @@ var createAsyncThunk = /* @__PURE__ */ (() => {
             });
           }
         }
-        const promise = async function() {
+        const promise = (async function() {
           let finalAction;
           try {
             let conditionResult = options?.condition?.(arg, {
@@ -3734,12 +3732,12 @@ var createAsyncThunk = /* @__PURE__ */ (() => {
               requestId,
               signal: abortController.signal,
               abort,
-              rejectWithValue: (value, meta) => {
+              rejectWithValue: ((value, meta) => {
                 return new RejectWithValue(value, meta);
-              },
-              fulfillWithValue: (value, meta) => {
+              }),
+              fulfillWithValue: ((value, meta) => {
                 return new FulfillWithMeta(value, meta);
-              }
+              })
             })).then((result) => {
               if (result instanceof RejectWithValue) {
                 throw result;
@@ -3761,7 +3759,7 @@ var createAsyncThunk = /* @__PURE__ */ (() => {
             dispatch(finalAction);
           }
           return finalAction;
-        }();
+        })();
         return Object.assign(promise, {
           abort,
           requestId,
@@ -4524,6 +4522,7 @@ var TaskAbortError = class {
     this.code = code;
     this.message = `${task} ${cancelled} (reason: ${code})`;
   }
+  code;
   name = "TaskAbortError";
   message;
 };
@@ -4663,7 +4662,7 @@ var createTakePattern = (startListening, signal) => {
       unsubscribe();
     }
   };
-  return (predicate, timeout) => catchRejection(take(predicate, timeout));
+  return ((predicate, timeout) => catchRejection(take(predicate, timeout)));
 };
 var getListenerEntryPropsFrom = (options) => {
   let {
@@ -4784,10 +4783,10 @@ var createListenerMiddleware = (middlewareOptions = {}) => {
       }
     };
   };
-  const startListening = (options) => {
+  const startListening = ((options) => {
     const entry = findListenerEntry(listenerMap, options) ?? createListenerEntry(options);
     return insertEntry(entry);
-  };
+  });
   assign(startListening, {
     withTypes: () => startListening
   });
@@ -4859,7 +4858,7 @@ var createListenerMiddleware = (middlewareOptions = {}) => {
   };
   const clearListenerMiddleware = createClearListenerMiddleware(listenerMap, executingListeners);
   const middleware = (api) => (next) => (action) => {
-    if (!(0,redux__WEBPACK_IMPORTED_MODULE_0__.isAction)(action)) {
+    if (!(0,redux__WEBPACK_IMPORTED_MODULE_3__.isAction)(action)) {
       return next(action);
     }
     if (addListener.match(action)) {
@@ -4940,7 +4939,7 @@ var createDynamicMiddleware = () => {
   });
   const getFinalMiddleware = (api) => {
     const appliedMiddleware = Array.from(middlewareMap.values()).map((entry) => getOrInsertComputed(entry.applied, api, entry.middleware));
-    return (0,redux__WEBPACK_IMPORTED_MODULE_0__.compose)(...appliedMiddleware);
+    return (0,redux__WEBPACK_IMPORTED_MODULE_3__.compose)(...appliedMiddleware);
   };
   const isWithMiddleware = isAllOf(withMiddleware, matchInstance(instanceId));
   const middleware = (api) => (next) => (action) => {
@@ -4962,7 +4961,7 @@ var createDynamicMiddleware = () => {
 
 var isSliceLike = (maybeSliceLike) => "reducerPath" in maybeSliceLike && typeof maybeSliceLike.reducerPath === "string";
 var getReducers = (slices) => slices.flatMap((sliceOrMap) => isSliceLike(sliceOrMap) ? [[sliceOrMap.reducerPath, sliceOrMap.reducer]] : Object.entries(sliceOrMap));
-var ORIGINAL_STATE = Symbol.for("rtk-state-proxy-original");
+var ORIGINAL_STATE = /* @__PURE__ */ Symbol.for("rtk-state-proxy-original");
 var isStateProxy = (value) => !!value && !!value[ORIGINAL_STATE];
 var stateProxyMap = /* @__PURE__ */ new WeakMap();
 var createStateProxy = (state, reducerMap, initialStateCache) => getOrInsertComputed(stateProxyMap, state, () => new Proxy(state, {
@@ -4997,7 +4996,7 @@ var emptyObject = {};
 var noopReducer = (state = emptyObject) => state;
 function combineSlices(...slices) {
   const reducerMap = Object.fromEntries(getReducers(slices));
-  const getReducer = () => Object.keys(reducerMap).length ? (0,redux__WEBPACK_IMPORTED_MODULE_0__.combineReducers)(reducerMap) : noopReducer;
+  const getReducer = () => Object.keys(reducerMap).length ? (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)(reducerMap) : noopReducer;
   let reducer = getReducer();
   function combinedReducer(state, action) {
     return reducer(state, action);
@@ -5177,7 +5176,7 @@ function _objectWithoutPropertiesLoose(r, e) { if (null == r) return {}; var t =
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/anchor-has-content */
 
-
+;
 
 
 
@@ -5236,7 +5235,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 const _excluded = ["as", "disabled"];
 function _objectWithoutPropertiesLoose(r, e) { if (null == r) return {}; var t = {}; for (var n in r) if ({}.hasOwnProperty.call(r, n)) { if (e.indexOf(n) >= 0) continue; t[n] = r[n]; } return t; }
-
+;
 
 function isTrivialHref(href) {
   return !href || href.trim() === '#';
@@ -5802,11 +5801,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
-const isReactNative = typeof globalThis !== 'undefined' &&
+const isReactNative = typeof __webpack_require__.g !== 'undefined' &&
 // @ts-ignore
-globalThis.navigator &&
+__webpack_require__.g.navigator &&
 // @ts-ignore
-globalThis.navigator.product === 'ReactNative';
+__webpack_require__.g.navigator.product === 'ReactNative';
 const isDOM = typeof document !== 'undefined';
 
 /**
@@ -6020,7 +6019,7 @@ function useRafInterval(fn, ms, paused = false) {
     cancelAnimationFrame(handle);
     handle = requestAnimationFrame(loop);
   }
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+  ;(0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     handle = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(handle);
   }, []);
@@ -8233,28 +8232,29 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
         return (0, changeStartDate_1.getModuleUnlockStartDate)(await this.getModules());
     }
     isUndergrad() {
-        if (this.courseCode) {
-            const match = this.courseCode.match(/\d{3,4}/);
-            if (match)
-                return parseInt(match[0], 10) < 500;
-        }
-        return false;
+        if (this.courseCode?.toLowerCase().includes('dev_ug'))
+            return true;
+        const match = this.courseCode?.match(/\d{3,4}/);
+        const codeNum = match ? parseInt(match[0], 10) : 0;
+        return codeNum < 500;
     }
     isGrad() {
-        if (this.courseCode) {
-            const match = this.courseCode.match(/\d{3,4}/);
-            if (match)
-                return parseInt(match[0], 10) >= 500 && parseInt(match[0], 10) < 1000;
-        }
-        return false;
+        if (this.courseCode?.toLowerCase().includes('dev_grad'))
+            return true;
+        const match = this.courseCode?.match(/\d{3,4}/);
+        const codeNum = match ? parseInt(match[0], 10) : 0;
+        return codeNum >= 500 && codeNum < 1000;
     }
     isCareerInstitute() {
-        if (this.courseCode) {
-            const match = this.courseCode.match(/\d{4}/);
-            if (match)
-                return true;
-        }
-        return false;
+        return /\d{4}/.test(this.courseCode || "");
+    }
+    isENGR() {
+        const code = this.courseCode?.toLowerCase() || "";
+        return this.isUndergrad() && code.includes("engr");
+    }
+    isUgProfUpperLevel() {
+        const code = this.courseCode?.toLowerCase() || "";
+        return this.isUndergrad() && code.includes("prof") && /[34]\d\d/.test(code);
     }
     async getInstructors() {
         return (await (0, fetchJson_1.fetchJson)(`/api/v1/courses/${this.id}/users?enrollment_type=teacher`));
@@ -12964,10 +12964,10 @@ var applyBind = __webpack_require__(/*! call-bind-apply-helpers/applyBind */ "./
 
 module.exports = function callBind(originalFunction) {
 	var func = callBindBasic(arguments);
-	var adjustedLength = originalFunction.length - (arguments.length - 1);
+	var adjustedLength = 1 + originalFunction.length - (arguments.length - 1);
 	return setFunctionLength(
 		func,
-		1 + (adjustedLength > 0 ? adjustedLength : 0),
+		adjustedLength > 0 ? adjustedLength : 0,
 		true
 	);
 };
@@ -36751,24 +36751,65 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ purify)
 /* harmony export */ });
-/*! @license DOMPurify 3.4.0 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.4.0/LICENSE */
+/*! @license DOMPurify 3.4.12 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.4.12/LICENSE */
 
-const {
-  entries,
-  setPrototypeOf,
-  isFrozen,
-  getPrototypeOf,
-  getOwnPropertyDescriptor
-} = Object;
-let {
-  freeze,
-  seal,
-  create
-} = Object; // eslint-disable-line import/no-mutable-exports
-let {
-  apply,
-  construct
-} = typeof Reflect !== 'undefined' && Reflect;
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
+}
+function _arrayWithHoles(r) {
+  if (Array.isArray(r)) return r;
+}
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = true,
+      o = false;
+    try {
+      if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = true, n = r;
+    } finally {
+      try {
+        if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
+    }
+    return a;
+  }
+}
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _slicedToArray(r, e) {
+  return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest();
+}
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return _arrayLikeToArray(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
+  }
+}
+
+const entries = Object.entries,
+  setPrototypeOf = Object.setPrototypeOf,
+  isFrozen = Object.isFrozen,
+  getPrototypeOf = Object.getPrototypeOf,
+  getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+let freeze = Object.freeze,
+  seal = Object.seal,
+  create = Object.create; // eslint-disable-line import/no-mutable-exports
+let _ref = typeof Reflect !== 'undefined' && Reflect,
+  apply = _ref.apply,
+  construct = _ref.construct;
 if (!freeze) {
   freeze = function freeze(x) {
     return x;
@@ -36800,13 +36841,19 @@ const arrayLastIndexOf = unapply(Array.prototype.lastIndexOf);
 const arrayPop = unapply(Array.prototype.pop);
 const arrayPush = unapply(Array.prototype.push);
 const arraySplice = unapply(Array.prototype.splice);
+const arrayIsArray = Array.isArray;
 const stringToLowerCase = unapply(String.prototype.toLowerCase);
 const stringToString = unapply(String.prototype.toString);
 const stringMatch = unapply(String.prototype.match);
 const stringReplace = unapply(String.prototype.replace);
 const stringIndexOf = unapply(String.prototype.indexOf);
 const stringTrim = unapply(String.prototype.trim);
+const numberToString = unapply(Number.prototype.toString);
+const booleanToString = unapply(Boolean.prototype.toString);
+const bigintToString = typeof BigInt === 'undefined' ? null : unapply(BigInt.prototype.toString);
+const symbolToString = typeof Symbol === 'undefined' ? null : unapply(Symbol.prototype.toString);
 const objectHasOwnProperty = unapply(Object.prototype.hasOwnProperty);
+const objectToString = unapply(Object.prototype.toString);
 const regExpTest = unapply(RegExp.prototype.test);
 const typeErrorCreate = unconstruct(TypeError);
 /**
@@ -36856,6 +36903,9 @@ function addToSet(set, array) {
     // Prevent prototype setters from intercepting set as a this value.
     setPrototypeOf(set, null);
   }
+  if (!arrayIsArray(array)) {
+    return set;
+  }
   let l = array.length;
   while (l--) {
     let element = array[l];
@@ -36896,10 +36946,13 @@ function cleanArray(array) {
  */
 function clone(object) {
   const newObject = create(null);
-  for (const [property, value] of entries(object)) {
+  for (const _ref2 of entries(object)) {
+    var _ref3 = _slicedToArray(_ref2, 2);
+    const property = _ref3[0];
+    const value = _ref3[1];
     const isPropertyExist = objectHasOwnProperty(object, property);
     if (isPropertyExist) {
-      if (Array.isArray(value)) {
+      if (arrayIsArray(value)) {
         newObject[property] = cleanArray(value);
       } else if (value && typeof value === 'object' && value.constructor === Object) {
         newObject[property] = clone(value);
@@ -36909,6 +36962,58 @@ function clone(object) {
     }
   }
   return newObject;
+}
+/**
+ * Convert non-node values into strings without depending on direct property access.
+ *
+ * @param value - The value to stringify.
+ * @returns A string representation of the provided value.
+ */
+function stringifyValue(value) {
+  switch (typeof value) {
+    case 'string':
+      {
+        return value;
+      }
+    case 'number':
+      {
+        return numberToString(value);
+      }
+    case 'boolean':
+      {
+        return booleanToString(value);
+      }
+    case 'bigint':
+      {
+        return bigintToString ? bigintToString(value) : '0';
+      }
+    case 'symbol':
+      {
+        return symbolToString ? symbolToString(value) : 'Symbol()';
+      }
+    case 'undefined':
+      {
+        return objectToString(value);
+      }
+    case 'function':
+    case 'object':
+      {
+        if (value === null) {
+          return objectToString(value);
+        }
+        const valueAsRecord = value;
+        const valueToString = lookupGetter(valueAsRecord, 'toString');
+        if (typeof valueToString === 'function') {
+          const stringified = valueToString(valueAsRecord);
+          return typeof stringified === 'string' ? stringified : objectToString(stringified);
+        }
+        return objectToString(value);
+      }
+    default:
+      {
+        return objectToString(value);
+      }
+  }
 }
 /**
  * This method automatically checks if the prop is function or getter and behaves accordingly.
@@ -36935,6 +37040,14 @@ function lookupGetter(object, prop) {
   }
   return fallbackValue;
 }
+function isRegex(value) {
+  try {
+    regExpTest(value, '');
+    return true;
+  } catch (_unused) {
+    return false;
+  }
+}
 
 const html$1 = freeze(['a', 'abbr', 'acronym', 'address', 'area', 'article', 'aside', 'audio', 'b', 'bdi', 'bdo', 'big', 'blink', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'center', 'cite', 'code', 'col', 'colgroup', 'content', 'data', 'datalist', 'dd', 'decorator', 'del', 'details', 'dfn', 'dialog', 'dir', 'div', 'dl', 'dt', 'element', 'em', 'fieldset', 'figcaption', 'figure', 'font', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'img', 'input', 'ins', 'kbd', 'label', 'legend', 'li', 'main', 'map', 'mark', 'marquee', 'menu', 'menuitem', 'meter', 'nav', 'nobr', 'ol', 'optgroup', 'option', 'output', 'p', 'picture', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'search', 'section', 'select', 'shadow', 'slot', 'small', 'source', 'spacer', 'span', 'strike', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'template', 'textarea', 'tfoot', 'th', 'thead', 'time', 'tr', 'track', 'tt', 'u', 'ul', 'var', 'video', 'wbr']);
 const svg$1 = freeze(['svg', 'a', 'altglyph', 'altglyphdef', 'altglyphitem', 'animatecolor', 'animatemotion', 'animatetransform', 'circle', 'clippath', 'defs', 'desc', 'ellipse', 'enterkeyhint', 'exportparts', 'filter', 'font', 'g', 'glyph', 'glyphref', 'hkern', 'image', 'inputmode', 'line', 'lineargradient', 'marker', 'mask', 'metadata', 'mpath', 'part', 'path', 'pattern', 'polygon', 'polyline', 'radialgradient', 'rect', 'stop', 'style', 'switch', 'symbol', 'text', 'textpath', 'title', 'tref', 'tspan', 'view', 'vkern']);
@@ -36950,15 +37063,14 @@ const mathMl$1 = freeze(['math', 'menclose', 'merror', 'mfenced', 'mfrac', 'mgly
 const mathMlDisallowed = freeze(['maction', 'maligngroup', 'malignmark', 'mlongdiv', 'mscarries', 'mscarry', 'msgroup', 'mstack', 'msline', 'msrow', 'semantics', 'annotation', 'annotation-xml', 'mprescripts', 'none']);
 const text = freeze(['#text']);
 
-const html = freeze(['accept', 'action', 'align', 'alt', 'autocapitalize', 'autocomplete', 'autopictureinpicture', 'autoplay', 'background', 'bgcolor', 'border', 'capture', 'cellpadding', 'cellspacing', 'checked', 'cite', 'class', 'clear', 'color', 'cols', 'colspan', 'controls', 'controlslist', 'coords', 'crossorigin', 'datetime', 'decoding', 'default', 'dir', 'disabled', 'disablepictureinpicture', 'disableremoteplayback', 'download', 'draggable', 'enctype', 'enterkeyhint', 'exportparts', 'face', 'for', 'headers', 'height', 'hidden', 'high', 'href', 'hreflang', 'id', 'inert', 'inputmode', 'integrity', 'ismap', 'kind', 'label', 'lang', 'list', 'loading', 'loop', 'low', 'max', 'maxlength', 'media', 'method', 'min', 'minlength', 'multiple', 'muted', 'name', 'nonce', 'noshade', 'novalidate', 'nowrap', 'open', 'optimum', 'part', 'pattern', 'placeholder', 'playsinline', 'popover', 'popovertarget', 'popovertargetaction', 'poster', 'preload', 'pubdate', 'radiogroup', 'readonly', 'rel', 'required', 'rev', 'reversed', 'role', 'rows', 'rowspan', 'spellcheck', 'scope', 'selected', 'shape', 'size', 'sizes', 'slot', 'span', 'srclang', 'start', 'src', 'srcset', 'step', 'style', 'summary', 'tabindex', 'title', 'translate', 'type', 'usemap', 'valign', 'value', 'width', 'wrap', 'xmlns', 'slot']);
-const svg = freeze(['accent-height', 'accumulate', 'additive', 'alignment-baseline', 'amplitude', 'ascent', 'attributename', 'attributetype', 'azimuth', 'basefrequency', 'baseline-shift', 'begin', 'bias', 'by', 'class', 'clip', 'clippathunits', 'clip-path', 'clip-rule', 'color', 'color-interpolation', 'color-interpolation-filters', 'color-profile', 'color-rendering', 'cx', 'cy', 'd', 'dx', 'dy', 'diffuseconstant', 'direction', 'display', 'divisor', 'dur', 'edgemode', 'elevation', 'end', 'exponent', 'fill', 'fill-opacity', 'fill-rule', 'filter', 'filterunits', 'flood-color', 'flood-opacity', 'font-family', 'font-size', 'font-size-adjust', 'font-stretch', 'font-style', 'font-variant', 'font-weight', 'fx', 'fy', 'g1', 'g2', 'glyph-name', 'glyphref', 'gradientunits', 'gradienttransform', 'height', 'href', 'id', 'image-rendering', 'in', 'in2', 'intercept', 'k', 'k1', 'k2', 'k3', 'k4', 'kerning', 'keypoints', 'keysplines', 'keytimes', 'lang', 'lengthadjust', 'letter-spacing', 'kernelmatrix', 'kernelunitlength', 'lighting-color', 'local', 'marker-end', 'marker-mid', 'marker-start', 'markerheight', 'markerunits', 'markerwidth', 'maskcontentunits', 'maskunits', 'max', 'mask', 'mask-type', 'media', 'method', 'mode', 'min', 'name', 'numoctaves', 'offset', 'operator', 'opacity', 'order', 'orient', 'orientation', 'origin', 'overflow', 'paint-order', 'path', 'pathlength', 'patterncontentunits', 'patterntransform', 'patternunits', 'points', 'preservealpha', 'preserveaspectratio', 'primitiveunits', 'r', 'rx', 'ry', 'radius', 'refx', 'refy', 'repeatcount', 'repeatdur', 'restart', 'result', 'rotate', 'scale', 'seed', 'shape-rendering', 'slope', 'specularconstant', 'specularexponent', 'spreadmethod', 'startoffset', 'stddeviation', 'stitchtiles', 'stop-color', 'stop-opacity', 'stroke-dasharray', 'stroke-dashoffset', 'stroke-linecap', 'stroke-linejoin', 'stroke-miterlimit', 'stroke-opacity', 'stroke', 'stroke-width', 'style', 'surfacescale', 'systemlanguage', 'tabindex', 'tablevalues', 'targetx', 'targety', 'transform', 'transform-origin', 'text-anchor', 'text-decoration', 'text-rendering', 'textlength', 'type', 'u1', 'u2', 'unicode', 'values', 'viewbox', 'visibility', 'version', 'vert-adv-y', 'vert-origin-x', 'vert-origin-y', 'width', 'word-spacing', 'wrap', 'writing-mode', 'xchannelselector', 'ychannelselector', 'x', 'x1', 'x2', 'xmlns', 'y', 'y1', 'y2', 'z', 'zoomandpan']);
+const html = freeze(['accept', 'action', 'align', 'alt', 'autocapitalize', 'autocomplete', 'autopictureinpicture', 'autoplay', 'background', 'bgcolor', 'border', 'capture', 'cellpadding', 'cellspacing', 'checked', 'cite', 'class', 'clear', 'color', 'cols', 'colspan', 'command', 'commandfor', 'controls', 'controlslist', 'coords', 'crossorigin', 'datetime', 'decoding', 'default', 'dir', 'disabled', 'disablepictureinpicture', 'disableremoteplayback', 'download', 'draggable', 'enctype', 'enterkeyhint', 'exportparts', 'face', 'for', 'headers', 'height', 'hidden', 'high', 'href', 'hreflang', 'id', 'inert', 'inputmode', 'integrity', 'ismap', 'kind', 'label', 'lang', 'list', 'loading', 'loop', 'low', 'max', 'maxlength', 'media', 'method', 'min', 'minlength', 'multiple', 'muted', 'name', 'nonce', 'noshade', 'novalidate', 'nowrap', 'open', 'optimum', 'part', 'pattern', 'placeholder', 'playsinline', 'popover', 'popovertarget', 'popovertargetaction', 'poster', 'preload', 'pubdate', 'radiogroup', 'readonly', 'rel', 'required', 'rev', 'reversed', 'role', 'rows', 'rowspan', 'spellcheck', 'scope', 'selected', 'shape', 'size', 'sizes', 'slot', 'span', 'srclang', 'start', 'src', 'srcset', 'step', 'style', 'summary', 'tabindex', 'title', 'translate', 'type', 'usemap', 'valign', 'value', 'width', 'wrap', 'xmlns']);
+const svg = freeze(['accent-height', 'accumulate', 'additive', 'alignment-baseline', 'amplitude', 'ascent', 'attributename', 'attributetype', 'azimuth', 'basefrequency', 'baseline-shift', 'begin', 'bias', 'by', 'class', 'clip', 'clippathunits', 'clip-path', 'clip-rule', 'color', 'color-interpolation', 'color-interpolation-filters', 'color-profile', 'color-rendering', 'cx', 'cy', 'd', 'dx', 'dy', 'diffuseconstant', 'direction', 'display', 'divisor', 'dominant-baseline', 'dur', 'edgemode', 'elevation', 'end', 'exponent', 'fill', 'fill-opacity', 'fill-rule', 'filter', 'filterunits', 'flood-color', 'flood-opacity', 'font-family', 'font-size', 'font-size-adjust', 'font-stretch', 'font-style', 'font-variant', 'font-weight', 'fx', 'fy', 'g1', 'g2', 'glyph-name', 'glyphref', 'gradientunits', 'gradienttransform', 'height', 'href', 'id', 'image-rendering', 'in', 'in2', 'intercept', 'k', 'k1', 'k2', 'k3', 'k4', 'kerning', 'keypoints', 'keysplines', 'keytimes', 'lang', 'lengthadjust', 'letter-spacing', 'kernelmatrix', 'kernelunitlength', 'lighting-color', 'local', 'marker-end', 'marker-mid', 'marker-start', 'markerheight', 'markerunits', 'markerwidth', 'maskcontentunits', 'maskunits', 'max', 'mask', 'mask-type', 'media', 'method', 'mode', 'min', 'name', 'numoctaves', 'offset', 'operator', 'opacity', 'order', 'orient', 'orientation', 'origin', 'overflow', 'paint-order', 'path', 'pathlength', 'patterncontentunits', 'patterntransform', 'patternunits', 'points', 'preservealpha', 'preserveaspectratio', 'primitiveunits', 'r', 'rx', 'ry', 'radius', 'refx', 'refy', 'repeatcount', 'repeatdur', 'restart', 'result', 'rotate', 'scale', 'seed', 'shape-rendering', 'slope', 'specularconstant', 'specularexponent', 'spreadmethod', 'startoffset', 'stddeviation', 'stitchtiles', 'stop-color', 'stop-opacity', 'stroke-dasharray', 'stroke-dashoffset', 'stroke-linecap', 'stroke-linejoin', 'stroke-miterlimit', 'stroke-opacity', 'stroke', 'stroke-width', 'style', 'surfacescale', 'systemlanguage', 'tabindex', 'tablevalues', 'targetx', 'targety', 'transform', 'transform-origin', 'text-anchor', 'text-decoration', 'text-orientation', 'text-rendering', 'textlength', 'type', 'u1', 'u2', 'unicode', 'values', 'viewbox', 'visibility', 'version', 'vert-adv-y', 'vert-origin-x', 'vert-origin-y', 'width', 'word-spacing', 'wrap', 'writing-mode', 'xchannelselector', 'ychannelselector', 'x', 'x1', 'x2', 'xmlns', 'y', 'y1', 'y2', 'z', 'zoomandpan']);
 const mathMl = freeze(['accent', 'accentunder', 'align', 'bevelled', 'close', 'columnalign', 'columnlines', 'columnspacing', 'columnspan', 'denomalign', 'depth', 'dir', 'display', 'displaystyle', 'encoding', 'fence', 'frame', 'height', 'href', 'id', 'largeop', 'length', 'linethickness', 'lquote', 'lspace', 'mathbackground', 'mathcolor', 'mathsize', 'mathvariant', 'maxsize', 'minsize', 'movablelimits', 'notation', 'numalign', 'open', 'rowalign', 'rowlines', 'rowspacing', 'rowspan', 'rspace', 'rquote', 'scriptlevel', 'scriptminsize', 'scriptsizemultiplier', 'selection', 'separator', 'separators', 'stretchy', 'subscriptshift', 'supscriptshift', 'symmetric', 'voffset', 'width', 'xmlns']);
 const xml = freeze(['xlink:href', 'xml:id', 'xlink:title', 'xml:space', 'xmlns:xlink']);
 
-// eslint-disable-next-line unicorn/better-regex
-const MUSTACHE_EXPR = seal(/\{\{[\w\W]*|[\w\W]*\}\}/gm); // Specify template detection regex for SAFE_FOR_TEMPLATES mode
-const ERB_EXPR = seal(/<%[\w\W]*|[\w\W]*%>/gm);
-const TMPLIT_EXPR = seal(/\$\{[\w\W]*/gm); // eslint-disable-line unicorn/better-regex
+const MUSTACHE_EXPR = seal(/{{[\w\W]*|^[\w\W]*}}/g);
+const ERB_EXPR = seal(/<%[\w\W]*|^[\w\W]*%>/g);
+const TMPLIT_EXPR = seal(/\${[\w\W]*/g);
 const DATA_ATTR = seal(/^data-[\-\w.\u00B7-\uFFFF]+$/); // eslint-disable-line no-useless-escape
 const ARIA_ATTR = seal(/^aria-[\-\w]+$/); // eslint-disable-line no-useless-escape
 const IS_ALLOWED_URI = seal(/^(?:(?:(?:f|ht)tps?|mailto|tel|callto|sms|cid|xmpp|matrix):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i // eslint-disable-line no-useless-escape
@@ -36968,30 +37080,31 @@ const ATTR_WHITESPACE = seal(/[\u0000-\u0020\u00A0\u1680\u180E\u2000-\u2029\u205
 );
 const DOCTYPE_NAME = seal(/^html$/i);
 const CUSTOM_ELEMENT = seal(/^[a-z][.\w]*(-[.\w]+)+$/i);
+// Markup-significant character probes used by _sanitizeElements.
+// Shared module-level instances are safe despite the sticky /g flags:
+// unapply() resets lastIndex for RegExp receivers before every call.
+const ELEMENT_MARKUP_PROBE = seal(/<[/\w!]/g);
+const COMMENT_MARKUP_PROBE = seal(/<[/\w]/g);
+const FALLBACK_TAG_CLOSE = seal(/<\/no(script|embed|frames)/i);
+const SELF_CLOSING_TAG = seal(/\/>/i);
 
-var EXPRESSIONS = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  ARIA_ATTR: ARIA_ATTR,
-  ATTR_WHITESPACE: ATTR_WHITESPACE,
-  CUSTOM_ELEMENT: CUSTOM_ELEMENT,
-  DATA_ATTR: DATA_ATTR,
-  DOCTYPE_NAME: DOCTYPE_NAME,
-  ERB_EXPR: ERB_EXPR,
-  IS_ALLOWED_URI: IS_ALLOWED_URI,
-  IS_SCRIPT_OR_DATA: IS_SCRIPT_OR_DATA,
-  MUSTACHE_EXPR: MUSTACHE_EXPR,
-  TMPLIT_EXPR: TMPLIT_EXPR
-});
-
-/* eslint-disable @typescript-eslint/indent */
 // https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
 const NODE_TYPE = {
   element: 1,
+  attribute: 2,
   text: 3,
+  cdataSection: 4,
+  entityReference: 5,
   // Deprecated
-  progressingInstruction: 7,
+  entityNode: 6,
+  // Deprecated
+  processingInstruction: 7,
   comment: 8,
-  document: 9};
+  document: 9,
+  documentType: 10,
+  documentFragment: 11,
+  notation: 12 // Deprecated
+};
 const getGlobal = function getGlobal() {
   return typeof window === 'undefined' ? null : window;
 };
@@ -37046,10 +37159,25 @@ const _createHooksMap = function _createHooksMap() {
     uponSanitizeShadowNode: []
   };
 };
+/**
+ * Resolve a set-valued configuration option: a fresh set built from
+ * cfg[key] when it is an own array property (seeded with a clone of
+ * options.base when given, case-normalized via options.transform),
+ * the fallback set otherwise.
+ *
+ * @param cfg the cloned, prototype-free configuration object
+ * @param key the configuration property to read
+ * @param fallback the set to use when the option is absent or not an array
+ * @param options transform and optional base set to merge into
+ * @returns the resolved set
+ */
+const _resolveSetOption = function _resolveSetOption(cfg, key, fallback, options) {
+  return objectHasOwnProperty(cfg, key) && arrayIsArray(cfg[key]) ? addToSet(options.base ? clone(options.base) : {}, cfg[key], options.transform) : fallback;
+};
 function createDOMPurify() {
   let window = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : getGlobal();
   const DOMPurify = root => createDOMPurify(root);
-  DOMPurify.version = '3.4.0';
+  DOMPurify.version = '3.4.12';
   DOMPurify.removed = [];
   if (!window || !window.document || window.document.nodeType !== NODE_TYPE.document || !window.Element) {
     // Not running in a browser, provide a factory function
@@ -37057,28 +37185,29 @@ function createDOMPurify() {
     DOMPurify.isSupported = false;
     return DOMPurify;
   }
-  let {
-    document
-  } = window;
+  let document = window.document;
   const originalDocument = document;
   const currentScript = originalDocument.currentScript;
-  const {
-    DocumentFragment,
-    HTMLTemplateElement,
-    Node,
-    Element,
-    NodeFilter,
-    NamedNodeMap = window.NamedNodeMap || window.MozNamedAttrMap,
-    HTMLFormElement,
-    DOMParser,
-    trustedTypes
-  } = window;
+  window.DocumentFragment;
+    const HTMLTemplateElement = window.HTMLTemplateElement,
+    Node = window.Node,
+    Element = window.Element,
+    NodeFilter = window.NodeFilter,
+    _window$NamedNodeMap = window.NamedNodeMap;
+    _window$NamedNodeMap === void 0 ? window.NamedNodeMap || window.MozNamedAttrMap : _window$NamedNodeMap;
+    window.HTMLFormElement;
+    const DOMParser = window.DOMParser,
+    trustedTypes = window.trustedTypes;
   const ElementPrototype = Element.prototype;
   const cloneNode = lookupGetter(ElementPrototype, 'cloneNode');
   const remove = lookupGetter(ElementPrototype, 'remove');
   const getNextSibling = lookupGetter(ElementPrototype, 'nextSibling');
   const getChildNodes = lookupGetter(ElementPrototype, 'childNodes');
   const getParentNode = lookupGetter(ElementPrototype, 'parentNode');
+  const getShadowRoot = lookupGetter(ElementPrototype, 'shadowRoot');
+  const getAttributes = lookupGetter(ElementPrototype, 'attributes');
+  const getNodeType = Node && Node.prototype ? lookupGetter(Node.prototype, 'nodeType') : null;
+  const getNodeName = Node && Node.prototype ? lookupGetter(Node.prototype, 'nodeName') : null;
   // As per issue #47, the web-components registry is inherited by a
   // new document created via createHTMLDocument. As per the spec
   // (http://w3c.github.io/webcomponents/spec/custom/#creating-and-passing-registries)
@@ -37093,33 +37222,74 @@ function createDOMPurify() {
   }
   let trustedTypesPolicy;
   let emptyHTML = '';
-  const {
-    implementation,
-    createNodeIterator,
-    createDocumentFragment,
-    getElementsByTagName
-  } = document;
-  const {
-    importNode
-  } = originalDocument;
+  // The instance's own internal Trusted Types policy. Unlike a caller-supplied
+  // `TRUSTED_TYPES_POLICY`, this is created at most once — Trusted Types throws
+  // on duplicate policy names — and is the only policy allowed to persist
+  // across configurations and survive `clearConfig()`.
+  let defaultTrustedTypesPolicy;
+  let defaultTrustedTypesPolicyResolved = false;
+  // Tracks whether we are already inside a call to the configured Trusted Types
+  // policy (`createHTML` or `createScriptURL`). If a supplied policy callback
+  // itself calls `DOMPurify.sanitize` (the cause of #1422), `sanitize` would
+  // re-enter the policy and recurse until the stack overflows. We detect that
+  // re-entry and throw a clear, actionable error instead. The guard is shared
+  // across both callbacks, because either one re-entering `sanitize` triggers
+  // the same unbounded recursion.
+  let IN_TRUSTED_TYPES_POLICY = 0;
+  const _assertNotInTrustedTypesPolicy = function _assertNotInTrustedTypesPolicy() {
+    if (IN_TRUSTED_TYPES_POLICY > 0) {
+      throw typeErrorCreate('A configured TRUSTED_TYPES_POLICY callback (createHTML or ' + 'createScriptURL) must not call DOMPurify.sanitize, as that causes ' + 'infinite recursion. Do not pass a policy whose callbacks wrap ' + 'DOMPurify as TRUSTED_TYPES_POLICY; see the "DOMPurify and Trusted ' + 'Types" section of the README.');
+    }
+  };
+  const _createTrustedHTML = function _createTrustedHTML(html) {
+    _assertNotInTrustedTypesPolicy();
+    IN_TRUSTED_TYPES_POLICY++;
+    try {
+      return trustedTypesPolicy.createHTML(html);
+    } finally {
+      IN_TRUSTED_TYPES_POLICY--;
+    }
+  };
+  const _createTrustedScriptURL = function _createTrustedScriptURL(scriptUrl) {
+    _assertNotInTrustedTypesPolicy();
+    IN_TRUSTED_TYPES_POLICY++;
+    try {
+      return trustedTypesPolicy.createScriptURL(scriptUrl);
+    } finally {
+      IN_TRUSTED_TYPES_POLICY--;
+    }
+  };
+  // Lazily resolve (and cache) the instance's internal default policy.
+  // Resolution is attempted at most once: a successful `createPolicy` cannot be
+  // repeated (Trusted Types throws on duplicate names), and a failed or
+  // unsupported attempt must not be retried on every parse.
+  const _getDefaultTrustedTypesPolicy = function _getDefaultTrustedTypesPolicy() {
+    if (!defaultTrustedTypesPolicyResolved) {
+      defaultTrustedTypesPolicy = _createTrustedTypesPolicy(trustedTypes, currentScript);
+      defaultTrustedTypesPolicyResolved = true;
+    }
+    return defaultTrustedTypesPolicy;
+  };
+  const _document = document,
+    implementation = _document.implementation,
+    createNodeIterator = _document.createNodeIterator,
+    createDocumentFragment = _document.createDocumentFragment,
+    getElementsByTagName = _document.getElementsByTagName;
+  const importNode = originalDocument.importNode;
   let hooks = _createHooksMap();
   /**
    * Expose whether this browser supports running the full DOMPurify.
    */
   DOMPurify.isSupported = typeof entries === 'function' && typeof getParentNode === 'function' && implementation && implementation.createHTMLDocument !== undefined;
-  const {
-    MUSTACHE_EXPR,
-    ERB_EXPR,
-    TMPLIT_EXPR,
-    DATA_ATTR,
-    ARIA_ATTR,
-    IS_SCRIPT_OR_DATA,
-    ATTR_WHITESPACE,
-    CUSTOM_ELEMENT
-  } = EXPRESSIONS;
-  let {
-    IS_ALLOWED_URI: IS_ALLOWED_URI$1
-  } = EXPRESSIONS;
+  const MUSTACHE_EXPR$1 = MUSTACHE_EXPR,
+    ERB_EXPR$1 = ERB_EXPR,
+    TMPLIT_EXPR$1 = TMPLIT_EXPR,
+    DATA_ATTR$1 = DATA_ATTR,
+    ARIA_ATTR$1 = ARIA_ATTR,
+    IS_SCRIPT_OR_DATA$1 = IS_SCRIPT_OR_DATA,
+    ATTR_WHITESPACE$1 = ATTR_WHITESPACE,
+    CUSTOM_ELEMENT$1 = CUSTOM_ELEMENT;
+  let IS_ALLOWED_URI$1 = IS_ALLOWED_URI;
   /**
    * We consider the elements and attributes below to be safe. Ideally
    * don't add any new ones but feel free to remove unwanted ones.
@@ -37196,6 +37366,13 @@ function createDOMPurify() {
   let WHOLE_DOCUMENT = false;
   /* Track whether config is already set on this instance of DOMPurify. */
   let SET_CONFIG = false;
+  /* Pristine allowlist bindings captured at setConfig() time. On the
+   * persistent-config path sanitize() restores the sets from these before
+   * the per-walk hook clone-guard, so a hook's in-call widening cannot
+   * carry across calls. Null until setConfig() is called; reset by
+   * clearConfig(). */
+  let SET_CONFIG_ALLOWED_TAGS = null;
+  let SET_CONFIG_ALLOWED_ATTR = null;
   /* Decide if all elements (e.g. style, script) must be children of
    * document.body. By default, browsers might move them to document.head */
   let FORCE_BODY = false;
@@ -37238,7 +37415,17 @@ function createDOMPurify() {
   let USE_PROFILES = {};
   /* Tags to ignore content of when KEEP_CONTENT is true */
   let FORBID_CONTENTS = null;
-  const DEFAULT_FORBID_CONTENTS = addToSet({}, ['annotation-xml', 'audio', 'colgroup', 'desc', 'foreignobject', 'head', 'iframe', 'math', 'mi', 'mn', 'mo', 'ms', 'mtext', 'noembed', 'noframes', 'noscript', 'plaintext', 'script', 'style', 'svg', 'template', 'thead', 'title', 'video', 'xmp']);
+  const DEFAULT_FORBID_CONTENTS = addToSet({}, ['annotation-xml', 'audio', 'colgroup', 'desc', 'foreignobject', 'head', 'iframe', 'math', 'mi', 'mn', 'mo', 'ms', 'mtext', 'noembed', 'noframes', 'noscript', 'plaintext', 'script',
+  // <selectedcontent> mirrors the selected <option>'s subtree, cloned by
+  // the UA (customizable <select>) — including any on* handlers — and the
+  // engine re-mirrors synchronously whenever a removal changes which
+  // option/selectedcontent is current, even inside DOMPurify's inert
+  // DOMParser document. Hoisting its children on removal re-inserts a fresh
+  // mirror target ahead of the walk, which the engine refills, looping
+  // forever (DoS) and amplifying output. Dropping its content on removal
+  // (rather than hoisting) breaks that cascade; the content is a duplicate
+  // of the option, which is sanitized on its own. See campaign-3 F1/F6.
+  'selectedcontent', 'style', 'svg', 'template', 'thead', 'title', 'video', 'xmp']);
   /* Tags that are safe for data: URIs */
   let DATA_URI_TAGS = null;
   const DEFAULT_DATA_URI_TAGS = addToSet({}, ['audio', 'video', 'img', 'source', 'image', 'track']);
@@ -37254,8 +37441,10 @@ function createDOMPurify() {
   /* Allowed XHTML+XML namespaces */
   let ALLOWED_NAMESPACES = null;
   const DEFAULT_ALLOWED_NAMESPACES = addToSet({}, [MATHML_NAMESPACE, SVG_NAMESPACE, HTML_NAMESPACE], stringToString);
-  let MATHML_TEXT_INTEGRATION_POINTS = addToSet({}, ['mi', 'mo', 'mn', 'ms', 'mtext']);
-  let HTML_INTEGRATION_POINTS = addToSet({}, ['annotation-xml']);
+  const DEFAULT_MATHML_TEXT_INTEGRATION_POINTS = freeze(['mi', 'mo', 'mn', 'ms', 'mtext']);
+  let MATHML_TEXT_INTEGRATION_POINTS = addToSet({}, DEFAULT_MATHML_TEXT_INTEGRATION_POINTS);
+  const DEFAULT_HTML_INTEGRATION_POINTS = freeze(['annotation-xml']);
+  let HTML_INTEGRATION_POINTS = addToSet({}, DEFAULT_HTML_INTEGRATION_POINTS);
   // Certain elements are allowed in both SVG and HTML
   // namespace. We need to specify them explicitly
   // so that they don't get erroneously deleted from
@@ -37297,15 +37486,33 @@ function createDOMPurify() {
     // HTML tags and attributes are not case-sensitive, converting to lowercase. Keeping XHTML as is.
     transformCaseFunc = PARSER_MEDIA_TYPE === 'application/xhtml+xml' ? stringToString : stringToLowerCase;
     /* Set configuration parameters */
-    ALLOWED_TAGS = objectHasOwnProperty(cfg, 'ALLOWED_TAGS') ? addToSet({}, cfg.ALLOWED_TAGS, transformCaseFunc) : DEFAULT_ALLOWED_TAGS;
-    ALLOWED_ATTR = objectHasOwnProperty(cfg, 'ALLOWED_ATTR') ? addToSet({}, cfg.ALLOWED_ATTR, transformCaseFunc) : DEFAULT_ALLOWED_ATTR;
-    ALLOWED_NAMESPACES = objectHasOwnProperty(cfg, 'ALLOWED_NAMESPACES') ? addToSet({}, cfg.ALLOWED_NAMESPACES, stringToString) : DEFAULT_ALLOWED_NAMESPACES;
-    URI_SAFE_ATTRIBUTES = objectHasOwnProperty(cfg, 'ADD_URI_SAFE_ATTR') ? addToSet(clone(DEFAULT_URI_SAFE_ATTRIBUTES), cfg.ADD_URI_SAFE_ATTR, transformCaseFunc) : DEFAULT_URI_SAFE_ATTRIBUTES;
-    DATA_URI_TAGS = objectHasOwnProperty(cfg, 'ADD_DATA_URI_TAGS') ? addToSet(clone(DEFAULT_DATA_URI_TAGS), cfg.ADD_DATA_URI_TAGS, transformCaseFunc) : DEFAULT_DATA_URI_TAGS;
-    FORBID_CONTENTS = objectHasOwnProperty(cfg, 'FORBID_CONTENTS') ? addToSet({}, cfg.FORBID_CONTENTS, transformCaseFunc) : DEFAULT_FORBID_CONTENTS;
-    FORBID_TAGS = objectHasOwnProperty(cfg, 'FORBID_TAGS') ? addToSet({}, cfg.FORBID_TAGS, transformCaseFunc) : clone({});
-    FORBID_ATTR = objectHasOwnProperty(cfg, 'FORBID_ATTR') ? addToSet({}, cfg.FORBID_ATTR, transformCaseFunc) : clone({});
-    USE_PROFILES = objectHasOwnProperty(cfg, 'USE_PROFILES') ? cfg.USE_PROFILES : false;
+    ALLOWED_TAGS = _resolveSetOption(cfg, 'ALLOWED_TAGS', DEFAULT_ALLOWED_TAGS, {
+      transform: transformCaseFunc
+    });
+    ALLOWED_ATTR = _resolveSetOption(cfg, 'ALLOWED_ATTR', DEFAULT_ALLOWED_ATTR, {
+      transform: transformCaseFunc
+    });
+    ALLOWED_NAMESPACES = _resolveSetOption(cfg, 'ALLOWED_NAMESPACES', DEFAULT_ALLOWED_NAMESPACES, {
+      transform: stringToString
+    });
+    URI_SAFE_ATTRIBUTES = _resolveSetOption(cfg, 'ADD_URI_SAFE_ATTR', DEFAULT_URI_SAFE_ATTRIBUTES, {
+      transform: transformCaseFunc,
+      base: DEFAULT_URI_SAFE_ATTRIBUTES
+    });
+    DATA_URI_TAGS = _resolveSetOption(cfg, 'ADD_DATA_URI_TAGS', DEFAULT_DATA_URI_TAGS, {
+      transform: transformCaseFunc,
+      base: DEFAULT_DATA_URI_TAGS
+    });
+    FORBID_CONTENTS = _resolveSetOption(cfg, 'FORBID_CONTENTS', DEFAULT_FORBID_CONTENTS, {
+      transform: transformCaseFunc
+    });
+    FORBID_TAGS = _resolveSetOption(cfg, 'FORBID_TAGS', clone({}), {
+      transform: transformCaseFunc
+    });
+    FORBID_ATTR = _resolveSetOption(cfg, 'FORBID_ATTR', clone({}), {
+      transform: transformCaseFunc
+    });
+    USE_PROFILES = objectHasOwnProperty(cfg, 'USE_PROFILES') ? cfg.USE_PROFILES && typeof cfg.USE_PROFILES === 'object' ? clone(cfg.USE_PROFILES) : cfg.USE_PROFILES : false;
     ALLOW_ARIA_ATTR = cfg.ALLOW_ARIA_ATTR !== false; // Default true
     ALLOW_DATA_ATTR = cfg.ALLOW_DATA_ATTR !== false; // Default true
     ALLOW_UNKNOWN_PROTOCOLS = cfg.ALLOW_UNKNOWN_PROTOCOLS || false; // Default false
@@ -37321,20 +37528,22 @@ function createDOMPurify() {
     SANITIZE_NAMED_PROPS = cfg.SANITIZE_NAMED_PROPS || false; // Default false
     KEEP_CONTENT = cfg.KEEP_CONTENT !== false; // Default true
     IN_PLACE = cfg.IN_PLACE || false; // Default false
-    IS_ALLOWED_URI$1 = cfg.ALLOWED_URI_REGEXP || IS_ALLOWED_URI;
-    NAMESPACE = cfg.NAMESPACE || HTML_NAMESPACE;
-    MATHML_TEXT_INTEGRATION_POINTS = cfg.MATHML_TEXT_INTEGRATION_POINTS || MATHML_TEXT_INTEGRATION_POINTS;
-    HTML_INTEGRATION_POINTS = cfg.HTML_INTEGRATION_POINTS || HTML_INTEGRATION_POINTS;
-    CUSTOM_ELEMENT_HANDLING = cfg.CUSTOM_ELEMENT_HANDLING || create(null);
-    if (cfg.CUSTOM_ELEMENT_HANDLING && isRegexOrFunction(cfg.CUSTOM_ELEMENT_HANDLING.tagNameCheck)) {
-      CUSTOM_ELEMENT_HANDLING.tagNameCheck = cfg.CUSTOM_ELEMENT_HANDLING.tagNameCheck;
+    IS_ALLOWED_URI$1 = isRegex(cfg.ALLOWED_URI_REGEXP) ? cfg.ALLOWED_URI_REGEXP : IS_ALLOWED_URI; // Default regexp
+    NAMESPACE = typeof cfg.NAMESPACE === 'string' ? cfg.NAMESPACE : HTML_NAMESPACE; // Default HTML namespace
+    MATHML_TEXT_INTEGRATION_POINTS = objectHasOwnProperty(cfg, 'MATHML_TEXT_INTEGRATION_POINTS') && cfg.MATHML_TEXT_INTEGRATION_POINTS && typeof cfg.MATHML_TEXT_INTEGRATION_POINTS === 'object' ? clone(cfg.MATHML_TEXT_INTEGRATION_POINTS) : addToSet({}, DEFAULT_MATHML_TEXT_INTEGRATION_POINTS); // Default built-in map
+    HTML_INTEGRATION_POINTS = objectHasOwnProperty(cfg, 'HTML_INTEGRATION_POINTS') && cfg.HTML_INTEGRATION_POINTS && typeof cfg.HTML_INTEGRATION_POINTS === 'object' ? clone(cfg.HTML_INTEGRATION_POINTS) : addToSet({}, DEFAULT_HTML_INTEGRATION_POINTS); // Default built-in map
+    const customElementHandling = objectHasOwnProperty(cfg, 'CUSTOM_ELEMENT_HANDLING') && cfg.CUSTOM_ELEMENT_HANDLING && typeof cfg.CUSTOM_ELEMENT_HANDLING === 'object' ? clone(cfg.CUSTOM_ELEMENT_HANDLING) : create(null);
+    CUSTOM_ELEMENT_HANDLING = create(null);
+    if (objectHasOwnProperty(customElementHandling, 'tagNameCheck') && isRegexOrFunction(customElementHandling.tagNameCheck)) {
+      CUSTOM_ELEMENT_HANDLING.tagNameCheck = customElementHandling.tagNameCheck; // Default undefined
     }
-    if (cfg.CUSTOM_ELEMENT_HANDLING && isRegexOrFunction(cfg.CUSTOM_ELEMENT_HANDLING.attributeNameCheck)) {
-      CUSTOM_ELEMENT_HANDLING.attributeNameCheck = cfg.CUSTOM_ELEMENT_HANDLING.attributeNameCheck;
+    if (objectHasOwnProperty(customElementHandling, 'attributeNameCheck') && isRegexOrFunction(customElementHandling.attributeNameCheck)) {
+      CUSTOM_ELEMENT_HANDLING.attributeNameCheck = customElementHandling.attributeNameCheck; // Default undefined
     }
-    if (cfg.CUSTOM_ELEMENT_HANDLING && typeof cfg.CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements === 'boolean') {
-      CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements = cfg.CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements;
+    if (objectHasOwnProperty(customElementHandling, 'allowCustomizedBuiltInElements') && typeof customElementHandling.allowCustomizedBuiltInElements === 'boolean') {
+      CUSTOM_ELEMENT_HANDLING.allowCustomizedBuiltInElements = customElementHandling.allowCustomizedBuiltInElements; // Default undefined
     }
+    seal(CUSTOM_ELEMENT_HANDLING);
     if (SAFE_FOR_TEMPLATES) {
       ALLOW_DATA_ATTR = false;
     }
@@ -37370,36 +37579,36 @@ function createDOMPurify() {
     EXTRA_ELEMENT_HANDLING.tagCheck = null;
     EXTRA_ELEMENT_HANDLING.attributeCheck = null;
     /* Merge configuration parameters */
-    if (cfg.ADD_TAGS) {
+    if (objectHasOwnProperty(cfg, 'ADD_TAGS')) {
       if (typeof cfg.ADD_TAGS === 'function') {
         EXTRA_ELEMENT_HANDLING.tagCheck = cfg.ADD_TAGS;
-      } else {
+      } else if (arrayIsArray(cfg.ADD_TAGS)) {
         if (ALLOWED_TAGS === DEFAULT_ALLOWED_TAGS) {
           ALLOWED_TAGS = clone(ALLOWED_TAGS);
         }
         addToSet(ALLOWED_TAGS, cfg.ADD_TAGS, transformCaseFunc);
       }
     }
-    if (cfg.ADD_ATTR) {
+    if (objectHasOwnProperty(cfg, 'ADD_ATTR')) {
       if (typeof cfg.ADD_ATTR === 'function') {
         EXTRA_ELEMENT_HANDLING.attributeCheck = cfg.ADD_ATTR;
-      } else {
+      } else if (arrayIsArray(cfg.ADD_ATTR)) {
         if (ALLOWED_ATTR === DEFAULT_ALLOWED_ATTR) {
           ALLOWED_ATTR = clone(ALLOWED_ATTR);
         }
         addToSet(ALLOWED_ATTR, cfg.ADD_ATTR, transformCaseFunc);
       }
     }
-    if (cfg.ADD_URI_SAFE_ATTR) {
+    if (objectHasOwnProperty(cfg, 'ADD_URI_SAFE_ATTR') && arrayIsArray(cfg.ADD_URI_SAFE_ATTR)) {
       addToSet(URI_SAFE_ATTRIBUTES, cfg.ADD_URI_SAFE_ATTR, transformCaseFunc);
     }
-    if (cfg.FORBID_CONTENTS) {
+    if (objectHasOwnProperty(cfg, 'FORBID_CONTENTS') && arrayIsArray(cfg.FORBID_CONTENTS)) {
       if (FORBID_CONTENTS === DEFAULT_FORBID_CONTENTS) {
         FORBID_CONTENTS = clone(FORBID_CONTENTS);
       }
       addToSet(FORBID_CONTENTS, cfg.FORBID_CONTENTS, transformCaseFunc);
     }
-    if (cfg.ADD_FORBID_CONTENTS) {
+    if (objectHasOwnProperty(cfg, 'ADD_FORBID_CONTENTS') && arrayIsArray(cfg.ADD_FORBID_CONTENTS)) {
       if (FORBID_CONTENTS === DEFAULT_FORBID_CONTENTS) {
         FORBID_CONTENTS = clone(FORBID_CONTENTS);
       }
@@ -37418,6 +37627,13 @@ function createDOMPurify() {
       addToSet(ALLOWED_TAGS, ['tbody']);
       delete FORBID_TAGS.tbody;
     }
+    // Re-derive the active Trusted Types policy from this configuration on
+    // every parse. The active policy must never be sticky closure state that
+    // outlives the config that set it: a caller-supplied policy left in place
+    // after `clearConfig()` — or after a later call that supplied none, or
+    // `TRUSTED_TYPES_POLICY: null` — could sign a subsequent "default"
+    // `RETURN_TRUSTED_TYPE` result with a foreign, possibly unsafe policy.
+    // See GHSA-vxr8-fq34-vvx9.
     if (cfg.TRUSTED_TYPES_POLICY) {
       if (typeof cfg.TRUSTED_TYPES_POLICY.createHTML !== 'function') {
         throw typeErrorCreate('TRUSTED_TYPES_POLICY configuration option must provide a "createHTML" hook.');
@@ -37425,18 +37641,45 @@ function createDOMPurify() {
       if (typeof cfg.TRUSTED_TYPES_POLICY.createScriptURL !== 'function') {
         throw typeErrorCreate('TRUSTED_TYPES_POLICY configuration option must provide a "createScriptURL" hook.');
       }
-      // Overwrite existing TrustedTypes policy.
+      // A caller-supplied policy applies to this configuration only.
+      const previousTrustedTypesPolicy = trustedTypesPolicy;
       trustedTypesPolicy = cfg.TRUSTED_TYPES_POLICY;
-      // Sign local variables required by `sanitize`.
-      emptyHTML = trustedTypesPolicy.createHTML('');
-    } else {
-      // Uninitialized policy, attempt to initialize the internal dompurify policy.
-      if (trustedTypesPolicy === undefined) {
-        trustedTypesPolicy = _createTrustedTypesPolicy(trustedTypes, currentScript);
+      // Sign local variables required by `sanitize`. If the supplied policy's
+      // `createHTML` is circular (i.e. it calls `DOMPurify.sanitize`), this
+      // throws via the re-entrancy guard. Restore the previous policy first so
+      // the instance is not left in a poisoned state. See #1422.
+      try {
+        emptyHTML = _createTrustedHTML('');
+      } catch (error) {
+        trustedTypesPolicy = previousTrustedTypesPolicy;
+        throw error;
       }
-      // If creating the internal policy succeeded sign internal variables.
-      if (trustedTypesPolicy !== null && typeof emptyHTML === 'string') {
-        emptyHTML = trustedTypesPolicy.createHTML('');
+    } else if (cfg.TRUSTED_TYPES_POLICY === null) {
+      // Explicit opt-out for this call: perform no Trusted Types signing and
+      // create nothing (so a strict `trusted-types` CSP that disallows a
+      // `dompurify` policy can still call `sanitize` from inside its own
+      // policy — see #1422). Resetting to `undefined` rather than a sticky
+      // `null` also drops any previously retained caller policy, so it cannot
+      // resurface on a later call, while still allowing the next config-less
+      // call to restore the internal default policy. See GHSA-vxr8-fq34-vvx9.
+      trustedTypesPolicy = undefined;
+      emptyHTML = '';
+    } else {
+      // No policy supplied: keep the currently active policy if one is set — a
+      // previously supplied policy is intentionally sticky across config-less
+      // calls — otherwise fall back to the instance's own internal policy,
+      // created at most once. (A policy supplied for a *single* call still
+      // lingers by design; what must not linger is a policy whose configuration
+      // has been torn down via `clearConfig()`, which restores the default.)
+      if (trustedTypesPolicy === undefined) {
+        trustedTypesPolicy = _getDefaultTrustedTypesPolicy();
+      }
+      // Sign internal variables only when a policy is active. A falsy policy
+      // (Trusted Types unsupported, creation failed, or an explicit opt-out)
+      // leaves `emptyHTML` as a plain string, so we never call `.createHTML` on
+      // a non-policy and throw. See #1422.
+      if (trustedTypesPolicy && typeof emptyHTML === 'string') {
+        emptyHTML = _createTrustedHTML('');
       }
     }
     // Prevent further manipulation of configuration.
@@ -37451,6 +37694,77 @@ function createDOMPurify() {
    * correctly. */
   const ALL_SVG_TAGS = addToSet({}, [...svg$1, ...svgFilters, ...svgDisallowed]);
   const ALL_MATHML_TAGS = addToSet({}, [...mathMl$1, ...mathMlDisallowed]);
+  /**
+   * Namespace rules for an element in the SVG namespace.
+   *
+   * @param tagName the element's lowercase tag name
+   * @param parent the (possibly simulated) parent node
+   * @param parentTagName the parent's lowercase tag name
+   * @returns true if a spec-compliant parser could produce this element
+   */
+  const _checkSvgNamespace = function _checkSvgNamespace(tagName, parent, parentTagName) {
+    // The only way to switch from HTML namespace to SVG
+    // is via <svg>. If it happens via any other tag, then
+    // it should be killed.
+    if (parent.namespaceURI === HTML_NAMESPACE) {
+      return tagName === 'svg';
+    }
+    // The only way to switch from MathML to SVG is via <svg>
+    // if the parent is either <annotation-xml> or a MathML
+    // text integration point.
+    if (parent.namespaceURI === MATHML_NAMESPACE) {
+      return tagName === 'svg' && (parentTagName === 'annotation-xml' || MATHML_TEXT_INTEGRATION_POINTS[parentTagName]);
+    }
+    // We only allow elements that are defined in SVG
+    // spec. All others are disallowed in SVG namespace.
+    return Boolean(ALL_SVG_TAGS[tagName]);
+  };
+  /**
+   * Namespace rules for an element in the MathML namespace.
+   *
+   * @param tagName the element's lowercase tag name
+   * @param parent the (possibly simulated) parent node
+   * @param parentTagName the parent's lowercase tag name
+   * @returns true if a spec-compliant parser could produce this element
+   */
+  const _checkMathMlNamespace = function _checkMathMlNamespace(tagName, parent, parentTagName) {
+    // The only way to switch from HTML namespace to MathML
+    // is via <math>. If it happens via any other tag, then
+    // it should be killed.
+    if (parent.namespaceURI === HTML_NAMESPACE) {
+      return tagName === 'math';
+    }
+    // The only way to switch from SVG to MathML is via
+    // <math> and HTML integration points
+    if (parent.namespaceURI === SVG_NAMESPACE) {
+      return tagName === 'math' && HTML_INTEGRATION_POINTS[parentTagName];
+    }
+    // We only allow elements that are defined in MathML
+    // spec. All others are disallowed in MathML namespace.
+    return Boolean(ALL_MATHML_TAGS[tagName]);
+  };
+  /**
+   * Namespace rules for an element in the HTML namespace.
+   *
+   * @param tagName the element's lowercase tag name
+   * @param parent the (possibly simulated) parent node
+   * @param parentTagName the parent's lowercase tag name
+   * @returns true if a spec-compliant parser could produce this element
+   */
+  const _checkHtmlNamespace = function _checkHtmlNamespace(tagName, parent, parentTagName) {
+    // The only way to switch from SVG to HTML is via
+    // HTML integration points, and from MathML to HTML
+    // is via MathML text integration points
+    if (parent.namespaceURI === SVG_NAMESPACE && !HTML_INTEGRATION_POINTS[parentTagName]) {
+      return false;
+    }
+    if (parent.namespaceURI === MATHML_NAMESPACE && !MATHML_TEXT_INTEGRATION_POINTS[parentTagName]) {
+      return false;
+    }
+    // We disallow tags that are specific for MathML
+    // or SVG and should never appear in HTML namespace
+    return !ALL_MATHML_TAGS[tagName] && (COMMON_SVG_AND_HTML_ELEMENTS[tagName] || !ALL_SVG_TAGS[tagName]);
+  };
   /**
    * @param element a DOM element whose namespace is being checked
    * @returns Return false if the element has a
@@ -37473,51 +37787,13 @@ function createDOMPurify() {
       return false;
     }
     if (element.namespaceURI === SVG_NAMESPACE) {
-      // The only way to switch from HTML namespace to SVG
-      // is via <svg>. If it happens via any other tag, then
-      // it should be killed.
-      if (parent.namespaceURI === HTML_NAMESPACE) {
-        return tagName === 'svg';
-      }
-      // The only way to switch from MathML to SVG is via`
-      // svg if parent is either <annotation-xml> or MathML
-      // text integration points.
-      if (parent.namespaceURI === MATHML_NAMESPACE) {
-        return tagName === 'svg' && (parentTagName === 'annotation-xml' || MATHML_TEXT_INTEGRATION_POINTS[parentTagName]);
-      }
-      // We only allow elements that are defined in SVG
-      // spec. All others are disallowed in SVG namespace.
-      return Boolean(ALL_SVG_TAGS[tagName]);
+      return _checkSvgNamespace(tagName, parent, parentTagName);
     }
     if (element.namespaceURI === MATHML_NAMESPACE) {
-      // The only way to switch from HTML namespace to MathML
-      // is via <math>. If it happens via any other tag, then
-      // it should be killed.
-      if (parent.namespaceURI === HTML_NAMESPACE) {
-        return tagName === 'math';
-      }
-      // The only way to switch from SVG to MathML is via
-      // <math> and HTML integration points
-      if (parent.namespaceURI === SVG_NAMESPACE) {
-        return tagName === 'math' && HTML_INTEGRATION_POINTS[parentTagName];
-      }
-      // We only allow elements that are defined in MathML
-      // spec. All others are disallowed in MathML namespace.
-      return Boolean(ALL_MATHML_TAGS[tagName]);
+      return _checkMathMlNamespace(tagName, parent, parentTagName);
     }
     if (element.namespaceURI === HTML_NAMESPACE) {
-      // The only way to switch from SVG to HTML is via
-      // HTML integration points, and from MathML to HTML
-      // is via MathML text integration points
-      if (parent.namespaceURI === SVG_NAMESPACE && !HTML_INTEGRATION_POINTS[parentTagName]) {
-        return false;
-      }
-      if (parent.namespaceURI === MATHML_NAMESPACE && !MATHML_TEXT_INTEGRATION_POINTS[parentTagName]) {
-        return false;
-      }
-      // We disallow tags that are specific for MathML
-      // or SVG and should never appear in HTML namespace
-      return !ALL_MATHML_TAGS[tagName] && (COMMON_SVG_AND_HTML_ELEMENTS[tagName] || !ALL_SVG_TAGS[tagName]);
+      return _checkHtmlNamespace(tagName, parent, parentTagName);
     }
     // For XHTML and XML documents that support custom namespaces
     if (PARSER_MEDIA_TYPE === 'application/xhtml+xml' && ALLOWED_NAMESPACES[element.namespaceURI]) {
@@ -37542,7 +37818,81 @@ function createDOMPurify() {
       // eslint-disable-next-line unicorn/prefer-dom-node-remove
       getParentNode(node).removeChild(node);
     } catch (_) {
+      /* The normal detach failed — this is reached for a parentless node
+         (getParentNode() is null, so .removeChild throws). Element.prototype
+         .remove() is itself a spec no-op on a parentless node, so a recorded
+         "removal" would otherwise hand the caller back an intact,
+         payload-bearing node (e.g. a detached IN_PLACE root the mXSS canary or
+         the style-with-element-child rule decided to kill). Fail closed by
+         throwing — exactly as a clobbered root does at the IN_PLACE entry —
+         rather than trying to "neutralize" the node via its own methods.
+         Neutralizing would mean calling getAttributeNames()/removeAttribute()
+         on the node, both of which a <form> root can clobber via a named child
+         (and _isClobbered does not even probe getAttributeNames), so the
+         neutralize step could itself be silently defeated, leaving the payload
+         intact. A throw touches only the cached, clobber-safe remove() and
+         getParentNode(). Generalizes GHSA-r47g-fvhr-h676 (clobbered-form root)
+         to every root-kill reason. REPORT-3.
+                This lives inside the catch, so it never fires for a normally-removed
+         in-tree node: those have a parent, removeChild() succeeds, and the
+         catch is not entered. Only a kept (parentless) root reaches here. */
       remove(node);
+      if (!getParentNode(node)) {
+        throw typeErrorCreate('a node selected for removal could not be detached from its tree ' + 'and cannot be safely returned; refusing to sanitize in place');
+      }
+    }
+  };
+  /**
+   * _neutralizeRoot
+   *
+   * Fail-closed teardown of an in-place root after the sanitize walk aborts
+   * (campaign-3 F2). An internal throw mid-walk — e.g. a page-registered
+   * custom element's reaction detaches a node so `_forceRemove`'s deliberate
+   * parentless guard throws, or any other re-entrant engine mutation — would
+   * otherwise leave the caller's *live* tree half-sanitized, with everything
+   * after the abort point still carrying its handlers. There is no safe way
+   * to resume the walk (the tree mutated under us), so we strip the root bare:
+   * remove every child and every attribute, then let the caller's catch see
+   * the original error. Clobber-safe (cached `remove`/`childNodes`/`attributes`
+   * getters; the root was already clobber-pre-flighted at the IN_PLACE entry).
+   *
+   * @param root the in-place root to empty
+   */
+  const _neutralizeRoot = function _neutralizeRoot(root) {
+    /* Strip every disallowed attribute (on* handlers included) off the whole
+       subtree BEFORE detaching anything. Detaching first would hand back
+       handler-bearing originals (e.g. an already-loading `<img onerror>`)
+       whose queued resource event still fires in page scope after we throw.
+       Clobber-safe reads; a doomed clobbered node's own attributes are
+       irrelevant while its non-clobbered descendants are reached and scrubbed. */
+    _neutralizeSubtree(root);
+    const childNodes = getChildNodes(root);
+    if (childNodes) {
+      const snapshot = [];
+      arrayForEach(childNodes, child => {
+        arrayPush(snapshot, child);
+      });
+      arrayForEach(snapshot, child => {
+        try {
+          remove(child);
+        } catch (_) {
+          /* Best-effort teardown; a still-attached child is handled below */
+        }
+      });
+    }
+    const attributes = getAttributes(root);
+    if (attributes) {
+      for (let i = attributes.length - 1; i >= 0; --i) {
+        const attribute = attributes[i];
+        const name = attribute && attribute.name;
+        if (typeof name === 'string') {
+          try {
+            root.removeAttribute(name);
+          } catch (_) {
+            /* Clobbered removeAttribute — ignore (fail-closed best effort) */
+          }
+        }
+      }
     }
   };
   /**
@@ -37578,6 +37928,148 @@ function createDOMPurify() {
     }
   };
   /**
+   * _stripDisallowedAttributes
+   *
+   * Removes every attribute the active configuration does not allow from a
+   * single element, using the same allowlist as the main attribute pass (so
+   * `on*` handlers go, but no `/^on/` blocklist is introduced). Used only to
+   * neutralise nodes that are being discarded from an in-place tree.
+   *
+   * @param element the element to strip
+   */
+  const _stripDisallowedAttributes = function _stripDisallowedAttributes(element) {
+    const attributes = getAttributes(element);
+    if (!attributes) {
+      return;
+    }
+    for (let i = attributes.length - 1; i >= 0; --i) {
+      const attribute = attributes[i];
+      const name = attribute && attribute.name;
+      if (typeof name !== 'string' || ALLOWED_ATTR[transformCaseFunc(name)]) {
+        continue;
+      }
+      try {
+        element.removeAttribute(name);
+      } catch (_) {
+        /* Clobbered removeAttribute on a doomed node — ignore */
+      }
+    }
+  };
+  /**
+   * _neutralizeSubtree
+   *
+   * Completes the audit-5 F1 fix across every removal path. The KEEP_CONTENT
+   * move-hoist neutralises only disallowed-tag removals; clobber, mXSS-canary,
+   * namespace, comment, processing-instruction and KEEP_CONTENT:false removals
+   * all drop their subtree wholesale via `_forceRemove`. On the IN_PLACE path
+   * those dropped nodes are detached from the caller's LIVE tree but a
+   * handler-bearing original among them (an `<img onerror>`/`<video>` that was
+   * loading) keeps its queued resource event, which fires in page scope after
+   * sanitize returns. This walks a removed subtree and strips every attribute
+   * the active configuration does not allow — so `on*` handlers are cancelled
+   * through the SAME allowlist that governs kept nodes, not a separate `/^on/`
+   * blocklist. Run synchronously before sanitize returns, i.e. before any
+   * queued event can fire. Hook-free by design: these nodes leave the output,
+   * so firing attribute hooks for them would be surprising. Clobber-safe reads;
+   * a doomed clobbered node may shadow `removeAttribute` (its own attributes are
+   * irrelevant — it is discarded — while its non-clobbered descendants, e.g.
+   * the `<img>`, are reached and scrubbed).
+   *
+   * @param root the root of a removed subtree to neutralise
+   */
+  const _neutralizeSubtree = function _neutralizeSubtree(root) {
+    const stack = [root];
+    while (stack.length > 0) {
+      const node = stack.pop();
+      const nodeType = getNodeType ? getNodeType(node) : node.nodeType;
+      if (nodeType === NODE_TYPE.element) {
+        _stripDisallowedAttributes(node);
+      }
+      const childNodes = getChildNodes(node);
+      if (childNodes) {
+        for (let i = childNodes.length - 1; i >= 0; --i) {
+          stack.push(childNodes[i]);
+        }
+      }
+    }
+  };
+  /**
+   * _neutralizePatchLinkage
+   *
+   * IN_PLACE entry pre-pass (declarative-partial-updates / streaming
+   * hardening, https://github.com/WICG/declarative-partial-updates).
+   *
+   * The main walk strips patch linkage (`for`/`patchsrc`) and removes range
+   * markers (PIs / markup comments) node-by-node, in document order, AS it
+   * reaches each node. On a live in-place root that leaves a window: from the
+   * moment the root is connected until the walk arrives at a given node, that
+   * node's linkage is live. A patch applied on connection/stream can fire as
+   * a microtask during the walk and inject or teleport an unsanitized DOM
+   * range into a region the iterator has already passed and will not revisit,
+   * so the post-return "tree is sanitized" contract is violated. Sweep the
+   * whole tree once up front and sever every linkage before the walk begins,
+   * closing that window.
+   *
+   * This CANNOT undo a patch that already fired before sanitize ran — that is
+   * the irreducible "do not IN_PLACE a live-connected attacker tree" caveat —
+   * but it closes everything from sanitize-start onward. Gated on SAFE_FOR_XML
+   * to group with the rest of the declarative-partial-updates handling and
+   * stay overridable, consistent with the codebase.
+   *
+   * Clobber-safe traversal (cached childNodes getter); per-node try/catch so a
+   * clobbered root cannot defeat the sweep of its non-clobbered descendants.
+   *
+   * NOTE (pending real-Chrome confirmation, see test/declarative-patch-probe
+   * .html Q1): this mirrors the existing policy of keeping `for` on
+   * <label>/<output>. If the shipping feature can drive a patch through a
+   * surviving `for`-on-label/output + `id` pair, this pre-pass and the
+   * attribute check at _isBasicCustomElement's caller must additionally drop
+   * that pair on the IN_PLACE path. Left as-is until the taxonomy is verified.
+   *
+   * @param root the in-place root to sweep
+   */
+  const _neutralizePatchLinkage = function _neutralizePatchLinkage(root) {
+    if (!SAFE_FOR_XML) {
+      return;
+    }
+    const stack = [root];
+    while (stack.length > 0) {
+      const node = stack.pop();
+      const nodeType = getNodeType ? getNodeType(node) : node.nodeType;
+      /* Remove range markers (the target side of a patch linkage): every
+         processing instruction, and any markup-bearing comment. */
+      if (nodeType === NODE_TYPE.processingInstruction || nodeType === NODE_TYPE.comment && regExpTest(COMMENT_MARKUP_PROBE, node.data)) {
+        try {
+          remove(node);
+        } catch (_) {
+          /* Best-effort */
+        }
+        continue;
+      }
+      /* Strip patch-source attributes (the source side) off elements. */
+      if (nodeType === NODE_TYPE.element) {
+        const element = node;
+        const lcTag = transformCaseFunc(getNodeName ? getNodeName(node) : node.nodeName);
+        try {
+          if (element.hasAttribute && element.hasAttribute('patchsrc')) {
+            element.removeAttribute('patchsrc');
+          }
+          if (element.hasAttribute && element.hasAttribute('for') && lcTag !== 'label' && lcTag !== 'output') {
+            element.removeAttribute('for');
+          }
+        } catch (_) {
+          /* Clobbered removeAttribute/hasAttribute on a doomed node — ignore */
+        }
+      }
+      const childNodes = getChildNodes(node);
+      if (childNodes) {
+        for (let i = childNodes.length - 1; i >= 0; --i) {
+          stack.push(childNodes[i]);
+        }
+      }
+    }
+  };
+  /**
    * _initDocument
    *
    * @param dirty - a string of dirty markup
@@ -37598,7 +38090,7 @@ function createDOMPurify() {
       // Root of XHTML doc must contain xmlns declaration (see https://www.w3.org/TR/xhtml1/normative.html#strict)
       dirty = '<html xmlns="http://www.w3.org/1999/xhtml"><head></head><body>' + dirty + '</body></html>';
     }
-    const dirtyPayload = trustedTypesPolicy ? trustedTypesPolicy.createHTML(dirty) : dirty;
+    const dirtyPayload = trustedTypesPolicy ? _createTrustedHTML(dirty) : dirty;
     /*
      * Use the DOMParser API by default, fallback later if needs be
      * DOMParser not work for svg when has multiple root element.
@@ -37639,28 +38131,259 @@ function createDOMPurify() {
     NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_COMMENT | NodeFilter.SHOW_TEXT | NodeFilter.SHOW_PROCESSING_INSTRUCTION | NodeFilter.SHOW_CDATA_SECTION, null);
   };
   /**
+   * Replace template expression syntax (mustache, ERB, template
+   * literal) with a space; shared by all SAFE_FOR_TEMPLATES scrub
+   * sites. Order matters: mustache, then ERB, then template literal.
+   *
+   * @param value the string to scrub
+   * @returns the scrubbed string
+   */
+  const _stripTemplateExpressions = function _stripTemplateExpressions(value) {
+    value = stringReplace(value, MUSTACHE_EXPR$1, ' ');
+    value = stringReplace(value, ERB_EXPR$1, ' ');
+    value = stringReplace(value, TMPLIT_EXPR$1, ' ');
+    return value;
+  };
+  /**
+   * Strip template-engine expressions ({{...}}, ${...}, <%...%>) from the
+   * character data of an element subtree. Used as the final safety net for
+   * SAFE_FOR_TEMPLATES on every DOM-returning code path so that expressions
+   * which only form after text-node normalization (e.g. fragments split across
+   * stripped elements) cannot survive into a template-evaluating framework.
+   *
+   * Walks text/comment/CDATA/processing-instruction nodes and mutates `.data`
+   * in place rather than round-tripping through innerHTML. This preserves
+   * descendant node references (important for IN_PLACE callers), avoids a
+   * serialize/reparse cycle, and reads literal character data — which means
+   * `<%...%>` in text content matches the ERB regex against its real bytes
+   * instead of the HTML-entity-escaped form innerHTML would produce.
+   *
+   * Attribute values are not visited here; SAFE_FOR_TEMPLATES handling for
+   * attributes is performed during the per-node `_sanitizeAttributes` pass.
+   *
+   * @param node The root element whose character data should be scrubbed.
+   */
+  const _scrubTemplateExpressions2 = function _scrubTemplateExpressions(node) {
+    var _node$querySelectorAl;
+    node.normalize();
+    const walker = createNodeIterator.call(node.ownerDocument || node, node,
+    // eslint-disable-next-line no-bitwise
+    NodeFilter.SHOW_TEXT | NodeFilter.SHOW_COMMENT | NodeFilter.SHOW_CDATA_SECTION | NodeFilter.SHOW_PROCESSING_INSTRUCTION, null);
+    let currentNode = walker.nextNode();
+    while (currentNode) {
+      currentNode.data = _stripTemplateExpressions(currentNode.data);
+      currentNode = walker.nextNode();
+    }
+    // NodeIterator does not descend into <template>.content per the DOM spec,
+    // so we must explicitly recurse into each template's content fragment,
+    // mirroring the approach used by _sanitizeShadowDOM.
+    const templates = (_node$querySelectorAl = node.querySelectorAll) === null || _node$querySelectorAl === void 0 ? void 0 : _node$querySelectorAl.call(node, 'template');
+    if (templates) {
+      arrayForEach(templates, tmpl => {
+        if (_isDocumentFragment(tmpl.content)) {
+          _scrubTemplateExpressions2(tmpl.content);
+        }
+      });
+    }
+  };
+  /**
    * _isClobbered
+   *
+   * Detect DOM-clobbering on HTMLFormElement nodes. Form is the only HTML
+   * interface with [LegacyOverrideBuiltIns]; a descendant element with a
+   * `name` attribute matching a prototype property shadows that property
+   * on direct reads. We use this check at the IN_PLACE entry-point and
+   * during attribute sanitization to refuse clobbered forms.
    *
    * @param element element to check for clobbering attacks
    * @return true if clobbered, false if safe
    */
   const _isClobbered = function _isClobbered(element) {
-    return element instanceof HTMLFormElement && (typeof element.nodeName !== 'string' || typeof element.textContent !== 'string' || typeof element.removeChild !== 'function' || !(element.attributes instanceof NamedNodeMap) || typeof element.removeAttribute !== 'function' || typeof element.setAttribute !== 'function' || typeof element.namespaceURI !== 'string' || typeof element.insertBefore !== 'function' || typeof element.hasChildNodes !== 'function');
+    // Realm-independent tag-name probe. If we can't determine the tag
+    // name at all, we can't reason about clobbering — return false
+    // (the caller's other defences still apply).
+    const realTagName = getNodeName ? getNodeName(element) : null;
+    if (typeof realTagName !== 'string') {
+      return false;
+    }
+    if (transformCaseFunc(realTagName) !== 'form') {
+      return false;
+    }
+    return typeof element.nodeName !== 'string' || typeof element.textContent !== 'string' || typeof element.removeChild !== 'function' ||
+    // Realm-safe NamedNodeMap detection: equality against the cached
+    // prototype getter. Clobbered .attributes (e.g. <input name="attributes">)
+    // makes the direct read diverge from the cached read; a clean form
+    // (same-realm OR foreign-realm) has both reads pointing at the same
+    // canonical NamedNodeMap.
+    element.attributes !== getAttributes(element) || typeof element.removeAttribute !== 'function' || typeof element.setAttribute !== 'function' || typeof element.namespaceURI !== 'string' || typeof element.insertBefore !== 'function' || typeof element.hasChildNodes !== 'function' ||
+    // NodeType clobbering probe. Cached Node.prototype.nodeType getter
+    // returns the integer 1 for any Element regardless of realm; direct
+    // read on a clobbered form (e.g. <input name="nodeType">) returns
+    // the named child element. Cheap addition — nodeType is read from
+    // an internal slot, no serialization cost — and removes a residual
+    // clobbering surface used by several mXSS / PI / comment branches
+    // in _sanitizeElements that compare currentNode.nodeType directly.
+    element.nodeType !== getNodeType(element) ||
+    // HTMLFormElement has [LegacyOverrideBuiltIns]: a descendant named
+    // "childNodes" shadows the prototype getter. Direct reads of
+    // form.childNodes from a clobbered form return the named child
+    // instead of the real NodeList, so any walk that reads it directly
+    // skips the form's real children. Compare the direct read to the
+    // cached Node.prototype getter — when the form's named-property
+    // getter intercepts the read, the two values differ and we flag
+    // the form. This catches every clobbering child type (input,
+    // select, etc.) regardless of whether the named child happens to
+    // carry a numeric .length, which a typeof-based probe would miss
+    // (e.g. HTMLSelectElement.length is a defined unsigned-long).
+    element.childNodes !== getChildNodes(element);
   };
   /**
-   * Checks whether the given object is a DOM node.
+   * Checks whether the given value is a DocumentFragment from any realm.
+   *
+   * The realm-independent replacement reads `nodeType` through the cached
+   * Node.prototype getter and compares to the DOCUMENT_FRAGMENT_NODE
+   * constant (11). nodeType is a numeric value resolved from the node's
+   * internal slot, identical across realms for the same kind of node.
+   *
+   * @param value object to check
+   * @return true if value is a DocumentFragment-shaped node from any realm
+   */
+  const _isDocumentFragment = function _isDocumentFragment(value) {
+    if (!getNodeType || typeof value !== 'object' || value === null) {
+      return false;
+    }
+    try {
+      return getNodeType(value) === NODE_TYPE.documentFragment;
+    } catch (_) {
+      return false;
+    }
+  };
+  /**
+   * Checks whether the given object is a DOM node, including nodes that
+   * originate from a different window/realm (e.g. an iframe's
+   * contentDocument). The previous `value instanceof Node` check was
+   * realm-bound: nodes from a different window failed it, causing
+   * sanitize() to silently stringify them and reset IN_PLACE to false,
+   * returning the original node unsanitized. See GHSA-4w3q-35jp-p934.
    *
    * @param value object to check whether it's a DOM node
-   * @return true is object is a DOM node
+   * @return true if value is a DOM node from any realm
    */
   const _isNode = function _isNode(value) {
-    return typeof Node === 'function' && value instanceof Node;
+    if (!getNodeType || typeof value !== 'object' || value === null) {
+      return false;
+    }
+    try {
+      return typeof getNodeType(value) === 'number';
+    } catch (_) {
+      return false;
+    }
   };
   function _executeHooks(hooks, currentNode, data) {
+    if (hooks.length === 0) {
+      return;
+    }
     arrayForEach(hooks, hook => {
       hook.call(DOMPurify, currentNode, data, CONFIG);
     });
   }
+  /**
+   * Structural-threat checks that condemn a node regardless of the
+   * allowlists: mXSS via namespace confusion, risky CSS construction,
+   * processing instructions, markup-bearing comments. Pure predicate;
+   * the caller removes. Check order is load-bearing.
+   *
+   * @param currentNode the node to inspect
+   * @param tagName the node's transformCaseFunc'd tag name
+   * @return true if the node must be removed
+   */
+  const _isUnsafeNode = function _isUnsafeNode(currentNode, tagName) {
+    /* Detect mXSS attempts abusing namespace confusion */
+    if (SAFE_FOR_XML && currentNode.hasChildNodes() && !_isNode(currentNode.firstElementChild) && regExpTest(ELEMENT_MARKUP_PROBE, currentNode.textContent) && regExpTest(ELEMENT_MARKUP_PROBE, currentNode.innerHTML)) {
+      return true;
+    }
+    /* Remove risky CSS construction leading to mXSS */
+    if (SAFE_FOR_XML && currentNode.namespaceURI === HTML_NAMESPACE && tagName === 'style' && _isNode(currentNode.firstElementChild)) {
+      return true;
+    }
+    /* Remove any occurrence of processing instructions */
+    if (currentNode.nodeType === NODE_TYPE.processingInstruction) {
+      return true;
+    }
+    /* Remove any kind of possibly harmful comments */
+    if (SAFE_FOR_XML && currentNode.nodeType === NODE_TYPE.comment && regExpTest(COMMENT_MARKUP_PROBE, currentNode.data)) {
+      return true;
+    }
+    return false;
+  };
+  /**
+   * Handle a node whose tag is forbidden or not allowlisted: keep
+   * allowed custom elements (false return exits _sanitizeElements
+   * early - the namespace and fallback-tag removal checks are
+   * intentionally skipped for kept custom elements), else hoist
+   * content per KEEP_CONTENT and remove.
+   *
+   * A kept custom element is the ONLY case in which this function
+   * returns false, so the caller uses that return value to run the
+   * afterSanitizeElements hook on the kept element and keep the
+   * element-hook lifecycle consistent with normal allowlisted
+   * elements (GHSA-c2j3-45gr-mqc4).
+   *
+   * @param currentNode the disallowed node
+   * @param tagName the node's transformCaseFunc'd tag name
+   * @return true if the node was removed, false if kept
+   */
+  const _sanitizeDisallowedNode = function _sanitizeDisallowedNode(currentNode, tagName) {
+    /* Check if we have a custom element to handle */
+    if (!FORBID_TAGS[tagName] && _isBasicCustomElement(tagName)) {
+      if (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, tagName)) {
+        return false;
+      }
+      if (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.tagNameCheck(tagName)) {
+        return false;
+      }
+    }
+    /* Keep content except for bad-listed elements.
+         Use the cached prototype getters exclusively — the previous code
+         had `|| currentNode.parentNode` / `|| currentNode.childNodes`
+         fallbacks, but the cached getters always return the canonical
+         value (or null for a real parent-less node), so the fallback
+         path was dead in safe cases and a clobbering surface in unsafe
+         ones. Falsy cached results stay falsy; the `if (childNodes &&
+         parentNode)` check already gates correctly. */
+    if (KEEP_CONTENT && !FORBID_CONTENTS[tagName]) {
+      const parentNode = getParentNode(currentNode);
+      const childNodes = getChildNodes(currentNode);
+      if (childNodes && parentNode) {
+        const childCount = childNodes.length;
+        /* In-place: hoist the *original* children so the iterator visits
+             and sanitises them through the same allowlist pass as every other
+             node. The caller built the tree in the live document, so the
+             originals carry already-queued resource events (`<img onerror>`,
+             `<video>`/`<audio>` error, lazy/`onload`, …); cloning would leave
+             those originals detached but still armed, firing in page scope
+             while the returned tree looked clean. Moving is safe in-place: the
+             root is pre-validated as an allowed tag and so is never the node
+             being removed, which keeps `parentNode` inside the iterator root
+             and the relocated child inside the serialised tree.
+                      Otherwise (string / DOM-copy paths): clone. The iterator is rooted
+             at — and the result serialised from — `body`, so a restrictive
+             ALLOWED_TAGS that removes `body` itself must leave its content in
+             place, which only cloning does; and those paths parse into an
+             inert document, so their discarded originals never had a queued
+             event to neutralise.
+                      `childNodes` is live; a tail-to-head walk keeps `childNodes[i]`
+             valid whether we move (drops the trailing entry) or clone (leaves
+             the list intact). */
+        for (let i = childCount - 1; i >= 0; --i) {
+          const hoisted = IN_PLACE ? childNodes[i] : cloneNode(childNodes[i], true);
+          parentNode.insertBefore(hoisted, getNextSibling(currentNode));
+        }
+      }
+    }
+    _forceRemove(currentNode);
+    return true;
+  };
   /**
    * _sanitizeElements
    *
@@ -37670,86 +38393,89 @@ function createDOMPurify() {
    * @param currentNode to check for permission to exist
    * @return true if node was killed, false if left alive
    */
-  const _sanitizeElements = function _sanitizeElements(currentNode) {
-    let content = null;
+  // eslint-disable-next-line complexity
+  const _sanitizeElements = function _sanitizeElements(currentNode, root) {
     /* Execute a hook if present */
     _executeHooks(hooks.beforeSanitizeElements, currentNode, null);
+    /* A hook may have detached the node — treat it as removed (see the
+       detached-node comment after the uponSanitizeElement hook below). */
+    if (currentNode !== root && getParentNode(currentNode) === null) {
+      return true;
+    }
     /* Check if element is clobbered or can clobber */
     if (_isClobbered(currentNode)) {
       _forceRemove(currentNode);
       return true;
     }
     /* Now let's check the element's type and name */
-    const tagName = transformCaseFunc(currentNode.nodeName);
+    const tagName = transformCaseFunc(getNodeName ? getNodeName(currentNode) : currentNode.nodeName);
     /* Execute a hook if present */
     _executeHooks(hooks.uponSanitizeElement, currentNode, {
       tagName,
       allowedTags: ALLOWED_TAGS
     });
-    /* Detect mXSS attempts abusing namespace confusion */
-    if (SAFE_FOR_XML && currentNode.hasChildNodes() && !_isNode(currentNode.firstElementChild) && regExpTest(/<[/\w!]/g, currentNode.innerHTML) && regExpTest(/<[/\w!]/g, currentNode.textContent)) {
-      _forceRemove(currentNode);
+    /* A hook may have detached the node from the tree — a long-standing
+       user pattern (issue #469; draw.io-style foreignObject filtering).
+       Per the cached, unclobberable parentNode getter the node is
+       genuinely out of the tree, so it can reach neither the serialized
+       output nor an IN_PLACE live tree; treat it as removed and stop
+       processing it. Without this guard, the unsafe-node / namespace
+       checks below would call _forceRemove on a parentless node and hit
+       the REPORT-3 fail-closed throw — which exists for nodes DOMPurify
+       wants gone but *cannot* detach (clobbered / parentless roots), the
+       opposite of a node that is already safely gone. The walk root is
+       exempt: a detached IN_PLACE root is legitimate input and must still
+       be fully sanitized, and a kill-decision on it must keep hitting the
+       REPORT-3 throw. Nodes detached by hooks are the hook's
+       responsibility: they are not recorded in DOMPurify.removed and are
+       not neutralized by the post-walk IN_PLACE pass. */
+    if (currentNode !== root && getParentNode(currentNode) === null) {
       return true;
     }
-    /* Remove risky CSS construction leading to mXSS */
-    if (SAFE_FOR_XML && currentNode.namespaceURI === HTML_NAMESPACE && tagName === 'style' && _isNode(currentNode.firstElementChild)) {
-      _forceRemove(currentNode);
-      return true;
-    }
-    /* Remove any occurrence of processing instructions */
-    if (currentNode.nodeType === NODE_TYPE.progressingInstruction) {
-      _forceRemove(currentNode);
-      return true;
-    }
-    /* Remove any kind of possibly harmful comments */
-    if (SAFE_FOR_XML && currentNode.nodeType === NODE_TYPE.comment && regExpTest(/<[/\w]/g, currentNode.data)) {
+    /* Remove mXSS vectors, processing instructions and risky comments */
+    if (_isUnsafeNode(currentNode, tagName)) {
       _forceRemove(currentNode);
       return true;
     }
     /* Remove element if anything forbids its presence */
     if (FORBID_TAGS[tagName] || !(EXTRA_ELEMENT_HANDLING.tagCheck instanceof Function && EXTRA_ELEMENT_HANDLING.tagCheck(tagName)) && !ALLOWED_TAGS[tagName]) {
-      /* Check if we have a custom element to handle */
-      if (!FORBID_TAGS[tagName] && _isBasicCustomElement(tagName)) {
-        if (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof RegExp && regExpTest(CUSTOM_ELEMENT_HANDLING.tagNameCheck, tagName)) {
-          return false;
-        }
-        if (CUSTOM_ELEMENT_HANDLING.tagNameCheck instanceof Function && CUSTOM_ELEMENT_HANDLING.tagNameCheck(tagName)) {
-          return false;
-        }
+      const removed = _sanitizeDisallowedNode(currentNode, tagName);
+      /* A false return means the node is a custom element kept via
+         CUSTOM_ELEMENT_HANDLING - the only keep path through
+         _sanitizeDisallowedNode. Run afterSanitizeElements on it so the
+         element-hook lifecycle matches normal allowlisted elements: a
+         security policy applied in this hook (e.g. stripping an attribute
+         from every surviving element) must not silently skip kept custom
+         elements (GHSA-c2j3-45gr-mqc4). This mirrors the normal-element
+         tail below - the hook runs, then the walker's subsequent
+         _sanitizeAttributes pass sanitizes the element's attributes. The
+         deliberately skipped namespace and fallback-tag removal checks stay
+         skipped; they are removal decisions, not the hook contract. */
+      if (removed === false) {
+        _executeHooks(hooks.afterSanitizeElements, currentNode, null);
       }
-      /* Keep content except for bad-listed elements */
-      if (KEEP_CONTENT && !FORBID_CONTENTS[tagName]) {
-        const parentNode = getParentNode(currentNode) || currentNode.parentNode;
-        const childNodes = getChildNodes(currentNode) || currentNode.childNodes;
-        if (childNodes && parentNode) {
-          const childCount = childNodes.length;
-          for (let i = childCount - 1; i >= 0; --i) {
-            const childClone = cloneNode(childNodes[i], true);
-            childClone.__removalCount = (currentNode.__removalCount || 0) + 1;
-            parentNode.insertBefore(childClone, getNextSibling(currentNode));
-          }
-        }
-      }
-      _forceRemove(currentNode);
-      return true;
+      return removed;
     }
-    /* Check whether element has a valid namespace */
-    if (currentNode instanceof Element && !_checkValidNamespace(currentNode)) {
+    /* Check whether element has a valid namespace.
+       Realm-safe check (GHSA-hpcv-96wg-7vj8): use the cached Node.prototype
+       nodeType getter rather than `instanceof Element`, which is realm-
+       bound and short-circuits to false for any node minted in a different
+       realm — letting a foreign-realm element with a forbidden namespace
+       slip past the namespace check entirely. */
+    const nt = getNodeType ? getNodeType(currentNode) : currentNode.nodeType;
+    if (nt === NODE_TYPE.element && !_checkValidNamespace(currentNode)) {
       _forceRemove(currentNode);
       return true;
     }
     /* Make sure that older browsers don't get fallback-tag mXSS */
-    if ((tagName === 'noscript' || tagName === 'noembed' || tagName === 'noframes') && regExpTest(/<\/no(script|embed|frames)/i, currentNode.innerHTML)) {
+    if ((tagName === 'noscript' || tagName === 'noembed' || tagName === 'noframes') && regExpTest(FALLBACK_TAG_CLOSE, currentNode.innerHTML)) {
       _forceRemove(currentNode);
       return true;
     }
     /* Sanitize element content to be template-safe */
     if (SAFE_FOR_TEMPLATES && currentNode.nodeType === NODE_TYPE.text) {
       /* Get the element's text content */
-      content = currentNode.textContent;
-      arrayForEach([MUSTACHE_EXPR, ERB_EXPR, TMPLIT_EXPR], expr => {
-        content = stringReplace(content, expr, ' ');
-      });
+      const content = _stripTemplateExpressions(currentNode.textContent);
       if (currentNode.textContent !== content) {
         arrayPush(DOMPurify.removed, {
           element: currentNode.cloneNode()
@@ -37775,15 +38501,43 @@ function createDOMPurify() {
     if (FORBID_ATTR[lcName]) {
       return false;
     }
+    /* Reject declarative-partial-updates patch-linkage attributes
+       (https://github.com/WICG/declarative-partial-updates).
+            Empirical note (Chrome 150, verified — see
+       test/declarative-patch-probe-v3.html): expansion is NOT applied after
+       sanitization. For the string path it fires during sanitize()'s own
+       parse, so the walk sees and sanitizes the fully materialized expanded
+       tree — teleports into MathML/SVG integration points included; a
+       weaponized `<template for>`->`<img onerror>` comes back with the handler
+       stripped. For the IN_PLACE path it fires on connection, before the walk.
+       Either way DOMPurify is NOT blind to the patch.
+            This removal is therefore defense-in-depth rather than the sole barrier:
+       it prevents live linkage from surviving into the OUTPUT and re-expanding
+       in the caller's context, and keeps behaviour deterministic if a future
+       engine defers expansion. `for` is legitimate only on <label>/<output>;
+       anywhere else (notably <template for>) it links the element to a patch
+       target and teleports or removes an arbitrary DOM range by id/marker name.
+       `patchsrc` fetches remote markup and is treated as a script-loading
+       mechanism (CSP). Gated on SAFE_FOR_XML so the removal groups with the
+       other structural-threat checks and stays overridable, consistent with
+       the rest of the codebase. PI range markers are already removed by
+       _isUnsafeNode. */
+    if (SAFE_FOR_XML && lcName === 'patchsrc') {
+      return false;
+    }
+    if (SAFE_FOR_XML && lcName === 'for' && lcTag !== 'label' && lcTag !== 'output') {
+      return false;
+    }
     /* Make sure attribute cannot clobber */
     if (SANITIZE_DOM && (lcName === 'id' || lcName === 'name') && (value in document || value in formElement)) {
       return false;
     }
+    const nameIsPermitted = ALLOWED_ATTR[lcName] || EXTRA_ELEMENT_HANDLING.attributeCheck instanceof Function && EXTRA_ELEMENT_HANDLING.attributeCheck(lcName, lcTag);
     /* Allow valid data-* attributes: At least one character after "-"
         (https://html.spec.whatwg.org/multipage/dom.html#embedding-custom-non-visible-data-with-the-data-*-attributes)
         XML-compatible (https://html.spec.whatwg.org/multipage/infrastructure.html#xml-compatible and http://www.w3.org/TR/xml/#d0e804)
         We don't need to check the value; it's always URI safe. */
-    if (ALLOW_DATA_ATTR && !FORBID_ATTR[lcName] && regExpTest(DATA_ATTR, lcName)) ; else if (ALLOW_ARIA_ATTR && regExpTest(ARIA_ATTR, lcName)) ; else if (EXTRA_ELEMENT_HANDLING.attributeCheck instanceof Function && EXTRA_ELEMENT_HANDLING.attributeCheck(lcName, lcTag)) ; else if (!ALLOWED_ATTR[lcName] || FORBID_ATTR[lcName]) {
+    if (ALLOW_DATA_ATTR && regExpTest(DATA_ATTR$1, lcName)) ; else if (ALLOW_ARIA_ATTR && regExpTest(ARIA_ATTR$1, lcName)) ; else if (!nameIsPermitted) {
       if (
       // First condition does a very basic check if a) it's basically a valid custom element tagname AND
       // b) if the tagName passes whatever the user has configured for CUSTOM_ELEMENT_HANDLING.tagNameCheck
@@ -37795,11 +38549,15 @@ function createDOMPurify() {
         return false;
       }
       /* Check value is safe. First, is attr inert? If so, is safe */
-    } else if (URI_SAFE_ATTRIBUTES[lcName]) ; else if (regExpTest(IS_ALLOWED_URI$1, stringReplace(value, ATTR_WHITESPACE, ''))) ; else if ((lcName === 'src' || lcName === 'xlink:href' || lcName === 'href') && lcTag !== 'script' && stringIndexOf(value, 'data:') === 0 && DATA_URI_TAGS[lcTag]) ; else if (ALLOW_UNKNOWN_PROTOCOLS && !regExpTest(IS_SCRIPT_OR_DATA, stringReplace(value, ATTR_WHITESPACE, ''))) ; else if (value) {
+    } else if (URI_SAFE_ATTRIBUTES[lcName]) ; else if (regExpTest(IS_ALLOWED_URI$1, stringReplace(value, ATTR_WHITESPACE$1, ''))) ; else if ((lcName === 'src' || lcName === 'xlink:href' || lcName === 'href') && lcTag !== 'script' && stringIndexOf(value, 'data:') === 0 && DATA_URI_TAGS[lcTag]) ; else if (ALLOW_UNKNOWN_PROTOCOLS && !regExpTest(IS_SCRIPT_OR_DATA$1, stringReplace(value, ATTR_WHITESPACE$1, ''))) ; else if (value) {
       return false;
     } else ;
     return true;
   };
+  /* Names the HTML spec reserves from valid-custom-element-name; these must
+   * never be treated as basic custom elements even when a permissive
+   * CUSTOM_ELEMENT_HANDLING.tagNameCheck is configured. */
+  const RESERVED_CUSTOM_ELEMENT_NAMES = addToSet({}, ['annotation-xml', 'color-profile', 'font-face', 'font-face-format', 'font-face-name', 'font-face-src', 'font-face-uri', 'missing-glyph']);
   /**
    * _isBasicCustomElement
    * checks if at least one dash is included in tagName, and it's not the first char
@@ -37809,7 +38567,64 @@ function createDOMPurify() {
    * @returns Returns true if the tag name meets the basic criteria for a custom element, otherwise false.
    */
   const _isBasicCustomElement = function _isBasicCustomElement(tagName) {
-    return tagName !== 'annotation-xml' && stringMatch(tagName, CUSTOM_ELEMENT);
+    return !RESERVED_CUSTOM_ELEMENT_NAMES[stringToLowerCase(tagName)] && regExpTest(CUSTOM_ELEMENT$1, tagName);
+  };
+  /**
+   * Wrap an attribute value in the matching Trusted Types object when
+   * the active policy requires it. Namespaced attributes pass through
+   * unchanged (no TT support yet, see
+   * https://bugs.chromium.org/p/chromium/issues/detail?id=1305293).
+   *
+   * @param lcTag lowercase tag name of the containing element
+   * @param lcName lowercase attribute name
+   * @param namespaceURI the attribute's namespace, if any
+   * @param value the attribute value to wrap
+   * @return the value, wrapped when Trusted Types demand it
+   */
+  const _applyTrustedTypesToAttribute = function _applyTrustedTypesToAttribute(lcTag, lcName, namespaceURI, value) {
+    if (trustedTypesPolicy && typeof trustedTypes === 'object' && typeof trustedTypes.getAttributeType === 'function' && !namespaceURI) {
+      switch (trustedTypes.getAttributeType(lcTag, lcName)) {
+        case 'TrustedHTML':
+          {
+            return _createTrustedHTML(value);
+          }
+        case 'TrustedScriptURL':
+          {
+            return _createTrustedScriptURL(value);
+          }
+      }
+    }
+    return value;
+  };
+  /**
+   * Write a modified attribute value back onto the element. On
+   * success, re-probe for clobbering introduced by the new value and
+   * remove the element when found; otherwise pop the removal entry
+   * recorded by the earlier _removeAttribute (long-standing pairing
+   * with the SANITIZE_NAMED_PROPS path - do not "fix" casually). On
+   * failure, remove the attribute instead.
+   *
+   * @param currentNode the element carrying the attribute
+   * @param name the attribute name as present on the element
+   * @param namespaceURI the attribute's namespace, if any
+   * @param value the new attribute value
+   */
+  const _setAttributeValue = function _setAttributeValue(currentNode, name, namespaceURI, value) {
+    try {
+      if (namespaceURI) {
+        currentNode.setAttributeNS(namespaceURI, name, value);
+      } else {
+        /* Fallback to setAttribute() for browser-unrecognized namespaces e.g. "x-schema". */
+        currentNode.setAttribute(name, value);
+      }
+      if (_isClobbered(currentNode)) {
+        _forceRemove(currentNode);
+      } else {
+        arrayPop(DOMPurify.removed);
+      }
+    } catch (_) {
+      _removeAttribute(name, currentNode);
+    }
   };
   /**
    * _sanitizeAttributes
@@ -37824,9 +38639,7 @@ function createDOMPurify() {
   const _sanitizeAttributes = function _sanitizeAttributes(currentNode) {
     /* Execute a hook if present */
     _executeHooks(hooks.beforeSanitizeAttributes, currentNode, null);
-    const {
-      attributes
-    } = currentNode;
+    const attributes = currentNode.attributes;
     /* Check if we have attributes; if not we might have a text node */
     if (!attributes || _isClobbered(currentNode)) {
       return;
@@ -37839,14 +38652,13 @@ function createDOMPurify() {
       forceKeepAttr: undefined
     };
     let l = attributes.length;
+    const lcTag = transformCaseFunc(currentNode.nodeName);
     /* Go backwards over all attributes; safely remove bad ones */
     while (l--) {
       const attr = attributes[l];
-      const {
-        name,
-        namespaceURI,
-        value: attrValue
-      } = attr;
+      const name = attr.name,
+        namespaceURI = attr.namespaceURI,
+        attrValue = attr.value;
       const lcName = transformCaseFunc(name);
       const initValue = attrValue;
       let value = name === 'value' ? initValue : stringTrim(initValue);
@@ -37860,12 +38672,14 @@ function createDOMPurify() {
       /* Full DOM Clobbering protection via namespace isolation,
        * Prefix id and name attributes with `user-content-`
        */
-      if (SANITIZE_NAMED_PROPS && (lcName === 'id' || lcName === 'name')) {
+      if (SANITIZE_NAMED_PROPS && (lcName === 'id' || lcName === 'name') && stringIndexOf(value, SANITIZE_NAMED_PROPS_PREFIX) !== 0) {
         // Remove the attribute with this value
         _removeAttribute(name, currentNode);
         // Prefix the value and later re-create the attribute with the sanitized value
         value = SANITIZE_NAMED_PROPS_PREFIX + value;
       }
+      // Else: already prefixed, leave the attribute alone — the prefix is
+      // itself the clobbering protection, and re-applying it is incorrect.
       /* Work around a security issue with comments inside attributes */
       if (SAFE_FOR_XML && regExpTest(/((--!?|])>)|<\/(style|script|title|xmp|textarea|noscript|iframe|noembed|noframes)/i, value)) {
         _removeAttribute(name, currentNode);
@@ -37876,7 +38690,7 @@ function createDOMPurify() {
         _removeAttribute(name, currentNode);
         continue;
       }
-      /* Did the hooks approve of the attribute? */
+      /* Did the hooks force-keep the attribute? */
       if (hookEvent.forceKeepAttr) {
         continue;
       }
@@ -37886,56 +38700,24 @@ function createDOMPurify() {
         continue;
       }
       /* Work around a security issue in jQuery 3.0 */
-      if (!ALLOW_SELF_CLOSE_IN_ATTR && regExpTest(/\/>/i, value)) {
+      if (!ALLOW_SELF_CLOSE_IN_ATTR && regExpTest(SELF_CLOSING_TAG, value)) {
         _removeAttribute(name, currentNode);
         continue;
       }
       /* Sanitize attribute content to be template-safe */
       if (SAFE_FOR_TEMPLATES) {
-        arrayForEach([MUSTACHE_EXPR, ERB_EXPR, TMPLIT_EXPR], expr => {
-          value = stringReplace(value, expr, ' ');
-        });
+        value = _stripTemplateExpressions(value);
       }
       /* Is `value` valid for this attribute? */
-      const lcTag = transformCaseFunc(currentNode.nodeName);
       if (!_isValidAttribute(lcTag, lcName, value)) {
         _removeAttribute(name, currentNode);
         continue;
       }
       /* Handle attributes that require Trusted Types */
-      if (trustedTypesPolicy && typeof trustedTypes === 'object' && typeof trustedTypes.getAttributeType === 'function') {
-        if (namespaceURI) ; else {
-          switch (trustedTypes.getAttributeType(lcTag, lcName)) {
-            case 'TrustedHTML':
-              {
-                value = trustedTypesPolicy.createHTML(value);
-                break;
-              }
-            case 'TrustedScriptURL':
-              {
-                value = trustedTypesPolicy.createScriptURL(value);
-                break;
-              }
-          }
-        }
-      }
+      value = _applyTrustedTypesToAttribute(lcTag, lcName, namespaceURI, value);
       /* Handle invalid data-* attribute set by try-catching it */
       if (value !== initValue) {
-        try {
-          if (namespaceURI) {
-            currentNode.setAttributeNS(namespaceURI, name, value);
-          } else {
-            /* Fallback to setAttribute() for browser-unrecognized namespaces e.g. "x-schema". */
-            currentNode.setAttribute(name, value);
-          }
-          if (_isClobbered(currentNode)) {
-            _forceRemove(currentNode);
-          } else {
-            arrayPop(DOMPurify.removed);
-          }
-        } catch (_) {
-          _removeAttribute(name, currentNode);
-        }
+        _setAttributeValue(currentNode, name, namespaceURI, value);
       }
     }
     /* Execute a hook if present */
@@ -37955,16 +38737,135 @@ function createDOMPurify() {
       /* Execute a hook if present */
       _executeHooks(hooks.uponSanitizeShadowNode, shadowNode, null);
       /* Sanitize tags and elements */
-      _sanitizeElements(shadowNode);
+      _sanitizeElements(shadowNode, fragment);
       /* Check attributes next */
       _sanitizeAttributes(shadowNode);
-      /* Deep shadow DOM detected */
-      if (shadowNode.content instanceof DocumentFragment) {
+      /* Deep shadow DOM detected.
+         Realm-safe check (GHSA-hpcv-96wg-7vj8): use nodeType against the
+         DOCUMENT_FRAGMENT_NODE constant rather than instanceof, so we
+         recurse into <template>.content from foreign realms too. */
+      if (_isDocumentFragment(shadowNode.content)) {
         _sanitizeShadowDOM2(shadowNode.content);
+      }
+      /* An element iterated here may itself host an attached
+         shadow root. The default NodeIterator does not enter shadow
+         trees, so a shadow root nested inside template.content was
+         previously reached by no walk at all (the pre-pass at
+         _sanitizeAttachedShadowRoots descends via childNodes, which
+         doesn't enter template.content; the template-content recursion
+         above iterates the content but never inspected shadowRoot).
+         Walk it explicitly. The nodeType guard avoids reading
+         shadowRoot off text / comment / CDATA / PI nodes that the
+         iterator also surfaces. */
+      const shadowNodeType = getNodeType ? getNodeType(shadowNode) : shadowNode.nodeType;
+      if (shadowNodeType === NODE_TYPE.element) {
+        const innerSr = getShadowRoot(shadowNode);
+        if (_isDocumentFragment(innerSr)) {
+          _sanitizeAttachedShadowRoots(innerSr);
+          _sanitizeShadowDOM2(innerSr);
+        }
       }
     }
     /* Execute a hook if present */
     _executeHooks(hooks.afterSanitizeShadowDOM, fragment, null);
+  };
+  /**
+   * _sanitizeAttachedShadowRoots
+   *
+   * Walks `root` and feeds every attached shadow root we encounter into
+   * the existing _sanitizeShadowDOM pipeline. The default node iterator
+   * does not descend into shadow trees, so nodes inside an attached
+   * shadow root would otherwise be skipped entirely.
+   *
+   * Two real input paths put attached shadow roots in front of us:
+   *   1. IN_PLACE on a DOM node that already has shadow roots attached.
+   *   2. DOM-node input where importNode(dirty, true) deep-clones the
+   *      shadow root because it was created with `clonable: true`.
+   *
+   * This pass runs once, up front, so the main iteration loop (and the
+   * existing _sanitizeShadowDOM template-content recursion) stay
+   * untouched — string-input paths are not affected.
+   *
+   * @param root the subtree root to walk for attached shadow roots
+   */
+  const _sanitizeAttachedShadowRoots = function _sanitizeAttachedShadowRoots(root) {
+    /* Iterative (explicit stack) rather than per-child recursion. DOM APIs
+       impose no depth cap, so an attacker-shaped tree (JSON/CRDT/editor data
+       built straight into the DOM — the IN_PLACE surface) deeper than the JS
+       call-stack budget would otherwise overflow native recursion here and
+       throw at the IN_PLACE entry pre-pass, before a single node is
+       sanitized, leaving the caller's live tree untouched (fail-open). See
+       campaign-3 F4. A heap stack keeps depth off the call stack.
+            Each work item is either a node to descend into, or a deferred
+       `_sanitizeShadowDOM` for an already-walked shadow root. The deferred
+       form preserves the original post-order discipline: a shadow root's
+       nested shadow roots are discovered before the outer shadow is
+       sanitized (which may remove hosts). Pushes are in reverse of the
+       desired processing order (LIFO): template content, then children, then
+       the shadow-sanitize, then the shadow walk — so the order matches the
+       previous recursion exactly. */
+    const stack = [{
+      node: root,
+      shadow: null
+    }];
+    while (stack.length > 0) {
+      const item = stack.pop();
+      /* Deferred shadow-DOM sanitisation: runs after its subtree was walked. */
+      if (item.shadow) {
+        _sanitizeShadowDOM2(item.shadow);
+        continue;
+      }
+      const node = item.node;
+      const nodeType = getNodeType ? getNodeType(node) : node.nodeType;
+      const isElement = nodeType === NODE_TYPE.element;
+      /* (pushed last → processed first) Children, snapshotted in reverse so
+         the first child is processed first. Snapshotting matters because a
+         hook may detach siblings mid-walk. */
+      const childNodes = getChildNodes(node);
+      if (childNodes) {
+        for (let i = childNodes.length - 1; i >= 0; --i) {
+          stack.push({
+            node: childNodes[i],
+            shadow: null
+          });
+        }
+      }
+      /* (pushed before children → processed after them, matching the old
+         "template content last" order) When the node is a <template>,
+         descend into its content. */
+      if (isElement) {
+        const rootName = getNodeName ? getNodeName(node) : null;
+        if (typeof rootName === 'string' && transformCaseFunc(rootName) === 'template') {
+          const content = node.content;
+          if (_isDocumentFragment(content)) {
+            stack.push({
+              node: content,
+              shadow: null
+            });
+          }
+        }
+      }
+      /* Shadow root (processed first): walk its subtree, then sanitise it.
+         Realm-safe check (GHSA-hpcv-96wg-7vj8): nodeType-based detection
+         rather than `instanceof DocumentFragment`, which is realm-bound and
+         silently skipped foreign-realm shadow roots (e.g.
+         iframe.contentDocument attachShadow). */
+      if (isElement) {
+        const sr = getShadowRoot(node);
+        if (_isDocumentFragment(sr)) {
+          /* Push the deferred sanitise first so it pops after the shadow
+             walk we push next, i.e. nested shadow roots are discovered
+             before this one is sanitised. */
+          stack.push({
+            node: null,
+            shadow: sr
+          }, {
+            node: sr,
+            shadow: null
+          });
+        }
+      }
+    }
   };
   // eslint-disable-next-line complexity
   DOMPurify.sanitize = function (dirty) {
@@ -37982,13 +38883,9 @@ function createDOMPurify() {
     }
     /* Stringify, in case dirty is an object */
     if (typeof dirty !== 'string' && !_isNode(dirty)) {
-      if (typeof dirty.toString === 'function') {
-        dirty = dirty.toString();
-        if (typeof dirty !== 'string') {
-          throw typeErrorCreate('dirty is not a string, aborting');
-        }
-      } else {
-        throw typeErrorCreate('toString is not a function');
+      dirty = stringifyValue(dirty);
+      if (typeof dirty !== 'string') {
+        throw typeErrorCreate('dirty is not a string, aborting');
       }
     }
     /* Return dirty HTML if DOMPurify cannot run */
@@ -37996,24 +38893,90 @@ function createDOMPurify() {
       return dirty;
     }
     /* Assign config vars */
-    if (!SET_CONFIG) {
+    if (SET_CONFIG) {
+      /* Persistent setConfig() path: _parseConfig is skipped, so the sets are
+       * not re-derived per call. Restore them from the pristine bindings
+       * captured at setConfig() time so a previous call's hook clone (mutated
+       * below) does not carry over. */
+      ALLOWED_TAGS = SET_CONFIG_ALLOWED_TAGS;
+      ALLOWED_ATTR = SET_CONFIG_ALLOWED_ATTR;
+    } else {
       _parseConfig(cfg);
+    }
+    /* Clone the hook-mutable allowlists before the walk whenever an
+     * uponSanitize* hook is registered. The hook event exposes ALLOWED_TAGS
+     * and ALLOWED_ATTR by reference (as allowedTags / allowedAttributes), so
+     * a hook that widens them would otherwise mutate the shared set
+     * permanently: across later calls and across every element. Cloning per
+     * walk keeps documented in-call widening working while scoping it to the
+     * call. A single guard for both config paths - the per-call path rebinds
+     * the sets in _parseConfig each call, the persistent path restores them
+     * from the captured bindings just above - so the two cannot diverge. */
+    if (hooks.uponSanitizeElement.length > 0 || hooks.uponSanitizeAttribute.length > 0) {
+      ALLOWED_TAGS = clone(ALLOWED_TAGS);
+    }
+    if (hooks.uponSanitizeAttribute.length > 0) {
+      ALLOWED_ATTR = clone(ALLOWED_ATTR);
     }
     /* Clean up removed elements */
     DOMPurify.removed = [];
-    /* Check if dirty is correctly typed for IN_PLACE */
-    if (typeof dirty === 'string') {
-      IN_PLACE = false;
-    }
-    if (IN_PLACE) {
-      /* Do some early pre-sanitization to avoid unsafe root nodes */
-      if (dirty.nodeName) {
-        const tagName = transformCaseFunc(dirty.nodeName);
+    /* Resolve IN_PLACE for this call without mutating persistent config.
+       Writing the IN_PLACE closure variable here leaks under setConfig(),
+       where _parseConfig is skipped on later calls: a single string call would
+       disable in-place mode for every subsequent node call, returning a
+       sanitized copy while leaving the caller's node — which in-place callers
+       keep using and whose return value they ignore — unsanitized. REPORT-2. */
+    const inPlace = IN_PLACE && typeof dirty !== 'string' && _isNode(dirty);
+    if (inPlace) {
+      /* Declarative-partial-updates / streaming pre-pass: sever every patch
+         linkage across the live tree BEFORE the walk, so no patch can fire
+         mid-walk and inject into an already-processed region. Runs first, so
+         it also covers the forbidden/clobbered roots that throw below. */
+      _neutralizePatchLinkage(dirty);
+      /* Do some early pre-sanitization to avoid unsafe root nodes.
+         Read nodeName through the cached prototype getter — a clobbering
+         child named "nodeName" on the form root would otherwise shadow
+         the property and let this check skip the root-allowlist
+         validation entirely. */
+      const nn = getNodeName ? getNodeName(dirty) : dirty.nodeName;
+      if (typeof nn === 'string') {
+        const tagName = transformCaseFunc(nn);
         if (!ALLOWED_TAGS[tagName] || FORBID_TAGS[tagName]) {
+          /* Fail closed on a live root: neutralize handlers/children before
+             throwing, exactly as the mid-walk abort path does. */
+          _neutralizeRoot(dirty);
           throw typeErrorCreate('root node is forbidden and cannot be sanitized in-place');
         }
       }
-    } else if (dirty instanceof Node) {
+      /* Pre-flight the root through _isClobbered. The iterator-driven
+         removal path can not detach a parent-less root: _forceRemove
+         falls through to Element.prototype.remove(), which per spec
+         is a no-op on a node with no parent. A clobbered root would
+         then survive the main loop with its attributes uninspected,
+         because _sanitizeAttributes early-returns on _isClobbered. The
+         result would be an attacker-controlled form, complete with any
+         event-handler attributes the caller passed in, handed back to
+         the application unsanitized. Refuse to sanitize such a root
+         the same way we refuse a forbidden tag. GHSA-r47g-fvhr-h676. */
+      if (_isClobbered(dirty)) {
+        /* Fail closed on a live clobbered root before throwing.
+           _neutralizeRoot's reads are clobber-safe (cached getters); the
+           form's non-clobbered descendants, e.g. an armed <img>, are scrubbed. */
+        _neutralizeRoot(dirty);
+        throw typeErrorCreate('root node is clobbered and cannot be sanitized in-place');
+      }
+      /* Sanitize attached shadow roots before the main iterator runs.
+         The iterator does not descend into shadow trees. Same fail-closed
+         barrier as the main walk (campaign-3 F2): a custom-element reaction
+         inside a shadow root could abort this pre-pass before the walk runs,
+         which would otherwise leave the entire live tree unsanitized. */
+      try {
+        _sanitizeAttachedShadowRoots(dirty);
+      } catch (error) {
+        _neutralizeRoot(dirty);
+        throw error;
+      }
+    } else if (_isNode(dirty)) {
       /* If dirty is a DOM element, append to an empty document to avoid
          elements being stripped by the parser */
       body = _initDocument('<!---->');
@@ -38027,12 +38990,18 @@ function createDOMPurify() {
         // eslint-disable-next-line unicorn/prefer-dom-node-append
         body.appendChild(importedNode);
       }
+      /* Clonable shadow roots are deep-cloned by importNode(); sanitize
+         them before the main iterator runs, since the iterator does not
+         descend into shadow trees. The walk routes every read through a
+         cached prototype getter so clobbering descendants on a form root
+         cannot hide a shadow host from this pass. */
+      _sanitizeAttachedShadowRoots(importedNode);
     } else {
       /* Exit directly if we have nothing to do */
       if (!RETURN_DOM && !SAFE_FOR_TEMPLATES && !WHOLE_DOCUMENT &&
       // eslint-disable-next-line unicorn/prefer-includes
       dirty.indexOf('<') === -1) {
-        return trustedTypesPolicy && RETURN_TRUSTED_TYPE ? trustedTypesPolicy.createHTML(dirty) : dirty;
+        return trustedTypesPolicy && RETURN_TRUSTED_TYPE ? _createTrustedHTML(dirty) : dirty;
       }
       /* Initialize the document to work on */
       body = _initDocument(dirty);
@@ -38046,31 +39015,68 @@ function createDOMPurify() {
       _forceRemove(body.firstChild);
     }
     /* Get node iterator */
-    const nodeIterator = _createNodeIterator(IN_PLACE ? dirty : body);
-    /* Now start iterating over the created document */
-    while (currentNode = nodeIterator.nextNode()) {
-      /* Sanitize tags and elements */
-      _sanitizeElements(currentNode);
-      /* Check attributes next */
-      _sanitizeAttributes(currentNode);
-      /* Shadow DOM detected, sanitize it */
-      if (currentNode.content instanceof DocumentFragment) {
-        _sanitizeShadowDOM2(currentNode.content);
+    const walkRoot = inPlace ? dirty : body;
+    const nodeIterator = _createNodeIterator(walkRoot);
+    /* Now start iterating over the created document.
+       The walk runs inside an exception barrier (campaign-3 F2): a re-entrant
+       engine/custom-element mutation can detach a node mid-walk so
+       `_forceRemove`'s parentless guard throws, aborting the loop. Without the
+       barrier the caller's in-place tree would be left half-sanitized with the
+       unvisited tail still armed. On any throw we fail closed — strip the
+       in-place root bare — then rethrow so the existing throw contract is
+       preserved. (String/DOM-copy paths never return the partial body, so the
+       propagating throw is already fail-closed there.) */
+    try {
+      while (currentNode = nodeIterator.nextNode()) {
+        /* Sanitize tags and elements */
+        _sanitizeElements(currentNode, walkRoot);
+        /* Check attributes next */
+        _sanitizeAttributes(currentNode);
+        /* Shadow DOM detected, sanitize it.
+           Realm-safe check (GHSA-hpcv-96wg-7vj8): nodeType-based detection
+           instead of instanceof, so foreign-realm <template>.content is
+           walked correctly. */
+        if (_isDocumentFragment(currentNode.content)) {
+          _sanitizeShadowDOM2(currentNode.content);
+        }
       }
+    } catch (error) {
+      if (inPlace) {
+        _neutralizeRoot(dirty);
+        /* Nodes _forceRemove'd earlier in the aborted walk are already
+           detached from the root, so _neutralizeRoot's subtree pass does not
+           reach them. Defuse them too, mirroring the success-path loop below. */
+        arrayForEach(DOMPurify.removed, entry => {
+          if (entry.element) {
+            _neutralizeSubtree(entry.element);
+          }
+        });
+      }
+      throw error;
     }
     /* If we sanitized `dirty` in-place, return it. */
-    if (IN_PLACE) {
+    if (inPlace) {
+      /* Fail-closed completion of the audit-5 F1 fix: every node removed from
+         the caller's live tree is detached but may still hold a queued
+         resource-event handler that fires in page scope after we return. The
+         move-hoist covers only disallowed-tag KEEP_CONTENT removals; strip the
+         non-allow-listed attributes off every other removed subtree (clobber,
+         mXSS, namespace, comments, KEEP_CONTENT:false, …) so those handlers are
+         cancelled before any event can fire. Runs synchronously, pre-return. */
+      arrayForEach(DOMPurify.removed, entry => {
+        if (entry.element) {
+          _neutralizeSubtree(entry.element);
+        }
+      });
+      if (SAFE_FOR_TEMPLATES) {
+        _scrubTemplateExpressions2(dirty);
+      }
       return dirty;
     }
     /* Return sanitized string or DOM */
     if (RETURN_DOM) {
       if (SAFE_FOR_TEMPLATES) {
-        body.normalize();
-        let html = body.innerHTML;
-        arrayForEach([MUSTACHE_EXPR, ERB_EXPR, TMPLIT_EXPR], expr => {
-          html = stringReplace(html, expr, ' ');
-        });
-        body.innerHTML = html;
+        _scrubTemplateExpressions2(body);
       }
       if (RETURN_DOM_FRAGMENT) {
         returnNode = createDocumentFragment.call(body.ownerDocument);
@@ -38100,20 +39106,28 @@ function createDOMPurify() {
     }
     /* Sanitize final string template-safe */
     if (SAFE_FOR_TEMPLATES) {
-      arrayForEach([MUSTACHE_EXPR, ERB_EXPR, TMPLIT_EXPR], expr => {
-        serializedHTML = stringReplace(serializedHTML, expr, ' ');
-      });
+      serializedHTML = _stripTemplateExpressions(serializedHTML);
     }
-    return trustedTypesPolicy && RETURN_TRUSTED_TYPE ? trustedTypesPolicy.createHTML(serializedHTML) : serializedHTML;
+    return trustedTypesPolicy && RETURN_TRUSTED_TYPE ? _createTrustedHTML(serializedHTML) : serializedHTML;
   };
   DOMPurify.setConfig = function () {
     let cfg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     _parseConfig(cfg);
     SET_CONFIG = true;
+    SET_CONFIG_ALLOWED_TAGS = ALLOWED_TAGS;
+    SET_CONFIG_ALLOWED_ATTR = ALLOWED_ATTR;
   };
   DOMPurify.clearConfig = function () {
     CONFIG = null;
     SET_CONFIG = false;
+    SET_CONFIG_ALLOWED_TAGS = null;
+    SET_CONFIG_ALLOWED_ATTR = null;
+    // Drop any caller-supplied Trusted Types policy so it cannot poison later
+    // `RETURN_TRUSTED_TYPE` output. The internal default policy (cached, and
+    // never recreated — Trusted Types throws on duplicate names) is restored by
+    // the next `_parseConfig`. See GHSA-vxr8-fq34-vvx9.
+    trustedTypesPolicy = defaultTrustedTypesPolicy;
+    emptyHTML = '';
   };
   DOMPurify.isValidAttribute = function (tag, attr, value) {
     /* Initialize shared config vars if necessary. */
@@ -38128,9 +39142,19 @@ function createDOMPurify() {
     if (typeof hookFunction !== 'function') {
       return;
     }
+    /* Reject unknown entry points. Without this, a non-hook key (e.g.
+     * '__proto__') indexes off the prototype chain rather than a real
+     * hook array, and arrayPush then writes to Object.prototype. Guard
+     * with an own-property check against the known hook names. */
+    if (!objectHasOwnProperty(hooks, entryPoint)) {
+      return;
+    }
     arrayPush(hooks[entryPoint], hookFunction);
   };
   DOMPurify.removeHook = function (entryPoint, hookFunction) {
+    if (!objectHasOwnProperty(hooks, entryPoint)) {
+      return undefined;
+    }
     if (hookFunction !== undefined) {
       const index = arrayLastIndexOf(hooks[entryPoint], hookFunction);
       return index === -1 ? undefined : arraySplice(hooks[entryPoint], index, 1)[0];
@@ -38138,6 +39162,9 @@ function createDOMPurify() {
     return arrayPop(hooks[entryPoint]);
   };
   DOMPurify.removeHooks = function (entryPoint) {
+    if (!objectHasOwnProperty(hooks, entryPoint)) {
+      return;
+    }
     hooks[entryPoint] = [];
   };
   DOMPurify.removeAllHooks = function () {
@@ -38544,6 +39571,29 @@ const cached = /** @type {GeneratorFunctionConstructor} */ (function* () {}.cons
 
 /** @type {import('.')} */
 module.exports = () => cached;
+
+
+
+/***/ },
+
+/***/ "./node_modules/generator-function/require.mjs"
+/*!*****************************************************!*\
+  !*** ./node_modules/generator-function/require.mjs ***!
+  \*****************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "module.exports": () => (/* reexport default from dynamic */ _index_js__WEBPACK_IMPORTED_MODULE_0___default.a)
+/* harmony export */ });
+/* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.js */ "./node_modules/generator-function/index.js");
+/* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_index_js__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_index_js__WEBPACK_IMPORTED_MODULE_0___default()));
+
 
 
 
@@ -39746,7 +40796,7 @@ var objectTraps = {
     ) && isArrayIndex(prop)) {
       return value;
     }
-    if (value === peek(state.base_, prop)) {
+    if (value === peek(state.base_, prop) || isRelocatedBaseRef(state, prop, value)) {
       prepareCopy(state);
       const childKey = state.type_ === 1 /* Array */ ? +prop : prop;
       const childDraft = createProxy(state.scope_, value, state, childKey);
@@ -39780,7 +40830,7 @@ var objectTraps = {
       markChanged(state);
     }
     if (state.copy_[prop] === value && // special case: handle new props with value 'undefined'
-    (value !== void 0 || prop in state.copy_) || // special case: NaN
+    (value !== void 0 || has(state.copy_, prop, state.type_)) || // special case: NaN
     Number.isNaN(value) && Number.isNaN(state.copy_[prop]))
       return true;
     state.copy_[prop] = value;
@@ -39848,6 +40898,12 @@ function peek(draft, prop) {
   const state = draft[DRAFT_STATE];
   const source = state ? latest(state) : draft;
   return source[prop];
+}
+function isRelocatedBaseRef(state, prop, value) {
+  if (state.type_ !== 1 /* Array */ || !state.allIndicesReassigned_ || state.assigned_?.get(prop) || !isDraftable(value) || value[DRAFT_STATE]) {
+    return false;
+  }
+  return state.baseRefs_.has(value);
 }
 function readPropFromProto(state, source, prop) {
   const desc = getDescriptorFromProto(source, prop);
@@ -40334,7 +41390,7 @@ function enablePatches() {
         if (isFunction(base) && p === PROTOTYPE)
           die(errorOffset + 3);
         base = get(base, p);
-        if (!isObjectish(base))
+        if (base === null || !isObjectish(base))
           die(errorOffset + 2, path.join("/"));
       }
       const type = getArchtype(base);
@@ -40504,8 +41560,7 @@ function enableMapSet() {
     }
     values() {
       const iterator = this.keys();
-      return {
-        [Symbol.iterator]: () => this.values(),
+      return iteratorFrom({
         next: () => {
           const r = iterator.next();
           if (r.done)
@@ -40516,12 +41571,11 @@ function enableMapSet() {
             value
           };
         }
-      };
+      });
     }
     entries() {
       const iterator = this.keys();
-      return {
-        [Symbol.iterator]: () => this.entries(),
+      return iteratorFrom({
         next: () => {
           const r = iterator.next();
           if (r.done)
@@ -40532,11 +41586,21 @@ function enableMapSet() {
             value: [r.value, value]
           };
         }
-      };
+      });
     }
     [(DRAFT_STATE, Symbol.iterator)]() {
       return this.entries();
     }
+  }
+  function iteratorFrom(iterable) {
+    if (typeof Iterator !== "undefined") {
+      return Iterator.from(iterable);
+    }
+    const iterator = {
+      ...iterable,
+      [Symbol.iterator]: () => iterator
+    };
+    return iterator;
   }
   function proxyMap_(target, parent) {
     const map = new DraftMap(target, parent);
@@ -40733,6 +41797,7 @@ function enableArrayMethods() {
   }
   function markAllIndicesReassigned(state) {
     state.allIndicesReassigned_ = true;
+    state.baseRefs_ = new Set(state.base_);
   }
   function normalizeSliceIndex(index, length) {
     if (index < 0) {
@@ -40856,16 +41921,10 @@ function enableArrayMethods() {
 // src/immer.ts
 var immer = new Immer2();
 var produce = immer.produce;
-var produceWithPatches = /* @__PURE__ */ immer.produceWithPatches.bind(
-  immer
-);
+var produceWithPatches = /* @__PURE__ */ immer.produceWithPatches.bind(immer);
 var setAutoFreeze = /* @__PURE__ */ immer.setAutoFreeze.bind(immer);
-var setUseStrictShallowCopy = /* @__PURE__ */ immer.setUseStrictShallowCopy.bind(
-  immer
-);
-var setUseStrictIteration = /* @__PURE__ */ immer.setUseStrictIteration.bind(
-  immer
-);
+var setUseStrictShallowCopy = /* @__PURE__ */ immer.setUseStrictShallowCopy.bind(immer);
+var setUseStrictIteration = /* @__PURE__ */ immer.setUseStrictIteration.bind(immer);
 var applyPatches = /* @__PURE__ */ immer.applyPatches.bind(immer);
 var createDraft = /* @__PURE__ */ immer.createDraft.bind(immer);
 var finishDraft = /* @__PURE__ */ immer.finishDraft.bind(immer);
@@ -41158,7 +42217,7 @@ var getProto = __webpack_require__(/*! get-proto */ "./node_modules/get-proto/in
 var toStr = callBound('Object.prototype.toString');
 var fnToStr = callBound('Function.prototype.toString');
 
-var getGeneratorFunction = __webpack_require__(/*! generator-function */ "./node_modules/generator-function/index.js");
+var getGeneratorFunction = __webpack_require__(/*! generator-function */ "./node_modules/generator-function/require.mjs")["module.exports"];
 
 /** @type {import('.')} */
 module.exports = function isGeneratorFunction(fn) {
@@ -42690,10 +43749,10 @@ module.exports = equalObjects;
 /*!********************************************!*\
   !*** ./node_modules/lodash/_freeGlobal.js ***!
   \********************************************/
-(module) {
+(module, __unused_webpack_exports, __webpack_require__) {
 
 /** Detect free variable `global` from Node.js. */
-var freeGlobal = typeof globalThis == 'object' && globalThis && globalThis.Object === Object && globalThis;
+var freeGlobal = typeof __webpack_require__.g == 'object' && __webpack_require__.g && __webpack_require__.g.Object === Object && __webpack_require__.g;
 
 module.exports = freeGlobal;
 
@@ -48128,6 +49187,7 @@ react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((p, ref) => /*#__PURE__*/(0,react_
   ref: ref,
   className: classnames__WEBPACK_IMPORTED_MODULE_1___default()(p.className, className)
 })));
+__webpack_require__.dn(__WEBPACK_DEFAULT_EXPORT__);
 
 /***/ },
 
@@ -51101,9 +52161,7 @@ function useDismiss(context, props) {
       return ancestor !== ((_doc$defaultView = doc.defaultView) == null ? void 0 : _doc$defaultView.visualViewport);
     });
     ancestors.forEach(ancestor => {
-      ancestor.addEventListener('scroll', onScroll, {
-        passive: true
-      });
+      ancestor.addEventListener('scroll', onScroll);
     });
     return () => {
       if (escapeKey) {
@@ -51206,19 +52264,20 @@ function useFloatingRootContext(options) {
  * Provides data to position a floating element and context to add interactions.
  * @see https://floating-ui.com/docs/useFloating
  */
-function useFloating(options) {
-  if (options === void 0) {
-    options = {};
-  }
+function useFloating(_temp) {
+  var _elementsOption$refer, _elementsOption$float;
+  let {
+    elements: elementsOption,
+    ...options
+  } = _temp === void 0 ? {} : _temp;
   const {
     nodeId
   } = options;
   const internalRootContext = useFloatingRootContext({
     ...options,
     elements: {
-      reference: null,
-      floating: null,
-      ...options.elements
+      reference: (_elementsOption$refer = elementsOption == null ? void 0 : elementsOption.reference) != null ? _elementsOption$refer : null,
+      floating: (_elementsOption$float = elementsOption == null ? void 0 : elementsOption.floating) != null ? _elementsOption$float : null
     }
   });
   const rootContext = options.rootContext || internalRootContext;
@@ -52075,7 +53134,7 @@ function useListNavigation(context, props) {
           if (selectedIndex != null) {
             indexRef.current = selectedIndex;
           }
-          (0,_floating_ui_react_utils__WEBPACK_IMPORTED_MODULE_1__.stopEvent)(event);
+          ;(0,_floating_ui_react_utils__WEBPACK_IMPORTED_MODULE_1__.stopEvent)(event);
           if (!open && openOnArrowKeyDown) {
             onOpenChange(true, event.nativeEvent, 'list-navigation');
           } else {
@@ -52255,7 +53314,7 @@ function useTransitionStatus(context, props) {
   if (!isMounted && status === 'close') {
     setStatus('unmounted');
   }
-  (0,_floating_ui_react_utils__WEBPACK_IMPORTED_MODULE_1__.useModernLayoutEffect)(() => {
+  ;(0,_floating_ui_react_utils__WEBPACK_IMPORTED_MODULE_1__.useModernLayoutEffect)(() => {
     if (!floating) return;
     if (open) {
       setStatus('initial');
@@ -83695,10 +84754,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Provider: () => (/* binding */ Provider_default),
 /* harmony export */   ReactReduxContext: () => (/* binding */ ReactReduxContext),
 /* harmony export */   batch: () => (/* binding */ batch),
-/* harmony export */   connect: () => (/* binding */ connect_default),
+/* harmony export */   connect: () => (/* binding */ connect),
 /* harmony export */   createDispatchHook: () => (/* binding */ createDispatchHook),
 /* harmony export */   createSelectorHook: () => (/* binding */ createSelectorHook),
 /* harmony export */   createStoreHook: () => (/* binding */ createStoreHook),
+/* harmony export */   legacy_connect: () => (/* binding */ legacy_connect),
 /* harmony export */   shallowEqual: () => (/* binding */ shallowEqual),
 /* harmony export */   useDispatch: () => (/* binding */ useDispatch),
 /* harmony export */   useSelector: () => (/* binding */ useSelector),
@@ -84352,7 +85412,7 @@ function strictEqual(a, b) {
   return a === b;
 }
 var hasWarnedAboutDeprecatedPureOption = false;
-function connect(mapStateToProps, mapDispatchToProps, mergeProps, {
+function _connect(mapStateToProps, mapDispatchToProps, mergeProps, {
   // The `pure` option has been removed, so TS doesn't like us destructuring this to check its existence.
   // @ts-ignore
   pure,
@@ -84577,7 +85637,8 @@ ${latestSubscriptionCallbackError.current.stack}
   };
   return wrapWithConnect;
 }
-var connect_default = connect;
+var connect = _connect;
+var legacy_connect = _connect;
 
 // src/components/Provider.tsx
 function Provider(providerProps) {
@@ -90100,8 +91161,7 @@ var runIdentityFunctionCheck = (resultFunc, inputSelectorsResults, outputSelecto
     let isInputSameAsOutput = false;
     try {
       const emptyObject = {};
-      if (resultFunc(emptyObject) === emptyObject)
-        isInputSameAsOutput = true;
+      if (resultFunc(emptyObject) === emptyObject) isInputSameAsOutput = true;
     } catch {
     }
     if (isInputSameAsOutput) {
@@ -90235,8 +91295,7 @@ var Cell = class {
   // based. We don't actively tell the caches which depend on the storage that
   // anything has happened. Instead, we recompute the caches when needed.
   set value(newValue) {
-    if (this.value === newValue)
-      return;
+    if (this.value === newValue) return;
     this._value = newValue;
     this.revision = ++$REVISION;
   }
@@ -90326,9 +91385,8 @@ var dirtyCollection = (node) => {
 };
 
 // src/autotrackMemoize/proxy.ts
-var REDUX_PROXY_LABEL = Symbol();
 var nextId = 0;
-var proto = Object.getPrototypeOf({});
+var proto = /* @__PURE__ */ Object.getPrototypeOf({});
 var ObjectTreeNode = class {
   constructor(value) {
     this.value = value;
@@ -90625,7 +91683,8 @@ var StrongRef = class {
     return this.value;
   }
 };
-var Ref = typeof WeakRef !== "undefined" ? WeakRef : StrongRef;
+var getWeakRef = () => typeof WeakRef === "undefined" ? StrongRef : WeakRef;
+var Ref = /* @__PURE__ */ getWeakRef();
 var UNTERMINATED = 0;
 var TERMINATED = 1;
 function createCacheNode() {
@@ -90635,6 +91694,12 @@ function createCacheNode() {
     o: null,
     p: null
   };
+}
+function maybeDeref(r) {
+  if (r instanceof Ref) {
+    return r.deref();
+  }
+  return r;
 }
 function weakMapMemoize(func, options = {}) {
   let fnNode = createCacheNode();
@@ -90680,13 +91745,13 @@ function weakMapMemoize(func, options = {}) {
       result = func.apply(null, arguments);
       resultsCount++;
       if (resultEqualityCheck) {
-        const lastResultValue = lastResult?.deref?.() ?? lastResult;
+        const lastResultValue = maybeDeref(lastResult);
         if (lastResultValue != null && resultEqualityCheck(lastResultValue, result)) {
           result = lastResultValue;
           resultsCount !== 0 && resultsCount--;
         }
         const needsWeakRef = typeof result === "object" && result !== null || typeof result === "function";
-        lastResult = needsWeakRef ? new Ref(result) : result;
+        lastResult = needsWeakRef ? /* @__PURE__ */ new Ref(result) : result;
       }
     }
     terminatedNode.s = TERMINATED;
@@ -90732,8 +91797,7 @@ function createSelectorCreator(memoizeOrOptions, ...memoizeOptionsFromArgs) {
       memoize,
       memoizeOptions = [],
       argsMemoize = weakMapMemoize,
-      argsMemoizeOptions = [],
-      devModeChecks = {}
+      argsMemoizeOptions = []
     } = combinedOptions;
     const finalMemoizeOptions = ensureIsArray(memoizeOptions);
     const finalArgsMemoizeOptions = ensureIsArray(argsMemoizeOptions);
@@ -90754,6 +91818,7 @@ function createSelectorCreator(memoizeOrOptions, ...memoizeOptionsFromArgs) {
       );
       lastResult = memoizedResultFunc.apply(null, inputSelectorResults);
       if (true) {
+        const { devModeChecks = {} } = combinedOptions;
         const { identityFunctionCheck, inputStabilityCheck } = getDevModeChecksExecutionInfo(firstRun, devModeChecks);
         if (identityFunctionCheck.shouldRun) {
           identityFunctionCheck.run(
@@ -90773,8 +91838,7 @@ function createSelectorCreator(memoizeOrOptions, ...memoizeOptionsFromArgs) {
             arguments
           );
         }
-        if (firstRun)
-          firstRun = false;
+        if (firstRun) firstRun = false;
       }
       return lastResult;
     }, ...finalArgsMemoizeOptions);
@@ -90803,7 +91867,7 @@ function createSelectorCreator(memoizeOrOptions, ...memoizeOptionsFromArgs) {
 var createSelector = /* @__PURE__ */ createSelectorCreator(weakMapMemoize);
 
 // src/createStructuredSelector.ts
-var createStructuredSelector = Object.assign(
+var createStructuredSelector = /* @__PURE__ */ Object.assign(
   (inputSelectorsObject, selectorCreator = createSelector) => {
     assertIsObject(
       inputSelectorsObject,
@@ -92128,12 +93192,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   tabbable: () => (/* binding */ tabbable)
 /* harmony export */ });
 /*!
-* tabbable 6.4.0
+* tabbable 6.5.0
 * @license MIT, https://github.com/focus-trap/tabbable/blob/master/LICENSE
 */
 // NOTE: separate `:not()` selectors has broader browser support than the newer
 //  `:not([inert], [inert] *)` (Feb 2023)
-var candidateSelectors = ['input:not([inert]):not([inert] *)', 'select:not([inert]):not([inert] *)', 'textarea:not([inert]):not([inert] *)', 'a[href]:not([inert]):not([inert] *)', 'button:not([inert]):not([inert] *)', '[tabindex]:not(slot):not([inert]):not([inert] *)', 'audio[controls]:not([inert]):not([inert] *)', 'video[controls]:not([inert]):not([inert] *)', '[contenteditable]:not([contenteditable="false"]):not([inert]):not([inert] *)', 'details>summary:first-of-type:not([inert]):not([inert] *)', 'details:not([inert]):not([inert] *)'];
+var candidateSelectors = ['input:not([inert]):not([inert] *)', 'select:not([inert]):not([inert] *)', 'textarea:not([inert]):not([inert] *)', 'a[href]:not([inert]):not([inert] *)', 'area[href]:not([inert]):not([inert] *)', 'button:not([inert]):not([inert] *)', '[tabindex]:not(slot):not([inert]):not([inert] *)', 'audio[controls]:not([inert]):not([inert] *)', 'video[controls]:not([inert]):not([inert] *)', '[contenteditable]:not([contenteditable="false"]):not([inert]):not([inert] *)', 'details>summary:first-of-type:not([inert]):not([inert] *)', 'details:not([inert]):not([inert] *)'];
 var candidateSelector = /* #__PURE__ */candidateSelectors.join(',');
 var NoElement = typeof Element === 'undefined';
 var matches = NoElement ? function () {} : Element.prototype.matches || Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
@@ -92491,7 +93555,9 @@ var isHidden = function isHidden(node, _ref) {
   //  (this is legacy behavior from a very long way back)
   // NOTE: we check this regardless of `displayCheck="none"` because this is a
   //  _visibility_ check, not a _display_ check
-  if (getComputedStyle(node).visibility === 'hidden') {
+  var _getComputedStyle = getComputedStyle(node),
+    visibility = _getComputedStyle.visibility;
+  if (visibility === 'hidden' || visibility === 'collapse') {
     return true;
   }
   var isDirectSummary = matches.call(node, 'details>summary:first-of-type');
@@ -92935,7 +94001,7 @@ function CustomSearchValidation({ onGenerateSearchValidation }) {
             return false;
         }
     }
-    (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
+    ;(0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
         setIsValidRegex(!!validateRegex(queryString));
     }, [queryString]);
     function onSubmit(e) {
@@ -93079,7 +94145,7 @@ function SelectValidations({ runValidations, validationsToRun, setValidationsToR
     function _getTestName(test) {
         return test.name;
     }
-    (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
+    ;(0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
         setAllValidationOptions((0,_ui_widgets_MuliSelect__WEBPACK_IMPORTED_MODULE_1__.optionize)(allValidations));
     }, [allValidations]);
     function onSubmit(e) {
@@ -93704,7 +94770,7 @@ function PublishApp() {
             }
         }
     }
-    (0,_ui_utils__WEBPACK_IMPORTED_MODULE_3__.useEffectAsync)(getCourse, []);
+    ;(0,_ui_utils__WEBPACK_IMPORTED_MODULE_3__.useEffectAsync)(getCourse, []);
     (0,_ui_utils__WEBPACK_IMPORTED_MODULE_3__.useEffectAsync)(async () => {
         const user = await (0,_ueu_ueu_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_11__.fetchJson)('/api/v1/users/self');
         setUser(user);
@@ -94281,7 +95347,7 @@ function ValidationRow({ test, slim, potemkinVillage, initialResult, course, ref
         }
         setLoading(false);
     }
-    (0,_ui_utils__WEBPACK_IMPORTED_MODULE_2__.useEffectAsync)(async () => {
+    ;(0,_ui_utils__WEBPACK_IMPORTED_MODULE_2__.useEffectAsync)(async () => {
         if (validationResult && !updateTest)
             return; //only run once and only if we don't have a result
         if (potemkinVillage && !updateTest)
@@ -94311,7 +95377,7 @@ function ValidationRow({ test, slim, potemkinVillage, initialResult, course, ref
         return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [resultStatusMessage(result, loading, slim), (_a = result === null || result === void 0 ? void 0 : result.links) === null || _a === void 0 ? void 0 : _a.map((link, i) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: link, target: "_blank", children: link }) }, i)))] }));
     }
     if (!showOnlyFailures || loading || !(validationResult === null || validationResult === void 0 ? void 0 : validationResult.success)) {
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { className: slim ? "test-row-slim" : "test-row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-2", children: test.name }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-3 message", children: test.description }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(ResultStatus, { result: fixResult !== null && fixResult !== void 0 ? fixResult : validationResult }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-1", children: test.fix && validationResult && validationResult.success !== true && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: fix, children: fixText })) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col-sm-1", children: [!validationResult && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "badge badge-info", children: "Running" }), (validationResult === null || validationResult === void 0 ? void 0 : validationResult.success) && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "badge badge-success", children: "OK!" }), validationResult && validationResult.success !== true && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "badge badge-warning", children: "Failed" })), fixResult && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "badge badge-warning", children: fixResultText() })] })] }));
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { className: slim ? "test-row-slim" : "test-row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-2", children: test.name }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-3 message", children: test.description }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(ResultStatus, { result: fixResult !== null && fixResult !== void 0 ? fixResult : validationResult }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-1", children: test.fix && validationResult && validationResult.success === false && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: fix, children: fixText })) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col-sm-1", children: [!validationResult && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "badge badge-info", children: "Running" }), (validationResult === null || validationResult === void 0 ? void 0 : validationResult.success) === true && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "badge badge-success", children: "OK!" })), (validationResult === null || validationResult === void 0 ? void 0 : validationResult.success) === "not run" && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "badge badge-secondary", children: "Not Run" })), (validationResult === null || validationResult === void 0 ? void 0 : validationResult.success) === false && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "badge badge-warning", children: "Failed" })), fixResult && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "badge badge-warning", children: fixResultText() })] })] }));
     }
     return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {});
 }
@@ -94321,12 +95387,15 @@ function truncateMessage(messageString, slim) {
     return messageString;
 }
 function resultStatusMessage(result, loading, slim) {
-    var _a;
+    var _a, _b, _c;
     if (!result)
         return loading ? "running..." : "No Result, an error may have occurred.";
-    if (result.success)
+    if (result.success === true)
         return "Succeeded!";
-    return (_a = result.messages) === null || _a === void 0 ? void 0 : _a.map((message, i) => {
+    if (result.success === "not run") {
+        return (_b = (_a = result.messages) === null || _a === void 0 ? void 0 : _a.map((message, i) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "message not-run", children: message.bodyLines.map((line, j) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { children: truncateMessage(line, slim) }, `bl${j}`))) }, `m${i}`)))) !== null && _b !== void 0 ? _b : "Not Run";
+    }
+    return (_c = result.messages) === null || _c === void 0 ? void 0 : _c.map((message, i) => {
         var _a;
         return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "message", children: [message.bodyLines.map((line, j) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { children: truncateMessage(line, slim) }, `bl${j}`))), (_a = message.links) === null || _a === void 0 ? void 0 : _a.map((link, k) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: link, children: link }) }, `ml${k}`))), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("hr", {})] }, `m${i}`));
     });
@@ -94886,7 +95955,10 @@ __webpack_require__.r(__webpack_exports__);
 
 // Declaring variables here so they don't make the code messier
 const ugLangKeyPhrases = [
-    "unity de academic honor code",
+    "by participating in this course, you agree:",
+    "to confirm your intent to remain enrolled in this course",
+    "to adhere to the code of conduct",
+    "to adhere to the unity de academic honor code",
     "overview: academic honor code",
     "accurate, verifiable information and fair work",
     "completing original work",
@@ -94905,6 +95977,10 @@ const ugLangKeyPhrases = [
 // Phrases that appear in HTML attributes (e.g. href), not visible text
 const ugHtmlKeyPhrases = ["?docid=3360"];
 const gradLangKeyPhrases = [
+    "by participating in this course, you agree:",
+    "to confirm your intent to remain enrolled in this course",
+    "to adhere to the unity de honor code and code of conduct",
+    "to adhere to the unity de graduate academic honor code",
     "graduate academic honor code",
     "expects graduate students",
     "how violations are addressed",
@@ -94918,9 +95994,9 @@ const gradLangKeyPhrases = [
 ];
 const ugConfirmKeyPhrase = "(code of conduct, honor code, and tech requirements)";
 const gradConfirmKeyPhrase = "you acknowledge that you have read and agree to comply";
-const ugHonorCodeHtml = '<div class="cbt-content scaffold-media-box"data-canhavechild=true data-caninsertinto=true data-context-menu="delete moveup movedown duplicate insertbefore insertafter insert"><h3 id=h.iuuni4n3nf8k><strong>By participating in this course, you agree:</strong></h3><ol start=1><li>To adhere to the Code of Conduct, found in the <a href=https://unity.edu/distance-education/student-resources/#catalog-and-handbook>Unity DE Student Handbook</a> at all times.</ol><ul><li style=list-style-type:none><ul><li><em>Violations are subject to formal academic review and may result in administrative course withdrawal, or dismissal from Unity Environmental University.</em></ul></ul><ol start=2><li>To adhere to the Unity DE Academic Honor Code You can read the full <a href="https://unitycollege.policytech.com/dotNet/documents/?docid=3360&app=pt&source=unspecified&public=true">policy here.</a></ol><h4><strong>Overview: Academic Honor Code</strong></h4><p>At Unity Environmental University, you’re expected to approach every assignment and course activity with honesty and responsibility. This relies on accurate, verifiable information and fair work. The Academic Honor Code helps create a culture of trust and ensures that your grades truly reflect your own learning. By committing to these principles, you help protect the value of your education—for yourself and for others.<p>Unity Environmental University expects all students to demonstrate academic integrity. This includes completing original work, attributing source information accurately, verifying the accuracy of all citations, and using AI tools responsibly. Students are responsible for everything they submit—content, sources, and claims—and must be able to demonstrate their learning and skills through their coursework.<p>Failure to meet the standards of the Academic Honor Code (which is also referred to as academic dishonesty in some cases) may be intentional or unintentional and includes plagiarism, misattribution, patchwriting, submitting unverifiable citations, falsified or manipulated data or images, unauthorized collaboration, misrepresentation of work, or submitting AI-generated content without review or verification. You can review the full Academic Honor Code for more information and definitions.<p>The Academic Honor Code supersedes the grading rubric. Repeated issues may have increasingly serious consequences, which may include a zero on the assignment(s), failing the course, or dismissal from the university.<p>If your instructor flags a concern:<ul><li>You will receive feedback about the issue<li>There may be a grading penalty up to a zero on that assignment<li>You may be offered a learning opportunity such as a skill-building module or a meeting with your instructor, and you may be able to redo your work for the first instance in that course. </ul><p>What are the implications if this occurs repeatedly?<p><span style=text-decoration:underline>Within a course:</span> Repeated instances may result in a zero on affected assignments and/or failing the course.<p><span style=text-decoration:underline>Across terms:</span> You may be asked to meet with an academic dean if there are repeated or egregious instances. The dean may recommend dismissal from the university. <p>The Purpose Behind This Process:<p>The process is designed to help you learn proper academic practices, ensure fairness and academic rigor, and support your development as a scholar and professional.<ol start=3><li>That you have access to the equipment, skills and time necessary for completing Unity DE courses, as stated on the <a href=https://unity.edu/distance-education/get-started/technology-commitment/ >Technology for Success</a> webpage.  <br><br><em>It is your responsibility to ensure that you have the minimum requirements necessary to fully access and receive support from our staff and faculty. Without the Required Technology Skills for Coursework, you may not be able to access all course materials and/or complete certain assignments, and you will still be financially responsible for the course.</em></ol></div>';
+const ugHonorCodeHtml = '<div class="cbt-content scaffold-media-box"data-canhavechild=true data-caninsertinto=true data-context-menu="delete moveup movedown duplicate insertbefore insertafter insert"><h3><strong>By participating in this course, you agree:</strong></h3><ol start=1><li><span data-teams=true>To confirm your intent to remain enrolled in this course.</span><li>To adhere to the Code of Conduct, found in the <a href=https://unity.edu/distance-education/student-resources/#catalog-and-handbook>Unity DE Student Handbook</a> at all times.</ol><ul><li style=list-style-type:none><ul><li><em>Violations are subject to formal academic review and may result in administrative course withdrawal, or dismissal from Unity Environmental University.</em></ul></ul><ol start=2><li>To adhere to the Unity DE Academic Honor Code You can read the full <a href="https://unitycollege.policytech.com/dotNet/documents/?docid=3360&app=pt&source=unspecified&public=true">policy here.</a></ol><h4><strong>Overview: Academic Honor Code</strong></h4><p>At Unity Environmental University, you’re expected to approach every assignment and course activity with honesty and responsibility. This relies on accurate, verifiable information and fair work. The Academic Honor Code helps create a culture of trust and ensures that your grades truly reflect your own learning. By committing to these principles, you help protect the value of your education—for yourself and for others.<p>Unity Environmental University expects all students to demonstrate academic integrity. This includes completing original work, attributing source information accurately, verifying the accuracy of all citations, and using AI tools responsibly. Students are responsible for everything they submit—content, sources, and claims—and must be able to demonstrate their learning and skills through their coursework.<p>Failure to meet the standards of the Academic Honor Code (which is also referred to as academic dishonesty in some cases) may be intentional or unintentional and includes plagiarism, misattribution, patchwriting, submitting unverifiable citations, falsified or manipulated data or images, unauthorized collaboration, misrepresentation of work, or submitting AI-generated content without review or verification. You can review the full Academic Honor Code for more information and definitions.<p>The Academic Honor Code supersedes the grading rubric. Repeated issues may have increasingly serious consequences, which may include a zero on the assignment(s), failing the course, or dismissal from the university.<p>If your instructor flags a concern:<ul><li>You will receive feedback about the issue<li>There may be a grading penalty up to a zero on that assignment<li>You may be offered a learning opportunity such as a skill-building module or a meeting with your instructor, and you may be able to redo your work for the first instance in that course. </ul><p>What are the implications if this occurs repeatedly?<p><span style=text-decoration:underline>Within a course:</span> Repeated instances may result in a zero on affected assignments and/or failing the course.<p><span style=text-decoration:underline>Across terms:</span> You may be asked to meet with an academic dean if there are repeated or egregious instances. The dean may recommend dismissal from the university. <p>The Purpose Behind This Process:<p>The process is designed to help you learn proper academic practices, ensure fairness and academic rigor, and support your development as a scholar and professional.<ol start=3><li>That you have access to the equipment, skills and time necessary for completing Unity DE courses, as stated on the <a href=https://unity.edu/distance-education/get-started/technology-commitment/ >Technology for Success</a> webpage.  <br><br><em>It is your responsibility to ensure that you have the minimum requirements necessary to fully access and receive support from our staff and faculty. Without the Required Technology Skills for Coursework, you may not be able to access all course materials and/or complete certain assignments, and you will still be financially responsible for the course.</em></ol></div>';
 const ugConfirmHtml = `<div class="scaffold-media-box cbt-content cbt-page-as-agreement"data-canhavechild=true data-caninsertinto=true data-context-menu="delete moveup movedown duplicate insertbefore insertafter insert"><p class=c4><span style=font-weight:400>Please confirm your agreement to the </span><strong>three numbered items above</strong><span style=font-weight:400> (code of conduct, honor code, and tech requirements) by selecting the 'Confirm your agreement' button below. It is mandatory to agree to the honor code before proceeding with this unit.</span><div class="scaffold-media-box cbt-button"data-canhavechild=false data-caninsertinto=true data-context-menu="insert delete"data-editable=true><a href=#>Confirm your agreement</a></div></div>`;
-const gradHonorCodeHtml = `<div class="cbt-content scaffold-media-box"data-canhavechild=true data-caninsertinto=true data-context-menu="delete moveup movedown duplicate insertbefore insertafter insert"><h4><strong>By participating in this course, you agree:</strong></h4><ol style=list-style-type:decimal><li><strong>To adhere to the Unity DE Honor Code and Code of Conduct, found in the <a class=inline_disabled href=https://unity.edu/distance-education/student-resources/#catalog-and-handbook rel=noopener target=_blank>Student Handbook</a><span class=external_link_icon role=presentation><span class=screenreader-only>Links to an external site.</span></span> at all times.</strong><p><i><span>Violations are subject to formal review and may result in administrative course withdrawal, or dismissal from Unity Environmental University.</span></i><li><strong>That you have access to the equipment necessary for completing Unity DE courses, as stated on the <a class=inline_disabled href="https://unity.edu/distance-education/get-started/technology-commitment/"rel=noopener target=_blank>Technology for Success</a> webpage.</strong><p><i><span>It is your responsibility to ensure that you have the minimum requirements necessary to fully access and receive support from our staff and faculty. Without the Required Technology Skills for Coursework, you may not be able to access all course materials and/or complete certain assignments, and you will still be financially responsible for the course.</span></i></p><strong></strong><li><strong>To adhere to the Unity DE Graduate Academic Honor Code. You can read the <a class=inline_disabled href="https://unitycollege.policytech.com/docview/?docid=3327&app=pt&source=unspecified&public=true"rel=noopener target=_blank>full policy here</a>.</strong><p><strong>Overview: Graduate Academic Honor Code</strong><p><span>Unity Environmental University expects graduate students to demonstrate professional standards of academic integrity. This means submitting original work, citing sources accurately, and using AI tools responsibly. </span><p><span>Academic dishonesty includes plagiarism, falsifying data or citations, unauthorized collaboration, misrepresenting authorship, or submitting AI-generated content without meaningful review and authorship. </span><p><strong>How violations are addressed:</strong><p>Formal violations accumulate across courses and terms. First time, low-level issues may be treated as a learning opportunity rather than a formal violation.<div style=margin-left:30px><p><strong>Level 1 – Instructional Response (No Formal Violation)</strong> A first low-level issue may be treated as a learning opportunity. The instructor provides feedback and guidance. This does not count as a formal violation, but similar issues afterward may be treated as an academic dishonesty violation.<p><strong>Level 2 – First Formal Violation</strong> The assignment associated with the violation receives a zero and the violation is formally recorded with the Dean.<p><strong>Level 3 – Second Formal Violation or Serious Violation</strong> The student fails the course in which the violation occurred and must meet with an Academic Dean. First formal violations in a capstone course are treated at this level.<p><strong>Level 4 – Third Formal Violation</strong> A third formal report of academic dishonesty indicating a pattern of behavior may result in dismissal from the University.</div><p>Academic integrity violations may be reviewed at any time, including after course or program completion.<p><strong>IMPORTANT NOTE: Formal violations ARE cumulative across terms. Three formal graduate violations may result in dismissal from the University.</strong></ol></div>`;
+const gradHonorCodeHtml = `<div class="cbt-content scaffold-media-box"data-canhavechild=true data-caninsertinto=true data-context-menu="delete moveup movedown duplicate insertbefore insertafter insert"><h4><strong>By participating in this course, you agree:</strong></h4><ol style=list-style-type:decimal><li><strong>To confirm your intent to remain enrolled in this course.</strong><li><strong>To adhere to the Unity DE Honor Code and Code of Conduct, found in the <a class=inline_disabled href=https://unity.edu/distance-education/student-resources/#catalog-and-handbook rel=noopener target=_blank>Student Handbook</a><span class=external_link_icon role=presentation><span class=screenreader-only>Links to an external site.</span></span> at all times.</strong><p><i><span>Violations are subject to formal review and may result in administrative course withdrawal, or dismissal from Unity Environmental University.</span></i><li><strong>That you have access to the equipment necessary for completing Unity DE courses, as stated on the <a class=inline_disabled href=https://unity.edu/distance-education/get-started/technology-commitment/ rel=noopener target=_blank>Technology for Success</a> webpage.</strong><p><i><span>It is your responsibility to ensure that you have the minimum requirements necessary to fully access and receive support from our staff and faculty. Without the Required Technology Skills for Coursework, you may not be able to access all course materials and/or complete certain assignments, and you will still be financially responsible for the course.</span></i></p><strong></strong><li><strong>To adhere to the Unity DE Graduate Academic Honor Code. You can read the <a class=inline_disabled href="https://unitycollege.policytech.com/docview/?docid=3327&app=pt&source=unspecified&public=true"rel=noopener target=_blank>full policy here</a>.</strong><p><strong>Overview: Graduate Academic Honor Code</strong><p><span>Unity Environmental University expects graduate students to demonstrate professional standards of academic integrity. This means submitting original work, citing sources accurately, and using AI tools responsibly. </span><p><span>Academic dishonesty includes plagiarism, falsifying data or citations, unauthorized collaboration, misrepresenting authorship, or submitting AI-generated content without meaningful review and authorship. </span><p><strong>How violations are addressed:</strong><p>Formal violations accumulate across courses and terms. First time, low-level issues may be treated as a learning opportunity rather than a formal violation.<div style=margin-left:30px><p><strong>Level 1 – Instructional Response (No Formal Violation)</strong> A first low-level issue may be treated as a learning opportunity. The instructor provides feedback and guidance. This does not count as a formal violation, but similar issues afterward may be treated as an academic dishonesty violation.<p><strong>Level 2 – First Formal Violation</strong> The assignment associated with the violation receives a zero and the violation is formally recorded with the Dean.<p><strong>Level 3 – Second Formal Violation or Serious Violation</strong> The student fails the course in which the violation occurred and must meet with an Academic Dean. First formal violations in a capstone course are treated at this level.<p><strong>Level 4 – Third Formal Violation</strong> A third formal report of academic dishonesty indicating a pattern of behavior may result in dismissal from the University.</div><p>Academic integrity violations may be reviewed at any time, including after course or program completion.<p><strong>IMPORTANT NOTE: Formal violations ARE cumulative across terms. Three formal graduate violations may result in dismissal from the University.</strong></ol></div>`;
 const gradConfirmHtml = `<div class="scaffold-media-box cbt-content cbt-page-as-agreement"data-canhavechild=true data-caninsertinto=true data-context-menu="delete moveup movedown duplicate insertbefore insertafter insert"><p><span style=font-size:12pt><span>By selecting </span><strong style=font-size:1rem>“Confirm Your Agreement,”</strong><span> you acknowledge that you have read and agree to comply with the Student Code of Conduct, Graduate Academic Honor Code, and Technology for Success requirements.</span></span><p><span style=font-size:12pt><span>Confirmation is required before proceeding with the course. </span></span><div class="scaffold-media-box cbt-button"data-canhavechild=false data-caninsertinto=true data-context-menu="insert delete"data-editable=true><a href=#>Confirm your agreement</a></div></div>`;
 const courseOverviewLanguageTest = {
     name: "Course Overview Language",
@@ -94957,6 +96033,7 @@ async function run(course) {
         });
     }
     console.log("Overview Page: ", overviewPage);
+    const honorCodeDivText = "by participating in this course, you agree:";
     // Parse the page
     const parser = new DOMParser();
     const parsedPage = parser.parseFromString(overviewPage.body, "text/html");
@@ -94965,7 +96042,7 @@ async function run(course) {
     let honorCodeDiv;
     let confirmDiv;
     for (const div of divs) {
-        if ((_a = div.textContent) === null || _a === void 0 ? void 0 : _a.toLowerCase().includes("by participating in this course, you agree:")) {
+        if ((_a = div.textContent) === null || _a === void 0 ? void 0 : _a.toLowerCase().includes(honorCodeDivText)) {
             honorCodeDiv = div;
         }
         else if ((_b = div.textContent) === null || _b === void 0 ? void 0 : _b.toLowerCase().includes("confirm your agreement")) {
@@ -98407,6 +99484,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const TERM_NAME_PLACEHOLDER = "Fill in term name here to archive.";
+const gradAiLiteracyCourses = ["rsch510", "sbus503", "prof510"];
 function callOnChangeFunc(value, onChange) {
     const returnValue = [
         () => {
@@ -98447,7 +99525,10 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet }) {
     const [isCloningBp, setCloningBp] = (0,react__WEBPACK_IMPORTED_MODULE_7__.useState)(false);
     const academicIntegrityText = isRunningIntegritySetup ? "Setting up..." : `Setup Citations Module`;
     const aiLiteracyText = isRunningAiLiteracySetup ? "Setting up..." : "Setup AI Literacy Assignment";
-    const showAcademicIntegrityButton = currentBp ? true : false;
+    const isGradAiLiteracyCourse = Boolean((devCourse === null || devCourse === void 0 ? void 0 : devCourse.baseCode) &&
+        gradAiLiteracyCourses.includes(devCourse.baseCode.toLowerCase()));
+    const showAiLiteracyButton = Boolean(currentBp && isGradAiLiteracyCourse);
+    const showAcademicIntegrityButton = false;
     (0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(...callOnChangeFunc(currentBp, onBpSet));
     (0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(...callOnChangeFunc(termName, onTermNameSet));
     (0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(...callOnChangeFunc(sections, onSectionsSet));
@@ -98494,7 +99575,7 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet }) {
             });
         }
     }
-    (0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(() => {
+    ;(0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(() => {
         if (!currentBp)
             return;
         const savedMigrations = (0,_ueu_ueu_canvas_course_migration_migrationCache__WEBPACK_IMPORTED_MODULE_14__.loadCachedCourseMigrations)(currentBp.id);
@@ -98507,7 +99588,7 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet }) {
         const [bp] = (_a = (await (0,_ueu_ueu_canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_9__.getBlueprintsFromCode)(code, [course.rawData.account_id, course.rawData.root_account_id]))) !== null && _a !== void 0 ? _a : [];
         setCurrentBp(bp);
     }
-    (0,_ui_utils__WEBPACK_IMPORTED_MODULE_8__.useEffectAsync)(async () => {
+    ;(0,_ui_utils__WEBPACK_IMPORTED_MODULE_8__.useEffectAsync)(async () => {
         var _a, _b;
         if (currentBp && currentBp.isBlueprint()) {
             const sections = [];
@@ -98637,7 +99718,7 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet }) {
         window.open(newBp.htmlContentUrl);
         location.reload();
     }
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { children: [!isDev && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { className: "alert alert-warning", children: "This is not a DEV course" }) })), currentBp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { id: "archiveButton", onClick: onArchive, disabled: isArchiveDisabled, children: ["Archive ", currentBp.parsedCourseCode] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 2, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { children: "Term Name" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { required: true, "aria-required": true, id: "archiveTermName", typeof: "text", value: termName, disabled: (sections === null || sections === void 0 ? void 0 : sections.length) > 0, onChange: (e) => setTermName(e.target.value), placeholder: TERM_NAME_PLACEHOLDER }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { children: !termName && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], { children: "Term name not found in BP sections." }) })] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("hr", {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { id: "newBpButton", onClick: onCloneIntoBp, "aria-label": "New BP", disabled: isNewBpDisabled, children: "Create New BP" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: [showAcademicIntegrityButton && currentBp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { id: "aiLiteracyButton", onClick: () => (0,_publish_publishInterface_aiLiteracySetup__WEBPACK_IMPORTED_MODULE_21__.aiLiteracySetup)({ currentBp, setIsRunningAiLiteracySetup }), disabled: isRunningAiLiteracySetup || !currentBp || isCloningBp || isRunningIntegritySetup, "aria-label": "Setup AI Literacy Assignment in New BP", title: "Set up the AI Literacy assignment content in the BP. This may take a while to complete. You can change tabs but closing or refreshing this tab may cause issues.", children: aiLiteracyText })), (currentBp === null || currentBp === void 0 ? void 0 : currentBp.isUndergrad) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { className: showAcademicIntegrityButton ? "mt-2" : undefined, id: "academicIntegrityButton", onClick: () => (0,_academicIntegritySetup__WEBPACK_IMPORTED_MODULE_20__.academicIntegritySetup)({ currentBp, setIsRunningIntegritySetup }), disabled: isRunningIntegritySetup || !currentBp || isCloningBp || isRunningAiLiteracySetup, "aria-label": "Setup Citations Module in New BP", title: "Set up the Citations module content in the BP. This may take a while to complete. You can change tabs but closing or refreshing this tab may cause issues.", children: academicIntegrityText }))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 5, children: currentBp &&
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { children: [!isDev && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { className: "alert alert-warning", children: "This is not a DEV course" }) })), currentBp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { id: "archiveButton", onClick: onArchive, disabled: isArchiveDisabled, children: ["Archive ", currentBp.parsedCourseCode] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 2, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { children: "Term Name" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { required: true, "aria-required": true, id: "archiveTermName", typeof: "text", value: termName, disabled: (sections === null || sections === void 0 ? void 0 : sections.length) > 0, onChange: (e) => setTermName(e.target.value), placeholder: TERM_NAME_PLACEHOLDER }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { children: !termName && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], { children: "Term name not found in BP sections." }) })] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("hr", {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { id: "newBpButton", onClick: onCloneIntoBp, "aria-label": "New BP", disabled: isNewBpDisabled, children: "Create New BP" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: [showAiLiteracyButton && currentBp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { id: "aiLiteracyButton", onClick: () => (0,_publish_publishInterface_aiLiteracySetup__WEBPACK_IMPORTED_MODULE_21__.aiLiteracySetup)({ currentBp, setIsRunningAiLiteracySetup }), disabled: isRunningAiLiteracySetup || !currentBp || isCloningBp || isRunningIntegritySetup, "aria-label": "Setup AI Literacy Assignment in New BP", title: "Set up the AI Literacy assignment content in the BP. This may take a while to complete. You can change tabs but closing or refreshing this tab may cause issues.", children: aiLiteracyText })), (currentBp === null || currentBp === void 0 ? void 0 : currentBp.isUndergrad) && showAcademicIntegrityButton && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { className: showAiLiteracyButton ? "mt-2" : undefined, id: "academicIntegrityButton", onClick: () => (0,_academicIntegritySetup__WEBPACK_IMPORTED_MODULE_20__.academicIntegritySetup)({ currentBp, setIsRunningIntegritySetup }), disabled: isRunningIntegritySetup || !currentBp || isCloningBp || isRunningAiLiteracySetup, "aria-label": "Setup Citations Module in New BP", title: "Set up the Citations module content in the BP. This may take a while to complete. You can change tabs but closing or refreshing this tab may cause issues.", children: academicIntegrityText }))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 5, children: currentBp &&
                                 activeMigrations.map((migration) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_DevToBpMigrationBar__WEBPACK_IMPORTED_MODULE_15__.DevToBpMigrationBar, { migration: migration, onFinishMigration: finishMigration, course: currentBp }))) })] }) })] }));
 }
 
@@ -100254,7 +101335,7 @@ function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return typ
 
 function _toPrimitive(input, hint) { if (typeof input !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (typeof res !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 
-
+;
 
 
 function useUncontrolledProp(propValue, defaultValue, handler) {
@@ -103169,10 +104250,13 @@ var getProto = __webpack_require__(/*! get-proto */ "./node_modules/get-proto/in
 var $toString = callBound('Object.prototype.toString');
 var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "./node_modules/has-tostringtag/shams.js")();
 
-var g = typeof globalThis === 'undefined' ? globalThis : globalThis;
+var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
 var typedArrays = availableTypedArrays();
 
 var $slice = callBound('String.prototype.slice');
+
+/** @import { BoundSet, BoundSlice, Cache, Getter } from './types' */
+/** @import { TypedArrayName } from '.' */
 
 /** @type {<T = unknown>(array: readonly T[], value: unknown) => number} */
 var $indexOf = callBound('Array.prototype.indexOf', true) || function indexOf(array, value) {
@@ -103184,8 +104268,7 @@ var $indexOf = callBound('Array.prototype.indexOf', true) || function indexOf(ar
 	return -1;
 };
 
-/** @typedef {import('./types').Getter} Getter */
-/** @type {import('./types').Cache} */
+/** @type {Cache} */
 var cache = { __proto__: null };
 if (hasToStringTag && gOPD && getProto) {
 	forEach(typedArrays, function (typedArray) {
@@ -103202,7 +104285,8 @@ if (hasToStringTag && gOPD && getProto) {
 			if (descriptor && descriptor.get) {
 				var bound = callBind(descriptor.get);
 				cache[
-					/** @type {`$${import('.').TypedArrayName}`} */ ('$' + typedArray)
+					/** @type {`$${TypedArrayName}`} */
+					('$' + typedArray)
 				] = bound;
 			}
 		}
@@ -103212,62 +104296,72 @@ if (hasToStringTag && gOPD && getProto) {
 		var arr = new g[typedArray]();
 		var fn = arr.slice || arr.set;
 		if (fn) {
-			var bound = /** @type {import('./types').BoundSlice | import('./types').BoundSet} */ (
+			var bound = /** @type {BoundSlice | BoundSet} */ (
 				// @ts-expect-error TODO FIXME
 				callBind(fn)
 			);
 			cache[
-				/** @type {`$${import('.').TypedArrayName}`} */ ('$' + typedArray)
+				/** @type {`$${TypedArrayName}`} */
+				('$' + typedArray)
 			] = bound;
 		}
 	});
 }
 
-/** @type {(value: object) => false | import('.').TypedArrayName} */
-var tryTypedArrays = function tryAllTypedArrays(value) {
-	/** @type {ReturnType<typeof tryAllTypedArrays>} */ var found = false;
+/** @type {(value: object) => false | TypedArrayName} */
+function tryTypedArrays(value) {
+	/** @type {ReturnType<typeof tryTypedArrays>} */ var found = false;
 	forEach(
-		/** @type {Record<`\$${import('.').TypedArrayName}`, Getter>} */ (cache),
-		/** @type {(getter: Getter, name: `\$${import('.').TypedArrayName}`) => void} */
+		/** @type {Record<`$${TypedArrayName}`, Getter>} */ (cache),
+		/** @param {Getter} getter @param {`$${TypedArrayName}`} typedArray */
 		function (getter, typedArray) {
 			if (!found) {
 				try {
 					// @ts-expect-error a throw is fine here
 					if ('$' + getter(value) === typedArray) {
-						found = /** @type {import('.').TypedArrayName} */ ($slice(typedArray, 1));
+						found = /** @type {TypedArrayName} */ ($slice(typedArray, 1));
 					}
 				} catch (e) { /**/ }
 			}
 		}
 	);
 	return found;
-};
+}
 
-/** @type {(value: object) => false | import('.').TypedArrayName} */
-var trySlices = function tryAllSlices(value) {
-	/** @type {ReturnType<typeof tryAllSlices>} */ var found = false;
+/** @type {(value: object) => false | TypedArrayName} */
+function trySlices(value) {
+	/** @type {ReturnType<typeof trySlices>} */ var found = false;
 	forEach(
-		/** @type {Record<`\$${import('.').TypedArrayName}`, Getter>} */(cache),
-		/** @type {(getter: Getter, name: `\$${import('.').TypedArrayName}`) => void} */ function (getter, name) {
+		/** @type {Record<`$${TypedArrayName}`, Getter>} */(cache),
+		/** @param {Getter} getter @param {`$${TypedArrayName}`} name */ function (getter, name) {
 			if (!found) {
 				try {
 					// @ts-expect-error a throw is fine here
 					getter(value);
-					found = /** @type {import('.').TypedArrayName} */ ($slice(name, 1));
+					found = /** @type {TypedArrayName} */ ($slice(name, 1));
 				} catch (e) { /**/ }
 			}
 		}
 	);
 	return found;
-};
+}
 
-/** @type {import('.')} */
+/** @type {(tag: unknown) => tag is typeof typedArrays[number]} */
+function isTATag(tag) {
+	return $indexOf(typedArrays, tag) > -1;
+}
+
+/**
+ * @type {import('.')}
+ * @param {unknown} value
+ */
 module.exports = function whichTypedArray(value) {
-	if (!value || typeof value !== 'object') { return false; }
+	if (!value || typeof value !== 'object') {
+		return false;
+	}
 	if (!hasToStringTag) {
-		/** @type {string} */
 		var tag = $slice($toString(value), 8, -1);
-		if ($indexOf(typedArrays, tag) > -1) {
+		if (isTATag(tag)) {
 			return tag;
 		}
 		if (tag !== 'Object') {
@@ -103294,7 +104388,7 @@ module.exports = function whichTypedArray(value) {
 
 var possibleNames = __webpack_require__(/*! possible-typed-array-names */ "./node_modules/possible-typed-array-names/index.js");
 
-var g = typeof globalThis === 'undefined' ? globalThis : globalThis;
+var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
 
 /** @type {import('.')} */
 module.exports = function availableTypedArrays() {
@@ -107706,7 +108800,7 @@ function createFormatPrepperForBranding(t) {
   return (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatPrepper)(n, (0,_internal_js__WEBPACK_IMPORTED_MODULE_0__.memoize)(_internal_js__WEBPACK_IMPORTED_MODULE_0__.createFormatForPrep));
 }
 
-
+;
 
 const xn = {
   Instant: _internal_js__WEBPACK_IMPORTED_MODULE_0__.instantConfig,
@@ -111622,17 +112716,17 @@ let ys;
 /******/ 	});
 /************************************************************************/
 /******/ 	// The module cache
-/******/ 	var __webpack_module_cache__ = {};
+/******/ 	const __webpack_module_cache__ = {};
 /******/ 	
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		const cachedModule = __webpack_module_cache__[moduleId];
 /******/ 		if (cachedModule !== undefined) {
 /******/ 			return cachedModule.exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 		const module = __webpack_module_cache__[moduleId] = {
 /******/ 			id: moduleId,
 /******/ 			loaded: false,
 /******/ 			exports: {}
@@ -111641,7 +112735,7 @@ let ys;
 /******/ 		// Execute the module function
 /******/ 		if (!(moduleId in __webpack_modules__)) {
 /******/ 			delete __webpack_module_cache__[moduleId];
-/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			const e = new Error("Cannot find module '" + moduleId + "'");
 /******/ 			e.code = 'MODULE_NOT_FOUND';
 /******/ 			throw e;
 /******/ 		}
@@ -111659,7 +112753,7 @@ let ys;
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
 /******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
+/******/ 			const getter = module && module.__esModule ?
 /******/ 				() => (module['default']) :
 /******/ 				() => (module);
 /******/ 			__webpack_require__.d(getter, { a: getter });
@@ -111669,14 +112763,41 @@ let ys;
 /******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
+/******/ 		// define getter/value functions for harmony exports
 /******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 			if(Array.isArray(definition)) {
+/******/ 				var i = 0;
+/******/ 				while(i < definition.length) {
+/******/ 					var key = definition[i++];
+/******/ 					var binding = definition[i++];
+/******/ 					if(!__webpack_require__.o(exports, key)) {
+/******/ 						if(binding === 0) {
+/******/ 							Object.defineProperty(exports, key, { enumerable: true, value: definition[i++] });
+/******/ 						} else {
+/******/ 							Object.defineProperty(exports, key, { enumerable: true, get: binding });
+/******/ 						}
+/******/ 					} else if(binding === 0) { i++; }
+/******/ 				}
+/******/ 			} else {
+/******/ 				for(var key in definition) {
+/******/ 					if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 						Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 					}
 /******/ 				}
 /******/ 			}
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
@@ -111688,7 +112809,7 @@ let ys;
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
 /******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			if(Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
@@ -111704,13 +112825,24 @@ let ys;
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/set anonymous default export name */
+/******/ 	(() => {
+/******/ 		// set .name for anonymous default exports per ES spec
+/******/ 		// skipped when the property is non-configurable (pre-ES2015 engines),
+/******/ 		// where Object.defineProperty would throw
+/******/ 		__webpack_require__.dn = (x) => {
+/******/ 			var descriptor = Object.getOwnPropertyDescriptor(x, "name");
+/******/ 			if (!descriptor || (!descriptor.writable && descriptor.configurable)) Object.defineProperty(x, "name", { value: "default", configurable: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/nonce */
 /******/ 	(() => {
 /******/ 		__webpack_require__.nc = undefined;
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
+let __webpack_exports__ = {};
 // This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";
