@@ -99263,19 +99263,22 @@ async function fetchEmailTemplate(course) {
             throw new Error(`Course code ${course.courseCode} does not contain a number`);
         }
         const courseCodeNumber = parseInt(parsedCourseCode[0]);
-        let devCourseId = null;
+        // Added these are variables for clarity
+        const ugTemplateId = 7775658;
+        const gradTemplateId = 7773747;
+        let templateCourseId = null;
         if (course.isUndergrad() || course.isCareerInstitute()) {
-            devCourseId = 7775658;
+            templateCourseId = ugTemplateId;
         }
         else if (course.isGrad()) {
-            devCourseId = 7773747;
+            templateCourseId = gradTemplateId;
         }
         else {
             throw new Error("Unsure which email to grab.");
         }
-        if (devCourseId) {
+        if (templateCourseId) {
             // Get the publish email from the page in the DEV course
-            const templateEmailPage = (await _ueu_ueu_canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_5__["default"].getByString(devCourseId, "publish-form-email"));
+            const templateEmailPage = (await _ueu_ueu_canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_5__["default"].getByString(templateCourseId, "publish-form-email"));
             return templateEmailPage.body;
         }
         else {
@@ -99528,7 +99531,7 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet }) {
     const isGradAiLiteracyCourse = Boolean((devCourse === null || devCourse === void 0 ? void 0 : devCourse.baseCode) &&
         gradAiLiteracyCourses.includes(devCourse.baseCode.toLowerCase()));
     const showAiLiteracyButton = Boolean(currentBp && isGradAiLiteracyCourse);
-    const showAcademicIntegrityButton = false;
+    const showAcademicIntegrityButton = true;
     (0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(...callOnChangeFunc(currentBp, onBpSet));
     (0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(...callOnChangeFunc(termName, onTermNameSet));
     (0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(...callOnChangeFunc(sections, onSectionsSet));
