@@ -2999,6 +2999,78 @@ function withinMaxClamp(min, value, max) {
 
 /***/ },
 
+/***/ "./node_modules/@ueu/ueu-canvas/dist/instance.js"
+/*!*******************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/instance.js ***!
+  \*******************************************************/
+(__unused_webpack_module, exports) {
+
+"use strict";
+
+/**
+ * Canvas instance configuration. Every hardcoded URL, account ID, and
+ * template course ID lives here. The default matches Unity's production
+ * Canvas instance; a second instance overrides what it needs.
+ *
+ * The active instance is set once at startup (setInstance) and read
+ * everywhere else (getInstance). This avoids threading config through
+ * every function signature while keeping it swappable.
+ */
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getInstance = getInstance;
+exports.setInstance = setInstance;
+exports.resetInstance = resetInstance;
+exports.isCanvasUrl = isCanvasUrl;
+exports.canvasUrl = canvasUrl;
+const UNITY_DEFAULTS = {
+    baseUrl: "https://unity.instructure.com",
+    hostname: "unity.instructure.com",
+    templateCourseId: 3850558,
+    referencesPageSlug: "learning-materials-reference-page",
+    externalApis: {
+        citeas: "https://api.citeas.org/product",
+    },
+};
+let active = { ...UNITY_DEFAULTS };
+function getInstance() {
+    return active;
+}
+function setInstance(config) {
+    active = { ...UNITY_DEFAULTS, ...config };
+    if (config.baseUrl && !config.hostname) {
+        try {
+            active.hostname = new URL(config.baseUrl).hostname;
+        }
+        catch {
+            // keep the default if baseUrl is unparseable
+        }
+    }
+}
+function resetInstance() {
+    active = { ...UNITY_DEFAULTS };
+}
+/** Check whether a URL belongs to the active Canvas instance. */
+function isCanvasUrl(url) {
+    try {
+        return new URL(url).hostname === active.hostname;
+    }
+    catch {
+        return url.includes(active.hostname);
+    }
+}
+/**
+ * Build an absolute Canvas URL from a relative path.
+ * If already absolute, returns as-is.
+ */
+function canvasUrl(path) {
+    if (path.startsWith("http://") || path.startsWith("https://"))
+        return path;
+    return `${active.baseUrl}${path.startsWith("/") ? "" : "/"}${path}`;
+}
+//# sourceMappingURL=instance.js.map
+
+/***/ },
+
 /***/ "./node_modules/bootstrap/dist/js/bootstrap.esm.js"
 /*!*********************************************************!*\
   !*** ./node_modules/bootstrap/dist/js/bootstrap.esm.js ***!
@@ -56968,6 +57040,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ui_utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../ui/utils */ "./src/ui/utils.tsx");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Form.js");
 /* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../consts */ "./src/consts.ts");
+/* harmony import */ var _ueu_ueu_canvas_instance__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ueu/ueu-canvas/instance */ "./node_modules/@ueu/ueu-canvas/dist/instance.js");
+
 
 
 
@@ -56979,7 +57053,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function PopUpApp() {
     const [advanced, setAdvanced] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "PopUpApp container text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: ["d-flex", "flex-row-reverse"].join(" "), children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Check, { type: "switch", label: "Advanced Options", checked: advanced, onChange: (e) => setAdvanced(e.target.checked) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(CourseNavigation, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(SalesforceNavigation, {}), advanced && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(SetOpenAiKey, {}) }))] }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "PopUpApp container text-center", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: ["d-flex", "flex-row-reverse"].join(" "), children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"].Check, { type: "switch", label: "Advanced Options", checked: advanced, onChange: (e) => setAdvanced(e.target.checked) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(CourseNavigation, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(SalesforceNavigation, {}), advanced && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(SetOpenAiKey, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { className: "btn btn-outline-success", title: "Unity Wifi/VPN connection required to Search", onClick: () => webextension_polyfill__WEBPACK_IMPORTED_MODULE_2__.tabs.create({ url: webextension_polyfill__WEBPACK_IMPORTED_MODULE_2__.runtime.getURL("search.html") }), children: "Click Here for Instance-Wide Search" })] }))] }));
 }
 function CourseNavigation() {
     const [isDisabled, setIsDisabled] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
@@ -57098,7 +57172,7 @@ async function extractCanvasCourseCodeFromUrl(url) {
     if (!url)
         return null;
     const canvasUrl = new URL(url);
-    if (!canvasUrl.hostname.endsWith(".instructure.com") || !/\/courses\/\d+/.test(canvasUrl.pathname))
+    if (!(0,_ueu_ueu_canvas_instance__WEBPACK_IMPORTED_MODULE_9__.isCanvasUrl)(url) || !/\/courses\/\d+/.test(canvasUrl.pathname))
         return null;
     const idRegex = /courses\/(\d+)/m;
     const match = idRegex.exec(canvasUrl.pathname);
@@ -58816,84 +58890,49 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = __webpack_modules__;
-/******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			const getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = (module) => {
+/******/ 		const getter = module && module.__esModule ?
+/******/ 			() => (module['default']) :
+/******/ 			() => (module);
+/******/ 		__webpack_require__.d(getter, { a: getter });
+/******/ 		return getter;
+/******/ 	};
 /******/ 	
 /******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter/value functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			if(Array.isArray(definition)) {
-/******/ 				var i = 0;
-/******/ 				while(i < definition.length) {
-/******/ 					var key = definition[i++];
-/******/ 					var binding = definition[i++];
-/******/ 					if(!__webpack_require__.o(exports, key)) {
-/******/ 						if(binding === 0) {
-/******/ 							Object.defineProperty(exports, key, { enumerable: true, value: definition[i++] });
-/******/ 						} else {
-/******/ 							Object.defineProperty(exports, key, { enumerable: true, get: binding });
-/******/ 						}
-/******/ 					} else if(binding === 0) { i++; }
-/******/ 				}
-/******/ 			} else {
-/******/ 				for(var key in definition) {
-/******/ 					if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 						Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 					}
-/******/ 				}
+/******/ 	// define getter/value functions for harmony exports
+/******/ 	__webpack_require__.d = (exports, definition) => {
+/******/ 		for(var key in definition) {
+/******/ 			if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 				Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 			}
-/******/ 		};
-/******/ 	})();
+/******/ 		}
+/******/ 	};
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
+/******/ 	__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop));
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = (exports) => {
+/******/ 		Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
 /******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
-/******/ 	(() => {
-/******/ 		__webpack_require__.nmd = (module) => {
-/******/ 			module.paths = [];
-/******/ 			if (!module.children) module.children = [];
-/******/ 			return module;
-/******/ 		};
-/******/ 	})();
+/******/ 	__webpack_require__.nmd = (module) => {
+/******/ 		module.paths = [];
+/******/ 		if (!module.children) module.children = [];
+/******/ 		return module;
+/******/ 	};
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
 /******/ 	(() => {
 /******/ 		__webpack_require__.b = (typeof document !== 'undefined' && document.baseURI) || self.location.href;
 /******/ 		
-/******/ 		// object to store loaded and loading chunks
-/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
-/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-/******/ 		const installedChunks = {
-/******/ 			"popup": 0
-/******/ 		};
+/******/ 		// no installed chunks
 /******/ 		
 /******/ 		// no chunk on demand loading
 /******/ 		
@@ -58911,9 +58950,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/nonce */
-/******/ 	(() => {
-/******/ 		__webpack_require__.nc = undefined;
-/******/ 	})();
+/******/ 	__webpack_require__.nc = undefined;
 /******/ 	
 /************************************************************************/
 let __webpack_exports__ = {};

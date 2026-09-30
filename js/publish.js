@@ -2712,7 +2712,6 @@ __webpack_require__.r(__webpack_exports__);
 /* empty/unused harmony star reexport */
 /* empty/unused harmony star reexport */
 /* empty/unused harmony star reexport */
-/* empty/unused harmony star reexport */
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ReducerType: () => (/* binding */ ReducerType),
 /* harmony export */   SHOULD_AUTOBATCH: () => (/* binding */ SHOULD_AUTOBATCH),
@@ -2735,8 +2734,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   createImmutableStateInvariantMiddleware: () => (/* binding */ createImmutableStateInvariantMiddleware),
 /* harmony export */   createListenerMiddleware: () => (/* binding */ createListenerMiddleware),
 /* harmony export */   createReducer: () => (/* binding */ createReducer),
-/* harmony export */   createSelector: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_2__.createSelector),
-/* harmony export */   createSelectorCreator: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_2__.createSelectorCreator),
+/* harmony export */   createSelector: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_3__.createSelector),
+/* harmony export */   createSelectorCreator: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_3__.createSelectorCreator),
 /* harmony export */   createSerializableStateInvariantMiddleware: () => (/* binding */ createSerializableStateInvariantMiddleware),
 /* harmony export */   createSlice: () => (/* binding */ createSlice),
 /* harmony export */   findNonSerializableValue: () => (/* binding */ findNonSerializableValue),
@@ -2752,2293 +2751,1850 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   isPlain: () => (/* binding */ isPlain),
 /* harmony export */   isRejected: () => (/* binding */ isRejected),
 /* harmony export */   isRejectedWithValue: () => (/* binding */ isRejectedWithValue),
-/* harmony export */   lruMemoize: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_2__.lruMemoize),
+/* harmony export */   lruMemoize: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_3__.lruMemoize),
 /* harmony export */   miniSerializeError: () => (/* binding */ miniSerializeError),
 /* harmony export */   nanoid: () => (/* binding */ nanoid),
 /* harmony export */   prepareAutoBatched: () => (/* binding */ prepareAutoBatched),
 /* harmony export */   removeListener: () => (/* binding */ removeListener),
 /* harmony export */   unwrapResult: () => (/* binding */ unwrapResult),
-/* harmony export */   weakMapMemoize: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_2__.weakMapMemoize)
+/* harmony export */   weakMapMemoize: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_3__.weakMapMemoize)
 /* harmony export */ });
+/* empty/unused harmony star reexport */
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/dist/redux.mjs");
 /* harmony import */ var immer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! immer */ "./node_modules/immer/dist/immer.mjs");
-/* harmony import */ var reselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! reselect */ "./node_modules/reselect/dist/reselect.mjs");
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/dist/redux.mjs");
+/* harmony import */ var reselect__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! reselect */ "./node_modules/reselect/dist/reselect.mjs");
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/dist/redux-thunk.mjs");
 /* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
-// src/index.ts
 
 
 
-// src/immerImports.ts
 
 
-// src/index.ts
-
-
-// src/reselectImports.ts
-
-
-// src/createDraftSafeSelector.ts
-var createDraftSafeSelectorCreator = (...args) => {
-  const createSelector2 = (0,reselect__WEBPACK_IMPORTED_MODULE_2__.createSelectorCreator)(...args);
-  const createDraftSafeSelector2 = Object.assign((...args2) => {
-    const selector = createSelector2(...args2);
-    const wrappedSelector = (value, ...rest) => selector((0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraft)(value) ? (0,immer__WEBPACK_IMPORTED_MODULE_1__.current)(value) : value, ...rest);
-    Object.assign(wrappedSelector, selector);
-    return wrappedSelector;
-  }, {
-    withTypes: () => createDraftSafeSelector2
-  });
-  return createDraftSafeSelector2;
+//#region src/createDraftSafeSelector.ts
+const createDraftSafeSelectorCreator = (...args) => {
+	const createSelector = (0,reselect__WEBPACK_IMPORTED_MODULE_3__.createSelectorCreator)(...args);
+	const createDraftSafeSelector = Object.assign((...args) => {
+		const selector = createSelector(...args);
+		const wrappedSelector = (value, ...rest) => selector((0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraft)(value) ? (0,immer__WEBPACK_IMPORTED_MODULE_1__.current)(value) : value, ...rest);
+		Object.assign(wrappedSelector, selector);
+		return wrappedSelector;
+	}, { withTypes: () => createDraftSafeSelector });
+	return createDraftSafeSelector;
 };
-var createDraftSafeSelector = /* @__PURE__ */ createDraftSafeSelectorCreator(reselect__WEBPACK_IMPORTED_MODULE_2__.weakMapMemoize);
-
-// src/reduxImports.ts
-
-
-// src/devtoolsExtension.ts
-var composeWithDevTools = typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : function() {
-  if (arguments.length === 0) return void 0;
-  if (typeof arguments[0] === "object") return redux__WEBPACK_IMPORTED_MODULE_3__.compose;
-  return redux__WEBPACK_IMPORTED_MODULE_3__.compose.apply(null, arguments);
+const createDraftSafeSelector = /* @__PURE__ */ createDraftSafeSelectorCreator(reselect__WEBPACK_IMPORTED_MODULE_3__.weakMapMemoize);
+//#endregion
+//#region src/devtoolsExtension.ts
+const composeWithDevTools = typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : function() {
+	if (arguments.length === 0) return void 0;
+	if (typeof arguments[0] === "object") return redux__WEBPACK_IMPORTED_MODULE_0__.compose;
+	return redux__WEBPACK_IMPORTED_MODULE_0__.compose.apply(null, arguments);
 };
-var devToolsEnhancer = typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__ : function() {
-  return function(noop3) {
-    return noop3;
-  };
+typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__;
+//#endregion
+//#region src/tsHelpers.ts
+const hasMatchFunction = (v) => {
+	return v && typeof v.match === "function";
 };
-
-// src/getDefaultMiddleware.ts
-
-
-// src/tsHelpers.ts
-var hasMatchFunction = (v) => {
-  return v && typeof v.match === "function";
-};
-
-// src/createAction.ts
+//#endregion
+//#region src/createAction.ts
 function createAction(type, prepareAction) {
-  function actionCreator(...args) {
-    if (prepareAction) {
-      let prepared = prepareAction(...args);
-      if (!prepared) {
-        throw new Error( false ? 0 : "prepareAction did not return an object");
-      }
-      return {
-        type,
-        payload: prepared.payload,
-        ..."meta" in prepared && {
-          meta: prepared.meta
-        },
-        ..."error" in prepared && {
-          error: prepared.error
-        }
-      };
-    }
-    return {
-      type,
-      payload: args[0]
-    };
-  }
-  actionCreator.toString = () => `${type}`;
-  actionCreator.type = type;
-  actionCreator.match = (action) => (0,redux__WEBPACK_IMPORTED_MODULE_3__.isAction)(action) && action.type === type;
-  return actionCreator;
+	function actionCreator(...args) {
+		if (prepareAction) {
+			let prepared = prepareAction(...args);
+			if (!prepared) throw new Error( false ? 0 : "prepareAction did not return an object");
+			return {
+				type,
+				payload: prepared.payload,
+				..."meta" in prepared && { meta: prepared.meta },
+				..."error" in prepared && { error: prepared.error }
+			};
+		}
+		return {
+			type,
+			payload: args[0]
+		};
+	}
+	actionCreator.toString = () => `${type}`;
+	actionCreator.type = type;
+	actionCreator.match = (action) => (0,redux__WEBPACK_IMPORTED_MODULE_0__.isAction)(action) && action.type === type;
+	return actionCreator;
 }
 function isActionCreator(action) {
-  return typeof action === "function" && "type" in action && // hasMatchFunction only wants Matchers but I don't see the point in rewriting it
-  hasMatchFunction(action);
+	return typeof action === "function" && "type" in action && hasMatchFunction(action);
 }
 function isFSA(action) {
-  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.isAction)(action) && Object.keys(action).every(isValidKey);
+	return (0,redux__WEBPACK_IMPORTED_MODULE_0__.isAction)(action) && Object.keys(action).every(isValidKey);
 }
 function isValidKey(key) {
-  return ["type", "payload", "error", "meta"].indexOf(key) > -1;
+	return [
+		"type",
+		"payload",
+		"error",
+		"meta"
+	].indexOf(key) > -1;
 }
-
-// src/actionCreatorInvariantMiddleware.ts
+//#endregion
+//#region src/actionCreatorInvariantMiddleware.ts
 function getMessage(type) {
-  const splitType = type ? `${type}`.split("/") : [];
-  const actionName = splitType[splitType.length - 1] || "actionCreator";
-  return `Detected an action creator with type "${type || "unknown"}" being dispatched.
+	const splitType = type ? `${type}`.split("/") : [];
+	const actionName = splitType[splitType.length - 1] || "actionCreator";
+	return `Detected an action creator with type "${type || "unknown"}" being dispatched.
 Make sure you're calling the action creator before dispatching, i.e. \`dispatch(${actionName}())\` instead of \`dispatch(${actionName})\`. This is necessary even if the action has no payload.`;
 }
 function createActionCreatorInvariantMiddleware(options = {}) {
-  if (false) // removed by dead control flow
+	if (false) // removed by dead control flow
 {}
-  const {
-    isActionCreator: isActionCreator2 = isActionCreator
-  } = options;
-  return () => (next) => (action) => {
-    if (isActionCreator2(action)) {
-      console.warn(getMessage(action.type));
-    }
-    return next(action);
-  };
+	const { isActionCreator: isActionCreator$1 = isActionCreator } = options;
+	return () => (next) => (action) => {
+		if (isActionCreator$1(action)) console.warn(getMessage(action.type));
+		return next(action);
+	};
 }
-
-// src/utils.ts
+//#endregion
+//#region src/utils.ts
 function getTimeMeasureUtils(maxDelay, fnName) {
-  let elapsed = 0;
-  return {
-    measureTime(fn) {
-      const started = Date.now();
-      try {
-        return fn();
-      } finally {
-        const finished = Date.now();
-        elapsed += finished - started;
-      }
-    },
-    warnIfExceeded() {
-      if (elapsed > maxDelay) {
-        console.warn(`${fnName} took ${elapsed}ms, which is more than the warning threshold of ${maxDelay}ms. 
+	let elapsed = 0;
+	return {
+		measureTime(fn) {
+			const started = Date.now();
+			try {
+				return fn();
+			} finally {
+				elapsed += Date.now() - started;
+			}
+		},
+		warnIfExceeded() {
+			if (elapsed > maxDelay) console.warn(`${fnName} took ${elapsed}ms, which is more than the warning threshold of ${maxDelay}ms. 
 If your state or actions are very large, you may want to disable the middleware as it might cause too much of a slowdown in development mode. See https://redux-toolkit.js.org/api/getDefaultMiddleware for instructions.
 It is disabled in production builds, so you don't need to worry about that.`);
-      }
-    }
-  };
+		}
+	};
 }
-var Tuple = class _Tuple extends Array {
-  constructor(...items) {
-    super(...items);
-    Object.setPrototypeOf(this, _Tuple.prototype);
-  }
-  static get [Symbol.species]() {
-    return _Tuple;
-  }
-  concat(...arr) {
-    return super.concat.apply(this, arr);
-  }
-  prepend(...arr) {
-    if (arr.length === 1 && Array.isArray(arr[0])) {
-      return new _Tuple(...arr[0].concat(this));
-    }
-    return new _Tuple(...arr.concat(this));
-  }
+var Tuple = class Tuple extends Array {
+	constructor(...items) {
+		super(...items);
+		Object.setPrototypeOf(this, Tuple.prototype);
+	}
+	static get [Symbol.species]() {
+		return Tuple;
+	}
+	concat(...arr) {
+		return super.concat.apply(this, arr);
+	}
+	prepend(...arr) {
+		if (arr.length === 1 && Array.isArray(arr[0])) return new Tuple(...arr[0].concat(this));
+		return new Tuple(...arr.concat(this));
+	}
 };
 function freezeDraftable(val) {
-  return (0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraftable)(val) ? (0,immer__WEBPACK_IMPORTED_MODULE_1__.produce)(val, () => {
-  }) : val;
+	return (0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraftable)(val) ? (0,immer__WEBPACK_IMPORTED_MODULE_1__.produce)(val, () => {}) : val;
 }
 function getOrInsertComputed(map, key, compute) {
-  if (map.has(key)) return map.get(key);
-  return map.set(key, compute(key)).get(key);
+	if (map.has(key)) return map.get(key);
+	return map.set(key, compute(key)).get(key);
 }
-
-// src/immutableStateInvariantMiddleware.ts
+//#endregion
+//#region src/immutableStateInvariantMiddleware.ts
 function isImmutableDefault(value) {
-  return typeof value !== "object" || value == null || Object.isFrozen(value);
+	return typeof value !== "object" || value == null || Object.isFrozen(value);
 }
 function trackForMutations(isImmutable, ignoredPaths, obj) {
-  const trackedProperties = trackProperties(isImmutable, ignoredPaths, obj);
-  return {
-    detectMutations() {
-      return detectMutations(isImmutable, ignoredPaths, trackedProperties, obj);
-    }
-  };
+	const trackedProperties = trackProperties(isImmutable, ignoredPaths, obj);
+	return { detectMutations() {
+		return detectMutations(isImmutable, ignoredPaths, trackedProperties, obj);
+	} };
 }
-function trackProperties(isImmutable, ignoredPaths = [], obj, path = "", checkedObjects = /* @__PURE__ */ new Set()) {
-  const tracked = {
-    value: obj
-  };
-  if (!isImmutable(obj) && !checkedObjects.has(obj)) {
-    checkedObjects.add(obj);
-    tracked.children = {};
-    const hasIgnoredPaths = ignoredPaths.length > 0;
-    for (const key in obj) {
-      const nestedPath = path ? path + "." + key : key;
-      if (hasIgnoredPaths) {
-        const hasMatches = ignoredPaths.some((ignored) => {
-          if (ignored instanceof RegExp) {
-            return ignored.test(nestedPath);
-          }
-          return nestedPath === ignored;
-        });
-        if (hasMatches) {
-          continue;
-        }
-      }
-      tracked.children[key] = trackProperties(isImmutable, ignoredPaths, obj[key], nestedPath);
-    }
-  }
-  return tracked;
+function trackProperties(isImmutable, ignoredPaths = [], obj, path = "", inProgress = /* @__PURE__ */ new Map()) {
+	const tracked = { value: obj };
+	if (!isImmutable(obj)) {
+		const alreadyInProgress = inProgress.get(obj);
+		if (alreadyInProgress) return alreadyInProgress;
+		tracked.children = {};
+		inProgress.set(obj, tracked);
+		const hasIgnoredPaths = ignoredPaths.length > 0;
+		for (const key in obj) {
+			const nestedPath = path ? path + "." + key : key;
+			if (hasIgnoredPaths) {
+				if (ignoredPaths.some((ignored) => {
+					if (ignored instanceof RegExp) return ignored.test(nestedPath);
+					return nestedPath === ignored;
+				})) continue;
+			}
+			tracked.children[key] = trackProperties(isImmutable, ignoredPaths, obj[key], nestedPath, inProgress);
+		}
+		inProgress.delete(obj);
+	}
+	return tracked;
 }
-function detectMutations(isImmutable, ignoredPaths = [], trackedProperty, obj, sameParentRef = false, path = "") {
-  const prevObj = trackedProperty ? trackedProperty.value : void 0;
-  const sameRef = prevObj === obj;
-  if (sameParentRef && !sameRef && !Number.isNaN(obj)) {
-    return {
-      wasMutated: true,
-      path
-    };
-  }
-  if (isImmutable(prevObj) || isImmutable(obj)) {
-    return {
-      wasMutated: false
-    };
-  }
-  const keysToDetect = {};
-  for (let key in trackedProperty.children) {
-    keysToDetect[key] = true;
-  }
-  for (let key in obj) {
-    keysToDetect[key] = true;
-  }
-  const hasIgnoredPaths = ignoredPaths.length > 0;
-  for (let key in keysToDetect) {
-    const nestedPath = path ? path + "." + key : key;
-    if (hasIgnoredPaths) {
-      const hasMatches = ignoredPaths.some((ignored) => {
-        if (ignored instanceof RegExp) {
-          return ignored.test(nestedPath);
-        }
-        return nestedPath === ignored;
-      });
-      if (hasMatches) {
-        continue;
-      }
-    }
-    const result = detectMutations(isImmutable, ignoredPaths, trackedProperty.children[key], obj[key], sameRef, nestedPath);
-    if (result.wasMutated) {
-      return result;
-    }
-  }
-  return {
-    wasMutated: false
-  };
+function detectMutations(isImmutable, ignoredPaths = [], trackedProperty, obj, sameParentRef = false, path = "", seen = /* @__PURE__ */ new Map()) {
+	const prevObj = trackedProperty ? trackedProperty.value : void 0;
+	const sameRef = prevObj === obj;
+	if (sameParentRef && !sameRef && !Number.isNaN(obj)) return {
+		wasMutated: true,
+		path
+	};
+	if (isImmutable(prevObj) || isImmutable(obj)) return { wasMutated: false };
+	let seenValues = seen.get(trackedProperty);
+	if (!seenValues) {
+		seenValues = /* @__PURE__ */ new Set();
+		seen.set(trackedProperty, seenValues);
+	} else if (seenValues.has(obj)) return { wasMutated: false };
+	seenValues.add(obj);
+	const keysToDetect = {};
+	for (let key in trackedProperty.children) keysToDetect[key] = true;
+	for (let key in obj) keysToDetect[key] = true;
+	const hasIgnoredPaths = ignoredPaths.length > 0;
+	for (let key in keysToDetect) {
+		const nestedPath = path ? path + "." + key : key;
+		if (hasIgnoredPaths) {
+			if (ignoredPaths.some((ignored) => {
+				if (ignored instanceof RegExp) return ignored.test(nestedPath);
+				return nestedPath === ignored;
+			})) continue;
+		}
+		const result = detectMutations(isImmutable, ignoredPaths, trackedProperty.children[key], obj[key], sameRef, nestedPath, seen);
+		if (result.wasMutated) return result;
+	}
+	return { wasMutated: false };
 }
 function createImmutableStateInvariantMiddleware(options = {}) {
-  if (false) // removed by dead control flow
-{} else {
-    let stringify2 = function(obj, serializer, indent, decycler) {
-      return JSON.stringify(obj, getSerialize2(serializer, decycler), indent);
-    }, getSerialize2 = function(serializer, decycler) {
-      let stack = [], keys = [];
-      if (!decycler) decycler = function(_, value) {
-        if (stack[0] === value) return "[Circular ~]";
-        return "[Circular ~." + keys.slice(0, stack.indexOf(value)).join(".") + "]";
-      };
-      return function(key, value) {
-        if (stack.length > 0) {
-          var thisPos = stack.indexOf(this);
-          ~thisPos ? stack.splice(thisPos + 1) : stack.push(this);
-          ~thisPos ? keys.splice(thisPos, Infinity, key) : keys.push(key);
-          if (~stack.indexOf(value)) value = decycler.call(this, key, value);
-        } else stack.push(value);
-        return serializer == null ? value : serializer.call(this, key, value);
-      };
-    };
-    var stringify = stringify2, getSerialize = getSerialize2;
-    let {
-      isImmutable = isImmutableDefault,
-      ignoredPaths,
-      warnAfter = 32
-    } = options;
-    const track = trackForMutations.bind(null, isImmutable, ignoredPaths);
-    return ({
-      getState
-    }) => {
-      let state = getState();
-      let tracker = track(state);
-      let result;
-      return (next) => (action) => {
-        const measureUtils = getTimeMeasureUtils(warnAfter, "ImmutableStateInvariantMiddleware");
-        measureUtils.measureTime(() => {
-          state = getState();
-          result = tracker.detectMutations();
-          tracker = track(state);
-          if (result.wasMutated) {
-            throw new Error( false ? 0 : `A state mutation was detected between dispatches, in the path '${result.path || ""}'.  This may cause incorrect behavior. (https://redux.js.org/style-guide/style-guide#do-not-mutate-state)`);
-          }
-        });
-        const dispatchedAction = next(action);
-        measureUtils.measureTime(() => {
-          state = getState();
-          result = tracker.detectMutations();
-          tracker = track(state);
-          if (result.wasMutated) {
-            throw new Error( false ? 0 : `A state mutation was detected inside a dispatch, in the path: ${result.path || ""}. Take a look at the reducer(s) handling the action ${stringify2(action)}. (https://redux.js.org/style-guide/style-guide#do-not-mutate-state)`);
-          }
-        });
-        measureUtils.warnIfExceeded();
-        return dispatchedAction;
-      };
-    };
-  }
+	if (false) // removed by dead control flow
+{}
+	else {
+		function stringify(obj, serializer, indent, decycler) {
+			return JSON.stringify(obj, getSerialize(serializer, decycler), indent);
+		}
+		function getSerialize(serializer, decycler) {
+			let stack = [], keys = [];
+			if (!decycler) decycler = function(_, value) {
+				if (stack[0] === value) return "[Circular ~]";
+				return "[Circular ~." + keys.slice(0, stack.indexOf(value)).join(".") + "]";
+			};
+			return function(key, value) {
+				if (stack.length > 0) {
+					var thisPos = stack.indexOf(this);
+					if (~thisPos) {
+						stack.splice(thisPos + 1);
+						keys.splice(thisPos, Infinity, key);
+					} else {
+						stack.push(this);
+						keys.push(key);
+					}
+					if (~stack.indexOf(value)) value = decycler.call(this, key, value);
+				} else stack.push(value);
+				return serializer == null ? value : serializer.call(this, key, value);
+			};
+		}
+		let { isImmutable = isImmutableDefault, ignoredPaths, warnAfter = 32 } = options;
+		const track = trackForMutations.bind(null, isImmutable, ignoredPaths);
+		return ({ getState }) => {
+			let state = getState();
+			let tracker = track(state);
+			let result;
+			return (next) => (action) => {
+				const measureUtils = getTimeMeasureUtils(warnAfter, "ImmutableStateInvariantMiddleware");
+				measureUtils.measureTime(() => {
+					state = getState();
+					result = tracker.detectMutations();
+					tracker = track(state);
+					if (result.wasMutated) throw new Error( false ? 0 : `A state mutation was detected between dispatches, in the path '${result.path || ""}'.  This may cause incorrect behavior. (https://redux.js.org/style-guide/style-guide#do-not-mutate-state)`);
+				});
+				const dispatchedAction = next(action);
+				measureUtils.measureTime(() => {
+					state = getState();
+					result = tracker.detectMutations();
+					tracker = track(state);
+					if (result.wasMutated) throw new Error( false ? 0 : `A state mutation was detected inside a dispatch, in the path: ${result.path || ""}. Take a look at the reducer(s) handling the action ${stringify(action)}. (https://redux.js.org/style-guide/style-guide#do-not-mutate-state)`);
+				});
+				measureUtils.warnIfExceeded();
+				return dispatchedAction;
+			};
+		};
+	}
 }
-
-// src/serializableStateInvariantMiddleware.ts
+//#endregion
+//#region src/serializableStateInvariantMiddleware.ts
 function isPlain(val) {
-  const type = typeof val;
-  return val == null || type === "string" || type === "boolean" || type === "number" || Array.isArray(val) || (0,redux__WEBPACK_IMPORTED_MODULE_3__.isPlainObject)(val);
+	const type = typeof val;
+	return val == null || type === "string" || type === "boolean" || type === "number" || Array.isArray(val) || (0,redux__WEBPACK_IMPORTED_MODULE_0__.isPlainObject)(val);
 }
 function findNonSerializableValue(value, path = "", isSerializable = isPlain, getEntries, ignoredPaths = [], cache) {
-  let foundNestedSerializable;
-  if (!isSerializable(value)) {
-    return {
-      keyPath: path || "<root>",
-      value
-    };
-  }
-  if (typeof value !== "object" || value === null) {
-    return false;
-  }
-  if (cache?.has(value)) return false;
-  const entries = getEntries != null ? getEntries(value) : Object.entries(value);
-  const hasIgnoredPaths = ignoredPaths.length > 0;
-  for (const [key, nestedValue] of entries) {
-    const nestedPath = path ? path + "." + key : key;
-    if (hasIgnoredPaths) {
-      const hasMatches = ignoredPaths.some((ignored) => {
-        if (ignored instanceof RegExp) {
-          return ignored.test(nestedPath);
-        }
-        return nestedPath === ignored;
-      });
-      if (hasMatches) {
-        continue;
-      }
-    }
-    if (!isSerializable(nestedValue)) {
-      return {
-        keyPath: nestedPath,
-        value: nestedValue
-      };
-    }
-    if (typeof nestedValue === "object") {
-      foundNestedSerializable = findNonSerializableValue(nestedValue, nestedPath, isSerializable, getEntries, ignoredPaths, cache);
-      if (foundNestedSerializable) {
-        return foundNestedSerializable;
-      }
-    }
-  }
-  if (cache && isNestedFrozen(value)) cache.add(value);
-  return false;
+	let foundNestedSerializable;
+	if (!isSerializable(value)) return {
+		keyPath: path || "<root>",
+		value
+	};
+	if (typeof value !== "object" || value === null) return false;
+	if (cache?.has(value)) return false;
+	const entries = getEntries != null ? getEntries(value) : Object.entries(value);
+	const hasIgnoredPaths = ignoredPaths.length > 0;
+	for (const [key, nestedValue] of entries) {
+		const nestedPath = path ? path + "." + key : key;
+		if (hasIgnoredPaths) {
+			if (ignoredPaths.some((ignored) => {
+				if (ignored instanceof RegExp) return ignored.test(nestedPath);
+				return nestedPath === ignored;
+			})) continue;
+		}
+		if (!isSerializable(nestedValue)) return {
+			keyPath: nestedPath,
+			value: nestedValue
+		};
+		if (typeof nestedValue === "object") {
+			foundNestedSerializable = findNonSerializableValue(nestedValue, nestedPath, isSerializable, getEntries, ignoredPaths, cache);
+			if (foundNestedSerializable) return foundNestedSerializable;
+		}
+	}
+	if (cache && isNestedFrozen(value)) cache.add(value);
+	return false;
 }
 function isNestedFrozen(value) {
-  if (!Object.isFrozen(value)) return false;
-  for (const nestedValue of Object.values(value)) {
-    if (typeof nestedValue !== "object" || nestedValue === null) continue;
-    if (!isNestedFrozen(nestedValue)) return false;
-  }
-  return true;
+	if (!Object.isFrozen(value)) return false;
+	for (const nestedValue of Object.values(value)) {
+		if (typeof nestedValue !== "object" || nestedValue === null) continue;
+		if (!isNestedFrozen(nestedValue)) return false;
+	}
+	return true;
 }
 function createSerializableStateInvariantMiddleware(options = {}) {
-  if (false) // removed by dead control flow
-{} else {
-    const {
-      isSerializable = isPlain,
-      getEntries,
-      ignoredActions = [],
-      ignoredActionPaths = ["meta.arg", "meta.baseQueryMeta"],
-      ignoredPaths = [],
-      warnAfter = 32,
-      ignoreState = false,
-      ignoreActions = false,
-      disableCache = false
-    } = options;
-    const cache = !disableCache && WeakSet ? /* @__PURE__ */ new WeakSet() : void 0;
-    return (storeAPI) => (next) => (action) => {
-      if (!(0,redux__WEBPACK_IMPORTED_MODULE_3__.isAction)(action)) {
-        return next(action);
-      }
-      const result = next(action);
-      const measureUtils = getTimeMeasureUtils(warnAfter, "SerializableStateInvariantMiddleware");
-      if (!ignoreActions && !(ignoredActions.length && ignoredActions.indexOf(action.type) !== -1)) {
-        measureUtils.measureTime(() => {
-          const foundActionNonSerializableValue = findNonSerializableValue(action, "", isSerializable, getEntries, ignoredActionPaths, cache);
-          if (foundActionNonSerializableValue) {
-            const {
-              keyPath,
-              value
-            } = foundActionNonSerializableValue;
-            console.error(`A non-serializable value was detected in an action, in the path: \`${keyPath}\`. Value:`, value, "\nTake a look at the logic that dispatched this action: ", action, "\n(See https://redux.js.org/faq/actions#why-should-type-be-a-string-or-at-least-serializable-why-should-my-action-types-be-constants)", "\n(To allow non-serializable values see: https://redux-toolkit.js.org/usage/usage-guide#working-with-non-serializable-data)");
-          }
-        });
-      }
-      if (!ignoreState) {
-        measureUtils.measureTime(() => {
-          const state = storeAPI.getState();
-          const foundStateNonSerializableValue = findNonSerializableValue(state, "", isSerializable, getEntries, ignoredPaths, cache);
-          if (foundStateNonSerializableValue) {
-            const {
-              keyPath,
-              value
-            } = foundStateNonSerializableValue;
-            console.error(`A non-serializable value was detected in the state, in the path: \`${keyPath}\`. Value:`, value, `
+	if (false) // removed by dead control flow
+{}
+	else {
+		const { isSerializable = isPlain, getEntries, ignoredActions = [], ignoredActionPaths = ["meta.arg", "meta.baseQueryMeta"], ignoredPaths = [], warnAfter = 32, ignoreState = false, ignoreActions = false, disableCache = false } = options;
+		const cache = !disableCache && WeakSet ? /* @__PURE__ */ new WeakSet() : void 0;
+		return (storeAPI) => (next) => (action) => {
+			if (!(0,redux__WEBPACK_IMPORTED_MODULE_0__.isAction)(action)) return next(action);
+			const result = next(action);
+			const measureUtils = getTimeMeasureUtils(warnAfter, "SerializableStateInvariantMiddleware");
+			if (!ignoreActions && !(ignoredActions.length && ignoredActions.indexOf(action.type) !== -1)) measureUtils.measureTime(() => {
+				const foundActionNonSerializableValue = findNonSerializableValue(action, "", isSerializable, getEntries, ignoredActionPaths, cache);
+				if (foundActionNonSerializableValue) {
+					const { keyPath, value } = foundActionNonSerializableValue;
+					console.error(`A non-serializable value was detected in an action, in the path: \`${keyPath}\`. Value:`, value, "\nTake a look at the logic that dispatched this action: ", action, "\n(See https://redux.js.org/faq/actions#why-should-type-be-a-string-why-should-my-action-types-be-constants)", "\n(To allow non-serializable values see: https://redux-toolkit.js.org/usage/usage-guide#working-with-non-serializable-data)");
+				}
+			});
+			if (!ignoreState) {
+				measureUtils.measureTime(() => {
+					const foundStateNonSerializableValue = findNonSerializableValue(storeAPI.getState(), "", isSerializable, getEntries, ignoredPaths, cache);
+					if (foundStateNonSerializableValue) {
+						const { keyPath, value } = foundStateNonSerializableValue;
+						console.error(`A non-serializable value was detected in the state, in the path: \`${keyPath}\`. Value:`, value, `
 Take a look at the reducer(s) handling this action type: ${action.type}.
 (See https://redux.js.org/faq/organizing-state#can-i-put-functions-promises-or-other-non-serializable-items-in-my-store-state)`);
-          }
-        });
-        measureUtils.warnIfExceeded();
-      }
-      return result;
-    };
-  }
+					}
+				});
+				measureUtils.warnIfExceeded();
+			}
+			return result;
+		};
+	}
 }
-
-// src/getDefaultMiddleware.ts
+//#endregion
+//#region src/getDefaultMiddleware.ts
 function isBoolean(x) {
-  return typeof x === "boolean";
+	return typeof x === "boolean";
 }
-var buildGetDefaultMiddleware = () => function getDefaultMiddleware(options) {
-  const {
-    thunk = true,
-    immutableCheck = true,
-    serializableCheck = true,
-    actionCreatorCheck = true
-  } = options ?? {};
-  let middlewareArray = new Tuple();
-  if (thunk) {
-    if (isBoolean(thunk)) {
-      middlewareArray.push(redux_thunk__WEBPACK_IMPORTED_MODULE_4__.thunk);
-    } else {
-      middlewareArray.push((0,redux_thunk__WEBPACK_IMPORTED_MODULE_4__.withExtraArgument)(thunk.extraArgument));
-    }
-  }
-  if (true) {
-    if (immutableCheck) {
-      let immutableOptions = {};
-      if (!isBoolean(immutableCheck)) {
-        immutableOptions = immutableCheck;
-      }
-      middlewareArray.unshift(createImmutableStateInvariantMiddleware(immutableOptions));
-    }
-    if (serializableCheck) {
-      let serializableOptions = {};
-      if (!isBoolean(serializableCheck)) {
-        serializableOptions = serializableCheck;
-      }
-      middlewareArray.push(createSerializableStateInvariantMiddleware(serializableOptions));
-    }
-    if (actionCreatorCheck) {
-      let actionCreatorOptions = {};
-      if (!isBoolean(actionCreatorCheck)) {
-        actionCreatorOptions = actionCreatorCheck;
-      }
-      middlewareArray.unshift(createActionCreatorInvariantMiddleware(actionCreatorOptions));
-    }
-  }
-  return middlewareArray;
+const buildGetDefaultMiddleware = () => function getDefaultMiddleware(options) {
+	const { thunk: thunk$1 = true, immutableCheck = true, serializableCheck = true, actionCreatorCheck = true } = options ?? {};
+	let middlewareArray = new Tuple();
+	if (thunk$1) {
+		if (isBoolean(thunk$1)) middlewareArray.push(redux_thunk__WEBPACK_IMPORTED_MODULE_4__.thunk);
+		else middlewareArray.push((0,redux_thunk__WEBPACK_IMPORTED_MODULE_4__.withExtraArgument)(thunk$1.extraArgument));
+	}
+	if (true) {
+		if (immutableCheck) {
+			let immutableOptions = {};
+			if (!isBoolean(immutableCheck)) immutableOptions = immutableCheck;
+			middlewareArray.unshift(createImmutableStateInvariantMiddleware(immutableOptions));
+		}
+		if (serializableCheck) {
+			let serializableOptions = {};
+			if (!isBoolean(serializableCheck)) serializableOptions = serializableCheck;
+			middlewareArray.push(createSerializableStateInvariantMiddleware(serializableOptions));
+		}
+		if (actionCreatorCheck) {
+			let actionCreatorOptions = {};
+			if (!isBoolean(actionCreatorCheck)) actionCreatorOptions = actionCreatorCheck;
+			middlewareArray.unshift(createActionCreatorInvariantMiddleware(actionCreatorOptions));
+		}
+	}
+	return middlewareArray;
 };
-
-// src/autoBatchEnhancer.ts
-var SHOULD_AUTOBATCH = "RTK_autoBatch";
-var prepareAutoBatched = () => (payload) => ({
-  payload,
-  meta: {
-    [SHOULD_AUTOBATCH]: true
-  }
+//#endregion
+//#region src/autoBatchEnhancer.ts
+const SHOULD_AUTOBATCH = "RTK_autoBatch";
+const prepareAutoBatched = () => (payload) => ({
+	payload,
+	meta: { [SHOULD_AUTOBATCH]: true }
 });
-var createQueueWithTimer = (timeout) => {
-  return (notify) => {
-    setTimeout(notify, timeout);
-  };
+const createQueueWithTimer = (timeout) => {
+	return (notify) => {
+		setTimeout(notify, timeout);
+	};
 };
-var createRafWithFallbackTimer = (raf, timeout) => {
-  return (notify) => {
-    let called = false;
-    const callback = () => {
-      if (called) return;
-      called = true;
-      cancelAnimationFrame(rafId);
-      clearTimeout(timerId);
-      notify();
-    };
-    const rafId = raf(callback);
-    const timerId = setTimeout(callback, timeout);
-  };
+const createRafWithFallbackTimer = (raf, timeout) => {
+	return (notify) => {
+		let called = false;
+		let rafId;
+		let timerId;
+		const callback = () => {
+			if (called) return;
+			called = true;
+			cancelAnimationFrame(rafId);
+			clearTimeout(timerId);
+			notify();
+		};
+		rafId = raf(callback);
+		timerId = setTimeout(callback, timeout);
+	};
 };
-var autoBatchEnhancer = (options = {
-  type: "raf"
-}) => (next) => (...args) => {
-  const store = next(...args);
-  let notifying = true;
-  let shouldNotifyAtEndOfTick = false;
-  let notificationQueued = false;
-  const listeners = /* @__PURE__ */ new Set();
-  const queueCallback = options.type === "tick" ? queueMicrotask : options.type === "raf" ? (
-    // requestAnimationFrame won't exist in SSR environments. Fall back to a vague approximation just to keep from erroring.
-    typeof window !== "undefined" && window.requestAnimationFrame ? createRafWithFallbackTimer(window.requestAnimationFrame, 100) : createQueueWithTimer(10)
-  ) : options.type === "callback" ? options.queueNotification : createQueueWithTimer(options.timeout);
-  const notifyListeners = () => {
-    notificationQueued = false;
-    if (shouldNotifyAtEndOfTick) {
-      shouldNotifyAtEndOfTick = false;
-      listeners.forEach((l) => l());
-    }
-  };
-  return Object.assign({}, store, {
-    // Override the base `store.subscribe` method to keep original listeners
-    // from running if we're delaying notifications
-    subscribe(listener2) {
-      const wrappedListener = () => notifying && listener2();
-      const unsubscribe = store.subscribe(wrappedListener);
-      listeners.add(listener2);
-      return () => {
-        unsubscribe();
-        listeners.delete(listener2);
-      };
-    },
-    // Override the base `store.dispatch` method so that we can check actions
-    // for the `shouldAutoBatch` flag and determine if batching is active
-    dispatch(action) {
-      try {
-        notifying = !action?.meta?.[SHOULD_AUTOBATCH];
-        shouldNotifyAtEndOfTick = !notifying;
-        if (shouldNotifyAtEndOfTick) {
-          if (!notificationQueued) {
-            notificationQueued = true;
-            queueCallback(notifyListeners);
-          }
-        }
-        return store.dispatch(action);
-      } finally {
-        notifying = true;
-      }
-    }
-  });
+const autoBatchEnhancer = (options = { type: "raf" }) => (next) => (...args) => {
+	const store = next(...args);
+	let notifying = true;
+	let shouldNotifyAtEndOfTick = false;
+	let notificationQueued = false;
+	const listeners = /* @__PURE__ */ new Set();
+	const queueCallback = options.type === "tick" ? queueMicrotask : options.type === "raf" ? typeof window !== "undefined" && window.requestAnimationFrame ? createRafWithFallbackTimer(window.requestAnimationFrame, 100) : createQueueWithTimer(10) : options.type === "callback" ? options.queueNotification : createQueueWithTimer(options.timeout);
+	const notifyListeners = () => {
+		notificationQueued = false;
+		if (shouldNotifyAtEndOfTick) {
+			shouldNotifyAtEndOfTick = false;
+			listeners.forEach((l) => l());
+		}
+	};
+	return Object.assign({}, store, {
+		subscribe(listener) {
+			const wrappedListener = () => notifying && listener();
+			const unsubscribe = store.subscribe(wrappedListener);
+			listeners.add(listener);
+			return () => {
+				unsubscribe();
+				listeners.delete(listener);
+			};
+		},
+		dispatch(action) {
+			try {
+				notifying = !action?.meta?.[SHOULD_AUTOBATCH];
+				shouldNotifyAtEndOfTick = !notifying;
+				if (shouldNotifyAtEndOfTick) {
+					if (!notificationQueued) {
+						notificationQueued = true;
+						queueCallback(notifyListeners);
+					}
+				}
+				return store.dispatch(action);
+			} finally {
+				notifying = true;
+			}
+		}
+	});
 };
-
-// src/getDefaultEnhancers.ts
-var buildGetDefaultEnhancers = (middlewareEnhancer) => function getDefaultEnhancers(options) {
-  const {
-    autoBatch = true
-  } = options ?? {};
-  let enhancerArray = new Tuple(middlewareEnhancer);
-  if (autoBatch) {
-    enhancerArray.push(autoBatchEnhancer(typeof autoBatch === "object" ? autoBatch : void 0));
-  }
-  return enhancerArray;
+//#endregion
+//#region src/getDefaultEnhancers.ts
+const buildGetDefaultEnhancers = (middlewareEnhancer) => function getDefaultEnhancers(options) {
+	const { autoBatch = true } = options ?? {};
+	let enhancerArray = new Tuple(middlewareEnhancer);
+	if (autoBatch) enhancerArray.push(autoBatchEnhancer(typeof autoBatch === "object" ? autoBatch : void 0));
+	return enhancerArray;
 };
-
-// src/configureStore.ts
+//#endregion
+//#region src/configureStore.ts
 function configureStore(options) {
-  const getDefaultMiddleware = buildGetDefaultMiddleware();
-  const {
-    reducer = void 0,
-    middleware,
-    devTools = true,
-    duplicateMiddlewareCheck = true,
-    preloadedState = void 0,
-    enhancers = void 0
-  } = options || {};
-  let rootReducer;
-  if (typeof reducer === "function") {
-    rootReducer = reducer;
-  } else if ((0,redux__WEBPACK_IMPORTED_MODULE_3__.isPlainObject)(reducer)) {
-    rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)(reducer);
-  } else {
-    throw new Error( false ? 0 : "`reducer` is a required argument, and must be a function or an object of functions that can be passed to combineReducers");
-  }
-  if ( true && middleware && typeof middleware !== "function") {
-    throw new Error( false ? 0 : "`middleware` field must be a callback");
-  }
-  let finalMiddleware;
-  if (typeof middleware === "function") {
-    finalMiddleware = middleware(getDefaultMiddleware);
-    if ( true && !Array.isArray(finalMiddleware)) {
-      throw new Error( false ? 0 : "when using a middleware builder function, an array of middleware must be returned");
-    }
-  } else {
-    finalMiddleware = getDefaultMiddleware();
-  }
-  if ( true && finalMiddleware.some((item) => typeof item !== "function")) {
-    throw new Error( false ? 0 : "each middleware provided to configureStore must be a function");
-  }
-  if ( true && duplicateMiddlewareCheck) {
-    let middlewareReferences = /* @__PURE__ */ new Set();
-    finalMiddleware.forEach((middleware2) => {
-      if (middlewareReferences.has(middleware2)) {
-        throw new Error( false ? 0 : "Duplicate middleware references found when creating the store. Ensure that each middleware is only included once.");
-      }
-      middlewareReferences.add(middleware2);
-    });
-  }
-  let finalCompose = redux__WEBPACK_IMPORTED_MODULE_3__.compose;
-  if (devTools) {
-    finalCompose = composeWithDevTools({
-      // Enable capture of stack traces for dispatched Redux actions
-      trace: "development" !== "production",
-      ...typeof devTools === "object" && devTools
-    });
-  }
-  const middlewareEnhancer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(...finalMiddleware);
-  const getDefaultEnhancers = buildGetDefaultEnhancers(middlewareEnhancer);
-  if ( true && enhancers && typeof enhancers !== "function") {
-    throw new Error( false ? 0 : "`enhancers` field must be a callback");
-  }
-  let storeEnhancers = typeof enhancers === "function" ? enhancers(getDefaultEnhancers) : getDefaultEnhancers();
-  if ( true && !Array.isArray(storeEnhancers)) {
-    throw new Error( false ? 0 : "`enhancers` callback must return an array");
-  }
-  if ( true && storeEnhancers.some((item) => typeof item !== "function")) {
-    throw new Error( false ? 0 : "each enhancer provided to configureStore must be a function");
-  }
-  if ( true && finalMiddleware.length && !storeEnhancers.includes(middlewareEnhancer)) {
-    console.error("middlewares were provided, but middleware enhancer was not included in final enhancers - make sure to call `getDefaultEnhancers`");
-  }
-  const composedEnhancer = finalCompose(...storeEnhancers);
-  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(rootReducer, preloadedState, composedEnhancer);
+	const getDefaultMiddleware = buildGetDefaultMiddleware();
+	const { reducer = void 0, middleware, devTools = true, duplicateMiddlewareCheck = true, preloadedState = void 0, enhancers = void 0 } = options || {};
+	let rootReducer;
+	if (typeof reducer === "function") rootReducer = reducer;
+	else if ((0,redux__WEBPACK_IMPORTED_MODULE_0__.isPlainObject)(reducer)) rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_0__.combineReducers)(reducer);
+	else throw new Error( false ? 0 : "`reducer` is a required argument, and must be a function or an object of functions that can be passed to combineReducers");
+	if ( true && middleware && typeof middleware !== "function") throw new Error( false ? 0 : "`middleware` field must be a callback");
+	let finalMiddleware;
+	if (typeof middleware === "function") {
+		finalMiddleware = middleware(getDefaultMiddleware);
+		if ( true && !Array.isArray(finalMiddleware)) throw new Error( false ? 0 : "when using a middleware builder function, an array of middleware must be returned");
+	} else finalMiddleware = getDefaultMiddleware();
+	if ( true && finalMiddleware.some((item) => typeof item !== "function")) throw new Error( false ? 0 : "each middleware provided to configureStore must be a function");
+	if ( true && duplicateMiddlewareCheck) {
+		let middlewareReferences = /* @__PURE__ */ new Set();
+		finalMiddleware.forEach((middleware) => {
+			if (middlewareReferences.has(middleware)) throw new Error( false ? 0 : "Duplicate middleware references found when creating the store. Ensure that each middleware is only included once.");
+			middlewareReferences.add(middleware);
+		});
+	}
+	let finalCompose = redux__WEBPACK_IMPORTED_MODULE_0__.compose;
+	if (devTools) finalCompose = composeWithDevTools({
+		trace: "development" !== "production",
+		...typeof devTools === "object" && devTools
+	});
+	const middlewareEnhancer = (0,redux__WEBPACK_IMPORTED_MODULE_0__.applyMiddleware)(...finalMiddleware);
+	const getDefaultEnhancers = buildGetDefaultEnhancers(middlewareEnhancer);
+	if ( true && enhancers && typeof enhancers !== "function") throw new Error( false ? 0 : "`enhancers` field must be a callback");
+	let storeEnhancers = typeof enhancers === "function" ? enhancers(getDefaultEnhancers) : getDefaultEnhancers();
+	if ( true && !Array.isArray(storeEnhancers)) throw new Error( false ? 0 : "`enhancers` callback must return an array");
+	if ( true && storeEnhancers.some((item) => typeof item !== "function")) throw new Error( false ? 0 : "each enhancer provided to configureStore must be a function");
+	if ( true && finalMiddleware.length && !storeEnhancers.includes(middlewareEnhancer)) console.error("middlewares were provided, but middleware enhancer was not included in final enhancers - make sure to call `getDefaultEnhancers`");
+	const composedEnhancer = finalCompose(...storeEnhancers);
+	return (0,redux__WEBPACK_IMPORTED_MODULE_0__.createStore)(rootReducer, preloadedState, composedEnhancer);
 }
-
-// src/mapBuilders.ts
+//#endregion
+//#region src/mapBuilders.ts
 function executeReducerBuilderCallback(builderCallback) {
-  const actionsMap = {};
-  const actionMatchers = [];
-  let defaultCaseReducer;
-  const builder = {
-    addCase(typeOrActionCreator, reducer) {
-      if (true) {
-        if (actionMatchers.length > 0) {
-          throw new Error( false ? 0 : "`builder.addCase` should only be called before calling `builder.addMatcher`");
-        }
-        if (defaultCaseReducer) {
-          throw new Error( false ? 0 : "`builder.addCase` should only be called before calling `builder.addDefaultCase`");
-        }
-      }
-      const type = typeof typeOrActionCreator === "string" ? typeOrActionCreator : typeOrActionCreator.type;
-      if (!type) {
-        throw new Error( false ? 0 : "`builder.addCase` cannot be called with an empty action type");
-      }
-      if (type in actionsMap) {
-        throw new Error( false ? 0 : `\`builder.addCase\` cannot be called with two reducers for the same action type '${type}'`);
-      }
-      actionsMap[type] = reducer;
-      return builder;
-    },
-    addAsyncThunk(asyncThunk, reducers) {
-      if (true) {
-        if (defaultCaseReducer) {
-          throw new Error( false ? 0 : "`builder.addAsyncThunk` should only be called before calling `builder.addDefaultCase`");
-        }
-      }
-      if (reducers.pending) actionsMap[asyncThunk.pending.type] = reducers.pending;
-      if (reducers.rejected) actionsMap[asyncThunk.rejected.type] = reducers.rejected;
-      if (reducers.fulfilled) actionsMap[asyncThunk.fulfilled.type] = reducers.fulfilled;
-      if (reducers.settled) actionMatchers.push({
-        matcher: asyncThunk.settled,
-        reducer: reducers.settled
-      });
-      return builder;
-    },
-    addMatcher(matcher, reducer) {
-      if (true) {
-        if (defaultCaseReducer) {
-          throw new Error( false ? 0 : "`builder.addMatcher` should only be called before calling `builder.addDefaultCase`");
-        }
-      }
-      actionMatchers.push({
-        matcher,
-        reducer
-      });
-      return builder;
-    },
-    addDefaultCase(reducer) {
-      if (true) {
-        if (defaultCaseReducer) {
-          throw new Error( false ? 0 : "`builder.addDefaultCase` can only be called once");
-        }
-      }
-      defaultCaseReducer = reducer;
-      return builder;
-    }
-  };
-  builderCallback(builder);
-  return [actionsMap, actionMatchers, defaultCaseReducer];
+	const actionsMap = {};
+	const actionMatchers = [];
+	let defaultCaseReducer;
+	const builder = {
+		addCase(typeOrActionCreator, reducer) {
+			if (true) {
+				if (actionMatchers.length > 0) throw new Error( false ? 0 : "`builder.addCase` should only be called before calling `builder.addMatcher`");
+				if (defaultCaseReducer) throw new Error( false ? 0 : "`builder.addCase` should only be called before calling `builder.addDefaultCase`");
+			}
+			const type = typeof typeOrActionCreator === "string" ? typeOrActionCreator : typeOrActionCreator.type;
+			if (!type) throw new Error( false ? 0 : "`builder.addCase` cannot be called with an empty action type");
+			if (type in actionsMap) throw new Error( false ? 0 : `\`builder.addCase\` cannot be called with two reducers for the same action type '${type}'`);
+			actionsMap[type] = reducer;
+			return builder;
+		},
+		addAsyncThunk(asyncThunk, reducers) {
+			if (true) {
+				if (defaultCaseReducer) throw new Error( false ? 0 : "`builder.addAsyncThunk` should only be called before calling `builder.addDefaultCase`");
+			}
+			if (reducers.pending) actionsMap[asyncThunk.pending.type] = reducers.pending;
+			if (reducers.rejected) actionsMap[asyncThunk.rejected.type] = reducers.rejected;
+			if (reducers.fulfilled) actionsMap[asyncThunk.fulfilled.type] = reducers.fulfilled;
+			if (reducers.settled) actionMatchers.push({
+				matcher: asyncThunk.settled,
+				reducer: reducers.settled
+			});
+			return builder;
+		},
+		addMatcher(matcher, reducer) {
+			if (true) {
+				if (defaultCaseReducer) throw new Error( false ? 0 : "`builder.addMatcher` should only be called before calling `builder.addDefaultCase`");
+			}
+			actionMatchers.push({
+				matcher,
+				reducer
+			});
+			return builder;
+		},
+		addDefaultCase(reducer) {
+			if (true) {
+				if (defaultCaseReducer) throw new Error( false ? 0 : "`builder.addDefaultCase` can only be called once");
+			}
+			defaultCaseReducer = reducer;
+			return builder;
+		}
+	};
+	builderCallback(builder);
+	return [
+		actionsMap,
+		actionMatchers,
+		defaultCaseReducer
+	];
 }
-
-// src/createReducer.ts
+//#endregion
+//#region src/createReducer.ts
 function isStateFunction(x) {
-  return typeof x === "function";
+	return typeof x === "function";
 }
 function createReducer(initialState, mapOrBuilderCallback) {
-  if (true) {
-    if (typeof mapOrBuilderCallback === "object") {
-      throw new Error( false ? 0 : "The object notation for `createReducer` has been removed. Please use the 'builder callback' notation instead: https://redux-toolkit.js.org/api/createReducer");
-    }
-  }
-  let [actionsMap, finalActionMatchers, finalDefaultCaseReducer] = executeReducerBuilderCallback(mapOrBuilderCallback);
-  let getInitialState;
-  if (isStateFunction(initialState)) {
-    getInitialState = () => freezeDraftable(initialState());
-  } else {
-    const frozenInitialState = freezeDraftable(initialState);
-    getInitialState = () => frozenInitialState;
-  }
-  function reducer(state = getInitialState(), action) {
-    let caseReducers = [actionsMap[action.type], ...finalActionMatchers.filter(({
-      matcher
-    }) => matcher(action)).map(({
-      reducer: reducer2
-    }) => reducer2)];
-    if (caseReducers.filter((cr) => !!cr).length === 0) {
-      caseReducers = [finalDefaultCaseReducer];
-    }
-    return caseReducers.reduce((previousState, caseReducer) => {
-      if (caseReducer) {
-        if ((0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraft)(previousState)) {
-          const draft = previousState;
-          const result = caseReducer(draft, action);
-          if (result === void 0) {
-            return previousState;
-          }
-          return result;
-        } else if (!(0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraftable)(previousState)) {
-          const result = caseReducer(previousState, action);
-          if (result === void 0) {
-            if (previousState === null) {
-              return previousState;
-            }
-            throw Error("A case reducer on a non-draftable value must not return undefined");
-          }
-          return result;
-        } else {
-          return (0,immer__WEBPACK_IMPORTED_MODULE_1__.produce)(previousState, (draft) => {
-            return caseReducer(draft, action);
-          });
-        }
-      }
-      return previousState;
-    }, state);
-  }
-  reducer.getInitialState = getInitialState;
-  return reducer;
+	if (true) {
+		if (typeof mapOrBuilderCallback === "object") throw new Error( false ? 0 : "The object notation for `createReducer` has been removed. Please use the 'builder callback' notation instead: https://redux-toolkit.js.org/api/createReducer");
+	}
+	let [actionsMap, finalActionMatchers, finalDefaultCaseReducer] = executeReducerBuilderCallback(mapOrBuilderCallback);
+	let getInitialState;
+	if (isStateFunction(initialState)) getInitialState = () => freezeDraftable(initialState());
+	else {
+		const frozenInitialState = freezeDraftable(initialState);
+		getInitialState = () => frozenInitialState;
+	}
+	function reducer(state = getInitialState(), action) {
+		let caseReducers = [actionsMap[action.type], ...finalActionMatchers.filter(({ matcher }) => matcher(action)).map(({ reducer }) => reducer)];
+		if (caseReducers.filter((cr) => !!cr).length === 0) caseReducers = [finalDefaultCaseReducer];
+		return caseReducers.reduce((previousState, caseReducer) => {
+			if (caseReducer) {
+				if ((0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraft)(previousState)) {
+					const result = caseReducer(previousState, action);
+					if (result === void 0) return previousState;
+					return result;
+				} else if (!(0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraftable)(previousState)) {
+					const result = caseReducer(previousState, action);
+					if (result === void 0) {
+						if (previousState === null) return previousState;
+						throw new Error( false ? 0 : "A case reducer on a non-draftable value must not return undefined");
+					}
+					return result;
+				} else return (0,immer__WEBPACK_IMPORTED_MODULE_1__.produce)(previousState, (draft) => {
+					return caseReducer(draft, action);
+				});
+			}
+			return previousState;
+		}, state);
+	}
+	reducer.getInitialState = getInitialState;
+	return reducer;
 }
-
-// src/matchers.ts
-var matches = (matcher, action) => {
-  if (hasMatchFunction(matcher)) {
-    return matcher.match(action);
-  } else {
-    return matcher(action);
-  }
+//#endregion
+//#region src/matchers.ts
+const matches = (matcher, action) => {
+	if (hasMatchFunction(matcher)) return matcher.match(action);
+	else return matcher(action);
 };
 function isAnyOf(...matchers) {
-  return (action) => {
-    return matchers.some((matcher) => matches(matcher, action));
-  };
+	return (action) => {
+		return matchers.some((matcher) => matches(matcher, action));
+	};
 }
 function isAllOf(...matchers) {
-  return (action) => {
-    return matchers.every((matcher) => matches(matcher, action));
-  };
+	return (action) => {
+		return matchers.every((matcher) => matches(matcher, action));
+	};
 }
 function hasExpectedRequestMetadata(action, validStatus) {
-  if (!action || !action.meta) return false;
-  const hasValidRequestId = typeof action.meta.requestId === "string";
-  const hasValidRequestStatus = validStatus.indexOf(action.meta.requestStatus) > -1;
-  return hasValidRequestId && hasValidRequestStatus;
+	if (!action || !action.meta) return false;
+	const hasValidRequestId = typeof action.meta.requestId === "string";
+	const hasValidRequestStatus = validStatus.indexOf(action.meta.requestStatus) > -1;
+	return hasValidRequestId && hasValidRequestStatus;
 }
 function isAsyncThunkArray(a) {
-  return typeof a[0] === "function" && "pending" in a[0] && "fulfilled" in a[0] && "rejected" in a[0];
+	return typeof a[0] === "function" && "pending" in a[0] && "fulfilled" in a[0] && "rejected" in a[0];
 }
 function isPending(...asyncThunks) {
-  if (asyncThunks.length === 0) {
-    return (action) => hasExpectedRequestMetadata(action, ["pending"]);
-  }
-  if (!isAsyncThunkArray(asyncThunks)) {
-    return isPending()(asyncThunks[0]);
-  }
-  return isAnyOf(...asyncThunks.map((asyncThunk) => asyncThunk.pending));
+	if (asyncThunks.length === 0) return (action) => hasExpectedRequestMetadata(action, ["pending"]);
+	if (!isAsyncThunkArray(asyncThunks)) return isPending()(asyncThunks[0]);
+	return isAnyOf(...asyncThunks.map((asyncThunk) => asyncThunk.pending));
 }
 function isRejected(...asyncThunks) {
-  if (asyncThunks.length === 0) {
-    return (action) => hasExpectedRequestMetadata(action, ["rejected"]);
-  }
-  if (!isAsyncThunkArray(asyncThunks)) {
-    return isRejected()(asyncThunks[0]);
-  }
-  return isAnyOf(...asyncThunks.map((asyncThunk) => asyncThunk.rejected));
+	if (asyncThunks.length === 0) return (action) => hasExpectedRequestMetadata(action, ["rejected"]);
+	if (!isAsyncThunkArray(asyncThunks)) return isRejected()(asyncThunks[0]);
+	return isAnyOf(...asyncThunks.map((asyncThunk) => asyncThunk.rejected));
 }
 function isRejectedWithValue(...asyncThunks) {
-  const hasFlag = (action) => {
-    return action && action.meta && action.meta.rejectedWithValue;
-  };
-  if (asyncThunks.length === 0) {
-    return isAllOf(isRejected(...asyncThunks), hasFlag);
-  }
-  if (!isAsyncThunkArray(asyncThunks)) {
-    return isRejectedWithValue()(asyncThunks[0]);
-  }
-  return isAllOf(isRejected(...asyncThunks), hasFlag);
+	const hasFlag = (action) => {
+		return action && action.meta && action.meta.rejectedWithValue;
+	};
+	if (asyncThunks.length === 0) return isAllOf(isRejected(...asyncThunks), hasFlag);
+	if (!isAsyncThunkArray(asyncThunks)) return isRejectedWithValue()(asyncThunks[0]);
+	return isAllOf(isRejected(...asyncThunks), hasFlag);
 }
 function isFulfilled(...asyncThunks) {
-  if (asyncThunks.length === 0) {
-    return (action) => hasExpectedRequestMetadata(action, ["fulfilled"]);
-  }
-  if (!isAsyncThunkArray(asyncThunks)) {
-    return isFulfilled()(asyncThunks[0]);
-  }
-  return isAnyOf(...asyncThunks.map((asyncThunk) => asyncThunk.fulfilled));
+	if (asyncThunks.length === 0) return (action) => hasExpectedRequestMetadata(action, ["fulfilled"]);
+	if (!isAsyncThunkArray(asyncThunks)) return isFulfilled()(asyncThunks[0]);
+	return isAnyOf(...asyncThunks.map((asyncThunk) => asyncThunk.fulfilled));
 }
 function isAsyncThunkAction(...asyncThunks) {
-  if (asyncThunks.length === 0) {
-    return (action) => hasExpectedRequestMetadata(action, ["pending", "fulfilled", "rejected"]);
-  }
-  if (!isAsyncThunkArray(asyncThunks)) {
-    return isAsyncThunkAction()(asyncThunks[0]);
-  }
-  return isAnyOf(...asyncThunks.flatMap((asyncThunk) => [asyncThunk.pending, asyncThunk.rejected, asyncThunk.fulfilled]));
+	if (asyncThunks.length === 0) return (action) => hasExpectedRequestMetadata(action, [
+		"pending",
+		"fulfilled",
+		"rejected"
+	]);
+	if (!isAsyncThunkArray(asyncThunks)) return isAsyncThunkAction()(asyncThunks[0]);
+	return isAnyOf(...asyncThunks.flatMap((asyncThunk) => [
+		asyncThunk.pending,
+		asyncThunk.rejected,
+		asyncThunk.fulfilled
+	]));
 }
-
-// src/nanoid.ts
-var urlAlphabet = "ModuleSymbhasOwnPr-0123456789ABCDEFGHNRVfgctiUvz_KqYTJkLxpZXIjQW";
-var nanoid = (size = 21) => {
-  let id = "";
-  let i = size;
-  while (i--) {
-    id += urlAlphabet[Math.random() * 64 | 0];
-  }
-  return id;
+//#endregion
+//#region src/nanoid.ts
+let urlAlphabet = "ModuleSymbhasOwnPr-0123456789ABCDEFGHNRVfgctiUvz_KqYTJkLxpZXIjQW";
+let nanoid = (size = 21) => {
+	let id = "";
+	let i = size;
+	while (i--) id += urlAlphabet[Math.random() * 64 | 0];
+	return id;
 };
-
-// src/createAsyncThunk.ts
-var commonProperties = ["name", "message", "stack", "code"];
+//#endregion
+//#region src/createAsyncThunk.ts
+const commonProperties = [
+	"name",
+	"message",
+	"stack",
+	"code"
+];
 var RejectWithValue = class {
-  constructor(payload, meta) {
-    this.payload = payload;
-    this.meta = meta;
-  }
-  payload;
-  meta;
-  /*
-  type-only property to distinguish between RejectWithValue and FulfillWithMeta
-  does not exist at runtime
-  */
-  _type;
+	payload;
+	meta;
+	_type;
+	constructor(payload, meta) {
+		this.payload = payload;
+		this.meta = meta;
+	}
 };
 var FulfillWithMeta = class {
-  constructor(payload, meta) {
-    this.payload = payload;
-    this.meta = meta;
-  }
-  payload;
-  meta;
-  /*
-  type-only property to distinguish between RejectWithValue and FulfillWithMeta
-  does not exist at runtime
-  */
-  _type;
+	payload;
+	meta;
+	_type;
+	constructor(payload, meta) {
+		this.payload = payload;
+		this.meta = meta;
+	}
 };
-var miniSerializeError = (value) => {
-  if (typeof value === "object" && value !== null) {
-    const simpleError = {};
-    for (const property of commonProperties) {
-      if (typeof value[property] === "string") {
-        simpleError[property] = value[property];
-      }
-    }
-    return simpleError;
-  }
-  return {
-    message: String(value)
-  };
+const miniSerializeError = (value) => {
+	if (typeof value === "object" && value !== null) {
+		const simpleError = {};
+		for (const property of commonProperties) if (typeof value[property] === "string") simpleError[property] = value[property];
+		return simpleError;
+	}
+	return { message: String(value) };
 };
-var externalAbortMessage = "External signal was aborted";
-var createAsyncThunk = /* @__PURE__ */ (() => {
-  function createAsyncThunk2(typePrefix, payloadCreator, options) {
-    const fulfilled = createAction(typePrefix + "/fulfilled", (payload, requestId, arg, meta) => ({
-      payload,
-      meta: {
-        ...meta || {},
-        arg,
-        requestId,
-        requestStatus: "fulfilled"
-      }
-    }));
-    const pending = createAction(typePrefix + "/pending", (requestId, arg, meta) => ({
-      payload: void 0,
-      meta: {
-        ...meta || {},
-        arg,
-        requestId,
-        requestStatus: "pending"
-      }
-    }));
-    const rejected = createAction(typePrefix + "/rejected", (error, requestId, arg, payload, meta) => ({
-      payload,
-      error: (options && options.serializeError || miniSerializeError)(error || "Rejected"),
-      meta: {
-        ...meta || {},
-        arg,
-        requestId,
-        rejectedWithValue: !!payload,
-        requestStatus: "rejected",
-        aborted: error?.name === "AbortError",
-        condition: error?.name === "ConditionError"
-      }
-    }));
-    function actionCreator(arg, {
-      signal
-    } = {}) {
-      return (dispatch, getState, extra) => {
-        const requestId = options?.idGenerator ? options.idGenerator(arg) : nanoid();
-        const abortController = new AbortController();
-        let abortHandler;
-        let abortReason;
-        function abort(reason) {
-          abortReason = reason;
-          abortController.abort();
-        }
-        if (signal) {
-          if (signal.aborted) {
-            abort(externalAbortMessage);
-          } else {
-            signal.addEventListener("abort", () => abort(externalAbortMessage), {
-              once: true
-            });
-          }
-        }
-        const promise = (async function() {
-          let finalAction;
-          try {
-            let conditionResult = options?.condition?.(arg, {
-              getState,
-              extra
-            });
-            if (isThenable(conditionResult)) {
-              conditionResult = await conditionResult;
-            }
-            if (conditionResult === false || abortController.signal.aborted) {
-              throw {
-                name: "ConditionError",
-                message: "Aborted due to condition callback returning false."
-              };
-            }
-            const abortedPromise = new Promise((_, reject) => {
-              abortHandler = () => {
-                reject({
-                  name: "AbortError",
-                  message: abortReason || "Aborted"
-                });
-              };
-              abortController.signal.addEventListener("abort", abortHandler, {
-                once: true
-              });
-            });
-            dispatch(pending(requestId, arg, options?.getPendingMeta?.({
-              requestId,
-              arg
-            }, {
-              getState,
-              extra
-            })));
-            finalAction = await Promise.race([abortedPromise, Promise.resolve(payloadCreator(arg, {
-              dispatch,
-              getState,
-              extra,
-              requestId,
-              signal: abortController.signal,
-              abort,
-              rejectWithValue: ((value, meta) => {
-                return new RejectWithValue(value, meta);
-              }),
-              fulfillWithValue: ((value, meta) => {
-                return new FulfillWithMeta(value, meta);
-              })
-            })).then((result) => {
-              if (result instanceof RejectWithValue) {
-                throw result;
-              }
-              if (result instanceof FulfillWithMeta) {
-                return fulfilled(result.payload, requestId, arg, result.meta);
-              }
-              return fulfilled(result, requestId, arg);
-            })]);
-          } catch (err) {
-            finalAction = err instanceof RejectWithValue ? rejected(null, requestId, arg, err.payload, err.meta) : rejected(err, requestId, arg);
-          } finally {
-            if (abortHandler) {
-              abortController.signal.removeEventListener("abort", abortHandler);
-            }
-          }
-          const skipDispatch = options && !options.dispatchConditionRejection && rejected.match(finalAction) && finalAction.meta.condition;
-          if (!skipDispatch) {
-            dispatch(finalAction);
-          }
-          return finalAction;
-        })();
-        return Object.assign(promise, {
-          abort,
-          requestId,
-          arg,
-          unwrap() {
-            return promise.then(unwrapResult);
-          }
-        });
-      };
-    }
-    return Object.assign(actionCreator, {
-      pending,
-      rejected,
-      fulfilled,
-      settled: isAnyOf(rejected, fulfilled),
-      typePrefix
-    });
-  }
-  createAsyncThunk2.withTypes = () => createAsyncThunk2;
-  return createAsyncThunk2;
+const externalAbortMessage = "External signal was aborted";
+const createAsyncThunk = /* @__PURE__ */ (() => {
+	function createAsyncThunk(typePrefix, payloadCreator, options) {
+		const fulfilled = createAction(typePrefix + "/fulfilled", (payload, requestId, arg, meta) => ({
+			payload,
+			meta: {
+				...meta || {},
+				arg,
+				requestId,
+				requestStatus: "fulfilled"
+			}
+		}));
+		const pending = createAction(typePrefix + "/pending", (requestId, arg, meta) => ({
+			payload: void 0,
+			meta: {
+				...meta || {},
+				arg,
+				requestId,
+				requestStatus: "pending"
+			}
+		}));
+		const rejected = createAction(typePrefix + "/rejected", (error, requestId, arg, payload, meta) => ({
+			payload,
+			error: (options && options.serializeError || miniSerializeError)(error || "Rejected"),
+			meta: {
+				...meta || {},
+				arg,
+				requestId,
+				rejectedWithValue: payload !== void 0,
+				requestStatus: "rejected",
+				aborted: error?.name === "AbortError",
+				condition: error?.name === "ConditionError"
+			}
+		}));
+		function actionCreator(arg, { signal } = {}) {
+			return (dispatch, getState, extra) => {
+				const requestId = options?.idGenerator ? options.idGenerator(arg) : nanoid();
+				const abortController = new AbortController();
+				let abortHandler;
+				let abortReason;
+				function abort(reason) {
+					abortReason = reason;
+					abortController.abort();
+				}
+				if (signal) {
+					if (signal.aborted) abort(externalAbortMessage);
+					else signal.addEventListener("abort", () => abort(externalAbortMessage), { once: true });
+				}
+				const promise = async function() {
+					let finalAction;
+					try {
+						let conditionResult = options?.condition?.(arg, {
+							getState,
+							extra
+						});
+						if (isThenable(conditionResult)) conditionResult = await conditionResult;
+						if (conditionResult === false) throw {
+							name: "ConditionError",
+							message: "Aborted due to condition callback returning false."
+						};
+						if (abortController.signal.aborted) throw {
+							name: "AbortError",
+							message: abortReason || "Aborted"
+						};
+						const abortedPromise = new Promise((_, reject) => {
+							abortHandler = () => {
+								reject({
+									name: "AbortError",
+									message: abortReason || "Aborted"
+								});
+							};
+							abortController.signal.addEventListener("abort", abortHandler, { once: true });
+						});
+						dispatch(pending(requestId, arg, options?.getPendingMeta?.({
+							requestId,
+							arg
+						}, {
+							getState,
+							extra
+						})));
+						finalAction = await Promise.race([abortedPromise, Promise.resolve(payloadCreator(arg, {
+							dispatch,
+							getState,
+							extra,
+							requestId,
+							signal: abortController.signal,
+							abort,
+							rejectWithValue: ((value, meta) => {
+								return new RejectWithValue(value, meta);
+							}),
+							fulfillWithValue: ((value, meta) => {
+								return new FulfillWithMeta(value, meta);
+							})
+						})).then((result) => {
+							if (result instanceof RejectWithValue) throw result;
+							if (result instanceof FulfillWithMeta) return fulfilled(result.payload, requestId, arg, result.meta);
+							return fulfilled(result, requestId, arg);
+						})]);
+					} catch (err) {
+						finalAction = err instanceof RejectWithValue ? rejected(null, requestId, arg, err.payload, err.meta) : rejected(err, requestId, arg);
+					} finally {
+						if (abortHandler) abortController.signal.removeEventListener("abort", abortHandler);
+					}
+					if (!(options && !options.dispatchConditionRejection && rejected.match(finalAction) && finalAction.meta.condition)) dispatch(finalAction);
+					return finalAction;
+				}();
+				return Object.assign(promise, {
+					abort,
+					requestId,
+					arg,
+					unwrap() {
+						return promise.then(unwrapResult);
+					}
+				});
+			};
+		}
+		return Object.assign(actionCreator, {
+			pending,
+			rejected,
+			fulfilled,
+			settled: isAnyOf(rejected, fulfilled),
+			typePrefix
+		});
+	}
+	createAsyncThunk.withTypes = () => createAsyncThunk;
+	return createAsyncThunk;
 })();
 function unwrapResult(action) {
-  if (action.meta && action.meta.rejectedWithValue) {
-    throw action.payload;
-  }
-  if (action.error) {
-    throw action.error;
-  }
-  return action.payload;
+	if (action.meta && action.meta.rejectedWithValue) throw action.payload;
+	if (action.error) throw action.error;
+	return action.payload;
 }
 function isThenable(value) {
-  return value !== null && typeof value === "object" && typeof value.then === "function";
+	return value !== null && typeof value === "object" && typeof value.then === "function";
 }
-
-// src/createSlice.ts
-var asyncThunkSymbol = /* @__PURE__ */ Symbol.for("rtk-slice-createasyncthunk");
-var asyncThunkCreator = {
-  [asyncThunkSymbol]: createAsyncThunk
-};
-var ReducerType = /* @__PURE__ */ ((ReducerType2) => {
-  ReducerType2["reducer"] = "reducer";
-  ReducerType2["reducerWithPrepare"] = "reducerWithPrepare";
-  ReducerType2["asyncThunk"] = "asyncThunk";
-  return ReducerType2;
-})(ReducerType || {});
+//#endregion
+//#region src/createSlice.ts
+const asyncThunkSymbol = /* @__PURE__ */ Symbol.for("rtk-slice-createasyncthunk");
+const asyncThunkCreator = { [asyncThunkSymbol]: createAsyncThunk };
+let ReducerType = /* @__PURE__ */ function(ReducerType) {
+	ReducerType["reducer"] = "reducer";
+	ReducerType["reducerWithPrepare"] = "reducerWithPrepare";
+	ReducerType["asyncThunk"] = "asyncThunk";
+	return ReducerType;
+}({});
 function getType(slice, actionKey) {
-  return `${slice}/${actionKey}`;
+	return `${slice}/${actionKey}`;
 }
-function buildCreateSlice({
-  creators
-} = {}) {
-  const cAT = creators?.asyncThunk?.[asyncThunkSymbol];
-  return function createSlice2(options) {
-    const {
-      name,
-      reducerPath = name
-    } = options;
-    if (!name) {
-      throw new Error( false ? 0 : "`name` is a required option for createSlice");
-    }
-    if (typeof process !== "undefined" && "development" === "development") {
-      if (options.initialState === void 0) {
-        console.error("You must provide an `initialState` value that is not `undefined`. You may have misspelled `initialState`");
-      }
-    }
-    const reducers = (typeof options.reducers === "function" ? options.reducers(buildReducerCreators()) : options.reducers) || {};
-    const reducerNames = Object.keys(reducers);
-    const context = {
-      sliceCaseReducersByName: {},
-      sliceCaseReducersByType: {},
-      actionCreators: {},
-      sliceMatchers: []
-    };
-    const contextMethods = {
-      addCase(typeOrActionCreator, reducer2) {
-        const type = typeof typeOrActionCreator === "string" ? typeOrActionCreator : typeOrActionCreator.type;
-        if (!type) {
-          throw new Error( false ? 0 : "`context.addCase` cannot be called with an empty action type");
-        }
-        if (type in context.sliceCaseReducersByType) {
-          throw new Error( false ? 0 : "`context.addCase` cannot be called with two reducers for the same action type: " + type);
-        }
-        context.sliceCaseReducersByType[type] = reducer2;
-        return contextMethods;
-      },
-      addMatcher(matcher, reducer2) {
-        context.sliceMatchers.push({
-          matcher,
-          reducer: reducer2
-        });
-        return contextMethods;
-      },
-      exposeAction(name2, actionCreator) {
-        context.actionCreators[name2] = actionCreator;
-        return contextMethods;
-      },
-      exposeCaseReducer(name2, reducer2) {
-        context.sliceCaseReducersByName[name2] = reducer2;
-        return contextMethods;
-      }
-    };
-    reducerNames.forEach((reducerName) => {
-      const reducerDefinition = reducers[reducerName];
-      const reducerDetails = {
-        reducerName,
-        type: getType(name, reducerName),
-        createNotation: typeof options.reducers === "function"
-      };
-      if (isAsyncThunkSliceReducerDefinition(reducerDefinition)) {
-        handleThunkCaseReducerDefinition(reducerDetails, reducerDefinition, contextMethods, cAT);
-      } else {
-        handleNormalReducerDefinition(reducerDetails, reducerDefinition, contextMethods);
-      }
-    });
-    function buildReducer() {
-      if (true) {
-        if (typeof options.extraReducers === "object") {
-          throw new Error( false ? 0 : "The object notation for `createSlice.extraReducers` has been removed. Please use the 'builder callback' notation instead: https://redux-toolkit.js.org/api/createSlice");
-        }
-      }
-      const [extraReducers = {}, actionMatchers = [], defaultCaseReducer = void 0] = typeof options.extraReducers === "function" ? executeReducerBuilderCallback(options.extraReducers) : [options.extraReducers];
-      const finalCaseReducers = {
-        ...extraReducers,
-        ...context.sliceCaseReducersByType
-      };
-      return createReducer(options.initialState, (builder) => {
-        for (let key in finalCaseReducers) {
-          builder.addCase(key, finalCaseReducers[key]);
-        }
-        for (let sM of context.sliceMatchers) {
-          builder.addMatcher(sM.matcher, sM.reducer);
-        }
-        for (let m of actionMatchers) {
-          builder.addMatcher(m.matcher, m.reducer);
-        }
-        if (defaultCaseReducer) {
-          builder.addDefaultCase(defaultCaseReducer);
-        }
-      });
-    }
-    const selectSelf = (state) => state;
-    const injectedSelectorCache = /* @__PURE__ */ new Map();
-    const injectedStateCache = /* @__PURE__ */ new WeakMap();
-    let _reducer;
-    function reducer(state, action) {
-      if (!_reducer) _reducer = buildReducer();
-      return _reducer(state, action);
-    }
-    function getInitialState() {
-      if (!_reducer) _reducer = buildReducer();
-      return _reducer.getInitialState();
-    }
-    function makeSelectorProps(reducerPath2, injected = false) {
-      function selectSlice(state) {
-        let sliceState = state[reducerPath2];
-        if (typeof sliceState === "undefined") {
-          if (injected) {
-            sliceState = getOrInsertComputed(injectedStateCache, selectSlice, getInitialState);
-          } else if (true) {
-            throw new Error( false ? 0 : "selectSlice returned undefined for an uninjected slice reducer");
-          }
-        }
-        return sliceState;
-      }
-      function getSelectors(selectState = selectSelf) {
-        const selectorCache = getOrInsertComputed(injectedSelectorCache, injected, () => /* @__PURE__ */ new WeakMap());
-        return getOrInsertComputed(selectorCache, selectState, () => {
-          const map = {};
-          for (const [name2, selector] of Object.entries(options.selectors ?? {})) {
-            map[name2] = wrapSelector(selector, selectState, () => getOrInsertComputed(injectedStateCache, selectState, getInitialState), injected);
-          }
-          return map;
-        });
-      }
-      return {
-        reducerPath: reducerPath2,
-        getSelectors,
-        get selectors() {
-          return getSelectors(selectSlice);
-        },
-        selectSlice
-      };
-    }
-    const slice = {
-      name,
-      reducer,
-      actions: context.actionCreators,
-      caseReducers: context.sliceCaseReducersByName,
-      getInitialState,
-      ...makeSelectorProps(reducerPath),
-      injectInto(injectable, {
-        reducerPath: pathOpt,
-        ...config
-      } = {}) {
-        const newReducerPath = pathOpt ?? reducerPath;
-        injectable.inject({
-          reducerPath: newReducerPath,
-          reducer
-        }, config);
-        return {
-          ...slice,
-          ...makeSelectorProps(newReducerPath, true)
-        };
-      }
-    };
-    return slice;
-  };
+function buildCreateSlice({ creators } = {}) {
+	const cAT = creators?.asyncThunk?.[asyncThunkSymbol];
+	return function createSlice(options) {
+		const { name, reducerPath = name } = options;
+		if (!name) throw new Error( false ? 0 : "`name` is a required option for createSlice");
+		if (typeof process !== "undefined" && "development" === "development") {
+			if (options.initialState === void 0) console.error("You must provide an `initialState` value that is not `undefined`. You may have misspelled `initialState`");
+		}
+		const reducers = (typeof options.reducers === "function" ? options.reducers(buildReducerCreators()) : options.reducers) || {};
+		const reducerNames = Object.keys(reducers);
+		const context = {
+			sliceCaseReducersByName: {},
+			sliceCaseReducersByType: {},
+			actionCreators: {},
+			sliceMatchers: []
+		};
+		const contextMethods = {
+			addCase(typeOrActionCreator, reducer) {
+				const type = typeof typeOrActionCreator === "string" ? typeOrActionCreator : typeOrActionCreator.type;
+				if (!type) throw new Error( false ? 0 : "`context.addCase` cannot be called with an empty action type");
+				if (type in context.sliceCaseReducersByType) throw new Error( false ? 0 : "`context.addCase` cannot be called with two reducers for the same action type: " + type);
+				context.sliceCaseReducersByType[type] = reducer;
+				return contextMethods;
+			},
+			addMatcher(matcher, reducer) {
+				context.sliceMatchers.push({
+					matcher,
+					reducer
+				});
+				return contextMethods;
+			},
+			exposeAction(name, actionCreator) {
+				context.actionCreators[name] = actionCreator;
+				return contextMethods;
+			},
+			exposeCaseReducer(name, reducer) {
+				context.sliceCaseReducersByName[name] = reducer;
+				return contextMethods;
+			}
+		};
+		reducerNames.forEach((reducerName) => {
+			const reducerDefinition = reducers[reducerName];
+			const reducerDetails = {
+				reducerName,
+				type: getType(name, reducerName),
+				createNotation: typeof options.reducers === "function"
+			};
+			if (isAsyncThunkSliceReducerDefinition(reducerDefinition)) handleThunkCaseReducerDefinition(reducerDetails, reducerDefinition, contextMethods, cAT);
+			else handleNormalReducerDefinition(reducerDetails, reducerDefinition, contextMethods);
+		});
+		function buildReducer() {
+			if (true) {
+				if (typeof options.extraReducers === "object") throw new Error( false ? 0 : "The object notation for `createSlice.extraReducers` has been removed. Please use the 'builder callback' notation instead: https://redux-toolkit.js.org/api/createSlice");
+			}
+			const [extraReducers = {}, actionMatchers = [], defaultCaseReducer = void 0] = typeof options.extraReducers === "function" ? executeReducerBuilderCallback(options.extraReducers) : [options.extraReducers];
+			const finalCaseReducers = {
+				...extraReducers,
+				...context.sliceCaseReducersByType
+			};
+			return createReducer(options.initialState, (builder) => {
+				for (let key in finalCaseReducers) builder.addCase(key, finalCaseReducers[key]);
+				for (let sM of context.sliceMatchers) builder.addMatcher(sM.matcher, sM.reducer);
+				for (let m of actionMatchers) builder.addMatcher(m.matcher, m.reducer);
+				if (defaultCaseReducer) builder.addDefaultCase(defaultCaseReducer);
+			});
+		}
+		const selectSelf = (state) => state;
+		const injectedSelectorCache = /* @__PURE__ */ new Map();
+		const injectedStateCache = /* @__PURE__ */ new WeakMap();
+		let _reducer;
+		function reducer(state, action) {
+			if (!_reducer) _reducer = buildReducer();
+			return _reducer(state, action);
+		}
+		function getInitialState() {
+			if (!_reducer) _reducer = buildReducer();
+			return _reducer.getInitialState();
+		}
+		function makeSelectorProps(reducerPath, injected = false) {
+			function selectSlice(state) {
+				let sliceState = state[reducerPath];
+				if (typeof sliceState === "undefined") {
+					if (injected) sliceState = getOrInsertComputed(injectedStateCache, selectSlice, getInitialState);
+					else if (true) throw new Error( false ? 0 : "selectSlice returned undefined for an uninjected slice reducer");
+				}
+				return sliceState;
+			}
+			function getSelectors(selectState = selectSelf) {
+				return getOrInsertComputed(getOrInsertComputed(injectedSelectorCache, injected, () => /* @__PURE__ */ new WeakMap()), selectState, () => {
+					const map = {};
+					for (const [name, selector] of Object.entries(options.selectors ?? {})) map[name] = wrapSelector(selector, selectState, () => getOrInsertComputed(injectedStateCache, selectState, getInitialState), injected);
+					return map;
+				});
+			}
+			return {
+				reducerPath,
+				getSelectors,
+				get selectors() {
+					return getSelectors(selectSlice);
+				},
+				selectSlice
+			};
+		}
+		const slice = {
+			name,
+			reducer,
+			actions: context.actionCreators,
+			caseReducers: context.sliceCaseReducersByName,
+			getInitialState,
+			...makeSelectorProps(reducerPath),
+			injectInto(injectable, { reducerPath: pathOpt, ...config } = {}) {
+				const newReducerPath = pathOpt ?? reducerPath;
+				injectable.inject({
+					reducerPath: newReducerPath,
+					reducer
+				}, config);
+				return {
+					...slice,
+					...makeSelectorProps(newReducerPath, true)
+				};
+			}
+		};
+		return slice;
+	};
 }
 function wrapSelector(selector, selectState, getInitialState, injected) {
-  function wrapper(rootState, ...args) {
-    let sliceState = selectState(rootState);
-    if (typeof sliceState === "undefined") {
-      if (injected) {
-        sliceState = getInitialState();
-      } else if (true) {
-        throw new Error( false ? 0 : "selectState returned undefined for an uninjected slice reducer");
-      }
-    }
-    return selector(sliceState, ...args);
-  }
-  wrapper.unwrapped = selector;
-  return wrapper;
+	function wrapper(rootState, ...args) {
+		let sliceState = selectState(rootState);
+		if (typeof sliceState === "undefined") {
+			if (injected) sliceState = getInitialState();
+			else if (true) throw new Error( false ? 0 : "selectState returned undefined for an uninjected slice reducer");
+		}
+		return selector(sliceState, ...args);
+	}
+	wrapper.unwrapped = selector;
+	return wrapper;
 }
-var createSlice = /* @__PURE__ */ buildCreateSlice();
+const createSlice = /* @__PURE__ */ buildCreateSlice();
 function buildReducerCreators() {
-  function asyncThunk(payloadCreator, config) {
-    return {
-      _reducerDefinitionType: "asyncThunk" /* asyncThunk */,
-      payloadCreator,
-      ...config
-    };
-  }
-  asyncThunk.withTypes = () => asyncThunk;
-  return {
-    reducer(caseReducer) {
-      return Object.assign({
-        // hack so the wrapping function has the same name as the original
-        // we need to create a wrapper so the `reducerDefinitionType` is not assigned to the original
-        [caseReducer.name](...args) {
-          return caseReducer(...args);
-        }
-      }[caseReducer.name], {
-        _reducerDefinitionType: "reducer" /* reducer */
-      });
-    },
-    preparedReducer(prepare, reducer) {
-      return {
-        _reducerDefinitionType: "reducerWithPrepare" /* reducerWithPrepare */,
-        prepare,
-        reducer
-      };
-    },
-    asyncThunk
-  };
+	function asyncThunk(payloadCreator, config) {
+		return {
+			_reducerDefinitionType: "asyncThunk",
+			payloadCreator,
+			...config
+		};
+	}
+	asyncThunk.withTypes = () => asyncThunk;
+	return {
+		reducer(caseReducer) {
+			return Object.assign({ [caseReducer.name](...args) {
+				return caseReducer(...args);
+			} }[caseReducer.name], { _reducerDefinitionType: "reducer" });
+		},
+		preparedReducer(prepare, reducer) {
+			return {
+				_reducerDefinitionType: "reducerWithPrepare",
+				prepare,
+				reducer
+			};
+		},
+		asyncThunk
+	};
 }
-function handleNormalReducerDefinition({
-  type,
-  reducerName,
-  createNotation
-}, maybeReducerWithPrepare, context) {
-  let caseReducer;
-  let prepareCallback;
-  if ("reducer" in maybeReducerWithPrepare) {
-    if (createNotation && !isCaseReducerWithPrepareDefinition(maybeReducerWithPrepare)) {
-      throw new Error( false ? 0 : "Please use the `create.preparedReducer` notation for prepared action creators with the `create` notation.");
-    }
-    caseReducer = maybeReducerWithPrepare.reducer;
-    prepareCallback = maybeReducerWithPrepare.prepare;
-  } else {
-    caseReducer = maybeReducerWithPrepare;
-  }
-  context.addCase(type, caseReducer).exposeCaseReducer(reducerName, caseReducer).exposeAction(reducerName, prepareCallback ? createAction(type, prepareCallback) : createAction(type));
+function handleNormalReducerDefinition({ type, reducerName, createNotation }, maybeReducerWithPrepare, context) {
+	let caseReducer;
+	let prepareCallback;
+	if ("reducer" in maybeReducerWithPrepare) {
+		if (createNotation && !isCaseReducerWithPrepareDefinition(maybeReducerWithPrepare)) throw new Error( false ? 0 : "Please use the `create.preparedReducer` notation for prepared action creators with the `create` notation.");
+		caseReducer = maybeReducerWithPrepare.reducer;
+		prepareCallback = maybeReducerWithPrepare.prepare;
+	} else caseReducer = maybeReducerWithPrepare;
+	context.addCase(type, caseReducer).exposeCaseReducer(reducerName, caseReducer).exposeAction(reducerName, prepareCallback ? createAction(type, prepareCallback) : createAction(type));
 }
 function isAsyncThunkSliceReducerDefinition(reducerDefinition) {
-  return reducerDefinition._reducerDefinitionType === "asyncThunk" /* asyncThunk */;
+	return reducerDefinition._reducerDefinitionType === "asyncThunk";
 }
 function isCaseReducerWithPrepareDefinition(reducerDefinition) {
-  return reducerDefinition._reducerDefinitionType === "reducerWithPrepare" /* reducerWithPrepare */;
+	return reducerDefinition._reducerDefinitionType === "reducerWithPrepare";
 }
-function handleThunkCaseReducerDefinition({
-  type,
-  reducerName
-}, reducerDefinition, context, cAT) {
-  if (!cAT) {
-    throw new Error( false ? 0 : "Cannot use `create.asyncThunk` in the built-in `createSlice`. Use `buildCreateSlice({ creators: { asyncThunk: asyncThunkCreator } })` to create a customised version of `createSlice`.");
-  }
-  const {
-    payloadCreator,
-    fulfilled,
-    pending,
-    rejected,
-    settled,
-    options
-  } = reducerDefinition;
-  const thunk = cAT(type, payloadCreator, options);
-  context.exposeAction(reducerName, thunk);
-  if (fulfilled) {
-    context.addCase(thunk.fulfilled, fulfilled);
-  }
-  if (pending) {
-    context.addCase(thunk.pending, pending);
-  }
-  if (rejected) {
-    context.addCase(thunk.rejected, rejected);
-  }
-  if (settled) {
-    context.addMatcher(thunk.settled, settled);
-  }
-  context.exposeCaseReducer(reducerName, {
-    fulfilled: fulfilled || noop,
-    pending: pending || noop,
-    rejected: rejected || noop,
-    settled: settled || noop
-  });
+function handleThunkCaseReducerDefinition({ type, reducerName }, reducerDefinition, context, cAT) {
+	if (!cAT) throw new Error( false ? 0 : "Cannot use `create.asyncThunk` in the built-in `createSlice`. Use `buildCreateSlice({ creators: { asyncThunk: asyncThunkCreator } })` to create a customised version of `createSlice`.");
+	const { payloadCreator, fulfilled, pending, rejected, settled, options } = reducerDefinition;
+	const thunk = cAT(type, payloadCreator, options);
+	context.exposeAction(reducerName, thunk);
+	if (fulfilled) context.addCase(thunk.fulfilled, fulfilled);
+	if (pending) context.addCase(thunk.pending, pending);
+	if (rejected) context.addCase(thunk.rejected, rejected);
+	if (settled) context.addMatcher(thunk.settled, settled);
+	context.exposeCaseReducer(reducerName, {
+		fulfilled: fulfilled || noop$1,
+		pending: pending || noop$1,
+		rejected: rejected || noop$1,
+		settled: settled || noop$1
+	});
 }
-function noop() {
-}
-
-// src/entities/entity_state.ts
+function noop$1() {}
+//#endregion
+//#region src/entities/entity_state.ts
 function getInitialEntityState() {
-  return {
-    ids: [],
-    entities: {}
-  };
+	return {
+		ids: [],
+		entities: {}
+	};
 }
 function createInitialStateFactory(stateAdapter) {
-  function getInitialState(additionalState = {}, entities) {
-    const state = Object.assign(getInitialEntityState(), additionalState);
-    return entities ? stateAdapter.setAll(state, entities) : state;
-  }
-  return {
-    getInitialState
-  };
+	function getInitialState(additionalState = {}, entities) {
+		const state = Object.assign(getInitialEntityState(), additionalState);
+		return entities ? stateAdapter.setAll(state, entities) : state;
+	}
+	return { getInitialState };
 }
-
-// src/entities/state_selectors.ts
+//#endregion
+//#region src/entities/state_selectors.ts
 function createSelectorsFactory() {
-  function getSelectors(selectState, options = {}) {
-    const {
-      createSelector: createSelector2 = createDraftSafeSelector
-    } = options;
-    const selectIds = (state) => state.ids;
-    const selectEntities = (state) => state.entities;
-    const selectAll = createSelector2(selectIds, selectEntities, (ids, entities) => ids.map((id) => entities[id]));
-    const selectId = (_, id) => id;
-    const selectById = (entities, id) => entities[id];
-    const selectTotal = createSelector2(selectIds, (ids) => ids.length);
-    if (!selectState) {
-      return {
-        selectIds,
-        selectEntities,
-        selectAll,
-        selectTotal,
-        selectById: createSelector2(selectEntities, selectId, selectById)
-      };
-    }
-    const selectGlobalizedEntities = createSelector2(selectState, selectEntities);
-    return {
-      selectIds: createSelector2(selectState, selectIds),
-      selectEntities: selectGlobalizedEntities,
-      selectAll: createSelector2(selectState, selectAll),
-      selectTotal: createSelector2(selectState, selectTotal),
-      selectById: createSelector2(selectGlobalizedEntities, selectId, selectById)
-    };
-  }
-  return {
-    getSelectors
-  };
+	function getSelectors(selectState, options = {}) {
+		const { createSelector = createDraftSafeSelector } = options;
+		const selectIds = (state) => state.ids;
+		const selectEntities = (state) => state.entities;
+		const selectAll = createSelector(selectIds, selectEntities, (ids, entities) => ids.map((id) => entities[id]));
+		const selectId = (_, id) => id;
+		const selectById = (entities, id) => entities[id];
+		const selectTotal = createSelector(selectIds, (ids) => ids.length);
+		if (!selectState) return {
+			selectIds,
+			selectEntities,
+			selectAll,
+			selectTotal,
+			selectById: createSelector(selectEntities, selectId, selectById)
+		};
+		const selectGlobalizedEntities = createSelector(selectState, selectEntities);
+		return {
+			selectIds: createSelector(selectState, selectIds),
+			selectEntities: selectGlobalizedEntities,
+			selectAll: createSelector(selectState, selectAll),
+			selectTotal: createSelector(selectState, selectTotal),
+			selectById: createSelector(selectGlobalizedEntities, selectId, selectById)
+		};
+	}
+	return { getSelectors };
 }
-
-// src/entities/state_adapter.ts
-var isDraftTyped = immer__WEBPACK_IMPORTED_MODULE_1__.isDraft;
+//#endregion
+//#region src/entities/state_adapter.ts
+const isDraftTyped = immer__WEBPACK_IMPORTED_MODULE_1__.isDraft;
 function createSingleArgumentStateOperator(mutator) {
-  const operator = createStateOperator((_, state) => mutator(state));
-  return function operation(state) {
-    return operator(state, void 0);
-  };
+	const operator = createStateOperator((_, state) => mutator(state));
+	return function operation(state) {
+		return operator(state, void 0);
+	};
 }
 function createStateOperator(mutator) {
-  return function operation(state, arg) {
-    function isPayloadActionArgument(arg2) {
-      return isFSA(arg2);
-    }
-    const runMutator = (draft) => {
-      if (isPayloadActionArgument(arg)) {
-        mutator(arg.payload, draft);
-      } else {
-        mutator(arg, draft);
-      }
-    };
-    if (isDraftTyped(state)) {
-      runMutator(state);
-      return state;
-    }
-    return (0,immer__WEBPACK_IMPORTED_MODULE_1__.produce)(state, runMutator);
-  };
+	return function operation(state, arg) {
+		function isPayloadActionArgument(arg) {
+			return isFSA(arg);
+		}
+		const runMutator = (draft) => {
+			if (isPayloadActionArgument(arg)) mutator(arg.payload, draft);
+			else mutator(arg, draft);
+		};
+		if (isDraftTyped(state)) {
+			runMutator(state);
+			return state;
+		}
+		return (0,immer__WEBPACK_IMPORTED_MODULE_1__.produce)(state, runMutator);
+	};
 }
-
-// src/entities/utils.ts
+//#endregion
+//#region src/entities/utils.ts
 function selectIdValue(entity, selectId) {
-  const key = selectId(entity);
-  if ( true && key === void 0) {
-    console.warn("The entity passed to the `selectId` implementation returned undefined.", "You should probably provide your own `selectId` implementation.", "The entity that was passed:", entity, "The `selectId` implementation:", selectId.toString());
-  }
-  return key;
+	const key = selectId(entity);
+	if ( true && key === void 0) console.warn("The entity passed to the `selectId` implementation returned undefined.", "You should probably provide your own `selectId` implementation.", "The entity that was passed:", entity, "The `selectId` implementation:", selectId.toString());
+	return key;
 }
 function ensureEntitiesArray(entities) {
-  if (!Array.isArray(entities)) {
-    entities = Object.values(entities);
-  }
-  return entities;
+	if (!Array.isArray(entities)) entities = Object.values(entities);
+	return entities;
 }
 function getCurrent(value) {
-  return (0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraft)(value) ? (0,immer__WEBPACK_IMPORTED_MODULE_1__.current)(value) : value;
+	return (0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraft)(value) ? (0,immer__WEBPACK_IMPORTED_MODULE_1__.current)(value) : value;
 }
 function splitAddedUpdatedEntities(newEntities, selectId, state) {
-  newEntities = ensureEntitiesArray(newEntities);
-  const existingIdsArray = getCurrent(state.ids);
-  const existingIds = new Set(existingIdsArray);
-  const added = [];
-  const addedIds = /* @__PURE__ */ new Set([]);
-  const updated = [];
-  for (const entity of newEntities) {
-    const id = selectIdValue(entity, selectId);
-    if (existingIds.has(id) || addedIds.has(id)) {
-      updated.push({
-        id,
-        changes: entity
-      });
-    } else {
-      addedIds.add(id);
-      added.push(entity);
-    }
-  }
-  return [added, updated, existingIdsArray];
+	newEntities = ensureEntitiesArray(newEntities);
+	const existingIdsArray = getCurrent(state.ids);
+	const existingIds = new Set(existingIdsArray);
+	const added = [];
+	const addedIds = /* @__PURE__ */ new Set([]);
+	const updated = [];
+	for (const entity of newEntities) {
+		const id = selectIdValue(entity, selectId);
+		if (existingIds.has(id) || addedIds.has(id)) updated.push({
+			id,
+			changes: entity
+		});
+		else {
+			addedIds.add(id);
+			added.push(entity);
+		}
+	}
+	return [
+		added,
+		updated,
+		existingIdsArray
+	];
 }
-
-// src/entities/unsorted_state_adapter.ts
+//#endregion
+//#region src/entities/unsorted_state_adapter.ts
 function createUnsortedStateAdapter(selectId) {
-  function addOneMutably(entity, state) {
-    const key = selectIdValue(entity, selectId);
-    if (key in state.entities) {
-      return;
-    }
-    state.ids.push(key);
-    state.entities[key] = entity;
-  }
-  function addManyMutably(newEntities, state) {
-    newEntities = ensureEntitiesArray(newEntities);
-    for (const entity of newEntities) {
-      addOneMutably(entity, state);
-    }
-  }
-  function setOneMutably(entity, state) {
-    const key = selectIdValue(entity, selectId);
-    if (!(key in state.entities)) {
-      state.ids.push(key);
-    }
-    ;
-    state.entities[key] = entity;
-  }
-  function setManyMutably(newEntities, state) {
-    newEntities = ensureEntitiesArray(newEntities);
-    for (const entity of newEntities) {
-      setOneMutably(entity, state);
-    }
-  }
-  function setAllMutably(newEntities, state) {
-    newEntities = ensureEntitiesArray(newEntities);
-    state.ids = [];
-    state.entities = {};
-    addManyMutably(newEntities, state);
-  }
-  function removeOneMutably(key, state) {
-    return removeManyMutably([key], state);
-  }
-  function removeManyMutably(keys, state) {
-    let didMutate = false;
-    keys.forEach((key) => {
-      if (key in state.entities) {
-        delete state.entities[key];
-        didMutate = true;
-      }
-    });
-    if (didMutate) {
-      state.ids = state.ids.filter((id) => id in state.entities);
-    }
-  }
-  function removeAllMutably(state) {
-    Object.assign(state, {
-      ids: [],
-      entities: {}
-    });
-  }
-  function takeNewKey(keys, update, state) {
-    const original3 = state.entities[update.id];
-    if (original3 === void 0) {
-      return false;
-    }
-    const updated = Object.assign({}, original3, update.changes);
-    const newKey = selectIdValue(updated, selectId);
-    const hasNewKey = newKey !== update.id;
-    if (hasNewKey) {
-      keys[update.id] = newKey;
-      delete state.entities[update.id];
-    }
-    ;
-    state.entities[newKey] = updated;
-    return hasNewKey;
-  }
-  function updateOneMutably(update, state) {
-    return updateManyMutably([update], state);
-  }
-  function updateManyMutably(updates, state) {
-    const newKeys = {};
-    const updatesPerEntity = {};
-    updates.forEach((update) => {
-      if (update.id in state.entities) {
-        updatesPerEntity[update.id] = {
-          id: update.id,
-          // Spreads ignore falsy values, so this works even if there isn't
-          // an existing update already at this key
-          changes: {
-            ...updatesPerEntity[update.id]?.changes,
-            ...update.changes
-          }
-        };
-      }
-    });
-    updates = Object.values(updatesPerEntity);
-    const didMutateEntities = updates.length > 0;
-    if (didMutateEntities) {
-      const didMutateIds = updates.filter((update) => takeNewKey(newKeys, update, state)).length > 0;
-      if (didMutateIds) {
-        state.ids = Object.values(state.entities).map((e) => selectIdValue(e, selectId));
-      }
-    }
-  }
-  function upsertOneMutably(entity, state) {
-    return upsertManyMutably([entity], state);
-  }
-  function upsertManyMutably(newEntities, state) {
-    const [added, updated] = splitAddedUpdatedEntities(newEntities, selectId, state);
-    addManyMutably(added, state);
-    updateManyMutably(updated, state);
-  }
-  return {
-    removeAll: createSingleArgumentStateOperator(removeAllMutably),
-    addOne: createStateOperator(addOneMutably),
-    addMany: createStateOperator(addManyMutably),
-    setOne: createStateOperator(setOneMutably),
-    setMany: createStateOperator(setManyMutably),
-    setAll: createStateOperator(setAllMutably),
-    updateOne: createStateOperator(updateOneMutably),
-    updateMany: createStateOperator(updateManyMutably),
-    upsertOne: createStateOperator(upsertOneMutably),
-    upsertMany: createStateOperator(upsertManyMutably),
-    removeOne: createStateOperator(removeOneMutably),
-    removeMany: createStateOperator(removeManyMutably)
-  };
+	function addOneMutably(entity, state) {
+		const key = selectIdValue(entity, selectId);
+		if (key in state.entities) return;
+		state.ids.push(key);
+		state.entities[key] = entity;
+	}
+	function addManyMutably(newEntities, state) {
+		newEntities = ensureEntitiesArray(newEntities);
+		for (const entity of newEntities) addOneMutably(entity, state);
+	}
+	function setOneMutably(entity, state) {
+		const key = selectIdValue(entity, selectId);
+		if (!(key in state.entities)) state.ids.push(key);
+		state.entities[key] = entity;
+	}
+	function setManyMutably(newEntities, state) {
+		newEntities = ensureEntitiesArray(newEntities);
+		for (const entity of newEntities) setOneMutably(entity, state);
+	}
+	function setAllMutably(newEntities, state) {
+		newEntities = ensureEntitiesArray(newEntities);
+		state.ids = [];
+		state.entities = {};
+		setManyMutably(newEntities, state);
+	}
+	function removeOneMutably(key, state) {
+		return removeManyMutably([key], state);
+	}
+	function removeManyMutably(keys, state) {
+		let didMutate = false;
+		keys.forEach((key) => {
+			if (key in state.entities) {
+				delete state.entities[key];
+				didMutate = true;
+			}
+		});
+		if (didMutate) state.ids = state.ids.filter((id) => id in state.entities);
+	}
+	function removeAllMutably(state) {
+		Object.assign(state, {
+			ids: [],
+			entities: {}
+		});
+	}
+	function takeNewKey(keys, update, state) {
+		const original = state.entities[update.id];
+		if (original === void 0) return false;
+		const updated = Object.assign({}, original, update.changes);
+		const newKey = selectIdValue(updated, selectId);
+		const hasNewKey = newKey !== update.id;
+		if (hasNewKey) {
+			keys[update.id] = newKey;
+			delete state.entities[update.id];
+		}
+		state.entities[newKey] = updated;
+		return hasNewKey;
+	}
+	function updateOneMutably(update, state) {
+		return updateManyMutably([update], state);
+	}
+	function updateManyMutably(updates, state) {
+		const newKeys = {};
+		const updatesPerEntity = {};
+		updates.forEach((update) => {
+			if (update.id in state.entities) updatesPerEntity[update.id] = {
+				id: update.id,
+				changes: {
+					...updatesPerEntity[update.id]?.changes,
+					...update.changes
+				}
+			};
+		});
+		updates = Object.values(updatesPerEntity);
+		if (updates.length > 0) {
+			if (updates.filter((update) => takeNewKey(newKeys, update, state)).length > 0) state.ids = Object.values(state.entities).map((e) => selectIdValue(e, selectId));
+		}
+	}
+	function upsertOneMutably(entity, state) {
+		return upsertManyMutably([entity], state);
+	}
+	function upsertManyMutably(newEntities, state) {
+		const [added, updated] = splitAddedUpdatedEntities(newEntities, selectId, state);
+		addManyMutably(added, state);
+		updateManyMutably(updated, state);
+	}
+	return {
+		removeAll: createSingleArgumentStateOperator(removeAllMutably),
+		addOne: createStateOperator(addOneMutably),
+		addMany: createStateOperator(addManyMutably),
+		setOne: createStateOperator(setOneMutably),
+		setMany: createStateOperator(setManyMutably),
+		setAll: createStateOperator(setAllMutably),
+		updateOne: createStateOperator(updateOneMutably),
+		updateMany: createStateOperator(updateManyMutably),
+		upsertOne: createStateOperator(upsertOneMutably),
+		upsertMany: createStateOperator(upsertManyMutably),
+		removeOne: createStateOperator(removeOneMutably),
+		removeMany: createStateOperator(removeManyMutably)
+	};
 }
-
-// src/entities/sorted_state_adapter.ts
+//#endregion
+//#region src/entities/sorted_state_adapter.ts
 function findInsertIndex(sortedItems, item, comparisonFunction) {
-  let lowIndex = 0;
-  let highIndex = sortedItems.length;
-  while (lowIndex < highIndex) {
-    let middleIndex = lowIndex + highIndex >>> 1;
-    const currentItem = sortedItems[middleIndex];
-    const res = comparisonFunction(item, currentItem);
-    if (res >= 0) {
-      lowIndex = middleIndex + 1;
-    } else {
-      highIndex = middleIndex;
-    }
-  }
-  return lowIndex;
+	let lowIndex = 0;
+	let highIndex = sortedItems.length;
+	while (lowIndex < highIndex) {
+		let middleIndex = lowIndex + highIndex >>> 1;
+		const currentItem = sortedItems[middleIndex];
+		if (comparisonFunction(item, currentItem) >= 0) lowIndex = middleIndex + 1;
+		else highIndex = middleIndex;
+	}
+	return lowIndex;
 }
 function insert(sortedItems, item, comparisonFunction) {
-  const insertAtIndex = findInsertIndex(sortedItems, item, comparisonFunction);
-  sortedItems.splice(insertAtIndex, 0, item);
-  return sortedItems;
+	const insertAtIndex = findInsertIndex(sortedItems, item, comparisonFunction);
+	sortedItems.splice(insertAtIndex, 0, item);
+	return sortedItems;
 }
 function createSortedStateAdapter(selectId, comparer) {
-  const {
-    removeOne,
-    removeMany,
-    removeAll
-  } = createUnsortedStateAdapter(selectId);
-  function addOneMutably(entity, state) {
-    return addManyMutably([entity], state);
-  }
-  function addManyMutably(newEntities, state, existingIds) {
-    newEntities = ensureEntitiesArray(newEntities);
-    const existingKeys = new Set(existingIds ?? getCurrent(state.ids));
-    const addedKeys = /* @__PURE__ */ new Set();
-    const models = newEntities.filter((model) => {
-      const modelId = selectIdValue(model, selectId);
-      const notAdded = !addedKeys.has(modelId);
-      if (notAdded) addedKeys.add(modelId);
-      return !existingKeys.has(modelId) && notAdded;
-    });
-    if (models.length !== 0) {
-      mergeFunction(state, models);
-    }
-  }
-  function setOneMutably(entity, state) {
-    return setManyMutably([entity], state);
-  }
-  function setManyMutably(newEntities, state) {
-    let deduplicatedEntities = {};
-    newEntities = ensureEntitiesArray(newEntities);
-    if (newEntities.length !== 0) {
-      for (const item of newEntities) {
-        const entityId = selectId(item);
-        deduplicatedEntities[entityId] = item;
-        delete state.entities[entityId];
-      }
-      newEntities = ensureEntitiesArray(deduplicatedEntities);
-      mergeFunction(state, newEntities);
-    }
-  }
-  function setAllMutably(newEntities, state) {
-    newEntities = ensureEntitiesArray(newEntities);
-    state.entities = {};
-    state.ids = [];
-    addManyMutably(newEntities, state, []);
-  }
-  function updateOneMutably(update, state) {
-    return updateManyMutably([update], state);
-  }
-  function updateManyMutably(updates, state) {
-    let appliedUpdates = false;
-    let replacedIds = false;
-    for (let update of updates) {
-      const entity = state.entities[update.id];
-      if (!entity) {
-        continue;
-      }
-      appliedUpdates = true;
-      Object.assign(entity, update.changes);
-      const newId = selectId(entity);
-      if (update.id !== newId) {
-        replacedIds = true;
-        delete state.entities[update.id];
-        const oldIndex = state.ids.indexOf(update.id);
-        state.ids[oldIndex] = newId;
-        state.entities[newId] = entity;
-      }
-    }
-    if (appliedUpdates) {
-      mergeFunction(state, [], appliedUpdates, replacedIds);
-    }
-  }
-  function upsertOneMutably(entity, state) {
-    return upsertManyMutably([entity], state);
-  }
-  function upsertManyMutably(newEntities, state) {
-    const [added, updated, existingIdsArray] = splitAddedUpdatedEntities(newEntities, selectId, state);
-    if (added.length) {
-      addManyMutably(added, state, existingIdsArray);
-    }
-    if (updated.length) {
-      updateManyMutably(updated, state);
-    }
-  }
-  function areArraysEqual(a, b) {
-    if (a.length !== b.length) {
-      return false;
-    }
-    for (let i = 0; i < a.length; i++) {
-      if (a[i] === b[i]) {
-        continue;
-      }
-      return false;
-    }
-    return true;
-  }
-  const mergeFunction = (state, addedItems, appliedUpdates, replacedIds) => {
-    const currentEntities = getCurrent(state.entities);
-    const currentIds = getCurrent(state.ids);
-    const stateEntities = state.entities;
-    let ids = currentIds;
-    if (replacedIds) {
-      ids = new Set(currentIds);
-    }
-    let sortedEntities = [];
-    for (const id of ids) {
-      const entity = currentEntities[id];
-      if (entity) {
-        sortedEntities.push(entity);
-      }
-    }
-    const wasPreviouslyEmpty = sortedEntities.length === 0;
-    for (const item of addedItems) {
-      stateEntities[selectId(item)] = item;
-      if (!wasPreviouslyEmpty) {
-        insert(sortedEntities, item, comparer);
-      }
-    }
-    if (wasPreviouslyEmpty) {
-      sortedEntities = addedItems.slice().sort(comparer);
-    } else if (appliedUpdates) {
-      sortedEntities.sort(comparer);
-    }
-    const newSortedIds = sortedEntities.map(selectId);
-    if (!areArraysEqual(currentIds, newSortedIds)) {
-      state.ids = newSortedIds;
-    }
-  };
-  return {
-    removeOne,
-    removeMany,
-    removeAll,
-    addOne: createStateOperator(addOneMutably),
-    updateOne: createStateOperator(updateOneMutably),
-    upsertOne: createStateOperator(upsertOneMutably),
-    setOne: createStateOperator(setOneMutably),
-    setMany: createStateOperator(setManyMutably),
-    setAll: createStateOperator(setAllMutably),
-    addMany: createStateOperator(addManyMutably),
-    updateMany: createStateOperator(updateManyMutably),
-    upsertMany: createStateOperator(upsertManyMutably)
-  };
+	const { removeOne, removeMany, removeAll } = createUnsortedStateAdapter(selectId);
+	function addOneMutably(entity, state) {
+		return addManyMutably([entity], state);
+	}
+	function addManyMutably(newEntities, state, existingIds) {
+		newEntities = ensureEntitiesArray(newEntities);
+		const existingKeys = new Set(existingIds ?? getCurrent(state.ids));
+		const addedKeys = /* @__PURE__ */ new Set();
+		const models = newEntities.filter((model) => {
+			const modelId = selectIdValue(model, selectId);
+			const notAdded = !addedKeys.has(modelId);
+			if (notAdded) addedKeys.add(modelId);
+			return !existingKeys.has(modelId) && notAdded;
+		});
+		if (models.length !== 0) mergeFunction(state, models);
+	}
+	function setOneMutably(entity, state) {
+		return setManyMutably([entity], state);
+	}
+	function setManyMutably(newEntities, state) {
+		let deduplicatedEntities = {};
+		newEntities = ensureEntitiesArray(newEntities);
+		if (newEntities.length !== 0) {
+			for (const item of newEntities) {
+				const entityId = selectId(item);
+				deduplicatedEntities[entityId] = item;
+				delete state.entities[entityId];
+			}
+			newEntities = ensureEntitiesArray(deduplicatedEntities);
+			mergeFunction(state, newEntities);
+		}
+	}
+	function setAllMutably(newEntities, state) {
+		newEntities = ensureEntitiesArray(newEntities);
+		state.entities = {};
+		state.ids = [];
+		setManyMutably(newEntities, state);
+	}
+	function updateOneMutably(update, state) {
+		return updateManyMutably([update], state);
+	}
+	function updateManyMutably(updates, state) {
+		let appliedUpdates = false;
+		let replacedIds = false;
+		const updatesPerEntity = {};
+		for (const update of updates) if (update.id in state.entities) updatesPerEntity[update.id] = {
+			id: update.id,
+			changes: {
+				...updatesPerEntity[update.id]?.changes,
+				...update.changes
+			}
+		};
+		for (const update of Object.values(updatesPerEntity)) {
+			const entity = state.entities[update.id];
+			if (!entity) continue;
+			appliedUpdates = true;
+			Object.assign(entity, update.changes);
+			const newId = selectId(entity);
+			if (update.id !== newId) {
+				replacedIds = true;
+				delete state.entities[update.id];
+				const oldIndex = state.ids.indexOf(update.id);
+				state.ids[oldIndex] = newId;
+				state.entities[newId] = entity;
+			}
+		}
+		if (appliedUpdates) mergeFunction(state, [], appliedUpdates, replacedIds);
+	}
+	function upsertOneMutably(entity, state) {
+		return upsertManyMutably([entity], state);
+	}
+	function upsertManyMutably(newEntities, state) {
+		const [added, updated, existingIdsArray] = splitAddedUpdatedEntities(newEntities, selectId, state);
+		if (added.length) addManyMutably(added, state, existingIdsArray);
+		if (updated.length) updateManyMutably(updated, state);
+	}
+	function areArraysEqual(a, b) {
+		if (a.length !== b.length) return false;
+		for (let i = 0; i < a.length; i++) {
+			if (a[i] === b[i]) continue;
+			return false;
+		}
+		return true;
+	}
+	function mergeFunction(state, addedItems, appliedUpdates, replacedIds) {
+		const currentEntities = getCurrent(state.entities);
+		const currentIds = getCurrent(state.ids);
+		const stateEntities = state.entities;
+		let ids = currentIds;
+		if (replacedIds) ids = new Set(currentIds);
+		let sortedEntities = [];
+		for (const id of ids) {
+			const entity = currentEntities[id];
+			if (entity) sortedEntities.push(entity);
+		}
+		const wasPreviouslyEmpty = sortedEntities.length === 0;
+		for (const item of addedItems) {
+			stateEntities[selectId(item)] = item;
+			if (!wasPreviouslyEmpty) insert(sortedEntities, item, comparer);
+		}
+		if (wasPreviouslyEmpty) sortedEntities = addedItems.slice().sort(comparer);
+		else if (appliedUpdates) sortedEntities.sort(comparer);
+		const newSortedIds = sortedEntities.map(selectId);
+		if (!areArraysEqual(currentIds, newSortedIds)) state.ids = newSortedIds;
+	}
+	return {
+		removeOne,
+		removeMany,
+		removeAll,
+		addOne: createStateOperator(addOneMutably),
+		updateOne: createStateOperator(updateOneMutably),
+		upsertOne: createStateOperator(upsertOneMutably),
+		setOne: createStateOperator(setOneMutably),
+		setMany: createStateOperator(setManyMutably),
+		setAll: createStateOperator(setAllMutably),
+		addMany: createStateOperator(addManyMutably),
+		updateMany: createStateOperator(updateManyMutably),
+		upsertMany: createStateOperator(upsertManyMutably)
+	};
 }
-
-// src/entities/create_adapter.ts
+//#endregion
+//#region src/entities/create_adapter.ts
 function createEntityAdapter(options = {}) {
-  const {
-    selectId,
-    sortComparer
-  } = {
-    sortComparer: false,
-    selectId: (instance) => instance.id,
-    ...options
-  };
-  const stateAdapter = sortComparer ? createSortedStateAdapter(selectId, sortComparer) : createUnsortedStateAdapter(selectId);
-  const stateFactory = createInitialStateFactory(stateAdapter);
-  const selectorsFactory = createSelectorsFactory();
-  return {
-    selectId,
-    sortComparer,
-    ...stateFactory,
-    ...selectorsFactory,
-    ...stateAdapter
-  };
+	const { selectId, sortComparer } = {
+		sortComparer: false,
+		selectId: (instance) => instance.id,
+		...options
+	};
+	const stateAdapter = sortComparer ? createSortedStateAdapter(selectId, sortComparer) : createUnsortedStateAdapter(selectId);
+	const stateFactory = createInitialStateFactory(stateAdapter);
+	const selectorsFactory = createSelectorsFactory();
+	return {
+		selectId,
+		sortComparer,
+		...stateFactory,
+		...selectorsFactory,
+		...stateAdapter
+	};
 }
-
-// src/listenerMiddleware/exceptions.ts
-var task = "task";
-var listener = "listener";
-var completed = "completed";
-var cancelled = "cancelled";
-var taskCancelled = `task-${cancelled}`;
-var taskCompleted = `task-${completed}`;
-var listenerCancelled = `${listener}-${cancelled}`;
-var listenerCompleted = `${listener}-${completed}`;
+//#endregion
+//#region src/listenerMiddleware/exceptions.ts
+const task = "task";
+const listener = "listener";
+const completed = "completed";
+const cancelled = "cancelled";
+const taskCancelled = `task-${cancelled}`;
+const taskCompleted = `task-${completed}`;
+const listenerCancelled = `${listener}-${cancelled}`;
+const listenerCompleted = `${listener}-${completed}`;
 var TaskAbortError = class {
-  constructor(code) {
-    this.code = code;
-    this.message = `${task} ${cancelled} (reason: ${code})`;
-  }
-  code;
-  name = "TaskAbortError";
-  message;
+	code;
+	name = "TaskAbortError";
+	message;
+	constructor(code) {
+		this.code = code;
+		this.message = `${task} ${cancelled} (reason: ${code})`;
+	}
 };
-
-// src/listenerMiddleware/utils.ts
-var assertFunction = (func, expected) => {
-  if (typeof func !== "function") {
-    throw new TypeError( false ? 0 : `${expected} is not a function`);
-  }
+//#endregion
+//#region src/listenerMiddleware/utils.ts
+const assertFunction = (func, expected) => {
+	if (typeof func !== "function") throw new TypeError( false ? 0 : `${expected} is not a function`);
 };
-var noop2 = () => {
+const noop = () => {};
+const catchRejection = (promise, onError = noop) => {
+	promise.catch(onError);
+	return promise;
 };
-var catchRejection = (promise, onError = noop2) => {
-  promise.catch(onError);
-  return promise;
+const addAbortSignalListener = (abortSignal, callback) => {
+	abortSignal.addEventListener("abort", callback, { once: true });
+	return () => abortSignal.removeEventListener("abort", callback);
 };
-var addAbortSignalListener = (abortSignal, callback) => {
-  abortSignal.addEventListener("abort", callback, {
-    once: true
-  });
-  return () => abortSignal.removeEventListener("abort", callback);
-};
-
-// src/listenerMiddleware/task.ts
-var validateActive = (signal) => {
-  if (signal.aborted) {
-    throw new TaskAbortError(signal.reason);
-  }
+//#endregion
+//#region src/listenerMiddleware/task.ts
+const validateActive = (signal) => {
+	if (signal.aborted) throw new TaskAbortError(signal.reason);
 };
 function raceWithSignal(signal, promise) {
-  let cleanup = noop2;
-  return new Promise((resolve, reject) => {
-    const notifyRejection = () => reject(new TaskAbortError(signal.reason));
-    if (signal.aborted) {
-      notifyRejection();
-      return;
-    }
-    cleanup = addAbortSignalListener(signal, notifyRejection);
-    promise.finally(() => cleanup()).then(resolve, reject);
-  }).finally(() => {
-    cleanup = noop2;
-  });
+	let cleanup = noop;
+	return new Promise((resolve, reject) => {
+		const notifyRejection = () => reject(new TaskAbortError(signal.reason));
+		if (signal.aborted) {
+			notifyRejection();
+			return;
+		}
+		cleanup = addAbortSignalListener(signal, notifyRejection);
+		promise.finally(() => cleanup()).then(resolve, reject);
+	}).finally(() => {
+		cleanup = noop;
+	});
 }
-var runTask = async (task2, cleanUp) => {
-  try {
-    await Promise.resolve();
-    const value = await task2();
-    return {
-      status: "ok",
-      value
-    };
-  } catch (error) {
-    return {
-      status: error instanceof TaskAbortError ? "cancelled" : "rejected",
-      error
-    };
-  } finally {
-    cleanUp?.();
-  }
+const runTask = async (task, cleanUp) => {
+	try {
+		await Promise.resolve();
+		return {
+			status: "ok",
+			value: await task()
+		};
+	} catch (error) {
+		return {
+			status: error instanceof TaskAbortError ? "cancelled" : "rejected",
+			error
+		};
+	} finally {
+		cleanUp?.();
+	}
 };
-var createPause = (signal) => {
-  return (promise) => {
-    return catchRejection(raceWithSignal(signal, promise).then((output) => {
-      validateActive(signal);
-      return output;
-    }));
-  };
+const createPause = (signal) => {
+	return (promise) => {
+		return catchRejection(raceWithSignal(signal, promise).then((output) => {
+			validateActive(signal);
+			return output;
+		}));
+	};
 };
-var createDelay = (signal) => {
-  const pause = createPause(signal);
-  return (timeoutMs) => {
-    return pause(new Promise((resolve) => setTimeout(resolve, timeoutMs)));
-  };
+const createDelay = (signal) => {
+	const pause = createPause(signal);
+	return (timeoutMs) => {
+		return pause(new Promise((resolve) => setTimeout(resolve, timeoutMs)));
+	};
 };
-
-// src/listenerMiddleware/index.ts
-var {
-  assign
-} = Object;
-var INTERNAL_NIL_TOKEN = {};
-var alm = "listenerMiddleware";
-var createFork = (parentAbortSignal, parentBlockingPromises) => {
-  const linkControllers = (controller) => addAbortSignalListener(parentAbortSignal, () => controller.abort(parentAbortSignal.reason));
-  return (taskExecutor, opts) => {
-    assertFunction(taskExecutor, "taskExecutor");
-    const childAbortController = new AbortController();
-    linkControllers(childAbortController);
-    const result = runTask(async () => {
-      validateActive(parentAbortSignal);
-      validateActive(childAbortController.signal);
-      const result2 = await taskExecutor({
-        pause: createPause(childAbortController.signal),
-        delay: createDelay(childAbortController.signal),
-        signal: childAbortController.signal
-      });
-      validateActive(childAbortController.signal);
-      return result2;
-    }, () => childAbortController.abort(taskCompleted));
-    if (opts?.autoJoin) {
-      parentBlockingPromises.push(result.catch(noop2));
-    }
-    return {
-      result: createPause(parentAbortSignal)(result),
-      cancel() {
-        childAbortController.abort(taskCancelled);
-      }
-    };
-  };
+//#endregion
+//#region src/listenerMiddleware/index.ts
+const { assign } = Object;
+const INTERNAL_NIL_TOKEN = {};
+const alm = "listenerMiddleware";
+const createFork = (parentAbortSignal, parentBlockingPromises) => {
+	const linkControllers = (controller) => addAbortSignalListener(parentAbortSignal, () => controller.abort(parentAbortSignal.reason));
+	return (taskExecutor, opts) => {
+		assertFunction(taskExecutor, "taskExecutor");
+		const childAbortController = new AbortController();
+		linkControllers(childAbortController);
+		const result = runTask(async () => {
+			validateActive(parentAbortSignal);
+			validateActive(childAbortController.signal);
+			const result = await taskExecutor({
+				pause: createPause(childAbortController.signal),
+				delay: createDelay(childAbortController.signal),
+				signal: childAbortController.signal
+			});
+			validateActive(childAbortController.signal);
+			return result;
+		}, () => childAbortController.abort(taskCompleted));
+		if (opts?.autoJoin) parentBlockingPromises.push(result.catch(noop));
+		return {
+			result: createPause(parentAbortSignal)(result),
+			cancel() {
+				childAbortController.abort(taskCancelled);
+			}
+		};
+	};
 };
-var createTakePattern = (startListening, signal) => {
-  const take = async (predicate, timeout) => {
-    validateActive(signal);
-    let unsubscribe = () => {
-    };
-    const tuplePromise = new Promise((resolve, reject) => {
-      let stopListening = startListening({
-        predicate,
-        effect: (action, listenerApi) => {
-          listenerApi.unsubscribe();
-          resolve([action, listenerApi.getState(), listenerApi.getOriginalState()]);
-        }
-      });
-      unsubscribe = () => {
-        stopListening();
-        reject();
-      };
-    });
-    const promises = [tuplePromise];
-    if (timeout != null) {
-      promises.push(new Promise((resolve) => setTimeout(resolve, timeout, null)));
-    }
-    try {
-      const output = await raceWithSignal(signal, Promise.race(promises));
-      validateActive(signal);
-      return output;
-    } finally {
-      unsubscribe();
-    }
-  };
-  return ((predicate, timeout) => catchRejection(take(predicate, timeout)));
+const createTakePattern = (startListening, signal) => {
+	const take = async (predicate, timeout) => {
+		validateActive(signal);
+		let unsubscribe = () => {};
+		const promises = [new Promise((resolve, reject) => {
+			let stopListening = startListening({
+				predicate,
+				effect: (action, listenerApi) => {
+					listenerApi.unsubscribe();
+					resolve([
+						action,
+						listenerApi.getState(),
+						listenerApi.getOriginalState()
+					]);
+				}
+			});
+			unsubscribe = () => {
+				stopListening();
+				reject();
+			};
+		})];
+		if (timeout != null) promises.push(new Promise((resolve) => setTimeout(resolve, timeout, null)));
+		try {
+			const output = await raceWithSignal(signal, Promise.race(promises));
+			validateActive(signal);
+			return output;
+		} finally {
+			unsubscribe();
+		}
+	};
+	return ((predicate, timeout) => catchRejection(take(predicate, timeout)));
 };
-var getListenerEntryPropsFrom = (options) => {
-  let {
-    type,
-    actionCreator,
-    matcher,
-    predicate,
-    effect
-  } = options;
-  if (type) {
-    predicate = createAction(type).match;
-  } else if (actionCreator) {
-    type = actionCreator.type;
-    predicate = actionCreator.match;
-  } else if (matcher) {
-    predicate = matcher;
-  } else if (predicate) {
-  } else {
-    throw new Error( false ? 0 : "Creating or removing a listener requires one of the known fields for matching an action");
-  }
-  assertFunction(effect, "options.listener");
-  return {
-    predicate,
-    type,
-    effect
-  };
+const getListenerEntryPropsFrom = (options) => {
+	let { type, actionCreator, matcher, predicate, effect } = options;
+	if (type) predicate = createAction(type).match;
+	else if (actionCreator) {
+		type = actionCreator.type;
+		predicate = actionCreator.match;
+	} else if (matcher) predicate = matcher;
+	else if (predicate) {} else throw new Error( false ? 0 : "Creating or removing a listener requires one of the known fields for matching an action");
+	assertFunction(effect, "options.listener");
+	return {
+		predicate,
+		type,
+		effect
+	};
 };
-var createListenerEntry = /* @__PURE__ */ assign((options) => {
-  const {
-    type,
-    predicate,
-    effect
-  } = getListenerEntryPropsFrom(options);
-  const entry = {
-    id: nanoid(),
-    effect,
-    type,
-    predicate,
-    pending: /* @__PURE__ */ new Set(),
-    unsubscribe: () => {
-      throw new Error( false ? 0 : "Unsubscribe not initialized");
-    }
-  };
-  return entry;
-}, {
-  withTypes: () => createListenerEntry
+const createListenerEntry = /* @__PURE__ */ assign((options) => {
+	const { type, predicate, effect } = getListenerEntryPropsFrom(options);
+	return {
+		id: nanoid(),
+		effect,
+		type,
+		predicate,
+		pending: /* @__PURE__ */ new Set(),
+		unsubscribe: () => {
+			throw new Error( false ? 0 : "Unsubscribe not initialized");
+		}
+	};
+}, { withTypes: () => createListenerEntry });
+const findListenerEntry = (listenerMap, options) => {
+	const { type, effect, predicate } = getListenerEntryPropsFrom(options);
+	return Array.from(listenerMap.values()).find((entry) => {
+		return (typeof type === "string" ? entry.type === type : entry.predicate === predicate) && entry.effect === effect;
+	});
+};
+const cancelActiveListeners = (entry) => {
+	entry.pending.forEach((controller) => {
+		controller.abort(listenerCancelled);
+	});
+};
+const createClearListenerMiddleware = (listenerMap, executingListeners) => {
+	return () => {
+		for (const listener of executingListeners.keys()) cancelActiveListeners(listener);
+		listenerMap.clear();
+	};
+};
+const safelyNotifyError = (errorHandler, errorToNotify, errorInfo) => {
+	try {
+		errorHandler(errorToNotify, errorInfo);
+	} catch (errorHandlerError) {
+		setTimeout(() => {
+			throw errorHandlerError;
+		}, 0);
+	}
+};
+const addListener = /* @__PURE__ */ assign(/* @__PURE__ */ createAction(`${alm}/add`), { withTypes: () => addListener });
+const clearAllListeners = /* @__PURE__ */ createAction(`${alm}/removeAll`);
+const removeListener = /* @__PURE__ */ assign(/* @__PURE__ */ createAction(`${alm}/remove`), { withTypes: () => removeListener });
+const defaultErrorHandler = (...args) => {
+	console.error(`${alm}/error`, ...args);
+};
+const createListenerMiddleware = (middlewareOptions = {}) => {
+	const listenerMap = /* @__PURE__ */ new Map();
+	const executingListeners = /* @__PURE__ */ new Map();
+	const trackExecutingListener = (entry) => {
+		const count = executingListeners.get(entry) ?? 0;
+		executingListeners.set(entry, count + 1);
+	};
+	const untrackExecutingListener = (entry) => {
+		const count = executingListeners.get(entry) ?? 1;
+		if (count === 1) executingListeners.delete(entry);
+		else executingListeners.set(entry, count - 1);
+	};
+	const { extra, onError = defaultErrorHandler } = middlewareOptions;
+	assertFunction(onError, "onError");
+	const insertEntry = (entry) => {
+		entry.unsubscribe = () => listenerMap.delete(entry.id);
+		listenerMap.set(entry.id, entry);
+		return (cancelOptions) => {
+			entry.unsubscribe();
+			if (cancelOptions?.cancelActive) cancelActiveListeners(entry);
+		};
+	};
+	const startListening = ((options) => {
+		const entry = findListenerEntry(listenerMap, options) ?? createListenerEntry(options);
+		return insertEntry(entry);
+	});
+	assign(startListening, { withTypes: () => startListening });
+	const stopListening = (options) => {
+		const entry = findListenerEntry(listenerMap, options);
+		if (entry) {
+			entry.unsubscribe();
+			if (options.cancelActive) cancelActiveListeners(entry);
+		}
+		return !!entry;
+	};
+	assign(stopListening, { withTypes: () => stopListening });
+	const notifyListener = async (entry, action, api, getOriginalState) => {
+		const internalTaskController = new AbortController();
+		const take = createTakePattern(startListening, internalTaskController.signal);
+		const autoJoinPromises = [];
+		try {
+			entry.pending.add(internalTaskController);
+			trackExecutingListener(entry);
+			await Promise.resolve(entry.effect(action, assign({}, api, {
+				getOriginalState,
+				condition: (predicate, timeout) => take(predicate, timeout).then(Boolean),
+				take,
+				delay: createDelay(internalTaskController.signal),
+				pause: createPause(internalTaskController.signal),
+				extra,
+				signal: internalTaskController.signal,
+				fork: createFork(internalTaskController.signal, autoJoinPromises),
+				unsubscribe: entry.unsubscribe,
+				subscribe: () => {
+					listenerMap.set(entry.id, entry);
+				},
+				cancelActiveListeners: () => {
+					entry.pending.forEach((controller, _, set) => {
+						if (controller !== internalTaskController) {
+							controller.abort(listenerCancelled);
+							set.delete(controller);
+						}
+					});
+				},
+				cancel: () => {
+					internalTaskController.abort(listenerCancelled);
+					entry.pending.delete(internalTaskController);
+				},
+				throwIfCancelled: () => {
+					validateActive(internalTaskController.signal);
+				}
+			})));
+		} catch (listenerError) {
+			if (!(listenerError instanceof TaskAbortError)) safelyNotifyError(onError, listenerError, { raisedBy: "effect" });
+		} finally {
+			await Promise.all(autoJoinPromises);
+			internalTaskController.abort(listenerCompleted);
+			untrackExecutingListener(entry);
+			entry.pending.delete(internalTaskController);
+		}
+	};
+	const clearListenerMiddleware = createClearListenerMiddleware(listenerMap, executingListeners);
+	const middleware = (api) => (next) => (action) => {
+		if (!(0,redux__WEBPACK_IMPORTED_MODULE_0__.isAction)(action)) return next(action);
+		if (addListener.match(action)) return startListening(action.payload);
+		if (clearAllListeners.match(action)) {
+			clearListenerMiddleware();
+			return;
+		}
+		if (removeListener.match(action)) return stopListening(action.payload);
+		let originalState = api.getState();
+		const getOriginalState = () => {
+			if (originalState === INTERNAL_NIL_TOKEN) throw new Error( false ? 0 : `${alm}: getOriginalState can only be called synchronously`);
+			return originalState;
+		};
+		let result;
+		try {
+			result = next(action);
+			if (listenerMap.size > 0) {
+				const currentState = api.getState();
+				const listenerEntries = Array.from(listenerMap.values());
+				for (const entry of listenerEntries) {
+					let runListener = false;
+					try {
+						runListener = entry.predicate(action, currentState, originalState);
+					} catch (predicateError) {
+						runListener = false;
+						safelyNotifyError(onError, predicateError, { raisedBy: "predicate" });
+					}
+					if (!runListener) continue;
+					notifyListener(entry, action, api, getOriginalState);
+				}
+			}
+		} finally {
+			originalState = INTERNAL_NIL_TOKEN;
+		}
+		return result;
+	};
+	return {
+		middleware,
+		startListening,
+		stopListening,
+		clearListeners: clearListenerMiddleware
+	};
+};
+//#endregion
+//#region src/dynamicMiddleware/index.ts
+const createMiddlewareEntry = (middleware) => ({
+	middleware,
+	applied: /* @__PURE__ */ new Map()
 });
-var findListenerEntry = (listenerMap, options) => {
-  const {
-    type,
-    effect,
-    predicate
-  } = getListenerEntryPropsFrom(options);
-  return Array.from(listenerMap.values()).find((entry) => {
-    const matchPredicateOrType = typeof type === "string" ? entry.type === type : entry.predicate === predicate;
-    return matchPredicateOrType && entry.effect === effect;
-  });
+const matchInstance = (instanceId) => (action) => action?.meta?.instanceId === instanceId;
+const createDynamicMiddleware = () => {
+	const instanceId = nanoid();
+	const middlewareMap = /* @__PURE__ */ new Map();
+	let middlewareVersion = 0;
+	const withMiddleware = Object.assign(createAction("dynamicMiddleware/add", (...middlewares) => ({
+		payload: middlewares,
+		meta: { instanceId }
+	})), { withTypes: () => withMiddleware });
+	const addMiddleware = Object.assign(function addMiddleware(...middlewares) {
+		const previousSize = middlewareMap.size;
+		middlewares.forEach((middleware) => {
+			getOrInsertComputed(middlewareMap, middleware, createMiddlewareEntry);
+		});
+		if (middlewareMap.size !== previousSize) middlewareVersion++;
+	}, { withTypes: () => addMiddleware });
+	const getFinalMiddleware = (api) => {
+		const appliedMiddleware = Array.from(middlewareMap.values()).map((entry) => getOrInsertComputed(entry.applied, api, entry.middleware));
+		return (0,redux__WEBPACK_IMPORTED_MODULE_0__.compose)(...appliedMiddleware);
+	};
+	const isWithMiddleware = isAllOf(withMiddleware, matchInstance(instanceId));
+	const middleware = (api) => (next) => {
+		let appliedVersion = -1;
+		let dispatch = next;
+		return (action) => {
+			if (isWithMiddleware(action)) {
+				addMiddleware(...action.payload);
+				return api.dispatch;
+			}
+			if (appliedVersion !== middlewareVersion) {
+				dispatch = getFinalMiddleware(api)(next);
+				appliedVersion = middlewareVersion;
+			}
+			return dispatch(action);
+		};
+	};
+	return {
+		middleware,
+		addMiddleware,
+		withMiddleware,
+		instanceId
+	};
 };
-var cancelActiveListeners = (entry) => {
-  entry.pending.forEach((controller) => {
-    controller.abort(listenerCancelled);
-  });
+//#endregion
+//#region src/combineSlices.ts
+const isSliceLike = (maybeSliceLike) => "reducerPath" in maybeSliceLike && typeof maybeSliceLike.reducerPath === "string";
+const getReducers = (slices) => slices.flatMap((sliceOrMap) => isSliceLike(sliceOrMap) ? [[sliceOrMap.reducerPath, sliceOrMap.reducer]] : Object.entries(sliceOrMap));
+const ORIGINAL_STATE = Symbol.for("rtk-state-proxy-original");
+const isStateProxy = (value) => !!value && !!value[ORIGINAL_STATE];
+const createStateProxy = (stateProxyMap, state, reducerMap, initialStateCache) => getOrInsertComputed(stateProxyMap, state, () => new Proxy(state, { get: (target, prop, receiver) => {
+	if (prop === ORIGINAL_STATE) return target;
+	const result = Reflect.get(target, prop, receiver);
+	if (typeof result === "undefined") {
+		const cached = initialStateCache[prop];
+		if (typeof cached !== "undefined") return cached;
+		const reducer = reducerMap[prop];
+		if (reducer) {
+			const reducerResult = reducer(void 0, { type: nanoid() });
+			if (typeof reducerResult === "undefined") throw new Error( false ? 0 : `The slice reducer for key "${prop.toString()}" returned undefined when called for selector(). If the state passed to the reducer is undefined, you must explicitly return the initial state. The initial state may not be undefined. If you don't want to set a value for this reducer, you can use null instead of undefined.`);
+			initialStateCache[prop] = reducerResult;
+			return reducerResult;
+		}
+	}
+	return result;
+} }));
+const original$1 = (state) => {
+	if (!isStateProxy(state)) throw new Error( false ? 0 : "original must be used on state Proxy");
+	return state[ORIGINAL_STATE];
 };
-var createClearListenerMiddleware = (listenerMap, executingListeners) => {
-  return () => {
-    for (const listener2 of executingListeners.keys()) {
-      cancelActiveListeners(listener2);
-    }
-    listenerMap.clear();
-  };
-};
-var safelyNotifyError = (errorHandler, errorToNotify, errorInfo) => {
-  try {
-    errorHandler(errorToNotify, errorInfo);
-  } catch (errorHandlerError) {
-    setTimeout(() => {
-      throw errorHandlerError;
-    }, 0);
-  }
-};
-var addListener = /* @__PURE__ */ assign(/* @__PURE__ */ createAction(`${alm}/add`), {
-  withTypes: () => addListener
-});
-var clearAllListeners = /* @__PURE__ */ createAction(`${alm}/removeAll`);
-var removeListener = /* @__PURE__ */ assign(/* @__PURE__ */ createAction(`${alm}/remove`), {
-  withTypes: () => removeListener
-});
-var defaultErrorHandler = (...args) => {
-  console.error(`${alm}/error`, ...args);
-};
-var createListenerMiddleware = (middlewareOptions = {}) => {
-  const listenerMap = /* @__PURE__ */ new Map();
-  const executingListeners = /* @__PURE__ */ new Map();
-  const trackExecutingListener = (entry) => {
-    const count = executingListeners.get(entry) ?? 0;
-    executingListeners.set(entry, count + 1);
-  };
-  const untrackExecutingListener = (entry) => {
-    const count = executingListeners.get(entry) ?? 1;
-    if (count === 1) {
-      executingListeners.delete(entry);
-    } else {
-      executingListeners.set(entry, count - 1);
-    }
-  };
-  const {
-    extra,
-    onError = defaultErrorHandler
-  } = middlewareOptions;
-  assertFunction(onError, "onError");
-  const insertEntry = (entry) => {
-    entry.unsubscribe = () => listenerMap.delete(entry.id);
-    listenerMap.set(entry.id, entry);
-    return (cancelOptions) => {
-      entry.unsubscribe();
-      if (cancelOptions?.cancelActive) {
-        cancelActiveListeners(entry);
-      }
-    };
-  };
-  const startListening = ((options) => {
-    const entry = findListenerEntry(listenerMap, options) ?? createListenerEntry(options);
-    return insertEntry(entry);
-  });
-  assign(startListening, {
-    withTypes: () => startListening
-  });
-  const stopListening = (options) => {
-    const entry = findListenerEntry(listenerMap, options);
-    if (entry) {
-      entry.unsubscribe();
-      if (options.cancelActive) {
-        cancelActiveListeners(entry);
-      }
-    }
-    return !!entry;
-  };
-  assign(stopListening, {
-    withTypes: () => stopListening
-  });
-  const notifyListener = async (entry, action, api, getOriginalState) => {
-    const internalTaskController = new AbortController();
-    const take = createTakePattern(startListening, internalTaskController.signal);
-    const autoJoinPromises = [];
-    try {
-      entry.pending.add(internalTaskController);
-      trackExecutingListener(entry);
-      await Promise.resolve(entry.effect(
-        action,
-        // Use assign() rather than ... to avoid extra helper functions added to bundle
-        assign({}, api, {
-          getOriginalState,
-          condition: (predicate, timeout) => take(predicate, timeout).then(Boolean),
-          take,
-          delay: createDelay(internalTaskController.signal),
-          pause: createPause(internalTaskController.signal),
-          extra,
-          signal: internalTaskController.signal,
-          fork: createFork(internalTaskController.signal, autoJoinPromises),
-          unsubscribe: entry.unsubscribe,
-          subscribe: () => {
-            listenerMap.set(entry.id, entry);
-          },
-          cancelActiveListeners: () => {
-            entry.pending.forEach((controller, _, set) => {
-              if (controller !== internalTaskController) {
-                controller.abort(listenerCancelled);
-                set.delete(controller);
-              }
-            });
-          },
-          cancel: () => {
-            internalTaskController.abort(listenerCancelled);
-            entry.pending.delete(internalTaskController);
-          },
-          throwIfCancelled: () => {
-            validateActive(internalTaskController.signal);
-          }
-        })
-      ));
-    } catch (listenerError) {
-      if (!(listenerError instanceof TaskAbortError)) {
-        safelyNotifyError(onError, listenerError, {
-          raisedBy: "effect"
-        });
-      }
-    } finally {
-      await Promise.all(autoJoinPromises);
-      internalTaskController.abort(listenerCompleted);
-      untrackExecutingListener(entry);
-      entry.pending.delete(internalTaskController);
-    }
-  };
-  const clearListenerMiddleware = createClearListenerMiddleware(listenerMap, executingListeners);
-  const middleware = (api) => (next) => (action) => {
-    if (!(0,redux__WEBPACK_IMPORTED_MODULE_3__.isAction)(action)) {
-      return next(action);
-    }
-    if (addListener.match(action)) {
-      return startListening(action.payload);
-    }
-    if (clearAllListeners.match(action)) {
-      clearListenerMiddleware();
-      return;
-    }
-    if (removeListener.match(action)) {
-      return stopListening(action.payload);
-    }
-    let originalState = api.getState();
-    const getOriginalState = () => {
-      if (originalState === INTERNAL_NIL_TOKEN) {
-        throw new Error( false ? 0 : `${alm}: getOriginalState can only be called synchronously`);
-      }
-      return originalState;
-    };
-    let result;
-    try {
-      result = next(action);
-      if (listenerMap.size > 0) {
-        const currentState = api.getState();
-        const listenerEntries = Array.from(listenerMap.values());
-        for (const entry of listenerEntries) {
-          let runListener = false;
-          try {
-            runListener = entry.predicate(action, currentState, originalState);
-          } catch (predicateError) {
-            runListener = false;
-            safelyNotifyError(onError, predicateError, {
-              raisedBy: "predicate"
-            });
-          }
-          if (!runListener) {
-            continue;
-          }
-          notifyListener(entry, action, api, getOriginalState);
-        }
-      }
-    } finally {
-      originalState = INTERNAL_NIL_TOKEN;
-    }
-    return result;
-  };
-  return {
-    middleware,
-    startListening,
-    stopListening,
-    clearListeners: clearListenerMiddleware
-  };
-};
-
-// src/dynamicMiddleware/index.ts
-var createMiddlewareEntry = (middleware) => ({
-  middleware,
-  applied: /* @__PURE__ */ new Map()
-});
-var matchInstance = (instanceId) => (action) => action?.meta?.instanceId === instanceId;
-var createDynamicMiddleware = () => {
-  const instanceId = nanoid();
-  const middlewareMap = /* @__PURE__ */ new Map();
-  const withMiddleware = Object.assign(createAction("dynamicMiddleware/add", (...middlewares) => ({
-    payload: middlewares,
-    meta: {
-      instanceId
-    }
-  })), {
-    withTypes: () => withMiddleware
-  });
-  const addMiddleware = Object.assign(function addMiddleware2(...middlewares) {
-    middlewares.forEach((middleware2) => {
-      getOrInsertComputed(middlewareMap, middleware2, createMiddlewareEntry);
-    });
-  }, {
-    withTypes: () => addMiddleware
-  });
-  const getFinalMiddleware = (api) => {
-    const appliedMiddleware = Array.from(middlewareMap.values()).map((entry) => getOrInsertComputed(entry.applied, api, entry.middleware));
-    return (0,redux__WEBPACK_IMPORTED_MODULE_3__.compose)(...appliedMiddleware);
-  };
-  const isWithMiddleware = isAllOf(withMiddleware, matchInstance(instanceId));
-  const middleware = (api) => (next) => (action) => {
-    if (isWithMiddleware(action)) {
-      addMiddleware(...action.payload);
-      return api.dispatch;
-    }
-    return getFinalMiddleware(api)(next)(action);
-  };
-  return {
-    middleware,
-    addMiddleware,
-    withMiddleware,
-    instanceId
-  };
-};
-
-// src/combineSlices.ts
-
-var isSliceLike = (maybeSliceLike) => "reducerPath" in maybeSliceLike && typeof maybeSliceLike.reducerPath === "string";
-var getReducers = (slices) => slices.flatMap((sliceOrMap) => isSliceLike(sliceOrMap) ? [[sliceOrMap.reducerPath, sliceOrMap.reducer]] : Object.entries(sliceOrMap));
-var ORIGINAL_STATE = /* @__PURE__ */ Symbol.for("rtk-state-proxy-original");
-var isStateProxy = (value) => !!value && !!value[ORIGINAL_STATE];
-var stateProxyMap = /* @__PURE__ */ new WeakMap();
-var createStateProxy = (state, reducerMap, initialStateCache) => getOrInsertComputed(stateProxyMap, state, () => new Proxy(state, {
-  get: (target, prop, receiver) => {
-    if (prop === ORIGINAL_STATE) return target;
-    const result = Reflect.get(target, prop, receiver);
-    if (typeof result === "undefined") {
-      const cached = initialStateCache[prop];
-      if (typeof cached !== "undefined") return cached;
-      const reducer = reducerMap[prop];
-      if (reducer) {
-        const reducerResult = reducer(void 0, {
-          type: nanoid()
-        });
-        if (typeof reducerResult === "undefined") {
-          throw new Error( false ? 0 : `The slice reducer for key "${prop.toString()}" returned undefined when called for selector(). If the state passed to the reducer is undefined, you must explicitly return the initial state. The initial state may not be undefined. If you don't want to set a value for this reducer, you can use null instead of undefined.`);
-        }
-        initialStateCache[prop] = reducerResult;
-        return reducerResult;
-      }
-    }
-    return result;
-  }
-}));
-var original = (state) => {
-  if (!isStateProxy(state)) {
-    throw new Error( false ? 0 : "original must be used on state Proxy");
-  }
-  return state[ORIGINAL_STATE];
-};
-var emptyObject = {};
-var noopReducer = (state = emptyObject) => state;
+const emptyObject = {};
+const noopReducer = (state = emptyObject) => state;
 function combineSlices(...slices) {
-  const reducerMap = Object.fromEntries(getReducers(slices));
-  const getReducer = () => Object.keys(reducerMap).length ? (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)(reducerMap) : noopReducer;
-  let reducer = getReducer();
-  function combinedReducer(state, action) {
-    return reducer(state, action);
-  }
-  combinedReducer.withLazyLoadedSlices = () => combinedReducer;
-  const initialStateCache = {};
-  const inject = (slice, config = {}) => {
-    const {
-      reducerPath,
-      reducer: reducerToInject
-    } = slice;
-    const currentReducer = reducerMap[reducerPath];
-    if (!config.overrideExisting && currentReducer && currentReducer !== reducerToInject) {
-      if (typeof process !== "undefined" && "development" === "development") {
-        console.error(`called \`inject\` to override already-existing reducer ${reducerPath} without specifying \`overrideExisting: true\``);
-      }
-      return combinedReducer;
-    }
-    if (config.overrideExisting && currentReducer !== reducerToInject) {
-      delete initialStateCache[reducerPath];
-    }
-    reducerMap[reducerPath] = reducerToInject;
-    reducer = getReducer();
-    return combinedReducer;
-  };
-  const selector = Object.assign(function makeSelector(selectorFn, selectState) {
-    return function selector2(state, ...args) {
-      return selectorFn(createStateProxy(selectState ? selectState(state, ...args) : state, reducerMap, initialStateCache), ...args);
-    };
-  }, {
-    original
-  });
-  return Object.assign(combinedReducer, {
-    inject,
-    selector
-  });
+	const stateProxyMap = /* @__PURE__ */ new WeakMap();
+	const reducerMap = Object.fromEntries(getReducers(slices));
+	const getReducer = () => Object.keys(reducerMap).length ? (0,redux__WEBPACK_IMPORTED_MODULE_0__.combineReducers)(reducerMap) : noopReducer;
+	let reducer = getReducer();
+	function combinedReducer(state, action) {
+		return reducer(state, action);
+	}
+	combinedReducer.withLazyLoadedSlices = () => combinedReducer;
+	const initialStateCache = {};
+	const inject = (slice, config = {}) => {
+		const { reducerPath, reducer: reducerToInject } = slice;
+		const currentReducer = reducerMap[reducerPath];
+		if (!config.overrideExisting && currentReducer && currentReducer !== reducerToInject) {
+			if (typeof process !== "undefined" && "development" === "development") console.error(`called \`inject\` to override already-existing reducer ${reducerPath} without specifying \`overrideExisting: true\``);
+			return combinedReducer;
+		}
+		if (config.overrideExisting && currentReducer !== reducerToInject) delete initialStateCache[reducerPath];
+		reducerMap[reducerPath] = reducerToInject;
+		reducer = getReducer();
+		return combinedReducer;
+	};
+	const selector = Object.assign(function makeSelector(selectorFn, selectState) {
+		return function selector(state, ...args) {
+			return selectorFn(createStateProxy(stateProxyMap, selectState ? selectState(state, ...args) : state, reducerMap, initialStateCache), ...args);
+		};
+	}, { original: original$1 });
+	return Object.assign(combinedReducer, {
+		inject,
+		selector
+	});
 }
-
-// src/formatProdErrorMessage.ts
+//#endregion
+//#region src/formatProdErrorMessage.ts
 function formatProdErrorMessage(code) {
-  return `Minified Redux Toolkit error #${code}; visit https://redux-toolkit.js.org/Errors?code=${code} for the full message or use the non-minified dev environment for full errors. `;
+	return `Minified Redux Toolkit error #${code}; visit https://redux-toolkit.js.org/Errors?code=${code} for the full message or use the non-minified dev environment for full errors. `;
 }
+//#endregion
+
 
 //# sourceMappingURL=redux-toolkit.modern.mjs.map
 
@@ -5801,11 +5357,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
-const isReactNative = typeof __webpack_require__.g !== 'undefined' &&
+const isReactNative = typeof globalThis !== 'undefined' &&
 // @ts-ignore
-__webpack_require__.g.navigator &&
+globalThis.navigator &&
 // @ts-ignore
-__webpack_require__.g.navigator.product === 'ReactNative';
+globalThis.navigator.product === 'ReactNative';
 const isDOM = typeof document !== 'undefined';
 
 /**
@@ -7628,13 +7184,14 @@ __exportStar(__webpack_require__(/*! ./DiscussionKind */ "./node_modules/@ueu/ue
 /*!**********************************************************************!*\
   !*** ./node_modules/@ueu/ueu-canvas/dist/content/getContentFuncs.js ***!
   \**********************************************************************/
-(__unused_webpack_module, exports) {
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getFileLinks = getFileLinks;
 exports.getExternalLinks = getExternalLinks;
+const instance_1 = __webpack_require__(/*! ../instance */ "./node_modules/@ueu/ueu-canvas/dist/instance.js");
 function getAllLinks(body) {
     const el = bodyAsElement(body);
     const anchors = el.querySelectorAll('a');
@@ -7652,8 +7209,7 @@ function getFileLinks(body, courseId) {
     return getAllLinks(body).filter(a => a.match(/instructure\.com.*files\/\d+/i)).map(a => a.split('?')[0]);
 }
 function getExternalLinks(body, courseId) {
-    // Correct regex to exclude unity.instructure.com links properly
-    return getAllLinks(body).filter(a => !a.match(/:\/\/unity\.instructure\.com\//i));
+    return getAllLinks(body).filter(a => !(0, instance_1.isCanvasUrl)(a));
 }
 //# sourceMappingURL=getContentFuncs.js.map
 
@@ -8180,19 +7736,21 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
     async getStartDateFromModules() {
         return (0, changeStartDate_1.getModuleUnlockStartDate)(await this.getModules());
     }
+    getCourseNumber() {
+        const match = this.courseCode?.match(/\d{3,4}/);
+        return match ? parseInt(match[0], 10) : null;
+    }
     isUndergrad() {
         if (this.courseCode?.toLowerCase().includes('dev_ug'))
             return true;
-        const match = this.courseCode?.match(/\d{3,4}/);
-        const codeNum = match ? parseInt(match[0], 10) : 0;
-        return codeNum < 500;
+        const codeNum = this.getCourseNumber();
+        return codeNum != null && codeNum < 500;
     }
     isGrad() {
         if (this.courseCode?.toLowerCase().includes('dev_grad'))
             return true;
-        const match = this.courseCode?.match(/\d{3,4}/);
-        const codeNum = match ? parseInt(match[0], 10) : 0;
-        return codeNum >= 500 && codeNum < 1000;
+        const codeNum = this.getCourseNumber();
+        return codeNum != null && codeNum >= 500 && codeNum < 1000;
     }
     isCareerInstitute() {
         return /\d{4}/.test(this.courseCode || "");
@@ -9809,7 +9367,25 @@ exports["default"] = apiWriteConfig;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FetchJsonError = void 0;
 exports.fetchJson = fetchJson;
+// Error type returned when a fetchJson request fails (non-2xx response).
+class FetchJsonError extends Error {
+    name = "FetchJsonError";
+    status;
+    statusText;
+    body;
+    constructor(status, statusText, body) {
+        const message = body
+            ? `Request failed with ${status} ${statusText}: ${JSON.stringify(body)}`
+            : `Request failed with ${status} ${statusText}`;
+        super(message);
+        this.status = status;
+        this.statusText = statusText;
+        this.body = body;
+    }
+}
+exports.FetchJsonError = FetchJsonError;
 async function fetchJson(url, config = null) {
     const match = url.search(/^(\/|\w+:\/\/)/);
     if (match < 0)
@@ -9819,6 +9395,17 @@ async function fetchJson(url, config = null) {
     }
     config ??= {};
     const response = await fetch(url, config.fetchInit);
+    if (!response.ok) {
+        console.error("Request failed - ", response.status, response.statusText, response.body);
+        let errorBody;
+        try {
+            errorBody = await response.json();
+        }
+        catch {
+            errorBody = undefined;
+        }
+        throw new FetchJsonError(response.status, response.statusText, errorBody);
+    }
     const responseJson = await response.json();
     if (!responseJson)
         throw new Error("Could not fetch json");
@@ -10356,8 +9943,81 @@ __exportStar(__webpack_require__(/*! ./date */ "./node_modules/@ueu/ueu-canvas/d
 __exportStar(__webpack_require__(/*! ./types */ "./node_modules/@ueu/ueu-canvas/dist/types.js"), exports);
 __exportStar(__webpack_require__(/*! ./fetch */ "./node_modules/@ueu/ueu-canvas/dist/fetch/index.js"), exports);
 __exportStar(__webpack_require__(/*! ./canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js"), exports);
+__exportStar(__webpack_require__(/*! ./instance */ "./node_modules/@ueu/ueu-canvas/dist/instance.js"), exports);
 exports.mocks = __importStar(__webpack_require__(/*! ./__mocks__ */ "./node_modules/@ueu/ueu-canvas/dist/__mocks__/index.js"));
 //# sourceMappingURL=index.js.map
+
+/***/ },
+
+/***/ "./node_modules/@ueu/ueu-canvas/dist/instance.js"
+/*!*******************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/instance.js ***!
+  \*******************************************************/
+(__unused_webpack_module, exports) {
+
+"use strict";
+
+/**
+ * Canvas instance configuration. Every hardcoded URL, account ID, and
+ * template course ID lives here. The default matches Unity's production
+ * Canvas instance; a second instance overrides what it needs.
+ *
+ * The active instance is set once at startup (setInstance) and read
+ * everywhere else (getInstance). This avoids threading config through
+ * every function signature while keeping it swappable.
+ */
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getInstance = getInstance;
+exports.setInstance = setInstance;
+exports.resetInstance = resetInstance;
+exports.isCanvasUrl = isCanvasUrl;
+exports.canvasUrl = canvasUrl;
+const UNITY_DEFAULTS = {
+    baseUrl: "https://unity.instructure.com",
+    hostname: "unity.instructure.com",
+    templateCourseId: 3850558,
+    referencesPageSlug: "learning-materials-reference-page",
+    externalApis: {
+        citeas: "https://api.citeas.org/product",
+    },
+};
+let active = { ...UNITY_DEFAULTS };
+function getInstance() {
+    return active;
+}
+function setInstance(config) {
+    active = { ...UNITY_DEFAULTS, ...config };
+    if (config.baseUrl && !config.hostname) {
+        try {
+            active.hostname = new URL(config.baseUrl).hostname;
+        }
+        catch {
+            // keep the default if baseUrl is unparseable
+        }
+    }
+}
+function resetInstance() {
+    active = { ...UNITY_DEFAULTS };
+}
+/** Check whether a URL belongs to the active Canvas instance. */
+function isCanvasUrl(url) {
+    try {
+        return new URL(url).hostname === active.hostname;
+    }
+    catch {
+        return url.includes(active.hostname);
+    }
+}
+/**
+ * Build an absolute Canvas URL from a relative path.
+ * If already absolute, returns as-is.
+ */
+function canvasUrl(path) {
+    if (path.startsWith("http://") || path.startsWith("https://"))
+        return path;
+    return `${active.baseUrl}${path.startsWith("/") ? "" : "/"}${path}`;
+}
+//# sourceMappingURL=instance.js.map
 
 /***/ },
 
@@ -37930,7 +37590,7 @@ var getProxyDraft = (value) => {
 var latest = (state) => state.copy_ || state.base_;
 var getValue = (value) => {
   const proxyDraft = getProxyDraft(value);
-  return proxyDraft ? proxyDraft.copy_ ?? proxyDraft.base_ : value;
+  return proxyDraft ? getFinalValue(proxyDraft) : value;
 };
 var getFinalValue = (state) => state.modified_ ? state.copy_ : state.base_;
 function shallowCopy(base, strict) {
@@ -38976,6 +38636,8 @@ function enablePatches() {
 }
 
 // src/plugins/mapset.ts
+var _globalIterator = globalThis.Iterator;
+var hasIteratorFrom = typeof _globalIterator?.from === "function";
 function enableMapSet() {
   class DraftMap extends Map {
     constructor(target, parent) {
@@ -39102,8 +38764,8 @@ function enableMapSet() {
     }
   }
   function iteratorFrom(iterable) {
-    if (typeof Iterator !== "undefined") {
-      return Iterator.from(iterable);
+    if (hasIteratorFrom) {
+      return _globalIterator.from(iterable);
     }
     const iterator = {
       ...iterable,
@@ -39299,10 +38961,13 @@ function enableArrayMethods() {
   function executeArrayMethod(state, operation, markLength = true) {
     prepareCopy(state);
     const result = operation();
+    markArrayChanged(state, markLength);
+    return result;
+  }
+  function markArrayChanged(state, markLength = true) {
     markChanged(state);
     if (markLength)
       state.assigned_.set("length", true);
-    return result;
   }
   function markAllIndicesReassigned(state) {
     state.allIndicesReassigned_ = true;
@@ -39316,27 +38981,33 @@ function enableArrayMethods() {
   }
   function handleInsertedValues(state, startIndex, values) {
     for (let i = 0; i < values.length; i++) {
-      const index = startIndex + i;
+      const index = "" + (startIndex + i);
       state.assigned_.set(index, true);
       handleCrossReference(state, index, values[i]);
     }
   }
   function handleSimpleOperation(state, method, args) {
-    return executeArrayMethod(state, () => {
-      const lengthBefore = state.copy_.length;
-      const result = state.copy_[method](...args);
-      if (SHIFTING_METHODS.has(method)) {
-        markAllIndicesReassigned(state);
-      }
-      if (method === "push" && args.length > 0) {
-        handleInsertedValues(state, lengthBefore, args);
-      } else if (method === "unshift" && args.length > 0) {
-        handleInsertedValues(state, 0, args);
-      }
-      return RESULT_RETURNING_METHODS.has(method) ? result : state.draft_;
-    });
+    const isInsert = method === "push" || method === "unshift";
+    if (isInsert ? args.length === 0 : latest(state).length === 0) {
+      return isInsert ? latest(state).length : void 0;
+    }
+    prepareCopy(state);
+    const lengthBefore = state.copy_.length;
+    const result = state.copy_[method](...args);
+    markArrayChanged(state);
+    if (SHIFTING_METHODS.has(method)) {
+      markAllIndicesReassigned(state);
+    }
+    if (method === "push") {
+      handleInsertedValues(state, lengthBefore, args);
+    } else if (method === "unshift") {
+      handleInsertedValues(state, 0, args);
+    }
+    return RESULT_RETURNING_METHODS.has(method) ? result : state.draft_;
   }
   function handleReorderingOperation(state, method, args) {
+    if (latest(state).length <= 1)
+      return state.draft_;
     return executeArrayMethod(
       state,
       () => {
@@ -39361,12 +39032,23 @@ function enableArrayMethods() {
             return handleReorderingOperation(state, method, args);
           }
           if (method === "splice") {
-            const res = executeArrayMethod(
-              state,
-              () => state.copy_.splice(...args)
+            const insertCount = args.length > 2 ? args.length - 2 : 0;
+            if (insertCount === 0) {
+              const length = latest(state).length;
+              if (args.length === 0 || normalizeSliceIndex(args[0] ?? 0, length) === length || args.length > 1 && !(args[1] >= 1)) {
+                return [];
+              }
+            }
+            prepareCopy(state);
+            const res = state.copy_.splice(
+              ...args
             );
+            if (res.length === 0 && insertCount === 0) {
+              return res;
+            }
+            markArrayChanged(state);
             markAllIndicesReassigned(state);
-            if (args.length > 2) {
+            if (insertCount > 0) {
               const startIndex = normalizeSliceIndex(
                 args[0] ?? 0,
                 state.copy_.length
@@ -41258,10 +40940,10 @@ module.exports = equalObjects;
 /*!********************************************!*\
   !*** ./node_modules/lodash/_freeGlobal.js ***!
   \********************************************/
-(module, __unused_webpack_exports, __webpack_require__) {
+(module) {
 
 /** Detect free variable `global` from Node.js. */
-var freeGlobal = typeof __webpack_require__.g == 'object' && __webpack_require__.g && __webpack_require__.g.Object === Object && __webpack_require__.g;
+var freeGlobal = typeof globalThis == 'object' && globalThis && globalThis.Object === Object && globalThis;
 
 module.exports = freeGlobal;
 
@@ -88661,9 +88343,190 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   lruMemoize: () => (/* binding */ lruMemoize),
 /* harmony export */   referenceEqualityCheck: () => (/* binding */ referenceEqualityCheck),
 /* harmony export */   setGlobalDevModeChecks: () => (/* binding */ setGlobalDevModeChecks),
-/* harmony export */   unstable_autotrackMemoize: () => (/* binding */ autotrackMemoize),
 /* harmony export */   weakMapMemoize: () => (/* binding */ weakMapMemoize)
 /* harmony export */ });
+// src/devModeChecks/cacheSizeCheck.ts
+var CACHE_SIZE_CHECK_THRESHOLD = 1e3;
+var runCacheSizeCheck = (cacheSize, funcName) => {
+  let stack = void 0;
+  try {
+    throw new Error();
+  } catch (e) {
+    ;
+    ({ stack } = e);
+  }
+  console.warn(
+    `A function memoized with weakMapMemoize${funcName ? ` (\`${funcName}\`)` : ""} has seen over ${cacheSize} distinct values for the same primitive argument position.
+Results keyed by primitive arguments are held strongly and are only released by \`clearCache()\`, so this cache will keep growing for as long as the function keeps seeing new values.
+If it is called with ever-changing primitives (ids, offsets, timestamps), pass the \`maxSize\` option to bound the cache, switch to \`lruMemoize\`, or call \`.clearCache()\` at a suitable point.
+See https://reselect.js.org/api/development-only-checks#cachesizecheck for details.`,
+    { stack }
+  );
+};
+
+// src/devModeChecks/setGlobalDevModeChecks.ts
+var globalDevModeChecks = {
+  inputStabilityCheck: "once",
+  identityFunctionCheck: "once",
+  cacheSizeCheck: "once"
+};
+var setGlobalDevModeChecks = (devModeChecks) => {
+  Object.assign(globalDevModeChecks, devModeChecks);
+};
+
+// src/weakMapMemoize.ts
+var StrongRef = class {
+  constructor(value) {
+    this.value = value;
+  }
+  deref() {
+    return this.value;
+  }
+};
+var getWeakRef = () => typeof WeakRef === "undefined" ? StrongRef : WeakRef;
+var Ref = /* @__PURE__ */ getWeakRef();
+var UNTERMINATED = 0;
+var TERMINATED = 1;
+function createCacheNode() {
+  return {
+    s: UNTERMINATED,
+    v: void 0,
+    o: null,
+    p: null
+  };
+}
+function maybeDeref(r) {
+  if (r instanceof Ref) {
+    return r.deref();
+  }
+  return r;
+}
+function weakMapMemoize(func, options = {}) {
+  let fnNode = createCacheNode();
+  const { resultEqualityCheck, maxSize } = options;
+  const useGenerations = maxSize !== void 0;
+  if (useGenerations && (!Number.isInteger(maxSize) || maxSize < 1)) {
+    throw new TypeError(
+      `maxSize must be a positive integer, received: ${maxSize}`
+    );
+  }
+  let prevNode = null;
+  let insertionCount = 0;
+  let lastResult;
+  let resultsCount = 0;
+  let hasWarnedAboutCacheSize = false;
+  function maybeFlipGenerations() {
+    if (insertionCount >= maxSize) {
+      prevNode = fnNode;
+      fnNode = createCacheNode();
+      insertionCount = 0;
+    }
+  }
+  function memoized() {
+    let cacheNode = fnNode;
+    const { length } = arguments;
+    for (let i = 0, l = length; i < l; i++) {
+      const arg = arguments[i];
+      if (typeof arg === "function" || typeof arg === "object" && arg !== null) {
+        let objectCache = cacheNode.o;
+        if (objectCache === null) {
+          cacheNode.o = objectCache = /* @__PURE__ */ new WeakMap();
+        }
+        const objectNode = objectCache.get(arg);
+        if (objectNode === void 0) {
+          cacheNode = createCacheNode();
+          objectCache.set(arg, cacheNode);
+        } else {
+          cacheNode = objectNode;
+        }
+      } else {
+        let primitiveCache = cacheNode.p;
+        if (primitiveCache === null) {
+          cacheNode.p = primitiveCache = /* @__PURE__ */ new Map();
+        }
+        const primitiveNode = primitiveCache.get(arg);
+        if (primitiveNode === void 0) {
+          cacheNode = createCacheNode();
+          primitiveCache.set(arg, cacheNode);
+          insertionCount++;
+          if (true) {
+            if (primitiveCache.size > CACHE_SIZE_CHECK_THRESHOLD) {
+              const { cacheSizeCheck } = globalDevModeChecks;
+              if (cacheSizeCheck === "always" || cacheSizeCheck === "once" && !hasWarnedAboutCacheSize) {
+                hasWarnedAboutCacheSize = true;
+                runCacheSizeCheck(primitiveCache.size, func.name);
+              }
+            }
+          }
+        } else {
+          cacheNode = primitiveNode;
+        }
+      }
+    }
+    if (cacheNode.s === TERMINATED) {
+      return cacheNode.v;
+    }
+    if (prevNode !== null) {
+      let prevCacheNode = prevNode;
+      for (let i = 0, l = length; i < l; i++) {
+        const arg = arguments[i];
+        let next;
+        if (typeof arg === "function" || typeof arg === "object" && arg !== null) {
+          const prevObjectCache = prevCacheNode.o;
+          next = prevObjectCache !== null ? prevObjectCache.get(arg) : void 0;
+        } else {
+          const prevPrimitiveCache = prevCacheNode.p;
+          next = prevPrimitiveCache !== null ? prevPrimitiveCache.get(arg) : void 0;
+        }
+        if (next === void 0) {
+          prevCacheNode = null;
+          break;
+        }
+        prevCacheNode = next;
+      }
+      if (prevCacheNode !== null && prevCacheNode.s === TERMINATED) {
+        const promotedNode = cacheNode;
+        promotedNode.s = TERMINATED;
+        promotedNode.v = prevCacheNode.v;
+        maybeFlipGenerations();
+        return prevCacheNode.v;
+      }
+    }
+    const terminatedNode = cacheNode;
+    let result = func.apply(null, arguments);
+    resultsCount++;
+    if (resultEqualityCheck) {
+      const lastResultValue = maybeDeref(lastResult);
+      if (lastResultValue != null && resultEqualityCheck(lastResultValue, result)) {
+        result = lastResultValue;
+        resultsCount !== 0 && resultsCount--;
+      }
+      const needsWeakRef = typeof result === "object" && result !== null || typeof result === "function";
+      lastResult = needsWeakRef ? /* @__PURE__ */ new Ref(result) : result;
+    }
+    terminatedNode.s = TERMINATED;
+    terminatedNode.v = result;
+    if (useGenerations) {
+      maybeFlipGenerations();
+    }
+    return result;
+  }
+  memoized.clearCache = () => {
+    fnNode = createCacheNode();
+    prevNode = null;
+    insertionCount = 0;
+    memoized.resetResultsCount();
+    if (true) {
+      hasWarnedAboutCacheSize = false;
+    }
+  };
+  memoized.resultsCount = () => resultsCount;
+  memoized.resetResultsCount = () => {
+    resultsCount = 0;
+  };
+  return memoized;
+}
+
 // src/devModeChecks/identityFunctionCheck.ts
 var runIdentityFunctionCheck = (resultFunc, inputSelectorsResults, outputSelectorResult) => {
   if (inputSelectorsResults.length === 1 && inputSelectorsResults[0] === outputSelectorResult) {
@@ -88690,10 +88553,23 @@ var runIdentityFunctionCheck = (resultFunc, inputSelectorsResults, outputSelecto
 };
 
 // src/devModeChecks/inputStabilityCheck.ts
+var withoutResultEqualityCheck = (option) => {
+  if (option === null || typeof option !== "object" || !("resultEqualityCheck" in option)) {
+    return option;
+  }
+  const optionCopy = { ...option };
+  delete optionCopy.resultEqualityCheck;
+  return optionCopy;
+};
 var runInputStabilityCheck = (inputSelectorResultsObject, options, inputSelectorArgs) => {
   const { memoize, memoizeOptions } = options;
   const { inputSelectorResults, inputSelectorResultsCopy } = inputSelectorResultsObject;
-  const createAnEmptyObject = memoize(() => ({}), ...memoizeOptions);
+  const probeMemoizeOptions = [];
+  const { length } = memoizeOptions;
+  for (let i = 0; i < length; i++) {
+    probeMemoizeOptions.push(withoutResultEqualityCheck(memoizeOptions[i]));
+  }
+  const createAnEmptyObject = memoize(() => ({}), ...probeMemoizeOptions);
   const areInputSelectorResultsEqual = createAnEmptyObject.apply(null, inputSelectorResults) === createAnEmptyObject.apply(null, inputSelectorResultsCopy);
   if (!areInputSelectorResultsEqual) {
     let stack = void 0;
@@ -88713,15 +88589,6 @@ var runInputStabilityCheck = (inputSelectorResultsObject, options, inputSelector
       }
     );
   }
-};
-
-// src/devModeChecks/setGlobalDevModeChecks.ts
-var globalDevModeChecks = {
-  inputStabilityCheck: "once",
-  identityFunctionCheck: "once"
-};
-var setGlobalDevModeChecks = (devModeChecks) => {
-  Object.assign(globalDevModeChecks, devModeChecks);
 };
 
 // src/utils.ts
@@ -88762,520 +88629,6 @@ function collectInputSelectorResults(dependencies, inputSelectorArgs) {
     inputSelectorResults.push(dependencies[i].apply(null, inputSelectorArgs));
   }
   return inputSelectorResults;
-}
-var getDevModeChecksExecutionInfo = (firstRun, devModeChecks) => {
-  const { identityFunctionCheck, inputStabilityCheck } = {
-    ...globalDevModeChecks,
-    ...devModeChecks
-  };
-  return {
-    identityFunctionCheck: {
-      shouldRun: identityFunctionCheck === "always" || identityFunctionCheck === "once" && firstRun,
-      run: runIdentityFunctionCheck
-    },
-    inputStabilityCheck: {
-      shouldRun: inputStabilityCheck === "always" || inputStabilityCheck === "once" && firstRun,
-      run: runInputStabilityCheck
-    }
-  };
-};
-
-// src/autotrackMemoize/autotracking.ts
-var $REVISION = 0;
-var CURRENT_TRACKER = null;
-var Cell = class {
-  revision = $REVISION;
-  _value;
-  _lastValue;
-  _isEqual = tripleEq;
-  constructor(initialValue, isEqual = tripleEq) {
-    this._value = this._lastValue = initialValue;
-    this._isEqual = isEqual;
-  }
-  // Whenever a storage value is read, it'll add itself to the current tracker if
-  // one exists, entangling its state with that cache.
-  get value() {
-    CURRENT_TRACKER?.add(this);
-    return this._value;
-  }
-  // Whenever a storage value is updated, we bump the global revision clock,
-  // assign the revision for this storage to the new value, _and_ we schedule a
-  // rerender. This is important, and it's what makes autotracking  _pull_
-  // based. We don't actively tell the caches which depend on the storage that
-  // anything has happened. Instead, we recompute the caches when needed.
-  set value(newValue) {
-    if (this.value === newValue) return;
-    this._value = newValue;
-    this.revision = ++$REVISION;
-  }
-};
-function tripleEq(a, b) {
-  return a === b;
-}
-var TrackingCache = class {
-  _cachedValue;
-  _cachedRevision = -1;
-  _deps = [];
-  hits = 0;
-  fn;
-  constructor(fn) {
-    this.fn = fn;
-  }
-  clear() {
-    this._cachedValue = void 0;
-    this._cachedRevision = -1;
-    this._deps = [];
-    this.hits = 0;
-  }
-  get value() {
-    if (this.revision > this._cachedRevision) {
-      const { fn } = this;
-      const currentTracker = /* @__PURE__ */ new Set();
-      const prevTracker = CURRENT_TRACKER;
-      CURRENT_TRACKER = currentTracker;
-      this._cachedValue = fn();
-      CURRENT_TRACKER = prevTracker;
-      this.hits++;
-      this._deps = Array.from(currentTracker);
-      this._cachedRevision = this.revision;
-    }
-    CURRENT_TRACKER?.add(this);
-    return this._cachedValue;
-  }
-  get revision() {
-    return Math.max(...this._deps.map((d) => d.revision), 0);
-  }
-};
-function getValue(cell) {
-  if (!(cell instanceof Cell)) {
-    console.warn("Not a valid cell! ", cell);
-  }
-  return cell.value;
-}
-function setValue(storage, value) {
-  if (!(storage instanceof Cell)) {
-    throw new TypeError(
-      "setValue must be passed a tracked store created with `createStorage`."
-    );
-  }
-  storage.value = storage._lastValue = value;
-}
-function createCell(initialValue, isEqual = tripleEq) {
-  return new Cell(initialValue, isEqual);
-}
-function createCache(fn) {
-  assertIsFunction(
-    fn,
-    "the first parameter to `createCache` must be a function"
-  );
-  return new TrackingCache(fn);
-}
-
-// src/autotrackMemoize/tracking.ts
-var neverEq = (a, b) => false;
-function createTag() {
-  return createCell(null, neverEq);
-}
-function dirtyTag(tag, value) {
-  setValue(tag, value);
-}
-var consumeCollection = (node) => {
-  let tag = node.collectionTag;
-  if (tag === null) {
-    tag = node.collectionTag = createTag();
-  }
-  getValue(tag);
-};
-var dirtyCollection = (node) => {
-  const tag = node.collectionTag;
-  if (tag !== null) {
-    dirtyTag(tag, null);
-  }
-};
-
-// src/autotrackMemoize/proxy.ts
-var nextId = 0;
-var proto = /* @__PURE__ */ Object.getPrototypeOf({});
-var ObjectTreeNode = class {
-  constructor(value) {
-    this.value = value;
-    this.value = value;
-    this.tag.value = value;
-  }
-  proxy = new Proxy(this, objectProxyHandler);
-  tag = createTag();
-  tags = {};
-  children = {};
-  collectionTag = null;
-  id = nextId++;
-};
-var objectProxyHandler = {
-  get(node, key) {
-    function calculateResult() {
-      const { value } = node;
-      const childValue = Reflect.get(value, key);
-      if (typeof key === "symbol") {
-        return childValue;
-      }
-      if (key in proto) {
-        return childValue;
-      }
-      if (typeof childValue === "object" && childValue !== null) {
-        let childNode = node.children[key];
-        if (childNode === void 0) {
-          childNode = node.children[key] = createNode(childValue);
-        }
-        if (childNode.tag) {
-          getValue(childNode.tag);
-        }
-        return childNode.proxy;
-      } else {
-        let tag = node.tags[key];
-        if (tag === void 0) {
-          tag = node.tags[key] = createTag();
-          tag.value = childValue;
-        }
-        getValue(tag);
-        return childValue;
-      }
-    }
-    const res = calculateResult();
-    return res;
-  },
-  ownKeys(node) {
-    consumeCollection(node);
-    return Reflect.ownKeys(node.value);
-  },
-  getOwnPropertyDescriptor(node, prop) {
-    return Reflect.getOwnPropertyDescriptor(node.value, prop);
-  },
-  has(node, prop) {
-    return Reflect.has(node.value, prop);
-  }
-};
-var ArrayTreeNode = class {
-  constructor(value) {
-    this.value = value;
-    this.value = value;
-    this.tag.value = value;
-  }
-  proxy = new Proxy([this], arrayProxyHandler);
-  tag = createTag();
-  tags = {};
-  children = {};
-  collectionTag = null;
-  id = nextId++;
-};
-var arrayProxyHandler = {
-  get([node], key) {
-    if (key === "length") {
-      consumeCollection(node);
-    }
-    return objectProxyHandler.get(node, key);
-  },
-  ownKeys([node]) {
-    return objectProxyHandler.ownKeys(node);
-  },
-  getOwnPropertyDescriptor([node], prop) {
-    return objectProxyHandler.getOwnPropertyDescriptor(node, prop);
-  },
-  has([node], prop) {
-    return objectProxyHandler.has(node, prop);
-  }
-};
-function createNode(value) {
-  if (Array.isArray(value)) {
-    return new ArrayTreeNode(value);
-  }
-  return new ObjectTreeNode(value);
-}
-function updateNode(node, newValue) {
-  const { value, tags, children } = node;
-  node.value = newValue;
-  if (Array.isArray(value) && Array.isArray(newValue) && value.length !== newValue.length) {
-    dirtyCollection(node);
-  } else {
-    if (value !== newValue) {
-      let oldKeysSize = 0;
-      let newKeysSize = 0;
-      let anyKeysAdded = false;
-      for (const _key in value) {
-        oldKeysSize++;
-      }
-      for (const key in newValue) {
-        newKeysSize++;
-        if (!(key in value)) {
-          anyKeysAdded = true;
-          break;
-        }
-      }
-      const isDifferent = anyKeysAdded || oldKeysSize !== newKeysSize;
-      if (isDifferent) {
-        dirtyCollection(node);
-      }
-    }
-  }
-  for (const key in tags) {
-    const childValue = value[key];
-    const newChildValue = newValue[key];
-    if (childValue !== newChildValue) {
-      dirtyCollection(node);
-      dirtyTag(tags[key], newChildValue);
-    }
-    if (typeof newChildValue === "object" && newChildValue !== null) {
-      delete tags[key];
-    }
-  }
-  for (const key in children) {
-    const childNode = children[key];
-    const newChildValue = newValue[key];
-    const childValue = childNode.value;
-    if (childValue === newChildValue) {
-      continue;
-    } else if (typeof newChildValue === "object" && newChildValue !== null) {
-      updateNode(childNode, newChildValue);
-    } else {
-      deleteNode(childNode);
-      delete children[key];
-    }
-  }
-}
-function deleteNode(node) {
-  if (node.tag) {
-    dirtyTag(node.tag, null);
-  }
-  dirtyCollection(node);
-  for (const key in node.tags) {
-    dirtyTag(node.tags[key], null);
-  }
-  for (const key in node.children) {
-    deleteNode(node.children[key]);
-  }
-}
-
-// src/lruMemoize.ts
-function createSingletonCache(equals) {
-  let entry;
-  return {
-    get(key) {
-      if (entry && equals(entry.key, key)) {
-        return entry.value;
-      }
-      return NOT_FOUND;
-    },
-    put(key, value) {
-      entry = { key, value };
-    },
-    getEntries() {
-      return entry ? [entry] : [];
-    },
-    clear() {
-      entry = void 0;
-    }
-  };
-}
-function createLruCache(maxSize, equals) {
-  let entries = [];
-  function get(key) {
-    const cacheIndex = entries.findIndex((entry) => equals(key, entry.key));
-    if (cacheIndex > -1) {
-      const entry = entries[cacheIndex];
-      if (cacheIndex > 0) {
-        entries.splice(cacheIndex, 1);
-        entries.unshift(entry);
-      }
-      return entry.value;
-    }
-    return NOT_FOUND;
-  }
-  function put(key, value) {
-    if (get(key) === NOT_FOUND) {
-      entries.unshift({ key, value });
-      if (entries.length > maxSize) {
-        entries.pop();
-      }
-    }
-  }
-  function getEntries() {
-    return entries;
-  }
-  function clear() {
-    entries = [];
-  }
-  return { get, put, getEntries, clear };
-}
-var referenceEqualityCheck = (a, b) => a === b;
-function createCacheKeyComparator(equalityCheck) {
-  return function areArgumentsShallowlyEqual(prev, next) {
-    if (prev === null || next === null || prev.length !== next.length) {
-      return false;
-    }
-    const { length } = prev;
-    for (let i = 0; i < length; i++) {
-      if (!equalityCheck(prev[i], next[i])) {
-        return false;
-      }
-    }
-    return true;
-  };
-}
-function lruMemoize(func, equalityCheckOrOptions) {
-  const providedOptions = typeof equalityCheckOrOptions === "object" ? equalityCheckOrOptions : { equalityCheck: equalityCheckOrOptions };
-  const {
-    equalityCheck = referenceEqualityCheck,
-    maxSize = 1,
-    resultEqualityCheck
-  } = providedOptions;
-  const comparator = createCacheKeyComparator(equalityCheck);
-  let resultsCount = 0;
-  const cache = maxSize <= 1 ? createSingletonCache(comparator) : createLruCache(maxSize, comparator);
-  function memoized() {
-    let value = cache.get(arguments);
-    if (value === NOT_FOUND) {
-      value = func.apply(null, arguments);
-      resultsCount++;
-      if (resultEqualityCheck) {
-        const entries = cache.getEntries();
-        const matchingEntry = entries.find(
-          (entry) => resultEqualityCheck(entry.value, value)
-        );
-        if (matchingEntry) {
-          value = matchingEntry.value;
-          resultsCount !== 0 && resultsCount--;
-        }
-      }
-      cache.put(arguments, value);
-    }
-    return value;
-  }
-  memoized.clearCache = () => {
-    cache.clear();
-    memoized.resetResultsCount();
-  };
-  memoized.resultsCount = () => resultsCount;
-  memoized.resetResultsCount = () => {
-    resultsCount = 0;
-  };
-  return memoized;
-}
-
-// src/autotrackMemoize/autotrackMemoize.ts
-function autotrackMemoize(func) {
-  const node = createNode(
-    []
-  );
-  let lastArgs = null;
-  const shallowEqual = createCacheKeyComparator(referenceEqualityCheck);
-  const cache = createCache(() => {
-    const res = func.apply(null, node.proxy);
-    return res;
-  });
-  function memoized() {
-    if (!shallowEqual(lastArgs, arguments)) {
-      updateNode(node, arguments);
-      lastArgs = arguments;
-    }
-    return cache.value;
-  }
-  memoized.clearCache = () => {
-    return cache.clear();
-  };
-  return memoized;
-}
-
-// src/weakMapMemoize.ts
-var StrongRef = class {
-  constructor(value) {
-    this.value = value;
-  }
-  deref() {
-    return this.value;
-  }
-};
-var getWeakRef = () => typeof WeakRef === "undefined" ? StrongRef : WeakRef;
-var Ref = /* @__PURE__ */ getWeakRef();
-var UNTERMINATED = 0;
-var TERMINATED = 1;
-function createCacheNode() {
-  return {
-    s: UNTERMINATED,
-    v: void 0,
-    o: null,
-    p: null
-  };
-}
-function maybeDeref(r) {
-  if (r instanceof Ref) {
-    return r.deref();
-  }
-  return r;
-}
-function weakMapMemoize(func, options = {}) {
-  let fnNode = createCacheNode();
-  const { resultEqualityCheck } = options;
-  let lastResult;
-  let resultsCount = 0;
-  function memoized() {
-    let cacheNode = fnNode;
-    const { length } = arguments;
-    for (let i = 0, l = length; i < l; i++) {
-      const arg = arguments[i];
-      if (typeof arg === "function" || typeof arg === "object" && arg !== null) {
-        let objectCache = cacheNode.o;
-        if (objectCache === null) {
-          cacheNode.o = objectCache = /* @__PURE__ */ new WeakMap();
-        }
-        const objectNode = objectCache.get(arg);
-        if (objectNode === void 0) {
-          cacheNode = createCacheNode();
-          objectCache.set(arg, cacheNode);
-        } else {
-          cacheNode = objectNode;
-        }
-      } else {
-        let primitiveCache = cacheNode.p;
-        if (primitiveCache === null) {
-          cacheNode.p = primitiveCache = /* @__PURE__ */ new Map();
-        }
-        const primitiveNode = primitiveCache.get(arg);
-        if (primitiveNode === void 0) {
-          cacheNode = createCacheNode();
-          primitiveCache.set(arg, cacheNode);
-        } else {
-          cacheNode = primitiveNode;
-        }
-      }
-    }
-    const terminatedNode = cacheNode;
-    let result;
-    if (cacheNode.s === TERMINATED) {
-      result = cacheNode.v;
-    } else {
-      result = func.apply(null, arguments);
-      resultsCount++;
-      if (resultEqualityCheck) {
-        const lastResultValue = maybeDeref(lastResult);
-        if (lastResultValue != null && resultEqualityCheck(lastResultValue, result)) {
-          result = lastResultValue;
-          resultsCount !== 0 && resultsCount--;
-        }
-        const needsWeakRef = typeof result === "object" && result !== null || typeof result === "function";
-        lastResult = needsWeakRef ? /* @__PURE__ */ new Ref(result) : result;
-      }
-    }
-    terminatedNode.s = TERMINATED;
-    terminatedNode.v = result;
-    return result;
-  }
-  memoized.clearCache = () => {
-    fnNode = createCacheNode();
-    memoized.resetResultsCount();
-  };
-  memoized.resultsCount = () => resultsCount;
-  memoized.resetResultsCount = () => {
-    resultsCount = 0;
-  };
-  return memoized;
 }
 
 // src/createSelectorCreator.ts
@@ -89321,27 +88674,35 @@ function createSelectorCreator(memoizeOrOptions, ...memoizeOptionsFromArgs) {
     let firstRun = true;
     const selector = argsMemoize(function dependenciesChecker() {
       dependencyRecomputations++;
-      const inputSelectorResults = collectInputSelectorResults(
-        dependencies,
-        arguments
-      );
+      const { length } = dependencies;
+      const inputSelectorResults = new Array(length);
+      for (let i = 0; i < length; i++) {
+        inputSelectorResults[i] = dependencies[i].apply(null, arguments);
+      }
       lastResult = memoizedResultFunc.apply(null, inputSelectorResults);
       if (true) {
-        const { devModeChecks = {} } = combinedOptions;
-        const { identityFunctionCheck, inputStabilityCheck } = getDevModeChecksExecutionInfo(firstRun, devModeChecks);
-        if (identityFunctionCheck.shouldRun) {
-          identityFunctionCheck.run(
+        const { devModeChecks } = combinedOptions;
+        const identityFunctionCheck = devModeChecks !== void 0 && Object.prototype.hasOwnProperty.call(
+          devModeChecks,
+          "identityFunctionCheck"
+        ) ? devModeChecks.identityFunctionCheck : globalDevModeChecks.identityFunctionCheck;
+        const inputStabilityCheck = devModeChecks !== void 0 && Object.prototype.hasOwnProperty.call(
+          devModeChecks,
+          "inputStabilityCheck"
+        ) ? devModeChecks.inputStabilityCheck : globalDevModeChecks.inputStabilityCheck;
+        if (identityFunctionCheck === "always" || identityFunctionCheck === "once" && firstRun) {
+          runIdentityFunctionCheck(
             resultFunc,
             inputSelectorResults,
             lastResult
           );
         }
-        if (inputStabilityCheck.shouldRun) {
+        if (inputStabilityCheck === "always" || inputStabilityCheck === "once" && firstRun) {
           const inputSelectorResultsCopy = collectInputSelectorResults(
             dependencies,
             arguments
           );
-          inputStabilityCheck.run(
+          runInputStabilityCheck(
             { inputSelectorResults, inputSelectorResultsCopy },
             { memoize, memoizeOptions: finalMemoizeOptions },
             arguments
@@ -89399,6 +88760,119 @@ var createStructuredSelector = /* @__PURE__ */ Object.assign(
   },
   { withTypes: () => createStructuredSelector }
 );
+
+// src/lruMemoize.ts
+function createSingletonCache(equals) {
+  let entry;
+  return {
+    get(key) {
+      if (entry && equals(entry.key, key)) {
+        return entry.value;
+      }
+      return NOT_FOUND;
+    },
+    put(key, value) {
+      entry = { key, value };
+    },
+    findMatchingEntry(value, resultEqualityCheck) {
+      const current = entry;
+      return current !== void 0 && resultEqualityCheck(current.value, value) ? current : void 0;
+    },
+    clear() {
+      entry = void 0;
+    }
+  };
+}
+function createLruCache(maxSize, equals) {
+  let entries = [];
+  function get(key) {
+    const cacheIndex = entries.findIndex((entry) => equals(entry.key, key));
+    if (cacheIndex > -1) {
+      const entry = entries[cacheIndex];
+      if (cacheIndex > 0) {
+        entries.splice(cacheIndex, 1);
+        entries.unshift(entry);
+      }
+      return entry.value;
+    }
+    return NOT_FOUND;
+  }
+  function put(key, value) {
+    entries.unshift({ key, value });
+    if (entries.length > maxSize) {
+      entries.pop();
+    }
+  }
+  function findMatchingEntry(value, resultEqualityCheck) {
+    const currentEntries = entries;
+    const { length } = currentEntries;
+    for (let i = 0; i < length; i++) {
+      const entry = currentEntries[i];
+      if (resultEqualityCheck(entry.value, value)) {
+        return entry;
+      }
+    }
+    return void 0;
+  }
+  function clear() {
+    entries = [];
+  }
+  return { get, put, findMatchingEntry, clear };
+}
+var referenceEqualityCheck = (a, b) => a === b;
+function createCacheKeyComparator(equalityCheck) {
+  return function areArgumentsShallowlyEqual(prev, next) {
+    if (prev === null || next === null || prev.length !== next.length) {
+      return false;
+    }
+    const { length } = prev;
+    for (let i = 0; i < length; i++) {
+      if (!equalityCheck(prev[i], next[i])) {
+        return false;
+      }
+    }
+    return true;
+  };
+}
+function lruMemoize(func, equalityCheckOrOptions) {
+  const providedOptions = typeof equalityCheckOrOptions === "object" ? equalityCheckOrOptions : { equalityCheck: equalityCheckOrOptions };
+  const {
+    equalityCheck = referenceEqualityCheck,
+    maxSize = 1,
+    resultEqualityCheck
+  } = providedOptions;
+  const comparator = createCacheKeyComparator(equalityCheck);
+  let resultsCount = 0;
+  const cache = maxSize <= 1 ? createSingletonCache(comparator) : createLruCache(maxSize, comparator);
+  function memoized() {
+    let value = cache.get(arguments);
+    if (value === NOT_FOUND) {
+      value = func.apply(null, arguments);
+      resultsCount++;
+      if (resultEqualityCheck) {
+        const matchingEntry = cache.findMatchingEntry(
+          value,
+          resultEqualityCheck
+        );
+        if (matchingEntry) {
+          value = matchingEntry.value;
+          resultsCount !== 0 && resultsCount--;
+        }
+      }
+      cache.put(arguments, value);
+    }
+    return value;
+  }
+  memoized.clearCache = () => {
+    cache.clear();
+    memoized.resetResultsCount();
+  };
+  memoized.resultsCount = () => resultsCount;
+  memoized.resetResultsCount = () => {
+    resultsCount = 0;
+  };
+  return memoized;
+}
 
 //# sourceMappingURL=reselect.mjs.map
 
@@ -92910,6 +92384,445 @@ function resultStatusMessage(result, loading, slim) {
 
 /***/ },
 
+/***/ "./src/publish/fixesAndUpdates/courseDataStore.ts"
+/*!********************************************************!*\
+  !*** ./src/publish/fixesAndUpdates/courseDataStore.ts ***!
+  \********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   findProfilePageSlug: () => (/* binding */ findProfilePageSlug),
+/* harmony export */   getProfilePage: () => (/* binding */ getProfilePage),
+/* harmony export */   restrictBlueprintPage: () => (/* binding */ restrictBlueprintPage),
+/* harmony export */   useCourseDataStore: () => (/* binding */ useCourseDataStore)
+/* harmony export */ });
+/* harmony import */ var zustand__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! zustand */ "./node_modules/zustand/esm/react.mjs");
+/* harmony import */ var _ueu_ueu_canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ueu/ueu-canvas/course/Course */ "./node_modules/@ueu/ueu-canvas/dist/course/Course.js");
+/* harmony import */ var _ueu_ueu_canvas_course_Course__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ueu_ueu_canvas_course__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ueu/ueu-canvas/course */ "./node_modules/@ueu/ueu-canvas/dist/course/index.js");
+/* harmony import */ var _ueu_ueu_canvas_course__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas_course__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _ueu_ueu_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ueu/ueu-canvas/fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
+/* harmony import */ var _ueu_ueu_canvas_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ueu/ueu-canvas/fetch/apiWriteConfig */ "./node_modules/@ueu/ueu-canvas/dist/fetch/apiWriteConfig.js");
+
+
+
+
+
+const DEFAULT_INSTANCE = "default";
+function courseKey(courseId, instance = DEFAULT_INSTANCE) {
+    return `${instance}:${courseId}`;
+}
+const useCourseDataStore = (0,zustand__WEBPACK_IMPORTED_MODULE_0__.create)((set, get) => ({
+    cache: {},
+    getOrLoadCourse: async (courseId, instance) => {
+        const key = courseKey(courseId, instance);
+        const existing = get().cache[key];
+        if (existing)
+            return existing;
+        const data = await (0,_ueu_ueu_canvas_course__WEBPACK_IMPORTED_MODULE_2__.getCourseData)(courseId, {
+            queryParams: { include: ["total_students"] },
+        });
+        const course = new _ueu_ueu_canvas_course_Course__WEBPACK_IMPORTED_MODULE_1__.Course(data);
+        const entry = { course };
+        set((s) => ({ cache: { ...s.cache, [key]: entry } }));
+        return entry;
+    },
+    getPages: async (courseId, instance) => {
+        const key = courseKey(courseId, instance);
+        const entry = await get().getOrLoadCourse(courseId, instance);
+        if (entry.pages)
+            return entry.pages;
+        const pages = await entry.course.getPages({
+            queryParams: { include: ["body"] },
+        });
+        const updated = { ...entry, pages };
+        set((s) => ({ cache: { ...s.cache, [key]: updated } }));
+        return pages;
+    },
+    getSyllabus: async (courseId, instance) => {
+        const key = courseKey(courseId, instance);
+        const entry = await get().getOrLoadCourse(courseId, instance);
+        if (entry.syllabus !== undefined)
+            return entry.syllabus;
+        const syllabus = await entry.course.getSyllabus();
+        const updated = { ...entry, syllabus };
+        set((s) => ({ cache: { ...s.cache, [key]: updated } }));
+        return syllabus;
+    },
+    getFrontPage: async (courseId, instance) => {
+        const key = courseKey(courseId, instance);
+        const entry = await get().getOrLoadCourse(courseId, instance);
+        if (entry.frontPage !== undefined)
+            return entry.frontPage;
+        const frontPage = await entry.course.getFrontPage();
+        const updated = { ...entry, frontPage };
+        set((s) => ({ cache: { ...s.cache, [key]: updated } }));
+        return frontPage;
+    },
+    getPageBySlug: async (courseId, slug, instance) => {
+        var _a;
+        const pages = await get().getPages(courseId, instance);
+        return (_a = pages.find((p) => p.rawData.url === slug)) !== null && _a !== void 0 ? _a : null;
+    },
+    invalidate: (courseId, instance) => {
+        const key = courseKey(courseId, instance);
+        set((s) => {
+            const { [key]: _, ...rest } = s.cache;
+            return { cache: rest };
+        });
+    },
+    clear: () => set({ cache: {} }),
+}));
+/**
+ * The data-attribute convention for profile-bearing pages.
+ * A page whose body contains any of these is a profile target.
+ */
+const PROFILE_DATA_ATTRS = [
+    "data-profile-name",
+    "data-profile-bio",
+    "data-profile-image",
+];
+/**
+ * Scan a blueprint's pages to find which page slug carries profile data attributes.
+ *
+ * No front-page fallback: a course without a data-attribute page returns "none"
+ * rather than guessing, and a course with more than one returns "ambiguous"
+ * rather than silently picking the first match. Both are surfaced to the caller
+ * so a resolution failure is visible instead of quietly rendering into the
+ * wrong page (or nothing at all).
+ *
+ * Call once per blueprint, then use the slug across all its sections.
+ */
+async function findProfilePageSlug(blueprintCourseId, instance) {
+    const pages = await useCourseDataStore.getState().getPages(blueprintCourseId, instance);
+    const matches = pages.filter((page) => PROFILE_DATA_ATTRS.some((attr) => { var _a; return ((_a = page.body) !== null && _a !== void 0 ? _a : "").includes(attr); }));
+    if (matches.length === 0)
+        return { status: "none" };
+    if (matches.length > 1) {
+        return { status: "ambiguous", candidates: matches.map((page) => page.rawData.url) };
+    }
+    const rawData = matches[0].rawData;
+    return { status: "found", slug: rawData.url, blueprintPageId: rawData.page_id };
+}
+/**
+ * Fetch a specific page from a section by slug. Uses the store cache when the
+ * section's pages are already loaded; otherwise does a targeted single-page fetch.
+ */
+async function getProfilePage(courseId, slug, instance) {
+    return useCourseDataStore.getState().getPageBySlug(courseId, slug, instance);
+}
+/**
+ * Set whether a single wiki page on a blueprint is restricted (locked) from being
+ * changed in associated courses. blueprintPageId is the page's id on the blueprint
+ * course itself (see ProfilePageResult.blueprintPageId), not on an associated section.
+ *
+ * Canvas has no documented API to read an item's current restriction state, so
+ * callers that unlock an item for a write pass should always re-lock it afterward
+ * (in a finally) rather than try to restore a "previous" state.
+ */
+async function restrictBlueprintPage(blueprintCourseId, blueprintPageId, restricted) {
+    const url = `/api/v1/courses/${blueprintCourseId}/blueprint_templates/default/restrict_item`;
+    await (0,_ueu_ueu_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_3__.fetchJson)(url, (0,_ueu_ueu_canvas_fetch_apiWriteConfig__WEBPACK_IMPORTED_MODULE_4__["default"])("PUT", {
+        content_type: "wiki_page",
+        content_id: blueprintPageId,
+        restricted,
+    }));
+}
+
+
+/***/ },
+
+/***/ "./src/publish/fixesAndUpdates/profileRenderer.ts"
+/*!********************************************************!*\
+  !*** ./src/publish/fixesAndUpdates/profileRenderer.ts ***!
+  \********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   hasDataProfileAttributes: () => (/* binding */ hasDataProfileAttributes),
+/* harmony export */   readProfileFromPage: () => (/* binding */ readProfileFromPage),
+/* harmony export */   renderProfile: () => (/* binding */ renderProfile)
+/* harmony export */ });
+/* harmony import */ var _ueu_ueu_canvas_profile__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ueu/ueu-canvas/profile */ "./node_modules/@ueu/ueu-canvas/dist/profile.js");
+/* harmony import */ var _ueu_ueu_canvas_profile__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas_profile__WEBPACK_IMPORTED_MODULE_0__);
+
+/**
+ * Data-attribute convention for profile pages. Templates mark elements with
+ * these attributes; the renderer finds them and fills in profile content.
+ *
+ * data-profile-image goes on a wrapper around the <img>, not the <img> itself:
+ * Canvas's page renderer strips non-standard data-* attributes from <img> tags
+ * (confirmed by inspecting the live rendered DOM vs. the API-fetched page body —
+ * the attribute survives in the stored body but never reaches the rendered
+ * element), so it never survives on the image element itself, and re-saving
+ * through the RCE drops it again on every edit.
+ *
+ * data-profile-message marks an <a> whose href is set to open Canvas's Inbox
+ * compose window addressed to the instructor within the page's own course, so
+ * a "Message Instructor" link can be placed anywhere in the page's own layout
+ * rather than being a fixed button the extension bolts on separately. Non-<a>
+ * elements are left as-is: a static saved page has no JS to wire up a click
+ * handler on anything else.
+ *
+ * data-profile-help marks an element (e.g. a setup instructions box) that
+ * should be stripped out the moment a real profile is written — it's for
+ * whoever is building the template, not for students viewing the finished
+ * page. Any number of elements can carry it.
+ *
+ * Example template HTML:
+ *   <h2 data-profile-name>Instructor Name</h2>
+ *   <div data-profile-bio>Bio goes here</div>
+ *   <div data-profile-image><img src="placeholder.png" /></div>
+ *   <a data-profile-message href="#">Message Instructor</a>
+ *   <div data-profile-help>Setup instructions for whoever built this page.</div>
+ */
+const ATTR = {
+    name: "data-profile-name",
+    bio: "data-profile-bio",
+    image: "data-profile-image",
+    message: "data-profile-message",
+    help: "data-profile-help",
+};
+/**
+ * Canvas's Inbox compose view, pre-addressed to a user within a course context.
+ * Matches the URL Canvas itself generates for the "Message <user> in Canvas"
+ * link on a user's course page — confirmed against that link directly, not
+ * guessed: plain query params (not a #compose hash), context_id as
+ * "course_<id>", and user_id as the bare numeric id (no "user_" prefix).
+ */
+function inboxComposeUrl(courseId, user) {
+    const params = new URLSearchParams({
+        context_id: `course_${courseId}`,
+        user_id: String(user.id),
+        user_name: user.name,
+    });
+    return `/conversations?${params.toString()}`;
+}
+function hasDataProfileAttributes(html) {
+    return Object.values(ATTR).some((attr) => html.includes(attr));
+}
+function renderProfileByDataAttributes(html, profile, courseId) {
+    var _a, _b, _c;
+    const el = document.createElement("div");
+    el.innerHTML = html;
+    const nameEl = el.querySelector(`[${ATTR.name}]`);
+    if (nameEl && profile.displayName) {
+        nameEl.textContent = profile.displayName;
+    }
+    const bioEl = el.querySelector(`[${ATTR.bio}]`);
+    if (bioEl && profile.bio) {
+        bioEl.innerHTML = profile.bio;
+        if ((_a = profile.user) === null || _a === void 0 ? void 0 : _a.email) {
+            const contact = document.createElement("p");
+            contact.textContent = `${profile.displayName} should be contacted during the term using Canvas Inbox, but can be reached after and before the term via their email address: ${profile.user.email}`;
+            bioEl.appendChild(contact);
+        }
+    }
+    const imageEl = el.querySelector(`[${ATTR.image}] img`);
+    if (imageEl instanceof HTMLImageElement) {
+        if (profile.image) {
+            imageEl.src = profile.image.src;
+            imageEl.alt = (_c = (_b = profile.image.alt) !== null && _b !== void 0 ? _b : profile.displayName) !== null && _c !== void 0 ? _c : "";
+        }
+        else if (profile.imageLink) {
+            imageEl.src = profile.imageLink;
+        }
+    }
+    const messageEl = el.querySelector(`[${ATTR.message}]`);
+    if (messageEl instanceof HTMLAnchorElement && profile.user) {
+        messageEl.href = inboxComposeUrl(courseId, profile.user);
+    }
+    el.querySelectorAll(`[${ATTR.help}]`).forEach((node) => node.remove());
+    return el.innerHTML;
+}
+/**
+ * Render a profile into a page's HTML. Detects the page format automatically:
+ * - Pages with data-profile-* attributes use the data-attribute renderer
+ * - Pages with the Curio "Meet your instructor" structure use the legacy renderer
+ *
+ * This is the single call site for profile rendering — the format decision
+ * is made here, not by the caller.
+ */
+function renderProfile(html, profile, courseId) {
+    if (hasDataProfileAttributes(html)) {
+        return renderProfileByDataAttributes(html, profile, courseId);
+    }
+    return (0,_ueu_ueu_canvas_profile__WEBPACK_IMPORTED_MODULE_0__.renderProfileIntoCurioFrontPage)(html, profile);
+}
+/**
+ * Read a profile from a page's HTML, if it uses the data-attribute convention.
+ * Returns null for legacy Curio pages — caller should use
+ * getCurioPageFrontPageProfile directly for that format instead of guessing.
+ */
+function readProfileFromPage(html, user) {
+    if (!hasDataProfileAttributes(html))
+        return null;
+    return readProfileByDataAttributes(html, user);
+}
+function readProfileByDataAttributes(html, user) {
+    var _a, _b;
+    const el = document.createElement("div");
+    el.innerHTML = html;
+    const nameEl = el.querySelector(`[${ATTR.name}]`);
+    const bioEl = el.querySelector(`[${ATTR.bio}]`);
+    const imageEl = el.querySelector(`[${ATTR.image}] img`);
+    return {
+        user,
+        displayName: (_a = nameEl === null || nameEl === void 0 ? void 0 : nameEl.textContent) !== null && _a !== void 0 ? _a : null,
+        bio: (_b = bioEl === null || bioEl === void 0 ? void 0 : bioEl.innerHTML) !== null && _b !== void 0 ? _b : null,
+        imageLink: imageEl instanceof HTMLImageElement ? imageEl.src : null,
+    };
+}
+
+
+/***/ },
+
+/***/ "./src/publish/fixesAndUpdates/profileTemplateReference.ts"
+/*!*****************************************************************!*\
+  !*** ./src/publish/fixesAndUpdates/profileTemplateReference.ts ***!
+  \*****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PROFILE_ATTR_ROWS: () => (/* binding */ PROFILE_ATTR_ROWS),
+/* harmony export */   PROFILE_TEMPLATE_EXAMPLE: () => (/* binding */ PROFILE_TEMPLATE_EXAMPLE),
+/* harmony export */   PROFILE_TEMPLATE_IMAGE_NOTE: () => (/* binding */ PROFILE_TEMPLATE_IMAGE_NOTE),
+/* harmony export */   PROFILE_TEMPLATE_INTRO: () => (/* binding */ PROFILE_TEMPLATE_INTRO),
+/* harmony export */   PROFILE_TEMPLATE_NOTES: () => (/* binding */ PROFILE_TEMPLATE_NOTES),
+/* harmony export */   renderProfileTemplateHelpHtml: () => (/* binding */ renderProfileTemplateHelpHtml),
+/* harmony export */   upsertProfileTemplateHelpHtml: () => (/* binding */ upsertProfileTemplateHelpHtml)
+/* harmony export */ });
+/**
+ * Single source of truth for the data-profile-* convention reference —
+ * consumed both as JSX (ProfileTemplateHelp modal) and as an HTML string
+ * (injected into a real Canvas page via a data-profile-help box). Edit this
+ * file; the two renderers stay in sync because they read from it instead of
+ * each hand-writing the same table and example.
+ */
+const PROFILE_ATTR_ROWS = [
+    {
+        attr: "data-profile-name",
+        goesOn: "any element",
+        doesWhat: "its text content is replaced with the instructor's display name",
+    },
+    {
+        attr: "data-profile-bio",
+        goesOn: "any element",
+        doesWhat: 'its HTML content is replaced with the instructor\'s bio (plus a short "contact via Canvas Inbox / email" line, if the instructor has an email on file)',
+    },
+    {
+        attr: "data-profile-image",
+        goesOn: "a wrapper around an <img>, not the <img> itself",
+        doesWhat: "the <img> inside it gets its src/alt swapped for the instructor's photo",
+    },
+    {
+        attr: "data-profile-message",
+        goesOn: "an <a>",
+        doesWhat: "its href is set to open Canvas Inbox, pre-addressed to the instructor",
+    },
+    {
+        attr: "data-profile-help",
+        goesOn: "any element(s)",
+        doesWhat: "removed entirely the moment a real profile is written — for template setup notes, never seen by students",
+    },
+];
+const PROFILE_TEMPLATE_INTRO = '"Set Bios" looks for exactly one page on the blueprint whose HTML contains one of the attributes below, then fills in the matched instructor\'s data and writes the result into every section\'s copy of that page. A course can use whatever page and layout it wants — the attributes are what make a page "the profile page," not its slug or position.';
+const PROFILE_TEMPLATE_IMAGE_NOTE = "Why not directly on the image? Canvas's page renderer strips unrecognized data-* attributes from <img> tags specifically — and the RCE drops them again on every manual save. Putting the marker on a wrapper element sidesteps that entirely.";
+const PROFILE_TEMPLATE_EXAMPLE = `<h2 data-profile-name>Instructor Name</h2>
+
+<div data-profile-bio>
+  Bio goes here — this placeholder text is replaced.
+</div>
+
+<div data-profile-image>
+  <img src="placeholder.png" alt="Instructor photo" />
+</div>
+
+<a data-profile-message href="#">Message Instructor</a>
+
+<div data-profile-help>
+  Any setup notes for whoever builds this page — removed automatically
+  the moment a real profile is written, so students never see it.
+</div>`;
+const PROFILE_TEMPLATE_NOTES = [
+    "Attributes can go on any element, in any order, anywhere in the page's own HTML.",
+    'Only one page per blueprint may carry these attributes. If two pages have them, "Set Bios" reports an ambiguous match and writes nothing until it\'s fixed.',
+    'If a course has no page with these attributes, "Set Bios" reports that too, rather than guessing at the front page.',
+    "The image wrapper just needs to contain an <img> — nesting, styling classes, and surrounding markup are entirely up to you.",
+    'A page\'s target section copy is unlocked automatically for the duration of a "Set Bios" run, and re-locked afterward — you don\'t need to touch blueprint lock settings yourself.',
+];
+/**
+ * Render the reference as a self-contained HTML block, for injecting into a
+ * real Canvas page as a data-profile-help box (so it's stripped automatically
+ * on the first real "Set Bios" run — see profileRenderer.ts's ATTR.help).
+ */
+function renderProfileTemplateHelpHtml() {
+    const rows = PROFILE_ATTR_ROWS.map((row) => `<tr style="border-bottom: 1px solid #ddd;">
+<td style="padding: 4px 8px;"><code>${row.attr}</code></td>
+<td style="padding: 4px 8px;">${row.goesOn}</td>
+<td style="padding: 4px 8px;">${row.doesWhat}</td>
+</tr>`).join("\n");
+    const notes = PROFILE_TEMPLATE_NOTES.map((note) => `<li>${note}</li>`).join("\n");
+    return `<div data-profile-help style="border: 2px dashed #8b9dc3; border-radius: 8px; padding: 16px 20px; margin-top: 24px; background-color: #f4f6fb;">
+<h3 style="margin-top: 0;">How this page works (editors only — remove or leave, up to you)</h3>
+<p>${PROFILE_TEMPLATE_INTRO}</p>
+<table style="width: 100%; border-collapse: collapse;">
+<thead>
+<tr style="text-align: left; border-bottom: 1px solid #ccc;">
+<th style="padding: 4px 8px;">Attribute</th>
+<th style="padding: 4px 8px;">Goes on</th>
+<th style="padding: 4px 8px;">Does what</th>
+</tr>
+</thead>
+<tbody>
+${rows}
+</tbody>
+</table>
+<p>${PROFILE_TEMPLATE_IMAGE_NOTE}</p>
+<p><strong>Minimal example:</strong></p>
+<pre style="background: #eef0f5; padding: 12px; overflow-x: auto; white-space: pre-wrap;">${escapeHtml(PROFILE_TEMPLATE_EXAMPLE)}</pre>
+<ul>
+${notes}
+</ul>
+</div>`;
+}
+function escapeHtml(text) {
+    return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+/**
+ * Insert or replace the data-profile-help reference box in a page's HTML.
+ * Uses DOM parsing rather than a regex: the box's own content includes
+ * nested elements (a table, a <pre>, a <ul>), so a naive "match to the next
+ * </div>" regex matches the first nested closing tag instead of the box's
+ * own — this replaces exactly the querySelector-matched element instead.
+ */
+function upsertProfileTemplateHelpHtml(pageHtml) {
+    const container = document.createElement("div");
+    container.innerHTML = pageHtml;
+    const existing = container.querySelector("[data-profile-help]");
+    const helpEl = document.createElement("div");
+    helpEl.innerHTML = renderProfileTemplateHelpHtml();
+    const newHelpNode = helpEl.firstElementChild;
+    if (!newHelpNode)
+        return pageHtml;
+    if (existing) {
+        existing.replaceWith(newHelpNode);
+    }
+    else {
+        container.appendChild(newHelpNode);
+    }
+    return container.innerHTML;
+}
+
+
+/***/ },
+
 /***/ "./src/publish/fixesAndUpdates/validations/courseContent/index.ts"
 /*!************************************************************************!*\
   !*** ./src/publish/fixesAndUpdates/validations/courseContent/index.ts ***!
@@ -92921,7 +92834,132 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ([]);
+/* harmony import */ var _publish_fixesAndUpdates_validations_courseContent_moduleElementsAreRequired__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @publish/fixesAndUpdates/validations/courseContent/moduleElementsAreRequired */ "./src/publish/fixesAndUpdates/validations/courseContent/moduleElementsAreRequired.ts");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ([
+    _publish_fixesAndUpdates_validations_courseContent_moduleElementsAreRequired__WEBPACK_IMPORTED_MODULE_0__.moduleElementsAreRequiredValidation,
+]);
+
+
+/***/ },
+
+/***/ "./src/publish/fixesAndUpdates/validations/courseContent/moduleElementsAreRequired.ts"
+/*!********************************************************************************************!*\
+  !*** ./src/publish/fixesAndUpdates/validations/courseContent/moduleElementsAreRequired.ts ***!
+  \********************************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   isAffectedModuleItem: () => (/* binding */ isAffectedModuleItem),
+/* harmony export */   moduleElementsAreRequiredValidation: () => (/* binding */ moduleElementsAreRequiredValidation)
+/* harmony export */ });
+/* harmony import */ var _publish_fixesAndUpdates_validations_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @publish/fixesAndUpdates/validations/utils */ "./src/publish/fixesAndUpdates/validations/utils.ts");
+/* harmony import */ var _ueu_ueu_canvas_course_modules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ueu/ueu-canvas/course/modules */ "./node_modules/@ueu/ueu-canvas/dist/course/modules.js");
+
+
+function isAffectedModuleItem(mi, moduleName) {
+    var _a;
+    if (mi.title.toLocaleLowerCase().match(/how do i earn it\?/gi) ||
+        moduleName.toLocaleLowerCase().match(/claim badge/gi) ||
+        moduleName.toLocaleLowerCase().match(/academic integrity/gi)) {
+        return false;
+    }
+    const req = mi.completion_requirement;
+    if (typeof req === "undefined")
+        return true;
+    return (req.type === "min_score" &&
+        !moduleName.toLocaleLowerCase().match(/how do i earn it\?/gi) &&
+        ((_a = req.min_score) !== null && _a !== void 0 ? _a : 0) !== 1);
+}
+const run = async (course) => {
+    const affectedModuleItems = [];
+    const modGen = (0,_ueu_ueu_canvas_course_modules__WEBPACK_IMPORTED_MODULE_1__.moduleGenerator)(course.id, { queryParams: { include: ["items"] } });
+    for await (const mod of modGen) {
+        if (!mod.published)
+            continue;
+        const { items } = mod;
+        const badItems = items.filter((item) => isAffectedModuleItem(item, mod.name));
+        affectedModuleItems.push(...badItems);
+    }
+    const failureMessage = [
+        { bodyLines: ["These module items affected:"] },
+        ...affectedModuleItems.map((a) => ({
+            bodyLines: [a.title],
+            links: [a.html_url],
+        })),
+    ];
+    return (0,_publish_fixesAndUpdates_validations_utils__WEBPACK_IMPORTED_MODULE_0__.testResult)(affectedModuleItems.length === 0, {
+        failureMessage,
+        userData: affectedModuleItems,
+    });
+};
+const _fixedPageData = (item) => {
+    let fixedItem;
+    if (item.title.toLocaleLowerCase().match(/week.*overview/gi)) {
+        fixedItem = { ...item, completion_requirement: { type: "must_view" } };
+    }
+    else if (item.title.toLocaleLowerCase().match(/learning materials/gi)) {
+        fixedItem = { ...item, completion_requirement: { type: "must_submit" } };
+    }
+    else if (item.title.toLocaleLowerCase().match(/course project overview/gi)) {
+        fixedItem = { ...item, completion_requirement: { type: "must_submit" } };
+    }
+    else {
+        fixedItem = { ...item, completion_requirement: { type: "must_view" } };
+    }
+    return fixedItem;
+};
+const fixedDiscussionData = (item) => {
+    return { ...item, completion_requirement: { type: "min_score", min_score: 1 } };
+};
+const _fixedAssignmentData = (item) => {
+    return { ...item, completion_requirement: { type: "must_submit" } };
+};
+const fixModuleItems = async (courseId, items) => {
+    const fixedItems = [];
+    for (const item of items) {
+        if ((0,_ueu_ueu_canvas_course_modules__WEBPACK_IMPORTED_MODULE_1__.isDiscussionItemData)(item)) {
+            fixedItems.push(fixedDiscussionData(item));
+        }
+        /*if (isPageItemData(item)) {
+                fixedItems.push(fixedPageData(item));
+            } else if (isDiscussionItemData(item)) {
+                fixedItems.push(fixedDiscussionData(item));
+            } else if (isAssignmentItemData(item)) {
+                fixedItems.push(fixedAssignmentData(item))
+            }*/
+    }
+    for (const item of items) {
+        await (0,_ueu_ueu_canvas_course_modules__WEBPACK_IMPORTED_MODULE_1__.saveModuleItem)(courseId, item.module_id, item.id, item);
+    }
+    return fixedItems;
+};
+const _fix = async (course, result) => {
+    result !== null && result !== void 0 ? result : (result = await run(course));
+    const affectedItems = result.userData;
+    if (result.success)
+        throw new Error("Result should never be success in a fix");
+    if (typeof affectedItems === "undefined")
+        throw new Error("Affected items not defined");
+    try {
+        const fixedItems = (await fixModuleItems(course.id, affectedItems)).filter((a) => typeof a.completion_requirement !== "undefined");
+        return (0,_publish_fixesAndUpdates_validations_utils__WEBPACK_IMPORTED_MODULE_0__.testResult)(true, {
+            userData: fixedItems,
+            links: fixedItems.map((a) => a.html_url),
+        });
+    }
+    catch (e) {
+        return (0,_publish_fixesAndUpdates_validations_utils__WEBPACK_IMPORTED_MODULE_0__.errorMessageResult)(e, affectedItems.map((a) => a.html_url));
+    }
+};
+const moduleElementsAreRequiredValidation = {
+    name: "Module Items Required",
+    description: "Check if all items in weekly modules have been correctly marked as required. Discussions in this list may not be correctly set to Score at least 1.0. NOTE: This may be intential for things like practice quizzes.",
+    run,
+    //    fix,
+};
 
 
 /***/ },
@@ -92938,10 +92976,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _kalturaSizeFix__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./kalturaSizeFix */ "./src/publish/fixesAndUpdates/validations/kalturaSizeFix.ts");
+/* harmony import */ var _courseContent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./courseContent */ "./src/publish/fixesAndUpdates/validations/courseContent/index.ts");
 //import {dontUseThisValidation} from "@publish/fixesAndUpdates/dontUseThis";
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ([
     _kalturaSizeFix__WEBPACK_IMPORTED_MODULE_0__.kalturaSizeTests,
+    ..._courseContent__WEBPACK_IMPORTED_MODULE_1__["default"],
     //...references,
     //   dontUseThisValidation
 ]);
@@ -93544,12 +93585,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CourseRow_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CourseRow.scss */ "./src/publish/publishInterface/CourseRow.scss");
 
 
-function CourseRow({ course, frontPageProfile, instructors, onSelectSection, facultyProfileMatches, selectionToggle, selected, }) {
+function CourseRow({ course, errors, frontPageProfile, profileSlug, instructors, onSelectSection, facultyProfileMatches, selectionToggle, selected, }) {
+    const matches = facultyProfileMatches !== null && facultyProfileMatches !== void 0 ? facultyProfileMatches : [];
     const rowClass = ["row", "course-row", "align-items-center"];
-    const displayFacultyProfileWarning = facultyProfileMatches.length > 1 && !frontPageProfile;
-    if (displayFacultyProfileWarning)
+    const displayFacultyProfileWarning = matches.length > 1 && !frontPageProfile;
+    const source = matches.length === 1 ? matches[0].displayName : null;
+    if (displayFacultyProfileWarning || (errors === null || errors === void 0 ? void 0 : errors.length))
         rowClass.push("alert-danger");
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: rowClass.join(" "), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-1", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "checkbox", checked: selected, onChange: (e) => selectionToggle === null || selectionToggle === void 0 ? void 0 : selectionToggle(course, e.currentTarget.checked) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: `/courses/${course.id}`, className: `course-link ${course === null || course === void 0 ? void 0 : course.workflowState}`, target: "blank_", children: course.name }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-1", children: course.data.total_students }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-2", children: frontPageProfile && frontPageProfile.displayName }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-1", children: onSelectSection && course && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => onSelectSection(course), children: "Details" }) }), displayFacultyProfileWarning ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { children: "More than One Match and no exact match, please fix in the details view" })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-2", children: instructors === null || instructors === void 0 ? void 0 : instructors.map((instructor) => instructor.name).join(", ") }))] }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: rowClass.join(" "), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-1", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { type: "checkbox", checked: selected, onChange: (e) => selectionToggle === null || selectionToggle === void 0 ? void 0 : selectionToggle(course, e.currentTarget.checked) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: `/courses/${course.id}`, className: `course-link ${course === null || course === void 0 ? void 0 : course.workflowState}`, target: "blank_", children: course.name }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-1", children: course.data.total_students }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col-xs-3", title: `Source profile: ${source !== null && source !== void 0 ? source : "none"} — Target page: ${profileSlug !== null && profileSlug !== void 0 ? profileSlug : "unresolved"}`, children: [source !== null && source !== void 0 ? source : "—", " \u2192 ", profileSlug !== null && profileSlug !== void 0 ? profileSlug : "—"] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-1", children: onSelectSection && course && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => onSelectSection(course), children: "Details" }) }), displayFacultyProfileWarning ? ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { children: "More than One Match and no exact match, please fix in the details view" })) : ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-2", children: instructors === null || instructors === void 0 ? void 0 : instructors.map((instructor) => instructor.name).join(", ") })), errors && errors.length > 0 && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-12", children: errors.map((err, i) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "text-danger", children: err }, i))) }))] }));
 }
 
 
@@ -93634,7 +93677,6 @@ async function fetchEmailTemplate(course) {
         if (!parsedCourseCode) {
             throw new Error(`Course code ${course.courseCode} does not contain a number`);
         }
-        const courseCodeNumber = parseInt(parsedCourseCode[0]);
         // Added these are variables for clarity
         const ugTemplateId = 7775658;
         const gradTemplateId = 7773747;
@@ -93717,8 +93759,21 @@ const EmailLink = react__WEBPACK_IMPORTED_MODULE_1___default().memo(function Ema
     (0,_ui_utils__WEBPACK_IMPORTED_MODULE_2__.useEffectAsync)(async () => {
         if (additionsTemplate || !course.id)
             return;
-        const _additionsTemplate = await getAdditionsTemplate(course);
-        setAdditionsTemplate(_additionsTemplate);
+        try {
+            const _additionsTemplate = await getAdditionsTemplate(course);
+            setAdditionsTemplate(_additionsTemplate);
+        }
+        catch (e) {
+            // A missing "publish-form-email-addition" page is the normal case for
+            // most courses (this is a per-course-family supplement to the base
+            // email, not every course has one) and Canvas's 404 for it doesn't
+            // always come back as parseable JSON, so fetchJson can throw here
+            // rather than resolve to a clean "not found." Log for debugging but
+            // don't surface it as a user-facing error — the base email template
+            // still works without an addition, and copyToClipboard already has
+            // its own fallback attempt for this.
+            console.error("Failed to load email addition template:", e);
+        }
     }, [course.id]);
     const copyToClipboard = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(async () => {
         var _a, _b;
@@ -94100,6 +94155,81 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet }) {
 
 /***/ },
 
+/***/ "./src/publish/publishInterface/ProfileTemplateHelp.tsx"
+/*!**************************************************************!*\
+  !*** ./src/publish/publishInterface/ProfileTemplateHelp.tsx ***!
+  \**************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ProfileTemplateHelp: () => (/* binding */ ProfileTemplateHelp)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
+/* harmony import */ var _ui_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/ui/widgets/Modal/index */ "./src/ui/widgets/Modal/index.tsx");
+/* harmony import */ var _publish_fixesAndUpdates_profileTemplateReference__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @publish/fixesAndUpdates/profileTemplateReference */ "./src/publish/fixesAndUpdates/profileTemplateReference.ts");
+/* harmony import */ var _publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @publish/fixesAndUpdates/courseDataStore */ "./src/publish/fixesAndUpdates/courseDataStore.ts");
+
+
+
+
+
+
+/**
+ * Reference for the data-profile-* convention, read from
+ * profileTemplateReference.ts — the same source that generates the HTML
+ * version injected into a real Canvas page. Edit that file, not this one, to
+ * change the actual content; this file is just the JSX rendering of it.
+ */
+function ProfileTemplateHelp({ blueprintCourse }) {
+    const [show, setShow] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    const [status, setStatus] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    async function insertOrRefreshHelpBox() {
+        if (!blueprintCourse)
+            return;
+        setStatus("Working...");
+        const result = await (0,_publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_5__.findProfilePageSlug)(blueprintCourse.id);
+        if (result.status !== "found") {
+            setStatus(result.status === "none"
+                ? "No profile page found on this blueprint — add the data-profile-* attributes to a page first."
+                : `Multiple profile pages found: ${result.candidates.join(", ")} — resolve that before adding a help box.`);
+            return;
+        }
+        const targetPage = await (0,_publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_5__.getProfilePage)(blueprintCourse.id, result.slug);
+        if (!targetPage) {
+            setStatus(`Profile page "${result.slug}" not found.`);
+            return;
+        }
+        const hadExisting = targetPage.body.includes("data-profile-help");
+        const newBody = (0,_publish_fixesAndUpdates_profileTemplateReference__WEBPACK_IMPORTED_MODULE_4__.upsertProfileTemplateHelpHtml)(targetPage.body);
+        await targetPage.updateContent(newBody);
+        // Verify by refetching rather than trusting updateContent's resolved
+        // promise: @ueu/ueu-canvas's fetchJson doesn't check response.ok, so a
+        // rejected write (e.g. the page turns out to be locked) can resolve
+        // "successfully" with Canvas's error body instead of throwing — this is
+        // the same bug that made "Set Bios" silently no-op earlier today
+        // (filed as Unity-Environmental-University/ueu_canvas#11). The cached
+        // page must be invalidated first, or getProfilePage would just hand
+        // back the same (potentially stale) object already in memory.
+        _publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_5__.useCourseDataStore.getState().invalidate(blueprintCourse.id);
+        const refetched = await (0,_publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_5__.getProfilePage)(blueprintCourse.id, result.slug);
+        const verified = !!(refetched === null || refetched === void 0 ? void 0 : refetched.body.includes("data-profile-help"));
+        setStatus(!verified
+            ? `Write did not take effect on "${result.slug}" — the page may be locked. Check Canvas directly.`
+            : hadExisting
+                ? `Updated the help box on "${result.slug}".`
+                : `Added a help box to "${result.slug}".`);
+    }
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], { className: "btn", onClick: () => setShow(true), style: { marginLeft: "8px" }, children: "How do Instructor Bio Pages work?" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ui_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_3__["default"], { id: "lxd-profile-template-help", isOpen: show, requestClose: () => setShow(false), children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { style: { maxWidth: "700px" }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h3", { children: ["Instructor Bio Pages", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: () => setShow(false), style: { float: "right" }, children: "X" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { children: _publish_fixesAndUpdates_profileTemplateReference__WEBPACK_IMPORTED_MODULE_4__.PROFILE_TEMPLATE_INTRO }), blueprintCourse && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("p", { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], { className: "btn", onClick: insertOrRefreshHelpBox, children: "Add/refresh this reference on the blueprint's profile page" }), status && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { style: { marginLeft: "8px" }, children: status })] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h4", { children: "The attributes" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("table", { className: "table", style: { width: "100%" }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("thead", { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", { children: "Attribute" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", { children: "Goes on" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", { children: "Does what" })] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", { children: _publish_fixesAndUpdates_profileTemplateReference__WEBPACK_IMPORTED_MODULE_4__.PROFILE_ATTR_ROWS.map((row) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("code", { children: row.attr }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", { children: row.goesOn }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", { children: row.doesWhat })] }, row.attr))) })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { children: _publish_fixesAndUpdates_profileTemplateReference__WEBPACK_IMPORTED_MODULE_4__.PROFILE_TEMPLATE_IMAGE_NOTE }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h4", { children: "Minimal example" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("pre", { style: { background: "#f5f5f5", padding: "12px", overflowX: "auto" }, children: _publish_fixesAndUpdates_profileTemplateReference__WEBPACK_IMPORTED_MODULE_4__.PROFILE_TEMPLATE_EXAMPLE }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h4", { children: "Building your own layout" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("ul", { children: _publish_fixesAndUpdates_profileTemplateReference__WEBPACK_IMPORTED_MODULE_4__.PROFILE_TEMPLATE_NOTES.map((note, i) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", { children: note }, i))) })] }) })] }));
+}
+
+
+/***/ },
+
 /***/ "./src/publish/publishInterface/PublishInterface.tsx"
 /*!***********************************************************!*\
   !*** ./src/publish/publishInterface/PublishInterface.tsx ***!
@@ -94115,15 +94245,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _ueu_ueu_canvas_profile__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ueu/ueu-canvas/profile */ "./node_modules/@ueu/ueu-canvas/dist/profile.js");
-/* harmony import */ var _ueu_ueu_canvas_profile__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas_profile__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _ui_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/ui/utils */ "./src/ui/utils.tsx");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
-/* harmony import */ var _ui_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/ui/widgets/Modal/index */ "./src/ui/widgets/Modal/index.tsx");
-/* harmony import */ var _sectionDetails_SectionDetails__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./sectionDetails/SectionDetails */ "./src/publish/publishInterface/sectionDetails/SectionDetails.tsx");
-/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
-/* harmony import */ var _EmailLink__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./EmailLink */ "./src/publish/publishInterface/EmailLink.tsx");
-/* harmony import */ var _SectionRows__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./SectionRows */ "./src/publish/publishInterface/SectionRows.tsx");
+/* harmony import */ var _ui_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/ui/utils */ "./src/ui/utils.tsx");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
+/* harmony import */ var _ui_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/ui/widgets/Modal/index */ "./src/ui/widgets/Modal/index.tsx");
+/* harmony import */ var _sectionDetails_SectionDetails__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./sectionDetails/SectionDetails */ "./src/publish/publishInterface/sectionDetails/SectionDetails.tsx");
+/* harmony import */ var temporal_polyfill__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! temporal-polyfill */ "./node_modules/temporal-polyfill/chunks/classApi.js");
+/* harmony import */ var _EmailLink__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./EmailLink */ "./src/publish/publishInterface/EmailLink.tsx");
+/* harmony import */ var _SectionRows__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./SectionRows */ "./src/publish/publishInterface/SectionRows.tsx");
+/* harmony import */ var _ProfileTemplateHelp__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./ProfileTemplateHelp */ "./src/publish/publishInterface/ProfileTemplateHelp.tsx");
 /* harmony import */ var _MakeBp__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./MakeBp */ "./src/publish/publishInterface/MakeBp.tsx");
 /* harmony import */ var _ueu_ueu_canvas_course_Course__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ueu/ueu-canvas/course/Course */ "./node_modules/@ueu/ueu-canvas/dist/course/Course.js");
 /* harmony import */ var _ueu_ueu_canvas_course_Course__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas_course_Course__WEBPACK_IMPORTED_MODULE_11__);
@@ -94138,6 +94267,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_toolbox__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @/utils/toolbox */ "./src/utils/toolbox.ts");
 /* harmony import */ var lodash_isEqual__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! lodash/isEqual */ "./node_modules/lodash/isEqual.js");
 /* harmony import */ var lodash_isEqual__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(lodash_isEqual__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var _publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @publish/fixesAndUpdates/courseDataStore */ "./src/publish/fixesAndUpdates/courseDataStore.ts");
+/* harmony import */ var _publish_fixesAndUpdates_profileRenderer__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @publish/fixesAndUpdates/profileRenderer */ "./src/publish/fixesAndUpdates/profileRenderer.ts");
+
+
 
 
 
@@ -94178,11 +94311,16 @@ function PublishInterface({ course, user }) {
     const [frontPageProfilesByCourseId, dispatchFrontPageProfilesByCourseId] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useReducer)((_ui_reducerDispatchers__WEBPACK_IMPORTED_MODULE_13__.lutDispatcher), {});
     const [instructorsByCourseId, dispatchInstructorsByCourseId] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useReducer)((_ui_reducerDispatchers__WEBPACK_IMPORTED_MODULE_13__.lutDispatcher), {});
     const [emails, setEmails] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]);
+    // A single ProfilePageResult, not separate slug/error/pageId fields: those
+    // three only ever have meaning together (a "found" result has slug and
+    // blueprintPageId; anything else has neither), so keeping them as one
+    // useState means they can't independently go stale relative to each other.
+    const [profileResolution, setProfileResolution] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
     const [errorsByCourseId, setErrorsByCourseId] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({});
     const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [infoClass, setInfoClass] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("alert-secondary");
     const [unloadWarning, setUnloadWarning] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)();
-    (0,_ui_utils__WEBPACK_IMPORTED_MODULE_3__.useEffectAsync)(async () => {
+    (0,_ui_utils__WEBPACK_IMPORTED_MODULE_2__.useEffectAsync)(async () => {
         if (!course)
             return;
         setIsBlueprint(course.isBlueprint);
@@ -94192,6 +94330,13 @@ function PublishInterface({ course, user }) {
             await getFullCourses(course);
         }
         //ONLY refresh courses if it's a new course being set.
+    }, [course]);
+    (0,_ui_utils__WEBPACK_IMPORTED_MODULE_2__.useEffectAsync)(async () => {
+        if (!course) {
+            setProfileResolution(null);
+            return;
+        }
+        setProfileResolution(await (0,_publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_19__.findProfilePageSlug)(course.id));
     }, [course]);
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
         function handleBeforeUnload(e) {
@@ -94272,37 +94417,78 @@ function PublishInterface({ course, user }) {
         setErrorsByCourseId({ ...tempErrors });
     }
     async function applySectionProfiles(_) {
+        var _a;
         setLoading(true);
         inform("Updating section profiles...");
         const _currentProfiles = { ...frontPageProfilesByCourseId };
         setErrorsByCourseId({});
-        for (const section of Object.values(sections)) {
-            const profiles = potentialProfilesByCourseId[section.id];
-            const errors = [];
-            if (profiles.length < 1) {
-                sectionError(section, "No Profiles");
-                continue;
+        // No fallback: a course must resolve to exactly one data-attribute profile
+        // page (see the resolution effect above), or every section errors visibly
+        // instead of silently targeting the wrong page.
+        if ((profileResolution === null || profileResolution === void 0 ? void 0 : profileResolution.status) !== "found") {
+            const message = (profileResolution === null || profileResolution === void 0 ? void 0 : profileResolution.status) === "ambiguous"
+                ? `Multiple profile pages: ${profileResolution.candidates.join(", ")}`
+                : "No profile page found on blueprint";
+            for (const section of Object.values(sections)) {
+                sectionError(section, message);
             }
-            if (profiles.length > 1) {
-                errors.push("Multiple Matches Found");
-                // WARN; Set an alert to tell the user they have sections to deal with?
-                continue;
-            }
-            const profile = profiles[0];
-            const frontPage = await section.getFrontPage();
-            if (!frontPage) {
-                sectionError(section, "No front page");
-                continue;
-            }
-            const html = (0,_ueu_ueu_canvas_profile__WEBPACK_IMPORTED_MODULE_2__.renderProfileIntoCurioFrontPage)(frontPage.body, profile);
-            await frontPage.updateContent(html);
-            dispatchFrontPageProfilesByCourseId({
-                set: { [section.id]: profile },
-            });
-            setInfo(`Updated ${profile.displayName}...`);
+            setLoading(false);
+            inform("No profiles updated — see errors below", "alert-danger");
+            return;
         }
-        setLoading(false);
-        success("Profiles Updated");
+        const { slug: profileSlug, blueprintPageId } = profileResolution;
+        let updatedCount = 0;
+        let unlocked = false;
+        try {
+            // Section copies of a blueprint page are locked against direct edits
+            // by default. Unlock the blueprint's page for the duration of this
+            // pass so the writes below aren't rejected, then always re-lock it
+            // afterward — Canvas has no API to read whether it was already
+            // unlocked, so "restore" here means "back to locked," not "back to
+            // whatever it was." This unlock is inside the try (not before it) so
+            // that a thrown error here still reaches the finally below and resets
+            // loading state instead of leaving the UI stuck on "Updating...".
+            if (course) {
+                await (0,_publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_19__.restrictBlueprintPage)(course.id, blueprintPageId, false);
+                unlocked = true;
+            }
+            for (const section of Object.values(sections)) {
+                const profiles = (_a = potentialProfilesByCourseId[section.id]) !== null && _a !== void 0 ? _a : [];
+                if (profiles.length < 1) {
+                    sectionError(section, "No Profiles");
+                    continue;
+                }
+                if (profiles.length > 1) {
+                    sectionError(section, "Multiple Matches Found");
+                    continue;
+                }
+                const profile = profiles[0];
+                const targetPage = await (0,_publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_19__.getProfilePage)(section.id, profileSlug);
+                if (!targetPage) {
+                    sectionError(section, `Profile page "${profileSlug}" not found`);
+                    continue;
+                }
+                const html = (0,_publish_fixesAndUpdates_profileRenderer__WEBPACK_IMPORTED_MODULE_20__.renderProfile)(targetPage.body, profile, section.id);
+                await targetPage.updateContent(html);
+                dispatchFrontPageProfilesByCourseId({
+                    set: { [section.id]: profile },
+                });
+                setInfo(`Updated ${profile.displayName}...`);
+                updatedCount++;
+            }
+        }
+        finally {
+            if (course && unlocked) {
+                await (0,_publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_19__.restrictBlueprintPage)(course.id, blueprintPageId, true);
+            }
+            setLoading(false);
+        }
+        if (updatedCount > 0) {
+            success(`${updatedCount} profile(s) updated`);
+        }
+        else {
+            inform("No profiles updated — see errors below", "alert-danger");
+        }
     }
     function inform(message, alertClass = "alert-secondary") {
         setInfo(message);
@@ -94332,7 +94518,7 @@ function PublishInterface({ course, user }) {
                         actualStart = await (0,_ueu_ueu_canvas_course_changeStartDate__WEBPACK_IMPORTED_MODULE_12__.getStartDateAssignments)(section.id);
                     }
                     sectionStartSet = true;
-                    setSectionStart(temporal_polyfill__WEBPACK_IMPORTED_MODULE_7__.Temporal.PlainDateTime.from(actualStart));
+                    setSectionStart(temporal_polyfill__WEBPACK_IMPORTED_MODULE_6__.Temporal.PlainDateTime.from(actualStart));
                 }
                 if (!tempTerm) {
                     tempTerm = await section.getTerm();
@@ -94375,13 +94561,17 @@ function PublishInterface({ course, user }) {
     function RenderBpInterface({ course, user }) {
         const sectionsListIdentical = lodash_isEqual__WEBPACK_IMPORTED_MODULE_18___default()(sections, sectionsToPublish);
         const selectedSectionsEmpty = Object.values(sectionsToPublish).every((v) => v === undefined);
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [!workingSection && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-12", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { children: "Sections" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-12 col-sm-12", style: { marginBottom: "5px" }, children: "Publish sections associated with this blueprint" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col-xs-2", style: { display: "contents" }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { className: "btn", disabled: loading || !(course === null || course === void 0 ? void 0 : course.isBlueprint), onClick: applySectionProfiles, style: { marginLeft: "8px" }, children: "Set Bios" }), !sectionsListIdentical && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { className: "btn", disabled: selectedSectionsEmpty || loading || !(course === null || course === void 0 ? void 0 : course.isBlueprint), onClick: applySectionProfiles, style: { marginLeft: "8px" }, children: "Set Selected Bios" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { className: "btn", disabled: loading || !(course === null || course === void 0 ? void 0 : course.isBlueprint), onClick: (e) => publishCourses(e, sections), style: { marginLeft: "8px" }, children: "Publish all" }), !sectionsListIdentical && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { className: "btn", disabled: selectedSectionsEmpty || loading || !(course === null || course === void 0 ? void 0 : course.isBlueprint), onClick: (e) => publishCourses(e, sectionsToPublish), style: { marginLeft: "8px" }, children: "Publish selected" }))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-12", style: { marginTop: "5px" }, children: user && course && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_EmailLink__WEBPACK_IMPORTED_MODULE_8__.EmailLink, { user: user, emails: emails, course: course, sectionStart: sectionStart, termData: term === null || term === void 0 ? void 0 : term.rawData })) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-12", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_SectionRows__WEBPACK_IMPORTED_MODULE_9__.SectionRows, { sections: Object.values(sections /* or however you get your list */), onOpenAll: openAll, instructorsByCourseId: instructorsByCourseId, frontPageProfilesByCourseId: frontPageProfilesByCourseId, potentialProfilesByCourseId: potentialProfilesByCourseId, errorsByCourseId: errorsByCourseId, setWorkingSection: setWorkingSection, 
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [!workingSection && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-12", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { children: "Sections" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-12 col-sm-12", style: { marginBottom: "5px" }, children: "Publish sections associated with this blueprint" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col-xs-2", style: { display: "contents" }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { className: "btn", disabled: loading || !(course === null || course === void 0 ? void 0 : course.isBlueprint), onClick: applySectionProfiles, style: { marginLeft: "8px" }, children: "Set Bios" }), !sectionsListIdentical && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { className: "btn", disabled: selectedSectionsEmpty || loading || !(course === null || course === void 0 ? void 0 : course.isBlueprint), onClick: applySectionProfiles, style: { marginLeft: "8px" }, children: "Set Selected Bios" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { className: "btn", disabled: loading || !(course === null || course === void 0 ? void 0 : course.isBlueprint), onClick: (e) => publishCourses(e, sections), style: { marginLeft: "8px" }, children: "Publish all" }), !sectionsListIdentical && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { className: "btn", disabled: selectedSectionsEmpty || loading || !(course === null || course === void 0 ? void 0 : course.isBlueprint), onClick: (e) => publishCourses(e, sectionsToPublish), style: { marginLeft: "8px" }, children: "Publish selected" })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ProfileTemplateHelp__WEBPACK_IMPORTED_MODULE_9__.ProfileTemplateHelp, { blueprintCourse: course })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-12", style: { marginTop: "5px" }, children: user && course && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_EmailLink__WEBPACK_IMPORTED_MODULE_7__.EmailLink, { user: user, emails: emails, course: course, sectionStart: sectionStart, termData: term === null || term === void 0 ? void 0 : term.rawData })) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-xs-12", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_SectionRows__WEBPACK_IMPORTED_MODULE_8__.SectionRows, { sections: Object.values(sections /* or however you get your list */), onOpenAll: openAll, instructorsByCourseId: instructorsByCourseId, frontPageProfilesByCourseId: frontPageProfilesByCourseId, potentialProfilesByCourseId: potentialProfilesByCourseId, errorsByCourseId: errorsByCourseId, profileSlug: (profileResolution === null || profileResolution === void 0 ? void 0 : profileResolution.status) === "found" ? profileResolution.slug : null, profileSlugError: (profileResolution === null || profileResolution === void 0 ? void 0 : profileResolution.status) === "ambiguous"
+                                        ? `Multiple profile pages: ${profileResolution.candidates.join(", ")}`
+                                        : (profileResolution === null || profileResolution === void 0 ? void 0 : profileResolution.status) === "none"
+                                            ? "No profile page found on blueprint"
+                                            : null, setWorkingSection: setWorkingSection, 
                                     // ← HERE: pass your local variable into the prop
-                                    sectionPublishRecord: sectionsToPublish, sectionPublishToggle: sectionPublishToggle }) })] }) })), info && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: `alert ${infoClass}`, role: "alert", children: info })), workingSection && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_sectionDetails_SectionDetails__WEBPACK_IMPORTED_MODULE_6__.SectionDetails, { onUpdateFrontPageProfile: (_newProfile) => dispatchFrontPageProfilesByCourseId({
+                                    sectionPublishRecord: sectionsToPublish, sectionPublishToggle: sectionPublishToggle }) })] }) })), info && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: `alert ${infoClass}`, role: "alert", children: info })), workingSection && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_sectionDetails_SectionDetails__WEBPACK_IMPORTED_MODULE_5__.SectionDetails, { onUpdateFrontPageProfile: (_newProfile) => dispatchFrontPageProfilesByCourseId({
                             set: [workingSection.id, frontPageProfilesByCourseId],
-                        }), facultyProfileMatches: potentialProfilesByCourseId[workingSection.id], onClose: () => setWorkingSection(null), section: workingSection }) }))] }));
+                        }), facultyProfileMatches: potentialProfilesByCourseId[workingSection.id], onClose: () => setWorkingSection(null), section: workingSection, blueprintCourse: course }) }))] }));
     }
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(OpenButton, { isDev: isDev, isBlueprint: isBlueprint, setShow: setShow }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_5__["default"], { id: "lxd-publish-interface", isOpen: show, canClose: !loading, requestClose: () => {
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(OpenButton, { isDev: isDev, isBlueprint: isBlueprint, setShow: setShow }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_4__["default"], { id: "lxd-publish-interface", isOpen: show, canClose: !loading, requestClose: () => {
                     if (!loading)
                         setShow(false);
                 }, children: [course && isBlueprint && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(RenderBpInterface, { course: course, user: user }), course && isDev && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_MakeBp__WEBPACK_IMPORTED_MODULE_10__.MakeBp, { devCourse: course, onStartMigration: () => {
@@ -94399,7 +94589,7 @@ function OpenButton({ isDev, isBlueprint, setShow }) {
         label = "Manage Sections";
     if (isDev)
         label = "Manage DEV->BP";
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { disabled: disabled, className: disabled ? "" : "ui-button", onClick: (_e) => setShow(true), children: label }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { disabled: disabled, className: disabled ? "" : "ui-button", onClick: (_e) => setShow(true), children: label }));
 }
 
 
@@ -94420,7 +94610,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CourseRow__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CourseRow */ "./src/publish/publishInterface/CourseRow.tsx");
 
 
-function SectionRows({ onOpenAll, sections, instructorsByCourseId, frontPageProfilesByCourseId, potentialProfilesByCourseId, errorsByCourseId, setWorkingSection, sectionPublishRecord, sectionPublishToggle, }) {
+function SectionRows({ onOpenAll, sections, instructorsByCourseId, frontPageProfilesByCourseId, potentialProfilesByCourseId, errorsByCourseId, profileSlug, profileSlugError, setWorkingSection, sectionPublishRecord, sectionPublishToggle, }) {
     function openAll(e) {
         e.preventDefault();
         onOpenAll();
@@ -94453,7 +94643,9 @@ function SectionRows({ onOpenAll, sections, instructorsByCourseId, frontPageProf
             return "Unselect All";
         }
     }
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'course-table', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'row', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'col-xs-1', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { style: { textAlign: 'center', fontSize: '.92rem' }, children: "Include?" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: '#', onClick: toggleAll, style: { textAlign: 'center', fontSize: '.92rem' }, children: getToggleAllText() })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'col-sm-4', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { children: "Code" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: '#', onClick: openAll, children: "Open All" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-1', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { children: "Student Count" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-3', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { children: "Name on Front Page" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-2', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { children: "Instructor(s)" }) })] }), sections && sections.toSorted((a, b) => a.name.localeCompare(b.name)).map((course) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_CourseRow__WEBPACK_IMPORTED_MODULE_1__.CourseRow, { instructors: instructorsByCourseId[course.id], frontPageProfile: frontPageProfilesByCourseId[course.id], facultyProfileMatches: potentialProfilesByCourseId[course.id], errors: errorsByCourseId[course.id], onSelectSection: (section) => setWorkingSection(section), course: course, selected: Boolean(sectionPublishRecord === null || sectionPublishRecord === void 0 ? void 0 : sectionPublishRecord[course.id]), selectionToggle: sectionPublishToggle }, course.id)))] }));
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'course-table', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'row', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'col-xs-1', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { style: { textAlign: 'center', fontSize: '.92rem' }, children: "Include?" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: '#', onClick: toggleAll, style: { textAlign: 'center', fontSize: '.92rem' }, children: getToggleAllText() })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'col-sm-4', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { children: "Code" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: '#', onClick: openAll, children: "Open All" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-1', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { children: "Student Count" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-3', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { children: "Profile Source \u2192 Target" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-2', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { children: "Instructor(s)" }) })] }), profileSlug
+                ? (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'row', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("em", { children: ["Publishing into page: ", profileSlug] }) })
+                : (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'row alert-danger', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("em", { children: profileSlugError }) }), sections && sections.toSorted((a, b) => a.name.localeCompare(b.name)).map((course) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_CourseRow__WEBPACK_IMPORTED_MODULE_1__.CourseRow, { instructors: instructorsByCourseId[course.id], frontPageProfile: frontPageProfilesByCourseId[course.id], facultyProfileMatches: potentialProfilesByCourseId[course.id], profileSlug: profileSlug, errors: errorsByCourseId[course.id], onSelectSection: (section) => setWorkingSection(section), course: course, selected: Boolean(sectionPublishRecord === null || sectionPublishRecord === void 0 ? void 0 : sectionPublishRecord[course.id]), selectionToggle: sectionPublishToggle }, course.id)))] }));
 }
 
 
@@ -94923,15 +95115,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   SectionDetails: () => (/* binding */ SectionDetails)
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _ueu_ueu_canvas_profile__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ueu/ueu-canvas/profile */ "./node_modules/@ueu/ueu-canvas/dist/profile.js");
-/* harmony import */ var _ueu_ueu_canvas_profile__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas_profile__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _ui_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../ui/utils */ "./src/ui/utils.tsx");
-/* harmony import */ var _FacultyProfile__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FacultyProfile */ "./src/publish/publishInterface/sectionDetails/FacultyProfile.tsx");
-/* harmony import */ var _FacultyProfileSearch__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FacultyProfileSearch */ "./src/publish/publishInterface/sectionDetails/FacultyProfileSearch.tsx");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _publish_fixesAndUpdates_profileRenderer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @publish/fixesAndUpdates/profileRenderer */ "./src/publish/fixesAndUpdates/profileRenderer.ts");
+/* harmony import */ var _publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @publish/fixesAndUpdates/courseDataStore */ "./src/publish/fixesAndUpdates/courseDataStore.ts");
+/* harmony import */ var _ui_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../ui/utils */ "./src/ui/utils.tsx");
+/* harmony import */ var _FacultyProfile__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FacultyProfile */ "./src/publish/publishInterface/sectionDetails/FacultyProfile.tsx");
+/* harmony import */ var _FacultyProfileSearch__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./FacultyProfileSearch */ "./src/publish/publishInterface/sectionDetails/FacultyProfileSearch.tsx");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Col.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Row.js");
 
 
 
@@ -94939,16 +95131,40 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function SectionDetails({ section, onClose, onUpdateFrontPageProfile, facultyProfileMatches }) {
-    const [modules, setModules] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]);
-    const [assignmentGroups, setAssignmentGroups] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]);
-    const [instructors, setInstructors] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]);
-    const [frontPageProfile, setFrontPageProfile] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null);
-    const [info, setInfo] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null);
-    const [infoClass, setInfoClass] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)('alert-primary');
-    (0,_ui_utils__WEBPACK_IMPORTED_MODULE_3__.useEffectAsync)(async () => {
+
+function SectionDetails({ section, blueprintCourse, onClose, onUpdateFrontPageProfile, facultyProfileMatches }) {
+    const [modules, setModules] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]);
+    const [assignmentGroups, setAssignmentGroups] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]);
+    const [instructors, setInstructors] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]);
+    const [frontPageProfile, setFrontPageProfile] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    const [info, setInfo] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    const [infoClass, setInfoClass] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('alert-primary');
+    // A single ProfilePageResult rather than separate slug/error/pageId
+    // fields: those only ever have meaning together (see the same reasoning
+    // in PublishInterface.tsx), so this keeps them from independently going
+    // stale relative to each other.
+    const [profileResolution, setProfileResolution] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    (0,_ui_utils__WEBPACK_IMPORTED_MODULE_4__.useEffectAsync)(async () => {
         await onSectionChange();
-    }, [section]);
+        await refreshProfileSlug();
+    }, [section, blueprintCourse]);
+    async function refreshProfileSlug() {
+        if (!section || !blueprintCourse) {
+            setProfileResolution(null);
+            return;
+        }
+        // Resolved from the blueprint, not the section: the section's own copy
+        // shares the slug but has a different page_id, and blueprint locking
+        // (restrictBlueprintPage) only accepts the blueprint's own page_id.
+        const result = await (0,_publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_3__.findProfilePageSlug)(blueprintCourse.id);
+        setProfileResolution(result);
+        if (result.status === "found") {
+            const targetPage = await (0,_publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_3__.getProfilePage)(section.id, result.slug);
+            if (targetPage) {
+                setFrontPageProfile((0,_publish_fixesAndUpdates_profileRenderer__WEBPACK_IMPORTED_MODULE_2__.readProfileFromPage)(targetPage.body));
+            }
+        }
+    }
     async function onSectionChange() {
         /* clear out values, so we don't end up rendering last window's data */
         setInstructors([]);
@@ -94959,7 +95175,6 @@ function SectionDetails({ section, onClose, onUpdateFrontPageProfile, facultyPro
         if (!section)
             return;
         await Promise.all([
-            async () => setFrontPageProfile(await section.getFrontPageProfile()),
             async () => setModules(await section.getModules()),
             async () => { var _a; return setInstructors((_a = await getInstructors(section)) !== null && _a !== void 0 ? _a : []); },
             async () => setAssignmentGroups(await section.getAssignmentGroups({
@@ -94976,7 +95191,6 @@ function SectionDetails({ section, onClose, onUpdateFrontPageProfile, facultyPro
             setInstructors(fetchInstructors);
         return fetchInstructors;
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function error(message) {
         broadcast(message, 'alert-error');
     }
@@ -94995,19 +95209,50 @@ function SectionDetails({ section, onClose, onUpdateFrontPageProfile, facultyPro
     async function applyProfile(profile) {
         if (!section)
             return;
-        const frontPage = await section.getFrontPage();
-        if (!frontPage)
-            return;
+        if ((profileResolution === null || profileResolution === void 0 ? void 0 : profileResolution.status) !== "found") {
+            return error((profileResolution === null || profileResolution === void 0 ? void 0 : profileResolution.status) === "ambiguous"
+                ? `Multiple profile pages: ${profileResolution.candidates.join(", ")}`
+                : "No profile page found");
+        }
+        const { slug: profileSlug, blueprintPageId } = profileResolution;
+        const targetPage = await (0,_publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_3__.getProfilePage)(section.id, profileSlug);
+        if (!targetPage)
+            return error(`Profile page "${profileSlug}" not found`);
         message('Applying new profile');
-        const newText = (0,_ueu_ueu_canvas_profile__WEBPACK_IMPORTED_MODULE_1__.renderProfileIntoCurioFrontPage)(frontPage.body, profile);
-        await frontPage.updateContent(newText);
-        const newProfile = await section.getFrontPageProfile();
+        const newText = (0,_publish_fixesAndUpdates_profileRenderer__WEBPACK_IMPORTED_MODULE_2__.renderProfile)(targetPage.body, profile, section.id);
+        // Section copies are locked by default; unlock the blueprint's page for
+        // this one write and always re-lock afterward (see restrictBlueprintPage).
+        // The unlock call is inside the try (not before it) so a thrown error
+        // there still reaches the catch/finally below instead of leaving the
+        // user with no feedback and the lock state untouched but unexplained.
+        let unlocked = false;
+        try {
+            if (blueprintCourse) {
+                await (0,_publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_3__.restrictBlueprintPage)(blueprintCourse.id, blueprintPageId, false);
+                unlocked = true;
+            }
+            await targetPage.updateContent(newText);
+        }
+        catch (e) {
+            error(e instanceof Error ? e.message : "Failed to apply profile");
+            return;
+        }
+        finally {
+            if (blueprintCourse && unlocked) {
+                await (0,_publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_3__.restrictBlueprintPage)(blueprintCourse.id, blueprintPageId, true);
+            }
+        }
+        const newProfile = (0,_publish_fixesAndUpdates_profileRenderer__WEBPACK_IMPORTED_MODULE_2__.readProfileFromPage)(newText);
         setFrontPageProfile(newProfile);
-        if (onUpdateFrontPageProfile)
+        if (onUpdateFrontPageProfile && newProfile)
             onUpdateFrontPageProfile(newProfile);
         success("Profile updated");
     }
-    return (section && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h3", { children: ["Section Details", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: onClose, children: "X" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: section.courseUrl, target: '_blank', className: 'course-link', children: section.name }) }), info && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: `alert ${infoClass}`, children: info }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-8', children: frontPageProfile && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FacultyProfile__WEBPACK_IMPORTED_MODULE_4__.FacultyProfile, { profile: frontPageProfile }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'col-sm-4', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'col', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h4", { children: "Modules" }), modules.map((module) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'row', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-xs-12', children: module.name }) }, module.id)))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(AssignmentGroups, { assignmentGroups: assignmentGroups }) })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FacultyProfileSearch__WEBPACK_IMPORTED_MODULE_5__.FacultyProfileSearch, { onProfileSelect: applyProfile, user: instructors && instructors[0] }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: facultyProfileMatches && facultyProfileMatches.map((profile, i) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FacultyProfile__WEBPACK_IMPORTED_MODULE_4__.FacultyProfile, { profile: profile, setProfileButton: async () => await applyProfile(profile) }, i))) }) })] })));
+    return (section && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h3", { children: ["Section Details", (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: onClose, children: "X" })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: section.courseUrl, target: '_blank', className: 'course-link', children: section.name }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", { children: (profileResolution === null || profileResolution === void 0 ? void 0 : profileResolution.status) === "found"
+                    ? (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("em", { children: ["Profile target page: ", profileResolution.slug] })
+                    : (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("em", { className: 'text-danger', children: (profileResolution === null || profileResolution === void 0 ? void 0 : profileResolution.status) === "ambiguous"
+                            ? `Multiple profile pages: ${profileResolution.candidates.join(", ")}`
+                            : "No profile page found" }) }), info && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: `alert ${infoClass}`, children: info }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-sm-8', children: frontPageProfile && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FacultyProfile__WEBPACK_IMPORTED_MODULE_5__.FacultyProfile, { profile: frontPageProfile }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'col-sm-4', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: 'col', children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h4", { children: "Modules" }), modules.map((module) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'row', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col-xs-12', children: module.name }) }, module.id)))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: 'col', children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(AssignmentGroups, { assignmentGroups: assignmentGroups }) })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FacultyProfileSearch__WEBPACK_IMPORTED_MODULE_6__.FacultyProfileSearch, { onProfileSelect: applyProfile, user: instructors && instructors[0] }) }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_8__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["default"], { children: facultyProfileMatches && facultyProfileMatches.map((profile, i) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FacultyProfile__WEBPACK_IMPORTED_MODULE_5__.FacultyProfile, { profile: profile, setProfileButton: async () => await applyProfile(profile) }, i))) }) })] })));
 }
 function AssignmentGroups({ assignmentGroups }) {
     return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h4", { children: "Assignment Groups" }), assignmentGroups.map((group) => {
@@ -98592,7 +98837,7 @@ var getProto = __webpack_require__(/*! get-proto */ "./node_modules/get-proto/in
 var $toString = callBound('Object.prototype.toString');
 var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "./node_modules/has-tostringtag/shams.js")();
 
-var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
+var g = typeof globalThis === 'undefined' ? globalThis : globalThis;
 var typedArrays = availableTypedArrays();
 
 var $slice = callBound('String.prototype.slice');
@@ -98638,7 +98883,7 @@ if (hasToStringTag && gOPD && getProto) {
 		var arr = new g[typedArray]();
 		var fn = arr.slice || arr.set;
 		if (fn) {
-			var bound = /** @type {BoundSlice | BoundSet} */ (
+			var bound = /** @type {typeof BoundSlice | typeof BoundSet} */ (
 				// @ts-expect-error TODO FIXME
 				callBind(fn)
 			);
@@ -98693,11 +98938,8 @@ function isTATag(tag) {
 	return $indexOf(typedArrays, tag) > -1;
 }
 
-/**
- * @type {import('.')}
- * @param {unknown} value
- */
-module.exports = function whichTypedArray(value) {
+/** @type {(value: unknown) => ReturnType<typeof import('.')>} */
+function whichTypedArray(value) {
 	if (!value || typeof value !== 'object') {
 		return false;
 	}
@@ -98714,7 +98956,89 @@ module.exports = function whichTypedArray(value) {
 	}
 	if (!gOPD) { return null; } // unknown engine
 	return tryTypedArrays(value);
+}
+
+module.exports = whichTypedArray;
+
+
+/***/ },
+
+/***/ "./node_modules/zustand/esm/react.mjs"
+/*!********************************************!*\
+  !*** ./node_modules/zustand/esm/react.mjs ***!
+  \********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   create: () => (/* binding */ create),
+/* harmony export */   useStore: () => (/* binding */ useStore)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var zustand_vanilla__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! zustand/vanilla */ "./node_modules/zustand/esm/vanilla.mjs");
+
+
+
+const identity = (arg) => arg;
+function useStore(api, selector = identity) {
+  const slice = react__WEBPACK_IMPORTED_MODULE_0___default().useSyncExternalStore(
+    api.subscribe,
+    react__WEBPACK_IMPORTED_MODULE_0___default().useCallback(() => selector(api.getState()), [api, selector]),
+    react__WEBPACK_IMPORTED_MODULE_0___default().useCallback(() => selector(api.getInitialState()), [api, selector])
+  );
+  react__WEBPACK_IMPORTED_MODULE_0___default().useDebugValue(slice);
+  return slice;
+}
+const createImpl = (createState) => {
+  const api = (0,zustand_vanilla__WEBPACK_IMPORTED_MODULE_1__.createStore)(createState);
+  const useBoundStore = (selector) => useStore(api, selector);
+  Object.assign(useBoundStore, api);
+  return useBoundStore;
 };
+const create = ((createState) => createState ? createImpl(createState) : createImpl);
+
+
+
+
+/***/ },
+
+/***/ "./node_modules/zustand/esm/vanilla.mjs"
+/*!**********************************************!*\
+  !*** ./node_modules/zustand/esm/vanilla.mjs ***!
+  \**********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createStore: () => (/* binding */ createStore)
+/* harmony export */ });
+const createStoreImpl = (createState) => {
+  let state;
+  const listeners = /* @__PURE__ */ new Set();
+  const setState = (partial, replace) => {
+    const nextState = typeof partial === "function" ? partial(state) : partial;
+    if (!Object.is(nextState, state)) {
+      const previousState = state;
+      state = (replace != null ? replace : typeof nextState !== "object" || nextState === null) ? nextState : Object.assign({}, state, nextState);
+      listeners.forEach((listener) => listener(state, previousState));
+    }
+  };
+  const getState = () => state;
+  const getInitialState = () => initialState;
+  const subscribe = (listener) => {
+    listeners.add(listener);
+    return () => listeners.delete(listener);
+  };
+  const api = { setState, getState, getInitialState, subscribe };
+  const initialState = state = createState(setState, getState, api);
+  return api;
+};
+const createStore = ((createState) => createState ? createStoreImpl(createState) : createStoreImpl);
+
+
 
 
 /***/ },
@@ -98730,7 +99054,7 @@ module.exports = function whichTypedArray(value) {
 
 var possibleNames = __webpack_require__(/*! possible-typed-array-names */ "./node_modules/possible-typed-array-names/index.js");
 
-var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
+var g = typeof globalThis === 'undefined' ? globalThis : globalThis;
 
 /** @type {import('.')} */
 module.exports = function availableTypedArrays() {
@@ -107092,96 +107416,53 @@ let ys;
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			const getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = (module) => {
+/******/ 		const getter = module && module.__esModule ?
+/******/ 			() => (module['default']) :
+/******/ 			() => (module);
+/******/ 		__webpack_require__.d(getter, { a: getter });
+/******/ 		return getter;
+/******/ 	};
 /******/ 	
 /******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter/value functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			if(Array.isArray(definition)) {
-/******/ 				var i = 0;
-/******/ 				while(i < definition.length) {
-/******/ 					var key = definition[i++];
-/******/ 					var binding = definition[i++];
-/******/ 					if(!__webpack_require__.o(exports, key)) {
-/******/ 						if(binding === 0) {
-/******/ 							Object.defineProperty(exports, key, { enumerable: true, value: definition[i++] });
-/******/ 						} else {
-/******/ 							Object.defineProperty(exports, key, { enumerable: true, get: binding });
-/******/ 						}
-/******/ 					} else if(binding === 0) { i++; }
-/******/ 				}
-/******/ 			} else {
-/******/ 				for(var key in definition) {
-/******/ 					if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 						Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 					}
-/******/ 				}
+/******/ 	// define getter/value functions for harmony exports
+/******/ 	__webpack_require__.d = (exports, definition) => {
+/******/ 		for(var key in definition) {
+/******/ 			if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 				Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/global */
-/******/ 	(() => {
-/******/ 		__webpack_require__.g = (function() {
-/******/ 			if (typeof globalThis === 'object') return globalThis;
-/******/ 			try {
-/******/ 				return this || new Function('return this')();
-/******/ 			} catch (e) {
-/******/ 				if (typeof window === 'object') return window;
-/******/ 			}
-/******/ 		})();
-/******/ 	})();
+/******/ 		}
+/******/ 	};
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
+/******/ 	__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop));
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = (exports) => {
+/******/ 		Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
 /******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
-/******/ 	(() => {
-/******/ 		__webpack_require__.nmd = (module) => {
-/******/ 			module.paths = [];
-/******/ 			if (!module.children) module.children = [];
-/******/ 			return module;
-/******/ 		};
-/******/ 	})();
+/******/ 	__webpack_require__.nmd = (module) => {
+/******/ 		module.paths = [];
+/******/ 		if (!module.children) module.children = [];
+/******/ 		return module;
+/******/ 	};
 /******/ 	
 /******/ 	/* webpack/runtime/set anonymous default export name */
-/******/ 	(() => {
-/******/ 		// set .name for anonymous default exports per ES spec
-/******/ 		// skipped when the property is non-configurable (pre-ES2015 engines),
-/******/ 		// where Object.defineProperty would throw
-/******/ 		__webpack_require__.dn = (x) => {
-/******/ 			var descriptor = Object.getOwnPropertyDescriptor(x, "name");
-/******/ 			if (!descriptor || (!descriptor.writable && descriptor.configurable)) Object.defineProperty(x, "name", { value: "default", configurable: true });
-/******/ 		};
-/******/ 	})();
+/******/ 	// set .name for anonymous default exports per ES spec
+/******/ 	// skipped when the property is non-configurable (pre-ES2015 engines),
+/******/ 	// where Object.defineProperty would throw
+/******/ 	__webpack_require__.dn = (x) => {
+/******/ 		var descriptor = Object.getOwnPropertyDescriptor(x, "name");
+/******/ 		if (!descriptor || (!descriptor.writable && descriptor.configurable)) Object.defineProperty(x, "name", { value: "default", configurable: true });
+/******/ 	};
 /******/ 	
 /******/ 	/* webpack/runtime/nonce */
-/******/ 	(() => {
-/******/ 		__webpack_require__.nc = undefined;
-/******/ 	})();
+/******/ 	__webpack_require__.nc = undefined;
 /******/ 	
 /************************************************************************/
 let __webpack_exports__ = {};

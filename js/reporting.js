@@ -1643,7 +1643,7 @@ var ClassNames = /* #__PURE__ */(0,_emotion_element_489459f2_browser_development
   if (isBrowser && !isTestEnv) {
     // globalThis has wide browser support - https://caniuse.com/?search=globalThis, Node.js 12 and later
     var globalContext = typeof globalThis !== 'undefined' ? globalThis // eslint-disable-line no-undef
-    : isBrowser ? window : __webpack_require__.g;
+    : isBrowser ? window : globalThis;
     var globalKey = "__EMOTION_REACT_" + pkg.version.split('.')[0] + "__";
 
     if (globalContext[globalKey]) {
@@ -4616,7 +4616,6 @@ __webpack_require__.r(__webpack_exports__);
 /* empty/unused harmony star reexport */
 /* empty/unused harmony star reexport */
 /* empty/unused harmony star reexport */
-/* empty/unused harmony star reexport */
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ReducerType: () => (/* binding */ ReducerType),
 /* harmony export */   SHOULD_AUTOBATCH: () => (/* binding */ SHOULD_AUTOBATCH),
@@ -4639,8 +4638,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   createImmutableStateInvariantMiddleware: () => (/* binding */ createImmutableStateInvariantMiddleware),
 /* harmony export */   createListenerMiddleware: () => (/* binding */ createListenerMiddleware),
 /* harmony export */   createReducer: () => (/* binding */ createReducer),
-/* harmony export */   createSelector: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_2__.createSelector),
-/* harmony export */   createSelectorCreator: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_2__.createSelectorCreator),
+/* harmony export */   createSelector: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_3__.createSelector),
+/* harmony export */   createSelectorCreator: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_3__.createSelectorCreator),
 /* harmony export */   createSerializableStateInvariantMiddleware: () => (/* binding */ createSerializableStateInvariantMiddleware),
 /* harmony export */   createSlice: () => (/* binding */ createSlice),
 /* harmony export */   findNonSerializableValue: () => (/* binding */ findNonSerializableValue),
@@ -4656,2293 +4655,1850 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   isPlain: () => (/* binding */ isPlain),
 /* harmony export */   isRejected: () => (/* binding */ isRejected),
 /* harmony export */   isRejectedWithValue: () => (/* binding */ isRejectedWithValue),
-/* harmony export */   lruMemoize: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_2__.lruMemoize),
+/* harmony export */   lruMemoize: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_3__.lruMemoize),
 /* harmony export */   miniSerializeError: () => (/* binding */ miniSerializeError),
 /* harmony export */   nanoid: () => (/* binding */ nanoid),
 /* harmony export */   prepareAutoBatched: () => (/* binding */ prepareAutoBatched),
 /* harmony export */   removeListener: () => (/* binding */ removeListener),
 /* harmony export */   unwrapResult: () => (/* binding */ unwrapResult),
-/* harmony export */   weakMapMemoize: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_2__.weakMapMemoize)
+/* harmony export */   weakMapMemoize: () => (/* reexport safe */ reselect__WEBPACK_IMPORTED_MODULE_3__.weakMapMemoize)
 /* harmony export */ });
+/* empty/unused harmony star reexport */
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/dist/redux.mjs");
 /* harmony import */ var immer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! immer */ "./node_modules/immer/dist/immer.mjs");
-/* harmony import */ var reselect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! reselect */ "./node_modules/reselect/dist/reselect.mjs");
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/dist/redux.mjs");
+/* harmony import */ var reselect__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! reselect */ "./node_modules/reselect/dist/reselect.mjs");
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/dist/redux-thunk.mjs");
 /* provided dependency */ var process = __webpack_require__(/*! ./node_modules/process/browser.js */ "./node_modules/process/browser.js");
-// src/index.ts
 
 
 
-// src/immerImports.ts
 
 
-// src/index.ts
-
-
-// src/reselectImports.ts
-
-
-// src/createDraftSafeSelector.ts
-var createDraftSafeSelectorCreator = (...args) => {
-  const createSelector2 = (0,reselect__WEBPACK_IMPORTED_MODULE_2__.createSelectorCreator)(...args);
-  const createDraftSafeSelector2 = Object.assign((...args2) => {
-    const selector = createSelector2(...args2);
-    const wrappedSelector = (value, ...rest) => selector((0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraft)(value) ? (0,immer__WEBPACK_IMPORTED_MODULE_1__.current)(value) : value, ...rest);
-    Object.assign(wrappedSelector, selector);
-    return wrappedSelector;
-  }, {
-    withTypes: () => createDraftSafeSelector2
-  });
-  return createDraftSafeSelector2;
+//#region src/createDraftSafeSelector.ts
+const createDraftSafeSelectorCreator = (...args) => {
+	const createSelector = (0,reselect__WEBPACK_IMPORTED_MODULE_3__.createSelectorCreator)(...args);
+	const createDraftSafeSelector = Object.assign((...args) => {
+		const selector = createSelector(...args);
+		const wrappedSelector = (value, ...rest) => selector((0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraft)(value) ? (0,immer__WEBPACK_IMPORTED_MODULE_1__.current)(value) : value, ...rest);
+		Object.assign(wrappedSelector, selector);
+		return wrappedSelector;
+	}, { withTypes: () => createDraftSafeSelector });
+	return createDraftSafeSelector;
 };
-var createDraftSafeSelector = /* @__PURE__ */ createDraftSafeSelectorCreator(reselect__WEBPACK_IMPORTED_MODULE_2__.weakMapMemoize);
-
-// src/reduxImports.ts
-
-
-// src/devtoolsExtension.ts
-var composeWithDevTools = typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : function() {
-  if (arguments.length === 0) return void 0;
-  if (typeof arguments[0] === "object") return redux__WEBPACK_IMPORTED_MODULE_3__.compose;
-  return redux__WEBPACK_IMPORTED_MODULE_3__.compose.apply(null, arguments);
+const createDraftSafeSelector = /* @__PURE__ */ createDraftSafeSelectorCreator(reselect__WEBPACK_IMPORTED_MODULE_3__.weakMapMemoize);
+//#endregion
+//#region src/devtoolsExtension.ts
+const composeWithDevTools = typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : function() {
+	if (arguments.length === 0) return void 0;
+	if (typeof arguments[0] === "object") return redux__WEBPACK_IMPORTED_MODULE_0__.compose;
+	return redux__WEBPACK_IMPORTED_MODULE_0__.compose.apply(null, arguments);
 };
-var devToolsEnhancer = typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__ : function() {
-  return function(noop3) {
-    return noop3;
-  };
+typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__;
+//#endregion
+//#region src/tsHelpers.ts
+const hasMatchFunction = (v) => {
+	return v && typeof v.match === "function";
 };
-
-// src/getDefaultMiddleware.ts
-
-
-// src/tsHelpers.ts
-var hasMatchFunction = (v) => {
-  return v && typeof v.match === "function";
-};
-
-// src/createAction.ts
+//#endregion
+//#region src/createAction.ts
 function createAction(type, prepareAction) {
-  function actionCreator(...args) {
-    if (prepareAction) {
-      let prepared = prepareAction(...args);
-      if (!prepared) {
-        throw new Error( false ? 0 : "prepareAction did not return an object");
-      }
-      return {
-        type,
-        payload: prepared.payload,
-        ..."meta" in prepared && {
-          meta: prepared.meta
-        },
-        ..."error" in prepared && {
-          error: prepared.error
-        }
-      };
-    }
-    return {
-      type,
-      payload: args[0]
-    };
-  }
-  actionCreator.toString = () => `${type}`;
-  actionCreator.type = type;
-  actionCreator.match = (action) => (0,redux__WEBPACK_IMPORTED_MODULE_3__.isAction)(action) && action.type === type;
-  return actionCreator;
+	function actionCreator(...args) {
+		if (prepareAction) {
+			let prepared = prepareAction(...args);
+			if (!prepared) throw new Error( false ? 0 : "prepareAction did not return an object");
+			return {
+				type,
+				payload: prepared.payload,
+				..."meta" in prepared && { meta: prepared.meta },
+				..."error" in prepared && { error: prepared.error }
+			};
+		}
+		return {
+			type,
+			payload: args[0]
+		};
+	}
+	actionCreator.toString = () => `${type}`;
+	actionCreator.type = type;
+	actionCreator.match = (action) => (0,redux__WEBPACK_IMPORTED_MODULE_0__.isAction)(action) && action.type === type;
+	return actionCreator;
 }
 function isActionCreator(action) {
-  return typeof action === "function" && "type" in action && // hasMatchFunction only wants Matchers but I don't see the point in rewriting it
-  hasMatchFunction(action);
+	return typeof action === "function" && "type" in action && hasMatchFunction(action);
 }
 function isFSA(action) {
-  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.isAction)(action) && Object.keys(action).every(isValidKey);
+	return (0,redux__WEBPACK_IMPORTED_MODULE_0__.isAction)(action) && Object.keys(action).every(isValidKey);
 }
 function isValidKey(key) {
-  return ["type", "payload", "error", "meta"].indexOf(key) > -1;
+	return [
+		"type",
+		"payload",
+		"error",
+		"meta"
+	].indexOf(key) > -1;
 }
-
-// src/actionCreatorInvariantMiddleware.ts
+//#endregion
+//#region src/actionCreatorInvariantMiddleware.ts
 function getMessage(type) {
-  const splitType = type ? `${type}`.split("/") : [];
-  const actionName = splitType[splitType.length - 1] || "actionCreator";
-  return `Detected an action creator with type "${type || "unknown"}" being dispatched.
+	const splitType = type ? `${type}`.split("/") : [];
+	const actionName = splitType[splitType.length - 1] || "actionCreator";
+	return `Detected an action creator with type "${type || "unknown"}" being dispatched.
 Make sure you're calling the action creator before dispatching, i.e. \`dispatch(${actionName}())\` instead of \`dispatch(${actionName})\`. This is necessary even if the action has no payload.`;
 }
 function createActionCreatorInvariantMiddleware(options = {}) {
-  if (false) // removed by dead control flow
+	if (false) // removed by dead control flow
 {}
-  const {
-    isActionCreator: isActionCreator2 = isActionCreator
-  } = options;
-  return () => (next) => (action) => {
-    if (isActionCreator2(action)) {
-      console.warn(getMessage(action.type));
-    }
-    return next(action);
-  };
+	const { isActionCreator: isActionCreator$1 = isActionCreator } = options;
+	return () => (next) => (action) => {
+		if (isActionCreator$1(action)) console.warn(getMessage(action.type));
+		return next(action);
+	};
 }
-
-// src/utils.ts
+//#endregion
+//#region src/utils.ts
 function getTimeMeasureUtils(maxDelay, fnName) {
-  let elapsed = 0;
-  return {
-    measureTime(fn) {
-      const started = Date.now();
-      try {
-        return fn();
-      } finally {
-        const finished = Date.now();
-        elapsed += finished - started;
-      }
-    },
-    warnIfExceeded() {
-      if (elapsed > maxDelay) {
-        console.warn(`${fnName} took ${elapsed}ms, which is more than the warning threshold of ${maxDelay}ms. 
+	let elapsed = 0;
+	return {
+		measureTime(fn) {
+			const started = Date.now();
+			try {
+				return fn();
+			} finally {
+				elapsed += Date.now() - started;
+			}
+		},
+		warnIfExceeded() {
+			if (elapsed > maxDelay) console.warn(`${fnName} took ${elapsed}ms, which is more than the warning threshold of ${maxDelay}ms. 
 If your state or actions are very large, you may want to disable the middleware as it might cause too much of a slowdown in development mode. See https://redux-toolkit.js.org/api/getDefaultMiddleware for instructions.
 It is disabled in production builds, so you don't need to worry about that.`);
-      }
-    }
-  };
+		}
+	};
 }
-var Tuple = class _Tuple extends Array {
-  constructor(...items) {
-    super(...items);
-    Object.setPrototypeOf(this, _Tuple.prototype);
-  }
-  static get [Symbol.species]() {
-    return _Tuple;
-  }
-  concat(...arr) {
-    return super.concat.apply(this, arr);
-  }
-  prepend(...arr) {
-    if (arr.length === 1 && Array.isArray(arr[0])) {
-      return new _Tuple(...arr[0].concat(this));
-    }
-    return new _Tuple(...arr.concat(this));
-  }
+var Tuple = class Tuple extends Array {
+	constructor(...items) {
+		super(...items);
+		Object.setPrototypeOf(this, Tuple.prototype);
+	}
+	static get [Symbol.species]() {
+		return Tuple;
+	}
+	concat(...arr) {
+		return super.concat.apply(this, arr);
+	}
+	prepend(...arr) {
+		if (arr.length === 1 && Array.isArray(arr[0])) return new Tuple(...arr[0].concat(this));
+		return new Tuple(...arr.concat(this));
+	}
 };
 function freezeDraftable(val) {
-  return (0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraftable)(val) ? (0,immer__WEBPACK_IMPORTED_MODULE_1__.produce)(val, () => {
-  }) : val;
+	return (0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraftable)(val) ? (0,immer__WEBPACK_IMPORTED_MODULE_1__.produce)(val, () => {}) : val;
 }
 function getOrInsertComputed(map, key, compute) {
-  if (map.has(key)) return map.get(key);
-  return map.set(key, compute(key)).get(key);
+	if (map.has(key)) return map.get(key);
+	return map.set(key, compute(key)).get(key);
 }
-
-// src/immutableStateInvariantMiddleware.ts
+//#endregion
+//#region src/immutableStateInvariantMiddleware.ts
 function isImmutableDefault(value) {
-  return typeof value !== "object" || value == null || Object.isFrozen(value);
+	return typeof value !== "object" || value == null || Object.isFrozen(value);
 }
 function trackForMutations(isImmutable, ignoredPaths, obj) {
-  const trackedProperties = trackProperties(isImmutable, ignoredPaths, obj);
-  return {
-    detectMutations() {
-      return detectMutations(isImmutable, ignoredPaths, trackedProperties, obj);
-    }
-  };
+	const trackedProperties = trackProperties(isImmutable, ignoredPaths, obj);
+	return { detectMutations() {
+		return detectMutations(isImmutable, ignoredPaths, trackedProperties, obj);
+	} };
 }
-function trackProperties(isImmutable, ignoredPaths = [], obj, path = "", checkedObjects = /* @__PURE__ */ new Set()) {
-  const tracked = {
-    value: obj
-  };
-  if (!isImmutable(obj) && !checkedObjects.has(obj)) {
-    checkedObjects.add(obj);
-    tracked.children = {};
-    const hasIgnoredPaths = ignoredPaths.length > 0;
-    for (const key in obj) {
-      const nestedPath = path ? path + "." + key : key;
-      if (hasIgnoredPaths) {
-        const hasMatches = ignoredPaths.some((ignored) => {
-          if (ignored instanceof RegExp) {
-            return ignored.test(nestedPath);
-          }
-          return nestedPath === ignored;
-        });
-        if (hasMatches) {
-          continue;
-        }
-      }
-      tracked.children[key] = trackProperties(isImmutable, ignoredPaths, obj[key], nestedPath);
-    }
-  }
-  return tracked;
+function trackProperties(isImmutable, ignoredPaths = [], obj, path = "", inProgress = /* @__PURE__ */ new Map()) {
+	const tracked = { value: obj };
+	if (!isImmutable(obj)) {
+		const alreadyInProgress = inProgress.get(obj);
+		if (alreadyInProgress) return alreadyInProgress;
+		tracked.children = {};
+		inProgress.set(obj, tracked);
+		const hasIgnoredPaths = ignoredPaths.length > 0;
+		for (const key in obj) {
+			const nestedPath = path ? path + "." + key : key;
+			if (hasIgnoredPaths) {
+				if (ignoredPaths.some((ignored) => {
+					if (ignored instanceof RegExp) return ignored.test(nestedPath);
+					return nestedPath === ignored;
+				})) continue;
+			}
+			tracked.children[key] = trackProperties(isImmutable, ignoredPaths, obj[key], nestedPath, inProgress);
+		}
+		inProgress.delete(obj);
+	}
+	return tracked;
 }
-function detectMutations(isImmutable, ignoredPaths = [], trackedProperty, obj, sameParentRef = false, path = "") {
-  const prevObj = trackedProperty ? trackedProperty.value : void 0;
-  const sameRef = prevObj === obj;
-  if (sameParentRef && !sameRef && !Number.isNaN(obj)) {
-    return {
-      wasMutated: true,
-      path
-    };
-  }
-  if (isImmutable(prevObj) || isImmutable(obj)) {
-    return {
-      wasMutated: false
-    };
-  }
-  const keysToDetect = {};
-  for (let key in trackedProperty.children) {
-    keysToDetect[key] = true;
-  }
-  for (let key in obj) {
-    keysToDetect[key] = true;
-  }
-  const hasIgnoredPaths = ignoredPaths.length > 0;
-  for (let key in keysToDetect) {
-    const nestedPath = path ? path + "." + key : key;
-    if (hasIgnoredPaths) {
-      const hasMatches = ignoredPaths.some((ignored) => {
-        if (ignored instanceof RegExp) {
-          return ignored.test(nestedPath);
-        }
-        return nestedPath === ignored;
-      });
-      if (hasMatches) {
-        continue;
-      }
-    }
-    const result = detectMutations(isImmutable, ignoredPaths, trackedProperty.children[key], obj[key], sameRef, nestedPath);
-    if (result.wasMutated) {
-      return result;
-    }
-  }
-  return {
-    wasMutated: false
-  };
+function detectMutations(isImmutable, ignoredPaths = [], trackedProperty, obj, sameParentRef = false, path = "", seen = /* @__PURE__ */ new Map()) {
+	const prevObj = trackedProperty ? trackedProperty.value : void 0;
+	const sameRef = prevObj === obj;
+	if (sameParentRef && !sameRef && !Number.isNaN(obj)) return {
+		wasMutated: true,
+		path
+	};
+	if (isImmutable(prevObj) || isImmutable(obj)) return { wasMutated: false };
+	let seenValues = seen.get(trackedProperty);
+	if (!seenValues) {
+		seenValues = /* @__PURE__ */ new Set();
+		seen.set(trackedProperty, seenValues);
+	} else if (seenValues.has(obj)) return { wasMutated: false };
+	seenValues.add(obj);
+	const keysToDetect = {};
+	for (let key in trackedProperty.children) keysToDetect[key] = true;
+	for (let key in obj) keysToDetect[key] = true;
+	const hasIgnoredPaths = ignoredPaths.length > 0;
+	for (let key in keysToDetect) {
+		const nestedPath = path ? path + "." + key : key;
+		if (hasIgnoredPaths) {
+			if (ignoredPaths.some((ignored) => {
+				if (ignored instanceof RegExp) return ignored.test(nestedPath);
+				return nestedPath === ignored;
+			})) continue;
+		}
+		const result = detectMutations(isImmutable, ignoredPaths, trackedProperty.children[key], obj[key], sameRef, nestedPath, seen);
+		if (result.wasMutated) return result;
+	}
+	return { wasMutated: false };
 }
 function createImmutableStateInvariantMiddleware(options = {}) {
-  if (false) // removed by dead control flow
-{} else {
-    let stringify2 = function(obj, serializer, indent, decycler) {
-      return JSON.stringify(obj, getSerialize2(serializer, decycler), indent);
-    }, getSerialize2 = function(serializer, decycler) {
-      let stack = [], keys = [];
-      if (!decycler) decycler = function(_, value) {
-        if (stack[0] === value) return "[Circular ~]";
-        return "[Circular ~." + keys.slice(0, stack.indexOf(value)).join(".") + "]";
-      };
-      return function(key, value) {
-        if (stack.length > 0) {
-          var thisPos = stack.indexOf(this);
-          ~thisPos ? stack.splice(thisPos + 1) : stack.push(this);
-          ~thisPos ? keys.splice(thisPos, Infinity, key) : keys.push(key);
-          if (~stack.indexOf(value)) value = decycler.call(this, key, value);
-        } else stack.push(value);
-        return serializer == null ? value : serializer.call(this, key, value);
-      };
-    };
-    var stringify = stringify2, getSerialize = getSerialize2;
-    let {
-      isImmutable = isImmutableDefault,
-      ignoredPaths,
-      warnAfter = 32
-    } = options;
-    const track = trackForMutations.bind(null, isImmutable, ignoredPaths);
-    return ({
-      getState
-    }) => {
-      let state = getState();
-      let tracker = track(state);
-      let result;
-      return (next) => (action) => {
-        const measureUtils = getTimeMeasureUtils(warnAfter, "ImmutableStateInvariantMiddleware");
-        measureUtils.measureTime(() => {
-          state = getState();
-          result = tracker.detectMutations();
-          tracker = track(state);
-          if (result.wasMutated) {
-            throw new Error( false ? 0 : `A state mutation was detected between dispatches, in the path '${result.path || ""}'.  This may cause incorrect behavior. (https://redux.js.org/style-guide/style-guide#do-not-mutate-state)`);
-          }
-        });
-        const dispatchedAction = next(action);
-        measureUtils.measureTime(() => {
-          state = getState();
-          result = tracker.detectMutations();
-          tracker = track(state);
-          if (result.wasMutated) {
-            throw new Error( false ? 0 : `A state mutation was detected inside a dispatch, in the path: ${result.path || ""}. Take a look at the reducer(s) handling the action ${stringify2(action)}. (https://redux.js.org/style-guide/style-guide#do-not-mutate-state)`);
-          }
-        });
-        measureUtils.warnIfExceeded();
-        return dispatchedAction;
-      };
-    };
-  }
+	if (false) // removed by dead control flow
+{}
+	else {
+		function stringify(obj, serializer, indent, decycler) {
+			return JSON.stringify(obj, getSerialize(serializer, decycler), indent);
+		}
+		function getSerialize(serializer, decycler) {
+			let stack = [], keys = [];
+			if (!decycler) decycler = function(_, value) {
+				if (stack[0] === value) return "[Circular ~]";
+				return "[Circular ~." + keys.slice(0, stack.indexOf(value)).join(".") + "]";
+			};
+			return function(key, value) {
+				if (stack.length > 0) {
+					var thisPos = stack.indexOf(this);
+					if (~thisPos) {
+						stack.splice(thisPos + 1);
+						keys.splice(thisPos, Infinity, key);
+					} else {
+						stack.push(this);
+						keys.push(key);
+					}
+					if (~stack.indexOf(value)) value = decycler.call(this, key, value);
+				} else stack.push(value);
+				return serializer == null ? value : serializer.call(this, key, value);
+			};
+		}
+		let { isImmutable = isImmutableDefault, ignoredPaths, warnAfter = 32 } = options;
+		const track = trackForMutations.bind(null, isImmutable, ignoredPaths);
+		return ({ getState }) => {
+			let state = getState();
+			let tracker = track(state);
+			let result;
+			return (next) => (action) => {
+				const measureUtils = getTimeMeasureUtils(warnAfter, "ImmutableStateInvariantMiddleware");
+				measureUtils.measureTime(() => {
+					state = getState();
+					result = tracker.detectMutations();
+					tracker = track(state);
+					if (result.wasMutated) throw new Error( false ? 0 : `A state mutation was detected between dispatches, in the path '${result.path || ""}'.  This may cause incorrect behavior. (https://redux.js.org/style-guide/style-guide#do-not-mutate-state)`);
+				});
+				const dispatchedAction = next(action);
+				measureUtils.measureTime(() => {
+					state = getState();
+					result = tracker.detectMutations();
+					tracker = track(state);
+					if (result.wasMutated) throw new Error( false ? 0 : `A state mutation was detected inside a dispatch, in the path: ${result.path || ""}. Take a look at the reducer(s) handling the action ${stringify(action)}. (https://redux.js.org/style-guide/style-guide#do-not-mutate-state)`);
+				});
+				measureUtils.warnIfExceeded();
+				return dispatchedAction;
+			};
+		};
+	}
 }
-
-// src/serializableStateInvariantMiddleware.ts
+//#endregion
+//#region src/serializableStateInvariantMiddleware.ts
 function isPlain(val) {
-  const type = typeof val;
-  return val == null || type === "string" || type === "boolean" || type === "number" || Array.isArray(val) || (0,redux__WEBPACK_IMPORTED_MODULE_3__.isPlainObject)(val);
+	const type = typeof val;
+	return val == null || type === "string" || type === "boolean" || type === "number" || Array.isArray(val) || (0,redux__WEBPACK_IMPORTED_MODULE_0__.isPlainObject)(val);
 }
 function findNonSerializableValue(value, path = "", isSerializable = isPlain, getEntries, ignoredPaths = [], cache) {
-  let foundNestedSerializable;
-  if (!isSerializable(value)) {
-    return {
-      keyPath: path || "<root>",
-      value
-    };
-  }
-  if (typeof value !== "object" || value === null) {
-    return false;
-  }
-  if (cache?.has(value)) return false;
-  const entries = getEntries != null ? getEntries(value) : Object.entries(value);
-  const hasIgnoredPaths = ignoredPaths.length > 0;
-  for (const [key, nestedValue] of entries) {
-    const nestedPath = path ? path + "." + key : key;
-    if (hasIgnoredPaths) {
-      const hasMatches = ignoredPaths.some((ignored) => {
-        if (ignored instanceof RegExp) {
-          return ignored.test(nestedPath);
-        }
-        return nestedPath === ignored;
-      });
-      if (hasMatches) {
-        continue;
-      }
-    }
-    if (!isSerializable(nestedValue)) {
-      return {
-        keyPath: nestedPath,
-        value: nestedValue
-      };
-    }
-    if (typeof nestedValue === "object") {
-      foundNestedSerializable = findNonSerializableValue(nestedValue, nestedPath, isSerializable, getEntries, ignoredPaths, cache);
-      if (foundNestedSerializable) {
-        return foundNestedSerializable;
-      }
-    }
-  }
-  if (cache && isNestedFrozen(value)) cache.add(value);
-  return false;
+	let foundNestedSerializable;
+	if (!isSerializable(value)) return {
+		keyPath: path || "<root>",
+		value
+	};
+	if (typeof value !== "object" || value === null) return false;
+	if (cache?.has(value)) return false;
+	const entries = getEntries != null ? getEntries(value) : Object.entries(value);
+	const hasIgnoredPaths = ignoredPaths.length > 0;
+	for (const [key, nestedValue] of entries) {
+		const nestedPath = path ? path + "." + key : key;
+		if (hasIgnoredPaths) {
+			if (ignoredPaths.some((ignored) => {
+				if (ignored instanceof RegExp) return ignored.test(nestedPath);
+				return nestedPath === ignored;
+			})) continue;
+		}
+		if (!isSerializable(nestedValue)) return {
+			keyPath: nestedPath,
+			value: nestedValue
+		};
+		if (typeof nestedValue === "object") {
+			foundNestedSerializable = findNonSerializableValue(nestedValue, nestedPath, isSerializable, getEntries, ignoredPaths, cache);
+			if (foundNestedSerializable) return foundNestedSerializable;
+		}
+	}
+	if (cache && isNestedFrozen(value)) cache.add(value);
+	return false;
 }
 function isNestedFrozen(value) {
-  if (!Object.isFrozen(value)) return false;
-  for (const nestedValue of Object.values(value)) {
-    if (typeof nestedValue !== "object" || nestedValue === null) continue;
-    if (!isNestedFrozen(nestedValue)) return false;
-  }
-  return true;
+	if (!Object.isFrozen(value)) return false;
+	for (const nestedValue of Object.values(value)) {
+		if (typeof nestedValue !== "object" || nestedValue === null) continue;
+		if (!isNestedFrozen(nestedValue)) return false;
+	}
+	return true;
 }
 function createSerializableStateInvariantMiddleware(options = {}) {
-  if (false) // removed by dead control flow
-{} else {
-    const {
-      isSerializable = isPlain,
-      getEntries,
-      ignoredActions = [],
-      ignoredActionPaths = ["meta.arg", "meta.baseQueryMeta"],
-      ignoredPaths = [],
-      warnAfter = 32,
-      ignoreState = false,
-      ignoreActions = false,
-      disableCache = false
-    } = options;
-    const cache = !disableCache && WeakSet ? /* @__PURE__ */ new WeakSet() : void 0;
-    return (storeAPI) => (next) => (action) => {
-      if (!(0,redux__WEBPACK_IMPORTED_MODULE_3__.isAction)(action)) {
-        return next(action);
-      }
-      const result = next(action);
-      const measureUtils = getTimeMeasureUtils(warnAfter, "SerializableStateInvariantMiddleware");
-      if (!ignoreActions && !(ignoredActions.length && ignoredActions.indexOf(action.type) !== -1)) {
-        measureUtils.measureTime(() => {
-          const foundActionNonSerializableValue = findNonSerializableValue(action, "", isSerializable, getEntries, ignoredActionPaths, cache);
-          if (foundActionNonSerializableValue) {
-            const {
-              keyPath,
-              value
-            } = foundActionNonSerializableValue;
-            console.error(`A non-serializable value was detected in an action, in the path: \`${keyPath}\`. Value:`, value, "\nTake a look at the logic that dispatched this action: ", action, "\n(See https://redux.js.org/faq/actions#why-should-type-be-a-string-or-at-least-serializable-why-should-my-action-types-be-constants)", "\n(To allow non-serializable values see: https://redux-toolkit.js.org/usage/usage-guide#working-with-non-serializable-data)");
-          }
-        });
-      }
-      if (!ignoreState) {
-        measureUtils.measureTime(() => {
-          const state = storeAPI.getState();
-          const foundStateNonSerializableValue = findNonSerializableValue(state, "", isSerializable, getEntries, ignoredPaths, cache);
-          if (foundStateNonSerializableValue) {
-            const {
-              keyPath,
-              value
-            } = foundStateNonSerializableValue;
-            console.error(`A non-serializable value was detected in the state, in the path: \`${keyPath}\`. Value:`, value, `
+	if (false) // removed by dead control flow
+{}
+	else {
+		const { isSerializable = isPlain, getEntries, ignoredActions = [], ignoredActionPaths = ["meta.arg", "meta.baseQueryMeta"], ignoredPaths = [], warnAfter = 32, ignoreState = false, ignoreActions = false, disableCache = false } = options;
+		const cache = !disableCache && WeakSet ? /* @__PURE__ */ new WeakSet() : void 0;
+		return (storeAPI) => (next) => (action) => {
+			if (!(0,redux__WEBPACK_IMPORTED_MODULE_0__.isAction)(action)) return next(action);
+			const result = next(action);
+			const measureUtils = getTimeMeasureUtils(warnAfter, "SerializableStateInvariantMiddleware");
+			if (!ignoreActions && !(ignoredActions.length && ignoredActions.indexOf(action.type) !== -1)) measureUtils.measureTime(() => {
+				const foundActionNonSerializableValue = findNonSerializableValue(action, "", isSerializable, getEntries, ignoredActionPaths, cache);
+				if (foundActionNonSerializableValue) {
+					const { keyPath, value } = foundActionNonSerializableValue;
+					console.error(`A non-serializable value was detected in an action, in the path: \`${keyPath}\`. Value:`, value, "\nTake a look at the logic that dispatched this action: ", action, "\n(See https://redux.js.org/faq/actions#why-should-type-be-a-string-why-should-my-action-types-be-constants)", "\n(To allow non-serializable values see: https://redux-toolkit.js.org/usage/usage-guide#working-with-non-serializable-data)");
+				}
+			});
+			if (!ignoreState) {
+				measureUtils.measureTime(() => {
+					const foundStateNonSerializableValue = findNonSerializableValue(storeAPI.getState(), "", isSerializable, getEntries, ignoredPaths, cache);
+					if (foundStateNonSerializableValue) {
+						const { keyPath, value } = foundStateNonSerializableValue;
+						console.error(`A non-serializable value was detected in the state, in the path: \`${keyPath}\`. Value:`, value, `
 Take a look at the reducer(s) handling this action type: ${action.type}.
 (See https://redux.js.org/faq/organizing-state#can-i-put-functions-promises-or-other-non-serializable-items-in-my-store-state)`);
-          }
-        });
-        measureUtils.warnIfExceeded();
-      }
-      return result;
-    };
-  }
+					}
+				});
+				measureUtils.warnIfExceeded();
+			}
+			return result;
+		};
+	}
 }
-
-// src/getDefaultMiddleware.ts
+//#endregion
+//#region src/getDefaultMiddleware.ts
 function isBoolean(x) {
-  return typeof x === "boolean";
+	return typeof x === "boolean";
 }
-var buildGetDefaultMiddleware = () => function getDefaultMiddleware(options) {
-  const {
-    thunk = true,
-    immutableCheck = true,
-    serializableCheck = true,
-    actionCreatorCheck = true
-  } = options ?? {};
-  let middlewareArray = new Tuple();
-  if (thunk) {
-    if (isBoolean(thunk)) {
-      middlewareArray.push(redux_thunk__WEBPACK_IMPORTED_MODULE_4__.thunk);
-    } else {
-      middlewareArray.push((0,redux_thunk__WEBPACK_IMPORTED_MODULE_4__.withExtraArgument)(thunk.extraArgument));
-    }
-  }
-  if (true) {
-    if (immutableCheck) {
-      let immutableOptions = {};
-      if (!isBoolean(immutableCheck)) {
-        immutableOptions = immutableCheck;
-      }
-      middlewareArray.unshift(createImmutableStateInvariantMiddleware(immutableOptions));
-    }
-    if (serializableCheck) {
-      let serializableOptions = {};
-      if (!isBoolean(serializableCheck)) {
-        serializableOptions = serializableCheck;
-      }
-      middlewareArray.push(createSerializableStateInvariantMiddleware(serializableOptions));
-    }
-    if (actionCreatorCheck) {
-      let actionCreatorOptions = {};
-      if (!isBoolean(actionCreatorCheck)) {
-        actionCreatorOptions = actionCreatorCheck;
-      }
-      middlewareArray.unshift(createActionCreatorInvariantMiddleware(actionCreatorOptions));
-    }
-  }
-  return middlewareArray;
+const buildGetDefaultMiddleware = () => function getDefaultMiddleware(options) {
+	const { thunk: thunk$1 = true, immutableCheck = true, serializableCheck = true, actionCreatorCheck = true } = options ?? {};
+	let middlewareArray = new Tuple();
+	if (thunk$1) {
+		if (isBoolean(thunk$1)) middlewareArray.push(redux_thunk__WEBPACK_IMPORTED_MODULE_4__.thunk);
+		else middlewareArray.push((0,redux_thunk__WEBPACK_IMPORTED_MODULE_4__.withExtraArgument)(thunk$1.extraArgument));
+	}
+	if (true) {
+		if (immutableCheck) {
+			let immutableOptions = {};
+			if (!isBoolean(immutableCheck)) immutableOptions = immutableCheck;
+			middlewareArray.unshift(createImmutableStateInvariantMiddleware(immutableOptions));
+		}
+		if (serializableCheck) {
+			let serializableOptions = {};
+			if (!isBoolean(serializableCheck)) serializableOptions = serializableCheck;
+			middlewareArray.push(createSerializableStateInvariantMiddleware(serializableOptions));
+		}
+		if (actionCreatorCheck) {
+			let actionCreatorOptions = {};
+			if (!isBoolean(actionCreatorCheck)) actionCreatorOptions = actionCreatorCheck;
+			middlewareArray.unshift(createActionCreatorInvariantMiddleware(actionCreatorOptions));
+		}
+	}
+	return middlewareArray;
 };
-
-// src/autoBatchEnhancer.ts
-var SHOULD_AUTOBATCH = "RTK_autoBatch";
-var prepareAutoBatched = () => (payload) => ({
-  payload,
-  meta: {
-    [SHOULD_AUTOBATCH]: true
-  }
+//#endregion
+//#region src/autoBatchEnhancer.ts
+const SHOULD_AUTOBATCH = "RTK_autoBatch";
+const prepareAutoBatched = () => (payload) => ({
+	payload,
+	meta: { [SHOULD_AUTOBATCH]: true }
 });
-var createQueueWithTimer = (timeout) => {
-  return (notify) => {
-    setTimeout(notify, timeout);
-  };
+const createQueueWithTimer = (timeout) => {
+	return (notify) => {
+		setTimeout(notify, timeout);
+	};
 };
-var createRafWithFallbackTimer = (raf, timeout) => {
-  return (notify) => {
-    let called = false;
-    const callback = () => {
-      if (called) return;
-      called = true;
-      cancelAnimationFrame(rafId);
-      clearTimeout(timerId);
-      notify();
-    };
-    const rafId = raf(callback);
-    const timerId = setTimeout(callback, timeout);
-  };
+const createRafWithFallbackTimer = (raf, timeout) => {
+	return (notify) => {
+		let called = false;
+		let rafId;
+		let timerId;
+		const callback = () => {
+			if (called) return;
+			called = true;
+			cancelAnimationFrame(rafId);
+			clearTimeout(timerId);
+			notify();
+		};
+		rafId = raf(callback);
+		timerId = setTimeout(callback, timeout);
+	};
 };
-var autoBatchEnhancer = (options = {
-  type: "raf"
-}) => (next) => (...args) => {
-  const store = next(...args);
-  let notifying = true;
-  let shouldNotifyAtEndOfTick = false;
-  let notificationQueued = false;
-  const listeners = /* @__PURE__ */ new Set();
-  const queueCallback = options.type === "tick" ? queueMicrotask : options.type === "raf" ? (
-    // requestAnimationFrame won't exist in SSR environments. Fall back to a vague approximation just to keep from erroring.
-    typeof window !== "undefined" && window.requestAnimationFrame ? createRafWithFallbackTimer(window.requestAnimationFrame, 100) : createQueueWithTimer(10)
-  ) : options.type === "callback" ? options.queueNotification : createQueueWithTimer(options.timeout);
-  const notifyListeners = () => {
-    notificationQueued = false;
-    if (shouldNotifyAtEndOfTick) {
-      shouldNotifyAtEndOfTick = false;
-      listeners.forEach((l) => l());
-    }
-  };
-  return Object.assign({}, store, {
-    // Override the base `store.subscribe` method to keep original listeners
-    // from running if we're delaying notifications
-    subscribe(listener2) {
-      const wrappedListener = () => notifying && listener2();
-      const unsubscribe = store.subscribe(wrappedListener);
-      listeners.add(listener2);
-      return () => {
-        unsubscribe();
-        listeners.delete(listener2);
-      };
-    },
-    // Override the base `store.dispatch` method so that we can check actions
-    // for the `shouldAutoBatch` flag and determine if batching is active
-    dispatch(action) {
-      try {
-        notifying = !action?.meta?.[SHOULD_AUTOBATCH];
-        shouldNotifyAtEndOfTick = !notifying;
-        if (shouldNotifyAtEndOfTick) {
-          if (!notificationQueued) {
-            notificationQueued = true;
-            queueCallback(notifyListeners);
-          }
-        }
-        return store.dispatch(action);
-      } finally {
-        notifying = true;
-      }
-    }
-  });
+const autoBatchEnhancer = (options = { type: "raf" }) => (next) => (...args) => {
+	const store = next(...args);
+	let notifying = true;
+	let shouldNotifyAtEndOfTick = false;
+	let notificationQueued = false;
+	const listeners = /* @__PURE__ */ new Set();
+	const queueCallback = options.type === "tick" ? queueMicrotask : options.type === "raf" ? typeof window !== "undefined" && window.requestAnimationFrame ? createRafWithFallbackTimer(window.requestAnimationFrame, 100) : createQueueWithTimer(10) : options.type === "callback" ? options.queueNotification : createQueueWithTimer(options.timeout);
+	const notifyListeners = () => {
+		notificationQueued = false;
+		if (shouldNotifyAtEndOfTick) {
+			shouldNotifyAtEndOfTick = false;
+			listeners.forEach((l) => l());
+		}
+	};
+	return Object.assign({}, store, {
+		subscribe(listener) {
+			const wrappedListener = () => notifying && listener();
+			const unsubscribe = store.subscribe(wrappedListener);
+			listeners.add(listener);
+			return () => {
+				unsubscribe();
+				listeners.delete(listener);
+			};
+		},
+		dispatch(action) {
+			try {
+				notifying = !action?.meta?.[SHOULD_AUTOBATCH];
+				shouldNotifyAtEndOfTick = !notifying;
+				if (shouldNotifyAtEndOfTick) {
+					if (!notificationQueued) {
+						notificationQueued = true;
+						queueCallback(notifyListeners);
+					}
+				}
+				return store.dispatch(action);
+			} finally {
+				notifying = true;
+			}
+		}
+	});
 };
-
-// src/getDefaultEnhancers.ts
-var buildGetDefaultEnhancers = (middlewareEnhancer) => function getDefaultEnhancers(options) {
-  const {
-    autoBatch = true
-  } = options ?? {};
-  let enhancerArray = new Tuple(middlewareEnhancer);
-  if (autoBatch) {
-    enhancerArray.push(autoBatchEnhancer(typeof autoBatch === "object" ? autoBatch : void 0));
-  }
-  return enhancerArray;
+//#endregion
+//#region src/getDefaultEnhancers.ts
+const buildGetDefaultEnhancers = (middlewareEnhancer) => function getDefaultEnhancers(options) {
+	const { autoBatch = true } = options ?? {};
+	let enhancerArray = new Tuple(middlewareEnhancer);
+	if (autoBatch) enhancerArray.push(autoBatchEnhancer(typeof autoBatch === "object" ? autoBatch : void 0));
+	return enhancerArray;
 };
-
-// src/configureStore.ts
+//#endregion
+//#region src/configureStore.ts
 function configureStore(options) {
-  const getDefaultMiddleware = buildGetDefaultMiddleware();
-  const {
-    reducer = void 0,
-    middleware,
-    devTools = true,
-    duplicateMiddlewareCheck = true,
-    preloadedState = void 0,
-    enhancers = void 0
-  } = options || {};
-  let rootReducer;
-  if (typeof reducer === "function") {
-    rootReducer = reducer;
-  } else if ((0,redux__WEBPACK_IMPORTED_MODULE_3__.isPlainObject)(reducer)) {
-    rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)(reducer);
-  } else {
-    throw new Error( false ? 0 : "`reducer` is a required argument, and must be a function or an object of functions that can be passed to combineReducers");
-  }
-  if ( true && middleware && typeof middleware !== "function") {
-    throw new Error( false ? 0 : "`middleware` field must be a callback");
-  }
-  let finalMiddleware;
-  if (typeof middleware === "function") {
-    finalMiddleware = middleware(getDefaultMiddleware);
-    if ( true && !Array.isArray(finalMiddleware)) {
-      throw new Error( false ? 0 : "when using a middleware builder function, an array of middleware must be returned");
-    }
-  } else {
-    finalMiddleware = getDefaultMiddleware();
-  }
-  if ( true && finalMiddleware.some((item) => typeof item !== "function")) {
-    throw new Error( false ? 0 : "each middleware provided to configureStore must be a function");
-  }
-  if ( true && duplicateMiddlewareCheck) {
-    let middlewareReferences = /* @__PURE__ */ new Set();
-    finalMiddleware.forEach((middleware2) => {
-      if (middlewareReferences.has(middleware2)) {
-        throw new Error( false ? 0 : "Duplicate middleware references found when creating the store. Ensure that each middleware is only included once.");
-      }
-      middlewareReferences.add(middleware2);
-    });
-  }
-  let finalCompose = redux__WEBPACK_IMPORTED_MODULE_3__.compose;
-  if (devTools) {
-    finalCompose = composeWithDevTools({
-      // Enable capture of stack traces for dispatched Redux actions
-      trace: "development" !== "production",
-      ...typeof devTools === "object" && devTools
-    });
-  }
-  const middlewareEnhancer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(...finalMiddleware);
-  const getDefaultEnhancers = buildGetDefaultEnhancers(middlewareEnhancer);
-  if ( true && enhancers && typeof enhancers !== "function") {
-    throw new Error( false ? 0 : "`enhancers` field must be a callback");
-  }
-  let storeEnhancers = typeof enhancers === "function" ? enhancers(getDefaultEnhancers) : getDefaultEnhancers();
-  if ( true && !Array.isArray(storeEnhancers)) {
-    throw new Error( false ? 0 : "`enhancers` callback must return an array");
-  }
-  if ( true && storeEnhancers.some((item) => typeof item !== "function")) {
-    throw new Error( false ? 0 : "each enhancer provided to configureStore must be a function");
-  }
-  if ( true && finalMiddleware.length && !storeEnhancers.includes(middlewareEnhancer)) {
-    console.error("middlewares were provided, but middleware enhancer was not included in final enhancers - make sure to call `getDefaultEnhancers`");
-  }
-  const composedEnhancer = finalCompose(...storeEnhancers);
-  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(rootReducer, preloadedState, composedEnhancer);
+	const getDefaultMiddleware = buildGetDefaultMiddleware();
+	const { reducer = void 0, middleware, devTools = true, duplicateMiddlewareCheck = true, preloadedState = void 0, enhancers = void 0 } = options || {};
+	let rootReducer;
+	if (typeof reducer === "function") rootReducer = reducer;
+	else if ((0,redux__WEBPACK_IMPORTED_MODULE_0__.isPlainObject)(reducer)) rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_0__.combineReducers)(reducer);
+	else throw new Error( false ? 0 : "`reducer` is a required argument, and must be a function or an object of functions that can be passed to combineReducers");
+	if ( true && middleware && typeof middleware !== "function") throw new Error( false ? 0 : "`middleware` field must be a callback");
+	let finalMiddleware;
+	if (typeof middleware === "function") {
+		finalMiddleware = middleware(getDefaultMiddleware);
+		if ( true && !Array.isArray(finalMiddleware)) throw new Error( false ? 0 : "when using a middleware builder function, an array of middleware must be returned");
+	} else finalMiddleware = getDefaultMiddleware();
+	if ( true && finalMiddleware.some((item) => typeof item !== "function")) throw new Error( false ? 0 : "each middleware provided to configureStore must be a function");
+	if ( true && duplicateMiddlewareCheck) {
+		let middlewareReferences = /* @__PURE__ */ new Set();
+		finalMiddleware.forEach((middleware) => {
+			if (middlewareReferences.has(middleware)) throw new Error( false ? 0 : "Duplicate middleware references found when creating the store. Ensure that each middleware is only included once.");
+			middlewareReferences.add(middleware);
+		});
+	}
+	let finalCompose = redux__WEBPACK_IMPORTED_MODULE_0__.compose;
+	if (devTools) finalCompose = composeWithDevTools({
+		trace: "development" !== "production",
+		...typeof devTools === "object" && devTools
+	});
+	const middlewareEnhancer = (0,redux__WEBPACK_IMPORTED_MODULE_0__.applyMiddleware)(...finalMiddleware);
+	const getDefaultEnhancers = buildGetDefaultEnhancers(middlewareEnhancer);
+	if ( true && enhancers && typeof enhancers !== "function") throw new Error( false ? 0 : "`enhancers` field must be a callback");
+	let storeEnhancers = typeof enhancers === "function" ? enhancers(getDefaultEnhancers) : getDefaultEnhancers();
+	if ( true && !Array.isArray(storeEnhancers)) throw new Error( false ? 0 : "`enhancers` callback must return an array");
+	if ( true && storeEnhancers.some((item) => typeof item !== "function")) throw new Error( false ? 0 : "each enhancer provided to configureStore must be a function");
+	if ( true && finalMiddleware.length && !storeEnhancers.includes(middlewareEnhancer)) console.error("middlewares were provided, but middleware enhancer was not included in final enhancers - make sure to call `getDefaultEnhancers`");
+	const composedEnhancer = finalCompose(...storeEnhancers);
+	return (0,redux__WEBPACK_IMPORTED_MODULE_0__.createStore)(rootReducer, preloadedState, composedEnhancer);
 }
-
-// src/mapBuilders.ts
+//#endregion
+//#region src/mapBuilders.ts
 function executeReducerBuilderCallback(builderCallback) {
-  const actionsMap = {};
-  const actionMatchers = [];
-  let defaultCaseReducer;
-  const builder = {
-    addCase(typeOrActionCreator, reducer) {
-      if (true) {
-        if (actionMatchers.length > 0) {
-          throw new Error( false ? 0 : "`builder.addCase` should only be called before calling `builder.addMatcher`");
-        }
-        if (defaultCaseReducer) {
-          throw new Error( false ? 0 : "`builder.addCase` should only be called before calling `builder.addDefaultCase`");
-        }
-      }
-      const type = typeof typeOrActionCreator === "string" ? typeOrActionCreator : typeOrActionCreator.type;
-      if (!type) {
-        throw new Error( false ? 0 : "`builder.addCase` cannot be called with an empty action type");
-      }
-      if (type in actionsMap) {
-        throw new Error( false ? 0 : `\`builder.addCase\` cannot be called with two reducers for the same action type '${type}'`);
-      }
-      actionsMap[type] = reducer;
-      return builder;
-    },
-    addAsyncThunk(asyncThunk, reducers) {
-      if (true) {
-        if (defaultCaseReducer) {
-          throw new Error( false ? 0 : "`builder.addAsyncThunk` should only be called before calling `builder.addDefaultCase`");
-        }
-      }
-      if (reducers.pending) actionsMap[asyncThunk.pending.type] = reducers.pending;
-      if (reducers.rejected) actionsMap[asyncThunk.rejected.type] = reducers.rejected;
-      if (reducers.fulfilled) actionsMap[asyncThunk.fulfilled.type] = reducers.fulfilled;
-      if (reducers.settled) actionMatchers.push({
-        matcher: asyncThunk.settled,
-        reducer: reducers.settled
-      });
-      return builder;
-    },
-    addMatcher(matcher, reducer) {
-      if (true) {
-        if (defaultCaseReducer) {
-          throw new Error( false ? 0 : "`builder.addMatcher` should only be called before calling `builder.addDefaultCase`");
-        }
-      }
-      actionMatchers.push({
-        matcher,
-        reducer
-      });
-      return builder;
-    },
-    addDefaultCase(reducer) {
-      if (true) {
-        if (defaultCaseReducer) {
-          throw new Error( false ? 0 : "`builder.addDefaultCase` can only be called once");
-        }
-      }
-      defaultCaseReducer = reducer;
-      return builder;
-    }
-  };
-  builderCallback(builder);
-  return [actionsMap, actionMatchers, defaultCaseReducer];
+	const actionsMap = {};
+	const actionMatchers = [];
+	let defaultCaseReducer;
+	const builder = {
+		addCase(typeOrActionCreator, reducer) {
+			if (true) {
+				if (actionMatchers.length > 0) throw new Error( false ? 0 : "`builder.addCase` should only be called before calling `builder.addMatcher`");
+				if (defaultCaseReducer) throw new Error( false ? 0 : "`builder.addCase` should only be called before calling `builder.addDefaultCase`");
+			}
+			const type = typeof typeOrActionCreator === "string" ? typeOrActionCreator : typeOrActionCreator.type;
+			if (!type) throw new Error( false ? 0 : "`builder.addCase` cannot be called with an empty action type");
+			if (type in actionsMap) throw new Error( false ? 0 : `\`builder.addCase\` cannot be called with two reducers for the same action type '${type}'`);
+			actionsMap[type] = reducer;
+			return builder;
+		},
+		addAsyncThunk(asyncThunk, reducers) {
+			if (true) {
+				if (defaultCaseReducer) throw new Error( false ? 0 : "`builder.addAsyncThunk` should only be called before calling `builder.addDefaultCase`");
+			}
+			if (reducers.pending) actionsMap[asyncThunk.pending.type] = reducers.pending;
+			if (reducers.rejected) actionsMap[asyncThunk.rejected.type] = reducers.rejected;
+			if (reducers.fulfilled) actionsMap[asyncThunk.fulfilled.type] = reducers.fulfilled;
+			if (reducers.settled) actionMatchers.push({
+				matcher: asyncThunk.settled,
+				reducer: reducers.settled
+			});
+			return builder;
+		},
+		addMatcher(matcher, reducer) {
+			if (true) {
+				if (defaultCaseReducer) throw new Error( false ? 0 : "`builder.addMatcher` should only be called before calling `builder.addDefaultCase`");
+			}
+			actionMatchers.push({
+				matcher,
+				reducer
+			});
+			return builder;
+		},
+		addDefaultCase(reducer) {
+			if (true) {
+				if (defaultCaseReducer) throw new Error( false ? 0 : "`builder.addDefaultCase` can only be called once");
+			}
+			defaultCaseReducer = reducer;
+			return builder;
+		}
+	};
+	builderCallback(builder);
+	return [
+		actionsMap,
+		actionMatchers,
+		defaultCaseReducer
+	];
 }
-
-// src/createReducer.ts
+//#endregion
+//#region src/createReducer.ts
 function isStateFunction(x) {
-  return typeof x === "function";
+	return typeof x === "function";
 }
 function createReducer(initialState, mapOrBuilderCallback) {
-  if (true) {
-    if (typeof mapOrBuilderCallback === "object") {
-      throw new Error( false ? 0 : "The object notation for `createReducer` has been removed. Please use the 'builder callback' notation instead: https://redux-toolkit.js.org/api/createReducer");
-    }
-  }
-  let [actionsMap, finalActionMatchers, finalDefaultCaseReducer] = executeReducerBuilderCallback(mapOrBuilderCallback);
-  let getInitialState;
-  if (isStateFunction(initialState)) {
-    getInitialState = () => freezeDraftable(initialState());
-  } else {
-    const frozenInitialState = freezeDraftable(initialState);
-    getInitialState = () => frozenInitialState;
-  }
-  function reducer(state = getInitialState(), action) {
-    let caseReducers = [actionsMap[action.type], ...finalActionMatchers.filter(({
-      matcher
-    }) => matcher(action)).map(({
-      reducer: reducer2
-    }) => reducer2)];
-    if (caseReducers.filter((cr) => !!cr).length === 0) {
-      caseReducers = [finalDefaultCaseReducer];
-    }
-    return caseReducers.reduce((previousState, caseReducer) => {
-      if (caseReducer) {
-        if ((0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraft)(previousState)) {
-          const draft = previousState;
-          const result = caseReducer(draft, action);
-          if (result === void 0) {
-            return previousState;
-          }
-          return result;
-        } else if (!(0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraftable)(previousState)) {
-          const result = caseReducer(previousState, action);
-          if (result === void 0) {
-            if (previousState === null) {
-              return previousState;
-            }
-            throw Error("A case reducer on a non-draftable value must not return undefined");
-          }
-          return result;
-        } else {
-          return (0,immer__WEBPACK_IMPORTED_MODULE_1__.produce)(previousState, (draft) => {
-            return caseReducer(draft, action);
-          });
-        }
-      }
-      return previousState;
-    }, state);
-  }
-  reducer.getInitialState = getInitialState;
-  return reducer;
+	if (true) {
+		if (typeof mapOrBuilderCallback === "object") throw new Error( false ? 0 : "The object notation for `createReducer` has been removed. Please use the 'builder callback' notation instead: https://redux-toolkit.js.org/api/createReducer");
+	}
+	let [actionsMap, finalActionMatchers, finalDefaultCaseReducer] = executeReducerBuilderCallback(mapOrBuilderCallback);
+	let getInitialState;
+	if (isStateFunction(initialState)) getInitialState = () => freezeDraftable(initialState());
+	else {
+		const frozenInitialState = freezeDraftable(initialState);
+		getInitialState = () => frozenInitialState;
+	}
+	function reducer(state = getInitialState(), action) {
+		let caseReducers = [actionsMap[action.type], ...finalActionMatchers.filter(({ matcher }) => matcher(action)).map(({ reducer }) => reducer)];
+		if (caseReducers.filter((cr) => !!cr).length === 0) caseReducers = [finalDefaultCaseReducer];
+		return caseReducers.reduce((previousState, caseReducer) => {
+			if (caseReducer) {
+				if ((0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraft)(previousState)) {
+					const result = caseReducer(previousState, action);
+					if (result === void 0) return previousState;
+					return result;
+				} else if (!(0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraftable)(previousState)) {
+					const result = caseReducer(previousState, action);
+					if (result === void 0) {
+						if (previousState === null) return previousState;
+						throw new Error( false ? 0 : "A case reducer on a non-draftable value must not return undefined");
+					}
+					return result;
+				} else return (0,immer__WEBPACK_IMPORTED_MODULE_1__.produce)(previousState, (draft) => {
+					return caseReducer(draft, action);
+				});
+			}
+			return previousState;
+		}, state);
+	}
+	reducer.getInitialState = getInitialState;
+	return reducer;
 }
-
-// src/matchers.ts
-var matches = (matcher, action) => {
-  if (hasMatchFunction(matcher)) {
-    return matcher.match(action);
-  } else {
-    return matcher(action);
-  }
+//#endregion
+//#region src/matchers.ts
+const matches = (matcher, action) => {
+	if (hasMatchFunction(matcher)) return matcher.match(action);
+	else return matcher(action);
 };
 function isAnyOf(...matchers) {
-  return (action) => {
-    return matchers.some((matcher) => matches(matcher, action));
-  };
+	return (action) => {
+		return matchers.some((matcher) => matches(matcher, action));
+	};
 }
 function isAllOf(...matchers) {
-  return (action) => {
-    return matchers.every((matcher) => matches(matcher, action));
-  };
+	return (action) => {
+		return matchers.every((matcher) => matches(matcher, action));
+	};
 }
 function hasExpectedRequestMetadata(action, validStatus) {
-  if (!action || !action.meta) return false;
-  const hasValidRequestId = typeof action.meta.requestId === "string";
-  const hasValidRequestStatus = validStatus.indexOf(action.meta.requestStatus) > -1;
-  return hasValidRequestId && hasValidRequestStatus;
+	if (!action || !action.meta) return false;
+	const hasValidRequestId = typeof action.meta.requestId === "string";
+	const hasValidRequestStatus = validStatus.indexOf(action.meta.requestStatus) > -1;
+	return hasValidRequestId && hasValidRequestStatus;
 }
 function isAsyncThunkArray(a) {
-  return typeof a[0] === "function" && "pending" in a[0] && "fulfilled" in a[0] && "rejected" in a[0];
+	return typeof a[0] === "function" && "pending" in a[0] && "fulfilled" in a[0] && "rejected" in a[0];
 }
 function isPending(...asyncThunks) {
-  if (asyncThunks.length === 0) {
-    return (action) => hasExpectedRequestMetadata(action, ["pending"]);
-  }
-  if (!isAsyncThunkArray(asyncThunks)) {
-    return isPending()(asyncThunks[0]);
-  }
-  return isAnyOf(...asyncThunks.map((asyncThunk) => asyncThunk.pending));
+	if (asyncThunks.length === 0) return (action) => hasExpectedRequestMetadata(action, ["pending"]);
+	if (!isAsyncThunkArray(asyncThunks)) return isPending()(asyncThunks[0]);
+	return isAnyOf(...asyncThunks.map((asyncThunk) => asyncThunk.pending));
 }
 function isRejected(...asyncThunks) {
-  if (asyncThunks.length === 0) {
-    return (action) => hasExpectedRequestMetadata(action, ["rejected"]);
-  }
-  if (!isAsyncThunkArray(asyncThunks)) {
-    return isRejected()(asyncThunks[0]);
-  }
-  return isAnyOf(...asyncThunks.map((asyncThunk) => asyncThunk.rejected));
+	if (asyncThunks.length === 0) return (action) => hasExpectedRequestMetadata(action, ["rejected"]);
+	if (!isAsyncThunkArray(asyncThunks)) return isRejected()(asyncThunks[0]);
+	return isAnyOf(...asyncThunks.map((asyncThunk) => asyncThunk.rejected));
 }
 function isRejectedWithValue(...asyncThunks) {
-  const hasFlag = (action) => {
-    return action && action.meta && action.meta.rejectedWithValue;
-  };
-  if (asyncThunks.length === 0) {
-    return isAllOf(isRejected(...asyncThunks), hasFlag);
-  }
-  if (!isAsyncThunkArray(asyncThunks)) {
-    return isRejectedWithValue()(asyncThunks[0]);
-  }
-  return isAllOf(isRejected(...asyncThunks), hasFlag);
+	const hasFlag = (action) => {
+		return action && action.meta && action.meta.rejectedWithValue;
+	};
+	if (asyncThunks.length === 0) return isAllOf(isRejected(...asyncThunks), hasFlag);
+	if (!isAsyncThunkArray(asyncThunks)) return isRejectedWithValue()(asyncThunks[0]);
+	return isAllOf(isRejected(...asyncThunks), hasFlag);
 }
 function isFulfilled(...asyncThunks) {
-  if (asyncThunks.length === 0) {
-    return (action) => hasExpectedRequestMetadata(action, ["fulfilled"]);
-  }
-  if (!isAsyncThunkArray(asyncThunks)) {
-    return isFulfilled()(asyncThunks[0]);
-  }
-  return isAnyOf(...asyncThunks.map((asyncThunk) => asyncThunk.fulfilled));
+	if (asyncThunks.length === 0) return (action) => hasExpectedRequestMetadata(action, ["fulfilled"]);
+	if (!isAsyncThunkArray(asyncThunks)) return isFulfilled()(asyncThunks[0]);
+	return isAnyOf(...asyncThunks.map((asyncThunk) => asyncThunk.fulfilled));
 }
 function isAsyncThunkAction(...asyncThunks) {
-  if (asyncThunks.length === 0) {
-    return (action) => hasExpectedRequestMetadata(action, ["pending", "fulfilled", "rejected"]);
-  }
-  if (!isAsyncThunkArray(asyncThunks)) {
-    return isAsyncThunkAction()(asyncThunks[0]);
-  }
-  return isAnyOf(...asyncThunks.flatMap((asyncThunk) => [asyncThunk.pending, asyncThunk.rejected, asyncThunk.fulfilled]));
+	if (asyncThunks.length === 0) return (action) => hasExpectedRequestMetadata(action, [
+		"pending",
+		"fulfilled",
+		"rejected"
+	]);
+	if (!isAsyncThunkArray(asyncThunks)) return isAsyncThunkAction()(asyncThunks[0]);
+	return isAnyOf(...asyncThunks.flatMap((asyncThunk) => [
+		asyncThunk.pending,
+		asyncThunk.rejected,
+		asyncThunk.fulfilled
+	]));
 }
-
-// src/nanoid.ts
-var urlAlphabet = "ModuleSymbhasOwnPr-0123456789ABCDEFGHNRVfgctiUvz_KqYTJkLxpZXIjQW";
-var nanoid = (size = 21) => {
-  let id = "";
-  let i = size;
-  while (i--) {
-    id += urlAlphabet[Math.random() * 64 | 0];
-  }
-  return id;
+//#endregion
+//#region src/nanoid.ts
+let urlAlphabet = "ModuleSymbhasOwnPr-0123456789ABCDEFGHNRVfgctiUvz_KqYTJkLxpZXIjQW";
+let nanoid = (size = 21) => {
+	let id = "";
+	let i = size;
+	while (i--) id += urlAlphabet[Math.random() * 64 | 0];
+	return id;
 };
-
-// src/createAsyncThunk.ts
-var commonProperties = ["name", "message", "stack", "code"];
+//#endregion
+//#region src/createAsyncThunk.ts
+const commonProperties = [
+	"name",
+	"message",
+	"stack",
+	"code"
+];
 var RejectWithValue = class {
-  constructor(payload, meta) {
-    this.payload = payload;
-    this.meta = meta;
-  }
-  payload;
-  meta;
-  /*
-  type-only property to distinguish between RejectWithValue and FulfillWithMeta
-  does not exist at runtime
-  */
-  _type;
+	payload;
+	meta;
+	_type;
+	constructor(payload, meta) {
+		this.payload = payload;
+		this.meta = meta;
+	}
 };
 var FulfillWithMeta = class {
-  constructor(payload, meta) {
-    this.payload = payload;
-    this.meta = meta;
-  }
-  payload;
-  meta;
-  /*
-  type-only property to distinguish between RejectWithValue and FulfillWithMeta
-  does not exist at runtime
-  */
-  _type;
+	payload;
+	meta;
+	_type;
+	constructor(payload, meta) {
+		this.payload = payload;
+		this.meta = meta;
+	}
 };
-var miniSerializeError = (value) => {
-  if (typeof value === "object" && value !== null) {
-    const simpleError = {};
-    for (const property of commonProperties) {
-      if (typeof value[property] === "string") {
-        simpleError[property] = value[property];
-      }
-    }
-    return simpleError;
-  }
-  return {
-    message: String(value)
-  };
+const miniSerializeError = (value) => {
+	if (typeof value === "object" && value !== null) {
+		const simpleError = {};
+		for (const property of commonProperties) if (typeof value[property] === "string") simpleError[property] = value[property];
+		return simpleError;
+	}
+	return { message: String(value) };
 };
-var externalAbortMessage = "External signal was aborted";
-var createAsyncThunk = /* @__PURE__ */ (() => {
-  function createAsyncThunk2(typePrefix, payloadCreator, options) {
-    const fulfilled = createAction(typePrefix + "/fulfilled", (payload, requestId, arg, meta) => ({
-      payload,
-      meta: {
-        ...meta || {},
-        arg,
-        requestId,
-        requestStatus: "fulfilled"
-      }
-    }));
-    const pending = createAction(typePrefix + "/pending", (requestId, arg, meta) => ({
-      payload: void 0,
-      meta: {
-        ...meta || {},
-        arg,
-        requestId,
-        requestStatus: "pending"
-      }
-    }));
-    const rejected = createAction(typePrefix + "/rejected", (error, requestId, arg, payload, meta) => ({
-      payload,
-      error: (options && options.serializeError || miniSerializeError)(error || "Rejected"),
-      meta: {
-        ...meta || {},
-        arg,
-        requestId,
-        rejectedWithValue: !!payload,
-        requestStatus: "rejected",
-        aborted: error?.name === "AbortError",
-        condition: error?.name === "ConditionError"
-      }
-    }));
-    function actionCreator(arg, {
-      signal
-    } = {}) {
-      return (dispatch, getState, extra) => {
-        const requestId = options?.idGenerator ? options.idGenerator(arg) : nanoid();
-        const abortController = new AbortController();
-        let abortHandler;
-        let abortReason;
-        function abort(reason) {
-          abortReason = reason;
-          abortController.abort();
-        }
-        if (signal) {
-          if (signal.aborted) {
-            abort(externalAbortMessage);
-          } else {
-            signal.addEventListener("abort", () => abort(externalAbortMessage), {
-              once: true
-            });
-          }
-        }
-        const promise = (async function() {
-          let finalAction;
-          try {
-            let conditionResult = options?.condition?.(arg, {
-              getState,
-              extra
-            });
-            if (isThenable(conditionResult)) {
-              conditionResult = await conditionResult;
-            }
-            if (conditionResult === false || abortController.signal.aborted) {
-              throw {
-                name: "ConditionError",
-                message: "Aborted due to condition callback returning false."
-              };
-            }
-            const abortedPromise = new Promise((_, reject) => {
-              abortHandler = () => {
-                reject({
-                  name: "AbortError",
-                  message: abortReason || "Aborted"
-                });
-              };
-              abortController.signal.addEventListener("abort", abortHandler, {
-                once: true
-              });
-            });
-            dispatch(pending(requestId, arg, options?.getPendingMeta?.({
-              requestId,
-              arg
-            }, {
-              getState,
-              extra
-            })));
-            finalAction = await Promise.race([abortedPromise, Promise.resolve(payloadCreator(arg, {
-              dispatch,
-              getState,
-              extra,
-              requestId,
-              signal: abortController.signal,
-              abort,
-              rejectWithValue: ((value, meta) => {
-                return new RejectWithValue(value, meta);
-              }),
-              fulfillWithValue: ((value, meta) => {
-                return new FulfillWithMeta(value, meta);
-              })
-            })).then((result) => {
-              if (result instanceof RejectWithValue) {
-                throw result;
-              }
-              if (result instanceof FulfillWithMeta) {
-                return fulfilled(result.payload, requestId, arg, result.meta);
-              }
-              return fulfilled(result, requestId, arg);
-            })]);
-          } catch (err) {
-            finalAction = err instanceof RejectWithValue ? rejected(null, requestId, arg, err.payload, err.meta) : rejected(err, requestId, arg);
-          } finally {
-            if (abortHandler) {
-              abortController.signal.removeEventListener("abort", abortHandler);
-            }
-          }
-          const skipDispatch = options && !options.dispatchConditionRejection && rejected.match(finalAction) && finalAction.meta.condition;
-          if (!skipDispatch) {
-            dispatch(finalAction);
-          }
-          return finalAction;
-        })();
-        return Object.assign(promise, {
-          abort,
-          requestId,
-          arg,
-          unwrap() {
-            return promise.then(unwrapResult);
-          }
-        });
-      };
-    }
-    return Object.assign(actionCreator, {
-      pending,
-      rejected,
-      fulfilled,
-      settled: isAnyOf(rejected, fulfilled),
-      typePrefix
-    });
-  }
-  createAsyncThunk2.withTypes = () => createAsyncThunk2;
-  return createAsyncThunk2;
+const externalAbortMessage = "External signal was aborted";
+const createAsyncThunk = /* @__PURE__ */ (() => {
+	function createAsyncThunk(typePrefix, payloadCreator, options) {
+		const fulfilled = createAction(typePrefix + "/fulfilled", (payload, requestId, arg, meta) => ({
+			payload,
+			meta: {
+				...meta || {},
+				arg,
+				requestId,
+				requestStatus: "fulfilled"
+			}
+		}));
+		const pending = createAction(typePrefix + "/pending", (requestId, arg, meta) => ({
+			payload: void 0,
+			meta: {
+				...meta || {},
+				arg,
+				requestId,
+				requestStatus: "pending"
+			}
+		}));
+		const rejected = createAction(typePrefix + "/rejected", (error, requestId, arg, payload, meta) => ({
+			payload,
+			error: (options && options.serializeError || miniSerializeError)(error || "Rejected"),
+			meta: {
+				...meta || {},
+				arg,
+				requestId,
+				rejectedWithValue: payload !== void 0,
+				requestStatus: "rejected",
+				aborted: error?.name === "AbortError",
+				condition: error?.name === "ConditionError"
+			}
+		}));
+		function actionCreator(arg, { signal } = {}) {
+			return (dispatch, getState, extra) => {
+				const requestId = options?.idGenerator ? options.idGenerator(arg) : nanoid();
+				const abortController = new AbortController();
+				let abortHandler;
+				let abortReason;
+				function abort(reason) {
+					abortReason = reason;
+					abortController.abort();
+				}
+				if (signal) {
+					if (signal.aborted) abort(externalAbortMessage);
+					else signal.addEventListener("abort", () => abort(externalAbortMessage), { once: true });
+				}
+				const promise = async function() {
+					let finalAction;
+					try {
+						let conditionResult = options?.condition?.(arg, {
+							getState,
+							extra
+						});
+						if (isThenable(conditionResult)) conditionResult = await conditionResult;
+						if (conditionResult === false) throw {
+							name: "ConditionError",
+							message: "Aborted due to condition callback returning false."
+						};
+						if (abortController.signal.aborted) throw {
+							name: "AbortError",
+							message: abortReason || "Aborted"
+						};
+						const abortedPromise = new Promise((_, reject) => {
+							abortHandler = () => {
+								reject({
+									name: "AbortError",
+									message: abortReason || "Aborted"
+								});
+							};
+							abortController.signal.addEventListener("abort", abortHandler, { once: true });
+						});
+						dispatch(pending(requestId, arg, options?.getPendingMeta?.({
+							requestId,
+							arg
+						}, {
+							getState,
+							extra
+						})));
+						finalAction = await Promise.race([abortedPromise, Promise.resolve(payloadCreator(arg, {
+							dispatch,
+							getState,
+							extra,
+							requestId,
+							signal: abortController.signal,
+							abort,
+							rejectWithValue: ((value, meta) => {
+								return new RejectWithValue(value, meta);
+							}),
+							fulfillWithValue: ((value, meta) => {
+								return new FulfillWithMeta(value, meta);
+							})
+						})).then((result) => {
+							if (result instanceof RejectWithValue) throw result;
+							if (result instanceof FulfillWithMeta) return fulfilled(result.payload, requestId, arg, result.meta);
+							return fulfilled(result, requestId, arg);
+						})]);
+					} catch (err) {
+						finalAction = err instanceof RejectWithValue ? rejected(null, requestId, arg, err.payload, err.meta) : rejected(err, requestId, arg);
+					} finally {
+						if (abortHandler) abortController.signal.removeEventListener("abort", abortHandler);
+					}
+					if (!(options && !options.dispatchConditionRejection && rejected.match(finalAction) && finalAction.meta.condition)) dispatch(finalAction);
+					return finalAction;
+				}();
+				return Object.assign(promise, {
+					abort,
+					requestId,
+					arg,
+					unwrap() {
+						return promise.then(unwrapResult);
+					}
+				});
+			};
+		}
+		return Object.assign(actionCreator, {
+			pending,
+			rejected,
+			fulfilled,
+			settled: isAnyOf(rejected, fulfilled),
+			typePrefix
+		});
+	}
+	createAsyncThunk.withTypes = () => createAsyncThunk;
+	return createAsyncThunk;
 })();
 function unwrapResult(action) {
-  if (action.meta && action.meta.rejectedWithValue) {
-    throw action.payload;
-  }
-  if (action.error) {
-    throw action.error;
-  }
-  return action.payload;
+	if (action.meta && action.meta.rejectedWithValue) throw action.payload;
+	if (action.error) throw action.error;
+	return action.payload;
 }
 function isThenable(value) {
-  return value !== null && typeof value === "object" && typeof value.then === "function";
+	return value !== null && typeof value === "object" && typeof value.then === "function";
 }
-
-// src/createSlice.ts
-var asyncThunkSymbol = /* @__PURE__ */ Symbol.for("rtk-slice-createasyncthunk");
-var asyncThunkCreator = {
-  [asyncThunkSymbol]: createAsyncThunk
-};
-var ReducerType = /* @__PURE__ */ ((ReducerType2) => {
-  ReducerType2["reducer"] = "reducer";
-  ReducerType2["reducerWithPrepare"] = "reducerWithPrepare";
-  ReducerType2["asyncThunk"] = "asyncThunk";
-  return ReducerType2;
-})(ReducerType || {});
+//#endregion
+//#region src/createSlice.ts
+const asyncThunkSymbol = /* @__PURE__ */ Symbol.for("rtk-slice-createasyncthunk");
+const asyncThunkCreator = { [asyncThunkSymbol]: createAsyncThunk };
+let ReducerType = /* @__PURE__ */ function(ReducerType) {
+	ReducerType["reducer"] = "reducer";
+	ReducerType["reducerWithPrepare"] = "reducerWithPrepare";
+	ReducerType["asyncThunk"] = "asyncThunk";
+	return ReducerType;
+}({});
 function getType(slice, actionKey) {
-  return `${slice}/${actionKey}`;
+	return `${slice}/${actionKey}`;
 }
-function buildCreateSlice({
-  creators
-} = {}) {
-  const cAT = creators?.asyncThunk?.[asyncThunkSymbol];
-  return function createSlice2(options) {
-    const {
-      name,
-      reducerPath = name
-    } = options;
-    if (!name) {
-      throw new Error( false ? 0 : "`name` is a required option for createSlice");
-    }
-    if (typeof process !== "undefined" && "development" === "development") {
-      if (options.initialState === void 0) {
-        console.error("You must provide an `initialState` value that is not `undefined`. You may have misspelled `initialState`");
-      }
-    }
-    const reducers = (typeof options.reducers === "function" ? options.reducers(buildReducerCreators()) : options.reducers) || {};
-    const reducerNames = Object.keys(reducers);
-    const context = {
-      sliceCaseReducersByName: {},
-      sliceCaseReducersByType: {},
-      actionCreators: {},
-      sliceMatchers: []
-    };
-    const contextMethods = {
-      addCase(typeOrActionCreator, reducer2) {
-        const type = typeof typeOrActionCreator === "string" ? typeOrActionCreator : typeOrActionCreator.type;
-        if (!type) {
-          throw new Error( false ? 0 : "`context.addCase` cannot be called with an empty action type");
-        }
-        if (type in context.sliceCaseReducersByType) {
-          throw new Error( false ? 0 : "`context.addCase` cannot be called with two reducers for the same action type: " + type);
-        }
-        context.sliceCaseReducersByType[type] = reducer2;
-        return contextMethods;
-      },
-      addMatcher(matcher, reducer2) {
-        context.sliceMatchers.push({
-          matcher,
-          reducer: reducer2
-        });
-        return contextMethods;
-      },
-      exposeAction(name2, actionCreator) {
-        context.actionCreators[name2] = actionCreator;
-        return contextMethods;
-      },
-      exposeCaseReducer(name2, reducer2) {
-        context.sliceCaseReducersByName[name2] = reducer2;
-        return contextMethods;
-      }
-    };
-    reducerNames.forEach((reducerName) => {
-      const reducerDefinition = reducers[reducerName];
-      const reducerDetails = {
-        reducerName,
-        type: getType(name, reducerName),
-        createNotation: typeof options.reducers === "function"
-      };
-      if (isAsyncThunkSliceReducerDefinition(reducerDefinition)) {
-        handleThunkCaseReducerDefinition(reducerDetails, reducerDefinition, contextMethods, cAT);
-      } else {
-        handleNormalReducerDefinition(reducerDetails, reducerDefinition, contextMethods);
-      }
-    });
-    function buildReducer() {
-      if (true) {
-        if (typeof options.extraReducers === "object") {
-          throw new Error( false ? 0 : "The object notation for `createSlice.extraReducers` has been removed. Please use the 'builder callback' notation instead: https://redux-toolkit.js.org/api/createSlice");
-        }
-      }
-      const [extraReducers = {}, actionMatchers = [], defaultCaseReducer = void 0] = typeof options.extraReducers === "function" ? executeReducerBuilderCallback(options.extraReducers) : [options.extraReducers];
-      const finalCaseReducers = {
-        ...extraReducers,
-        ...context.sliceCaseReducersByType
-      };
-      return createReducer(options.initialState, (builder) => {
-        for (let key in finalCaseReducers) {
-          builder.addCase(key, finalCaseReducers[key]);
-        }
-        for (let sM of context.sliceMatchers) {
-          builder.addMatcher(sM.matcher, sM.reducer);
-        }
-        for (let m of actionMatchers) {
-          builder.addMatcher(m.matcher, m.reducer);
-        }
-        if (defaultCaseReducer) {
-          builder.addDefaultCase(defaultCaseReducer);
-        }
-      });
-    }
-    const selectSelf = (state) => state;
-    const injectedSelectorCache = /* @__PURE__ */ new Map();
-    const injectedStateCache = /* @__PURE__ */ new WeakMap();
-    let _reducer;
-    function reducer(state, action) {
-      if (!_reducer) _reducer = buildReducer();
-      return _reducer(state, action);
-    }
-    function getInitialState() {
-      if (!_reducer) _reducer = buildReducer();
-      return _reducer.getInitialState();
-    }
-    function makeSelectorProps(reducerPath2, injected = false) {
-      function selectSlice(state) {
-        let sliceState = state[reducerPath2];
-        if (typeof sliceState === "undefined") {
-          if (injected) {
-            sliceState = getOrInsertComputed(injectedStateCache, selectSlice, getInitialState);
-          } else if (true) {
-            throw new Error( false ? 0 : "selectSlice returned undefined for an uninjected slice reducer");
-          }
-        }
-        return sliceState;
-      }
-      function getSelectors(selectState = selectSelf) {
-        const selectorCache = getOrInsertComputed(injectedSelectorCache, injected, () => /* @__PURE__ */ new WeakMap());
-        return getOrInsertComputed(selectorCache, selectState, () => {
-          const map = {};
-          for (const [name2, selector] of Object.entries(options.selectors ?? {})) {
-            map[name2] = wrapSelector(selector, selectState, () => getOrInsertComputed(injectedStateCache, selectState, getInitialState), injected);
-          }
-          return map;
-        });
-      }
-      return {
-        reducerPath: reducerPath2,
-        getSelectors,
-        get selectors() {
-          return getSelectors(selectSlice);
-        },
-        selectSlice
-      };
-    }
-    const slice = {
-      name,
-      reducer,
-      actions: context.actionCreators,
-      caseReducers: context.sliceCaseReducersByName,
-      getInitialState,
-      ...makeSelectorProps(reducerPath),
-      injectInto(injectable, {
-        reducerPath: pathOpt,
-        ...config
-      } = {}) {
-        const newReducerPath = pathOpt ?? reducerPath;
-        injectable.inject({
-          reducerPath: newReducerPath,
-          reducer
-        }, config);
-        return {
-          ...slice,
-          ...makeSelectorProps(newReducerPath, true)
-        };
-      }
-    };
-    return slice;
-  };
+function buildCreateSlice({ creators } = {}) {
+	const cAT = creators?.asyncThunk?.[asyncThunkSymbol];
+	return function createSlice(options) {
+		const { name, reducerPath = name } = options;
+		if (!name) throw new Error( false ? 0 : "`name` is a required option for createSlice");
+		if (typeof process !== "undefined" && "development" === "development") {
+			if (options.initialState === void 0) console.error("You must provide an `initialState` value that is not `undefined`. You may have misspelled `initialState`");
+		}
+		const reducers = (typeof options.reducers === "function" ? options.reducers(buildReducerCreators()) : options.reducers) || {};
+		const reducerNames = Object.keys(reducers);
+		const context = {
+			sliceCaseReducersByName: {},
+			sliceCaseReducersByType: {},
+			actionCreators: {},
+			sliceMatchers: []
+		};
+		const contextMethods = {
+			addCase(typeOrActionCreator, reducer) {
+				const type = typeof typeOrActionCreator === "string" ? typeOrActionCreator : typeOrActionCreator.type;
+				if (!type) throw new Error( false ? 0 : "`context.addCase` cannot be called with an empty action type");
+				if (type in context.sliceCaseReducersByType) throw new Error( false ? 0 : "`context.addCase` cannot be called with two reducers for the same action type: " + type);
+				context.sliceCaseReducersByType[type] = reducer;
+				return contextMethods;
+			},
+			addMatcher(matcher, reducer) {
+				context.sliceMatchers.push({
+					matcher,
+					reducer
+				});
+				return contextMethods;
+			},
+			exposeAction(name, actionCreator) {
+				context.actionCreators[name] = actionCreator;
+				return contextMethods;
+			},
+			exposeCaseReducer(name, reducer) {
+				context.sliceCaseReducersByName[name] = reducer;
+				return contextMethods;
+			}
+		};
+		reducerNames.forEach((reducerName) => {
+			const reducerDefinition = reducers[reducerName];
+			const reducerDetails = {
+				reducerName,
+				type: getType(name, reducerName),
+				createNotation: typeof options.reducers === "function"
+			};
+			if (isAsyncThunkSliceReducerDefinition(reducerDefinition)) handleThunkCaseReducerDefinition(reducerDetails, reducerDefinition, contextMethods, cAT);
+			else handleNormalReducerDefinition(reducerDetails, reducerDefinition, contextMethods);
+		});
+		function buildReducer() {
+			if (true) {
+				if (typeof options.extraReducers === "object") throw new Error( false ? 0 : "The object notation for `createSlice.extraReducers` has been removed. Please use the 'builder callback' notation instead: https://redux-toolkit.js.org/api/createSlice");
+			}
+			const [extraReducers = {}, actionMatchers = [], defaultCaseReducer = void 0] = typeof options.extraReducers === "function" ? executeReducerBuilderCallback(options.extraReducers) : [options.extraReducers];
+			const finalCaseReducers = {
+				...extraReducers,
+				...context.sliceCaseReducersByType
+			};
+			return createReducer(options.initialState, (builder) => {
+				for (let key in finalCaseReducers) builder.addCase(key, finalCaseReducers[key]);
+				for (let sM of context.sliceMatchers) builder.addMatcher(sM.matcher, sM.reducer);
+				for (let m of actionMatchers) builder.addMatcher(m.matcher, m.reducer);
+				if (defaultCaseReducer) builder.addDefaultCase(defaultCaseReducer);
+			});
+		}
+		const selectSelf = (state) => state;
+		const injectedSelectorCache = /* @__PURE__ */ new Map();
+		const injectedStateCache = /* @__PURE__ */ new WeakMap();
+		let _reducer;
+		function reducer(state, action) {
+			if (!_reducer) _reducer = buildReducer();
+			return _reducer(state, action);
+		}
+		function getInitialState() {
+			if (!_reducer) _reducer = buildReducer();
+			return _reducer.getInitialState();
+		}
+		function makeSelectorProps(reducerPath, injected = false) {
+			function selectSlice(state) {
+				let sliceState = state[reducerPath];
+				if (typeof sliceState === "undefined") {
+					if (injected) sliceState = getOrInsertComputed(injectedStateCache, selectSlice, getInitialState);
+					else if (true) throw new Error( false ? 0 : "selectSlice returned undefined for an uninjected slice reducer");
+				}
+				return sliceState;
+			}
+			function getSelectors(selectState = selectSelf) {
+				return getOrInsertComputed(getOrInsertComputed(injectedSelectorCache, injected, () => /* @__PURE__ */ new WeakMap()), selectState, () => {
+					const map = {};
+					for (const [name, selector] of Object.entries(options.selectors ?? {})) map[name] = wrapSelector(selector, selectState, () => getOrInsertComputed(injectedStateCache, selectState, getInitialState), injected);
+					return map;
+				});
+			}
+			return {
+				reducerPath,
+				getSelectors,
+				get selectors() {
+					return getSelectors(selectSlice);
+				},
+				selectSlice
+			};
+		}
+		const slice = {
+			name,
+			reducer,
+			actions: context.actionCreators,
+			caseReducers: context.sliceCaseReducersByName,
+			getInitialState,
+			...makeSelectorProps(reducerPath),
+			injectInto(injectable, { reducerPath: pathOpt, ...config } = {}) {
+				const newReducerPath = pathOpt ?? reducerPath;
+				injectable.inject({
+					reducerPath: newReducerPath,
+					reducer
+				}, config);
+				return {
+					...slice,
+					...makeSelectorProps(newReducerPath, true)
+				};
+			}
+		};
+		return slice;
+	};
 }
 function wrapSelector(selector, selectState, getInitialState, injected) {
-  function wrapper(rootState, ...args) {
-    let sliceState = selectState(rootState);
-    if (typeof sliceState === "undefined") {
-      if (injected) {
-        sliceState = getInitialState();
-      } else if (true) {
-        throw new Error( false ? 0 : "selectState returned undefined for an uninjected slice reducer");
-      }
-    }
-    return selector(sliceState, ...args);
-  }
-  wrapper.unwrapped = selector;
-  return wrapper;
+	function wrapper(rootState, ...args) {
+		let sliceState = selectState(rootState);
+		if (typeof sliceState === "undefined") {
+			if (injected) sliceState = getInitialState();
+			else if (true) throw new Error( false ? 0 : "selectState returned undefined for an uninjected slice reducer");
+		}
+		return selector(sliceState, ...args);
+	}
+	wrapper.unwrapped = selector;
+	return wrapper;
 }
-var createSlice = /* @__PURE__ */ buildCreateSlice();
+const createSlice = /* @__PURE__ */ buildCreateSlice();
 function buildReducerCreators() {
-  function asyncThunk(payloadCreator, config) {
-    return {
-      _reducerDefinitionType: "asyncThunk" /* asyncThunk */,
-      payloadCreator,
-      ...config
-    };
-  }
-  asyncThunk.withTypes = () => asyncThunk;
-  return {
-    reducer(caseReducer) {
-      return Object.assign({
-        // hack so the wrapping function has the same name as the original
-        // we need to create a wrapper so the `reducerDefinitionType` is not assigned to the original
-        [caseReducer.name](...args) {
-          return caseReducer(...args);
-        }
-      }[caseReducer.name], {
-        _reducerDefinitionType: "reducer" /* reducer */
-      });
-    },
-    preparedReducer(prepare, reducer) {
-      return {
-        _reducerDefinitionType: "reducerWithPrepare" /* reducerWithPrepare */,
-        prepare,
-        reducer
-      };
-    },
-    asyncThunk
-  };
+	function asyncThunk(payloadCreator, config) {
+		return {
+			_reducerDefinitionType: "asyncThunk",
+			payloadCreator,
+			...config
+		};
+	}
+	asyncThunk.withTypes = () => asyncThunk;
+	return {
+		reducer(caseReducer) {
+			return Object.assign({ [caseReducer.name](...args) {
+				return caseReducer(...args);
+			} }[caseReducer.name], { _reducerDefinitionType: "reducer" });
+		},
+		preparedReducer(prepare, reducer) {
+			return {
+				_reducerDefinitionType: "reducerWithPrepare",
+				prepare,
+				reducer
+			};
+		},
+		asyncThunk
+	};
 }
-function handleNormalReducerDefinition({
-  type,
-  reducerName,
-  createNotation
-}, maybeReducerWithPrepare, context) {
-  let caseReducer;
-  let prepareCallback;
-  if ("reducer" in maybeReducerWithPrepare) {
-    if (createNotation && !isCaseReducerWithPrepareDefinition(maybeReducerWithPrepare)) {
-      throw new Error( false ? 0 : "Please use the `create.preparedReducer` notation for prepared action creators with the `create` notation.");
-    }
-    caseReducer = maybeReducerWithPrepare.reducer;
-    prepareCallback = maybeReducerWithPrepare.prepare;
-  } else {
-    caseReducer = maybeReducerWithPrepare;
-  }
-  context.addCase(type, caseReducer).exposeCaseReducer(reducerName, caseReducer).exposeAction(reducerName, prepareCallback ? createAction(type, prepareCallback) : createAction(type));
+function handleNormalReducerDefinition({ type, reducerName, createNotation }, maybeReducerWithPrepare, context) {
+	let caseReducer;
+	let prepareCallback;
+	if ("reducer" in maybeReducerWithPrepare) {
+		if (createNotation && !isCaseReducerWithPrepareDefinition(maybeReducerWithPrepare)) throw new Error( false ? 0 : "Please use the `create.preparedReducer` notation for prepared action creators with the `create` notation.");
+		caseReducer = maybeReducerWithPrepare.reducer;
+		prepareCallback = maybeReducerWithPrepare.prepare;
+	} else caseReducer = maybeReducerWithPrepare;
+	context.addCase(type, caseReducer).exposeCaseReducer(reducerName, caseReducer).exposeAction(reducerName, prepareCallback ? createAction(type, prepareCallback) : createAction(type));
 }
 function isAsyncThunkSliceReducerDefinition(reducerDefinition) {
-  return reducerDefinition._reducerDefinitionType === "asyncThunk" /* asyncThunk */;
+	return reducerDefinition._reducerDefinitionType === "asyncThunk";
 }
 function isCaseReducerWithPrepareDefinition(reducerDefinition) {
-  return reducerDefinition._reducerDefinitionType === "reducerWithPrepare" /* reducerWithPrepare */;
+	return reducerDefinition._reducerDefinitionType === "reducerWithPrepare";
 }
-function handleThunkCaseReducerDefinition({
-  type,
-  reducerName
-}, reducerDefinition, context, cAT) {
-  if (!cAT) {
-    throw new Error( false ? 0 : "Cannot use `create.asyncThunk` in the built-in `createSlice`. Use `buildCreateSlice({ creators: { asyncThunk: asyncThunkCreator } })` to create a customised version of `createSlice`.");
-  }
-  const {
-    payloadCreator,
-    fulfilled,
-    pending,
-    rejected,
-    settled,
-    options
-  } = reducerDefinition;
-  const thunk = cAT(type, payloadCreator, options);
-  context.exposeAction(reducerName, thunk);
-  if (fulfilled) {
-    context.addCase(thunk.fulfilled, fulfilled);
-  }
-  if (pending) {
-    context.addCase(thunk.pending, pending);
-  }
-  if (rejected) {
-    context.addCase(thunk.rejected, rejected);
-  }
-  if (settled) {
-    context.addMatcher(thunk.settled, settled);
-  }
-  context.exposeCaseReducer(reducerName, {
-    fulfilled: fulfilled || noop,
-    pending: pending || noop,
-    rejected: rejected || noop,
-    settled: settled || noop
-  });
+function handleThunkCaseReducerDefinition({ type, reducerName }, reducerDefinition, context, cAT) {
+	if (!cAT) throw new Error( false ? 0 : "Cannot use `create.asyncThunk` in the built-in `createSlice`. Use `buildCreateSlice({ creators: { asyncThunk: asyncThunkCreator } })` to create a customised version of `createSlice`.");
+	const { payloadCreator, fulfilled, pending, rejected, settled, options } = reducerDefinition;
+	const thunk = cAT(type, payloadCreator, options);
+	context.exposeAction(reducerName, thunk);
+	if (fulfilled) context.addCase(thunk.fulfilled, fulfilled);
+	if (pending) context.addCase(thunk.pending, pending);
+	if (rejected) context.addCase(thunk.rejected, rejected);
+	if (settled) context.addMatcher(thunk.settled, settled);
+	context.exposeCaseReducer(reducerName, {
+		fulfilled: fulfilled || noop$1,
+		pending: pending || noop$1,
+		rejected: rejected || noop$1,
+		settled: settled || noop$1
+	});
 }
-function noop() {
-}
-
-// src/entities/entity_state.ts
+function noop$1() {}
+//#endregion
+//#region src/entities/entity_state.ts
 function getInitialEntityState() {
-  return {
-    ids: [],
-    entities: {}
-  };
+	return {
+		ids: [],
+		entities: {}
+	};
 }
 function createInitialStateFactory(stateAdapter) {
-  function getInitialState(additionalState = {}, entities) {
-    const state = Object.assign(getInitialEntityState(), additionalState);
-    return entities ? stateAdapter.setAll(state, entities) : state;
-  }
-  return {
-    getInitialState
-  };
+	function getInitialState(additionalState = {}, entities) {
+		const state = Object.assign(getInitialEntityState(), additionalState);
+		return entities ? stateAdapter.setAll(state, entities) : state;
+	}
+	return { getInitialState };
 }
-
-// src/entities/state_selectors.ts
+//#endregion
+//#region src/entities/state_selectors.ts
 function createSelectorsFactory() {
-  function getSelectors(selectState, options = {}) {
-    const {
-      createSelector: createSelector2 = createDraftSafeSelector
-    } = options;
-    const selectIds = (state) => state.ids;
-    const selectEntities = (state) => state.entities;
-    const selectAll = createSelector2(selectIds, selectEntities, (ids, entities) => ids.map((id) => entities[id]));
-    const selectId = (_, id) => id;
-    const selectById = (entities, id) => entities[id];
-    const selectTotal = createSelector2(selectIds, (ids) => ids.length);
-    if (!selectState) {
-      return {
-        selectIds,
-        selectEntities,
-        selectAll,
-        selectTotal,
-        selectById: createSelector2(selectEntities, selectId, selectById)
-      };
-    }
-    const selectGlobalizedEntities = createSelector2(selectState, selectEntities);
-    return {
-      selectIds: createSelector2(selectState, selectIds),
-      selectEntities: selectGlobalizedEntities,
-      selectAll: createSelector2(selectState, selectAll),
-      selectTotal: createSelector2(selectState, selectTotal),
-      selectById: createSelector2(selectGlobalizedEntities, selectId, selectById)
-    };
-  }
-  return {
-    getSelectors
-  };
+	function getSelectors(selectState, options = {}) {
+		const { createSelector = createDraftSafeSelector } = options;
+		const selectIds = (state) => state.ids;
+		const selectEntities = (state) => state.entities;
+		const selectAll = createSelector(selectIds, selectEntities, (ids, entities) => ids.map((id) => entities[id]));
+		const selectId = (_, id) => id;
+		const selectById = (entities, id) => entities[id];
+		const selectTotal = createSelector(selectIds, (ids) => ids.length);
+		if (!selectState) return {
+			selectIds,
+			selectEntities,
+			selectAll,
+			selectTotal,
+			selectById: createSelector(selectEntities, selectId, selectById)
+		};
+		const selectGlobalizedEntities = createSelector(selectState, selectEntities);
+		return {
+			selectIds: createSelector(selectState, selectIds),
+			selectEntities: selectGlobalizedEntities,
+			selectAll: createSelector(selectState, selectAll),
+			selectTotal: createSelector(selectState, selectTotal),
+			selectById: createSelector(selectGlobalizedEntities, selectId, selectById)
+		};
+	}
+	return { getSelectors };
 }
-
-// src/entities/state_adapter.ts
-var isDraftTyped = immer__WEBPACK_IMPORTED_MODULE_1__.isDraft;
+//#endregion
+//#region src/entities/state_adapter.ts
+const isDraftTyped = immer__WEBPACK_IMPORTED_MODULE_1__.isDraft;
 function createSingleArgumentStateOperator(mutator) {
-  const operator = createStateOperator((_, state) => mutator(state));
-  return function operation(state) {
-    return operator(state, void 0);
-  };
+	const operator = createStateOperator((_, state) => mutator(state));
+	return function operation(state) {
+		return operator(state, void 0);
+	};
 }
 function createStateOperator(mutator) {
-  return function operation(state, arg) {
-    function isPayloadActionArgument(arg2) {
-      return isFSA(arg2);
-    }
-    const runMutator = (draft) => {
-      if (isPayloadActionArgument(arg)) {
-        mutator(arg.payload, draft);
-      } else {
-        mutator(arg, draft);
-      }
-    };
-    if (isDraftTyped(state)) {
-      runMutator(state);
-      return state;
-    }
-    return (0,immer__WEBPACK_IMPORTED_MODULE_1__.produce)(state, runMutator);
-  };
+	return function operation(state, arg) {
+		function isPayloadActionArgument(arg) {
+			return isFSA(arg);
+		}
+		const runMutator = (draft) => {
+			if (isPayloadActionArgument(arg)) mutator(arg.payload, draft);
+			else mutator(arg, draft);
+		};
+		if (isDraftTyped(state)) {
+			runMutator(state);
+			return state;
+		}
+		return (0,immer__WEBPACK_IMPORTED_MODULE_1__.produce)(state, runMutator);
+	};
 }
-
-// src/entities/utils.ts
+//#endregion
+//#region src/entities/utils.ts
 function selectIdValue(entity, selectId) {
-  const key = selectId(entity);
-  if ( true && key === void 0) {
-    console.warn("The entity passed to the `selectId` implementation returned undefined.", "You should probably provide your own `selectId` implementation.", "The entity that was passed:", entity, "The `selectId` implementation:", selectId.toString());
-  }
-  return key;
+	const key = selectId(entity);
+	if ( true && key === void 0) console.warn("The entity passed to the `selectId` implementation returned undefined.", "You should probably provide your own `selectId` implementation.", "The entity that was passed:", entity, "The `selectId` implementation:", selectId.toString());
+	return key;
 }
 function ensureEntitiesArray(entities) {
-  if (!Array.isArray(entities)) {
-    entities = Object.values(entities);
-  }
-  return entities;
+	if (!Array.isArray(entities)) entities = Object.values(entities);
+	return entities;
 }
 function getCurrent(value) {
-  return (0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraft)(value) ? (0,immer__WEBPACK_IMPORTED_MODULE_1__.current)(value) : value;
+	return (0,immer__WEBPACK_IMPORTED_MODULE_1__.isDraft)(value) ? (0,immer__WEBPACK_IMPORTED_MODULE_1__.current)(value) : value;
 }
 function splitAddedUpdatedEntities(newEntities, selectId, state) {
-  newEntities = ensureEntitiesArray(newEntities);
-  const existingIdsArray = getCurrent(state.ids);
-  const existingIds = new Set(existingIdsArray);
-  const added = [];
-  const addedIds = /* @__PURE__ */ new Set([]);
-  const updated = [];
-  for (const entity of newEntities) {
-    const id = selectIdValue(entity, selectId);
-    if (existingIds.has(id) || addedIds.has(id)) {
-      updated.push({
-        id,
-        changes: entity
-      });
-    } else {
-      addedIds.add(id);
-      added.push(entity);
-    }
-  }
-  return [added, updated, existingIdsArray];
+	newEntities = ensureEntitiesArray(newEntities);
+	const existingIdsArray = getCurrent(state.ids);
+	const existingIds = new Set(existingIdsArray);
+	const added = [];
+	const addedIds = /* @__PURE__ */ new Set([]);
+	const updated = [];
+	for (const entity of newEntities) {
+		const id = selectIdValue(entity, selectId);
+		if (existingIds.has(id) || addedIds.has(id)) updated.push({
+			id,
+			changes: entity
+		});
+		else {
+			addedIds.add(id);
+			added.push(entity);
+		}
+	}
+	return [
+		added,
+		updated,
+		existingIdsArray
+	];
 }
-
-// src/entities/unsorted_state_adapter.ts
+//#endregion
+//#region src/entities/unsorted_state_adapter.ts
 function createUnsortedStateAdapter(selectId) {
-  function addOneMutably(entity, state) {
-    const key = selectIdValue(entity, selectId);
-    if (key in state.entities) {
-      return;
-    }
-    state.ids.push(key);
-    state.entities[key] = entity;
-  }
-  function addManyMutably(newEntities, state) {
-    newEntities = ensureEntitiesArray(newEntities);
-    for (const entity of newEntities) {
-      addOneMutably(entity, state);
-    }
-  }
-  function setOneMutably(entity, state) {
-    const key = selectIdValue(entity, selectId);
-    if (!(key in state.entities)) {
-      state.ids.push(key);
-    }
-    ;
-    state.entities[key] = entity;
-  }
-  function setManyMutably(newEntities, state) {
-    newEntities = ensureEntitiesArray(newEntities);
-    for (const entity of newEntities) {
-      setOneMutably(entity, state);
-    }
-  }
-  function setAllMutably(newEntities, state) {
-    newEntities = ensureEntitiesArray(newEntities);
-    state.ids = [];
-    state.entities = {};
-    addManyMutably(newEntities, state);
-  }
-  function removeOneMutably(key, state) {
-    return removeManyMutably([key], state);
-  }
-  function removeManyMutably(keys, state) {
-    let didMutate = false;
-    keys.forEach((key) => {
-      if (key in state.entities) {
-        delete state.entities[key];
-        didMutate = true;
-      }
-    });
-    if (didMutate) {
-      state.ids = state.ids.filter((id) => id in state.entities);
-    }
-  }
-  function removeAllMutably(state) {
-    Object.assign(state, {
-      ids: [],
-      entities: {}
-    });
-  }
-  function takeNewKey(keys, update, state) {
-    const original3 = state.entities[update.id];
-    if (original3 === void 0) {
-      return false;
-    }
-    const updated = Object.assign({}, original3, update.changes);
-    const newKey = selectIdValue(updated, selectId);
-    const hasNewKey = newKey !== update.id;
-    if (hasNewKey) {
-      keys[update.id] = newKey;
-      delete state.entities[update.id];
-    }
-    ;
-    state.entities[newKey] = updated;
-    return hasNewKey;
-  }
-  function updateOneMutably(update, state) {
-    return updateManyMutably([update], state);
-  }
-  function updateManyMutably(updates, state) {
-    const newKeys = {};
-    const updatesPerEntity = {};
-    updates.forEach((update) => {
-      if (update.id in state.entities) {
-        updatesPerEntity[update.id] = {
-          id: update.id,
-          // Spreads ignore falsy values, so this works even if there isn't
-          // an existing update already at this key
-          changes: {
-            ...updatesPerEntity[update.id]?.changes,
-            ...update.changes
-          }
-        };
-      }
-    });
-    updates = Object.values(updatesPerEntity);
-    const didMutateEntities = updates.length > 0;
-    if (didMutateEntities) {
-      const didMutateIds = updates.filter((update) => takeNewKey(newKeys, update, state)).length > 0;
-      if (didMutateIds) {
-        state.ids = Object.values(state.entities).map((e) => selectIdValue(e, selectId));
-      }
-    }
-  }
-  function upsertOneMutably(entity, state) {
-    return upsertManyMutably([entity], state);
-  }
-  function upsertManyMutably(newEntities, state) {
-    const [added, updated] = splitAddedUpdatedEntities(newEntities, selectId, state);
-    addManyMutably(added, state);
-    updateManyMutably(updated, state);
-  }
-  return {
-    removeAll: createSingleArgumentStateOperator(removeAllMutably),
-    addOne: createStateOperator(addOneMutably),
-    addMany: createStateOperator(addManyMutably),
-    setOne: createStateOperator(setOneMutably),
-    setMany: createStateOperator(setManyMutably),
-    setAll: createStateOperator(setAllMutably),
-    updateOne: createStateOperator(updateOneMutably),
-    updateMany: createStateOperator(updateManyMutably),
-    upsertOne: createStateOperator(upsertOneMutably),
-    upsertMany: createStateOperator(upsertManyMutably),
-    removeOne: createStateOperator(removeOneMutably),
-    removeMany: createStateOperator(removeManyMutably)
-  };
+	function addOneMutably(entity, state) {
+		const key = selectIdValue(entity, selectId);
+		if (key in state.entities) return;
+		state.ids.push(key);
+		state.entities[key] = entity;
+	}
+	function addManyMutably(newEntities, state) {
+		newEntities = ensureEntitiesArray(newEntities);
+		for (const entity of newEntities) addOneMutably(entity, state);
+	}
+	function setOneMutably(entity, state) {
+		const key = selectIdValue(entity, selectId);
+		if (!(key in state.entities)) state.ids.push(key);
+		state.entities[key] = entity;
+	}
+	function setManyMutably(newEntities, state) {
+		newEntities = ensureEntitiesArray(newEntities);
+		for (const entity of newEntities) setOneMutably(entity, state);
+	}
+	function setAllMutably(newEntities, state) {
+		newEntities = ensureEntitiesArray(newEntities);
+		state.ids = [];
+		state.entities = {};
+		setManyMutably(newEntities, state);
+	}
+	function removeOneMutably(key, state) {
+		return removeManyMutably([key], state);
+	}
+	function removeManyMutably(keys, state) {
+		let didMutate = false;
+		keys.forEach((key) => {
+			if (key in state.entities) {
+				delete state.entities[key];
+				didMutate = true;
+			}
+		});
+		if (didMutate) state.ids = state.ids.filter((id) => id in state.entities);
+	}
+	function removeAllMutably(state) {
+		Object.assign(state, {
+			ids: [],
+			entities: {}
+		});
+	}
+	function takeNewKey(keys, update, state) {
+		const original = state.entities[update.id];
+		if (original === void 0) return false;
+		const updated = Object.assign({}, original, update.changes);
+		const newKey = selectIdValue(updated, selectId);
+		const hasNewKey = newKey !== update.id;
+		if (hasNewKey) {
+			keys[update.id] = newKey;
+			delete state.entities[update.id];
+		}
+		state.entities[newKey] = updated;
+		return hasNewKey;
+	}
+	function updateOneMutably(update, state) {
+		return updateManyMutably([update], state);
+	}
+	function updateManyMutably(updates, state) {
+		const newKeys = {};
+		const updatesPerEntity = {};
+		updates.forEach((update) => {
+			if (update.id in state.entities) updatesPerEntity[update.id] = {
+				id: update.id,
+				changes: {
+					...updatesPerEntity[update.id]?.changes,
+					...update.changes
+				}
+			};
+		});
+		updates = Object.values(updatesPerEntity);
+		if (updates.length > 0) {
+			if (updates.filter((update) => takeNewKey(newKeys, update, state)).length > 0) state.ids = Object.values(state.entities).map((e) => selectIdValue(e, selectId));
+		}
+	}
+	function upsertOneMutably(entity, state) {
+		return upsertManyMutably([entity], state);
+	}
+	function upsertManyMutably(newEntities, state) {
+		const [added, updated] = splitAddedUpdatedEntities(newEntities, selectId, state);
+		addManyMutably(added, state);
+		updateManyMutably(updated, state);
+	}
+	return {
+		removeAll: createSingleArgumentStateOperator(removeAllMutably),
+		addOne: createStateOperator(addOneMutably),
+		addMany: createStateOperator(addManyMutably),
+		setOne: createStateOperator(setOneMutably),
+		setMany: createStateOperator(setManyMutably),
+		setAll: createStateOperator(setAllMutably),
+		updateOne: createStateOperator(updateOneMutably),
+		updateMany: createStateOperator(updateManyMutably),
+		upsertOne: createStateOperator(upsertOneMutably),
+		upsertMany: createStateOperator(upsertManyMutably),
+		removeOne: createStateOperator(removeOneMutably),
+		removeMany: createStateOperator(removeManyMutably)
+	};
 }
-
-// src/entities/sorted_state_adapter.ts
+//#endregion
+//#region src/entities/sorted_state_adapter.ts
 function findInsertIndex(sortedItems, item, comparisonFunction) {
-  let lowIndex = 0;
-  let highIndex = sortedItems.length;
-  while (lowIndex < highIndex) {
-    let middleIndex = lowIndex + highIndex >>> 1;
-    const currentItem = sortedItems[middleIndex];
-    const res = comparisonFunction(item, currentItem);
-    if (res >= 0) {
-      lowIndex = middleIndex + 1;
-    } else {
-      highIndex = middleIndex;
-    }
-  }
-  return lowIndex;
+	let lowIndex = 0;
+	let highIndex = sortedItems.length;
+	while (lowIndex < highIndex) {
+		let middleIndex = lowIndex + highIndex >>> 1;
+		const currentItem = sortedItems[middleIndex];
+		if (comparisonFunction(item, currentItem) >= 0) lowIndex = middleIndex + 1;
+		else highIndex = middleIndex;
+	}
+	return lowIndex;
 }
 function insert(sortedItems, item, comparisonFunction) {
-  const insertAtIndex = findInsertIndex(sortedItems, item, comparisonFunction);
-  sortedItems.splice(insertAtIndex, 0, item);
-  return sortedItems;
+	const insertAtIndex = findInsertIndex(sortedItems, item, comparisonFunction);
+	sortedItems.splice(insertAtIndex, 0, item);
+	return sortedItems;
 }
 function createSortedStateAdapter(selectId, comparer) {
-  const {
-    removeOne,
-    removeMany,
-    removeAll
-  } = createUnsortedStateAdapter(selectId);
-  function addOneMutably(entity, state) {
-    return addManyMutably([entity], state);
-  }
-  function addManyMutably(newEntities, state, existingIds) {
-    newEntities = ensureEntitiesArray(newEntities);
-    const existingKeys = new Set(existingIds ?? getCurrent(state.ids));
-    const addedKeys = /* @__PURE__ */ new Set();
-    const models = newEntities.filter((model) => {
-      const modelId = selectIdValue(model, selectId);
-      const notAdded = !addedKeys.has(modelId);
-      if (notAdded) addedKeys.add(modelId);
-      return !existingKeys.has(modelId) && notAdded;
-    });
-    if (models.length !== 0) {
-      mergeFunction(state, models);
-    }
-  }
-  function setOneMutably(entity, state) {
-    return setManyMutably([entity], state);
-  }
-  function setManyMutably(newEntities, state) {
-    let deduplicatedEntities = {};
-    newEntities = ensureEntitiesArray(newEntities);
-    if (newEntities.length !== 0) {
-      for (const item of newEntities) {
-        const entityId = selectId(item);
-        deduplicatedEntities[entityId] = item;
-        delete state.entities[entityId];
-      }
-      newEntities = ensureEntitiesArray(deduplicatedEntities);
-      mergeFunction(state, newEntities);
-    }
-  }
-  function setAllMutably(newEntities, state) {
-    newEntities = ensureEntitiesArray(newEntities);
-    state.entities = {};
-    state.ids = [];
-    addManyMutably(newEntities, state, []);
-  }
-  function updateOneMutably(update, state) {
-    return updateManyMutably([update], state);
-  }
-  function updateManyMutably(updates, state) {
-    let appliedUpdates = false;
-    let replacedIds = false;
-    for (let update of updates) {
-      const entity = state.entities[update.id];
-      if (!entity) {
-        continue;
-      }
-      appliedUpdates = true;
-      Object.assign(entity, update.changes);
-      const newId = selectId(entity);
-      if (update.id !== newId) {
-        replacedIds = true;
-        delete state.entities[update.id];
-        const oldIndex = state.ids.indexOf(update.id);
-        state.ids[oldIndex] = newId;
-        state.entities[newId] = entity;
-      }
-    }
-    if (appliedUpdates) {
-      mergeFunction(state, [], appliedUpdates, replacedIds);
-    }
-  }
-  function upsertOneMutably(entity, state) {
-    return upsertManyMutably([entity], state);
-  }
-  function upsertManyMutably(newEntities, state) {
-    const [added, updated, existingIdsArray] = splitAddedUpdatedEntities(newEntities, selectId, state);
-    if (added.length) {
-      addManyMutably(added, state, existingIdsArray);
-    }
-    if (updated.length) {
-      updateManyMutably(updated, state);
-    }
-  }
-  function areArraysEqual(a, b) {
-    if (a.length !== b.length) {
-      return false;
-    }
-    for (let i = 0; i < a.length; i++) {
-      if (a[i] === b[i]) {
-        continue;
-      }
-      return false;
-    }
-    return true;
-  }
-  const mergeFunction = (state, addedItems, appliedUpdates, replacedIds) => {
-    const currentEntities = getCurrent(state.entities);
-    const currentIds = getCurrent(state.ids);
-    const stateEntities = state.entities;
-    let ids = currentIds;
-    if (replacedIds) {
-      ids = new Set(currentIds);
-    }
-    let sortedEntities = [];
-    for (const id of ids) {
-      const entity = currentEntities[id];
-      if (entity) {
-        sortedEntities.push(entity);
-      }
-    }
-    const wasPreviouslyEmpty = sortedEntities.length === 0;
-    for (const item of addedItems) {
-      stateEntities[selectId(item)] = item;
-      if (!wasPreviouslyEmpty) {
-        insert(sortedEntities, item, comparer);
-      }
-    }
-    if (wasPreviouslyEmpty) {
-      sortedEntities = addedItems.slice().sort(comparer);
-    } else if (appliedUpdates) {
-      sortedEntities.sort(comparer);
-    }
-    const newSortedIds = sortedEntities.map(selectId);
-    if (!areArraysEqual(currentIds, newSortedIds)) {
-      state.ids = newSortedIds;
-    }
-  };
-  return {
-    removeOne,
-    removeMany,
-    removeAll,
-    addOne: createStateOperator(addOneMutably),
-    updateOne: createStateOperator(updateOneMutably),
-    upsertOne: createStateOperator(upsertOneMutably),
-    setOne: createStateOperator(setOneMutably),
-    setMany: createStateOperator(setManyMutably),
-    setAll: createStateOperator(setAllMutably),
-    addMany: createStateOperator(addManyMutably),
-    updateMany: createStateOperator(updateManyMutably),
-    upsertMany: createStateOperator(upsertManyMutably)
-  };
+	const { removeOne, removeMany, removeAll } = createUnsortedStateAdapter(selectId);
+	function addOneMutably(entity, state) {
+		return addManyMutably([entity], state);
+	}
+	function addManyMutably(newEntities, state, existingIds) {
+		newEntities = ensureEntitiesArray(newEntities);
+		const existingKeys = new Set(existingIds ?? getCurrent(state.ids));
+		const addedKeys = /* @__PURE__ */ new Set();
+		const models = newEntities.filter((model) => {
+			const modelId = selectIdValue(model, selectId);
+			const notAdded = !addedKeys.has(modelId);
+			if (notAdded) addedKeys.add(modelId);
+			return !existingKeys.has(modelId) && notAdded;
+		});
+		if (models.length !== 0) mergeFunction(state, models);
+	}
+	function setOneMutably(entity, state) {
+		return setManyMutably([entity], state);
+	}
+	function setManyMutably(newEntities, state) {
+		let deduplicatedEntities = {};
+		newEntities = ensureEntitiesArray(newEntities);
+		if (newEntities.length !== 0) {
+			for (const item of newEntities) {
+				const entityId = selectId(item);
+				deduplicatedEntities[entityId] = item;
+				delete state.entities[entityId];
+			}
+			newEntities = ensureEntitiesArray(deduplicatedEntities);
+			mergeFunction(state, newEntities);
+		}
+	}
+	function setAllMutably(newEntities, state) {
+		newEntities = ensureEntitiesArray(newEntities);
+		state.entities = {};
+		state.ids = [];
+		setManyMutably(newEntities, state);
+	}
+	function updateOneMutably(update, state) {
+		return updateManyMutably([update], state);
+	}
+	function updateManyMutably(updates, state) {
+		let appliedUpdates = false;
+		let replacedIds = false;
+		const updatesPerEntity = {};
+		for (const update of updates) if (update.id in state.entities) updatesPerEntity[update.id] = {
+			id: update.id,
+			changes: {
+				...updatesPerEntity[update.id]?.changes,
+				...update.changes
+			}
+		};
+		for (const update of Object.values(updatesPerEntity)) {
+			const entity = state.entities[update.id];
+			if (!entity) continue;
+			appliedUpdates = true;
+			Object.assign(entity, update.changes);
+			const newId = selectId(entity);
+			if (update.id !== newId) {
+				replacedIds = true;
+				delete state.entities[update.id];
+				const oldIndex = state.ids.indexOf(update.id);
+				state.ids[oldIndex] = newId;
+				state.entities[newId] = entity;
+			}
+		}
+		if (appliedUpdates) mergeFunction(state, [], appliedUpdates, replacedIds);
+	}
+	function upsertOneMutably(entity, state) {
+		return upsertManyMutably([entity], state);
+	}
+	function upsertManyMutably(newEntities, state) {
+		const [added, updated, existingIdsArray] = splitAddedUpdatedEntities(newEntities, selectId, state);
+		if (added.length) addManyMutably(added, state, existingIdsArray);
+		if (updated.length) updateManyMutably(updated, state);
+	}
+	function areArraysEqual(a, b) {
+		if (a.length !== b.length) return false;
+		for (let i = 0; i < a.length; i++) {
+			if (a[i] === b[i]) continue;
+			return false;
+		}
+		return true;
+	}
+	function mergeFunction(state, addedItems, appliedUpdates, replacedIds) {
+		const currentEntities = getCurrent(state.entities);
+		const currentIds = getCurrent(state.ids);
+		const stateEntities = state.entities;
+		let ids = currentIds;
+		if (replacedIds) ids = new Set(currentIds);
+		let sortedEntities = [];
+		for (const id of ids) {
+			const entity = currentEntities[id];
+			if (entity) sortedEntities.push(entity);
+		}
+		const wasPreviouslyEmpty = sortedEntities.length === 0;
+		for (const item of addedItems) {
+			stateEntities[selectId(item)] = item;
+			if (!wasPreviouslyEmpty) insert(sortedEntities, item, comparer);
+		}
+		if (wasPreviouslyEmpty) sortedEntities = addedItems.slice().sort(comparer);
+		else if (appliedUpdates) sortedEntities.sort(comparer);
+		const newSortedIds = sortedEntities.map(selectId);
+		if (!areArraysEqual(currentIds, newSortedIds)) state.ids = newSortedIds;
+	}
+	return {
+		removeOne,
+		removeMany,
+		removeAll,
+		addOne: createStateOperator(addOneMutably),
+		updateOne: createStateOperator(updateOneMutably),
+		upsertOne: createStateOperator(upsertOneMutably),
+		setOne: createStateOperator(setOneMutably),
+		setMany: createStateOperator(setManyMutably),
+		setAll: createStateOperator(setAllMutably),
+		addMany: createStateOperator(addManyMutably),
+		updateMany: createStateOperator(updateManyMutably),
+		upsertMany: createStateOperator(upsertManyMutably)
+	};
 }
-
-// src/entities/create_adapter.ts
+//#endregion
+//#region src/entities/create_adapter.ts
 function createEntityAdapter(options = {}) {
-  const {
-    selectId,
-    sortComparer
-  } = {
-    sortComparer: false,
-    selectId: (instance) => instance.id,
-    ...options
-  };
-  const stateAdapter = sortComparer ? createSortedStateAdapter(selectId, sortComparer) : createUnsortedStateAdapter(selectId);
-  const stateFactory = createInitialStateFactory(stateAdapter);
-  const selectorsFactory = createSelectorsFactory();
-  return {
-    selectId,
-    sortComparer,
-    ...stateFactory,
-    ...selectorsFactory,
-    ...stateAdapter
-  };
+	const { selectId, sortComparer } = {
+		sortComparer: false,
+		selectId: (instance) => instance.id,
+		...options
+	};
+	const stateAdapter = sortComparer ? createSortedStateAdapter(selectId, sortComparer) : createUnsortedStateAdapter(selectId);
+	const stateFactory = createInitialStateFactory(stateAdapter);
+	const selectorsFactory = createSelectorsFactory();
+	return {
+		selectId,
+		sortComparer,
+		...stateFactory,
+		...selectorsFactory,
+		...stateAdapter
+	};
 }
-
-// src/listenerMiddleware/exceptions.ts
-var task = "task";
-var listener = "listener";
-var completed = "completed";
-var cancelled = "cancelled";
-var taskCancelled = `task-${cancelled}`;
-var taskCompleted = `task-${completed}`;
-var listenerCancelled = `${listener}-${cancelled}`;
-var listenerCompleted = `${listener}-${completed}`;
+//#endregion
+//#region src/listenerMiddleware/exceptions.ts
+const task = "task";
+const listener = "listener";
+const completed = "completed";
+const cancelled = "cancelled";
+const taskCancelled = `task-${cancelled}`;
+const taskCompleted = `task-${completed}`;
+const listenerCancelled = `${listener}-${cancelled}`;
+const listenerCompleted = `${listener}-${completed}`;
 var TaskAbortError = class {
-  constructor(code) {
-    this.code = code;
-    this.message = `${task} ${cancelled} (reason: ${code})`;
-  }
-  code;
-  name = "TaskAbortError";
-  message;
+	code;
+	name = "TaskAbortError";
+	message;
+	constructor(code) {
+		this.code = code;
+		this.message = `${task} ${cancelled} (reason: ${code})`;
+	}
 };
-
-// src/listenerMiddleware/utils.ts
-var assertFunction = (func, expected) => {
-  if (typeof func !== "function") {
-    throw new TypeError( false ? 0 : `${expected} is not a function`);
-  }
+//#endregion
+//#region src/listenerMiddleware/utils.ts
+const assertFunction = (func, expected) => {
+	if (typeof func !== "function") throw new TypeError( false ? 0 : `${expected} is not a function`);
 };
-var noop2 = () => {
+const noop = () => {};
+const catchRejection = (promise, onError = noop) => {
+	promise.catch(onError);
+	return promise;
 };
-var catchRejection = (promise, onError = noop2) => {
-  promise.catch(onError);
-  return promise;
+const addAbortSignalListener = (abortSignal, callback) => {
+	abortSignal.addEventListener("abort", callback, { once: true });
+	return () => abortSignal.removeEventListener("abort", callback);
 };
-var addAbortSignalListener = (abortSignal, callback) => {
-  abortSignal.addEventListener("abort", callback, {
-    once: true
-  });
-  return () => abortSignal.removeEventListener("abort", callback);
-};
-
-// src/listenerMiddleware/task.ts
-var validateActive = (signal) => {
-  if (signal.aborted) {
-    throw new TaskAbortError(signal.reason);
-  }
+//#endregion
+//#region src/listenerMiddleware/task.ts
+const validateActive = (signal) => {
+	if (signal.aborted) throw new TaskAbortError(signal.reason);
 };
 function raceWithSignal(signal, promise) {
-  let cleanup = noop2;
-  return new Promise((resolve, reject) => {
-    const notifyRejection = () => reject(new TaskAbortError(signal.reason));
-    if (signal.aborted) {
-      notifyRejection();
-      return;
-    }
-    cleanup = addAbortSignalListener(signal, notifyRejection);
-    promise.finally(() => cleanup()).then(resolve, reject);
-  }).finally(() => {
-    cleanup = noop2;
-  });
+	let cleanup = noop;
+	return new Promise((resolve, reject) => {
+		const notifyRejection = () => reject(new TaskAbortError(signal.reason));
+		if (signal.aborted) {
+			notifyRejection();
+			return;
+		}
+		cleanup = addAbortSignalListener(signal, notifyRejection);
+		promise.finally(() => cleanup()).then(resolve, reject);
+	}).finally(() => {
+		cleanup = noop;
+	});
 }
-var runTask = async (task2, cleanUp) => {
-  try {
-    await Promise.resolve();
-    const value = await task2();
-    return {
-      status: "ok",
-      value
-    };
-  } catch (error) {
-    return {
-      status: error instanceof TaskAbortError ? "cancelled" : "rejected",
-      error
-    };
-  } finally {
-    cleanUp?.();
-  }
+const runTask = async (task, cleanUp) => {
+	try {
+		await Promise.resolve();
+		return {
+			status: "ok",
+			value: await task()
+		};
+	} catch (error) {
+		return {
+			status: error instanceof TaskAbortError ? "cancelled" : "rejected",
+			error
+		};
+	} finally {
+		cleanUp?.();
+	}
 };
-var createPause = (signal) => {
-  return (promise) => {
-    return catchRejection(raceWithSignal(signal, promise).then((output) => {
-      validateActive(signal);
-      return output;
-    }));
-  };
+const createPause = (signal) => {
+	return (promise) => {
+		return catchRejection(raceWithSignal(signal, promise).then((output) => {
+			validateActive(signal);
+			return output;
+		}));
+	};
 };
-var createDelay = (signal) => {
-  const pause = createPause(signal);
-  return (timeoutMs) => {
-    return pause(new Promise((resolve) => setTimeout(resolve, timeoutMs)));
-  };
+const createDelay = (signal) => {
+	const pause = createPause(signal);
+	return (timeoutMs) => {
+		return pause(new Promise((resolve) => setTimeout(resolve, timeoutMs)));
+	};
 };
-
-// src/listenerMiddleware/index.ts
-var {
-  assign
-} = Object;
-var INTERNAL_NIL_TOKEN = {};
-var alm = "listenerMiddleware";
-var createFork = (parentAbortSignal, parentBlockingPromises) => {
-  const linkControllers = (controller) => addAbortSignalListener(parentAbortSignal, () => controller.abort(parentAbortSignal.reason));
-  return (taskExecutor, opts) => {
-    assertFunction(taskExecutor, "taskExecutor");
-    const childAbortController = new AbortController();
-    linkControllers(childAbortController);
-    const result = runTask(async () => {
-      validateActive(parentAbortSignal);
-      validateActive(childAbortController.signal);
-      const result2 = await taskExecutor({
-        pause: createPause(childAbortController.signal),
-        delay: createDelay(childAbortController.signal),
-        signal: childAbortController.signal
-      });
-      validateActive(childAbortController.signal);
-      return result2;
-    }, () => childAbortController.abort(taskCompleted));
-    if (opts?.autoJoin) {
-      parentBlockingPromises.push(result.catch(noop2));
-    }
-    return {
-      result: createPause(parentAbortSignal)(result),
-      cancel() {
-        childAbortController.abort(taskCancelled);
-      }
-    };
-  };
+//#endregion
+//#region src/listenerMiddleware/index.ts
+const { assign } = Object;
+const INTERNAL_NIL_TOKEN = {};
+const alm = "listenerMiddleware";
+const createFork = (parentAbortSignal, parentBlockingPromises) => {
+	const linkControllers = (controller) => addAbortSignalListener(parentAbortSignal, () => controller.abort(parentAbortSignal.reason));
+	return (taskExecutor, opts) => {
+		assertFunction(taskExecutor, "taskExecutor");
+		const childAbortController = new AbortController();
+		linkControllers(childAbortController);
+		const result = runTask(async () => {
+			validateActive(parentAbortSignal);
+			validateActive(childAbortController.signal);
+			const result = await taskExecutor({
+				pause: createPause(childAbortController.signal),
+				delay: createDelay(childAbortController.signal),
+				signal: childAbortController.signal
+			});
+			validateActive(childAbortController.signal);
+			return result;
+		}, () => childAbortController.abort(taskCompleted));
+		if (opts?.autoJoin) parentBlockingPromises.push(result.catch(noop));
+		return {
+			result: createPause(parentAbortSignal)(result),
+			cancel() {
+				childAbortController.abort(taskCancelled);
+			}
+		};
+	};
 };
-var createTakePattern = (startListening, signal) => {
-  const take = async (predicate, timeout) => {
-    validateActive(signal);
-    let unsubscribe = () => {
-    };
-    const tuplePromise = new Promise((resolve, reject) => {
-      let stopListening = startListening({
-        predicate,
-        effect: (action, listenerApi) => {
-          listenerApi.unsubscribe();
-          resolve([action, listenerApi.getState(), listenerApi.getOriginalState()]);
-        }
-      });
-      unsubscribe = () => {
-        stopListening();
-        reject();
-      };
-    });
-    const promises = [tuplePromise];
-    if (timeout != null) {
-      promises.push(new Promise((resolve) => setTimeout(resolve, timeout, null)));
-    }
-    try {
-      const output = await raceWithSignal(signal, Promise.race(promises));
-      validateActive(signal);
-      return output;
-    } finally {
-      unsubscribe();
-    }
-  };
-  return ((predicate, timeout) => catchRejection(take(predicate, timeout)));
+const createTakePattern = (startListening, signal) => {
+	const take = async (predicate, timeout) => {
+		validateActive(signal);
+		let unsubscribe = () => {};
+		const promises = [new Promise((resolve, reject) => {
+			let stopListening = startListening({
+				predicate,
+				effect: (action, listenerApi) => {
+					listenerApi.unsubscribe();
+					resolve([
+						action,
+						listenerApi.getState(),
+						listenerApi.getOriginalState()
+					]);
+				}
+			});
+			unsubscribe = () => {
+				stopListening();
+				reject();
+			};
+		})];
+		if (timeout != null) promises.push(new Promise((resolve) => setTimeout(resolve, timeout, null)));
+		try {
+			const output = await raceWithSignal(signal, Promise.race(promises));
+			validateActive(signal);
+			return output;
+		} finally {
+			unsubscribe();
+		}
+	};
+	return ((predicate, timeout) => catchRejection(take(predicate, timeout)));
 };
-var getListenerEntryPropsFrom = (options) => {
-  let {
-    type,
-    actionCreator,
-    matcher,
-    predicate,
-    effect
-  } = options;
-  if (type) {
-    predicate = createAction(type).match;
-  } else if (actionCreator) {
-    type = actionCreator.type;
-    predicate = actionCreator.match;
-  } else if (matcher) {
-    predicate = matcher;
-  } else if (predicate) {
-  } else {
-    throw new Error( false ? 0 : "Creating or removing a listener requires one of the known fields for matching an action");
-  }
-  assertFunction(effect, "options.listener");
-  return {
-    predicate,
-    type,
-    effect
-  };
+const getListenerEntryPropsFrom = (options) => {
+	let { type, actionCreator, matcher, predicate, effect } = options;
+	if (type) predicate = createAction(type).match;
+	else if (actionCreator) {
+		type = actionCreator.type;
+		predicate = actionCreator.match;
+	} else if (matcher) predicate = matcher;
+	else if (predicate) {} else throw new Error( false ? 0 : "Creating or removing a listener requires one of the known fields for matching an action");
+	assertFunction(effect, "options.listener");
+	return {
+		predicate,
+		type,
+		effect
+	};
 };
-var createListenerEntry = /* @__PURE__ */ assign((options) => {
-  const {
-    type,
-    predicate,
-    effect
-  } = getListenerEntryPropsFrom(options);
-  const entry = {
-    id: nanoid(),
-    effect,
-    type,
-    predicate,
-    pending: /* @__PURE__ */ new Set(),
-    unsubscribe: () => {
-      throw new Error( false ? 0 : "Unsubscribe not initialized");
-    }
-  };
-  return entry;
-}, {
-  withTypes: () => createListenerEntry
+const createListenerEntry = /* @__PURE__ */ assign((options) => {
+	const { type, predicate, effect } = getListenerEntryPropsFrom(options);
+	return {
+		id: nanoid(),
+		effect,
+		type,
+		predicate,
+		pending: /* @__PURE__ */ new Set(),
+		unsubscribe: () => {
+			throw new Error( false ? 0 : "Unsubscribe not initialized");
+		}
+	};
+}, { withTypes: () => createListenerEntry });
+const findListenerEntry = (listenerMap, options) => {
+	const { type, effect, predicate } = getListenerEntryPropsFrom(options);
+	return Array.from(listenerMap.values()).find((entry) => {
+		return (typeof type === "string" ? entry.type === type : entry.predicate === predicate) && entry.effect === effect;
+	});
+};
+const cancelActiveListeners = (entry) => {
+	entry.pending.forEach((controller) => {
+		controller.abort(listenerCancelled);
+	});
+};
+const createClearListenerMiddleware = (listenerMap, executingListeners) => {
+	return () => {
+		for (const listener of executingListeners.keys()) cancelActiveListeners(listener);
+		listenerMap.clear();
+	};
+};
+const safelyNotifyError = (errorHandler, errorToNotify, errorInfo) => {
+	try {
+		errorHandler(errorToNotify, errorInfo);
+	} catch (errorHandlerError) {
+		setTimeout(() => {
+			throw errorHandlerError;
+		}, 0);
+	}
+};
+const addListener = /* @__PURE__ */ assign(/* @__PURE__ */ createAction(`${alm}/add`), { withTypes: () => addListener });
+const clearAllListeners = /* @__PURE__ */ createAction(`${alm}/removeAll`);
+const removeListener = /* @__PURE__ */ assign(/* @__PURE__ */ createAction(`${alm}/remove`), { withTypes: () => removeListener });
+const defaultErrorHandler = (...args) => {
+	console.error(`${alm}/error`, ...args);
+};
+const createListenerMiddleware = (middlewareOptions = {}) => {
+	const listenerMap = /* @__PURE__ */ new Map();
+	const executingListeners = /* @__PURE__ */ new Map();
+	const trackExecutingListener = (entry) => {
+		const count = executingListeners.get(entry) ?? 0;
+		executingListeners.set(entry, count + 1);
+	};
+	const untrackExecutingListener = (entry) => {
+		const count = executingListeners.get(entry) ?? 1;
+		if (count === 1) executingListeners.delete(entry);
+		else executingListeners.set(entry, count - 1);
+	};
+	const { extra, onError = defaultErrorHandler } = middlewareOptions;
+	assertFunction(onError, "onError");
+	const insertEntry = (entry) => {
+		entry.unsubscribe = () => listenerMap.delete(entry.id);
+		listenerMap.set(entry.id, entry);
+		return (cancelOptions) => {
+			entry.unsubscribe();
+			if (cancelOptions?.cancelActive) cancelActiveListeners(entry);
+		};
+	};
+	const startListening = ((options) => {
+		const entry = findListenerEntry(listenerMap, options) ?? createListenerEntry(options);
+		return insertEntry(entry);
+	});
+	assign(startListening, { withTypes: () => startListening });
+	const stopListening = (options) => {
+		const entry = findListenerEntry(listenerMap, options);
+		if (entry) {
+			entry.unsubscribe();
+			if (options.cancelActive) cancelActiveListeners(entry);
+		}
+		return !!entry;
+	};
+	assign(stopListening, { withTypes: () => stopListening });
+	const notifyListener = async (entry, action, api, getOriginalState) => {
+		const internalTaskController = new AbortController();
+		const take = createTakePattern(startListening, internalTaskController.signal);
+		const autoJoinPromises = [];
+		try {
+			entry.pending.add(internalTaskController);
+			trackExecutingListener(entry);
+			await Promise.resolve(entry.effect(action, assign({}, api, {
+				getOriginalState,
+				condition: (predicate, timeout) => take(predicate, timeout).then(Boolean),
+				take,
+				delay: createDelay(internalTaskController.signal),
+				pause: createPause(internalTaskController.signal),
+				extra,
+				signal: internalTaskController.signal,
+				fork: createFork(internalTaskController.signal, autoJoinPromises),
+				unsubscribe: entry.unsubscribe,
+				subscribe: () => {
+					listenerMap.set(entry.id, entry);
+				},
+				cancelActiveListeners: () => {
+					entry.pending.forEach((controller, _, set) => {
+						if (controller !== internalTaskController) {
+							controller.abort(listenerCancelled);
+							set.delete(controller);
+						}
+					});
+				},
+				cancel: () => {
+					internalTaskController.abort(listenerCancelled);
+					entry.pending.delete(internalTaskController);
+				},
+				throwIfCancelled: () => {
+					validateActive(internalTaskController.signal);
+				}
+			})));
+		} catch (listenerError) {
+			if (!(listenerError instanceof TaskAbortError)) safelyNotifyError(onError, listenerError, { raisedBy: "effect" });
+		} finally {
+			await Promise.all(autoJoinPromises);
+			internalTaskController.abort(listenerCompleted);
+			untrackExecutingListener(entry);
+			entry.pending.delete(internalTaskController);
+		}
+	};
+	const clearListenerMiddleware = createClearListenerMiddleware(listenerMap, executingListeners);
+	const middleware = (api) => (next) => (action) => {
+		if (!(0,redux__WEBPACK_IMPORTED_MODULE_0__.isAction)(action)) return next(action);
+		if (addListener.match(action)) return startListening(action.payload);
+		if (clearAllListeners.match(action)) {
+			clearListenerMiddleware();
+			return;
+		}
+		if (removeListener.match(action)) return stopListening(action.payload);
+		let originalState = api.getState();
+		const getOriginalState = () => {
+			if (originalState === INTERNAL_NIL_TOKEN) throw new Error( false ? 0 : `${alm}: getOriginalState can only be called synchronously`);
+			return originalState;
+		};
+		let result;
+		try {
+			result = next(action);
+			if (listenerMap.size > 0) {
+				const currentState = api.getState();
+				const listenerEntries = Array.from(listenerMap.values());
+				for (const entry of listenerEntries) {
+					let runListener = false;
+					try {
+						runListener = entry.predicate(action, currentState, originalState);
+					} catch (predicateError) {
+						runListener = false;
+						safelyNotifyError(onError, predicateError, { raisedBy: "predicate" });
+					}
+					if (!runListener) continue;
+					notifyListener(entry, action, api, getOriginalState);
+				}
+			}
+		} finally {
+			originalState = INTERNAL_NIL_TOKEN;
+		}
+		return result;
+	};
+	return {
+		middleware,
+		startListening,
+		stopListening,
+		clearListeners: clearListenerMiddleware
+	};
+};
+//#endregion
+//#region src/dynamicMiddleware/index.ts
+const createMiddlewareEntry = (middleware) => ({
+	middleware,
+	applied: /* @__PURE__ */ new Map()
 });
-var findListenerEntry = (listenerMap, options) => {
-  const {
-    type,
-    effect,
-    predicate
-  } = getListenerEntryPropsFrom(options);
-  return Array.from(listenerMap.values()).find((entry) => {
-    const matchPredicateOrType = typeof type === "string" ? entry.type === type : entry.predicate === predicate;
-    return matchPredicateOrType && entry.effect === effect;
-  });
+const matchInstance = (instanceId) => (action) => action?.meta?.instanceId === instanceId;
+const createDynamicMiddleware = () => {
+	const instanceId = nanoid();
+	const middlewareMap = /* @__PURE__ */ new Map();
+	let middlewareVersion = 0;
+	const withMiddleware = Object.assign(createAction("dynamicMiddleware/add", (...middlewares) => ({
+		payload: middlewares,
+		meta: { instanceId }
+	})), { withTypes: () => withMiddleware });
+	const addMiddleware = Object.assign(function addMiddleware(...middlewares) {
+		const previousSize = middlewareMap.size;
+		middlewares.forEach((middleware) => {
+			getOrInsertComputed(middlewareMap, middleware, createMiddlewareEntry);
+		});
+		if (middlewareMap.size !== previousSize) middlewareVersion++;
+	}, { withTypes: () => addMiddleware });
+	const getFinalMiddleware = (api) => {
+		const appliedMiddleware = Array.from(middlewareMap.values()).map((entry) => getOrInsertComputed(entry.applied, api, entry.middleware));
+		return (0,redux__WEBPACK_IMPORTED_MODULE_0__.compose)(...appliedMiddleware);
+	};
+	const isWithMiddleware = isAllOf(withMiddleware, matchInstance(instanceId));
+	const middleware = (api) => (next) => {
+		let appliedVersion = -1;
+		let dispatch = next;
+		return (action) => {
+			if (isWithMiddleware(action)) {
+				addMiddleware(...action.payload);
+				return api.dispatch;
+			}
+			if (appliedVersion !== middlewareVersion) {
+				dispatch = getFinalMiddleware(api)(next);
+				appliedVersion = middlewareVersion;
+			}
+			return dispatch(action);
+		};
+	};
+	return {
+		middleware,
+		addMiddleware,
+		withMiddleware,
+		instanceId
+	};
 };
-var cancelActiveListeners = (entry) => {
-  entry.pending.forEach((controller) => {
-    controller.abort(listenerCancelled);
-  });
+//#endregion
+//#region src/combineSlices.ts
+const isSliceLike = (maybeSliceLike) => "reducerPath" in maybeSliceLike && typeof maybeSliceLike.reducerPath === "string";
+const getReducers = (slices) => slices.flatMap((sliceOrMap) => isSliceLike(sliceOrMap) ? [[sliceOrMap.reducerPath, sliceOrMap.reducer]] : Object.entries(sliceOrMap));
+const ORIGINAL_STATE = Symbol.for("rtk-state-proxy-original");
+const isStateProxy = (value) => !!value && !!value[ORIGINAL_STATE];
+const createStateProxy = (stateProxyMap, state, reducerMap, initialStateCache) => getOrInsertComputed(stateProxyMap, state, () => new Proxy(state, { get: (target, prop, receiver) => {
+	if (prop === ORIGINAL_STATE) return target;
+	const result = Reflect.get(target, prop, receiver);
+	if (typeof result === "undefined") {
+		const cached = initialStateCache[prop];
+		if (typeof cached !== "undefined") return cached;
+		const reducer = reducerMap[prop];
+		if (reducer) {
+			const reducerResult = reducer(void 0, { type: nanoid() });
+			if (typeof reducerResult === "undefined") throw new Error( false ? 0 : `The slice reducer for key "${prop.toString()}" returned undefined when called for selector(). If the state passed to the reducer is undefined, you must explicitly return the initial state. The initial state may not be undefined. If you don't want to set a value for this reducer, you can use null instead of undefined.`);
+			initialStateCache[prop] = reducerResult;
+			return reducerResult;
+		}
+	}
+	return result;
+} }));
+const original$1 = (state) => {
+	if (!isStateProxy(state)) throw new Error( false ? 0 : "original must be used on state Proxy");
+	return state[ORIGINAL_STATE];
 };
-var createClearListenerMiddleware = (listenerMap, executingListeners) => {
-  return () => {
-    for (const listener2 of executingListeners.keys()) {
-      cancelActiveListeners(listener2);
-    }
-    listenerMap.clear();
-  };
-};
-var safelyNotifyError = (errorHandler, errorToNotify, errorInfo) => {
-  try {
-    errorHandler(errorToNotify, errorInfo);
-  } catch (errorHandlerError) {
-    setTimeout(() => {
-      throw errorHandlerError;
-    }, 0);
-  }
-};
-var addListener = /* @__PURE__ */ assign(/* @__PURE__ */ createAction(`${alm}/add`), {
-  withTypes: () => addListener
-});
-var clearAllListeners = /* @__PURE__ */ createAction(`${alm}/removeAll`);
-var removeListener = /* @__PURE__ */ assign(/* @__PURE__ */ createAction(`${alm}/remove`), {
-  withTypes: () => removeListener
-});
-var defaultErrorHandler = (...args) => {
-  console.error(`${alm}/error`, ...args);
-};
-var createListenerMiddleware = (middlewareOptions = {}) => {
-  const listenerMap = /* @__PURE__ */ new Map();
-  const executingListeners = /* @__PURE__ */ new Map();
-  const trackExecutingListener = (entry) => {
-    const count = executingListeners.get(entry) ?? 0;
-    executingListeners.set(entry, count + 1);
-  };
-  const untrackExecutingListener = (entry) => {
-    const count = executingListeners.get(entry) ?? 1;
-    if (count === 1) {
-      executingListeners.delete(entry);
-    } else {
-      executingListeners.set(entry, count - 1);
-    }
-  };
-  const {
-    extra,
-    onError = defaultErrorHandler
-  } = middlewareOptions;
-  assertFunction(onError, "onError");
-  const insertEntry = (entry) => {
-    entry.unsubscribe = () => listenerMap.delete(entry.id);
-    listenerMap.set(entry.id, entry);
-    return (cancelOptions) => {
-      entry.unsubscribe();
-      if (cancelOptions?.cancelActive) {
-        cancelActiveListeners(entry);
-      }
-    };
-  };
-  const startListening = ((options) => {
-    const entry = findListenerEntry(listenerMap, options) ?? createListenerEntry(options);
-    return insertEntry(entry);
-  });
-  assign(startListening, {
-    withTypes: () => startListening
-  });
-  const stopListening = (options) => {
-    const entry = findListenerEntry(listenerMap, options);
-    if (entry) {
-      entry.unsubscribe();
-      if (options.cancelActive) {
-        cancelActiveListeners(entry);
-      }
-    }
-    return !!entry;
-  };
-  assign(stopListening, {
-    withTypes: () => stopListening
-  });
-  const notifyListener = async (entry, action, api, getOriginalState) => {
-    const internalTaskController = new AbortController();
-    const take = createTakePattern(startListening, internalTaskController.signal);
-    const autoJoinPromises = [];
-    try {
-      entry.pending.add(internalTaskController);
-      trackExecutingListener(entry);
-      await Promise.resolve(entry.effect(
-        action,
-        // Use assign() rather than ... to avoid extra helper functions added to bundle
-        assign({}, api, {
-          getOriginalState,
-          condition: (predicate, timeout) => take(predicate, timeout).then(Boolean),
-          take,
-          delay: createDelay(internalTaskController.signal),
-          pause: createPause(internalTaskController.signal),
-          extra,
-          signal: internalTaskController.signal,
-          fork: createFork(internalTaskController.signal, autoJoinPromises),
-          unsubscribe: entry.unsubscribe,
-          subscribe: () => {
-            listenerMap.set(entry.id, entry);
-          },
-          cancelActiveListeners: () => {
-            entry.pending.forEach((controller, _, set) => {
-              if (controller !== internalTaskController) {
-                controller.abort(listenerCancelled);
-                set.delete(controller);
-              }
-            });
-          },
-          cancel: () => {
-            internalTaskController.abort(listenerCancelled);
-            entry.pending.delete(internalTaskController);
-          },
-          throwIfCancelled: () => {
-            validateActive(internalTaskController.signal);
-          }
-        })
-      ));
-    } catch (listenerError) {
-      if (!(listenerError instanceof TaskAbortError)) {
-        safelyNotifyError(onError, listenerError, {
-          raisedBy: "effect"
-        });
-      }
-    } finally {
-      await Promise.all(autoJoinPromises);
-      internalTaskController.abort(listenerCompleted);
-      untrackExecutingListener(entry);
-      entry.pending.delete(internalTaskController);
-    }
-  };
-  const clearListenerMiddleware = createClearListenerMiddleware(listenerMap, executingListeners);
-  const middleware = (api) => (next) => (action) => {
-    if (!(0,redux__WEBPACK_IMPORTED_MODULE_3__.isAction)(action)) {
-      return next(action);
-    }
-    if (addListener.match(action)) {
-      return startListening(action.payload);
-    }
-    if (clearAllListeners.match(action)) {
-      clearListenerMiddleware();
-      return;
-    }
-    if (removeListener.match(action)) {
-      return stopListening(action.payload);
-    }
-    let originalState = api.getState();
-    const getOriginalState = () => {
-      if (originalState === INTERNAL_NIL_TOKEN) {
-        throw new Error( false ? 0 : `${alm}: getOriginalState can only be called synchronously`);
-      }
-      return originalState;
-    };
-    let result;
-    try {
-      result = next(action);
-      if (listenerMap.size > 0) {
-        const currentState = api.getState();
-        const listenerEntries = Array.from(listenerMap.values());
-        for (const entry of listenerEntries) {
-          let runListener = false;
-          try {
-            runListener = entry.predicate(action, currentState, originalState);
-          } catch (predicateError) {
-            runListener = false;
-            safelyNotifyError(onError, predicateError, {
-              raisedBy: "predicate"
-            });
-          }
-          if (!runListener) {
-            continue;
-          }
-          notifyListener(entry, action, api, getOriginalState);
-        }
-      }
-    } finally {
-      originalState = INTERNAL_NIL_TOKEN;
-    }
-    return result;
-  };
-  return {
-    middleware,
-    startListening,
-    stopListening,
-    clearListeners: clearListenerMiddleware
-  };
-};
-
-// src/dynamicMiddleware/index.ts
-var createMiddlewareEntry = (middleware) => ({
-  middleware,
-  applied: /* @__PURE__ */ new Map()
-});
-var matchInstance = (instanceId) => (action) => action?.meta?.instanceId === instanceId;
-var createDynamicMiddleware = () => {
-  const instanceId = nanoid();
-  const middlewareMap = /* @__PURE__ */ new Map();
-  const withMiddleware = Object.assign(createAction("dynamicMiddleware/add", (...middlewares) => ({
-    payload: middlewares,
-    meta: {
-      instanceId
-    }
-  })), {
-    withTypes: () => withMiddleware
-  });
-  const addMiddleware = Object.assign(function addMiddleware2(...middlewares) {
-    middlewares.forEach((middleware2) => {
-      getOrInsertComputed(middlewareMap, middleware2, createMiddlewareEntry);
-    });
-  }, {
-    withTypes: () => addMiddleware
-  });
-  const getFinalMiddleware = (api) => {
-    const appliedMiddleware = Array.from(middlewareMap.values()).map((entry) => getOrInsertComputed(entry.applied, api, entry.middleware));
-    return (0,redux__WEBPACK_IMPORTED_MODULE_3__.compose)(...appliedMiddleware);
-  };
-  const isWithMiddleware = isAllOf(withMiddleware, matchInstance(instanceId));
-  const middleware = (api) => (next) => (action) => {
-    if (isWithMiddleware(action)) {
-      addMiddleware(...action.payload);
-      return api.dispatch;
-    }
-    return getFinalMiddleware(api)(next)(action);
-  };
-  return {
-    middleware,
-    addMiddleware,
-    withMiddleware,
-    instanceId
-  };
-};
-
-// src/combineSlices.ts
-
-var isSliceLike = (maybeSliceLike) => "reducerPath" in maybeSliceLike && typeof maybeSliceLike.reducerPath === "string";
-var getReducers = (slices) => slices.flatMap((sliceOrMap) => isSliceLike(sliceOrMap) ? [[sliceOrMap.reducerPath, sliceOrMap.reducer]] : Object.entries(sliceOrMap));
-var ORIGINAL_STATE = /* @__PURE__ */ Symbol.for("rtk-state-proxy-original");
-var isStateProxy = (value) => !!value && !!value[ORIGINAL_STATE];
-var stateProxyMap = /* @__PURE__ */ new WeakMap();
-var createStateProxy = (state, reducerMap, initialStateCache) => getOrInsertComputed(stateProxyMap, state, () => new Proxy(state, {
-  get: (target, prop, receiver) => {
-    if (prop === ORIGINAL_STATE) return target;
-    const result = Reflect.get(target, prop, receiver);
-    if (typeof result === "undefined") {
-      const cached = initialStateCache[prop];
-      if (typeof cached !== "undefined") return cached;
-      const reducer = reducerMap[prop];
-      if (reducer) {
-        const reducerResult = reducer(void 0, {
-          type: nanoid()
-        });
-        if (typeof reducerResult === "undefined") {
-          throw new Error( false ? 0 : `The slice reducer for key "${prop.toString()}" returned undefined when called for selector(). If the state passed to the reducer is undefined, you must explicitly return the initial state. The initial state may not be undefined. If you don't want to set a value for this reducer, you can use null instead of undefined.`);
-        }
-        initialStateCache[prop] = reducerResult;
-        return reducerResult;
-      }
-    }
-    return result;
-  }
-}));
-var original = (state) => {
-  if (!isStateProxy(state)) {
-    throw new Error( false ? 0 : "original must be used on state Proxy");
-  }
-  return state[ORIGINAL_STATE];
-};
-var emptyObject = {};
-var noopReducer = (state = emptyObject) => state;
+const emptyObject = {};
+const noopReducer = (state = emptyObject) => state;
 function combineSlices(...slices) {
-  const reducerMap = Object.fromEntries(getReducers(slices));
-  const getReducer = () => Object.keys(reducerMap).length ? (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)(reducerMap) : noopReducer;
-  let reducer = getReducer();
-  function combinedReducer(state, action) {
-    return reducer(state, action);
-  }
-  combinedReducer.withLazyLoadedSlices = () => combinedReducer;
-  const initialStateCache = {};
-  const inject = (slice, config = {}) => {
-    const {
-      reducerPath,
-      reducer: reducerToInject
-    } = slice;
-    const currentReducer = reducerMap[reducerPath];
-    if (!config.overrideExisting && currentReducer && currentReducer !== reducerToInject) {
-      if (typeof process !== "undefined" && "development" === "development") {
-        console.error(`called \`inject\` to override already-existing reducer ${reducerPath} without specifying \`overrideExisting: true\``);
-      }
-      return combinedReducer;
-    }
-    if (config.overrideExisting && currentReducer !== reducerToInject) {
-      delete initialStateCache[reducerPath];
-    }
-    reducerMap[reducerPath] = reducerToInject;
-    reducer = getReducer();
-    return combinedReducer;
-  };
-  const selector = Object.assign(function makeSelector(selectorFn, selectState) {
-    return function selector2(state, ...args) {
-      return selectorFn(createStateProxy(selectState ? selectState(state, ...args) : state, reducerMap, initialStateCache), ...args);
-    };
-  }, {
-    original
-  });
-  return Object.assign(combinedReducer, {
-    inject,
-    selector
-  });
+	const stateProxyMap = /* @__PURE__ */ new WeakMap();
+	const reducerMap = Object.fromEntries(getReducers(slices));
+	const getReducer = () => Object.keys(reducerMap).length ? (0,redux__WEBPACK_IMPORTED_MODULE_0__.combineReducers)(reducerMap) : noopReducer;
+	let reducer = getReducer();
+	function combinedReducer(state, action) {
+		return reducer(state, action);
+	}
+	combinedReducer.withLazyLoadedSlices = () => combinedReducer;
+	const initialStateCache = {};
+	const inject = (slice, config = {}) => {
+		const { reducerPath, reducer: reducerToInject } = slice;
+		const currentReducer = reducerMap[reducerPath];
+		if (!config.overrideExisting && currentReducer && currentReducer !== reducerToInject) {
+			if (typeof process !== "undefined" && "development" === "development") console.error(`called \`inject\` to override already-existing reducer ${reducerPath} without specifying \`overrideExisting: true\``);
+			return combinedReducer;
+		}
+		if (config.overrideExisting && currentReducer !== reducerToInject) delete initialStateCache[reducerPath];
+		reducerMap[reducerPath] = reducerToInject;
+		reducer = getReducer();
+		return combinedReducer;
+	};
+	const selector = Object.assign(function makeSelector(selectorFn, selectState) {
+		return function selector(state, ...args) {
+			return selectorFn(createStateProxy(stateProxyMap, selectState ? selectState(state, ...args) : state, reducerMap, initialStateCache), ...args);
+		};
+	}, { original: original$1 });
+	return Object.assign(combinedReducer, {
+		inject,
+		selector
+	});
 }
-
-// src/formatProdErrorMessage.ts
+//#endregion
+//#region src/formatProdErrorMessage.ts
 function formatProdErrorMessage(code) {
-  return `Minified Redux Toolkit error #${code}; visit https://redux-toolkit.js.org/Errors?code=${code} for the full message or use the non-minified dev environment for full errors. `;
+	return `Minified Redux Toolkit error #${code}; visit https://redux-toolkit.js.org/Errors?code=${code} for the full message or use the non-minified dev environment for full errors. `;
 }
+//#endregion
+
 
 //# sourceMappingURL=redux-toolkit.modern.mjs.map
 
@@ -8570,13 +8126,14 @@ __exportStar(__webpack_require__(/*! ./DiscussionKind */ "./node_modules/@ueu/ue
 /*!**********************************************************************!*\
   !*** ./node_modules/@ueu/ueu-canvas/dist/content/getContentFuncs.js ***!
   \**********************************************************************/
-(__unused_webpack_module, exports) {
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getFileLinks = getFileLinks;
 exports.getExternalLinks = getExternalLinks;
+const instance_1 = __webpack_require__(/*! ../instance */ "./node_modules/@ueu/ueu-canvas/dist/instance.js");
 function getAllLinks(body) {
     const el = bodyAsElement(body);
     const anchors = el.querySelectorAll('a');
@@ -8594,8 +8151,7 @@ function getFileLinks(body, courseId) {
     return getAllLinks(body).filter(a => a.match(/instructure\.com.*files\/\d+/i)).map(a => a.split('?')[0]);
 }
 function getExternalLinks(body, courseId) {
-    // Correct regex to exclude unity.instructure.com links properly
-    return getAllLinks(body).filter(a => !a.match(/:\/\/unity\.instructure\.com\//i));
+    return getAllLinks(body).filter(a => !(0, instance_1.isCanvasUrl)(a));
 }
 //# sourceMappingURL=getContentFuncs.js.map
 
@@ -9122,19 +8678,21 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
     async getStartDateFromModules() {
         return (0, changeStartDate_1.getModuleUnlockStartDate)(await this.getModules());
     }
+    getCourseNumber() {
+        const match = this.courseCode?.match(/\d{3,4}/);
+        return match ? parseInt(match[0], 10) : null;
+    }
     isUndergrad() {
         if (this.courseCode?.toLowerCase().includes('dev_ug'))
             return true;
-        const match = this.courseCode?.match(/\d{3,4}/);
-        const codeNum = match ? parseInt(match[0], 10) : 0;
-        return codeNum < 500;
+        const codeNum = this.getCourseNumber();
+        return codeNum != null && codeNum < 500;
     }
     isGrad() {
         if (this.courseCode?.toLowerCase().includes('dev_grad'))
             return true;
-        const match = this.courseCode?.match(/\d{3,4}/);
-        const codeNum = match ? parseInt(match[0], 10) : 0;
-        return codeNum >= 500 && codeNum < 1000;
+        const codeNum = this.getCourseNumber();
+        return codeNum != null && codeNum >= 500 && codeNum < 1000;
     }
     isCareerInstitute() {
         return /\d{4}/.test(this.courseCode || "");
@@ -10613,7 +10171,25 @@ exports["default"] = apiWriteConfig;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FetchJsonError = void 0;
 exports.fetchJson = fetchJson;
+// Error type returned when a fetchJson request fails (non-2xx response).
+class FetchJsonError extends Error {
+    name = "FetchJsonError";
+    status;
+    statusText;
+    body;
+    constructor(status, statusText, body) {
+        const message = body
+            ? `Request failed with ${status} ${statusText}: ${JSON.stringify(body)}`
+            : `Request failed with ${status} ${statusText}`;
+        super(message);
+        this.status = status;
+        this.statusText = statusText;
+        this.body = body;
+    }
+}
+exports.FetchJsonError = FetchJsonError;
 async function fetchJson(url, config = null) {
     const match = url.search(/^(\/|\w+:\/\/)/);
     if (match < 0)
@@ -10623,6 +10199,17 @@ async function fetchJson(url, config = null) {
     }
     config ??= {};
     const response = await fetch(url, config.fetchInit);
+    if (!response.ok) {
+        console.error("Request failed - ", response.status, response.statusText, response.body);
+        let errorBody;
+        try {
+            errorBody = await response.json();
+        }
+        catch {
+            errorBody = undefined;
+        }
+        throw new FetchJsonError(response.status, response.statusText, errorBody);
+    }
     const responseJson = await response.json();
     if (!responseJson)
         throw new Error("Could not fetch json");
@@ -10958,8 +10545,81 @@ __exportStar(__webpack_require__(/*! ./date */ "./node_modules/@ueu/ueu-canvas/d
 __exportStar(__webpack_require__(/*! ./types */ "./node_modules/@ueu/ueu-canvas/dist/types.js"), exports);
 __exportStar(__webpack_require__(/*! ./fetch */ "./node_modules/@ueu/ueu-canvas/dist/fetch/index.js"), exports);
 __exportStar(__webpack_require__(/*! ./canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js"), exports);
+__exportStar(__webpack_require__(/*! ./instance */ "./node_modules/@ueu/ueu-canvas/dist/instance.js"), exports);
 exports.mocks = __importStar(__webpack_require__(/*! ./__mocks__ */ "./node_modules/@ueu/ueu-canvas/dist/__mocks__/index.js"));
 //# sourceMappingURL=index.js.map
+
+/***/ },
+
+/***/ "./node_modules/@ueu/ueu-canvas/dist/instance.js"
+/*!*******************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/instance.js ***!
+  \*******************************************************/
+(__unused_webpack_module, exports) {
+
+"use strict";
+
+/**
+ * Canvas instance configuration. Every hardcoded URL, account ID, and
+ * template course ID lives here. The default matches Unity's production
+ * Canvas instance; a second instance overrides what it needs.
+ *
+ * The active instance is set once at startup (setInstance) and read
+ * everywhere else (getInstance). This avoids threading config through
+ * every function signature while keeping it swappable.
+ */
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getInstance = getInstance;
+exports.setInstance = setInstance;
+exports.resetInstance = resetInstance;
+exports.isCanvasUrl = isCanvasUrl;
+exports.canvasUrl = canvasUrl;
+const UNITY_DEFAULTS = {
+    baseUrl: "https://unity.instructure.com",
+    hostname: "unity.instructure.com",
+    templateCourseId: 3850558,
+    referencesPageSlug: "learning-materials-reference-page",
+    externalApis: {
+        citeas: "https://api.citeas.org/product",
+    },
+};
+let active = { ...UNITY_DEFAULTS };
+function getInstance() {
+    return active;
+}
+function setInstance(config) {
+    active = { ...UNITY_DEFAULTS, ...config };
+    if (config.baseUrl && !config.hostname) {
+        try {
+            active.hostname = new URL(config.baseUrl).hostname;
+        }
+        catch {
+            // keep the default if baseUrl is unparseable
+        }
+    }
+}
+function resetInstance() {
+    active = { ...UNITY_DEFAULTS };
+}
+/** Check whether a URL belongs to the active Canvas instance. */
+function isCanvasUrl(url) {
+    try {
+        return new URL(url).hostname === active.hostname;
+    }
+    catch {
+        return url.includes(active.hostname);
+    }
+}
+/**
+ * Build an absolute Canvas URL from a relative path.
+ * If already absolute, returns as-is.
+ */
+function canvasUrl(path) {
+    if (path.startsWith("http://") || path.startsWith("https://"))
+        return path;
+    return `${active.baseUrl}${path.startsWith("/") ? "" : "/"}${path}`;
+}
+//# sourceMappingURL=instance.js.map
 
 /***/ },
 
@@ -15426,7 +15086,7 @@ var getProxyDraft = (value) => {
 var latest = (state) => state.copy_ || state.base_;
 var getValue = (value) => {
   const proxyDraft = getProxyDraft(value);
-  return proxyDraft ? proxyDraft.copy_ ?? proxyDraft.base_ : value;
+  return proxyDraft ? getFinalValue(proxyDraft) : value;
 };
 var getFinalValue = (state) => state.modified_ ? state.copy_ : state.base_;
 function shallowCopy(base, strict) {
@@ -16472,6 +16132,8 @@ function enablePatches() {
 }
 
 // src/plugins/mapset.ts
+var _globalIterator = globalThis.Iterator;
+var hasIteratorFrom = typeof _globalIterator?.from === "function";
 function enableMapSet() {
   class DraftMap extends Map {
     constructor(target, parent) {
@@ -16598,8 +16260,8 @@ function enableMapSet() {
     }
   }
   function iteratorFrom(iterable) {
-    if (typeof Iterator !== "undefined") {
-      return Iterator.from(iterable);
+    if (hasIteratorFrom) {
+      return _globalIterator.from(iterable);
     }
     const iterator = {
       ...iterable,
@@ -16795,10 +16457,13 @@ function enableArrayMethods() {
   function executeArrayMethod(state, operation, markLength = true) {
     prepareCopy(state);
     const result = operation();
+    markArrayChanged(state, markLength);
+    return result;
+  }
+  function markArrayChanged(state, markLength = true) {
     markChanged(state);
     if (markLength)
       state.assigned_.set("length", true);
-    return result;
   }
   function markAllIndicesReassigned(state) {
     state.allIndicesReassigned_ = true;
@@ -16812,27 +16477,33 @@ function enableArrayMethods() {
   }
   function handleInsertedValues(state, startIndex, values) {
     for (let i = 0; i < values.length; i++) {
-      const index = startIndex + i;
+      const index = "" + (startIndex + i);
       state.assigned_.set(index, true);
       handleCrossReference(state, index, values[i]);
     }
   }
   function handleSimpleOperation(state, method, args) {
-    return executeArrayMethod(state, () => {
-      const lengthBefore = state.copy_.length;
-      const result = state.copy_[method](...args);
-      if (SHIFTING_METHODS.has(method)) {
-        markAllIndicesReassigned(state);
-      }
-      if (method === "push" && args.length > 0) {
-        handleInsertedValues(state, lengthBefore, args);
-      } else if (method === "unshift" && args.length > 0) {
-        handleInsertedValues(state, 0, args);
-      }
-      return RESULT_RETURNING_METHODS.has(method) ? result : state.draft_;
-    });
+    const isInsert = method === "push" || method === "unshift";
+    if (isInsert ? args.length === 0 : latest(state).length === 0) {
+      return isInsert ? latest(state).length : void 0;
+    }
+    prepareCopy(state);
+    const lengthBefore = state.copy_.length;
+    const result = state.copy_[method](...args);
+    markArrayChanged(state);
+    if (SHIFTING_METHODS.has(method)) {
+      markAllIndicesReassigned(state);
+    }
+    if (method === "push") {
+      handleInsertedValues(state, lengthBefore, args);
+    } else if (method === "unshift") {
+      handleInsertedValues(state, 0, args);
+    }
+    return RESULT_RETURNING_METHODS.has(method) ? result : state.draft_;
   }
   function handleReorderingOperation(state, method, args) {
+    if (latest(state).length <= 1)
+      return state.draft_;
     return executeArrayMethod(
       state,
       () => {
@@ -16857,12 +16528,23 @@ function enableArrayMethods() {
             return handleReorderingOperation(state, method, args);
           }
           if (method === "splice") {
-            const res = executeArrayMethod(
-              state,
-              () => state.copy_.splice(...args)
+            const insertCount = args.length > 2 ? args.length - 2 : 0;
+            if (insertCount === 0) {
+              const length = latest(state).length;
+              if (args.length === 0 || normalizeSliceIndex(args[0] ?? 0, length) === length || args.length > 1 && !(args[1] >= 1)) {
+                return [];
+              }
+            }
+            prepareCopy(state);
+            const res = state.copy_.splice(
+              ...args
             );
+            if (res.length === 0 && insertCount === 0) {
+              return res;
+            }
+            markArrayChanged(state);
             markAllIndicesReassigned(state);
-            if (args.length > 2) {
+            if (insertCount > 0) {
               const startIndex = normalizeSliceIndex(
                 args[0] ?? 0,
                 state.copy_.length
@@ -62215,9 +61897,190 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   lruMemoize: () => (/* binding */ lruMemoize),
 /* harmony export */   referenceEqualityCheck: () => (/* binding */ referenceEqualityCheck),
 /* harmony export */   setGlobalDevModeChecks: () => (/* binding */ setGlobalDevModeChecks),
-/* harmony export */   unstable_autotrackMemoize: () => (/* binding */ autotrackMemoize),
 /* harmony export */   weakMapMemoize: () => (/* binding */ weakMapMemoize)
 /* harmony export */ });
+// src/devModeChecks/cacheSizeCheck.ts
+var CACHE_SIZE_CHECK_THRESHOLD = 1e3;
+var runCacheSizeCheck = (cacheSize, funcName) => {
+  let stack = void 0;
+  try {
+    throw new Error();
+  } catch (e) {
+    ;
+    ({ stack } = e);
+  }
+  console.warn(
+    `A function memoized with weakMapMemoize${funcName ? ` (\`${funcName}\`)` : ""} has seen over ${cacheSize} distinct values for the same primitive argument position.
+Results keyed by primitive arguments are held strongly and are only released by \`clearCache()\`, so this cache will keep growing for as long as the function keeps seeing new values.
+If it is called with ever-changing primitives (ids, offsets, timestamps), pass the \`maxSize\` option to bound the cache, switch to \`lruMemoize\`, or call \`.clearCache()\` at a suitable point.
+See https://reselect.js.org/api/development-only-checks#cachesizecheck for details.`,
+    { stack }
+  );
+};
+
+// src/devModeChecks/setGlobalDevModeChecks.ts
+var globalDevModeChecks = {
+  inputStabilityCheck: "once",
+  identityFunctionCheck: "once",
+  cacheSizeCheck: "once"
+};
+var setGlobalDevModeChecks = (devModeChecks) => {
+  Object.assign(globalDevModeChecks, devModeChecks);
+};
+
+// src/weakMapMemoize.ts
+var StrongRef = class {
+  constructor(value) {
+    this.value = value;
+  }
+  deref() {
+    return this.value;
+  }
+};
+var getWeakRef = () => typeof WeakRef === "undefined" ? StrongRef : WeakRef;
+var Ref = /* @__PURE__ */ getWeakRef();
+var UNTERMINATED = 0;
+var TERMINATED = 1;
+function createCacheNode() {
+  return {
+    s: UNTERMINATED,
+    v: void 0,
+    o: null,
+    p: null
+  };
+}
+function maybeDeref(r) {
+  if (r instanceof Ref) {
+    return r.deref();
+  }
+  return r;
+}
+function weakMapMemoize(func, options = {}) {
+  let fnNode = createCacheNode();
+  const { resultEqualityCheck, maxSize } = options;
+  const useGenerations = maxSize !== void 0;
+  if (useGenerations && (!Number.isInteger(maxSize) || maxSize < 1)) {
+    throw new TypeError(
+      `maxSize must be a positive integer, received: ${maxSize}`
+    );
+  }
+  let prevNode = null;
+  let insertionCount = 0;
+  let lastResult;
+  let resultsCount = 0;
+  let hasWarnedAboutCacheSize = false;
+  function maybeFlipGenerations() {
+    if (insertionCount >= maxSize) {
+      prevNode = fnNode;
+      fnNode = createCacheNode();
+      insertionCount = 0;
+    }
+  }
+  function memoized() {
+    let cacheNode = fnNode;
+    const { length } = arguments;
+    for (let i = 0, l = length; i < l; i++) {
+      const arg = arguments[i];
+      if (typeof arg === "function" || typeof arg === "object" && arg !== null) {
+        let objectCache = cacheNode.o;
+        if (objectCache === null) {
+          cacheNode.o = objectCache = /* @__PURE__ */ new WeakMap();
+        }
+        const objectNode = objectCache.get(arg);
+        if (objectNode === void 0) {
+          cacheNode = createCacheNode();
+          objectCache.set(arg, cacheNode);
+        } else {
+          cacheNode = objectNode;
+        }
+      } else {
+        let primitiveCache = cacheNode.p;
+        if (primitiveCache === null) {
+          cacheNode.p = primitiveCache = /* @__PURE__ */ new Map();
+        }
+        const primitiveNode = primitiveCache.get(arg);
+        if (primitiveNode === void 0) {
+          cacheNode = createCacheNode();
+          primitiveCache.set(arg, cacheNode);
+          insertionCount++;
+          if (true) {
+            if (primitiveCache.size > CACHE_SIZE_CHECK_THRESHOLD) {
+              const { cacheSizeCheck } = globalDevModeChecks;
+              if (cacheSizeCheck === "always" || cacheSizeCheck === "once" && !hasWarnedAboutCacheSize) {
+                hasWarnedAboutCacheSize = true;
+                runCacheSizeCheck(primitiveCache.size, func.name);
+              }
+            }
+          }
+        } else {
+          cacheNode = primitiveNode;
+        }
+      }
+    }
+    if (cacheNode.s === TERMINATED) {
+      return cacheNode.v;
+    }
+    if (prevNode !== null) {
+      let prevCacheNode = prevNode;
+      for (let i = 0, l = length; i < l; i++) {
+        const arg = arguments[i];
+        let next;
+        if (typeof arg === "function" || typeof arg === "object" && arg !== null) {
+          const prevObjectCache = prevCacheNode.o;
+          next = prevObjectCache !== null ? prevObjectCache.get(arg) : void 0;
+        } else {
+          const prevPrimitiveCache = prevCacheNode.p;
+          next = prevPrimitiveCache !== null ? prevPrimitiveCache.get(arg) : void 0;
+        }
+        if (next === void 0) {
+          prevCacheNode = null;
+          break;
+        }
+        prevCacheNode = next;
+      }
+      if (prevCacheNode !== null && prevCacheNode.s === TERMINATED) {
+        const promotedNode = cacheNode;
+        promotedNode.s = TERMINATED;
+        promotedNode.v = prevCacheNode.v;
+        maybeFlipGenerations();
+        return prevCacheNode.v;
+      }
+    }
+    const terminatedNode = cacheNode;
+    let result = func.apply(null, arguments);
+    resultsCount++;
+    if (resultEqualityCheck) {
+      const lastResultValue = maybeDeref(lastResult);
+      if (lastResultValue != null && resultEqualityCheck(lastResultValue, result)) {
+        result = lastResultValue;
+        resultsCount !== 0 && resultsCount--;
+      }
+      const needsWeakRef = typeof result === "object" && result !== null || typeof result === "function";
+      lastResult = needsWeakRef ? /* @__PURE__ */ new Ref(result) : result;
+    }
+    terminatedNode.s = TERMINATED;
+    terminatedNode.v = result;
+    if (useGenerations) {
+      maybeFlipGenerations();
+    }
+    return result;
+  }
+  memoized.clearCache = () => {
+    fnNode = createCacheNode();
+    prevNode = null;
+    insertionCount = 0;
+    memoized.resetResultsCount();
+    if (true) {
+      hasWarnedAboutCacheSize = false;
+    }
+  };
+  memoized.resultsCount = () => resultsCount;
+  memoized.resetResultsCount = () => {
+    resultsCount = 0;
+  };
+  return memoized;
+}
+
 // src/devModeChecks/identityFunctionCheck.ts
 var runIdentityFunctionCheck = (resultFunc, inputSelectorsResults, outputSelectorResult) => {
   if (inputSelectorsResults.length === 1 && inputSelectorsResults[0] === outputSelectorResult) {
@@ -62244,10 +62107,23 @@ var runIdentityFunctionCheck = (resultFunc, inputSelectorsResults, outputSelecto
 };
 
 // src/devModeChecks/inputStabilityCheck.ts
+var withoutResultEqualityCheck = (option) => {
+  if (option === null || typeof option !== "object" || !("resultEqualityCheck" in option)) {
+    return option;
+  }
+  const optionCopy = { ...option };
+  delete optionCopy.resultEqualityCheck;
+  return optionCopy;
+};
 var runInputStabilityCheck = (inputSelectorResultsObject, options, inputSelectorArgs) => {
   const { memoize, memoizeOptions } = options;
   const { inputSelectorResults, inputSelectorResultsCopy } = inputSelectorResultsObject;
-  const createAnEmptyObject = memoize(() => ({}), ...memoizeOptions);
+  const probeMemoizeOptions = [];
+  const { length } = memoizeOptions;
+  for (let i = 0; i < length; i++) {
+    probeMemoizeOptions.push(withoutResultEqualityCheck(memoizeOptions[i]));
+  }
+  const createAnEmptyObject = memoize(() => ({}), ...probeMemoizeOptions);
   const areInputSelectorResultsEqual = createAnEmptyObject.apply(null, inputSelectorResults) === createAnEmptyObject.apply(null, inputSelectorResultsCopy);
   if (!areInputSelectorResultsEqual) {
     let stack = void 0;
@@ -62267,15 +62143,6 @@ var runInputStabilityCheck = (inputSelectorResultsObject, options, inputSelector
       }
     );
   }
-};
-
-// src/devModeChecks/setGlobalDevModeChecks.ts
-var globalDevModeChecks = {
-  inputStabilityCheck: "once",
-  identityFunctionCheck: "once"
-};
-var setGlobalDevModeChecks = (devModeChecks) => {
-  Object.assign(globalDevModeChecks, devModeChecks);
 };
 
 // src/utils.ts
@@ -62316,520 +62183,6 @@ function collectInputSelectorResults(dependencies, inputSelectorArgs) {
     inputSelectorResults.push(dependencies[i].apply(null, inputSelectorArgs));
   }
   return inputSelectorResults;
-}
-var getDevModeChecksExecutionInfo = (firstRun, devModeChecks) => {
-  const { identityFunctionCheck, inputStabilityCheck } = {
-    ...globalDevModeChecks,
-    ...devModeChecks
-  };
-  return {
-    identityFunctionCheck: {
-      shouldRun: identityFunctionCheck === "always" || identityFunctionCheck === "once" && firstRun,
-      run: runIdentityFunctionCheck
-    },
-    inputStabilityCheck: {
-      shouldRun: inputStabilityCheck === "always" || inputStabilityCheck === "once" && firstRun,
-      run: runInputStabilityCheck
-    }
-  };
-};
-
-// src/autotrackMemoize/autotracking.ts
-var $REVISION = 0;
-var CURRENT_TRACKER = null;
-var Cell = class {
-  revision = $REVISION;
-  _value;
-  _lastValue;
-  _isEqual = tripleEq;
-  constructor(initialValue, isEqual = tripleEq) {
-    this._value = this._lastValue = initialValue;
-    this._isEqual = isEqual;
-  }
-  // Whenever a storage value is read, it'll add itself to the current tracker if
-  // one exists, entangling its state with that cache.
-  get value() {
-    CURRENT_TRACKER?.add(this);
-    return this._value;
-  }
-  // Whenever a storage value is updated, we bump the global revision clock,
-  // assign the revision for this storage to the new value, _and_ we schedule a
-  // rerender. This is important, and it's what makes autotracking  _pull_
-  // based. We don't actively tell the caches which depend on the storage that
-  // anything has happened. Instead, we recompute the caches when needed.
-  set value(newValue) {
-    if (this.value === newValue) return;
-    this._value = newValue;
-    this.revision = ++$REVISION;
-  }
-};
-function tripleEq(a, b) {
-  return a === b;
-}
-var TrackingCache = class {
-  _cachedValue;
-  _cachedRevision = -1;
-  _deps = [];
-  hits = 0;
-  fn;
-  constructor(fn) {
-    this.fn = fn;
-  }
-  clear() {
-    this._cachedValue = void 0;
-    this._cachedRevision = -1;
-    this._deps = [];
-    this.hits = 0;
-  }
-  get value() {
-    if (this.revision > this._cachedRevision) {
-      const { fn } = this;
-      const currentTracker = /* @__PURE__ */ new Set();
-      const prevTracker = CURRENT_TRACKER;
-      CURRENT_TRACKER = currentTracker;
-      this._cachedValue = fn();
-      CURRENT_TRACKER = prevTracker;
-      this.hits++;
-      this._deps = Array.from(currentTracker);
-      this._cachedRevision = this.revision;
-    }
-    CURRENT_TRACKER?.add(this);
-    return this._cachedValue;
-  }
-  get revision() {
-    return Math.max(...this._deps.map((d) => d.revision), 0);
-  }
-};
-function getValue(cell) {
-  if (!(cell instanceof Cell)) {
-    console.warn("Not a valid cell! ", cell);
-  }
-  return cell.value;
-}
-function setValue(storage, value) {
-  if (!(storage instanceof Cell)) {
-    throw new TypeError(
-      "setValue must be passed a tracked store created with `createStorage`."
-    );
-  }
-  storage.value = storage._lastValue = value;
-}
-function createCell(initialValue, isEqual = tripleEq) {
-  return new Cell(initialValue, isEqual);
-}
-function createCache(fn) {
-  assertIsFunction(
-    fn,
-    "the first parameter to `createCache` must be a function"
-  );
-  return new TrackingCache(fn);
-}
-
-// src/autotrackMemoize/tracking.ts
-var neverEq = (a, b) => false;
-function createTag() {
-  return createCell(null, neverEq);
-}
-function dirtyTag(tag, value) {
-  setValue(tag, value);
-}
-var consumeCollection = (node) => {
-  let tag = node.collectionTag;
-  if (tag === null) {
-    tag = node.collectionTag = createTag();
-  }
-  getValue(tag);
-};
-var dirtyCollection = (node) => {
-  const tag = node.collectionTag;
-  if (tag !== null) {
-    dirtyTag(tag, null);
-  }
-};
-
-// src/autotrackMemoize/proxy.ts
-var nextId = 0;
-var proto = /* @__PURE__ */ Object.getPrototypeOf({});
-var ObjectTreeNode = class {
-  constructor(value) {
-    this.value = value;
-    this.value = value;
-    this.tag.value = value;
-  }
-  proxy = new Proxy(this, objectProxyHandler);
-  tag = createTag();
-  tags = {};
-  children = {};
-  collectionTag = null;
-  id = nextId++;
-};
-var objectProxyHandler = {
-  get(node, key) {
-    function calculateResult() {
-      const { value } = node;
-      const childValue = Reflect.get(value, key);
-      if (typeof key === "symbol") {
-        return childValue;
-      }
-      if (key in proto) {
-        return childValue;
-      }
-      if (typeof childValue === "object" && childValue !== null) {
-        let childNode = node.children[key];
-        if (childNode === void 0) {
-          childNode = node.children[key] = createNode(childValue);
-        }
-        if (childNode.tag) {
-          getValue(childNode.tag);
-        }
-        return childNode.proxy;
-      } else {
-        let tag = node.tags[key];
-        if (tag === void 0) {
-          tag = node.tags[key] = createTag();
-          tag.value = childValue;
-        }
-        getValue(tag);
-        return childValue;
-      }
-    }
-    const res = calculateResult();
-    return res;
-  },
-  ownKeys(node) {
-    consumeCollection(node);
-    return Reflect.ownKeys(node.value);
-  },
-  getOwnPropertyDescriptor(node, prop) {
-    return Reflect.getOwnPropertyDescriptor(node.value, prop);
-  },
-  has(node, prop) {
-    return Reflect.has(node.value, prop);
-  }
-};
-var ArrayTreeNode = class {
-  constructor(value) {
-    this.value = value;
-    this.value = value;
-    this.tag.value = value;
-  }
-  proxy = new Proxy([this], arrayProxyHandler);
-  tag = createTag();
-  tags = {};
-  children = {};
-  collectionTag = null;
-  id = nextId++;
-};
-var arrayProxyHandler = {
-  get([node], key) {
-    if (key === "length") {
-      consumeCollection(node);
-    }
-    return objectProxyHandler.get(node, key);
-  },
-  ownKeys([node]) {
-    return objectProxyHandler.ownKeys(node);
-  },
-  getOwnPropertyDescriptor([node], prop) {
-    return objectProxyHandler.getOwnPropertyDescriptor(node, prop);
-  },
-  has([node], prop) {
-    return objectProxyHandler.has(node, prop);
-  }
-};
-function createNode(value) {
-  if (Array.isArray(value)) {
-    return new ArrayTreeNode(value);
-  }
-  return new ObjectTreeNode(value);
-}
-function updateNode(node, newValue) {
-  const { value, tags, children } = node;
-  node.value = newValue;
-  if (Array.isArray(value) && Array.isArray(newValue) && value.length !== newValue.length) {
-    dirtyCollection(node);
-  } else {
-    if (value !== newValue) {
-      let oldKeysSize = 0;
-      let newKeysSize = 0;
-      let anyKeysAdded = false;
-      for (const _key in value) {
-        oldKeysSize++;
-      }
-      for (const key in newValue) {
-        newKeysSize++;
-        if (!(key in value)) {
-          anyKeysAdded = true;
-          break;
-        }
-      }
-      const isDifferent = anyKeysAdded || oldKeysSize !== newKeysSize;
-      if (isDifferent) {
-        dirtyCollection(node);
-      }
-    }
-  }
-  for (const key in tags) {
-    const childValue = value[key];
-    const newChildValue = newValue[key];
-    if (childValue !== newChildValue) {
-      dirtyCollection(node);
-      dirtyTag(tags[key], newChildValue);
-    }
-    if (typeof newChildValue === "object" && newChildValue !== null) {
-      delete tags[key];
-    }
-  }
-  for (const key in children) {
-    const childNode = children[key];
-    const newChildValue = newValue[key];
-    const childValue = childNode.value;
-    if (childValue === newChildValue) {
-      continue;
-    } else if (typeof newChildValue === "object" && newChildValue !== null) {
-      updateNode(childNode, newChildValue);
-    } else {
-      deleteNode(childNode);
-      delete children[key];
-    }
-  }
-}
-function deleteNode(node) {
-  if (node.tag) {
-    dirtyTag(node.tag, null);
-  }
-  dirtyCollection(node);
-  for (const key in node.tags) {
-    dirtyTag(node.tags[key], null);
-  }
-  for (const key in node.children) {
-    deleteNode(node.children[key]);
-  }
-}
-
-// src/lruMemoize.ts
-function createSingletonCache(equals) {
-  let entry;
-  return {
-    get(key) {
-      if (entry && equals(entry.key, key)) {
-        return entry.value;
-      }
-      return NOT_FOUND;
-    },
-    put(key, value) {
-      entry = { key, value };
-    },
-    getEntries() {
-      return entry ? [entry] : [];
-    },
-    clear() {
-      entry = void 0;
-    }
-  };
-}
-function createLruCache(maxSize, equals) {
-  let entries = [];
-  function get(key) {
-    const cacheIndex = entries.findIndex((entry) => equals(key, entry.key));
-    if (cacheIndex > -1) {
-      const entry = entries[cacheIndex];
-      if (cacheIndex > 0) {
-        entries.splice(cacheIndex, 1);
-        entries.unshift(entry);
-      }
-      return entry.value;
-    }
-    return NOT_FOUND;
-  }
-  function put(key, value) {
-    if (get(key) === NOT_FOUND) {
-      entries.unshift({ key, value });
-      if (entries.length > maxSize) {
-        entries.pop();
-      }
-    }
-  }
-  function getEntries() {
-    return entries;
-  }
-  function clear() {
-    entries = [];
-  }
-  return { get, put, getEntries, clear };
-}
-var referenceEqualityCheck = (a, b) => a === b;
-function createCacheKeyComparator(equalityCheck) {
-  return function areArgumentsShallowlyEqual(prev, next) {
-    if (prev === null || next === null || prev.length !== next.length) {
-      return false;
-    }
-    const { length } = prev;
-    for (let i = 0; i < length; i++) {
-      if (!equalityCheck(prev[i], next[i])) {
-        return false;
-      }
-    }
-    return true;
-  };
-}
-function lruMemoize(func, equalityCheckOrOptions) {
-  const providedOptions = typeof equalityCheckOrOptions === "object" ? equalityCheckOrOptions : { equalityCheck: equalityCheckOrOptions };
-  const {
-    equalityCheck = referenceEqualityCheck,
-    maxSize = 1,
-    resultEqualityCheck
-  } = providedOptions;
-  const comparator = createCacheKeyComparator(equalityCheck);
-  let resultsCount = 0;
-  const cache = maxSize <= 1 ? createSingletonCache(comparator) : createLruCache(maxSize, comparator);
-  function memoized() {
-    let value = cache.get(arguments);
-    if (value === NOT_FOUND) {
-      value = func.apply(null, arguments);
-      resultsCount++;
-      if (resultEqualityCheck) {
-        const entries = cache.getEntries();
-        const matchingEntry = entries.find(
-          (entry) => resultEqualityCheck(entry.value, value)
-        );
-        if (matchingEntry) {
-          value = matchingEntry.value;
-          resultsCount !== 0 && resultsCount--;
-        }
-      }
-      cache.put(arguments, value);
-    }
-    return value;
-  }
-  memoized.clearCache = () => {
-    cache.clear();
-    memoized.resetResultsCount();
-  };
-  memoized.resultsCount = () => resultsCount;
-  memoized.resetResultsCount = () => {
-    resultsCount = 0;
-  };
-  return memoized;
-}
-
-// src/autotrackMemoize/autotrackMemoize.ts
-function autotrackMemoize(func) {
-  const node = createNode(
-    []
-  );
-  let lastArgs = null;
-  const shallowEqual = createCacheKeyComparator(referenceEqualityCheck);
-  const cache = createCache(() => {
-    const res = func.apply(null, node.proxy);
-    return res;
-  });
-  function memoized() {
-    if (!shallowEqual(lastArgs, arguments)) {
-      updateNode(node, arguments);
-      lastArgs = arguments;
-    }
-    return cache.value;
-  }
-  memoized.clearCache = () => {
-    return cache.clear();
-  };
-  return memoized;
-}
-
-// src/weakMapMemoize.ts
-var StrongRef = class {
-  constructor(value) {
-    this.value = value;
-  }
-  deref() {
-    return this.value;
-  }
-};
-var getWeakRef = () => typeof WeakRef === "undefined" ? StrongRef : WeakRef;
-var Ref = /* @__PURE__ */ getWeakRef();
-var UNTERMINATED = 0;
-var TERMINATED = 1;
-function createCacheNode() {
-  return {
-    s: UNTERMINATED,
-    v: void 0,
-    o: null,
-    p: null
-  };
-}
-function maybeDeref(r) {
-  if (r instanceof Ref) {
-    return r.deref();
-  }
-  return r;
-}
-function weakMapMemoize(func, options = {}) {
-  let fnNode = createCacheNode();
-  const { resultEqualityCheck } = options;
-  let lastResult;
-  let resultsCount = 0;
-  function memoized() {
-    let cacheNode = fnNode;
-    const { length } = arguments;
-    for (let i = 0, l = length; i < l; i++) {
-      const arg = arguments[i];
-      if (typeof arg === "function" || typeof arg === "object" && arg !== null) {
-        let objectCache = cacheNode.o;
-        if (objectCache === null) {
-          cacheNode.o = objectCache = /* @__PURE__ */ new WeakMap();
-        }
-        const objectNode = objectCache.get(arg);
-        if (objectNode === void 0) {
-          cacheNode = createCacheNode();
-          objectCache.set(arg, cacheNode);
-        } else {
-          cacheNode = objectNode;
-        }
-      } else {
-        let primitiveCache = cacheNode.p;
-        if (primitiveCache === null) {
-          cacheNode.p = primitiveCache = /* @__PURE__ */ new Map();
-        }
-        const primitiveNode = primitiveCache.get(arg);
-        if (primitiveNode === void 0) {
-          cacheNode = createCacheNode();
-          primitiveCache.set(arg, cacheNode);
-        } else {
-          cacheNode = primitiveNode;
-        }
-      }
-    }
-    const terminatedNode = cacheNode;
-    let result;
-    if (cacheNode.s === TERMINATED) {
-      result = cacheNode.v;
-    } else {
-      result = func.apply(null, arguments);
-      resultsCount++;
-      if (resultEqualityCheck) {
-        const lastResultValue = maybeDeref(lastResult);
-        if (lastResultValue != null && resultEqualityCheck(lastResultValue, result)) {
-          result = lastResultValue;
-          resultsCount !== 0 && resultsCount--;
-        }
-        const needsWeakRef = typeof result === "object" && result !== null || typeof result === "function";
-        lastResult = needsWeakRef ? /* @__PURE__ */ new Ref(result) : result;
-      }
-    }
-    terminatedNode.s = TERMINATED;
-    terminatedNode.v = result;
-    return result;
-  }
-  memoized.clearCache = () => {
-    fnNode = createCacheNode();
-    memoized.resetResultsCount();
-  };
-  memoized.resultsCount = () => resultsCount;
-  memoized.resetResultsCount = () => {
-    resultsCount = 0;
-  };
-  return memoized;
 }
 
 // src/createSelectorCreator.ts
@@ -62875,27 +62228,35 @@ function createSelectorCreator(memoizeOrOptions, ...memoizeOptionsFromArgs) {
     let firstRun = true;
     const selector = argsMemoize(function dependenciesChecker() {
       dependencyRecomputations++;
-      const inputSelectorResults = collectInputSelectorResults(
-        dependencies,
-        arguments
-      );
+      const { length } = dependencies;
+      const inputSelectorResults = new Array(length);
+      for (let i = 0; i < length; i++) {
+        inputSelectorResults[i] = dependencies[i].apply(null, arguments);
+      }
       lastResult = memoizedResultFunc.apply(null, inputSelectorResults);
       if (true) {
-        const { devModeChecks = {} } = combinedOptions;
-        const { identityFunctionCheck, inputStabilityCheck } = getDevModeChecksExecutionInfo(firstRun, devModeChecks);
-        if (identityFunctionCheck.shouldRun) {
-          identityFunctionCheck.run(
+        const { devModeChecks } = combinedOptions;
+        const identityFunctionCheck = devModeChecks !== void 0 && Object.prototype.hasOwnProperty.call(
+          devModeChecks,
+          "identityFunctionCheck"
+        ) ? devModeChecks.identityFunctionCheck : globalDevModeChecks.identityFunctionCheck;
+        const inputStabilityCheck = devModeChecks !== void 0 && Object.prototype.hasOwnProperty.call(
+          devModeChecks,
+          "inputStabilityCheck"
+        ) ? devModeChecks.inputStabilityCheck : globalDevModeChecks.inputStabilityCheck;
+        if (identityFunctionCheck === "always" || identityFunctionCheck === "once" && firstRun) {
+          runIdentityFunctionCheck(
             resultFunc,
             inputSelectorResults,
             lastResult
           );
         }
-        if (inputStabilityCheck.shouldRun) {
+        if (inputStabilityCheck === "always" || inputStabilityCheck === "once" && firstRun) {
           const inputSelectorResultsCopy = collectInputSelectorResults(
             dependencies,
             arguments
           );
-          inputStabilityCheck.run(
+          runInputStabilityCheck(
             { inputSelectorResults, inputSelectorResultsCopy },
             { memoize, memoizeOptions: finalMemoizeOptions },
             arguments
@@ -62953,6 +62314,119 @@ var createStructuredSelector = /* @__PURE__ */ Object.assign(
   },
   { withTypes: () => createStructuredSelector }
 );
+
+// src/lruMemoize.ts
+function createSingletonCache(equals) {
+  let entry;
+  return {
+    get(key) {
+      if (entry && equals(entry.key, key)) {
+        return entry.value;
+      }
+      return NOT_FOUND;
+    },
+    put(key, value) {
+      entry = { key, value };
+    },
+    findMatchingEntry(value, resultEqualityCheck) {
+      const current = entry;
+      return current !== void 0 && resultEqualityCheck(current.value, value) ? current : void 0;
+    },
+    clear() {
+      entry = void 0;
+    }
+  };
+}
+function createLruCache(maxSize, equals) {
+  let entries = [];
+  function get(key) {
+    const cacheIndex = entries.findIndex((entry) => equals(entry.key, key));
+    if (cacheIndex > -1) {
+      const entry = entries[cacheIndex];
+      if (cacheIndex > 0) {
+        entries.splice(cacheIndex, 1);
+        entries.unshift(entry);
+      }
+      return entry.value;
+    }
+    return NOT_FOUND;
+  }
+  function put(key, value) {
+    entries.unshift({ key, value });
+    if (entries.length > maxSize) {
+      entries.pop();
+    }
+  }
+  function findMatchingEntry(value, resultEqualityCheck) {
+    const currentEntries = entries;
+    const { length } = currentEntries;
+    for (let i = 0; i < length; i++) {
+      const entry = currentEntries[i];
+      if (resultEqualityCheck(entry.value, value)) {
+        return entry;
+      }
+    }
+    return void 0;
+  }
+  function clear() {
+    entries = [];
+  }
+  return { get, put, findMatchingEntry, clear };
+}
+var referenceEqualityCheck = (a, b) => a === b;
+function createCacheKeyComparator(equalityCheck) {
+  return function areArgumentsShallowlyEqual(prev, next) {
+    if (prev === null || next === null || prev.length !== next.length) {
+      return false;
+    }
+    const { length } = prev;
+    for (let i = 0; i < length; i++) {
+      if (!equalityCheck(prev[i], next[i])) {
+        return false;
+      }
+    }
+    return true;
+  };
+}
+function lruMemoize(func, equalityCheckOrOptions) {
+  const providedOptions = typeof equalityCheckOrOptions === "object" ? equalityCheckOrOptions : { equalityCheck: equalityCheckOrOptions };
+  const {
+    equalityCheck = referenceEqualityCheck,
+    maxSize = 1,
+    resultEqualityCheck
+  } = providedOptions;
+  const comparator = createCacheKeyComparator(equalityCheck);
+  let resultsCount = 0;
+  const cache = maxSize <= 1 ? createSingletonCache(comparator) : createLruCache(maxSize, comparator);
+  function memoized() {
+    let value = cache.get(arguments);
+    if (value === NOT_FOUND) {
+      value = func.apply(null, arguments);
+      resultsCount++;
+      if (resultEqualityCheck) {
+        const matchingEntry = cache.findMatchingEntry(
+          value,
+          resultEqualityCheck
+        );
+        if (matchingEntry) {
+          value = matchingEntry.value;
+          resultsCount !== 0 && resultsCount--;
+        }
+      }
+      cache.put(arguments, value);
+    }
+    return value;
+  }
+  memoized.clearCache = () => {
+    cache.clear();
+    memoized.resetResultsCount();
+  };
+  memoized.resultsCount = () => resultsCount;
+  memoized.resetResultsCount = () => {
+    resultsCount = 0;
+  };
+  return memoized;
+}
 
 //# sourceMappingURL=reselect.mjs.map
 
@@ -66541,7 +66015,7 @@ var getProto = __webpack_require__(/*! get-proto */ "./node_modules/get-proto/in
 var $toString = callBound('Object.prototype.toString');
 var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "./node_modules/has-tostringtag/shams.js")();
 
-var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
+var g = typeof globalThis === 'undefined' ? globalThis : globalThis;
 var typedArrays = availableTypedArrays();
 
 var $slice = callBound('String.prototype.slice');
@@ -66587,7 +66061,7 @@ if (hasToStringTag && gOPD && getProto) {
 		var arr = new g[typedArray]();
 		var fn = arr.slice || arr.set;
 		if (fn) {
-			var bound = /** @type {BoundSlice | BoundSet} */ (
+			var bound = /** @type {typeof BoundSlice | typeof BoundSet} */ (
 				// @ts-expect-error TODO FIXME
 				callBind(fn)
 			);
@@ -66642,11 +66116,8 @@ function isTATag(tag) {
 	return $indexOf(typedArrays, tag) > -1;
 }
 
-/**
- * @type {import('.')}
- * @param {unknown} value
- */
-module.exports = function whichTypedArray(value) {
+/** @type {(value: unknown) => ReturnType<typeof import('.')>} */
+function whichTypedArray(value) {
 	if (!value || typeof value !== 'object') {
 		return false;
 	}
@@ -66663,7 +66134,9 @@ module.exports = function whichTypedArray(value) {
 	}
 	if (!gOPD) { return null; } // unknown engine
 	return tryTypedArrays(value);
-};
+}
+
+module.exports = whichTypedArray;
 
 
 /***/ },
@@ -66679,7 +66152,7 @@ module.exports = function whichTypedArray(value) {
 
 var possibleNames = __webpack_require__(/*! possible-typed-array-names */ "./node_modules/possible-typed-array-names/index.js");
 
-var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
+var g = typeof globalThis === 'undefined' ? globalThis : globalThis;
 
 /** @type {import('.')} */
 module.exports = function availableTypedArrays() {
@@ -72399,96 +71872,53 @@ function combine (array, callback) {
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			const getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = (module) => {
+/******/ 		const getter = module && module.__esModule ?
+/******/ 			() => (module['default']) :
+/******/ 			() => (module);
+/******/ 		__webpack_require__.d(getter, { a: getter });
+/******/ 		return getter;
+/******/ 	};
 /******/ 	
 /******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter/value functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			if(Array.isArray(definition)) {
-/******/ 				var i = 0;
-/******/ 				while(i < definition.length) {
-/******/ 					var key = definition[i++];
-/******/ 					var binding = definition[i++];
-/******/ 					if(!__webpack_require__.o(exports, key)) {
-/******/ 						if(binding === 0) {
-/******/ 							Object.defineProperty(exports, key, { enumerable: true, value: definition[i++] });
-/******/ 						} else {
-/******/ 							Object.defineProperty(exports, key, { enumerable: true, get: binding });
-/******/ 						}
-/******/ 					} else if(binding === 0) { i++; }
-/******/ 				}
-/******/ 			} else {
-/******/ 				for(var key in definition) {
-/******/ 					if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 						Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 					}
-/******/ 				}
+/******/ 	// define getter/value functions for harmony exports
+/******/ 	__webpack_require__.d = (exports, definition) => {
+/******/ 		for(var key in definition) {
+/******/ 			if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 				Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/global */
-/******/ 	(() => {
-/******/ 		__webpack_require__.g = (function() {
-/******/ 			if (typeof globalThis === 'object') return globalThis;
-/******/ 			try {
-/******/ 				return this || new Function('return this')();
-/******/ 			} catch (e) {
-/******/ 				if (typeof window === 'object') return window;
-/******/ 			}
-/******/ 		})();
-/******/ 	})();
+/******/ 		}
+/******/ 	};
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
+/******/ 	__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop));
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = (exports) => {
+/******/ 		Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
 /******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
-/******/ 	(() => {
-/******/ 		__webpack_require__.nmd = (module) => {
-/******/ 			module.paths = [];
-/******/ 			if (!module.children) module.children = [];
-/******/ 			return module;
-/******/ 		};
-/******/ 	})();
+/******/ 	__webpack_require__.nmd = (module) => {
+/******/ 		module.paths = [];
+/******/ 		if (!module.children) module.children = [];
+/******/ 		return module;
+/******/ 	};
 /******/ 	
 /******/ 	/* webpack/runtime/set anonymous default export name */
-/******/ 	(() => {
-/******/ 		// set .name for anonymous default exports per ES spec
-/******/ 		// skipped when the property is non-configurable (pre-ES2015 engines),
-/******/ 		// where Object.defineProperty would throw
-/******/ 		__webpack_require__.dn = (x) => {
-/******/ 			var descriptor = Object.getOwnPropertyDescriptor(x, "name");
-/******/ 			if (!descriptor || (!descriptor.writable && descriptor.configurable)) Object.defineProperty(x, "name", { value: "default", configurable: true });
-/******/ 		};
-/******/ 	})();
+/******/ 	// set .name for anonymous default exports per ES spec
+/******/ 	// skipped when the property is non-configurable (pre-ES2015 engines),
+/******/ 	// where Object.defineProperty would throw
+/******/ 	__webpack_require__.dn = (x) => {
+/******/ 		var descriptor = Object.getOwnPropertyDescriptor(x, "name");
+/******/ 		if (!descriptor || (!descriptor.writable && descriptor.configurable)) Object.defineProperty(x, "name", { value: "default", configurable: true });
+/******/ 	};
 /******/ 	
 /******/ 	/* webpack/runtime/nonce */
-/******/ 	(() => {
-/******/ 		__webpack_require__.nc = undefined;
-/******/ 	})();
+/******/ 	__webpack_require__.nc = undefined;
 /******/ 	
 /************************************************************************/
 let __webpack_exports__ = {};

@@ -3951,11 +3951,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
-const isReactNative = typeof __webpack_require__.g !== 'undefined' &&
+const isReactNative = typeof globalThis !== 'undefined' &&
 // @ts-ignore
-__webpack_require__.g.navigator &&
+globalThis.navigator &&
 // @ts-ignore
-__webpack_require__.g.navigator.product === 'ReactNative';
+globalThis.navigator.product === 'ReactNative';
 const isDOM = typeof document !== 'undefined';
 
 /**
@@ -5330,13 +5330,14 @@ __exportStar(__webpack_require__(/*! ./DiscussionKind */ "./node_modules/@ueu/ue
 /*!**********************************************************************!*\
   !*** ./node_modules/@ueu/ueu-canvas/dist/content/getContentFuncs.js ***!
   \**********************************************************************/
-(__unused_webpack_module, exports) {
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getFileLinks = getFileLinks;
 exports.getExternalLinks = getExternalLinks;
+const instance_1 = __webpack_require__(/*! ../instance */ "./node_modules/@ueu/ueu-canvas/dist/instance.js");
 function getAllLinks(body) {
     const el = bodyAsElement(body);
     const anchors = el.querySelectorAll('a');
@@ -5354,8 +5355,7 @@ function getFileLinks(body, courseId) {
     return getAllLinks(body).filter(a => a.match(/instructure\.com.*files\/\d+/i)).map(a => a.split('?')[0]);
 }
 function getExternalLinks(body, courseId) {
-    // Correct regex to exclude unity.instructure.com links properly
-    return getAllLinks(body).filter(a => !a.match(/:\/\/unity\.instructure\.com\//i));
+    return getAllLinks(body).filter(a => !(0, instance_1.isCanvasUrl)(a));
 }
 //# sourceMappingURL=getContentFuncs.js.map
 
@@ -5882,19 +5882,21 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
     async getStartDateFromModules() {
         return (0, changeStartDate_1.getModuleUnlockStartDate)(await this.getModules());
     }
+    getCourseNumber() {
+        const match = this.courseCode?.match(/\d{3,4}/);
+        return match ? parseInt(match[0], 10) : null;
+    }
     isUndergrad() {
         if (this.courseCode?.toLowerCase().includes('dev_ug'))
             return true;
-        const match = this.courseCode?.match(/\d{3,4}/);
-        const codeNum = match ? parseInt(match[0], 10) : 0;
-        return codeNum < 500;
+        const codeNum = this.getCourseNumber();
+        return codeNum != null && codeNum < 500;
     }
     isGrad() {
         if (this.courseCode?.toLowerCase().includes('dev_grad'))
             return true;
-        const match = this.courseCode?.match(/\d{3,4}/);
-        const codeNum = match ? parseInt(match[0], 10) : 0;
-        return codeNum >= 500 && codeNum < 1000;
+        const codeNum = this.getCourseNumber();
+        return codeNum != null && codeNum >= 500 && codeNum < 1000;
     }
     isCareerInstitute() {
         return /\d{4}/.test(this.courseCode || "");
@@ -7153,7 +7155,25 @@ exports["default"] = apiWriteConfig;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FetchJsonError = void 0;
 exports.fetchJson = fetchJson;
+// Error type returned when a fetchJson request fails (non-2xx response).
+class FetchJsonError extends Error {
+    name = "FetchJsonError";
+    status;
+    statusText;
+    body;
+    constructor(status, statusText, body) {
+        const message = body
+            ? `Request failed with ${status} ${statusText}: ${JSON.stringify(body)}`
+            : `Request failed with ${status} ${statusText}`;
+        super(message);
+        this.status = status;
+        this.statusText = statusText;
+        this.body = body;
+    }
+}
+exports.FetchJsonError = FetchJsonError;
 async function fetchJson(url, config = null) {
     const match = url.search(/^(\/|\w+:\/\/)/);
     if (match < 0)
@@ -7163,6 +7183,17 @@ async function fetchJson(url, config = null) {
     }
     config ??= {};
     const response = await fetch(url, config.fetchInit);
+    if (!response.ok) {
+        console.error("Request failed - ", response.status, response.statusText, response.body);
+        let errorBody;
+        try {
+            errorBody = await response.json();
+        }
+        catch {
+            errorBody = undefined;
+        }
+        throw new FetchJsonError(response.status, response.statusText, errorBody);
+    }
     const responseJson = await response.json();
     if (!responseJson)
         throw new Error("Could not fetch json");
@@ -7349,6 +7380,78 @@ function fetchGetConfig(options, baseConfig) {
     });
 }
 //# sourceMappingURL=utils.js.map
+
+/***/ },
+
+/***/ "./node_modules/@ueu/ueu-canvas/dist/instance.js"
+/*!*******************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/instance.js ***!
+  \*******************************************************/
+(__unused_webpack_module, exports) {
+
+"use strict";
+
+/**
+ * Canvas instance configuration. Every hardcoded URL, account ID, and
+ * template course ID lives here. The default matches Unity's production
+ * Canvas instance; a second instance overrides what it needs.
+ *
+ * The active instance is set once at startup (setInstance) and read
+ * everywhere else (getInstance). This avoids threading config through
+ * every function signature while keeping it swappable.
+ */
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getInstance = getInstance;
+exports.setInstance = setInstance;
+exports.resetInstance = resetInstance;
+exports.isCanvasUrl = isCanvasUrl;
+exports.canvasUrl = canvasUrl;
+const UNITY_DEFAULTS = {
+    baseUrl: "https://unity.instructure.com",
+    hostname: "unity.instructure.com",
+    templateCourseId: 3850558,
+    referencesPageSlug: "learning-materials-reference-page",
+    externalApis: {
+        citeas: "https://api.citeas.org/product",
+    },
+};
+let active = { ...UNITY_DEFAULTS };
+function getInstance() {
+    return active;
+}
+function setInstance(config) {
+    active = { ...UNITY_DEFAULTS, ...config };
+    if (config.baseUrl && !config.hostname) {
+        try {
+            active.hostname = new URL(config.baseUrl).hostname;
+        }
+        catch {
+            // keep the default if baseUrl is unparseable
+        }
+    }
+}
+function resetInstance() {
+    active = { ...UNITY_DEFAULTS };
+}
+/** Check whether a URL belongs to the active Canvas instance. */
+function isCanvasUrl(url) {
+    try {
+        return new URL(url).hostname === active.hostname;
+    }
+    catch {
+        return url.includes(active.hostname);
+    }
+}
+/**
+ * Build an absolute Canvas URL from a relative path.
+ * If already absolute, returns as-is.
+ */
+function canvasUrl(path) {
+    if (path.startsWith("http://") || path.startsWith("https://"))
+        return path;
+    return `${active.baseUrl}${path.startsWith("/") ? "" : "/"}${path}`;
+}
+//# sourceMappingURL=instance.js.map
 
 /***/ },
 
@@ -94296,7 +94399,7 @@ var getProto = __webpack_require__(/*! get-proto */ "./node_modules/get-proto/in
 var $toString = callBound('Object.prototype.toString');
 var hasToStringTag = __webpack_require__(/*! has-tostringtag/shams */ "./node_modules/has-tostringtag/shams.js")();
 
-var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
+var g = typeof globalThis === 'undefined' ? globalThis : globalThis;
 var typedArrays = availableTypedArrays();
 
 var $slice = callBound('String.prototype.slice');
@@ -94342,7 +94445,7 @@ if (hasToStringTag && gOPD && getProto) {
 		var arr = new g[typedArray]();
 		var fn = arr.slice || arr.set;
 		if (fn) {
-			var bound = /** @type {BoundSlice | BoundSet} */ (
+			var bound = /** @type {typeof BoundSlice | typeof BoundSet} */ (
 				// @ts-expect-error TODO FIXME
 				callBind(fn)
 			);
@@ -94397,11 +94500,8 @@ function isTATag(tag) {
 	return $indexOf(typedArrays, tag) > -1;
 }
 
-/**
- * @type {import('.')}
- * @param {unknown} value
- */
-module.exports = function whichTypedArray(value) {
+/** @type {(value: unknown) => ReturnType<typeof import('.')>} */
+function whichTypedArray(value) {
 	if (!value || typeof value !== 'object') {
 		return false;
 	}
@@ -94418,7 +94518,9 @@ module.exports = function whichTypedArray(value) {
 	}
 	if (!gOPD) { return null; } // unknown engine
 	return tryTypedArrays(value);
-};
+}
+
+module.exports = whichTypedArray;
 
 
 /***/ },
@@ -94610,7 +94712,7 @@ module.exports = "data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%
 
 var possibleNames = __webpack_require__(/*! possible-typed-array-names */ "./node_modules/possible-typed-array-names/index.js");
 
-var g = typeof globalThis === 'undefined' ? __webpack_require__.g : globalThis;
+var g = typeof globalThis === 'undefined' ? globalThis : globalThis;
 
 /** @type {import('.')} */
 module.exports = function availableTypedArrays() {
@@ -98670,107 +98772,58 @@ function _setPrototypeOf(t, e) {
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = __webpack_modules__;
-/******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			const getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = (module) => {
+/******/ 		const getter = module && module.__esModule ?
+/******/ 			() => (module['default']) :
+/******/ 			() => (module);
+/******/ 		__webpack_require__.d(getter, { a: getter });
+/******/ 		return getter;
+/******/ 	};
 /******/ 	
 /******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter/value functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			if(Array.isArray(definition)) {
-/******/ 				var i = 0;
-/******/ 				while(i < definition.length) {
-/******/ 					var key = definition[i++];
-/******/ 					var binding = definition[i++];
-/******/ 					if(!__webpack_require__.o(exports, key)) {
-/******/ 						if(binding === 0) {
-/******/ 							Object.defineProperty(exports, key, { enumerable: true, value: definition[i++] });
-/******/ 						} else {
-/******/ 							Object.defineProperty(exports, key, { enumerable: true, get: binding });
-/******/ 						}
-/******/ 					} else if(binding === 0) { i++; }
-/******/ 				}
-/******/ 			} else {
-/******/ 				for(var key in definition) {
-/******/ 					if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 						Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 					}
-/******/ 				}
+/******/ 	// define getter/value functions for harmony exports
+/******/ 	__webpack_require__.d = (exports, definition) => {
+/******/ 		for(var key in definition) {
+/******/ 			if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 				Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/global */
-/******/ 	(() => {
-/******/ 		__webpack_require__.g = (function() {
-/******/ 			if (typeof globalThis === 'object') return globalThis;
-/******/ 			try {
-/******/ 				return this || new Function('return this')();
-/******/ 			} catch (e) {
-/******/ 				if (typeof window === 'object') return window;
-/******/ 			}
-/******/ 		})();
-/******/ 	})();
+/******/ 		}
+/******/ 	};
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
+/******/ 	__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop));
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
-/******/ 			if(Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = (exports) => {
+/******/ 		Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
 /******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
-/******/ 	(() => {
-/******/ 		__webpack_require__.nmd = (module) => {
-/******/ 			module.paths = [];
-/******/ 			if (!module.children) module.children = [];
-/******/ 			return module;
-/******/ 		};
-/******/ 	})();
+/******/ 	__webpack_require__.nmd = (module) => {
+/******/ 		module.paths = [];
+/******/ 		if (!module.children) module.children = [];
+/******/ 		return module;
+/******/ 	};
 /******/ 	
 /******/ 	/* webpack/runtime/set anonymous default export name */
-/******/ 	(() => {
-/******/ 		// set .name for anonymous default exports per ES spec
-/******/ 		// skipped when the property is non-configurable (pre-ES2015 engines),
-/******/ 		// where Object.defineProperty would throw
-/******/ 		__webpack_require__.dn = (x) => {
-/******/ 			var descriptor = Object.getOwnPropertyDescriptor(x, "name");
-/******/ 			if (!descriptor || (!descriptor.writable && descriptor.configurable)) Object.defineProperty(x, "name", { value: "default", configurable: true });
-/******/ 		};
-/******/ 	})();
+/******/ 	// set .name for anonymous default exports per ES spec
+/******/ 	// skipped when the property is non-configurable (pre-ES2015 engines),
+/******/ 	// where Object.defineProperty would throw
+/******/ 	__webpack_require__.dn = (x) => {
+/******/ 		var descriptor = Object.getOwnPropertyDescriptor(x, "name");
+/******/ 		if (!descriptor || (!descriptor.writable && descriptor.configurable)) Object.defineProperty(x, "name", { value: "default", configurable: true });
+/******/ 	};
 /******/ 	
 /******/ 	/* webpack/runtime/jsonp chunk loading */
 /******/ 	(() => {
 /******/ 		__webpack_require__.b = (typeof document !== 'undefined' && document.baseURI) || self.location.href;
 /******/ 		
-/******/ 		// object to store loaded and loading chunks
-/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
-/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-/******/ 		const installedChunks = {
-/******/ 			"js/speedGrader": 0
-/******/ 		};
+/******/ 		// no installed chunks
 /******/ 		
 /******/ 		// no chunk on demand loading
 /******/ 		
@@ -98788,9 +98841,7 @@ function _setPrototypeOf(t, e) {
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/nonce */
-/******/ 	(() => {
-/******/ 		__webpack_require__.nc = undefined;
-/******/ 	})();
+/******/ 	__webpack_require__.nc = undefined;
 /******/ 	
 /************************************************************************/
 let __webpack_exports__ = {};
