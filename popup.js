@@ -57000,6 +57000,76 @@ module.exports = styleTagTransform;
 
 /***/ },
 
+/***/ "./src/canvasInstances.ts"
+/*!********************************!*\
+  !*** ./src/canvasInstances.ts ***!
+  \********************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getInstanceFromOrigin: () => (/* binding */ getInstanceFromOrigin),
+/* harmony export */   getInstanceFromUrl: () => (/* binding */ getInstanceFromUrl),
+/* harmony export */   getInstances: () => (/* binding */ getInstances),
+/* harmony export */   saveInstances: () => (/* binding */ saveInstances)
+/* harmony export */ });
+const DEFAULT_INSTANCES = {
+    unity: {
+        name: "Unity",
+        origin: "https://unity.instructure.com",
+        accounts: [
+            { name: "Distance Education", id: 169877 },
+            { name: "Distance Education Development", id: 170329 },
+            { name: "Unity College", id: 98244 },
+        ],
+    },
+    careeredge: {
+        name: "Career Edge",
+        origin: "https://careeredge.instructure.com",
+        accounts: [
+            { name: "Root", id: 1 },
+            { name: "Career Edge", id: 136 },
+        ],
+    },
+};
+const STORAGE_KEY = "CANVAS_INSTANCES";
+async function getInstances() {
+    try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+            return JSON.parse(stored);
+        }
+    }
+    catch (e) {
+        console.warn("Failed to load Canvas instances from storage:", e);
+    }
+    return DEFAULT_INSTANCES;
+}
+async function saveInstances(instances) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(instances));
+}
+function getInstanceFromOrigin(origin, instances) {
+    for (const instance of Object.values(instances)) {
+        if (instance.origin === origin) {
+            return instance;
+        }
+    }
+    return null;
+}
+function getInstanceFromUrl(url, instances) {
+    try {
+        const urlObj = new URL(url);
+        return getInstanceFromOrigin(urlObj.origin, instances);
+    }
+    catch (_a) {
+        return null;
+    }
+}
+
+
+/***/ },
+
 /***/ "./src/consts.ts"
 /*!***********************!*\
   !*** ./src/consts.ts ***!
@@ -57041,6 +57111,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Form.js");
 /* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../consts */ "./src/consts.ts");
 /* harmony import */ var _ueu_ueu_canvas_instance__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ueu/ueu-canvas/instance */ "./node_modules/@ueu/ueu-canvas/dist/instance.js");
+/* harmony import */ var _canvasInstances__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../canvasInstances */ "./src/canvasInstances.ts");
+
 
 
 
@@ -57058,11 +57130,33 @@ function PopUpApp() {
 function CourseNavigation() {
     const [isDisabled, setIsDisabled] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [queryString, setQueryString] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    const [instances, setInstances] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({});
+    const [detectedInstance, setDetectedInstance] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    const [selectedInstanceKey, setSelectedInstanceKey] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(() => {
+        return localStorage.getItem("CANVAS_INSTANCE_KEY") || "";
+    });
     const [subAccount, setSubAccount] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(() => {
         const saved = localStorage.getItem(_consts__WEBPACK_IMPORTED_MODULE_8__.SUB_ACCOUNT);
-        return saved ? parseInt(saved, 10) : 169877;
+        return saved ? parseInt(saved, 10) : 0;
     });
     const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    const selectedInstance = selectedInstanceKey ? instances[selectedInstanceKey] : null;
+    const activeInstance = selectedInstance || detectedInstance;
+    const availableAccounts = (activeInstance === null || activeInstance === void 0 ? void 0 : activeInstance.accounts) || [];
+    (0,_ui_utils__WEBPACK_IMPORTED_MODULE_6__.useEffectAsync)(async () => {
+        const loadedInstances = await (0,_canvasInstances__WEBPACK_IMPORTED_MODULE_10__.getInstances)();
+        setInstances(loadedInstances);
+        try {
+            const [activeTab] = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_2__.tabs.query({ active: true, currentWindow: true });
+            if (activeTab === null || activeTab === void 0 ? void 0 : activeTab.url) {
+                const instance = (0,_canvasInstances__WEBPACK_IMPORTED_MODULE_10__.getInstanceFromUrl)(activeTab.url, loadedInstances);
+                setDetectedInstance(instance);
+            }
+        }
+        catch (e) {
+            console.warn("Unable to detect Canvas instance from active tab:", e);
+        }
+    }, []);
     async function submitQuery(queryString, subAccount) {
         setIsDisabled(true);
         if (!navigator.onLine) {
@@ -57070,7 +57164,7 @@ function CourseNavigation() {
             return;
         }
         const response = await webextension_polyfill__WEBPACK_IMPORTED_MODULE_2__.runtime.sendMessage({
-            searchForCourse: { queryString, subAccount },
+            searchForCourse: { queryString, subAccount, canvasOrigin: activeInstance === null || activeInstance === void 0 ? void 0 : activeInstance.origin },
         });
         console.log(response);
         setIsDisabled(false);
@@ -57081,6 +57175,7 @@ function CourseNavigation() {
     }
     return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col card-body search-box", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h1", { children: "Course Navigation" }), error && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "alert alert-warning", children: error }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", { onSubmit: async (e) => {
                     e.preventDefault();
+                    localStorage.setItem("CANVAS_INSTANCE_KEY", selectedInstanceKey);
                     localStorage.setItem(_consts__WEBPACK_IMPORTED_MODULE_8__.SUB_ACCOUNT, subAccount.toString());
                     setError(null);
                     if (!queryString) {
@@ -57092,10 +57187,14 @@ function CourseNavigation() {
                         return;
                     }
                     await submitQuery(queryString, subAccount);
-                }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { disabled: isDisabled, autoFocus: true, id: "search-box", type: "text", placeholder: "Enter search here", onChange: (e) => setQueryString(e.target.value) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { disabled: isDisabled, value: subAccount !== null && subAccount !== void 0 ? subAccount : "", onChange: (e) => {
+                }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "row", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { disabled: isDisabled, value: selectedInstanceKey, onChange: (e) => {
+                                const key = e.target.value;
+                                setSelectedInstanceKey(key);
+                                setSubAccount(0);
+                            }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "", children: "Pick Canvas instance" }), detectedInstance && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("optgroup", { label: "Detected", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("option", { value: Object.keys(instances).find((k) => instances[k] === detectedInstance) || "", children: ["\u2713 ", detectedInstance.name] }) })), Object.entries(instances).map(([key, instance]) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: key, children: instance.name }, key)))] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", { disabled: isDisabled, autoFocus: true, id: "search-box", type: "text", placeholder: "Enter search here", onChange: (e) => setQueryString(e.target.value) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", { disabled: isDisabled || availableAccounts.length === 0, value: subAccount !== null && subAccount !== void 0 ? subAccount : "", onChange: (e) => {
                                     const val = e.target.value;
                                     setSubAccount(parseInt(val, 10));
-                                }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "", children: "Pick account/subaccount" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "169877", children: "Distance Education" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "170329", children: "Distance Education Development" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "98244", children: "Unity College" })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { disabled: isDisabled, className: "btn", children: "Search" }) })] })] }));
+                                }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "", children: "Pick account/subaccount" }), availableAccounts.map((account) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: account.id, children: account.name }, account.id)))] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { disabled: isDisabled || !activeInstance, className: "btn", children: "Search" }) })] })] }));
 }
 function SalesforceNavigation() {
     const [isDisabled, setIsDisabled] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);

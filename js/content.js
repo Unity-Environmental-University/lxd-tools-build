@@ -14465,7 +14465,7 @@ __webpack_require__.r(__webpack_exports__);
 webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     if (message.hasOwnProperty("queryString")) {
         try {
-            await openTargetCourse(message.queryString, message.subAccount);
+            await openTargetCourse(message.queryString, message.subAccount, message.canvasOrigin);
             sendResponse({ success: true });
         }
         catch (e) {
@@ -14474,16 +14474,17 @@ webextension_polyfill__WEBPACK_IMPORTED_MODULE_0__.runtime.onMessage.addListener
     }
     return true;
 });
-async function openTargetCourse(queryString, subAccount) {
+async function openTargetCourse(queryString, subAccount, canvasOrigin) {
     console.log(queryString, subAccount);
     const params = queryString.split("|");
     const searchCode = params.length > 0 ? params[0] : null;
     let didOpen = false;
     if (!searchCode)
         throw new Error("No search code provided");
-    let queryUrl = `/api/v1/accounts/${subAccount}/courses?search_term=${searchCode}`;
+    const origin = canvasOrigin || new URL(document.documentURI).origin;
+    let queryUrl = `${origin}/api/v1/accounts/${subAccount}/courses?search_term=${searchCode}`;
     if (!new URL(document.documentURI).hostname.endsWith(".instructure.com")) {
-        queryUrl = (0,_ueu_ueu_canvas_instance__WEBPACK_IMPORTED_MODULE_3__.canvasUrl)(`/accounts/${subAccount}?search_term=${searchCode}`);
+        queryUrl = canvasOrigin ? `${canvasOrigin}/accounts/${subAccount}?search_term=${searchCode}` : (0,_ueu_ueu_canvas_instance__WEBPACK_IMPORTED_MODULE_3__.canvasUrl)(`/accounts/${subAccount}?search_term=${searchCode}`);
         window.open(queryUrl, "_blank");
         return;
     }
@@ -14544,7 +14545,10 @@ async function openTargetCourse(queryString, subAccount) {
         console.warn("In-page navigation failed:", e);
     }
     if (!didOpen) {
-        window.open((0,_ueu_ueu_canvas_instance__WEBPACK_IMPORTED_MODULE_3__.canvasUrl)(`/accounts/${subAccount}?search_term=${encodeURIComponent(queryString)}`), "_blank");
+        const fallbackUrl = canvasOrigin
+            ? `${canvasOrigin}/accounts/${subAccount}?search_term=${encodeURIComponent(queryString)}`
+            : (0,_ueu_ueu_canvas_instance__WEBPACK_IMPORTED_MODULE_3__.canvasUrl)(`/accounts/${subAccount}?search_term=${encodeURIComponent(queryString)}`);
+        window.open(fallbackUrl, "_blank");
     }
 }
 /**

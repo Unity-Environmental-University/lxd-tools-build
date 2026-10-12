@@ -45672,16 +45672,25 @@ __webpack_require__.r(__webpack_exports__);
 async function main() {
     const currentCourse = await _ueu_ueu_canvas_course_Course__WEBPACK_IMPORTED_MODULE_0__.Course.getFromUrl(document.documentURI);
     const CurrentContentClass = (0,_ueu_ueu_canvas_content_determineContent__WEBPACK_IMPORTED_MODULE_1__.getContentClassFromUrl)(document.documentURI);
-    let currentContentItem = await (CurrentContentClass === null || CurrentContentClass === void 0 ? void 0 : CurrentContentClass.getFromUrl());
-    if (!CurrentContentClass && /courses\/\d+/.test(document.URL))
+    let currentContentItem;
+    try {
+        currentContentItem = await (CurrentContentClass === null || CurrentContentClass === void 0 ? void 0 : CurrentContentClass.getFromUrl());
+    }
+    catch (e) {
+        console.log("error with getFromUrl(): ", e);
+    }
+    if (!CurrentContentClass && /courses\/\d+/.test(document.URL)) {
         currentContentItem = await (currentCourse === null || currentCourse === void 0 ? void 0 : currentCourse.getFrontPage());
+    }
     if (!currentCourse)
         return;
-    const header = document.querySelector('.right-of-crumbs');
+    const header = document.querySelector(".right-of-crumbs");
     if (!header)
         return;
     await (0,_ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__.addDevButton)(header, currentCourse);
-    const bp = currentCourse.isBlueprint() ? currentCourse : await (0,_ueu_ueu_canvas_course__WEBPACK_IMPORTED_MODULE_3__.getSingleCourse)('BP_' + currentCourse.baseCode, currentCourse.getAccountIds());
+    const bp = currentCourse.isBlueprint()
+        ? currentCourse
+        : await (0,_ueu_ueu_canvas_course__WEBPACK_IMPORTED_MODULE_3__.getSingleCourse)("BP_" + currentCourse.baseCode, currentCourse.getAccountIds());
     await (0,_ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__.addBpButton)(header, currentCourse, bp);
     if (bp) {
         await (0,_ui_course_addButtons__WEBPACK_IMPORTED_MODULE_2__.addSectionsButton)(header, bp, currentCourse);

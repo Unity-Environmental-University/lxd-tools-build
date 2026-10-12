@@ -12733,19 +12733,19 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.testRunning {
   background-color: #d5c76f;
-  color: #FFF;
+  color: #fff;
   content: "Running";
 }
 
 .testFailed {
   background-color: red;
-  color: #FFF;
+  color: #fff;
   content: "Failed";
 }
 
 .testSuccess {
   background-color: darkgreen;
-  color: #FFF;
+  color: #fff;
   content: "OK!";
 }
 
@@ -12760,7 +12760,16 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.testRunning {
 
 .test-row:nth-child(even) {
   background-color: #f0f0f0;
-}`, "",{"version":3,"sources":["webpack://./src/publish/fixesAndUpdates/CourseValidTest.scss"],"names":[],"mappings":"AAAA;EACE,yBAAA;EACA,WAAA;EACA,kBAAA;AACF;;AACA;EACE,qBAAA;EACA,WAAA;EACA,iBAAA;AAEF;;AAAA;EACE,2BAAA;EACA,WAAA;EACA,cAAA;AAGF;;AAAA;EACE,kBAAA;AAGF;;AAAA;EACE,gBAAA;EACA,gBAAA;AAGF;;AACA;EACE,yBAAA;AAEF","sourceRoot":""}]);
+}
+
+.test-row-running {
+  pointer-events: none;
+}
+
+.message-col {
+  max-height: 12em;
+  overflow-y: auto;
+}`, "",{"version":3,"sources":["webpack://./src/publish/fixesAndUpdates/CourseValidTest.scss"],"names":[],"mappings":"AAAA;EACE,yBAAA;EACA,WAAA;EACA,kBAAA;AACF;;AACA;EACE,qBAAA;EACA,WAAA;EACA,iBAAA;AAEF;;AAAA;EACE,2BAAA;EACA,WAAA;EACA,cAAA;AAGF;;AAAA;EACE,kBAAA;AAGF;;AAAA;EACE,gBAAA;EACA,gBAAA;AAGF;;AAAA;EACE,yBAAA;AAGF;;AAEA;EACE,oBAAA;AACF;;AAIA;EACE,gBAAA;EACA,gBAAA;AADF","sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -12792,7 +12801,12 @@ ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_node_modules_reac
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200);"]);
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.course-row:nth-child(odd) {
+___CSS_LOADER_EXPORT___.push([module.id, `.react-datepicker__input-container input.start-date-invalid {
+  border: 2px solid #dc3545;
+  outline: 2px solid rgba(220, 53, 69, 0.2);
+}
+
+.course-row:nth-child(odd) {
   background-color: #f0f0f0;
 }
 
@@ -12830,7 +12844,7 @@ a.course-link:after {
 #lxd-publish-interface .button-container, #lxd-import-interface .button-container {
   display: flex;
   flex-direction: row-reverse;
-}`, "",{"version":3,"sources":["webpack://./src/publish/publish.scss"],"names":[],"mappings":"AAGE;EACI,yBAAA;AACN;;AAEE;EACE,gBAAA;EACA,6BAAA;AACJ;;AAGI;EACE,gBAAA;EACA,cAAA;EACA,6BAAA;AAAN;AAGI;EACE,gBAAA;EACA,WAAA;EACA,6BAAA;AADN;AAII;EACE,gBAAA;EACA,cAAA;EACA,6BAAA;AAFN;AAKI;EACE,gBAAA;EACA,WAAA;EACA,6BAAA;AAHN;;AAWE;EACE,oBAAA;EACA,yBAAA;EACA,yBAAA;AARJ;AAUE;EACE,aAAA;EACA,2BAAA;AARJ","sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/publish/publish.scss"],"names":[],"mappings":"AAGA;EACI,yBAAA;EACA,yCAAA;AACJ;;AAEE;EACI,yBAAA;AACN;;AAEE;EACE,gBAAA;EACA,6BAAA;AACJ;;AAGI;EACE,gBAAA;EACA,cAAA;EACA,6BAAA;AAAN;AAGI;EACE,gBAAA;EACA,WAAA;EACA,6BAAA;AADN;AAII;EACE,gBAAA;EACA,cAAA;EACA,6BAAA;AAFN;AAKI;EACE,gBAAA;EACA,WAAA;EACA,6BAAA;AAHN;;AAWE;EACE,oBAAA;EACA,yBAAA;EACA,yBAAA;AARJ;AAUE;EACE,aAAA;EACA,2BAAA;AARJ","sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -15187,6 +15201,60 @@ function addDays(date, amount) {
 
 /***/ },
 
+/***/ "./node_modules/date-fns/addDays.mjs"
+/*!*******************************************!*\
+  !*** ./node_modules/date-fns/addDays.mjs ***!
+  \*******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   addDays: () => (/* binding */ addDays),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+/* harmony import */ var _constructFrom_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constructFrom.mjs */ "./node_modules/date-fns/constructFrom.mjs");
+
+
+
+/**
+ * @name addDays
+ * @category Day Helpers
+ * @summary Add the specified number of days to the given date.
+ *
+ * @description
+ * Add the specified number of days to the given date.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The date to be changed
+ * @param amount - The amount of days to be added.
+ *
+ * @returns The new date with the days added
+ *
+ * @example
+ * // Add 10 days to 1 September 2014:
+ * const result = addDays(new Date(2014, 8, 1), 10)
+ * //=> Thu Sep 11 2014 00:00:00
+ */
+function addDays(date, amount) {
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+  if (isNaN(amount)) return (0,_constructFrom_mjs__WEBPACK_IMPORTED_MODULE_1__.constructFrom)(date, NaN);
+  if (!amount) {
+    // If 0 days, no-op to avoid changing times in the hour before end of DST
+    return _date;
+  }
+  _date.setDate(_date.getDate() + amount);
+  return _date;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (addDays);
+
+
+/***/ },
+
 /***/ "./node_modules/date-fns/addHours.js"
 /*!*******************************************!*\
   !*** ./node_modules/date-fns/addHours.js ***!
@@ -16272,6 +16340,62 @@ function constructFrom(date, value) {
     return new Date(value);
   }
 }
+
+
+/***/ },
+
+/***/ "./node_modules/date-fns/constructFrom.mjs"
+/*!*************************************************!*\
+  !*** ./node_modules/date-fns/constructFrom.mjs ***!
+  \*************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   constructFrom: () => (/* binding */ constructFrom),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ * @name constructFrom
+ * @category Generic Helpers
+ * @summary Constructs a date using the reference date and the value
+ *
+ * @description
+ * The function constructs a new date using the constructor from the reference
+ * date and the given value. It helps to build generic functions that accept
+ * date extensions.
+ *
+ * It defaults to `Date` if the passed reference date is a number or a string.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The reference date to take constructor from
+ * @param value - The value to create the date
+ *
+ * @returns Date initialized using the given date and value
+ *
+ * @example
+ * import { constructFrom } from 'date-fns'
+ *
+ * // A function that clones a date preserving the original type
+ * function cloneDate<DateType extends Date(date: DateType): DateType {
+ *   return constructFrom(
+ *     date, // Use contrustor from the given date
+ *     date.getTime() // Use the date value to create a new date
+ *   )
+ * }
+ */
+function constructFrom(date, value) {
+  if (date instanceof Date) {
+    return new date.constructor(value);
+  } else {
+    return new Date(value);
+  }
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (constructFrom);
 
 
 /***/ },
@@ -34391,6 +34515,53 @@ function startOfDay(date) {
 
 /***/ },
 
+/***/ "./node_modules/date-fns/startOfDay.mjs"
+/*!**********************************************!*\
+  !*** ./node_modules/date-fns/startOfDay.mjs ***!
+  \**********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   startOfDay: () => (/* binding */ startOfDay)
+/* harmony export */ });
+/* harmony import */ var _toDate_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toDate.mjs */ "./node_modules/date-fns/toDate.mjs");
+
+
+/**
+ * @name startOfDay
+ * @category Day Helpers
+ * @summary Return the start of a day for the given date.
+ *
+ * @description
+ * Return the start of a day for the given date.
+ * The result will be in the local timezone.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param date - The original date
+ *
+ * @returns The start of a day
+ *
+ * @example
+ * // The start of a day for 2 September 2014 11:55:00:
+ * const result = startOfDay(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Tue Sep 02 2014 00:00:00
+ */
+function startOfDay(date) {
+  const _date = (0,_toDate_mjs__WEBPACK_IMPORTED_MODULE_0__.toDate)(date);
+  _date.setHours(0, 0, 0, 0);
+  return _date;
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (startOfDay);
+
+
+/***/ },
+
 /***/ "./node_modules/date-fns/startOfDecade.js"
 /*!************************************************!*\
   !*** ./node_modules/date-fns/startOfDecade.js ***!
@@ -34757,6 +34928,47 @@ var _index = __webpack_require__(/*! ./startOfDay.js */ "./node_modules/date-fns
 function startOfToday() {
   return (0, _index.startOfDay)(Date.now());
 }
+
+
+/***/ },
+
+/***/ "./node_modules/date-fns/startOfToday.mjs"
+/*!************************************************!*\
+  !*** ./node_modules/date-fns/startOfToday.mjs ***!
+  \************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   startOfToday: () => (/* binding */ startOfToday)
+/* harmony export */ });
+/* harmony import */ var _startOfDay_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./startOfDay.mjs */ "./node_modules/date-fns/startOfDay.mjs");
+
+
+/**
+ * @name startOfToday
+ * @category Day Helpers
+ * @summary Return the start of today.
+ * @pure false
+ *
+ * @description
+ * Return the start of today.
+ *
+ * @returns The start of today
+ *
+ * @example
+ * // If today is 6 October 2014:
+ * const result = startOfToday()
+ * //=> Mon Oct 6 2014 00:00:00
+ */
+function startOfToday() {
+  return (0,_startOfDay_mjs__WEBPACK_IMPORTED_MODULE_0__.startOfDay)(Date.now());
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (startOfToday);
 
 
 /***/ },
@@ -35595,6 +35807,80 @@ function toDate(argument) {
     return new Date(NaN);
   }
 }
+
+
+/***/ },
+
+/***/ "./node_modules/date-fns/toDate.mjs"
+/*!******************************************!*\
+  !*** ./node_modules/date-fns/toDate.mjs ***!
+  \******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   toDate: () => (/* binding */ toDate)
+/* harmony export */ });
+/**
+ * @name toDate
+ * @category Common Helpers
+ * @summary Convert the given argument to an instance of Date.
+ *
+ * @description
+ * Convert the given argument to an instance of Date.
+ *
+ * If the argument is an instance of Date, the function returns its clone.
+ *
+ * If the argument is a number, it is treated as a timestamp.
+ *
+ * If the argument is none of the above, the function returns Invalid Date.
+ *
+ * **Note**: *all* Date arguments passed to any *date-fns* function is processed by `toDate`.
+ *
+ * @typeParam DateType - The `Date` type, the function operates on. Gets inferred from passed arguments. Allows to use extensions like [`UTCDate`](https://github.com/date-fns/utc).
+ *
+ * @param argument - The value to convert
+ *
+ * @returns The parsed date in the local time zone
+ *
+ * @example
+ * // Clone the date:
+ * const result = toDate(new Date(2014, 1, 11, 11, 30, 30))
+ * //=> Tue Feb 11 2014 11:30:30
+ *
+ * @example
+ * // Convert the timestamp to date:
+ * const result = toDate(1392098430000)
+ * //=> Tue Feb 11 2014 11:30:30
+ */
+function toDate(argument) {
+  const argStr = Object.prototype.toString.call(argument);
+
+  // Clone the date
+  if (
+    argument instanceof Date ||
+    (typeof argument === "object" && argStr === "[object Date]")
+  ) {
+    // Prevent the date to lose the milliseconds when passed to new Date() in IE10
+    return new argument.constructor(+argument);
+  } else if (
+    typeof argument === "number" ||
+    argStr === "[object Number]" ||
+    typeof argument === "string" ||
+    argStr === "[object String]"
+  ) {
+    // TODO: Can we get rid of as?
+    return new Date(argument);
+  } else {
+    // TODO: Can we get rid of as?
+    return new Date(NaN);
+  }
+}
+
+// Fallback for modularized imports:
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (toDate);
 
 
 /***/ },
@@ -91868,6 +92154,9 @@ function CourseUpdateInterface({ course, refreshCourse, allValidations, onChange
     const [mode, setMode] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)("fix");
     const [_startDateSetMode, setStartDateSetMode] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [batchingValidations, setBatchingValidations] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    const [validationRunStarted, setValidationRunStarted] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    const [validationRunId, setValidationRunId] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0);
+    const [showValidationsComplete, setShowValidationsComplete] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [showUpdateStartDate, setShowUpdateStartDate] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [isChangingStartDate, setIsChangingStartDate] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const runValidationsDisabled = !course || isRemovingAnnotations() || batchingValidations;
@@ -91885,7 +92174,7 @@ function CourseUpdateInterface({ course, refreshCourse, allValidations, onChange
         };
     }, [deannotatingCount, batchingValidations, isChangingStartDate]);
     const batchValidationsOverTime = async (inValidations, batchSize = 10, delay = 2) => {
-        let localValidations = [...validations];
+        let localValidations = [];
         inValidations = inValidations.filter(courseSpecificTestFilter);
         for (let i = 0; i < inValidations.length; i += batchSize) {
             const batch = inValidations.slice(i, i + batchSize);
@@ -91897,10 +92186,28 @@ function CourseUpdateInterface({ course, refreshCourse, allValidations, onChange
     const runValidations = () => async () => {
         if (batchingValidations)
             return;
+        setShowValidationsComplete(false);
+        setValidationRunStarted(true);
+        setValidationRunId((currentRunId) => currentRunId + 1);
+        setValidations([]);
         setBatchingValidations(true);
         await batchValidationsOverTime(allValidations, 10, 2);
         setBatchingValidations(false);
+        if (allValidations.filter(courseSpecificTestFilter).length === 0) {
+            setShowValidationsComplete(true);
+            setValidationRunStarted(false);
+        }
     };
+    const handleValidationsComplete = () => {
+        setShowValidationsComplete(true);
+        setValidationRunStarted(false);
+    };
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
+        if (!showValidationsComplete)
+            return;
+        const timer = window.setTimeout(() => setShowValidationsComplete(false), 3000);
+        return () => window.clearTimeout(timer);
+    }, [showValidationsComplete]);
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         onChangeMode && onChangeMode(mode);
@@ -91978,12 +92285,12 @@ function CourseUpdateInterface({ course, refreshCourse, allValidations, onChange
     };
     // This is the styling of the course update interface
     function FixesMode({ course }) {
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h2", { children: ["Content Fixes for ", course.name] }), course.isBlueprint() && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(RemoveAnnotationsSection, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { onClick: () => toggleStartDateUI(), disabled: isChangingStartDate, children: "Update Start Date" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("hr", {}), showUpdateStartDate && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_UpdateStartDate__WEBPACK_IMPORTED_MODULE_7__.UpdateStartDate, { setAffectedItems: setAffectedItems, setUnaffectedItems: setUnaffectedItems, setFailedItems: setFailedItems, refreshCourse: refreshCourse, course: course, setStartDateOutcome: setStartDateOutcome, isDisabled: deannotatingCount > 0, startLoading: startLoading, endLoading: endLoading, onStartDateChangeStart: () => setIsChangingStartDate(true), onStartDateChangeEnd: () => setIsChangingStartDate(false) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("hr", {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { onClick: runValidations(), disabled: runValidationsDisabled, children: batchingValidations ? "Loading Validations..." : "Run Validations" }), affectedItems.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { children: "Fixes Succeeded" }), urlRows(affectedItems, "lxd-cu-success"), failedItems.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { children: "Fix is Broken, Content Unchanged" }), urlRows(failedItems, "lxd-cu-fail")] }));
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h2", { children: ["Content Fixes for ", course.name] }), course.isBlueprint() && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(RemoveAnnotationsSection, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { onClick: () => toggleStartDateUI(), disabled: isChangingStartDate, children: "Update Start Date" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("hr", {}), showUpdateStartDate && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_UpdateStartDate__WEBPACK_IMPORTED_MODULE_7__.UpdateStartDate, { setAffectedItems: setAffectedItems, setUnaffectedItems: setUnaffectedItems, setFailedItems: setFailedItems, refreshCourse: refreshCourse, course: course, setStartDateOutcome: setStartDateOutcome, isDisabled: deannotatingCount > 0, startLoading: startLoading, endLoading: endLoading, onStartDateChangeStart: () => setIsChangingStartDate(true), onStartDateChangeEnd: () => setIsChangingStartDate(false) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("hr", {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { onClick: runValidations(), disabled: runValidationsDisabled, children: batchingValidations ? "Loading Validations..." : "Run Validations" }), affectedItems.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { children: "Fixes Succeeded" }), urlRows(affectedItems, "lxd-cu-success"), failedItems.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { children: "Fix is Broken, Content Unchanged" }), urlRows(failedItems, "lxd-cu-fail"), showValidationsComplete && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "position-fixed top-0 end-0 m-3 alert alert-success shadow", role: "status", style: { zIndex: 1000, pointerEvents: "none" }, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { children: "Validations complete" }) }))] }));
     }
     function RemoveAnnotationsSection() {
         return ((course === null || course === void 0 ? void 0 : course.isBlueprint()) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { onClick: removeLmAnnotations, disabled: deannotatingCount > 0, children: "Remove Annotation Placeholder" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-8", children: "Removes annotation placeholders on Learning Material pages" })] })));
     }
-    return (course && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { disabled: isDisabled(), role: "button", className: "ui-button", onClick: (_e) => setShow(true), children: buttonText }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_4__["default"], { isOpen: show, requestClose: () => setShow(false), canClose: !deannotatingCount && !isChangingStartDate, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "d-flex justify-content-end", children: [mode === "fix" && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { onClick: () => setMode("unitTest"), children: "Show All Tests" }), mode === "unitTest" && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { onClick: () => setMode("fix"), children: "Hide Successful Tests" })] }), mode === "fix" && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(FixesMode, { course: course }), ["fix", "unitTest"].includes(mode) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_CourseValidator__WEBPACK_IMPORTED_MODULE_8__.CourseValidator, { showOnlyFailures: mode !== "unitTest", course: course, refreshCourse: refreshCourse, tests: validations }))] })] })));
+    return (course && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { disabled: isDisabled(), role: "button", className: "ui-button", onClick: (_e) => setShow(true), children: buttonText }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_4__["default"], { isOpen: show, requestClose: () => setShow(false), canClose: !deannotatingCount && !isChangingStartDate, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "d-flex justify-content-end", children: [mode === "fix" && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { onClick: () => setMode("unitTest"), children: "Show All Tests" })), mode === "unitTest" && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { onClick: () => setMode("fix"), children: "Hide Successful Tests" }))] }), mode === "fix" && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(FixesMode, { course: course }), ["fix", "unitTest"].includes(mode) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_CourseValidator__WEBPACK_IMPORTED_MODULE_8__.CourseValidator, { showOnlyFailures: mode !== "unitTest", course: course, refreshCourse: refreshCourse, tests: validations, runInProgress: batchingValidations, validationLoading: batchingValidations, validationRunStarted: validationRunStarted, onValidationsComplete: handleValidationsComplete }, validationRunId))] })] })));
 }
 
 
@@ -92011,19 +92318,37 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function CourseValidator({ course, tests, refreshCourse, showOnlyFailures = false }) {
+function CourseValidator({ course, tests, refreshCourse, showOnlyFailures = false, runInProgress: runInProgressProp = false, validationLoading = false, validationRunStarted = false, onValidationsComplete, }) {
     const [results, setResults] = react__WEBPACK_IMPORTED_MODULE_1___default().useState([]);
+    react__WEBPACK_IMPORTED_MODULE_1___default().useEffect(() => {
+        if (!validationRunStarted)
+            return;
+        if (!validationLoading && tests.length === 0) {
+            onValidationsComplete === null || onValidationsComplete === void 0 ? void 0 : onValidationsComplete();
+        }
+        else if (!validationLoading &&
+            tests.length > 0 &&
+            new Set(results.map(({ test }) => test.name)).size === tests.length) {
+            onValidationsComplete === null || onValidationsComplete === void 0 ? void 0 : onValidationsComplete();
+        }
+    }, [
+        results,
+        tests,
+        validationLoading,
+        validationRunStarted,
+        onValidationsComplete,
+    ]);
     const validated = (courseId, result, test) => {
-        setResults([
-            ...results,
-            {
-                courseId,
-                result,
-                test,
-            },
+        setResults((currentResults) => [
+            ...currentResults.filter(({ test: currentTest }) => currentTest.name !== test.name),
+            { courseId, result, test },
         ]);
     };
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { children: [showOnlyFailures || (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { "data-testid": "header", children: "Course Settings and Content Tests" }), tests.map((test, _i) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ValidationRow__WEBPACK_IMPORTED_MODULE_3__.ValidationRow, { course: course, test: test, showOnlyFailures: showOnlyFailures, refreshCourse: refreshCourse, onValidationResult: (result, test) => validated(course.id, result, test) }, `${course.id}${test.name}`)))] }));
+    // While any test has yet to report a result the list is still settling;
+    // rows must not change height or disappear mid-run or Fix? buttons drift under the cursor.
+    const waitingOnTests = tests.some((test) => !results.some((r) => r.test === test));
+    const runInProgress = runInProgressProp || waitingOnTests;
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { children: [showOnlyFailures || ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { "data-testid": "header", children: "Course Settings and Content Tests" })), tests.map((test, _i) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ValidationRow__WEBPACK_IMPORTED_MODULE_3__.ValidationRow, { course: course, test: test, showOnlyFailures: showOnlyFailures, runInProgress: runInProgress, refreshCourse: refreshCourse, onValidationResult: (result, test) => validated(course.id, result, test) }, `${course.id}${test.name}`)))] }));
 }
 
 
@@ -92040,7 +92365,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ContentAffectedRow: () => (/* binding */ ContentAffectedRow),
 /* harmony export */   SyllabusAffectedItemsRows: () => (/* binding */ SyllabusAffectedItemsRows),
-/* harmony export */   UpdateStartDate: () => (/* binding */ UpdateStartDate)
+/* harmony export */   UpdateStartDate: () => (/* binding */ UpdateStartDate),
+/* harmony export */   parseStartDateInput: () => (/* binding */ parseStartDateInput)
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -92059,6 +92385,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ueu_ueu_canvas_content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas_content_discussions_Discussion__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var _ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ueu/ueu-canvas/canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
 /* harmony import */ var _ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/addDays.mjs");
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! date-fns */ "./node_modules/date-fns/startOfToday.mjs");
 
 
 
@@ -92071,6 +92399,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+function parseStartDateInput(value) {
+    const match = /^(\d{1,2})\/(\d{1,2})(?:\/(\d{4}))?$/.exec(value.trim());
+    if (!match)
+        return null;
+    const month = Number(match[1]);
+    const day = Number(match[2]);
+    const year = match[3] ? Number(match[3]) : new Date().getFullYear();
+    const candidate = new Date(year, month - 1, day);
+    return candidate.getFullYear() === year && candidate.getMonth() === month - 1 && candidate.getDate() === day
+        ? candidate
+        : null;
+}
 function UpdateStartDate({ course, isDisabled, startLoading, endLoading, refreshCourse, setAffectedItems, setFailedItems, setStartDateOutcome, onStartDateChangeStart, onStartDateChangeEnd, }) {
     const [startDate, setStartDate] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)();
     const [workingStartDate, setWorkingStartDate] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)();
@@ -92079,9 +92420,13 @@ function UpdateStartDate({ course, isDisabled, startLoading, endLoading, refresh
     const [_assignments, _setAssignments] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)();
     const [mismatchError, setMismatchError] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
     const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    const [dateInputInvalid, setDateInputInvalid] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [syllabusStartDate, setSyllabusStartDate] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
     const [_moduleStartDate, _setModuleStartDate] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
     const [assignmentsStartDate, setAssignmentsStartDate] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
+    const isEditingDateInput = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(false);
+    const dateBeforeInput = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
+    const rawDateInput = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)("");
     const recalculateStartDate = async () => {
         setIsLoading(true);
         try {
@@ -92201,8 +92546,33 @@ function UpdateStartDate({ course, isDisabled, startLoading, endLoading, refresh
         }
     }
     function updateStartDateValue(inDate) {
-        if (inDate)
+        if (inDate && !isEditingDateInput.current)
             setWorkingStartDate((0,_date__WEBPACK_IMPORTED_MODULE_7__.oldDateToPlainDate)(inDate));
+    }
+    function selectDateFromCalendar(inDate) {
+        if (inDate) {
+            isEditingDateInput.current = false;
+            setDateInputInvalid(false);
+            setWorkingStartDate((0,_date__WEBPACK_IMPORTED_MODULE_7__.oldDateToPlainDate)(inDate));
+        }
+    }
+    function beginDateInput() {
+        isEditingDateInput.current = true;
+        dateBeforeInput.current = workingStartDate !== null && workingStartDate !== void 0 ? workingStartDate : null;
+        rawDateInput.current = "";
+    }
+    function captureRawDateInput(event) {
+        if ((event === null || event === void 0 ? void 0 : event.target) instanceof HTMLInputElement)
+            rawDateInput.current = event.target.value;
+    }
+    function finishDateInput() {
+        const parsedDate = parseStartDateInput(rawDateInput.current);
+        isEditingDateInput.current = false;
+        setDateInputInvalid(!parsedDate);
+        if (parsedDate)
+            setWorkingStartDate((0,_date__WEBPACK_IMPORTED_MODULE_7__.oldDateToPlainDate)(parsedDate));
+        else if (dateBeforeInput.current)
+            setWorkingStartDate(dateBeforeInput.current);
     }
     const _isDisabledLocally = isDisabled ||
         !course ||
@@ -92212,12 +92582,15 @@ function UpdateStartDate({ course, isDisabled, startLoading, endLoading, refresh
         startDate === null ||
         mismatchError !== null ||
         isLoading;
+    const jsDate = (date) => {
+        return new Date(date.year, date.month - 1, date.day);
+    };
     return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [isLoading && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "alert alert-info", children: "Loading..." }), !isLoading && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "row", children: mismatchError && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "ui-alert", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { children: mismatchError }) })) })), workingStartDate && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col-sm-4", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], { onClick: changeStartDate, disabled: _isDisabledLocally, children: "Change Start Date" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", { children: ["Current:", " ", startDate === null || startDate === void 0 ? void 0 : startDate.toLocaleString("default", {
                                         weekday: "short",
                                         month: "short",
                                         day: "numeric",
                                         year: "numeric",
-                                    })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col-sm-4", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)((react_datepicker__WEBPACK_IMPORTED_MODULE_4___default()), { value: workingStartDate === null || workingStartDate === void 0 ? void 0 : workingStartDate.toLocaleString(), onChange: updateStartDateValue }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", { children: ["Target:", " ", workingStartDate === null || workingStartDate === void 0 ? void 0 : workingStartDate.toLocaleString("default", {
+                                    })] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col-sm-4", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)((react_datepicker__WEBPACK_IMPORTED_MODULE_4___default()), { strictParsing: true, dateFormat: ["MM/dd/yyyy", "M/d/yyyy", "M/d"], selected: jsDate(workingStartDate), className: dateInputInvalid ? "start-date-invalid" : undefined, onChange: updateStartDateValue, onSelect: selectDateFromCalendar, onFocus: beginDateInput, onChangeRaw: captureRawDateInput, onBlur: finishDateInput, minDate: (0,date_fns__WEBPACK_IMPORTED_MODULE_12__.addDays)((0,date_fns__WEBPACK_IMPORTED_MODULE_13__.startOfToday)(), -365), maxDate: (0,date_fns__WEBPACK_IMPORTED_MODULE_12__.addDays)((0,date_fns__WEBPACK_IMPORTED_MODULE_13__.startOfToday)(), 365) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("label", { children: ["Target:", " ", workingStartDate === null || workingStartDate === void 0 ? void 0 : workingStartDate.toLocaleString("default", {
                                         weekday: "short",
                                         month: "short",
                                         day: "numeric",
@@ -92296,7 +92669,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function ValidationRow({ test, slim, potemkinVillage, initialResult, course, refreshCourse, onValidationResult, onFixResult, showOnlyFailures = false, }) {
+function ValidationRow({ test, slim, potemkinVillage, initialResult, course, refreshCourse, onValidationResult, onFixResult, showOnlyFailures = false, runInProgress = false, }) {
     const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const [validationResult, setValidationResult] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(initialResult);
     const [fixResult, setFixResult] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)();
@@ -92356,8 +92729,20 @@ function ValidationRow({ test, slim, potemkinVillage, initialResult, course, ref
         var _a;
         return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [resultStatusMessage(result, loading, slim), (_a = result === null || result === void 0 ? void 0 : result.links) === null || _a === void 0 ? void 0 : _a.map((link, i) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { href: link, target: "_blank", children: link }) }, i)))] }));
     }
-    if (!showOnlyFailures || loading || !(validationResult === null || validationResult === void 0 ? void 0 : validationResult.success)) {
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { className: slim ? "test-row-slim" : "test-row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-2", children: test.name }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-3 message", children: test.description }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(ResultStatus, { result: fixResult !== null && fixResult !== void 0 ? fixResult : validationResult }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-1", children: test.fix && validationResult && validationResult.success === false && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: fix, children: fixText })) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col-sm-1", children: [!validationResult && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "badge badge-info", children: "Running" }), (validationResult === null || validationResult === void 0 ? void 0 : validationResult.success) === true && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "badge badge-success", children: "OK!" })), (validationResult === null || validationResult === void 0 ? void 0 : validationResult.success) === "not run" && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "badge badge-secondary", children: "Not Run" })), (validationResult === null || validationResult === void 0 ? void 0 : validationResult.success) === false && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "badge badge-warning", children: "Failed" })), fixResult && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "badge badge-warning", children: fixResultText() })] })] }));
+    // While the run is still in progress, rows that pass stay rendered (same height as when running)
+    // instead of vanishing, so rows below them don't shift under a pending Fix? click.
+    if (!showOnlyFailures ||
+        runInProgress ||
+        loading ||
+        !(validationResult === null || validationResult === void 0 ? void 0 : validationResult.success)) {
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { className: [
+                slim ? "test-row-slim" : "test-row",
+                !validationResult && "test-row-running",
+            ]
+                .filter(Boolean)
+                .join(" "), children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-2", children: test.name }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-3 message", children: test.description }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-4 message-col", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(ResultStatus, { result: fixResult !== null && fixResult !== void 0 ? fixResult : validationResult }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-1", children: test.fix &&
+                        validationResult &&
+                        validationResult.success === false && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", { onClick: fix, children: fixText })) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "col-sm-1", children: [!validationResult && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "badge badge-info", children: "Running" })), (validationResult === null || validationResult === void 0 ? void 0 : validationResult.success) === true && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "badge badge-success", children: "OK!" })), (validationResult === null || validationResult === void 0 ? void 0 : validationResult.success) === "not run" && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "badge badge-secondary", children: "Not Run" })), (validationResult === null || validationResult === void 0 ? void 0 : validationResult.success) === false && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "badge badge-warning", children: "Failed" })), fixResult && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: "badge badge-warning", children: fixResultText() }))] })] }));
     }
     return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {});
 }
@@ -92373,7 +92758,7 @@ function resultStatusMessage(result, loading, slim) {
     if (result.success === true)
         return "Succeeded!";
     if (result.success === "not run") {
-        return (_b = (_a = result.messages) === null || _a === void 0 ? void 0 : _a.map((message, i) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "message not-run", children: message.bodyLines.map((line, j) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { children: truncateMessage(line, slim) }, `bl${j}`))) }, `m${i}`)))) !== null && _b !== void 0 ? _b : "Not Run";
+        return ((_b = (_a = result.messages) === null || _a === void 0 ? void 0 : _a.map((message, i) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "message not-run", children: message.bodyLines.map((line, j) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { children: truncateMessage(line, slim) }, `bl${j}`))) }, `m${i}`)))) !== null && _b !== void 0 ? _b : "Not Run");
     }
     return (_c = result.messages) === null || _c === void 0 ? void 0 : _c.map((message, i) => {
         var _a;
@@ -92487,24 +92872,36 @@ const PROFILE_DATA_ATTRS = [
 /**
  * Scan a blueprint's pages to find which page slug carries profile data attributes.
  *
- * No front-page fallback: a course without a data-attribute page returns "none"
- * rather than guessing, and a course with more than one returns "ambiguous"
- * rather than silently picking the first match. Both are surfaced to the caller
- * so a resolution failure is visible instead of quietly rendering into the
- * wrong page (or nothing at all).
+ * Falls back to the home page for legacy courses that don't have explicit
+ * data-attribute tags. If no tagged page is found, returns "none" rather than
+ * guessing. If more than one tagged page exists, returns "ambiguous" to avoid
+ * silently rendering into the wrong page.
  *
  * Call once per blueprint, then use the slug across all its sections.
  */
 async function findProfilePageSlug(blueprintCourseId, instance) {
     const pages = await useCourseDataStore.getState().getPages(blueprintCourseId, instance);
     const matches = pages.filter((page) => PROFILE_DATA_ATTRS.some((attr) => { var _a; return ((_a = page.body) !== null && _a !== void 0 ? _a : "").includes(attr); }));
-    if (matches.length === 0)
-        return { status: "none" };
+    if (matches.length === 1) {
+        const rawData = matches[0].rawData;
+        return { status: "found", slug: rawData.url, blueprintPageId: rawData.page_id };
+    }
     if (matches.length > 1) {
         return { status: "ambiguous", candidates: matches.map((page) => page.rawData.url) };
     }
-    const rawData = matches[0].rawData;
-    return { status: "found", slug: rawData.url, blueprintPageId: rawData.page_id };
+    // Fallback: no tagged pages found. Try home page for legacy courses.
+    // Canvas front_page_url is the slug (e.g. "home"), not a full URL.
+    if (pages.length > 0) {
+        const homePage = pages.find((page) => {
+            const rawData = page.rawData;
+            return rawData.url === "home" || rawData.front_page === true;
+        });
+        if (homePage) {
+            const rawData = homePage.rawData;
+            return { status: "found", slug: rawData.url, blueprintPageId: rawData.page_id };
+        }
+    }
+    return { status: "none" };
 }
 /**
  * Fetch a specific page from a section by slug. Uses the store cache when the
@@ -93624,13 +94021,22 @@ __webpack_require__.r(__webpack_exports__);
 
 function DevToBpMigrationBar({ migration, onFinishMigration }) {
     const [progress, setProgress] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)();
+    const [finishStatus, setFinishStatus] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("");
+    const [finishCompletion, setFinishCompletion] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(0);
     (0,_ui_utils__WEBPACK_IMPORTED_MODULE_3__.useEffectAsync)(async () => {
         const progressGen = (0,_ueu_ueu_canvas_course_migration__WEBPACK_IMPORTED_MODULE_1__.genCourseMigrationProgress)(migration, 2500);
         for await (const progress of progressGen) {
             setProgress(progress);
         }
     }, [migration]);
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { sm: 4, style: { fontSize: "0.75em" }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: ["Status: ", progress === null || progress === void 0 ? void 0 : progress.workflow_state] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: ["Started: ", migration.started_at] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { sm: 3, children: (progress === null || progress === void 0 ? void 0 : progress.completion) ? `${progress.completion}%` : "" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { sm: 5, children: (progress === null || progress === void 0 ? void 0 : progress.workflow_state) === "completed" && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { onClick: (_e) => onFinishMigration && onFinishMigration(migration), children: "Finish Migration" })) })] }));
+    const displayStatus = finishStatus || (progress === null || progress === void 0 ? void 0 : progress.workflow_state);
+    const displayCompletion = finishCompletion || (progress === null || progress === void 0 ? void 0 : progress.completion);
+    const handleFinish = async () => {
+        if (onFinishMigration) {
+            await onFinishMigration(migration, { setFinishStatus, setFinishCompletion });
+        }
+    };
+    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { sm: 4, style: { fontSize: "0.75em" }, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: ["Status: ", displayStatus] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: ["Started: ", migration.started_at] })] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { sm: 3, children: displayCompletion ? `${displayCompletion}%` : "" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { sm: 5, children: [(progress === null || progress === void 0 ? void 0 : progress.workflow_state) === "completed" && !finishStatus && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { onClick: handleFinish, children: "Finish Migration" })), finishStatus && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { style: { fontSize: "0.75em" }, children: finishStatus }))] })] }));
 }
 
 
@@ -94135,18 +94541,81 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet }) {
         }
         setCloningBp(false);
     }
-    async function finishMigration(migration) {
+    async function lockBlueprintChunked(courseId, modules, onProgress, chunkSize = 10, delayMs = 500) {
+        let items = [];
+        items = items.concat(...modules.map((a) => [].concat(...a.items)));
+        for (let i = 0; i < items.length; i += chunkSize) {
+            const chunk = items.slice(i, i + chunkSize);
+            const completion = Math.round((i / items.length) * 100);
+            onProgress === null || onProgress === void 0 ? void 0 : onProgress(`Locking (${i}/${items.length})`, completion);
+            const promises = chunk.map(async (item) => {
+                const url = `/api/v1/courses/${courseId}/blueprint_templates/default/restrict_item`;
+                const type = item.type;
+                const id = item.id;
+                if (typeof id === "undefined")
+                    return;
+                const body = {
+                    content_type: type,
+                    content_id: id,
+                    restricted: true,
+                    _method: "PUT",
+                };
+                await (0,_ueu_ueu_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_22__.fetchJson)(url, {
+                    fetchInit: {
+                        method: "PUT",
+                        body: (0,_ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_23__.formDataify)(body),
+                    },
+                });
+            });
+            await Promise.all(promises);
+            if (i + chunkSize < items.length) {
+                await new Promise((res) => setTimeout(res, delayMs));
+            }
+        }
+        onProgress === null || onProgress === void 0 ? void 0 : onProgress("Locking complete", 100);
+    }
+    async function finishMigration(migration, progressCallbacks) {
         var _a, _b;
         assert__WEBPACK_IMPORTED_MODULE_16___default()(currentBp);
         setIsLocking(true);
-        await (0,_ueu_ueu_canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_9__.setAsBlueprint)(currentBp.id);
-        await (0,_ueu_ueu_canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_9__.lockBlueprint)(currentBp.id, await currentBp.getModules());
-        migration.cleanedUp = true;
-        (0,_ueu_ueu_canvas_course_migration_migrationCache__WEBPACK_IMPORTED_MODULE_14__.cacheCourseMigrations)(currentBp.id, [migration]);
-        const [newBp] = (_b = (await (0,_ueu_ueu_canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_9__.getBlueprintsFromCode)((_a = devCourse.parsedCourseCode) !== null && _a !== void 0 ? _a : "", [devCourse.accountId]))) !== null && _b !== void 0 ? _b : [];
-        setIsLocking(false);
-        window.open(newBp.htmlContentUrl);
-        location.reload();
+        try {
+            if (!migration.locked) {
+                progressCallbacks === null || progressCallbacks === void 0 ? void 0 : progressCallbacks.setFinishStatus("Locking content...");
+                await lockBlueprintChunked(currentBp.id, await currentBp.getModules(), (status, completion) => {
+                    progressCallbacks === null || progressCallbacks === void 0 ? void 0 : progressCallbacks.setFinishStatus(status);
+                    progressCallbacks === null || progressCallbacks === void 0 ? void 0 : progressCallbacks.setFinishCompletion(completion);
+                });
+                migration.locked = true;
+                (0,_ueu_ueu_canvas_course_migration_migrationCache__WEBPACK_IMPORTED_MODULE_14__.cacheCourseMigrations)(currentBp.id, [migration]);
+            }
+            if (!migration.blueprintSet) {
+                progressCallbacks === null || progressCallbacks === void 0 ? void 0 : progressCallbacks.setFinishStatus("Setting as blueprint...");
+                await (0,_ueu_ueu_canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_9__.setAsBlueprint)(currentBp.id);
+                migration.blueprintSet = true;
+                (0,_ueu_ueu_canvas_course_migration_migrationCache__WEBPACK_IMPORTED_MODULE_14__.cacheCourseMigrations)(currentBp.id, [migration]);
+            }
+            if (!migration.synced) {
+                progressCallbacks === null || progressCallbacks === void 0 ? void 0 : progressCallbacks.setFinishStatus("Syncing settings...");
+                await (0,_ueu_ueu_canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_9__.beginBpSync)(currentBp.id, { message: "Initial sync after blueprint setup" });
+                migration.synced = true;
+                (0,_ueu_ueu_canvas_course_migration_migrationCache__WEBPACK_IMPORTED_MODULE_14__.cacheCourseMigrations)(currentBp.id, [migration]);
+            }
+            progressCallbacks === null || progressCallbacks === void 0 ? void 0 : progressCallbacks.setFinishStatus("Finalizing...");
+            migration.cleanedUp = true;
+            (0,_ueu_ueu_canvas_course_migration_migrationCache__WEBPACK_IMPORTED_MODULE_14__.cacheCourseMigrations)(currentBp.id, [migration]);
+            const [newBp] = (_b = (await (0,_ueu_ueu_canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_9__.getBlueprintsFromCode)((_a = devCourse.parsedCourseCode) !== null && _a !== void 0 ? _a : "", [devCourse.accountId]))) !== null && _b !== void 0 ? _b : [];
+            window.open(newBp.htmlContentUrl);
+            location.reload();
+        }
+        catch (e) {
+            console.error("Error during blueprint setup:", e);
+            (0,_ueu_ueu_canvas_course_migration_migrationCache__WEBPACK_IMPORTED_MODULE_14__.cacheCourseMigrations)(currentBp.id, [migration]);
+            alert("Error during blueprint setup. Reloading to retry...");
+            location.reload();
+        }
+        finally {
+            setIsLocking(false);
+        }
     }
     return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { children: [!isDev && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { className: "alert alert-warning", children: "This is not a DEV course" }) })), currentBp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { id: "archiveButton", onClick: onArchive, disabled: isArchiveDisabled, children: ["Archive ", currentBp.parsedCourseCode] }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 2, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", { children: "Term Name" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["default"], { required: true, "aria-required": true, id: "archiveTermName", typeof: "text", value: termName, disabled: (sections === null || sections === void 0 ? void 0 : sections.length) > 0, onChange: (e) => setTermName(e.target.value), placeholder: TERM_NAME_PLACEHOLDER }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { children: !termName && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["default"], { children: "Term name not found in BP sections." }) })] })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("hr", {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { id: "newBpButton", onClick: onCloneIntoBp, "aria-label": "New BP", disabled: isNewBpDisabled, children: "Create New BP" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 3, children: [showAiLiteracyButton && currentBp && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { id: "aiLiteracyButton", onClick: () => (0,_publish_publishInterface_aiLiteracySetup__WEBPACK_IMPORTED_MODULE_21__.aiLiteracySetup)({ currentBp, setIsRunningAiLiteracySetup }), disabled: isRunningAiLiteracySetup || !currentBp || isCloningBp || isRunningIntegritySetup, "aria-label": "Setup AI Literacy Assignment in New BP", title: "Set up the AI Literacy assignment content in the BP. This may take a while to complete. You can change tabs but closing or refreshing this tab may cause issues.", children: aiLiteracyText })), (currentBp === null || currentBp === void 0 ? void 0 : currentBp.isUndergrad) && showAcademicIntegrityButton && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { className: showAiLiteracyButton ? "mt-2" : undefined, id: "academicIntegrityButton", onClick: () => (0,_academicIntegritySetup__WEBPACK_IMPORTED_MODULE_20__.academicIntegritySetup)({ currentBp, setIsRunningIntegritySetup }), disabled: isRunningIntegritySetup || !currentBp || isCloningBp || isRunningAiLiteracySetup, "aria-label": "Setup Citations Module in New BP", title: "Set up the Citations module content in the BP. This may take a while to complete. You can change tabs but closing or refreshing this tab may cause issues.", children: academicIntegrityText }))] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { sm: 5, children: currentBp &&
                                 activeMigrations.map((migration) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_DevToBpMigrationBar__WEBPACK_IMPORTED_MODULE_15__.DevToBpMigrationBar, { migration: migration, onFinishMigration: finishMigration, course: currentBp }))) })] }) })] }));
