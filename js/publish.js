@@ -92562,10 +92562,16 @@ function UpdateStartDate({ course, isDisabled, startLoading, endLoading, refresh
         rawDateInput.current = "";
     }
     function captureRawDateInput(event) {
-        if ((event === null || event === void 0 ? void 0 : event.target) instanceof HTMLInputElement)
-            rawDateInput.current = event.target.value;
+        var _a;
+        const value = (_a = event === null || event === void 0 ? void 0 : event.target) === null || _a === void 0 ? void 0 : _a.value;
+        if (typeof value === "string")
+            rawDateInput.current = value;
     }
     function finishDateInput() {
+        if (!rawDateInput.current.trim()) {
+            isEditingDateInput.current = false;
+            return;
+        }
         const parsedDate = parseStartDateInput(rawDateInput.current);
         isEditingDateInput.current = false;
         setDateInputInvalid(!parsedDate);
