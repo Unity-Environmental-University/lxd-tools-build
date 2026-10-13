@@ -9670,208 +9670,6 @@ async function uploadFile(file, folder, url) {
 
 /***/ },
 
-/***/ "./node_modules/@ueu/ueu-canvas/dist/fixes/annotations.js"
-/*!****************************************************************!*\
-  !*** ./node_modules/@ueu/ueu-canvas/dist/fixes/annotations.js ***!
-  \****************************************************************/
-(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.contentFixes = void 0;
-exports.fixLmAnnotations = fixLmAnnotations;
-const index_1 = __webpack_require__(/*! ./index */ "./node_modules/@ueu/ueu-canvas/dist/fixes/index.js");
-const removeMediaPlaceholder = {
-    run: (0, index_1.findReplaceFunc)(/<p>\[Text[^\]]*by SME[^\]]*]<\/p>/, ''),
-    tests: [(0, index_1.notInTest)(/<p>\[Text[^\]]*by SME[^\]]*]<\/p>/)]
-};
-const removeInsertAnnotationForMedia = {
-    run: (0, index_1.findReplaceFunc)(/\[[iI]nsert annotation for media]/, ''),
-    tests: [(0, index_1.notInTest)(/\[.*annotation,.*]/)]
-};
-const removeSecondaryMediaTitle = {
-    run: (0, index_1.findReplaceFunc)(/<h3>\[Title for <span style="text-decoration: underline;"> optional <\/span>secondary media element\]<\/h3>/, ''),
-    tests: [(0, index_1.notInTest)('secondary media element]')]
-};
-const removeBlockQuote = {
-    run: function (input) {
-        const el = document.createElement('div');
-        el.innerHTML = input;
-        const bqElement = el.querySelector('blockquote');
-        if (bqElement?.innerHTML.includes('SME')) {
-            bqElement.parentElement?.parentElement?.remove();
-        }
-        const output = el.innerHTML;
-        el.remove();
-        return output;
-    },
-    tests: [(0, index_1.notInTest)(/\[Pull quote -/)]
-};
-const removeLmNarrativePlaceholder = {
-    run: function (input) {
-        const el = document.createElement('div');
-        el.innerHTML = input;
-        const divs = el.querySelectorAll('div.cbt-content');
-        const toRemove = Array.from(divs).filter((div) => div.innerHTML.includes('LM Narrative'));
-        for (const element of toRemove)
-            element.remove();
-        const output = el.innerHTML;
-        el.remove();
-        return output;
-    },
-    tests: [
-        (0, index_1.notInTest)(/LM Narrative/)
-    ]
-};
-const contentFixes = [
-    removeMediaPlaceholder,
-    removeLmNarrativePlaceholder,
-    removeInsertAnnotationForMedia,
-    removeSecondaryMediaTitle,
-    removeBlockQuote,
-];
-exports.contentFixes = contentFixes;
-/**
- * Removes annotation placeholder text from Learning Materials in the course
- * @param course
- */
-async function fixLmAnnotations(course) {
-    const pages = await course.getPages({
-        queryParams: {
-            include: ['body'],
-            search_term: 'learning materials'
-        }
-    });
-    const pendingUpdates = [];
-    const fixedPages = [];
-    const unchangedPages = [];
-    const failedPages = [];
-    const failedFixes = [];
-    for (const page of pages) {
-        const sourceHtml = page.body;
-        const fix = (0, index_1.runReplacements)(contentFixes, sourceHtml);
-        const fixedValue = fix.output;
-        if (fix.failedFixes.length > 0) {
-            failedPages.push(page);
-            console.log(page);
-            console.log(fix);
-        }
-        if (sourceHtml === fixedValue) {
-            console.log(sourceHtml.length - fixedValue.length);
-            console.log(`Page unchanged ${page.name}`);
-            unchangedPages.push(page);
-        }
-        else {
-            console.log(`fixed ${page.name}`);
-            pendingUpdates.push(page.updateContent(fixedValue));
-            fixedPages.push(page);
-        }
-    }
-    await Promise.all(pendingUpdates);
-    return { fixedPages, unchangedPages, failedPages };
-}
-//# sourceMappingURL=annotations.js.map
-
-/***/ },
-
-/***/ "./node_modules/@ueu/ueu-canvas/dist/fixes/index.js"
-/*!**********************************************************!*\
-  !*** ./node_modules/@ueu/ueu-canvas/dist/fixes/index.js ***!
-  \**********************************************************/
-(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.runReplacements = runReplacements;
-exports.findReplaceFunc = findReplaceFunc;
-exports.inTest = inTest;
-exports.notInTest = notInTest;
-/**
- * Runs through a series of Content Fixes. If all is well, passes the results into the next
- * content fix.
- * Each ContentFix can have tests and preflight tests. Preflight tests are run before the fix is attempted
- * Tests are fun after.
- * If any of these tests fail, that content fix is not run on the text, instead passing the previous value.
- * @param fixes
- * @param source
- */
-function runReplacements(fixes, source) {
-    const failedFixes = [];
-    const output = fixes.reduce((accumulator, { run, tests, preflightTests }) => {
-        // run through all preflight tests, if any of them fail, return the pre-transformation value
-        if (preflightTests && preflightTests.map((test) => test(output)).includes(false))
-            return accumulator;
-        const output = run(accumulator);
-        // run through all tests, if any of them fail, return the pre-transformation value
-        if (tests && tests.map((test) => test(output)).includes(false)) {
-            failedFixes.push({ run, tests, preflightTests });
-            return accumulator;
-        }
-        return output;
-    }, source);
-    return { failedFixes, output };
-}
-function findReplaceFunc(find, replace) {
-    return (source) => {
-        const output = source.replace(find, replace);
-        return output;
-    };
-}
-/**
- * Returns a function that returns true if passed a string that contains the find value or matches the find RegEx, false otherwise
- * @param find A regular expression to check the input string against, or a substring to check if the input string contains
- * @param caseSensitive (string find only) whether to match the string case sensitive-ly
- */
-function inTest(find, caseSensitive = true) {
-    if (typeof find === "string") {
-        const findValue = caseSensitive ? find : find.toLowerCase();
-        return (source) => (caseSensitive ? source : source.toLowerCase()).includes(findValue);
-    }
-    else {
-        return (source) => {
-            return !!source.match(find);
-        };
-    }
-}
-/**
- * Returns a function that returns false if passed a string that contains the find value or matches the find RegEx, true otherwise
- * @param find A regular expression to check the input string against, or a substring to check if the input string contains
- * @param caseSensitive (string find only) whether to match the string case sensitive-ly
- */
-function notInTest(find, caseSensitive = true) {
-    if (typeof find === "string") {
-        const findValue = caseSensitive ? find : find.toLowerCase();
-        return (source) => {
-            return !((caseSensitive ? source : source.toLowerCase()).includes(findValue));
-        };
-    }
-    else {
-        return (source) => {
-            return !source.match(find);
-        };
-    }
-}
-__exportStar(__webpack_require__(/*! ./annotations */ "./node_modules/@ueu/ueu-canvas/dist/fixes/annotations.js"), exports);
-//# sourceMappingURL=index.js.map
-
-/***/ },
-
 /***/ "./node_modules/@ueu/ueu-canvas/dist/index.js"
 /*!****************************************************!*\
   !*** ./node_modules/@ueu/ueu-canvas/dist/index.js ***!
@@ -92122,13 +91920,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ui_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../ui/utils */ "./src/ui/utils.tsx");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
 /* harmony import */ var _ui_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../ui/widgets/Modal/index */ "./src/ui/widgets/Modal/index.tsx");
-/* harmony import */ var _ueu_ueu_canvas_fixes_annotations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ueu/ueu-canvas/fixes/annotations */ "./node_modules/@ueu/ueu-canvas/dist/fixes/annotations.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! assert */ "./node_modules/assert/build/assert.js");
-/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _UpdateStartDate__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./UpdateStartDate */ "./src/publish/fixesAndUpdates/UpdateStartDate.tsx");
-/* harmony import */ var _CourseValidator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./CourseValidator */ "./src/publish/fixesAndUpdates/CourseValidator.tsx");
-
-
+/* harmony import */ var _UpdateStartDate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./UpdateStartDate */ "./src/publish/fixesAndUpdates/UpdateStartDate.tsx");
+/* harmony import */ var _CourseValidator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./CourseValidator */ "./src/publish/fixesAndUpdates/CourseValidator.tsx");
 
 
 
@@ -92257,18 +92050,6 @@ function CourseUpdateInterface({ course, refreshCourse, allValidations, onChange
     function isRemovingAnnotations() {
         return deannotatingCount > 0;
     }
-    async function removeLmAnnotations() {
-        assert__WEBPACK_IMPORTED_MODULE_6___default()(course);
-        startLoading();
-        function pageToLink(page) {
-            return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", { className: "course-link", target: "_blank", href: page.htmlContentUrl, children: page.name }));
-        }
-        const results = await (0,_ueu_ueu_canvas_fixes_annotations__WEBPACK_IMPORTED_MODULE_5__.fixLmAnnotations)(course);
-        setAffectedItems(results.fixedPages.map(pageToLink));
-        setUnaffectedItems(results.unchangedPages.map(pageToLink));
-        setFailedItems(results.failedPages.map(pageToLink));
-        endLoading();
-    }
     function urlRows(links, className = "lxd-cu") {
         return links.map((link, i) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: ["row", className].join(" "), children: link }, i)));
     }
@@ -92285,12 +92066,9 @@ function CourseUpdateInterface({ course, refreshCourse, allValidations, onChange
     };
     // This is the styling of the course update interface
     function FixesMode({ course }) {
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h2", { children: ["Content Fixes for ", course.name] }), course.isBlueprint() && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(RemoveAnnotationsSection, {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { onClick: () => toggleStartDateUI(), disabled: isChangingStartDate, children: "Update Start Date" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("hr", {}), showUpdateStartDate && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_UpdateStartDate__WEBPACK_IMPORTED_MODULE_7__.UpdateStartDate, { setAffectedItems: setAffectedItems, setUnaffectedItems: setUnaffectedItems, setFailedItems: setFailedItems, refreshCourse: refreshCourse, course: course, setStartDateOutcome: setStartDateOutcome, isDisabled: deannotatingCount > 0, startLoading: startLoading, endLoading: endLoading, onStartDateChangeStart: () => setIsChangingStartDate(true), onStartDateChangeEnd: () => setIsChangingStartDate(false) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("hr", {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { onClick: runValidations(), disabled: runValidationsDisabled, children: batchingValidations ? "Loading Validations..." : "Run Validations" }), affectedItems.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { children: "Fixes Succeeded" }), urlRows(affectedItems, "lxd-cu-success"), failedItems.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { children: "Fix is Broken, Content Unchanged" }), urlRows(failedItems, "lxd-cu-fail"), showValidationsComplete && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "position-fixed top-0 end-0 m-3 alert alert-success shadow", role: "status", style: { zIndex: 1000, pointerEvents: "none" }, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { children: "Validations complete" }) }))] }));
+        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h2", { children: ["Content Fixes for ", course.name] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { onClick: () => toggleStartDateUI(), disabled: isChangingStartDate, children: "Update Start Date" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("hr", {}), showUpdateStartDate && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_UpdateStartDate__WEBPACK_IMPORTED_MODULE_5__.UpdateStartDate, { setAffectedItems: setAffectedItems, setUnaffectedItems: setUnaffectedItems, setFailedItems: setFailedItems, refreshCourse: refreshCourse, course: course, setStartDateOutcome: setStartDateOutcome, isDisabled: deannotatingCount > 0, startLoading: startLoading, endLoading: endLoading, onStartDateChangeStart: () => setIsChangingStartDate(true), onStartDateChangeEnd: () => setIsChangingStartDate(false) })), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("hr", {}), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { onClick: runValidations(), disabled: runValidationsDisabled, children: batchingValidations ? "Loading Validations..." : "Run Validations" }), affectedItems.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { children: "Fixes Succeeded" }), urlRows(affectedItems, "lxd-cu-success"), failedItems.length > 0 && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h3", { children: "Fix is Broken, Content Unchanged" }), urlRows(failedItems, "lxd-cu-fail"), showValidationsComplete && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "position-fixed top-0 end-0 m-3 alert alert-success shadow", role: "status", style: { zIndex: 1000, pointerEvents: "none" }, children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("strong", { children: "Validations complete" }) }))] }));
     }
-    function RemoveAnnotationsSection() {
-        return ((course === null || course === void 0 ? void 0 : course.isBlueprint()) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "row", children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-4", children: (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { onClick: removeLmAnnotations, disabled: deannotatingCount > 0, children: "Remove Annotation Placeholder" }) }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", { className: "col-sm-8", children: "Removes annotation placeholders on Learning Material pages" })] })));
-    }
-    return (course && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { disabled: isDisabled(), role: "button", className: "ui-button", onClick: (_e) => setShow(true), children: buttonText }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_4__["default"], { isOpen: show, requestClose: () => setShow(false), canClose: !deannotatingCount && !isChangingStartDate, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "d-flex justify-content-end", children: [mode === "fix" && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { onClick: () => setMode("unitTest"), children: "Show All Tests" })), mode === "unitTest" && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { onClick: () => setMode("fix"), children: "Hide Successful Tests" }))] }), mode === "fix" && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(FixesMode, { course: course }), ["fix", "unitTest"].includes(mode) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_CourseValidator__WEBPACK_IMPORTED_MODULE_8__.CourseValidator, { showOnlyFailures: mode !== "unitTest", course: course, refreshCourse: refreshCourse, tests: validations, runInProgress: batchingValidations, validationLoading: batchingValidations, validationRunStarted: validationRunStarted, onValidationsComplete: handleValidationsComplete }, validationRunId))] })] })));
+    return (course && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { disabled: isDisabled(), role: "button", className: "ui-button", onClick: (_e) => setShow(true), children: buttonText }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_ui_widgets_Modal_index__WEBPACK_IMPORTED_MODULE_4__["default"], { isOpen: show, requestClose: () => setShow(false), canClose: !deannotatingCount && !isChangingStartDate, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", { className: "d-flex justify-content-end", children: [mode === "fix" && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { onClick: () => setMode("unitTest"), children: "Show All Tests" })), mode === "unitTest" && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { onClick: () => setMode("fix"), children: "Hide Successful Tests" }))] }), mode === "fix" && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(FixesMode, { course: course }), ["fix", "unitTest"].includes(mode) && ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_CourseValidator__WEBPACK_IMPORTED_MODULE_6__.CourseValidator, { showOnlyFailures: mode !== "unitTest", course: course, refreshCourse: refreshCourse, tests: validations, runInProgress: batchingValidations, validationLoading: batchingValidations, validationRunStarted: validationRunStarted, onValidationsComplete: handleValidationsComplete }, validationRunId))] })] })));
 }
 
 
@@ -94122,13 +93900,30 @@ async function getAdditionsTemplate(course) {
     const devCourse = await course.getParentCourse();
     const additionPage = await getAdditionPage(course, devCourse);
     async function getAdditionPage(course, devCourse) {
-        const bpAdditionPage = await _ueu_ueu_canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_5__["default"].getByString(course.id, "publish-form-email-addition");
-        if (_ueu_ueu_canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_5__["default"].dataIsThisKind(bpAdditionPage))
-            return bpAdditionPage;
+        try {
+            const bpAdditionPage = await _ueu_ueu_canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_5__["default"].getByString(course.id, "publish-form-email-addition");
+            if (_ueu_ueu_canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_5__["default"].dataIsThisKind(bpAdditionPage))
+                return bpAdditionPage;
+        }
+        catch (e) {
+            const notFound = (e === null || e === void 0 ? void 0 : e.status) === 404 ||
+                ((e === null || e === void 0 ? void 0 : e.name) === "FetchJsonError" && /404/.test(String((e === null || e === void 0 ? void 0 : e.message) || "")));
+            if (!notFound)
+                throw e;
+        }
         if (devCourse) {
-            const devAdditionPage = await _ueu_ueu_canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_5__["default"].getByString(devCourse.id, "publish-form-email-addition");
-            if (_ueu_ueu_canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_5__["default"].dataIsThisKind(devAdditionPage))
-                return devAdditionPage;
+            try {
+                const devAdditionPage = await _ueu_ueu_canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_5__["default"].getByString(devCourse.id, "publish-form-email-addition");
+                if (_ueu_ueu_canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_5__["default"].dataIsThisKind(devAdditionPage))
+                    return devAdditionPage;
+            }
+            catch (e) {
+                const notFound = (e === null || e === void 0 ? void 0 : e.status) === 404 ||
+                    ((e === null || e === void 0 ? void 0 : e.name) === "FetchJsonError" &&
+                        /404/.test(String((e === null || e === void 0 ? void 0 : e.message) || "")));
+                if (!notFound)
+                    throw e;
+            }
         }
         return null;
     }
@@ -94149,7 +93944,10 @@ async function getAdditionsTemplate(course) {
  */
 const EmailLink = react__WEBPACK_IMPORTED_MODULE_1___default().memo(function EmailLink({ user, emails, course, termData, sectionStart, }) {
     const bcc = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(() => emails.join(","), [emails]);
-    const subject = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(() => { var _a; return encodeURIComponent(((_a = course.name) === null || _a === void 0 ? void 0 : _a.replace("BP_", "")) + " Section(s) Ready Notification"); }, [course.name]);
+    const subject = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(() => {
+        var _a;
+        return encodeURIComponent(((_a = course.name) === null || _a === void 0 ? void 0 : _a.replace("BP_", "")) + " Section(s) Ready Notification");
+    }, [course.name]);
     const [emailTemplate, setEmailTemplate] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)();
     const [additionsTemplate, setAdditionsTemplate] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)();
     const [errorMessages, setErrorMessages] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]);
@@ -94173,17 +93971,23 @@ const EmailLink = react__WEBPACK_IMPORTED_MODULE_1___default().memo(function Ema
             return;
         try {
             const _additionsTemplate = await getAdditionsTemplate(course);
-            setAdditionsTemplate(_additionsTemplate);
+            if (_additionsTemplate) {
+                setAdditionsTemplate(_additionsTemplate);
+            }
         }
         catch (e) {
-            // A missing "publish-form-email-addition" page is the normal case for
-            // most courses (this is a per-course-family supplement to the base
-            // email, not every course has one) and Canvas's 404 for it doesn't
-            // always come back as parseable JSON, so fetchJson can throw here
-            // rather than resolve to a clean "not found." Log for debugging but
-            // don't surface it as a user-facing error — the base email template
-            // still works without an addition, and copyToClipboard already has
-            // its own fallback attempt for this.
+            const err = e;
+            const isNotFound = (err && typeof err.status === "number" && err.status === 404) ||
+                (err &&
+                    typeof err.name === "string" &&
+                    err.name === "FetchJsonError" &&
+                    typeof err.message === "string" &&
+                    /404/.test(err.message));
+            if (isNotFound) {
+                // It's normal if there's no additions page for this course.
+                return;
+            }
+            // Surface other errors for debugging
             console.error("Failed to load email addition template:", e);
         }
     }, [course.id]);
@@ -94227,10 +94031,21 @@ const EmailLink = react__WEBPACK_IMPORTED_MODULE_1___default().memo(function Ema
         }
         catch (e) {
             console.error(e);
-            setErrorMessages((prev) => [...prev, "Unable to copy to clipboard. Please try again."]);
+            setErrorMessages((prev) => [
+                ...prev,
+                "Unable to copy to clipboard. Please try again.",
+            ]);
         }
         console.log(body);
-    }, [emailTemplate, additionsTemplate, errorMessages.length, course, user.name, termData, sectionStart]);
+    }, [
+        emailTemplate,
+        additionsTemplate,
+        errorMessages.length,
+        course,
+        user.name,
+        termData,
+        sectionStart,
+    ]);
     function getCourseStart() {
         if (!sectionStart)
             return "[[Start Date]]";
@@ -94305,6 +94120,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ueu_ueu_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ueu/ueu-canvas/fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
 /* harmony import */ var _ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ueu/ueu-canvas/canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
 /* harmony import */ var _ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var _lockBlueprintChunked__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./lockBlueprintChunked */ "./src/publish/publishInterface/lockBlueprintChunked.ts");
+
 
 
 
@@ -94547,63 +94364,24 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet }) {
         }
         setCloningBp(false);
     }
-    async function lockBlueprintChunked(courseId, modules, onProgress, chunkSize = 10, delayMs = 500) {
-        let items = [];
-        items = items.concat(...modules.map((a) => [].concat(...a.items)));
-        for (let i = 0; i < items.length; i += chunkSize) {
-            const chunk = items.slice(i, i + chunkSize);
-            const completion = Math.round((i / items.length) * 100);
-            onProgress === null || onProgress === void 0 ? void 0 : onProgress(`Locking (${i}/${items.length})`, completion);
-            const promises = chunk.map(async (item) => {
-                const url = `/api/v1/courses/${courseId}/blueprint_templates/default/restrict_item`;
-                const type = item.type;
-                const id = item.id;
-                if (typeof id === "undefined")
-                    return;
-                const body = {
-                    content_type: type,
-                    content_id: id,
-                    restricted: true,
-                    _method: "PUT",
-                };
-                await (0,_ueu_ueu_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_22__.fetchJson)(url, {
-                    fetchInit: {
-                        method: "PUT",
-                        body: (0,_ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_23__.formDataify)(body),
-                    },
-                });
-            });
-            await Promise.all(promises);
-            if (i + chunkSize < items.length) {
-                await new Promise((res) => setTimeout(res, delayMs));
-            }
-        }
-        onProgress === null || onProgress === void 0 ? void 0 : onProgress("Locking complete", 100);
-    }
     async function finishMigration(migration, progressCallbacks) {
         var _a, _b;
         assert__WEBPACK_IMPORTED_MODULE_16___default()(currentBp);
         setIsLocking(true);
         try {
-            if (!migration.locked) {
-                progressCallbacks === null || progressCallbacks === void 0 ? void 0 : progressCallbacks.setFinishStatus("Locking content...");
-                await lockBlueprintChunked(currentBp.id, await currentBp.getModules(), (status, completion) => {
-                    progressCallbacks === null || progressCallbacks === void 0 ? void 0 : progressCallbacks.setFinishStatus(status);
-                    progressCallbacks === null || progressCallbacks === void 0 ? void 0 : progressCallbacks.setFinishCompletion(completion);
-                });
-                migration.locked = true;
-                (0,_ueu_ueu_canvas_course_migration_migrationCache__WEBPACK_IMPORTED_MODULE_14__.cacheCourseMigrations)(currentBp.id, [migration]);
-            }
             if (!migration.blueprintSet) {
                 progressCallbacks === null || progressCallbacks === void 0 ? void 0 : progressCallbacks.setFinishStatus("Setting as blueprint...");
                 await (0,_ueu_ueu_canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_9__.setAsBlueprint)(currentBp.id);
                 migration.blueprintSet = true;
                 (0,_ueu_ueu_canvas_course_migration_migrationCache__WEBPACK_IMPORTED_MODULE_14__.cacheCourseMigrations)(currentBp.id, [migration]);
             }
-            if (!migration.synced) {
-                progressCallbacks === null || progressCallbacks === void 0 ? void 0 : progressCallbacks.setFinishStatus("Syncing settings...");
-                await (0,_ueu_ueu_canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_9__.beginBpSync)(currentBp.id, { message: "Initial sync after blueprint setup" });
-                migration.synced = true;
+            if (!migration.locked) {
+                progressCallbacks === null || progressCallbacks === void 0 ? void 0 : progressCallbacks.setFinishStatus("Locking content...");
+                await (0,_lockBlueprintChunked__WEBPACK_IMPORTED_MODULE_24__.lockBlueprintChunked)(currentBp.id, await currentBp.getModules(), (status, completion) => {
+                    progressCallbacks === null || progressCallbacks === void 0 ? void 0 : progressCallbacks.setFinishStatus(status);
+                    progressCallbacks === null || progressCallbacks === void 0 ? void 0 : progressCallbacks.setFinishCompletion(completion);
+                });
+                migration.locked = true;
                 (0,_ueu_ueu_canvas_course_migration_migrationCache__WEBPACK_IMPORTED_MODULE_14__.cacheCourseMigrations)(currentBp.id, [migration]);
             }
             progressCallbacks === null || progressCallbacks === void 0 ? void 0 : progressCallbacks.setFinishStatus("Finalizing...");
@@ -94616,7 +94394,7 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet }) {
         catch (e) {
             console.error("Error during blueprint setup:", e);
             (0,_ueu_ueu_canvas_course_migration_migrationCache__WEBPACK_IMPORTED_MODULE_14__.cacheCourseMigrations)(currentBp.id, [migration]);
-            alert("Error during blueprint setup. Reloading to retry...");
+            alert(`Error during blueprint setup: ${e instanceof Error ? e.message : String(e)}\nReloading to retry...`);
             location.reload();
         }
         finally {
@@ -95510,6 +95288,62 @@ async function aiLiteracySetup({ currentBp, setIsRunningAiLiteracySetup }) {
     }
     setIsRunningAiLiteracySetup(false);
     alert("AI Literacy Assignment Setup done!");
+}
+
+
+/***/ },
+
+/***/ "./src/publish/publishInterface/lockBlueprintChunked.ts"
+/*!**************************************************************!*\
+  !*** ./src/publish/publishInterface/lockBlueprintChunked.ts ***!
+  \**************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   lockBlueprintChunked: () => (/* binding */ lockBlueprintChunked)
+/* harmony export */ });
+/* harmony import */ var _ueu_ueu_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ueu/ueu-canvas/fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
+/* harmony import */ var _ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ueu/ueu-canvas/canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
+/* harmony import */ var _ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__);
+
+
+/**
+ * Restrict (lock) every module item in a blueprint, a chunk at a time to avoid rate limiting.
+ *
+ * Canvas's restrict_item endpoint needs the *content* type (`assignment`, `wiki_page`, ...)
+ * and the *content* id, not the module item's own `type` / `id`. `getItemTypeAndId` does that
+ * translation (and looks up the page_id for pages). Items Canvas can't restrict (subheaders,
+ * external URLs) come back without an id and are skipped.
+ */
+async function lockBlueprintChunked(courseId, modules, onProgress, chunkSize = 10, delayMs = 500) {
+    const items = modules.flatMap((module) => { var _a; return (_a = module.items) !== null && _a !== void 0 ? _a : []; });
+    for (let i = 0; i < items.length; i += chunkSize) {
+        const chunk = items.slice(i, i + chunkSize);
+        const completion = Math.round((i / items.length) * 100);
+        onProgress === null || onProgress === void 0 ? void 0 : onProgress(`Locking (${i}/${items.length})`, completion);
+        await Promise.all(chunk.map(async (item) => {
+            const { type, id } = await (0,_ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.getItemTypeAndId)(item);
+            if (!type || typeof id === "undefined")
+                return;
+            await (0,_ueu_ueu_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(`/api/v1/courses/${courseId}/blueprint_templates/default/restrict_item`, {
+                fetchInit: {
+                    method: "PUT",
+                    body: (0,_ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.formDataify)({
+                        content_type: type,
+                        content_id: id,
+                        restricted: true,
+                        _method: "PUT",
+                    }),
+                },
+            });
+        }));
+        if (i + chunkSize < items.length) {
+            await new Promise((res) => setTimeout(res, delayMs));
+        }
+    }
+    onProgress === null || onProgress === void 0 ? void 0 : onProgress("Locking complete", 100);
 }
 
 
