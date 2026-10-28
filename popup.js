@@ -3027,6 +3027,7 @@ const UNITY_DEFAULTS = {
     hostname: "unity.instructure.com",
     templateCourseId: 3850558,
     referencesPageSlug: "learning-materials-reference-page",
+    facultyBiosCourseName: "Faculty Bios",
     externalApis: {
         citeas: "https://api.citeas.org/product",
     },

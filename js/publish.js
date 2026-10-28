@@ -6936,6 +6936,34 @@ exports["default"] = exports.AssignmentKind;
 
 /***/ },
 
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/Syllabus.js"
+/*!***************************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/assignments/Syllabus.js ***!
+  \***************************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Syllabus = void 0;
+const Assignment_1 = __webpack_require__(/*! ../../content/assignments/Assignment */ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/Assignment.js");
+// Canvas serves the course syllabus at /courses/:id/assignments/syllabus. It is shaped like an
+// assignment, but there is no assignment behind that URL, so the API lookup would 404. This class
+// keeps the syllabus out of the assignment lookup while still sharing Assignment's behavior.
+class Syllabus extends Assignment_1.Assignment {
+    static get contentUrlPart() {
+        return 'assignments/syllabus';
+    }
+    static async getFromUrl(_url = null, _courseId = null) {
+        return null;
+    }
+}
+exports.Syllabus = Syllabus;
+exports["default"] = Syllabus;
+//# sourceMappingURL=Syllabus.js.map
+
+/***/ },
+
 /***/ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/index.js"
 /*!************************************************************************!*\
   !*** ./node_modules/@ueu/ueu-canvas/dist/content/assignments/index.js ***!
@@ -7018,6 +7046,7 @@ const Quiz_1 = __webpack_require__(/*! ../content/quizzes/Quiz */ "./node_module
 const Page_1 = __webpack_require__(/*! ../content/pages/Page */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/Page.js");
 const Discussion_1 = __webpack_require__(/*! ../content/discussions/Discussion */ "./node_modules/@ueu/ueu-canvas/dist/content/discussions/Discussion.js");
 const Assignment_1 = __webpack_require__(/*! ../content/assignments/Assignment */ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/Assignment.js");
+const Syllabus_1 = __webpack_require__(/*! ../content/assignments/Syllabus */ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/Syllabus.js");
 const AssignmentKind_1 = __importDefault(__webpack_require__(/*! ../content/assignments/AssignmentKind */ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/AssignmentKind.js"));
 const QuizKind_1 = __importDefault(__webpack_require__(/*! ../content/quizzes/QuizKind */ "./node_modules/@ueu/ueu-canvas/dist/content/quizzes/QuizKind.js"));
 const PageKind_1 = __importDefault(__webpack_require__(/*! ../content/pages/PageKind */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/PageKind.js"));
@@ -7039,7 +7068,8 @@ exports.ContentKinds = {
 function getContentClassFromUrl(url = null) {
     if (!url)
         url = document.documentURI;
-    for (const class_ of [Assignment_1.Assignment, Quiz_1.Quiz, Page_1.Page, Discussion_1.Discussion]) {
+    // Syllabus must come before Assignment: its URL also contains "assignments".
+    for (const class_ of [Syllabus_1.Syllabus, Assignment_1.Assignment, Quiz_1.Quiz, Page_1.Page, Discussion_1.Discussion]) {
         if (class_.contentUrlPart && url.includes(class_.contentUrlPart))
             return class_;
     }
@@ -7047,9 +7077,18 @@ function getContentClassFromUrl(url = null) {
 }
 async function getContentItemFromUrl(url = null) {
     const ContentClass = getContentClassFromUrl(url);
+    console.log("ContentClass: ", ContentClass);
     if (!ContentClass)
         return null;
-    return await ContentClass.getFromUrl(url);
+    let contentItem;
+    try {
+        contentItem = await ContentClass.getFromUrl(url);
+    }
+    catch (e) {
+        console.error(`Error getting content item from URL: ${e}`);
+        return null;
+    }
+    return contentItem;
 }
 function getContentKindFromUrl(url) {
     return exports.CONTENT_KINDS.find(a => a.isValidUrl(url));
@@ -8049,6 +8088,9 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
             return profiles;
         }
         catch (e) {
+            // let the UI tell the user this instance has no bios course
+            if (e instanceof profile_1.FacultyBiosCourseNotFoundError)
+                throw e;
             return [];
         }
     }
@@ -9775,6 +9817,7 @@ const UNITY_DEFAULTS = {
     hostname: "unity.instructure.com",
     templateCourseId: 3850558,
     referencesPageSlug: "learning-materials-reference-page",
+    facultyBiosCourseName: "Faculty Bios",
     externalApis: {
         citeas: "https://api.citeas.org/product",
     },
@@ -9831,6 +9874,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FacultyBiosCourseNotFoundError = void 0;
 exports.getFacultyPages = getFacultyPages;
 exports.getProfileFromPage = getProfileFromPage;
 exports.frontPageBio = frontPageBio;
@@ -9842,11 +9886,27 @@ const assert_1 = __importDefault(__webpack_require__(/*! assert */ "./node_modul
 const canvasUtils_1 = __webpack_require__(/*! ./canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
 const Account_1 = __webpack_require__(/*! ./Account */ "./node_modules/@ueu/ueu-canvas/dist/Account.js");
 const toolbox_1 = __webpack_require__(/*! ./course/toolbox */ "./node_modules/@ueu/ueu-canvas/dist/course/toolbox.js");
-let facultyCourseCached;
+const instance_1 = __webpack_require__(/*! ./instance */ "./node_modules/@ueu/ueu-canvas/dist/instance.js");
+/** Thrown when the active Canvas instance has no faculty bios course. */
+class FacultyBiosCourseNotFoundError extends Error {
+    constructor(courseName, baseUrl) {
+        super(`No "${courseName}" course found on ${baseUrl}`);
+        this.name = "FacultyBiosCourseNotFoundError";
+    }
+}
+exports.FacultyBiosCourseNotFoundError = FacultyBiosCourseNotFoundError;
+/* keyed by instance so switching instances never returns another instance's course */
+const facultyCourseCache = new Map();
 async function getFacultyCourse() {
-    const facultyCourse = facultyCourseCached ?? await (0, toolbox_1.getSingleCourse)('Faculty Bios', (await Account_1.Account.getAll()).map(a => a.id));
-    facultyCourseCached = facultyCourse;
-    (0, assert_1.default)(facultyCourse);
+    const { baseUrl, facultyBiosCourseName } = (0, instance_1.getInstance)();
+    const key = `${baseUrl}|${facultyBiosCourseName}`;
+    let facultyCourse = facultyCourseCache.get(key);
+    if (!facultyCourse) {
+        facultyCourse = await (0, toolbox_1.getSingleCourse)(facultyBiosCourseName, (await Account_1.Account.getAll()).map(a => a.id));
+        if (!facultyCourse)
+            throw new FacultyBiosCourseNotFoundError(facultyBiosCourseName, baseUrl);
+        facultyCourseCache.set(key, facultyCourse);
+    }
     return facultyCourse;
 }
 async function getFacultyPages(searchTerm) {
@@ -9899,9 +9959,9 @@ function getProfileFromPageHtml(html, user) {
     };
 }
 function getProfileBody(el) {
-    const h4s = el.querySelectorAll('h4');
+    const h4s = el.querySelectorAll("h4");
     const instructorHeaders = Array.from(h4s).filter((el) => {
-        return el.innerHTML.search(/instructor/i);
+        return /instructor/i.test(el.innerHTML);
     });
     let potentials = [];
     for (const header of instructorHeaders) {
@@ -9928,9 +9988,10 @@ function getDisplayName(el) {
             .filter((el) => el instanceof Element);
     }
     if (titles.length === 0) {
-        const headings = Array.from(el.querySelectorAll('p strong'));
-        const instructorHeaders = headings.filter(el => el.innerHTML.search(/Instructor/));
-        titles = instructorHeaders.map((el) => el.previousElementSibling)
+        const headings = Array.from(el.querySelectorAll("p strong"));
+        const instructorHeaders = headings.filter((heading) => /Instructor/i.test(heading.innerHTML));
+        titles = instructorHeaders
+            .map((el) => el.previousElementSibling)
             .filter((el) => el instanceof Element);
     }
     titles = titles.filter((title) => title.textContent && title.textContent.length > 0);
@@ -92699,9 +92760,8 @@ async function getProfilePage(courseId, slug, instance) {
  * changed in associated courses. blueprintPageId is the page's id on the blueprint
  * course itself (see ProfilePageResult.blueprintPageId), not on an associated section.
  *
- * Canvas has no documented API to read an item's current restriction state, so
- * callers that unlock an item for a write pass should always re-lock it afterward
- * (in a finally) rather than try to restore a "previous" state.
+ * The profile page (which may be the home page) is deliberately left unlocked
+ * so associated sections can write profile data.
  */
 async function restrictBlueprintPage(blueprintCourseId, blueprintPageId, restricted) {
     const url = `/api/v1/courses/${blueprintCourseId}/blueprint_templates/default/restrict_item`;
@@ -92936,7 +92996,7 @@ const PROFILE_TEMPLATE_NOTES = [
     'Only one page per blueprint may carry these attributes. If two pages have them, "Set Bios" reports an ambiguous match and writes nothing until it\'s fixed.',
     'If a course has no page with these attributes, "Set Bios" reports that too, rather than guessing at the front page.',
     "The image wrapper just needs to contain an <img> — nesting, styling classes, and surrounding markup are entirely up to you.",
-    'A page\'s target section copy is unlocked automatically for the duration of a "Set Bios" run, and re-locked afterward — you don\'t need to touch blueprint lock settings yourself.',
+    'A page\'s target section copy is unlocked automatically during a "Set Bios" run and stays unlocked — you don\'t need to touch blueprint lock settings yourself.',
 ];
 /**
  * Render the reference as a self-contained HTML block, for injecting into a
@@ -93004,6 +93064,342 @@ function upsertProfileTemplateHelpHtml(pageHtml) {
 
 /***/ },
 
+/***/ "./src/publish/fixesAndUpdates/validations/courseContent/courseOverviewTest.ts"
+/*!*************************************************************************************!*\
+  !*** ./src/publish/fixesAndUpdates/validations/courseContent/courseOverviewTest.ts ***!
+  \*************************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   checkUgHonorCodeFormat: () => (/* binding */ checkUgHonorCodeFormat),
+/* harmony export */   courseOverviewLanguageTest: () => (/* binding */ courseOverviewLanguageTest),
+/* harmony export */   ugHonorCodeHtml: () => (/* binding */ ugHonorCodeHtml)
+/* harmony export */ });
+/* harmony import */ var _ueu_ueu_canvas_course_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ueu/ueu-canvas/course/index */ "./node_modules/@ueu/ueu-canvas/dist/course/index.js");
+/* harmony import */ var _ueu_ueu_canvas_course_index__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas_course_index__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _publish_fixesAndUpdates_validations_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @publish/fixesAndUpdates/validations/utils */ "./src/publish/fixesAndUpdates/validations/utils.ts");
+/* harmony import */ var _ueu_ueu_canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ueu/ueu-canvas/content/pages/PageKind */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/PageKind.js");
+
+
+
+// Declaring variables here so they don't make the code messier
+const ugHonorCodeHtml = `<div class="cbt-content scaffold-media-box" data-canhavechild="true" data-caninsertinto="true" data-context-menu="delete moveup movedown duplicate insertbefore insertafter insert">
+<h3><strong>By participating in this course, you agree:</strong></h3>
+<ol start="1">
+<li><span data-teams="true">To confirm your intent to remain enrolled in this course.</span></li>
+<li>To adhere to the Code of Conduct, found in the&nbsp;<a href="https://unity.edu/distance-education/student-resources/#catalog-and-handbook">Unity DE Student Handbook</a> at all times.</li>
+</ol>
+<ul>
+<li style="list-style-type: none;">
+<ul>
+<li><em>Violations are subject to formal academic review and may result in administrative course withdrawal, or dismissal from Unity Environmental University.</em></li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li>To adhere to the Unity DE Academic Honor Code You can read the full <a href="https://unitycollege.policytech.com/dotNet/documents/?docid=3360&amp;app=pt&amp;source=unspecified&amp;public=true">policy here.</a></li>
+</ol>
+<h4 style="padding-left: 40px;"><strong>Overview: Academic Honor Code</strong></h4>
+<p style="padding-left: 40px;">At Unity Environmental University, you&rsquo;re expected to approach every assignment and course activity with honesty and responsibility. This relies on accurate, verifiable information and fair work. The Academic Honor Code helps create a culture of trust and ensures that your grades truly reflect your own learning. By committing to these principles, you help protect the value of your education&mdash;for yourself and for others.</p>
+<p style="padding-left: 40px;">Unity Environmental University expects all students to demonstrate academic integrity. This includes completing original work, attributing source information accurately, verifying the accuracy of all citations, and using AI tools responsibly. Students are responsible for everything they submit&mdash;content, sources, and claims&mdash;and must be able to demonstrate their learning and skills through their coursework.</p>
+<p style="padding-left: 40px;">Failure to meet the standards of the Academic Honor Code (which is also referred to as academic dishonesty in some cases) may be intentional or unintentional and includes plagiarism, misattribution, patchwriting, submitting unverifiable citations, falsified or manipulated data or images, unauthorized collaboration, misrepresentation of work, or submitting AI-generated content without review or verification. You can review the full Academic Honor Code for more information and definitions.</p>
+<p style="padding-left: 40px;">The Academic Honor Code supersedes the grading rubric. Repeated issues may have increasingly serious consequences, which may include a zero on the assignment(s), failing the course, or dismissal from the university.</p>
+<p style="padding-left: 40px;">If your instructor flags a concern:</p>
+<ul>
+<li style="list-style-type: none;">
+<ul>
+<li>You will receive feedback about the issue</li>
+<li>There may be a grading penalty up to a zero on that assignment</li>
+<li>You may be offered a learning opportunity such as a skill-building module or a meeting with your instructor, and you may be able to redo your work for the first instance in that course.&nbsp;</li>
+</ul>
+</li>
+</ul>
+<p style="padding-left: 40px;">What are the implications if this occurs repeatedly?</p>
+<p style="padding-left: 40px;"><span style="text-decoration: underline;">Within a course:</span>&nbsp;Repeated instances may result in a zero on affected assignments and/or failing the course.</p>
+<p style="padding-left: 40px;"><span style="text-decoration: underline;">Across terms:</span> You may be asked to meet with an academic dean if there are repeated or egregious instances. The dean may recommend dismissal from the university.&nbsp;</p>
+<p style="padding-left: 40px;">The Purpose Behind This Process:</p>
+<p style="padding-left: 40px;">The process is designed to help you learn proper academic practices, ensure fairness and academic rigor, and support your development as a scholar and professional.</p>
+<ol start="4">
+<li>That you have access to the equipment, skills and time necessary for completing Unity DE courses, as stated on the <a href="https://unity.edu/distance-education/get-started/technology-commitment/">Technology for Success</a>&nbsp;webpage. &nbsp;<br /><br /><em>It is your responsibility to ensure that you have the minimum requirements necessary to fully access and receive support from our staff and faculty. Without the Required Technology Skills for Coursework, you may not be able to access all course materials and/or complete certain assignments, and you will still be financially responsible for the course.</em></li>
+</ol>
+</div>`;
+const ugConfirmHtml = `<div class="scaffold-media-box cbt-content cbt-page-as-agreement"data-canhavechild=true data-caninsertinto=true data-context-menu="delete moveup movedown duplicate insertbefore insertafter insert"><p class=c4><span style=font-weight:400>Please confirm your agreement to the </span><strong>numbered items above</strong><span style=font-weight:400> (code of conduct, honor code, and tech requirements) by selecting the 'Confirm your agreement' button below. It is mandatory to agree to the honor code before proceeding with this unit.</span><div class="scaffold-media-box cbt-button"data-canhavechild=false data-caninsertinto=true data-context-menu="insert delete"data-editable=true><a href=#>Confirm your agreement</a></div></div>`;
+// Lowercases, swaps curly quotes/dashes and nbsp for plain characters, and collapses whitespace
+function normalizeText(text) {
+    return (text !== null && text !== void 0 ? text : "")
+        .replace(/[‘’]/g, "'")
+        .replace(/[“”]/g, '"')
+        .replace(/[–—]/g, "-")
+        .replace(/ /g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .toLowerCase();
+}
+// One line per block-level element (and link) in document order. Each line holds
+// the tag, list depth, list start number, link target, and text, so anything that
+// changes the layout or wording shows up. Attributes and styling don't.
+function formatSignature(root) {
+    return Array.from(root.querySelectorAll("h1, h2, h3, h4, h5, h6, p, ol, ul, li, a")).map((el) => {
+        var _a, _b;
+        const hasNestedList = !!el.querySelector("ol, ul, li");
+        // Text inside nested lists gets its own line, so only use direct text here
+        const text = hasNestedList
+            ? Array.from(el.childNodes)
+                .filter((node) => node.nodeType === Node.TEXT_NODE)
+                .map((node) => node.textContent)
+                .join("")
+            : el.textContent;
+        return [
+            el.tagName.toLowerCase(),
+            listDepth(el, root),
+            el.tagName === "OL" ? ((_a = el.getAttribute("start")) !== null && _a !== void 0 ? _a : "1") : "",
+            el.tagName === "A" ? ((_b = el.getAttribute("href")) !== null && _b !== void 0 ? _b : "") : "",
+            normalizeText(text),
+        ].join("|");
+    });
+}
+function listDepth(el, root) {
+    let depth = 0;
+    for (let node = el.parentElement; node && node !== root; node = node.parentElement) {
+        if (node.matches("ol, ul"))
+            depth++;
+    }
+    return depth;
+}
+// Compares the honor code section to the template. Returns the first difference,
+// or an empty list when the section matches.
+function checkUgHonorCodeFormat(honorCodeDiv) {
+    var _a, _b;
+    const templateDoc = new DOMParser().parseFromString(ugHonorCodeHtml, "text/html");
+    const template = formatSignature(templateDoc.body.firstElementChild);
+    const actual = formatSignature(honorCodeDiv);
+    const index = Array.from({ length: Math.max(template.length, actual.length) }).findIndex((_, i) => template[i] !== actual[i]);
+    if (index === -1)
+        return [];
+    return [
+        `Honor code section doesn't match the template at line ${index + 1}. Expected "${(_a = template[index]) !== null && _a !== void 0 ? _a : "(nothing)"}" but found "${(_b = actual[index]) !== null && _b !== void 0 ? _b : "(nothing)"}"`,
+    ];
+}
+// Finds the honor code and confirm divs. The deepest div containing each phrase wins.
+function findHonorCodeDivs(doc) {
+    let honorCodeDiv;
+    let confirmDiv;
+    for (const div of Array.from(doc.querySelectorAll("div"))) {
+        const divText = normalizeText(div.textContent);
+        if (divText.includes("by participating in this course, you agree:")) {
+            honorCodeDiv = div;
+        }
+        else if (divText.includes("confirm your agreement")) {
+            confirmDiv = div;
+        }
+        if (honorCodeDiv && confirmDiv)
+            break;
+    }
+    return { honorCodeDiv, confirmDiv };
+}
+const courseOverviewLanguageTest = {
+    name: "Course Overview Language",
+    description: "Boilerplate text for the overview page matches expected",
+    run,
+    fix,
+};
+async function run(course) {
+    const courseObj = await (0,_ueu_ueu_canvas_course_index__WEBPACK_IMPORTED_MODULE_0__.getCourseById)(course.id);
+    if (!courseObj.isUndergrad()) {
+        return (0,_publish_fixesAndUpdates_validations_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+            notFailureMessage: "Not run because course isn't undergrad.",
+        });
+    }
+    const pages = await course.getPages({
+        queryParams: { include: ["body"] },
+    });
+    if (!pages.length) {
+        return (0,_publish_fixesAndUpdates_validations_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(false, {
+            failureMessage: "Unable to find pages in the course.",
+        });
+    }
+    let overviewPage = undefined;
+    for (const page of pages) {
+        if (page.title.toLowerCase().includes("course overview")) {
+            overviewPage = {
+                title: page.title,
+                body: page.body,
+                url: page.rawData.url,
+                page_id: page.rawData.page_id,
+            };
+        }
+    }
+    if (!overviewPage) {
+        return (0,_publish_fixesAndUpdates_validations_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+            notFailureMessage: "Can't find the course overview page.",
+        });
+    }
+    const parser = new DOMParser();
+    const parsedPage = parser.parseFromString(overviewPage.body, "text/html");
+    const { honorCodeDiv, confirmDiv } = findHonorCodeDivs(parsedPage);
+    if (!honorCodeDiv || !confirmDiv)
+        return (0,_publish_fixesAndUpdates_validations_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(false, { failureMessage: "Can't find text to check." });
+    const problems = checkUgHonorCodeFormat(honorCodeDiv);
+    return (0,_publish_fixesAndUpdates_validations_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(problems.length === 0, {
+        failureMessage: [
+            {
+                bodyLines: [
+                    "Honor code section does not match expected format:",
+                    ...problems,
+                ],
+                links: [`/courses/${course.id}/pages/${overviewPage.url}`],
+            },
+        ],
+        links: [`/courses/${course.id}/pages/${overviewPage.url}`],
+        notFailureMessage: "Honor code section matches expected format.",
+        userData: {
+            overviewPage,
+            courseObj,
+        },
+    });
+}
+async function fix(course, result) {
+    if (!result || !result.userData)
+        return (0,_publish_fixesAndUpdates_validations_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+            notFailureMessage: "Fix didn't run because of an error passing test results to fix.",
+        });
+    if (result.success) {
+        return (0,_publish_fixesAndUpdates_validations_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+            notFailureMessage: "Fix not run because test was a success",
+        });
+    }
+    const { overviewPage, courseObj } = result.userData;
+    if (!courseObj.isUndergrad()) {
+        return (0,_publish_fixesAndUpdates_validations_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+            notFailureMessage: "Fix not run because course isn't undergrad.",
+        });
+    }
+    // Re-fetch and re-parse the page. Stored DOM elements don't survive
+    // serialization through the UI state layer, so the page is read again here.
+    const pages = await course.getPages({ queryParams: { include: ["body"] } });
+    const freshPage = pages.find((p) => p.rawData.page_id === overviewPage.page_id);
+    if (!freshPage)
+        return (0,_publish_fixesAndUpdates_validations_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+            notFailureMessage: "Couldn't re-fetch overview page for fix.",
+        });
+    const parser = new DOMParser();
+    const parsedPage = parser.parseFromString(freshPage.body, "text/html");
+    const { honorCodeDiv, confirmDiv } = findHonorCodeDivs(parsedPage);
+    if (!honorCodeDiv || !confirmDiv)
+        return (0,_publish_fixesAndUpdates_validations_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+            notFailureMessage: "Couldn't find honor code divs in overview page.",
+        });
+    // Swap the elements in the parsed DOM rather than matching serialized HTML
+    // strings, since the serialized form may not match the stored body text.
+    honorCodeDiv.outerHTML = ugHonorCodeHtml;
+    confirmDiv.outerHTML = ugConfirmHtml;
+    const updatePageBody = parsedPage.body.innerHTML;
+    const updatePage = await _ueu_ueu_canvas_content_pages_PageKind__WEBPACK_IMPORTED_MODULE_2__["default"].put(course.id, overviewPage.page_id, {
+        wiki_page: { body: updatePageBody },
+    });
+    const success = !!(updatePage && updatePage.page_id);
+    return (0,_publish_fixesAndUpdates_validations_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(success, {
+        notFailureMessage: "Course overview updated successfully.",
+        failureMessage: [{ bodyLines: ["Failed to update course overview page."] }],
+    });
+}
+
+
+/***/ },
+
+/***/ "./src/publish/fixesAndUpdates/validations/courseContent/homepageButtonsTest.ts"
+/*!**************************************************************************************!*\
+  !*** ./src/publish/fixesAndUpdates/validations/courseContent/homepageButtonsTest.ts ***!
+  \**************************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   homepageButtonsTest: () => (/* binding */ homepageButtonsTest)
+/* harmony export */ });
+/* harmony import */ var _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ueu/ueu-canvas */ "./node_modules/@ueu/ueu-canvas/dist/index.js");
+/* harmony import */ var _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils */ "./src/publish/fixesAndUpdates/validations/utils.ts");
+
+
+const beginButtonTest = "Begin Course</a></div>";
+const instructorButtonTest = "Contact Your Instructor</a></div>";
+const homepageButtonsTest = {
+    name: "Buttons on Home page",
+    description: "Look for being course and contact instructor buttons on home page",
+    run,
+    fix,
+};
+async function run(course) {
+    if (!course.isUndergrad()) {
+        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+            notFailureMessage: "Test didn't run because course is not undergrad.",
+        });
+    }
+    // Get homepage
+    const pages = await course.getPages({ queryParams: { include: ["body"] } });
+    // This may be too cute by half, and run into issues if the home page is ever not Home, which I don't think is likely in UG courses,
+    // so I'm more worried about the first concern than the second.
+    const homepage = pages.filter((page) => /^Home$/gm.test(page.title))[0];
+    const homepageBody = homepage.body;
+    // Look for both buttons
+    const success = homepageBody.includes(beginButtonTest) &&
+        homepageBody.includes(instructorButtonTest);
+    //Return a result
+    return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(success, {
+        failureMessage: "Buttons don't exist on homepage.",
+        notFailureMessage: "Buttons found on homepage.",
+        userData: {
+            homepage: homepage,
+            homepageBody: homepageBody,
+        },
+    });
+}
+async function fix(course, result) {
+    if (!course.isUndergrad()) {
+        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+            notFailureMessage: "Fix didn't run because course is not undergrad.",
+        });
+    }
+    if ((result === null || result === void 0 ? void 0 : result.success) != false || !result.userData) {
+        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)("not run", {
+            notFailureMessage: "Fix didn't run because the test result wasn't explicitly failure.",
+        });
+    }
+    const buttonDiv = `<div>
+	    <div class="scaffold-media-box cbt-button" data-context-menu="insert delete" data-editable="true" data-caninsertinto="true" data-canhavechild="false"><a title="Course Overview" href="https://unity.instructure.com/courses/${course.id}/pages/course-overview" data-course-type="wikiPages" data-published="true" data-api-endpoint="https://unity.instructure.com/api/v1/courses/${course.id}/pages/course-overview" data-api-returntype="Page">Begin Course</a></div>
+	    <div class="scaffold-media-box cbt-button" data-context-menu="insert delete" data-editable="true" data-caninsertinto="true" data-canhavechild="false"><a class="inline_disabled" href="https://unity.instructure.com/conversations#filter=type=inbox" target="_blank" rel="noopener">Contact Your Instructor</a></div>
+	  </div>`;
+    const { homepage, homepageBody } = result.userData;
+    // Find the anchor point for the buttons: directly after the home banner
+    const parser = new DOMParser();
+    const parsedPage = parser.parseFromString(homepageBody, "text/html");
+    const banner = parsedPage.querySelector(".cbt-home-banner");
+    if (!banner) {
+        return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(false, {
+            failureMessage: "Couldn't find the home banner to place buttons after.",
+        });
+    }
+    // Place the buttons
+    banner.insertAdjacentHTML("afterend", buttonDiv);
+    const updatedHomepageBody = parsedPage.body.innerHTML;
+    // Send the page back to the course
+    const updatePage = await _ueu_ueu_canvas__WEBPACK_IMPORTED_MODULE_0__.PageKind.put(course.id, homepage.id, {
+        wiki_page: { body: updatedHomepageBody },
+    });
+    const success = !!(updatePage && updatePage.page_id);
+    return (0,_utils__WEBPACK_IMPORTED_MODULE_1__.testResult)(success, {
+        failureMessage: "Couldn't place buttons on homepage",
+        notFailureMessage: "Buttons placed on homepage successfully!",
+    });
+}
+
+
+/***/ },
+
 /***/ "./src/publish/fixesAndUpdates/validations/courseContent/index.ts"
 /*!************************************************************************!*\
   !*** ./src/publish/fixesAndUpdates/validations/courseContent/index.ts ***!
@@ -93016,9 +93412,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _publish_fixesAndUpdates_validations_courseContent_moduleElementsAreRequired__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @publish/fixesAndUpdates/validations/courseContent/moduleElementsAreRequired */ "./src/publish/fixesAndUpdates/validations/courseContent/moduleElementsAreRequired.ts");
+/* harmony import */ var _publish_fixesAndUpdates_validations_courseContent_courseOverviewTest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @publish/fixesAndUpdates/validations/courseContent/courseOverviewTest */ "./src/publish/fixesAndUpdates/validations/courseContent/courseOverviewTest.ts");
+/* harmony import */ var _homepageButtonsTest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./homepageButtonsTest */ "./src/publish/fixesAndUpdates/validations/courseContent/homepageButtonsTest.ts");
+
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ([
+    _publish_fixesAndUpdates_validations_courseContent_courseOverviewTest__WEBPACK_IMPORTED_MODULE_1__.courseOverviewLanguageTest,
     _publish_fixesAndUpdates_validations_courseContent_moduleElementsAreRequired__WEBPACK_IMPORTED_MODULE_0__.moduleElementsAreRequiredValidation,
+    _homepageButtonsTest__WEBPACK_IMPORTED_MODULE_2__.homepageButtonsTest,
 ]);
 
 
@@ -94368,6 +94770,7 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet }) {
         var _a, _b;
         assert__WEBPACK_IMPORTED_MODULE_16___default()(currentBp);
         setIsLocking(true);
+        let lockFailures = [];
         try {
             if (!migration.blueprintSet) {
                 progressCallbacks === null || progressCallbacks === void 0 ? void 0 : progressCallbacks.setFinishStatus("Setting as blueprint...");
@@ -94377,10 +94780,13 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet }) {
             }
             if (!migration.locked) {
                 progressCallbacks === null || progressCallbacks === void 0 ? void 0 : progressCallbacks.setFinishStatus("Locking content...");
-                await (0,_lockBlueprintChunked__WEBPACK_IMPORTED_MODULE_24__.lockBlueprintChunked)(currentBp.id, await currentBp.getModules(), (status, completion) => {
+                lockFailures = await (0,_lockBlueprintChunked__WEBPACK_IMPORTED_MODULE_24__.lockBlueprintChunked)(currentBp.id, await currentBp.getModules(), (status, completion) => {
                     progressCallbacks === null || progressCallbacks === void 0 ? void 0 : progressCallbacks.setFinishStatus(status);
                     progressCallbacks === null || progressCallbacks === void 0 ? void 0 : progressCallbacks.setFinishCompletion(completion);
-                });
+                }, undefined, undefined, await (0,_lockBlueprintChunked__WEBPACK_IMPORTED_MODULE_24__.getNeverLockedPageIds)(currentBp));
+                // Unlock last as well, so pages already restricted by an earlier run
+                // remain available to section profile writes.
+                await (0,_lockBlueprintChunked__WEBPACK_IMPORTED_MODULE_24__.unlockNeverLockedPages)(currentBp);
                 migration.locked = true;
                 (0,_ueu_ueu_canvas_course_migration_migrationCache__WEBPACK_IMPORTED_MODULE_14__.cacheCourseMigrations)(currentBp.id, [migration]);
             }
@@ -94388,6 +94794,17 @@ function MakeBp({ devCourse, onBpSet, onTermNameSet, onSectionsSet }) {
             migration.cleanedUp = true;
             (0,_ueu_ueu_canvas_course_migration_migrationCache__WEBPACK_IMPORTED_MODULE_14__.cacheCourseMigrations)(currentBp.id, [migration]);
             const [newBp] = (_b = (await (0,_ueu_ueu_canvas_course_blueprint__WEBPACK_IMPORTED_MODULE_9__.getBlueprintsFromCode)((_a = devCourse.parsedCourseCode) !== null && _a !== void 0 ? _a : "", [devCourse.accountId]))) !== null && _b !== void 0 ? _b : [];
+            if (lockFailures.length > 0) {
+                const failedItems = lockFailures
+                    .map(({ item, error }) => {
+                    var _a;
+                    const label = item.title || `${item.type} ${(_a = item.content_id) !== null && _a !== void 0 ? _a : item.id}`;
+                    const reason = error instanceof Error ? error.message : String(error);
+                    return `• ${label}: ${reason}`;
+                })
+                    .join("\n");
+                alert(`Migration finished, but ${lockFailures.length} item(s) could not be locked:\n${failedItems}`);
+            }
             window.open(newBp.htmlContentUrl);
             location.reload();
         }
@@ -94691,20 +95108,11 @@ function PublishInterface({ course, user }) {
         }
         const { slug: profileSlug, blueprintPageId } = profileResolution;
         let updatedCount = 0;
-        let unlocked = false;
         try {
-            // Section copies of a blueprint page are locked against direct edits
-            // by default. Unlock the blueprint's page for the duration of this
-            // pass so the writes below aren't rejected, then always re-lock it
-            // afterward — Canvas has no API to read whether it was already
-            // unlocked, so "restore" here means "back to locked," not "back to
-            // whatever it was." This unlock is inside the try (not before it) so
-            // that a thrown error here still reaches the finally below and resets
-            // loading state instead of leaving the UI stuck on "Updating...".
-            if (course) {
+            // Profile and home pages stay unlocked so section profile writes continue
+            // to work after this pass.
+            if (course)
                 await (0,_publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_19__.restrictBlueprintPage)(course.id, blueprintPageId, false);
-                unlocked = true;
-            }
             for (const section of Object.values(sections)) {
                 const profiles = (_a = potentialProfilesByCourseId[section.id]) !== null && _a !== void 0 ? _a : [];
                 if (profiles.length < 1) {
@@ -94731,9 +95139,6 @@ function PublishInterface({ course, user }) {
             }
         }
         finally {
-            if (course && unlocked) {
-                await (0,_publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_19__.restrictBlueprintPage)(course.id, blueprintPageId, true);
-            }
             setLoading(false);
         }
         if (updatedCount > 0) {
@@ -94760,48 +95165,64 @@ function PublishInterface({ course, user }) {
         let sectionStartSet = false;
         let tempTerm = null;
         let actualStart;
-        for await (const sectionInfos of (0,_ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_15__.batchGen)(sectionGen, 6)) {
-            const promises = sectionInfos.map((sectionInfo) => async () => {
-                const result = await loadSection(sectionInfo.id);
-                console.log(result);
-                const { section, instructors, frontPageProfile } = result;
-                if (!sectionStartSet) {
-                    actualStart = await section.getStartDateFromModules();
-                    if (!actualStart) {
-                        actualStart = await (0,_ueu_ueu_canvas_course_changeStartDate__WEBPACK_IMPORTED_MODULE_12__.getStartDateAssignments)(section.id);
+        try {
+            for await (const sectionInfos of (0,_ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_15__.batchGen)(sectionGen, 6)) {
+                const promises = sectionInfos.map((sectionInfo) => async () => {
+                    const result = await loadSection(sectionInfo.id);
+                    console.log(result);
+                    const { section, instructors, frontPageProfile } = result;
+                    if (!sectionStartSet) {
+                        try {
+                            actualStart = await section.getStartDateFromModules();
+                        }
+                        catch (error) {
+                            if (!(error instanceof _ueu_ueu_canvas_course_changeStartDate__WEBPACK_IMPORTED_MODULE_12__.NoOverviewModuleFoundError))
+                                throw error;
+                            actualStart = null;
+                        }
+                        if (!actualStart) {
+                            actualStart = await (0,_ueu_ueu_canvas_course_changeStartDate__WEBPACK_IMPORTED_MODULE_12__.getStartDateAssignments)(section.id);
+                        }
+                        sectionStartSet = true;
+                        if (actualStart)
+                            setSectionStart(temporal_polyfill__WEBPACK_IMPORTED_MODULE_6__.Temporal.PlainDateTime.from(actualStart));
                     }
-                    sectionStartSet = true;
-                    setSectionStart(temporal_polyfill__WEBPACK_IMPORTED_MODULE_6__.Temporal.PlainDateTime.from(actualStart));
-                }
-                if (!tempTerm) {
-                    tempTerm = await section.getTerm();
-                    setTerm(tempTerm);
-                }
-                dispatchSections({ set: [section.id, section] });
-                if (frontPageProfile)
-                    dispatchFrontPageProfilesByCourseId({
-                        set: [section.id, frontPageProfile],
-                    });
-                setSectionsToPublish({ set: [section.id, section] });
-                if (frontPageProfile)
-                    dispatchFrontPageProfilesByCourseId({
-                        set: [section.id, frontPageProfile],
-                    });
-                if (instructors) {
-                    dispatchInstructorsByCourseId({
-                        set: [section.id, instructors],
-                    });
-                }
-                if (section.data.total_students && section.data.total_students > 0) {
-                    const emails = instructors === null || instructors === void 0 ? void 0 : instructors.map((a) => a.email);
-                    emails === null || emails === void 0 ? void 0 : emails.forEach((email) => allEmails.add(email));
-                    if (emails)
-                        setEmails([...allEmails]);
-                }
-            });
-            await Promise.all(promises.map((a) => a()));
+                    if (!tempTerm) {
+                        tempTerm = await section.getTerm();
+                        setTerm(tempTerm);
+                    }
+                    dispatchSections({ set: [section.id, section] });
+                    if (frontPageProfile)
+                        dispatchFrontPageProfilesByCourseId({
+                            set: [section.id, frontPageProfile],
+                        });
+                    setSectionsToPublish({ set: [section.id, section] });
+                    if (frontPageProfile)
+                        dispatchFrontPageProfilesByCourseId({
+                            set: [section.id, frontPageProfile],
+                        });
+                    if (instructors) {
+                        dispatchInstructorsByCourseId({
+                            set: [section.id, instructors],
+                        });
+                    }
+                    if (section.data.total_students && section.data.total_students > 0) {
+                        const emails = instructors === null || instructors === void 0 ? void 0 : instructors.map((a) => a.email);
+                        emails === null || emails === void 0 ? void 0 : emails.forEach((email) => allEmails.add(email));
+                        if (emails)
+                            setEmails([...allEmails]);
+                    }
+                });
+                await Promise.all(promises.map((a) => a()));
+            }
         }
-        setCoursesLoading(false);
+        catch (error) {
+            console.error(error);
+            inform("Couldn't finish loading sections. Reload the page to try again.", "alert-danger");
+        }
+        finally {
+            setCoursesLoading(false);
+        }
     }
     const sectionPublishToggle = (course, publish) => {
         const payload = {
@@ -95302,30 +95723,54 @@ async function aiLiteracySetup({ currentBp, setIsRunningAiLiteracySetup }) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   lockBlueprintChunked: () => (/* binding */ lockBlueprintChunked)
+/* harmony export */   getNeverLockedPageIds: () => (/* binding */ getNeverLockedPageIds),
+/* harmony export */   lockBlueprintChunked: () => (/* binding */ lockBlueprintChunked),
+/* harmony export */   unlockNeverLockedPages: () => (/* binding */ unlockNeverLockedPages)
 /* harmony export */ });
 /* harmony import */ var _ueu_ueu_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ueu/ueu-canvas/fetch/fetchJson */ "./node_modules/@ueu/ueu-canvas/dist/fetch/fetchJson.js");
 /* harmony import */ var _ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ueu/ueu-canvas/canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
 /* harmony import */ var _ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @publish/fixesAndUpdates/courseDataStore */ "./src/publish/fixesAndUpdates/courseDataStore.ts");
+
 
 
 /**
- * Restrict (lock) every module item in a blueprint, a chunk at a time to avoid rate limiting.
- *
- * Canvas's restrict_item endpoint needs the *content* type (`assignment`, `wiki_page`, ...)
- * and the *content* id, not the module item's own `type` / `id`. `getItemTypeAndId` does that
- * translation (and looks up the page_id for pages). Items Canvas can't restrict (subheaders,
- * external URLs) come back without an id and are skipped.
+ * Page ids that must stay unlocked: the profile page and the home page. Sections
+ * need to write to these pages (including when the profile page falls back to home).
  */
-async function lockBlueprintChunked(courseId, modules, onProgress, chunkSize = 10, delayMs = 500) {
+async function getNeverLockedPageIds(course) {
+    var _a;
+    const ids = new Set();
+    const profile = await (0,_publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_2__.findProfilePageSlug)(course.id);
+    if (profile.status === "found")
+        ids.add(profile.blueprintPageId);
+    const front = await course.getFrontPage();
+    const frontId = (_a = front === null || front === void 0 ? void 0 : front.rawData) === null || _a === void 0 ? void 0 : _a.page_id;
+    if (frontId !== undefined)
+        ids.add(frontId);
+    return ids;
+}
+/** Unlock pages left locked by earlier runs before they became exempt. */
+async function unlockNeverLockedPages(course) {
+    const ids = await getNeverLockedPageIds(course);
+    for (const id of ids)
+        await (0,_publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_2__.restrictBlueprintPage)(course.id, id, false);
+    return ids.size;
+}
+async function lockBlueprintChunked(courseId, modules, onProgress, chunkSize = 10, delayMs = 500, neverLock = new Set()) {
     const items = modules.flatMap((module) => { var _a; return (_a = module.items) !== null && _a !== void 0 ? _a : []; });
+    const failures = [];
     for (let i = 0; i < items.length; i += chunkSize) {
         const chunk = items.slice(i, i + chunkSize);
         const completion = Math.round((i / items.length) * 100);
         onProgress === null || onProgress === void 0 ? void 0 : onProgress(`Locking (${i}/${items.length})`, completion);
-        await Promise.all(chunk.map(async (item) => {
+        const results = await Promise.allSettled(chunk.map(async (item) => {
+            if (item.type === "ExternalTool")
+                return;
             const { type, id } = await (0,_ueu_ueu_canvas_canvasUtils__WEBPACK_IMPORTED_MODULE_1__.getItemTypeAndId)(item);
             if (!type || typeof id === "undefined")
+                return;
+            if (type === "wiki_page" && neverLock.has(Number(id)))
                 return;
             await (0,_ueu_ueu_canvas_fetch_fetchJson__WEBPACK_IMPORTED_MODULE_0__.fetchJson)(`/api/v1/courses/${courseId}/blueprint_templates/default/restrict_item`, {
                 fetchInit: {
@@ -95339,11 +95784,17 @@ async function lockBlueprintChunked(courseId, modules, onProgress, chunkSize = 1
                 },
             });
         }));
+        results.forEach((result, index) => {
+            if (result.status === "rejected") {
+                failures.push({ item: chunk[index], error: result.reason });
+            }
+        });
         if (i + chunkSize < items.length) {
             await new Promise((res) => setTimeout(res, delayMs));
         }
     }
     onProgress === null || onProgress === void 0 ? void 0 : onProgress("Locking complete", 100);
+    return failures;
 }
 
 
@@ -95403,8 +95854,15 @@ function FacultyProfileSearch({ onProfileSelect, minSearchLength = 3, user }) {
         e.preventDefault();
         if (search.length < minSearchLength)
             return;
-        const pages = await (0,_ueu_ueu_canvas_profile__WEBPACK_IMPORTED_MODULE_1__.getFacultyPages)(search);
-        setProfiles(pages.map(page => (0,_ueu_ueu_canvas_profile__WEBPACK_IMPORTED_MODULE_1__.getProfileFromPage)(page, user)));
+        try {
+            const pages = await (0,_ueu_ueu_canvas_profile__WEBPACK_IMPORTED_MODULE_1__.getFacultyPages)(search);
+            setProfiles(pages.map(page => (0,_ueu_ueu_canvas_profile__WEBPACK_IMPORTED_MODULE_1__.getProfileFromPage)(page, user)));
+        }
+        catch (e) {
+            alert(e instanceof _ueu_ueu_canvas_profile__WEBPACK_IMPORTED_MODULE_1__.FacultyBiosCourseNotFoundError
+                ? e.message
+                : `Error getting faculty pages: ${e}`);
+        }
     }
     return (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", { children: "Faculty Profile Matches" }), profiles && profiles.map((profile, i) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FacultyProfile__WEBPACK_IMPORTED_MODULE_5__.FacultyProfile, { profile: profile, setProfileButton: async () => await onProfileSelect(profile) }, i))), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"], { onSubmit: searchForProfiles, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Label, { children: "Search" }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["default"].Control, { type: 'text', value: search, onChange: (e) => setSearch(e.target.value), placeholder: 'Search for additional profiles' }), search.length < minSearchLength && (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h5", { children: ["Search must be at least ", minSearchLength, " characters"] }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["default"], { onClick: searchForProfiles, disabled: search.length < minSearchLength, children: "Submit" })] })] });
 }
@@ -95529,27 +95987,16 @@ function SectionDetails({ section, blueprintCourse, onClose, onUpdateFrontPagePr
             return error(`Profile page "${profileSlug}" not found`);
         message('Applying new profile');
         const newText = (0,_publish_fixesAndUpdates_profileRenderer__WEBPACK_IMPORTED_MODULE_2__.renderProfile)(targetPage.body, profile, section.id);
-        // Section copies are locked by default; unlock the blueprint's page for
-        // this one write and always re-lock afterward (see restrictBlueprintPage).
-        // The unlock call is inside the try (not before it) so a thrown error
-        // there still reaches the catch/finally below instead of leaving the
-        // user with no feedback and the lock state untouched but unexplained.
-        let unlocked = false;
+        // The profile page (which may be the home page) stays unlocked so
+        // section profile writes continue to work.
         try {
-            if (blueprintCourse) {
+            if (blueprintCourse)
                 await (0,_publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_3__.restrictBlueprintPage)(blueprintCourse.id, blueprintPageId, false);
-                unlocked = true;
-            }
             await targetPage.updateContent(newText);
         }
         catch (e) {
             error(e instanceof Error ? e.message : "Failed to apply profile");
             return;
-        }
-        finally {
-            if (blueprintCourse && unlocked) {
-                await (0,_publish_fixesAndUpdates_courseDataStore__WEBPACK_IMPORTED_MODULE_3__.restrictBlueprintPage)(blueprintCourse.id, blueprintPageId, true);
-            }
         }
         const newProfile = (0,_publish_fixesAndUpdates_profileRenderer__WEBPACK_IMPORTED_MODULE_2__.readProfileFromPage)(newText);
         setFrontPageProfile(newProfile);

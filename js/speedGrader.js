@@ -5104,6 +5104,34 @@ exports["default"] = exports.AssignmentKind;
 
 /***/ },
 
+/***/ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/Syllabus.js"
+/*!***************************************************************************!*\
+  !*** ./node_modules/@ueu/ueu-canvas/dist/content/assignments/Syllabus.js ***!
+  \***************************************************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Syllabus = void 0;
+const Assignment_1 = __webpack_require__(/*! ../../content/assignments/Assignment */ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/Assignment.js");
+// Canvas serves the course syllabus at /courses/:id/assignments/syllabus. It is shaped like an
+// assignment, but there is no assignment behind that URL, so the API lookup would 404. This class
+// keeps the syllabus out of the assignment lookup while still sharing Assignment's behavior.
+class Syllabus extends Assignment_1.Assignment {
+    static get contentUrlPart() {
+        return 'assignments/syllabus';
+    }
+    static async getFromUrl(_url = null, _courseId = null) {
+        return null;
+    }
+}
+exports.Syllabus = Syllabus;
+exports["default"] = Syllabus;
+//# sourceMappingURL=Syllabus.js.map
+
+/***/ },
+
 /***/ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/index.js"
 /*!************************************************************************!*\
   !*** ./node_modules/@ueu/ueu-canvas/dist/content/assignments/index.js ***!
@@ -5164,6 +5192,7 @@ const Quiz_1 = __webpack_require__(/*! ../content/quizzes/Quiz */ "./node_module
 const Page_1 = __webpack_require__(/*! ../content/pages/Page */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/Page.js");
 const Discussion_1 = __webpack_require__(/*! ../content/discussions/Discussion */ "./node_modules/@ueu/ueu-canvas/dist/content/discussions/Discussion.js");
 const Assignment_1 = __webpack_require__(/*! ../content/assignments/Assignment */ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/Assignment.js");
+const Syllabus_1 = __webpack_require__(/*! ../content/assignments/Syllabus */ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/Syllabus.js");
 const AssignmentKind_1 = __importDefault(__webpack_require__(/*! ../content/assignments/AssignmentKind */ "./node_modules/@ueu/ueu-canvas/dist/content/assignments/AssignmentKind.js"));
 const QuizKind_1 = __importDefault(__webpack_require__(/*! ../content/quizzes/QuizKind */ "./node_modules/@ueu/ueu-canvas/dist/content/quizzes/QuizKind.js"));
 const PageKind_1 = __importDefault(__webpack_require__(/*! ../content/pages/PageKind */ "./node_modules/@ueu/ueu-canvas/dist/content/pages/PageKind.js"));
@@ -5185,7 +5214,8 @@ exports.ContentKinds = {
 function getContentClassFromUrl(url = null) {
     if (!url)
         url = document.documentURI;
-    for (const class_ of [Assignment_1.Assignment, Quiz_1.Quiz, Page_1.Page, Discussion_1.Discussion]) {
+    // Syllabus must come before Assignment: its URL also contains "assignments".
+    for (const class_ of [Syllabus_1.Syllabus, Assignment_1.Assignment, Quiz_1.Quiz, Page_1.Page, Discussion_1.Discussion]) {
         if (class_.contentUrlPart && url.includes(class_.contentUrlPart))
             return class_;
     }
@@ -5193,9 +5223,18 @@ function getContentClassFromUrl(url = null) {
 }
 async function getContentItemFromUrl(url = null) {
     const ContentClass = getContentClassFromUrl(url);
+    console.log("ContentClass: ", ContentClass);
     if (!ContentClass)
         return null;
-    return await ContentClass.getFromUrl(url);
+    let contentItem;
+    try {
+        contentItem = await ContentClass.getFromUrl(url);
+    }
+    catch (e) {
+        console.error(`Error getting content item from URL: ${e}`);
+        return null;
+    }
+    return contentItem;
 }
 function getContentKindFromUrl(url) {
     return exports.CONTENT_KINDS.find(a => a.isValidUrl(url));
@@ -6195,6 +6234,9 @@ class Course extends baseCanvasObject_1.BaseCanvasObject {
             return profiles;
         }
         catch (e) {
+            // let the UI tell the user this instance has no bios course
+            if (e instanceof profile_1.FacultyBiosCourseNotFoundError)
+                throw e;
             return [];
         }
     }
@@ -7411,6 +7453,7 @@ const UNITY_DEFAULTS = {
     hostname: "unity.instructure.com",
     templateCourseId: 3850558,
     referencesPageSlug: "learning-materials-reference-page",
+    facultyBiosCourseName: "Faculty Bios",
     externalApis: {
         citeas: "https://api.citeas.org/product",
     },
@@ -7467,6 +7510,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FacultyBiosCourseNotFoundError = void 0;
 exports.getFacultyPages = getFacultyPages;
 exports.getProfileFromPage = getProfileFromPage;
 exports.frontPageBio = frontPageBio;
@@ -7478,11 +7522,27 @@ const assert_1 = __importDefault(__webpack_require__(/*! assert */ "./node_modul
 const canvasUtils_1 = __webpack_require__(/*! ./canvasUtils */ "./node_modules/@ueu/ueu-canvas/dist/canvasUtils.js");
 const Account_1 = __webpack_require__(/*! ./Account */ "./node_modules/@ueu/ueu-canvas/dist/Account.js");
 const toolbox_1 = __webpack_require__(/*! ./course/toolbox */ "./node_modules/@ueu/ueu-canvas/dist/course/toolbox.js");
-let facultyCourseCached;
+const instance_1 = __webpack_require__(/*! ./instance */ "./node_modules/@ueu/ueu-canvas/dist/instance.js");
+/** Thrown when the active Canvas instance has no faculty bios course. */
+class FacultyBiosCourseNotFoundError extends Error {
+    constructor(courseName, baseUrl) {
+        super(`No "${courseName}" course found on ${baseUrl}`);
+        this.name = "FacultyBiosCourseNotFoundError";
+    }
+}
+exports.FacultyBiosCourseNotFoundError = FacultyBiosCourseNotFoundError;
+/* keyed by instance so switching instances never returns another instance's course */
+const facultyCourseCache = new Map();
 async function getFacultyCourse() {
-    const facultyCourse = facultyCourseCached ?? await (0, toolbox_1.getSingleCourse)('Faculty Bios', (await Account_1.Account.getAll()).map(a => a.id));
-    facultyCourseCached = facultyCourse;
-    (0, assert_1.default)(facultyCourse);
+    const { baseUrl, facultyBiosCourseName } = (0, instance_1.getInstance)();
+    const key = `${baseUrl}|${facultyBiosCourseName}`;
+    let facultyCourse = facultyCourseCache.get(key);
+    if (!facultyCourse) {
+        facultyCourse = await (0, toolbox_1.getSingleCourse)(facultyBiosCourseName, (await Account_1.Account.getAll()).map(a => a.id));
+        if (!facultyCourse)
+            throw new FacultyBiosCourseNotFoundError(facultyBiosCourseName, baseUrl);
+        facultyCourseCache.set(key, facultyCourse);
+    }
     return facultyCourse;
 }
 async function getFacultyPages(searchTerm) {
@@ -7535,9 +7595,9 @@ function getProfileFromPageHtml(html, user) {
     };
 }
 function getProfileBody(el) {
-    const h4s = el.querySelectorAll('h4');
+    const h4s = el.querySelectorAll("h4");
     const instructorHeaders = Array.from(h4s).filter((el) => {
-        return el.innerHTML.search(/instructor/i);
+        return /instructor/i.test(el.innerHTML);
     });
     let potentials = [];
     for (const header of instructorHeaders) {
@@ -7564,9 +7624,10 @@ function getDisplayName(el) {
             .filter((el) => el instanceof Element);
     }
     if (titles.length === 0) {
-        const headings = Array.from(el.querySelectorAll('p strong'));
-        const instructorHeaders = headings.filter(el => el.innerHTML.search(/Instructor/));
-        titles = instructorHeaders.map((el) => el.previousElementSibling)
+        const headings = Array.from(el.querySelectorAll("p strong"));
+        const instructorHeaders = headings.filter((heading) => /Instructor/i.test(heading.innerHTML));
+        titles = instructorHeaders
+            .map((el) => el.previousElementSibling)
             .filter((el) => el instanceof Element);
     }
     titles = titles.filter((title) => title.textContent && title.textContent.length > 0);
